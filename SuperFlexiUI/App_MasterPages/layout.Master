@@ -1,0 +1,43 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="~/App_MasterPages/layout.Master.cs" Inherits="mojoPortal.Web.layout" %>
+
+<!DOCTYPE html>
+<html class="htmlclass" id="Html" runat="server">
+<head id="Head1" runat="server">
+</head>
+<body class="pagebody" id="Body" runat="server">
+	<portal:FacebookSdk ID="fbsdk" runat="server" />
+	<portal:LayoutDisplaySettings ID="LayoutDisplaySettings1" runat="server" />
+	<form id="frmMain" runat="server" class="main-form">
+		<asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />
+		<asp:SiteMapDataSource ID="PageMapDataSource" runat="server" ShowStartingNode="false" />
+		<asp:SiteMapDataSource ID="ChildPageSiteMapData" runat="server" ShowStartingNode="false" />
+		<asp:ScriptManager ID="ScriptManager1" EnablePageMethods="true" runat="server" EnableScriptGlobalization="true" EnableScriptLocalization="true" />
+		<portal:SiteLogo runat="server" ImageCssClass="site-logo" LinkCssClass="navbar-brand navbar-logo" />
+		<portal:SiteTitle runat="server" SkinID="HiddenTitle" UseLink="false" />
+		<portal:SiteMenu ID="SiteMenu1" runat="server" MenuSkinID="MainMenu" UseFlexMenu="true" />
+		<portal:LayoutPanel ID="divAlt1" runat="server" SkinID="TopPane">
+			<asp:ContentPlaceHolder ID="altContent1" runat="server" />
+		</portal:LayoutPanel>
+
+		<portal:Breadcrumbs ID="Breadcrumbs" runat="server" Separator="" ItemWrapperTop="<li>" ItemWrapperBottom="</li>" CssClass="" CurrentPageCssClass="active" />
+
+		<portal:LayoutPanel ID="divLeft" runat="server" SkinID="LeftPane">
+			<asp:ContentPlaceHolder ID="leftContent" runat="server" />
+		</portal:LayoutPanel>
+
+		<portal:LayoutPanel ID="divCenter" runat="server" SkinID="CenterPane">
+			<asp:ContentPlaceHolder ID="mainContent" runat="server" />
+		</portal:LayoutPanel>
+
+		<portal:LayoutPanel ID="divRight" runat="server" SkinID="RightPane">
+			<asp:ContentPlaceHolder ID="rightContent" runat="server" />
+		</portal:LayoutPanel>
+		<portal:LayoutPanel ID="divAltContent2" runat="server" SkinID="BottomPane">
+			<asp:ContentPlaceHolder ID="altContent2" runat="server" />
+		</portal:LayoutPanel>
+		<portal:CompanyNameLiteral ID="CompanyName1" runat="server" />
+		<portal:LoginLink ID="LoginLink" runat="server" RenderAsListItem="false" />
+	</form>
+	<asp:PlaceHolder ID="phSiteFooter" runat="server" />
+</body>
+</html>

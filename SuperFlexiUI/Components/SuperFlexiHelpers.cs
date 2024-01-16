@@ -187,11 +187,12 @@ namespace SuperFlexiUI
 			sb = stringBuilder;
 			int moduleId = module.ModuleId;
 
-			string featuredImageUrl = string.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? string.Empty : WebUtils.GetApplicationRoot() + config.InstanceFeaturedImage;
-			string jsonObjName = "sflexi" + moduleId.ToString() + (config.IsGlobalView ? "Modules" : "Items");
-			string currentSkin = string.Empty;
-			string siteRoot = SiteUtils.GetNavigationSiteRoot();
-			bool publishedOnCurrentPage = true;
+			var featuredImageUrl = string.IsNullOrWhiteSpace(config.InstanceFeaturedImage) ? string.Empty : WebUtils.GetApplicationRoot() + config.InstanceFeaturedImage;
+			var friendlyName = string.IsNullOrWhiteSpace(config.ModuleFriendlyName) ? module.ModuleTitle : config.ModuleFriendlyName;
+			var jsonObjName = Invariant($"sflexi{moduleId}{(config.IsGlobalView ? "Modules" : "Items")}");
+			var currentSkin = string.Empty;
+			var siteRoot = SiteUtils.GetNavigationSiteRoot();
+			var publishedOnCurrentPage = true;
 			siteSettings = new SiteSettings(module.SiteGuid);
 
 			if (HttpContext.Current != null && HttpContext.Current.Request.Params.Get("skin") != null)
@@ -211,14 +212,7 @@ namespace SuperFlexiUI
 			sb.Replace("$_ModuleTitle_$", module.ShowTitle ? string.Format(displaySettings.ModuleTitleFormat, module.ModuleTitle) : string.Empty);
 			sb.Replace("$_RawModuleTitle_$", module.ModuleTitle);
 			sb.Replace("$_ModuleGuid_$", module.ModuleGuid.ToString());
-			if (string.IsNullOrWhiteSpace(config.ModuleFriendlyName))
-			{
-				sb.Replace("$_FriendlyName_$", module.ModuleTitle);
-			}
-			else
-			{
-				sb.Replace("$_FriendlyName_$", config.ModuleFriendlyName);
-			}
+			sb.Replace("$_FriendlyName_$", friendlyName);
 			sb.Replace("$_FeaturedImageUrl_$", featuredImageUrl);
 			sb.Replace("$_ModuleID_$", moduleId.ToString());
 			sb.Replace("$_PageID_$", pageSettings.PageId.ToString());
@@ -232,7 +226,7 @@ namespace SuperFlexiUI
 			sb.Replace("$_ModuleTitleElement_$", module.HeadElement);
 			sb.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
 			sb.Replace("$_SiteRoot_$", string.IsNullOrWhiteSpace(siteRoot) ? "/" : siteRoot);
-			sb.Replace("$_SitePath_$", string.IsNullOrWhiteSpace(siteRoot) ? "/" : WebUtils.GetApplicationRoot() + "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToInvariantString());
+			sb.Replace("$_SitePath_$", string.IsNullOrWhiteSpace(siteRoot) ? "/" : Invariant($"{WebUtils.GetApplicationRoot()}/Data/Sites/{CacheHelper.GetCurrentSiteSettings().SiteId}"));
 			sb.Replace("$_SkinPath_$", SiteUtils.DetermineSkinBaseUrl(currentSkin));
 			sb.Replace("$_CustomSettings_$", config.CustomizableSettings); //this needs to be enhanced, a lot, right now we just dump the 'settings' where ever this token exists.
 			sb.Replace("$_EditorType_$", siteSettings.EditorProviderName);
@@ -240,11 +234,10 @@ namespace SuperFlexiUI
 			sb.Replace("$_EditorBasePath_$", WebUtils.ResolveUrl(ConfigurationManager.AppSettings["CKEditor:BasePath"]));
 			sb.Replace("$_EditorConfigPath_$", WebUtils.ResolveUrl(ConfigurationManager.AppSettings["CKEditor:ConfigPath"]));
 			sb.Replace("$_EditorToolbarSet_$", mojoPortal.Web.Editor.ToolBar.FullWithTemplates.ToString());
-			sb.Replace("$_EditorTemplatesUrl_$", siteRoot + "/Services/CKeditorTemplates.ashx?cb=" + Guid.NewGuid().ToString());
-			sb.Replace("$_EditorStylesUrl_$", siteRoot + "/Services/CKeditorStyles.ashx?cb=" + Guid.NewGuid().ToString().Replace("-", string.Empty));
-			sb.Replace("$_DropFileUploadUrl_$", siteRoot + "/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko=" + WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()
-					+ "&t=" + Global.FileSystemToken.ToString());
-			sb.Replace("$_FileBrowserUrl_$", siteRoot + WebConfigSettings.FileDialogRelativeUrl);
+			sb.Replace("$_EditorTemplatesUrl_$", $"{siteRoot}/Services/CKeditorTemplates.ashx?cb={Guid.NewGuid()}");
+			sb.Replace("$_EditorStylesUrl_$", $"{siteRoot}/Services/CKeditorStyles.ashx?cb={Guid.NewGuid().ToString().Replace("-", string.Empty)}");
+			sb.Replace("$_DropFileUploadUrl_$", $"{siteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
+			sb.Replace("$_FileBrowserUrl_$", $"{siteRoot}{WebConfigSettings.FileDialogRelativeUrl}");
 			sb.Replace("$_HeaderContent_$", config.HeaderContent);
 			sb.Replace("$_FooterContent_$", config.FooterContent);
 			sb.Replace("$_SkinVersionGuid_$", siteSettings.SkinVersion.ToString());
@@ -252,19 +245,25 @@ namespace SuperFlexiUI
 
 		public static Module GetSuperFlexiModule(int moduleId)
 		{
-			mojoBasePage bp = new mojoBasePage();
-			Module m = bp.GetModule(moduleId);
-			if (m != null) { return m; }
+			var bp = new mojoBasePage();
+			var m = bp.GetModule(moduleId);
+			if (m != null)
+			{
+				return m;
+			}
 
 			bool isSiteEditor = SiteUtils.UserIsSiteEditor();
 
 			// these extra checks allow for editing an instance from modulewrapper
 			m = new Module(moduleId);
-			if ((m.SiteId != CacheHelper.GetCurrentSiteSettings().SiteId)
-				|| (m.ModuleId == -1)
+			if (m is null
+				|| m.SiteId != CacheHelper.GetCurrentSiteSettings().SiteId
+				|| m.ModuleId == -1
 				|| ((!WebUser.IsInRoles(m.AuthorizedEditRoles)) && (!WebUser.IsAdminOrContentAdmin) && (!isSiteEditor))
 				)
-			{ m = null; }
+			{
+				m = null;
+			}
 
 			return m;
 		}

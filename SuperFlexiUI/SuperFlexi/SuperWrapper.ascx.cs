@@ -1,14 +1,4 @@
-/// Author:             Joe Davis (i7MEDIA)
-/// Created:			2015-11-01
-///	Last Modified:		2017-03-07
-
-///
-/// You must not remove this notice, or any other, from this software.
-/// Original code from mojoPortal.Web.ModuleWrapper
-/// 
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
@@ -19,292 +9,237 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.UI;
 using Newtonsoft.Json.Linq;
-namespace SuperFlexiUI
+
+namespace SuperFlexiUI;
+
+public partial class SuperWrapper : SiteModuleControl
 {
-    public partial class SuperWrapper : SiteModuleControl
-    {
-        private bool hideOnAdminPages = false;
-        public bool HideOnAdminPages
-        {
-            get { return hideOnAdminPages; }
-            set { hideOnAdminPages = value; }
-        }
+	public bool HideOnAdminPages { get; set; } = false;
 
-        private bool hideOnNonCmsPages = false;
-        public bool HideOnNonCmsPages
-        {
-            get { return hideOnNonCmsPages; }
-            set { hideOnNonCmsPages = value; }
-        }
+	public bool HideOnNonCmsPages { get; set; } = false;
 
-        private Guid featureGuid = Guid.Empty;
-        public Guid FeatureGuid
-        {
-            get { return featureGuid; }
-            set { featureGuid = value; }
-        }
+	public Guid FeatureGuid { get; set; } = Guid.Empty;
 
-        private string defaultGeneralSettings = string.Empty;
-        public string DefaultGeneralSettings
-        {
-            get { return defaultGeneralSettings; }
-            set { defaultGeneralSettings = value; }
-        }
+	public string DefaultGeneralSettings { get; set; } = string.Empty;
 
-        private string defaultModuleSettings = string.Empty;
-        public string DefaultModuleSettings
-        {
-            get { return defaultModuleSettings; }
-            set { defaultModuleSettings = value; }
-        }
+	public string DefaultModuleSettings { get; set; } = string.Empty;
 
-        private int moduleID = -1;
-		public int ModuleID
-        {
-            get { return this.moduleID;}
-            set 
-            {
-                // this can throw an error when set during page pre-init
-                try
-                {
-                    this.moduleID = value;
-                    LoadModule();
-                }
-                catch (NullReferenceException) { }
-            }
-        }
+	private int _moduleID = -1;
+	public int ModuleID
+	{
+		get { return _moduleID; }
+		set
+		{
+			// this can throw an error when set during page pre-init
+			try
+			{
+				_moduleID = value;
+				LoadModule();
+			}
+			catch (NullReferenceException) { }
+		}
+	}
 
-        private Guid moduleGuidToUse = Guid.Empty;
-        public Guid ModuleGuidToUse
-        {
-            get { return moduleGuidToUse; }
-            set { moduleGuidToUse = value; }
-        }
+	public Guid ModuleGuidToUse { get; set; } = Guid.Empty;
 
-        // not used yet, need page level custom settings
-        private bool uniquePerPage = false;
-        public bool UniquePerPage { get => uniquePerPage; set => uniquePerPage = value; }
-        
+	public bool UniquePerPage { get; set; } = false;
 
-        private bool moduleLoaded = false;
+	private bool moduleLoaded = false;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(SuperWrapper));
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            // don't render on admin or edit pages
-            if ((!(this.Page is CmsPage)) && (hideOnAdminPages)) { this.Visible = false; return; }
+	private static readonly ILog log = LogManager.GetLogger(typeof(SuperWrapper));
+	protected void Page_Load(object sender, EventArgs e)
+	{
+		// don't render on admin or edit pages
+		if ((Page is not CmsPage && HideOnAdminPages)
+			|| (Page is NonCmsBasePage && HideOnNonCmsPages))
+		{
+			Visible = false; return;
+		}
 
-            if ((hideOnNonCmsPages) && (Page is NonCmsBasePage)) { this.Visible = false; return; }
+		Description = "Module Wrapper";
 
-            Description = "Module Wrapper";
+		if (ModuleID > -1 || ModuleGuidToUse != Guid.Empty)
+		{
+			if (!moduleLoaded)
+			{
+				LoadModule();
+			}
+		}
+	}
 
-            if (ModuleID > -1 || moduleGuidToUse != Guid.Empty)
-            {
-                if (!moduleLoaded)
-                {
-                    LoadModule();
-                }
+	protected void LoadModule()
+	{
 
-            }
-        } 
+		siteSettings ??= CacheHelper.GetCurrentSiteSettings();
 
-        protected void LoadModule()
-        {
+		if (_moduleID > -1 || ModuleGuidToUse != Guid.Empty)
+		{
+			Controls.Clear();
 
-            if (siteSettings == null)
-            {
-                siteSettings = CacheHelper.GetCurrentSiteSettings();
-            }
+			Module module = null;
 
-            if (moduleID > -1 || moduleGuidToUse != Guid.Empty)
-            {
-                this.Controls.Clear();
+			if (_moduleID > -1) module = new Module(ModuleID);
 
-                Module module = null;
+			if (module == null && ModuleGuidToUse != Guid.Empty) module = new Module(ModuleGuidToUse);
 
-                if (moduleID > -1) module = new Module(ModuleID);
+			if (module.ModuleId > -1)
+			{
+				if (WebConfigSettings.EnforceSiteIdInModuleWrapper)
+				{
+					//SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+					if (siteSettings is not null)
+					{
+						//could add a web.config setting check here to determine if the module should still be loaded even if it is from a different site.
+						if (module.SiteId != siteSettings.SiteId)
+						{
+							//this will adjust the ModuleGuidToUse set on the control to have the SiteID for the first two characters.
+							//doing this gives us the ability to create/load module instances in multi-site installs using skins containing SuperWrapper
+							//with the same ModuleGuidToUse.
+							var sb = new StringBuilder(ModuleGuidToUse.ToString());
 
-                if (module == null && moduleGuidToUse != Guid.Empty) module = new Module(moduleGuidToUse);
+							int siteIdLength = siteSettings.SiteId.ToString().Length;
 
-                if (module.ModuleId > -1)
-                {
-                    if (WebConfigSettings.EnforceSiteIdInModuleWrapper)
-                    {
-                        //SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-                        if (siteSettings != null)
-                        {
+							// mojo can run more than 999 sites but the odds are not high that this would ever happen. 
+							// to keep the overhead down we'll just use some simple math here
+							sb.Remove(0, siteIdLength + 5);
 
-                            //could add a web.config setting check here to determine if the module should still be loaded even if it is from a different site.
-                            if (module.SiteId != siteSettings.SiteId)
-                            {
+							sb.Insert(0, "00000" + siteSettings.SiteId.ToString());
 
-                                //this will adjust the ModuleGuidToUse set on the control to have the SiteID for the first two characters.
-                                //doing this gives us the ability to create/load module instances in multi-site installs using skins containing SuperWrapper
-                                //with the same ModuleGuidToUse.
-                                var sb = new StringBuilder(moduleGuidToUse.ToString());
+							ModuleGuidToUse = Guid.Parse(sb.ToString());
 
-                                int siteIdLength = siteSettings.SiteId.ToString().Length;
+							LoadModule();
 
-                                // mojo can run more than 999 sites but the odds are not high that this would ever happen. 
-                                // to keep the overhead down we'll just use some simple math here
-                                sb.Remove(0, siteIdLength + 5);
+							return;
+						}
+					}
+				}
 
-                                sb.Insert(0, "00000" + siteSettings.SiteId.ToString());
+				Control c = Page.LoadControl($"~/{module.ControlSource}") ?? throw new ArgumentException($"Unable to load control from ~/{module.ControlSource}");
+				if (c is SiteModuleControl siteModule)
+				{
+					siteModule.SiteId = siteSettings.SiteId;
+					siteModule.ModuleConfiguration = module;
+					Title = module.ModuleTitle;
+				}
 
-                                moduleGuidToUse = Guid.Parse(sb.ToString());
+				Controls.Add(c);
+				moduleLoaded = true;
+			}
+			else
+			{
+				CreateModule();
+				LoadModule();
+			}
+		}
+	}
 
-                                LoadModule();
+	private void CreateModule()
+	{
 
-                                return;
-                            }
-                        }
-                    }
+		//first we'll create the module and then we'll set the default settings, if any exist.
 
-                    Control c = Page.LoadControl("~/" + module.ControlSource);
-                    if (c == null)
-                    {
-                        throw new ArgumentException("Unable to load control from ~/" + module.ControlSource);
-                    }
+		if (FeatureGuid != Guid.Empty && ModuleGuidToUse != Guid.Empty)
+		{
+			var moduleDefinition = new ModuleDefinition(FeatureGuid);
 
-                    if (c is SiteModuleControl)
-                    {
-                        SiteModuleControl siteModule = (SiteModuleControl)c;
-                        siteModule.SiteId = siteSettings.SiteId;
-                        siteModule.ModuleConfiguration = module;
-                        this.Title = module.ModuleTitle;
-                    }
+			if (moduleDefinition == null)
+			{
+				log.Error($"Cannot create module because featureGuid \"{FeatureGuid}\" does not correspond to an installed feature.");
+				return;
+			}
 
-                    this.Controls.Add(c);
-                    moduleLoaded = true;
-                }
-                else
-                {
-                    CreateModule();
-                    LoadModule();
-                }
-            }
-        }
+			var module = new Module
+			{
+				ModuleGuid = ModuleGuidToUse,
+				ModuleDefId = moduleDefinition.ModuleDefId,
+				FeatureGuid = moduleDefinition.FeatureGuid,
+				Icon = moduleDefinition.Icon,
+				SiteId = siteSettings.SiteId,
+				SiteGuid = siteSettings.SiteGuid
+			};
 
-        private void CreateModule()
-        {
+			//need to account for user not being logged in the first time the site is visited with this SuperWrapper in the skin.
+			SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
+			if (siteUser is null)
+			{
+				Role adminsRole = Role.GetRoleByName(siteSettings.SiteId, "Admins");
+				DataTable dtUsers = SiteUser.GetRoleMembers(adminsRole.RoleId);
+				if (dtUsers.Rows.Count > 0)
+				{
+					siteUser = SiteUser.GetByEmail(siteSettings, dtUsers.Rows[0]["Email"].ToString());
+				}
 
-            //first we'll create the module and then we'll set the default settings, if any exist.
+				if (siteUser is null)
+				{
+					//Can't get a user to create the module.
+					return;
+				}
+			}
 
-            if (featureGuid != Guid.Empty && moduleGuidToUse != Guid.Empty)
-            {
-                ModuleDefinition moduleDefinition = new ModuleDefinition(featureGuid);
+			module.CreatedByUserId = siteUser.UserId;
+			module.CacheTime = moduleDefinition.DefaultCacheTime;
+			module.ShowTitle = WebConfigSettings.ShowModuleTitlesByDefault;
+			module.HeadElement = WebConfigSettings.ModuleTitleTag;
 
-                if (moduleDefinition == null)
-                {
-                    log.Error("Cannot create module because featureGuid \"" + featureGuid.ToString() + "\" does not correspond to an installed feature.");
-                    return;
-                }
+			if (module.Save())
+			{
+				var newModule = new Module(ModuleGuidToUse);
+				// set default module settings from json
+				if (!string.IsNullOrWhiteSpace(DefaultModuleSettings))
+				{
+					DefaultModuleSettings = DefaultModuleSettings.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
 
-                Module module = new Module();
-                module.ModuleGuid = moduleGuidToUse;
-                module.ModuleDefId = moduleDefinition.ModuleDefId;
-                module.FeatureGuid = moduleDefinition.FeatureGuid;
-                module.Icon = moduleDefinition.Icon;
-                module.SiteId = siteSettings.SiteId;
-                module.SiteGuid = siteSettings.SiteGuid;
+					var moduleSettings = ModuleSettings.GetModuleSettings(newModule.ModuleId);
 
-                //need to account for user not being logged in the first time the site is visited with this SuperWrapper in the skin.
-                SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
-                if (siteUser == null)
-                {
-                    Role adminsRole = Role.GetRoleByName(siteSettings.SiteId, "Admins");
-                    DataTable dtUsers = SiteUser.GetRoleMembers(adminsRole.RoleId);
-                    if (dtUsers.Rows.Count > 0)
-                    {
-                        siteUser = SiteUser.GetByEmail(siteSettings, dtUsers.Rows[0]["Email"].ToString());
-                    }
+					var oModuleSettings = new JObject();
 
-                    if (siteUser == null)
-                    {
-                        //Can't get a user to create the module.
-                        return;
-                    }
-                }
+					try
+					{
+						oModuleSettings = JObject.Parse(DefaultModuleSettings);
+					}
+					catch (Newtonsoft.Json.JsonReaderException)
+					{
+						log.Error($"{ID} -- could not load defaultModuleSettings because of invalid json");
+					}
 
-                module.CreatedByUserId = siteUser.UserId;
-                module.CacheTime = moduleDefinition.DefaultCacheTime;
-                module.ShowTitle = WebConfigSettings.ShowModuleTitlesByDefault;
-                module.HeadElement = WebConfigSettings.ModuleTitleTag;
-                
-                if (module.Save())
-                {
-                    Module newModule = new Module(moduleGuidToUse);
-                    // set default module settings from json
-                    if (!String.IsNullOrWhiteSpace(defaultModuleSettings))
-                    {
+					foreach (var prop in oModuleSettings)
+					{
+						if (moduleSettings.ContainsKey(prop.Key))
+						{
+							ModuleSettings.UpdateModuleSetting(newModule.ModuleGuid, newModule.ModuleId, prop.Key, prop.Value.ToString());
+						}
+					}
+				}
 
-                        defaultModuleSettings = defaultModuleSettings.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
+				//set default general settings from json
+				if (!string.IsNullOrWhiteSpace(DefaultGeneralSettings))
+				{
+					DefaultGeneralSettings = DefaultGeneralSettings.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
 
-                        Hashtable moduleSettings = ModuleSettings.GetModuleSettings(newModule.ModuleId);
+					JObject oGeneralSettings = JObject.Parse(DefaultGeneralSettings);
 
+					IList<System.Reflection.PropertyInfo> props = new List<System.Reflection.PropertyInfo>(newModule.GetType().GetProperties());
 
-                        JObject oModuleSettings = new JObject();
+					foreach (System.Reflection.PropertyInfo prop in props)
+					{
+						JProperty jProp = oGeneralSettings.Property(prop.Name);
 
-                        try
-                        {
-                            oModuleSettings = JObject.Parse(defaultModuleSettings);
-                        }
-                        catch (Newtonsoft.Json.JsonReaderException)
-                        {
-                            log.Error(this.ID + " -- could not load defaultModuleSettings because of invalid json");
-                        }
+						if (jProp != null)
+						{
+							Type propType = prop.PropertyType.Name switch
+							{
+								"Boolean" => true.GetType(),
+								"Int32" => 1.GetType(),
+								"Guid" => Guid.Empty.GetType(),
+								_ => "".GetType(),
+							};
+							prop.SetValue(newModule, Convert.ChangeType(jProp.Value, propType));
+						}
+					}
 
-                        foreach (var prop in oModuleSettings)
-                        {
-                            if (moduleSettings.ContainsKey(prop.Key))
-                            {
-                                ModuleSettings.UpdateModuleSetting(newModule.ModuleGuid, newModule.ModuleId, prop.Key, prop.Value.ToString());
-                            }
-                        }
-                    }
-
-                    //set default general settings from json
-                    if (!String.IsNullOrWhiteSpace(defaultGeneralSettings))
-                    {
-
-                        defaultGeneralSettings = defaultGeneralSettings.Replace("$_SiteID_$", siteSettings.SiteId.ToString());
-                     
-                        JObject oGeneralSettings = JObject.Parse(defaultGeneralSettings);
-
-                        IList<System.Reflection.PropertyInfo> props = new List<System.Reflection.PropertyInfo>(newModule.GetType().GetProperties());
-
-                        foreach(System.Reflection.PropertyInfo prop in props)
-                        {
-                            JProperty jProp = oGeneralSettings.Property(prop.Name);
-                            
-                            if (jProp != null)
-                            {
-                                Type propType;
-                                switch (prop.PropertyType.Name)
-                                {
-                                    case "String":
-                                    default:
-                                        propType = "".GetType();
-                                        break;
-                                    case "Boolean":
-                                        propType = true.GetType();
-                                        break;
-                                    case "Int32":
-                                        propType = 1.GetType();
-                                        break;
-                                    case "Guid":
-                                        propType = Guid.Empty.GetType();
-                                        break;
-                                }
-                                prop.SetValue(newModule, Convert.ChangeType(jProp.Value, propType));
-                            }
-                        }
-
-                        newModule.Save();
-
-                    }
-                }
-            }
-        }
-    }
+					newModule.Save();
+				}
+			}
+		}
+	}
 }

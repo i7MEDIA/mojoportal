@@ -1,220 +1,84 @@
-﻿// Author:					i7MEDIA (joe davis)
-// Created:				    2014-12-22
-// Last Modified:			2017-12-19
-//
-// You must not remove this notice, or any other, from this software.
-//
-using System.Web;
+﻿using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace SuperFlexiUI
+namespace SuperFlexiUI;
+
+/// <summary>
+/// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
+/// </summary>
+public class SuperFlexiDisplaySettings : WebControl
 {
-    /// <summary>
-    /// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
-    /// </summary>
-    public class SuperFlexiDisplaySettings : WebControl
-    {
-        private bool hideOuterWrapperPanel = false;
-        public bool HideOuterWrapperPanel
-        {
-            get { return hideOuterWrapperPanel; }
-            set { hideOuterWrapperPanel = value; }
-        }
+	public bool HideOuterWrapperPanel { get; set; } = false;
 
-        private bool hideInnerWrapperPanel = false;
-        public bool HideInnerWrapperPanel
-        {
-            get { return hideInnerWrapperPanel; }
+	public bool HideInnerWrapperPanel { get; set; } = false;
 
-            set { hideInnerWrapperPanel = value; }
-        }
+	public bool HideOuterBodyPanel { get; set; } = false;
 
-        private bool hideOuterBodyPanel = false;
-        public bool HideOuterBodyPanel
-        {
-            get { return hideOuterBodyPanel; }
+	public bool HideInnerBodyPanel { get; set; } = false;
 
-            set { hideOuterBodyPanel = value; }
-        }
+	public string ModuleTitleMarkup { get; set; } = "$_ModuleTitle_$$_ModuleLinks_$";
 
-        private bool hideInnerBodyPanel = false;
-        public bool HideInnerBodyPanel
-        {
-            get { return hideInnerBodyPanel; }
+	public string ModuleTitleFormat { get; set; } = "<h2 class='moduletitle'>{0}</h2>";
 
-            set { hideInnerBodyPanel = value; }
-        }
+	public string ModuleInstanceMarkupTop { get; set; } = string.Empty;
 
+	public string ModuleInstanceMarkupBottom { get; set; } = string.Empty;
 
-        private string moduleTitleMarkup = "$_ModuleTitle_$$_ModuleLinks_$";
-        public string ModuleTitleMarkup
-        {
-            get { return moduleTitleMarkup; }
-            set { moduleTitleMarkup = value; }
-        }
+	public string InstanceFeaturedImageFormat { get; set; } = string.Empty;
 
-        private string moduleTitleFormat = "<h2 class='moduletitle'>{0}</h2>";
-        public string ModuleTitleFormat
-        {
-            get { return moduleTitleFormat; }
-            set { moduleTitleFormat = value; }
-        }
+	public string HeaderContentFormat { get; set; } = "<div class='flexi-header'>{0}</div>";
 
-        private string moduleInstanceMarkupTop = string.Empty;
-        public string ModuleInstanceMarkupTop
-        {
-            get { return moduleInstanceMarkupTop; }
-            set { moduleInstanceMarkupTop = value; }
-        }
+	public string FooterContentFormat { get; set; } = "<div class='flexi-footer'>{0}</div>";
 
-        private string moduleInstanceMarkupBottom = string.Empty;
-        public string ModuleInstanceMarkupBottom
-        {
-            get { return moduleInstanceMarkupBottom; }
-            set { moduleInstanceMarkupBottom = value; }
-        }
-        private string instanceFeaturedImageFormat = string.Empty;
-        public string InstanceFeaturedImageFormat
-        {
-            get { return instanceFeaturedImageFormat; }
-            set { instanceFeaturedImageFormat = value; }
-        }
+	public string ItemMarkup { get; set; } = string.Empty;
 
-        private string headerContentFormat = "<div class='flexi-header'>{0}</div>";
-        public string HeaderContentFormat
-        {
-            get { return headerContentFormat; }
-            set { headerContentFormat = value; }
-        }
+	public string ItemsWrapperFormat { get; set; } = "<div class='flexi-items'>{0}</div>";
 
-        private string footerContentFormat = "<div class='flexi-footer'>{0}</div>";
-        public string FooterContentFormat
-        {
-            get { return footerContentFormat; }
-            set { footerContentFormat = value; }
-        }
+	public string ItemsRepeaterMarkup { get; set; } = "$_Items_$";
 
-        private string itemMarkup = string.Empty;
-        public string ItemMarkup
-        {
-            get { return itemMarkup; }
-            set { itemMarkup = value; }
-        }
+	public int ItemsPerGroup { get; set; } = -1;
 
-        private string itemsWrapperFormat = "<div class='flexi-items'>{0}</div>";
-        public string ItemsWrapperFormat
-        {
-            get { return itemsWrapperFormat; }
-            set { itemsWrapperFormat = value; }
-        }
+	/// <summary>
+	/// {0} = ModuleSettingsLink,
+	/// {1} = AddItemLink,
+	/// {2} = EditHeaderLink,
+	/// {3} = EditFooterLink,
+	/// {4} = ImportLink,
+	/// {5} = ExportLink
+	/// </summary>
+	public string ModuleLinksFormat { get; set; } = "<span class=\"modulelinks flexi-module-links\">{0}{1}{2}{3}{4}{5}</span>";
 
-        private string itemsRepeaterMarkup = "$_Items_$";
-        public string ItemsRepeaterMarkup
-        {
-            get { return itemsRepeaterMarkup; }
-            set { itemsRepeaterMarkup = value; }
-        }
+	public string ModuleSettingsLinkFormat { get; set; } = "&nbsp;<a class='ModuleEditLink' href='{0}'>{1}</a>";
 
-        private int itemsPerGroup = -1;
-        public int ItemsPerGroup
-        {
-            get { return itemsPerGroup; }
-            set { itemsPerGroup = value; }
-        }
-        private string moduleLinksFormat = "<span class=\"modulelinks flexi-module-links\">{0}{1}{2}{3}{4}{5}</span>";
-        /// <summary>
-        /// {0} = ModuleSettingsLink,
-        /// {1} = AddItemLink,
-        /// {2} = EditHeaderLink,
-        /// {3} = EditFooterLink,
-        /// {4} = ImportLink,
-        /// {5} = ExportLink
-        /// </summary>
-        public string ModuleLinksFormat
-        {
-            get { return moduleLinksFormat; }
-            set { moduleLinksFormat = value; }
-        }
+	/// <summary>
+	/// {0} - url,
+	/// {1} - title
+	/// </summary>
+	public string AddItemLinkFormat { get; set; } = "&nbsp;<a class='ModuleEditLink flexi-item-add' href='{0}'><span class='fa fa-plus'></span>&nbsp;{1}</a>";
 
-        private string moduleSettingsLinkFormat = "&nbsp;<a class='ModuleEditLink' href='{0}'>{1}</a>";
-        public string ModuleSettingsLinkFormat
-        {
-            get { return moduleSettingsLinkFormat; }
-            set { moduleSettingsLinkFormat = value; }
-        }
+	public string EditHeaderLinkFormat { get; set; } = "&nbsp;<a class='ModuleEditLink flexi-header-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;{1}</a>";
 
-        private string addItemLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-item-add' href='{0}'><span class='fa fa-plus'></span>&nbsp;{1}</a>";
-        /// <summary>
-        /// {0} - url,
-        /// {1} - title
-        /// </summary>
-        public string AddItemLinkFormat
-        {
-            get { return addItemLinkFormat; }
-            set { addItemLinkFormat = value; }
-        }
+	public string EditFooterLinkFormat { get; set; } = "&nbsp;<a class='ModuleEditLink flexi-footer-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;{1}</a>";
 
-        private string editHeaderLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-header-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;{1}</a>";
-        public string EditHeaderLinkFormat
-        {
-            get { return editHeaderLinkFormat; }
-            set { editHeaderLinkFormat = value; }
-        }
+	public string ImportLinkFormat { get; set; } = "&nbsp;<a class='ModuleEditLink flexi-import-link' href='{0}'><span class='fa fa-upload'></span>&nbsp;{1}</a>";
 
-        private string editFooterLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-footer-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;{1}</a>";
-        public string EditFooterLinkFormat
-        {
-            get { return editFooterLinkFormat; }
-            set { editFooterLinkFormat = value; }
-        }
+	public string ExportLinkFormat { get; set; } = "&nbsp;<a class='ModuleEditLink flexi-export-link' href='{0}'><span class='fa fa-download'></span>&nbsp;{1}</a>";
 
-        private string importLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-import-link' href='{0}'><span class='fa fa-upload'></span>&nbsp;{1}</a>";
-        public string ImportLinkFormat
-        {
-            get { return importLinkFormat; }
-            set { importLinkFormat = value; }
-        }
+	public string ItemEditLinkFormat { get; set; } = "<a class='flexi-item-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;Edit</a>";
 
-        private string exportLinkFormat = "&nbsp;<a class='ModuleEditLink flexi-export-link' href='{0}'><span class='fa fa-download'></span>&nbsp;{1}</a>";
-        public string ExportLinkFormat
-        {
-            get { return exportLinkFormat; }
-            set { exportLinkFormat = value; }
-        }
+	public string GlobalViewMarkup { get; set; } = string.Empty;
 
-        private string itemEditLinkFormat = "<a class='flexi-item-edit' href='{0}'><span class='fa fa-pencil'></span>&nbsp;Edit</a>";
-        public string ItemEditLinkFormat
-        {
-            get { return itemEditLinkFormat; }
-            set { itemEditLinkFormat = value; }
-        }
+	public string GlobalViewItemMarkup { get; set; } = string.Empty;
 
-        private string globalViewMarkup = string.Empty;
-        public string GlobalViewMarkup
-        {
-            get { return globalViewMarkup; }
+	protected override void Render(HtmlTextWriter writer)
+	{
+		if (HttpContext.Current == null)
+		{
+			writer.Write("[" + this.ID + "]");
+			return;
+		}
 
-            set { globalViewMarkup = value; }
-        }
-
-        private string globalViewItemMarkup = string.Empty;
-        public string GlobalViewItemMarkup
-        {
-            get { return globalViewItemMarkup; }
-
-            set { globalViewItemMarkup = value; }
-        }
-
-        protected override void Render(HtmlTextWriter writer)
-        {
-            if (HttpContext.Current == null)
-            {
-                writer.Write("[" + this.ID + "]");
-                return;
-            }
-
-            // nothing to render
-        }
-    }
+		// nothing to render
+	}
 }

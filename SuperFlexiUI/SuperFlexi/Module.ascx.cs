@@ -1,213 +1,173 @@
-/// Author:             Joe Davis (i7MEDIA)
-/// Created:			2014-12-20
-///	Last Modified:		2022-03-11
-///
-/// You must not remove this notice, or any other, from this software.
-
+using System;
+using System.Text;
+using System.Web.UI;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
-using System;
-using System.Text;
-using System.Web.UI;
 
-namespace SuperFlexiUI
+namespace SuperFlexiUI;
+
+public partial class SuperFlexiModule : SiteModuleControl
 {
-	public partial class SuperFlexiModule : SiteModuleControl
+	protected ModuleConfiguration config = new();
+
+	protected void Page_Load(object sender, EventArgs e)
 	{
-		protected ModuleConfiguration config = new();
+		LoadSettings();
+	}
 
-
-		protected void Page_Load(object sender, EventArgs e)
+	private void LoadSettings()
+	{
+		var module = new Module(ModuleGuid);
+		if (module == null)
 		{
-			LoadSettings();
+			return;
+		}
+		config = new ModuleConfiguration(module);
+		var currentPage = CacheHelper.GetCurrentPage();
+
+		if (config.MarkupDefinition != null)
+		{
+			displaySettings = config.MarkupDefinition;
 		}
 
-		private void LoadSettings()
+		// this stuff should always apply, regardless if using razor or markupdef
+
+		pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
+		pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
+		pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
+		pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
+
+		if (config.ModuleCssClass.Length > 0 && !config.HideOuterWrapperPanel)
 		{
-			Module module = new Module(ModuleGuid);
-			if (module == null)
+			pnlOuterWrap.SetOrAppendCss(config.ModuleCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
+		}
+
+		if (config.UseRazor)
+		{
+			var razor = new WidgetRazor
 			{
-				return;
-			}
-			config = new ModuleConfiguration(module);
-			PageSettings currentPage = CacheHelper.GetCurrentPage();
+				Config = config,
+				PageId = PageId,
+				ModuleGuid = ModuleGuid,
+				ModuleId = ModuleId,
+				IsEditable = IsEditable,
+				SiteRoot = SiteRoot,
+				ImageSiteRoot = ImageSiteRoot,
+				Visible = true,
+				Enabled = true
+			};
 
-			if (config.MarkupDefinition != null)
+			sflexi.Controls.Add(razor);
+		}
+		else
+		{
+			var legacyWidget = new WidgetLegacy
 			{
-				displaySettings = config.MarkupDefinition;
+				Config = config,
+				ModuleId = ModuleId,
+				IsEditable = IsEditable,
+				SiteRoot = SiteRoot,
+				ImageSiteRoot = ImageSiteRoot,
+				PageId = PageId,
+				CurrentPage = currentPage ?? CacheHelper.GetCurrentPage()
+			};
+
+			sflexi.Controls.Add(legacyWidget);
+
+			if (ModuleConfiguration != null)
+			{
+				Title = ModuleConfiguration.ModuleTitle;
+				Description = ModuleConfiguration.FeatureName;
 			}
+			StringBuilder moduleTitle = new StringBuilder();
 
-			// this stuff should always apply, regardless if using razor or markupdef
-
-			pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
-			pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
-			pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
-			pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
+			moduleTitle.Append(displaySettings.ModuleTitleMarkup);
+			SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, module, currentPage, siteSettings, out moduleTitle);
+			litModuleTitle.Text = moduleTitle.ToString();
 
 			if (config.ModuleCssClass.Length > 0 && !config.HideOuterWrapperPanel)
 			{
 				pnlOuterWrap.SetOrAppendCss(config.ModuleCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
 			}
 
-			if (config.UseRazor)
+			if (SiteUtils.IsMobileDevice() && config.ModuleMobileCssClass.Length > 0 && !config.HideOuterWrapperPanel)
 			{
-
-				WidgetRazor razor = new WidgetRazor
-				{
-					Config = config,
-					PageId = PageId,
-					ModuleGuid = ModuleGuid,
-					ModuleId = ModuleId,
-					IsEditable = IsEditable,
-					SiteRoot = SiteRoot,
-					ImageSiteRoot = ImageSiteRoot,
-					Visible = true,
-					Enabled = true
-				};
-
-				sflexi.Controls.Add(razor);
-
-				//widgetRazor.Config = config;
-				//widgetRazor.PageId = PageId;
-				//widgetRazor.ModuleGuid = ModuleGuid;
-				//widgetRazor.ModuleId = ModuleId;
-				//widgetRazor.IsEditable = IsEditable;
-				//widgetRazor.SiteRoot = SiteRoot;
-				//widgetRazor.ImageSiteRoot = ImageSiteRoot;
-
-				//widgetRazor.Visible = widgetRazor.Enabled = true;
-				//theWidget.Visible = false;
-
+				pnlOuterWrap.SetOrAppendCss(config.ModuleMobileCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
 			}
-			else
+
+			if (config.UseHeader && config.HeaderLocation != "InnerBodyPanel" && !string.IsNullOrWhiteSpace(config.HeaderContent) && !string.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
 			{
-				//widgetRazor.Visible = widgetRazor.Enabled = false;
-
-				var legacyWidget = new WidgetLegacy
+				var headerContent = new StringBuilder();
+				headerContent.AppendFormat(displaySettings.HeaderContentFormat, config.HeaderContent);
+				SuperFlexiHelpers.ReplaceStaticTokens(headerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out headerContent);
+				var litHeaderContent = new LiteralControl(headerContent.ToString());
+				litHeaderContent.EnableViewState = false;
+				//if HeaderLocation is set to a hidden panel the header will be added to the Outside.
+				switch (config.HeaderLocation)
 				{
-					Config = config,
-					ModuleId = ModuleId,
-					IsEditable = IsEditable,
-					SiteRoot = SiteRoot,
-					ImageSiteRoot = ImageSiteRoot,
-					PageId = PageId,
-					CurrentPage = currentPage ?? CacheHelper.GetCurrentPage()
-				};
+					default:
+						break;
+					case "OuterBodyPanel":
+						if (config.HideOuterBodyPanel) goto case "Outside";
+						pnlOuterBody.Controls.AddAt(0, litHeaderContent);
+						break;
 
-				sflexi.Controls.Add(legacyWidget);
+					case "InnerWrapperPanel":
+						if (config.HideInnerWrapperPanel) goto case "Outside";
+						pnlInnerWrap.Controls.AddAt(0, litHeaderContent);
+						break;
 
-				if (ModuleConfiguration != null)
-				{
-					Title = ModuleConfiguration.ModuleTitle;
-					Description = ModuleConfiguration.FeatureName;
+					case "OuterWrapperPanel":
+						if (config.HideOuterWrapperPanel) goto case "Outside";
+						pnlOuterWrap.Controls.AddAt(0, litHeaderContent);
+						break;
+
+					case "Outside":
+						litHead.Text = headerContent.ToString();
+						break;
 				}
-				StringBuilder moduleTitle = new StringBuilder();
+			}
 
-				moduleTitle.Append(displaySettings.ModuleTitleMarkup);
-				SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, module, currentPage, siteSettings, out moduleTitle);
-				litModuleTitle.Text = moduleTitle.ToString();
-
-				if (config.ModuleCssClass.Length > 0 && !config.HideOuterWrapperPanel)
+			if (config.UseFooter && config.FooterLocation != "InnerBodyPanel" && !string.IsNullOrWhiteSpace(config.FooterContent) && !string.Equals(config.FooterContent, "<p>&nbsp;</p>"))
+			{
+				var footerContent = new StringBuilder();
+				footerContent.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
+				SuperFlexiHelpers.ReplaceStaticTokens(footerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out footerContent);
+				var litFooterContent = new LiteralControl(footerContent.ToString());
+				litFooterContent.EnableViewState = false;
+				//if FooterLocation is set to a hidden panel the footer will be added to the Outside.
+				switch (config.FooterLocation)
 				{
-					pnlOuterWrap.SetOrAppendCss(config.ModuleCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
+					default:
+						break;
+					case "OuterBodyPanel":
+						if (config.HideOuterBodyPanel) goto case "Outside";
+						pnlOuterBody.Controls.Add(litFooterContent);
+						break;
+					case "InnerWrapperPanel":
+						if (config.HideInnerWrapperPanel) goto case "Outside";
+						pnlInnerWrap.Controls.Add(litFooterContent);
+						break;
+					case "OuterWrapperPanel":
+						if (config.HideOuterWrapperPanel) goto case "Outside";
+						pnlOuterWrap.Controls.Add(litFooterContent);
+						break;
+					case "Outside":
+						litFoot.Text = footerContent.ToString();
+						break;
 				}
-
-				if (SiteUtils.IsMobileDevice() && config.ModuleMobileCssClass.Length > 0 && !config.HideOuterWrapperPanel)
-				{
-					pnlOuterWrap.SetOrAppendCss(config.ModuleMobileCssClass.Replace("$_ModuleID_$", ModuleId.ToString()));
-				}
-
-				//theWidget.Config = config;
-				//if (currentPage != null)
-				//{
-				//	theWidget.PageId = currentPage.PageId;
-				//	theWidget.CurrentPage = currentPage;
-				//}
-				//theWidget.ModuleId = ModuleId;
-				//theWidget.IsEditable = IsEditable;
-				//theWidget.SiteRoot = SiteRoot;
-				//theWidget.ImageSiteRoot = ImageSiteRoot;
-
-				//theWidget.Visible = true;
-
-				if (config.UseHeader && config.HeaderLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.HeaderContent) && !String.Equals(config.HeaderContent, "<p>&nbsp;</p>"))
-				{
-					StringBuilder headerContent = new StringBuilder();
-					headerContent.AppendFormat(displaySettings.HeaderContentFormat, config.HeaderContent);
-					SuperFlexiHelpers.ReplaceStaticTokens(headerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out headerContent);
-					LiteralControl litHeaderContent = new LiteralControl(headerContent.ToString());
-					//if HeaderLocation is set to a hidden panel the header will be added to the Outside.
-					switch (config.HeaderLocation)
-					{
-						default:
-							break;
-						case "OuterBodyPanel":
-							if (config.HideOuterBodyPanel) goto case "Outside";
-							pnlOuterBody.Controls.AddAt(0, litHeaderContent);
-							break;
-
-						case "InnerWrapperPanel":
-							if (config.HideInnerWrapperPanel) goto case "Outside";
-							pnlInnerWrap.Controls.AddAt(0, litHeaderContent);
-							break;
-
-						case "OuterWrapperPanel":
-							if (config.HideOuterWrapperPanel) goto case "Outside";
-							pnlOuterWrap.Controls.AddAt(0, litHeaderContent);
-							break;
-
-						case "Outside":
-							litHead.Text = headerContent.ToString();
-							break;
-					}
-				}
-
-				if (config.UseFooter && config.FooterLocation != "InnerBodyPanel" && !String.IsNullOrWhiteSpace(config.FooterContent) && !String.Equals(config.FooterContent, "<p>&nbsp;</p>"))
-				{
-					StringBuilder footerContent = new StringBuilder();
-					footerContent.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
-					SuperFlexiHelpers.ReplaceStaticTokens(footerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out footerContent);
-					LiteralControl litFooterContent = new LiteralControl(footerContent.ToString());
-					//if FooterLocation is set to a hidden panel the footer will be added to the Outside.
-					switch (config.FooterLocation)
-					{
-						default:
-							break;
-						case "OuterBodyPanel":
-							if (config.HideOuterBodyPanel) goto case "Outside";
-							pnlOuterBody.Controls.Add(litFooterContent);
-							break;
-						case "InnerWrapperPanel":
-							if (config.HideInnerWrapperPanel) goto case "Outside";
-							pnlInnerWrap.Controls.Add(litFooterContent);
-							break;
-						case "OuterWrapperPanel":
-							if (config.HideOuterWrapperPanel) goto case "Outside";
-							pnlOuterWrap.Controls.Add(litFooterContent);
-							break;
-						case "Outside":
-							litFoot.Text = footerContent.ToString();
-							break;
-					}
-				}
-
-				//pnlOuterWrap.RenderContentsOnly = config.HideOuterWrapperPanel;
-				//pnlInnerWrap.RenderContentsOnly = config.HideInnerWrapperPanel;
-				//pnlOuterBody.RenderContentsOnly = config.HideOuterBodyPanel;
-				//pnlInnerBody.RenderContentsOnly = config.HideInnerBodyPanel;
 			}
 		}
-		#region OnInit
-
-		protected override void OnInit(EventArgs e)
-		{
-			base.OnInit(e);
-			Load += new EventHandler(Page_Load);
-		}
-
-		#endregion
-
 	}
+	#region OnInit
+
+	protected override void OnInit(EventArgs e)
+	{
+		base.OnInit(e);
+		Load += new EventHandler(Page_Load);
+	}
+
+	#endregion
 }

@@ -70,7 +70,7 @@ public class WidgetRazor : WebControl
 	protected virtual void LoadSettings()
 	{
 		module = new Module(ModuleId, PageId);
-		if (module?.ModuleId == -1)
+		if (module is not null && module.ModuleId == -1)
 		{
 			publishedToCurrentPage = false;
 			module = new Module(ModuleId);
@@ -88,7 +88,7 @@ public class WidgetRazor : WebControl
 		pageSize = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_PageSize", Config.PageSize);
 		itemId = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_ItemId", itemId);
 
-		foreach (string param in HttpContext.Current.Request.QueryString.Keys)
+		foreach (string param in HttpContext.Current.Request.QueryString?.Keys)
 		{
 			if (param.StartsWith($"sf{ModuleId}_")
 				&& param != $"sf{ModuleId}_PageNumber"
