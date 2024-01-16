@@ -1,254 +1,260 @@
-﻿// Author:					
-// Created:					2009-12-25
-// Last Modified:			2012-07-20
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+﻿using MySqlConnector;
 using System;
-using System.Text;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+
+public static class DBSavedQuery
 {
+	/// <summary>
+	/// Inserts a row in the mp_SavedQuery table. Returns rows affected count.
+	/// </summary>
+	/// <param name="id"> id </param>
+	/// <param name="name"> name </param>
+	/// <param name="statement"> statement </param>
+	/// <param name="createdUtc"> createdUtc </param>
+	/// <param name="createdBy"> createdBy </param>
+	/// <returns>int</returns>
+	public static int Create(
+		Guid id,
+		string name,
+		string statement,
+		DateTime createdUtc,
+		Guid createdBy)
+	{
 
-    public static class DBSavedQuery
-    {
-        /// <summary>
-        /// Inserts a row in the mp_SavedQuery table. Returns rows affected count.
-        /// </summary>
-        /// <param name="id"> id </param>
-        /// <param name="name"> name </param>
-        /// <param name="statement"> statement </param>
-        /// <param name="createdUtc"> createdUtc </param>
-        /// <param name="createdBy"> createdBy </param>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid id,
-            string name,
-            string statement,
-            DateTime createdUtc,
-            Guid createdBy)
-        {
+		string sqlCommand = @"
+INSERT INTO 
+    mp_SavedQuery (
+        Id, 
+        Name, 
+        Statement, 
+        CreatedUtc, 
+        CreatedBy, 
+        LastModUtc, 
+        LastModBy 
+)
+VALUES (
+    ?Id, 
+    ?Name, 
+    ?Statement, 
+    ?CreatedUtc, 
+    ?CreatedBy, 
+    ?LastModUtc, 
+    ?LastModBy 
+);";
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_SavedQuery (");
-            sqlCommand.Append("Id, ");
-            sqlCommand.Append("Name, ");
-            sqlCommand.Append("Statement, ");
-            sqlCommand.Append("CreatedUtc, ");
-            sqlCommand.Append("CreatedBy, ");
-            sqlCommand.Append("LastModUtc, ");
-            sqlCommand.Append("LastModBy )");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Id", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = id.ToString()
+			},
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?Id, ");
-            sqlCommand.Append("?Name, ");
-            sqlCommand.Append("?Statement, ");
-            sqlCommand.Append("?CreatedUtc, ");
-            sqlCommand.Append("?CreatedBy, ");
-            sqlCommand.Append("?LastModUtc, ");
-            sqlCommand.Append("?LastModBy )");
-            sqlCommand.Append(";");
+			new("?Name", MySqlDbType.VarChar, 50)
+			{
+				Direction = ParameterDirection.Input,
+				Value = name
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[7];
+			new("?Statement", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = statement
+			},
 
-            arParams[0] = new MySqlParameter("?Id", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = id.ToString();
+			new("?CreatedUtc", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = createdUtc
+			},
 
-            arParams[1] = new MySqlParameter("?Name", MySqlDbType.VarChar, 50);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = name;
+			new("?CreatedBy", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = createdBy.ToString()
+			},
 
-            arParams[2] = new MySqlParameter("?Statement", MySqlDbType.Text);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = statement;
+			new("?LastModUtc", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = createdUtc
+			},
 
-            arParams[3] = new MySqlParameter("?CreatedUtc", MySqlDbType.DateTime);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = createdUtc;
+			new("?LastModBy", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = createdBy.ToString()
+			}
+		};
 
-            arParams[4] = new MySqlParameter("?CreatedBy", MySqlDbType.VarChar, 36);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = createdBy.ToString();
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected;
 
-            arParams[5] = new MySqlParameter("?LastModUtc", MySqlDbType.DateTime);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = createdUtc;
-
-            arParams[6] = new MySqlParameter("?LastModBy", MySqlDbType.VarChar, 36);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = createdBy.ToString();
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return rowsAffected;
-
-        }
+	}
 
 
-        /// <summary>
-        /// Updates a row in the mp_SavedQuery table. Returns true if row updated.
-        /// </summary>
-        /// <param name="id"> id </param>
-        /// <param name="statement"> statement </param>
-        /// <param name="lastModUtc"> lastModUtc </param>
-        /// <param name="lastModBy"> lastModBy </param>
-        /// <returns>bool</returns>
-        public static bool Update(
-            Guid id,
-            string statement,
-            DateTime lastModUtc,
-            Guid lastModBy)
-        {
+	/// <summary>
+	/// Updates a row in the mp_SavedQuery table. Returns true if row updated.
+	/// </summary>
+	/// <param name="id"> id </param>
+	/// <param name="statement"> statement </param>
+	/// <param name="lastModUtc"> lastModUtc </param>
+	/// <param name="lastModBy"> lastModBy </param>
+	/// <returns>bool</returns>
+	public static bool Update(
+		Guid id,
+		string statement,
+		DateTime lastModUtc,
+		Guid lastModBy)
+	{
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_SavedQuery ");
-            sqlCommand.Append("SET  ");
-            
-            sqlCommand.Append("Statement = ?Statement, ");
-            
-            sqlCommand.Append("LastModUtc = ?LastModUtc, ");
-            sqlCommand.Append("LastModBy = ?LastModBy ");
+		string sqlCommand = @"
+UPDATE mp_SavedQuery 
+SET 
+Statement = ?Statement, 
+LastModUtc = ?LastModUtc, 
+LastModBy = ?LastModBy 
+WHERE 
+Id = ?Id;";
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("Id = ?Id ");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Id", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = id.ToString()
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[4];
+			new("?Statement", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = statement
+			},
 
-            arParams[0] = new MySqlParameter("?Id", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = id.ToString();
+			new("?LastModUtc", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = lastModUtc
+			},
 
-            arParams[1] = new MySqlParameter("?Statement", MySqlDbType.Text);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = statement;
+			new("?LastModBy", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = lastModBy.ToString()
+			}
+		};
 
-            arParams[2] = new MySqlParameter("?LastModUtc", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = lastModUtc;
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            arParams[3] = new MySqlParameter("?LastModBy", MySqlDbType.VarChar, 36);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = lastModBy.ToString();
+		return rowsAffected > -1;
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	}
 
-            return (rowsAffected > -1);
+	/// <summary>
+	/// Deletes a row from the mp_SavedQuery table. Returns true if row deleted.
+	/// </summary>
+	/// <param name="id"> id </param>
+	/// <returns>bool</returns>
+	public static bool Delete(Guid id)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_SavedQuery 
+WHERE Id = ?Id ;";
 
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Id", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = id.ToString()
+			}
+		};
 
-        /// <summary>
-        /// Deletes a row from the mp_SavedQuery table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="id"> id </param>
-        /// <returns>bool</returns>
-        public static bool Delete(Guid id)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_SavedQuery ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Id = ?Id ");
-            sqlCommand.Append(";");
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	}
 
-            arParams[0] = new MySqlParameter("?Id", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = id.ToString();
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_SavedQuery table.
+	/// </summary>
+	/// <param name="id"> id </param>
+	public static IDataReader GetOne(Guid id)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_SavedQuery 
+WHERE Id = ?Id ;";
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Id", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = id.ToString()
+			}
+		};
 
-        }
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_SavedQuery table.
-        /// </summary>
-        /// <param name="id"> id </param>
-        public static IDataReader GetOne(Guid id)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SavedQuery ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Id = ?Id ");
-            sqlCommand.Append(";");
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_SavedQuery table.
+	/// </summary>
+	/// <param name="name"> name </param>
+	public static IDataReader GetOne(string name)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_SavedQuery 
+WHERE Name = ?Name ;";
 
-            arParams[0] = new MySqlParameter("?Id", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = id.ToString();
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Name", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = name
+			}
+		};
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        }
+	}
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_SavedQuery table.
-        /// </summary>
-        /// <param name="name"> name </param>
-        public static IDataReader GetOne(string name)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SavedQuery ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Name = ?Name ");
-            sqlCommand.Append(";");
+	/// <summary>
+	/// Gets an IDataReader with all rows in the mp_SavedQuery table.
+	/// </summary>
+	public static IDataReader GetAll()
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_SavedQuery ;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString());
+	}
 
-            arParams[0] = new MySqlParameter("?Name", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = name;
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        /// <summary>
-        /// Gets an IDataReader with all rows in the mp_SavedQuery table.
-        /// </summary>
-        public static IDataReader GetAll()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SavedQuery ");
-            sqlCommand.Append(";");
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString());
-        }
-
-        
-    }
 }
