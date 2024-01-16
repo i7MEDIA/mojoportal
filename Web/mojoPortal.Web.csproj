@@ -1129,6 +1129,7 @@
     <Compile Include="Controls\AdminMenuLink.cs" />
     <Compile Include="Controls\Artisteer\MenuAdapterArtisteerVertical.cs" />
     <Compile Include="Controls\Artisteer\mojoMenuArtisteerVertical.cs" />
+    <Compile Include="Controls\EmbedSVGSprite.cs" />
     <Compile Include="Controls\Panels\AutoHidePanel.cs" />
     <Compile Include="Controls\Captcha\CaptchaVerificationResponse.cs" />
     <Compile Include="Controls\Captcha\RecaptchaControl.cs" />
