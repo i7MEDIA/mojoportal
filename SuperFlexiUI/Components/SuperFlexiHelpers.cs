@@ -170,20 +170,6 @@ namespace SuperFlexiUI
 			SiteSettings siteSettings,
 			out StringBuilder sb)
 		{
-			ReplaceStaticTokens(stringBuilder.ToString(), config, isEditable, displaySettings, module, pageSettings, siteSettings, out string newString);
-			sb = new StringBuilder(newString);
-		}
-
-		public static void ReplaceStaticTokens(
-			string stringBuilder,
-			ModuleConfiguration config,
-			bool isEditable,
-			SuperFlexiDisplaySettings displaySettings,
-			Module module,
-			PageSettings pageSettings,
-			SiteSettings siteSettings,
-			out string sb)
-		{
 			sb = stringBuilder;
 			int moduleId = module.ModuleId;
 

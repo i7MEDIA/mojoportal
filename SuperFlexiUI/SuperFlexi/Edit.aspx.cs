@@ -1647,12 +1647,12 @@ public partial class EditItems : NonCmsBasePage
 		""fileBrowserUrl"": ""$_FileBrowserUrl_$""
 		};";
 
-			SuperFlexiHelpers.ReplaceStaticTokens(rawScript, config, true, displaySettings, module, CurrentPage, SiteInfo, out rawScript);
+			SuperFlexiHelpers.ReplaceStaticTokens(new StringBuilder(rawScript), config, true, displaySettings, module, CurrentPage, SiteInfo, out StringBuilder script);
 
 		var headLit = new LiteralControl
 		{
 			ID = "sflexi-systemKeys",
-			Text = $"\n<script data-loader=\"SuperFlexiEdit\" data-name=\"systemKeys\">\n{rawScript}\n</script>",
+			Text = $"\n<script data-loader=\"SuperFlexiEdit\" data-name=\"systemKeys\">\n{script}\n</script>",
 			ClientIDMode = ClientIDMode.Static,
 			EnableViewState = false
 		};
