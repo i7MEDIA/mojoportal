@@ -106,15 +106,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share This Using Popular Bookmarking Services.
-        /// </summary>
-        internal static string AddThisButtonAltText {
-            get {
-                return ResourceManager.GetString("AddThisButtonAltText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add Tweet This To Feed?.
         /// </summary>
         internal static string AddTweetThisToFeed {
@@ -228,96 +219,6 @@ namespace Resources {
         internal static string BlogAddPostLabel {
             get {
                 return ResourceManager.GetString("BlogAddPostLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Button Image Url.
-        /// </summary>
-        internal static string BlogAddThisButtonImageUrlSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisButtonImageUrlSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Custom Brand.
-        /// </summary>
-        internal static string BlogAddThisCustomBrandSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisCustomBrandSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Custom Back Color.
-        /// </summary>
-        internal static string BlogAddThisCustomLogoBackColorSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisCustomLogoBackColorSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Custom Fore Color.
-        /// </summary>
-        internal static string BlogAddThisCustomLogoForeColorSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisCustomLogoForeColorSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Custom Logo Url.
-        /// </summary>
-        internal static string BlogAddThisCustomLogoUrlSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisCustomLogoUrlSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Custom Options.
-        /// </summary>
-        internal static string BlogAddThisCustomOptionsSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisCustomOptionsSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Use Mouseover Widget.
-        /// </summary>
-        internal static string BlogAddThisDotComUseMouseOverWidgetSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisDotComUseMouseOverWidgetSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Username.
-        /// </summary>
-        internal static string BlogAddThisDotComUsernameSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisDotComUsernameSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com RSS Feed Button Url.
-        /// </summary>
-        internal static string BlogAddThisRssButtonImageUrlSetting {
-            get {
-                return ResourceManager.GetString("BlogAddThisRssButtonImageUrlSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Subscribe.
-        /// </summary>
-        internal static string BlogAddThisSubscribeAltText {
-            get {
-                return ResourceManager.GetString("BlogAddThisSubscribeAltText", resourceCulture);
             }
         }
         
@@ -876,15 +777,6 @@ namespace Resources {
         internal static string BlogFeedburnerFeedUrl {
             get {
                 return ResourceManager.GetString("BlogFeedburnerFeedUrl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hide AddThis Button?.
-        /// </summary>
-        internal static string BlogHideAddThisButtonSetting {
-            get {
-                return ResourceManager.GetString("BlogHideAddThisButtonSetting", resourceCulture);
             }
         }
         
@@ -2289,24 +2181,6 @@ namespace Resources {
         internal static string NoPostListLayoutsInSkin {
             get {
                 return ResourceManager.GetString("NoPostListLayoutsInSkin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Odiogo Feed ID.
-        /// </summary>
-        internal static string OdiogoFeedIDSetting {
-            get {
-                return ResourceManager.GetString("OdiogoFeedIDSetting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Odiogo Podcast Url.
-        /// </summary>
-        internal static string OdiogoPodcastUrlSetting {
-            get {
-                return ResourceManager.GetString("OdiogoPodcastUrlSetting", resourceCulture);
             }
         }
         

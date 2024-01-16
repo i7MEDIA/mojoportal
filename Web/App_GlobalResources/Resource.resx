@@ -2787,12 +2787,6 @@
   <data name="CommerceTestModeWarning" xml:space="preserve">
     <value>Commerce is in test mode. Use test credit card numbers. No real charges will occur.</value>
   </data>
-  <data name="AddThisButtonAltText" xml:space="preserve">
-    <value>Share This Using Popular Bookmarking Services</value>
-  </data>
-  <data name="SiteSettingsAddThisAccountIdLabel" xml:space="preserve">
-    <value>AddThis.com Username:</value>
-  </data>
   <data name="OpenIDServerConnectionErrorMessage" xml:space="preserve">
     <value>Could not connect to the OpenID server.</value>
   </data>

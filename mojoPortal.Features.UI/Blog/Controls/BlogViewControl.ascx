@@ -67,7 +67,6 @@
 					<asp:Literal ID="litSubtitle" runat="server" EnableViewState="false" />
 
 					<portal:BasePanel runat="server" ID="pnlDetails">
-						<mp:OdiogoItem ID="odiogoPlayer" runat="server" EnableViewState="false" />
 
 						<asp:Literal runat="server" ID="featuredImagePostTop" Visible="false" />
 
@@ -161,9 +160,6 @@
 					</portal:BasePanel>
 
 					<div id="bsocial" runat="server" class="bsocial">
-						<div id="divAddThis" runat="server" class="blogaddthis" enableviewstate="false">
-							<portal:AddThisWidget ID="addThisWidget" runat="server" EnableViewState="false" SkinID="BlogPostDetail" />
-						</div>
 						<portal:TweetThisLink ID="tweetThis1" runat="server" EnableViewState="false" />
 						<portal:FacebookLikeButton ID="fblike" runat="server" Visible="false" EnableViewState="false" />
 					</div>

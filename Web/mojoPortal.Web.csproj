@@ -1278,7 +1278,6 @@
     <Compile Include="Controls\SearchableFeatureFilterSetting.ascx.designer.cs">
       <DependentUpon>SearchableFeatureFilterSetting.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Sharing\AddThisWidget.cs" />
     <Compile Include="Controls\Sharing\FacebookSdk.cs" />
     <Compile Include="Controls\Sharing\JanrainSharingElement.cs" />
     <Compile Include="Controls\Sharing\JanrainSharingScript.cs" />
@@ -1948,7 +1947,6 @@
     <Compile Include="Controls\ModuleWrapper.ascx.designer.cs">
       <DependentUpon>ModuleWrapper.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\mojoAddThisButton.cs" />
     <Compile Include="Controls\mojoDataList.cs" />
     <Compile Include="Controls\mojoHelpLink.cs" />
     <Compile Include="Controls\mojoMenu.cs" />

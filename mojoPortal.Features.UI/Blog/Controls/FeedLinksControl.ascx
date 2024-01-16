@@ -7,9 +7,4 @@
 	<li id="liRSS" runat="server" class="feedrsslinkitem">
 		<asp:Literal ID="litRssLink" runat="server" />
 	</li>
-	<li id="liAddThisRss" runat="server" class="feedaddthisitem">
-		<a id="lnkAddThisRss" runat="server" class="addthisrss" rel="nofollow">
-			<img alt="Subscribe" id="imgAddThisRss" src="~/Data/SiteImages/addthisrss.gif" runat="server" />
-		</a>
-	</li>
 </ul>

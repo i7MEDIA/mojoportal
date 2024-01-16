@@ -39,9 +39,7 @@ namespace mojoPortal.Web.BlogUI
 		protected Double TimeOffset = 0;
 		private TimeZoneInfo timeZone = null;
 		protected DateTime CalendarDate;
-		protected string addThisAccountId = string.Empty;
 		protected bool ShowGoogleMap = true;
-		protected string addThisCustomBrand = string.Empty;
 		protected string FeedBackLabel = string.Empty;
 		protected string GmapApiKey = string.Empty;
 		protected bool EnableContentRating = false;
@@ -66,7 +64,6 @@ namespace mojoPortal.Web.BlogUI
 		protected int Year = DateTime.UtcNow.Year;
 		protected bool TitleOnly = false;
 		protected bool ShowTweetThisLink = false;
-		protected bool ShowPlusOneButton = false;
 		protected bool UseFacebookLikeButton = false;
 		protected bool AllowComments = false;
 		protected bool useExcerpt = false;
@@ -476,7 +473,7 @@ namespace mojoPortal.Web.BlogUI
 			socialPanel.Visible = false;
 			socialPanel.CssClass = displaySettings.SocialPanelClass;
 
-			if (!config.HideAddThisButton || ShowTweetThisLink || UseFacebookLikeButton || ShowPlusOneButton)
+			if (ShowTweetThisLink || UseFacebookLikeButton)
 			{
 				socialPanel.Visible = true;
 			}
@@ -818,12 +815,6 @@ namespace mojoPortal.Web.BlogUI
 			TimeOffset = SiteUtils.GetUserTimeOffset();
 			timeZone = SiteUtils.GetUserTimeZone();
 			GmapApiKey = SiteUtils.GetGmapApiKey();
-			addThisAccountId = siteSettings.AddThisDotComUsername;
-
-			if (config.AddThisAccountId.Length > 0)
-			{
-				addThisAccountId = config.AddThisAccountId;
-			}
 
 			pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
 			categoryId = WebUtils.ParseInt32FromQueryString("cat", categoryId);
@@ -890,11 +881,6 @@ namespace mojoPortal.Web.BlogUI
 				EnableContentRating = false;
 			}
 
-			//if (config.AddThisCustomBrand.Length > 0)
-			//{
-			//    addThisCustomBrand = config.AddThisCustomBrand;
-			//}
-
 			if (config.DisqusSiteShortName.Length > 0)
 			{
 				DisqusSiteShortName = config.DisqusSiteShortName;
@@ -927,7 +913,6 @@ namespace mojoPortal.Web.BlogUI
 
 			TitleOnly = config.TitleOnly || displaySettings.PostListForceTitleOnly;
 			ShowTweetThisLink = config.ShowTweetThisLink && !config.UseExcerpt;
-			ShowPlusOneButton = config.ShowPlusOneButton && !config.UseExcerpt;
 			UseFacebookLikeButton = config.UseFacebookLikeButton && !config.UseExcerpt;
 			useExcerpt = config.UseExcerpt || displaySettings.PostListForceExcerptMode;
 			pageSize = config.PageSize;

@@ -28,7 +28,6 @@ namespace mojoPortal.Web.BlogUI
 		private BlogConfiguration config = new BlogConfiguration();
 		private string imageSiteRoot = string.Empty;
 		private SiteSettings siteSettings = null;
-		protected string addThisAccountId = string.Empty;
 		protected string RssImageFile = WebConfigSettings.RSSImageFileName;
 		protected string rssLinkTitle = BlogResources.BlogRSSLinkTitle;
 		private int categoryId = -1;
@@ -69,7 +68,6 @@ namespace mojoPortal.Web.BlogUI
 				if (moduleId == -1) { return; }
 
 				LoadSettings();
-				PopulateLabels();
 				SetupLinks();
 			}
 
@@ -94,16 +92,6 @@ namespace mojoPortal.Web.BlogUI
 				Page.ResolveUrl("~/Data/SiteImages/" + RssImageFile),
 				"RSS"
 			);
-
-			lnkAddThisRss.HRef = 
-				"http://www.addthis.com/feed.php?pub=" +
-				addThisAccountId +
-				"&amp;h1=" +
-				Server.UrlEncode(GetRssUrl()) +
-				"&amp;t1="
-			;
-
-			imgAddThisRss.Src = Page.ResolveUrl(config.AddThisRssButtonImageUrl);
 		}
 
 		private string GetRssUrl()
@@ -141,11 +129,6 @@ namespace mojoPortal.Web.BlogUI
 				ModuleId.ToInvariantString() +
 				"~" + categoryId.ToInvariantString()
 			;
-		}
-
-		private void PopulateLabels()
-		{
-			lnkAddThisRss.Title = BlogResources.BlogAddThisSubscribeAltText;
 		}
 
 		private void LoadSettings()
@@ -191,18 +174,6 @@ namespace mojoPortal.Web.BlogUI
 			{
 				siteRoot = SiteUtils.GetNavigationSiteRoot().Replace("https:", "http:");
 			}
-
-			if (config.AddThisAccountId.Length > 0)
-			{
-				addThisAccountId = config.AddThisAccountId;
-			}
-			else
-			{
-				addThisAccountId = siteSettings.AddThisDotComUsername;
-			}
-
-			liAddThisRss.Visible = (addThisAccountId.Length > 0);
-			liAddThisRss.Visible = (config.ShowAddFeedLinks && (addThisAccountId.Length > 0));
 		}
 	}
 }

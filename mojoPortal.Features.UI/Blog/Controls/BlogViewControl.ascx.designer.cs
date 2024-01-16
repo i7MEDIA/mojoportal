@@ -186,15 +186,6 @@ namespace mojoPortal.Web.BlogUI
 		protected global::mojoPortal.Web.UI.BasePanel pnlDetails;
 
 		/// <summary>
-		/// odiogoPlayer control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.OdiogoItem odiogoPlayer;
-
-		/// <summary>
 		/// featuredImagePostTop control.
 		/// </summary>
 		/// <remarks>
@@ -436,24 +427,6 @@ namespace mojoPortal.Web.BlogUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.HtmlControls.HtmlGenericControl bsocial;
-
-		/// <summary>
-		/// divAddThis control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAddThis;
-
-		/// <summary>
-		/// addThisWidget control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.AddThisWidget addThisWidget;
 
 		/// <summary>
 		/// tweetThis1 control.

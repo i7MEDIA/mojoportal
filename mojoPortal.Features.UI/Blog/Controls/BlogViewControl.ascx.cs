@@ -26,7 +26,6 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 	protected BlogConfiguration config = new BlogConfiguration();
 	private SiteUser currentUser = null;
 	private string virtualRoot;
-	private string addThisAccountId = string.Empty;
 	protected Blog blog = null;
 	private Module module;
 	protected string DeleteLinkImage = "~/Data/SiteImages/" + WebConfigSettings.DeleteLinkImage;
@@ -42,7 +41,6 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 	private TimeZoneInfo timeZone = null;
 
 	protected bool IsEditable = false;
-	protected string addThisCustomBrand = string.Empty;
 
 	protected string EditContentImage = ConfigurationManager.AppSettings["EditContentImage"];
 	protected string GmapApiKey = string.Empty;
@@ -237,10 +235,6 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 			basePage.AnalyticsSection = Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
 		}
 
-		divAddThis.Visible = !config.HideAddThisButton;
-		addThisWidget.Visible = !config.HideAddThisButton;
-		addThisWidget.AccountId = addThisAccountId;
-
 		tweetThis1.Visible = config.ShowTweetThisLink;
 		tweetThis1.TitleToTweet = blogTitle;
 		tweetThis1.UrlToTweet = FormatBlogUrl(blog.ItemUrl, blog.ItemId);
@@ -264,10 +258,6 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 			litStartDate.Text = blog.StartDate.AddHours(TimeOffset).ToString(timeFormat);
 		}
 		litStartDateBottom.Text = litStartDate.Text;
-
-		odiogoPlayer.OdiogoFeedId = config.OdiogoFeedId;
-		odiogoPlayer.ItemId = blog.ItemId.ToString(CultureInfo.InvariantCulture);
-		odiogoPlayer.ItemTitle = blogTitle;
 
 		if (blogAuthor.Length == 0)
 		{
@@ -658,22 +648,9 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 				pnlDetails.Visible = false;
 				pnlExcerpt.Visible = true;
 				AllowComments = false;
-				divAddThis.Visible = false;
 				tweetThis1.Visible = false;
 				fblike.Visible = false;
 				bsocial.Visible = false;
-			}
-		}
-
-		if (!pnlExcerpt.Visible)
-		{
-			if (config.AddThisAccountId.Length > 0)
-			{
-				addThisAccountId = config.AddThisAccountId;
-			}
-			else
-			{
-				addThisAccountId = basePage.SiteInfo.AddThisDotComUsername;
 			}
 		}
 
@@ -1315,8 +1292,5 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 		if (ModuleId == -1) parametersAreInvalid = true;
 		if (ItemId == -1) parametersAreInvalid = true;
 		if (!basePage.UserCanViewPage(ModuleId)) { parametersAreInvalid = true; }
-
-		addThisAccountId = basePage.SiteInfo.AddThisDotComUsername;
-		addThisCustomBrand = basePage.SiteInfo.SiteName;
 	}
 }

@@ -82,12 +82,6 @@
 
 					<portal:BasePanel ID="pnlPost" runat="server" Visible='<%# !TitleOnly %>' RenderId="false">
 
-						<mp:OdiogoItem runat="server"
-							ID="od1"
-							OdiogoFeedId='<%# Config.OdiogoFeedId %>'
-							ItemId='<%# DataBinder.Eval(Container.DataItem,"ItemID") %>'
-							ItemTitle='<%# Eval("Heading") %>' />
-
 						<portal:BasePanel runat="server" ID="pnlBlogText">
 							<%# FormatBlogEntry(Eval("Description").ToString(), 
 								Eval("Abstract").ToString(), 
@@ -208,15 +202,6 @@
 						</portal:BasePanel>
 
 						<portal:BasePanel runat="server" ID="pnlBlogSocial">
-							<portal:AddThisWidget runat="server"
-								ID="addThisWidget"
-								AccountId='<%# addThisAccountId %>'
-								SkinID="BlogList"
-								TitleOfUrlToShare='<%# DataBinder.Eval(Container.DataItem,"Heading") %>'
-								UrlToShare='<%# FormatBlogTitleUrl(DataBinder.Eval(Container.DataItem,"ItemUrl").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID"))) %>'
-								Visible='<%# (!Config.HideAddThisButton) %>'
-								EnableViewState="false" />
-
 							<portal:TweetThisLink runat="server"
 								ID="tt1"
 								Visible='<%# ShowTweetThisLink %>'
@@ -231,12 +216,6 @@
 								ShowFaces='<%# Config.FacebookLikeButtonShowFaces %>'
 								WidthInPixels='<%# Config.FacebookLikeButtonWidth %>'
 								HeightInPixels='<%# Config.FacebookLikeButtonHeight %>' />
-
-							<portal:PlusOneButton runat="server"
-								ID="btnPlusOne"
-								TargetUrl='<%# FormatBlogTitleUrl(DataBinder.Eval(Container.DataItem,"ItemUrl").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID"))) %>'
-								Visible='<%# ShowPlusOneButton %>'
-								SkinID="BlogPostList" />
 						</portal:BasePanel>
 
 						<portal:BasePanel runat="server" ID="pnlCommentLink" Visible="<%# AllowComments %>" RenderId="false">

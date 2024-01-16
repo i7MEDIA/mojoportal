@@ -307,17 +307,9 @@ public partial class SiteSettingsPage : NonCmsBasePage
 
 		pnlRecaptchaSettings.Enabled = selectedSite.CaptchaProvider == "RecaptchaCaptchaProvider";
 
-		//if (selectedSite.CaptchaReCaptchaHCaptcha == "recaptcha")
-		//{
-		//	if (selectedSite)
-		//}
-
-
-
 		txtBadWordList.Text = selectedSite.BadWordList;
 		chkForceBadWordChecking.Checked = selectedSite.BadWordCheckingEnforced;
 		txtGmapApiKey.Text = selectedSite.GmapApiKey;
-		txtAddThisUserId.Text = selectedSite.AddThisDotComUsername;
 		txtGoogleAnayticsAccountCode.Text = selectedSite.GoogleAnalyticsAccountCode;
 		txtOpenIdSelectorCode.Text = selectedSite.OpenIdSelectorId;
 		chkEnableWoopra.Checked = selectedSite.EnableWoopra;
@@ -1082,7 +1074,6 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		selectedSite.CaptchaTheme = txtCaptchaTheme.Text;
 		selectedSite.BadWordList = txtBadWordList.Text;
 		selectedSite.GmapApiKey = txtGmapApiKey.Text;
-		selectedSite.AddThisDotComUsername = txtAddThisUserId.Text;
 		selectedSite.GoogleAnalyticsAccountCode = txtGoogleAnayticsAccountCode.Text;
 		selectedSite.OpenIdSelectorId = txtOpenIdSelectorCode.Text;
 		selectedSite.CommentProvider = ddCommentSystem.SelectedValue;

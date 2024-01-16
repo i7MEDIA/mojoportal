@@ -1,18 +1,17 @@
-﻿using log4net;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace mojoPortal.Web.BlogUI
-{
+namespace mojoPortal.Web.BlogUI;
+
 	[ToolboxData("<{0}:PostListRazor runat=server></{0}:PostListRazor>")]
 	public class PostListRazor : WebControl
 	{
@@ -27,9 +26,7 @@ namespace mojoPortal.Web.BlogUI
 		protected Double TimeOffset = 0;
 		private TimeZoneInfo timeZone = null;
 		protected DateTime CalendarDate;
-		protected string addThisAccountId = string.Empty;
 		protected bool ShowGoogleMap = true;
-		protected string addThisCustomBrand = string.Empty;
 		protected string FeedBackLabel = string.Empty;
 		protected string GmapApiKey = string.Empty;
 		protected bool EnableContentRating = false;
@@ -51,7 +48,6 @@ namespace mojoPortal.Web.BlogUI
 		protected int Year = DateTime.UtcNow.Year;
 		protected bool TitleOnly = false;
 		protected bool ShowTweetThisLink = false;
-		protected bool ShowPlusOneButton = false;
 		protected bool UseFacebookLikeButton = false;
 		protected bool AllowComments = false;
 		protected bool useExcerpt = false;
@@ -106,12 +102,6 @@ namespace mojoPortal.Web.BlogUI
 			TimeOffset = SiteUtils.GetUserTimeOffset();
 			timeZone = SiteUtils.GetUserTimeZone();
 			GmapApiKey = SiteUtils.GetGmapApiKey();
-			addThisAccountId = siteSettings.AddThisDotComUsername;
-
-			if (BlogConfig.AddThisAccountId.Length > 0)
-			{
-				addThisAccountId = BlogConfig.AddThisAccountId;
-			}
 
 			pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
 			categoryId = WebUtils.ParseInt32FromQueryString("cat", categoryId);
@@ -157,7 +147,6 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 			ShowTweetThisLink = BlogConfig.ShowTweetThisLink && !BlogConfig.UseExcerpt;
-			ShowPlusOneButton = BlogConfig.ShowPlusOneButton && !BlogConfig.UseExcerpt;
 			UseFacebookLikeButton = BlogConfig.UseFacebookLikeButton && !BlogConfig.UseExcerpt;
 
 			pageSize = Config.ItemsPerPage;
@@ -440,7 +429,6 @@ namespace mojoPortal.Web.BlogUI
 				postListObject.ModuleTitle = "";
 			}
 
-			//postListObject.ModuleTitle = module == null ? "" : module.ModuleTitle;
 			postListObject.ModulePageUrl = Page.ResolveUrl(blogPageUrl);
 			postListObject.Posts = models;
 
@@ -467,4 +455,3 @@ namespace mojoPortal.Web.BlogUI
 			output.Write(text);
 		}
 	}
-}

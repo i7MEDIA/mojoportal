@@ -1631,24 +1631,22 @@ public partial class BlogEdit : NonCmsBasePage
 	{
 		// TODO: implement more generic support with lookup of pingable services
 
-		if (config.OdiogoFeedId.Length == 0) return;
+		//if (config.OdiogoFeedId.Length == 0) return;
 
-		string odogioRpcUrl = "http://rpc.odiogo.com/ping/";
-		ServicePinger pinger = new ServicePinger(
-			siteSettings.SiteName,
-			SiteRoot,
-			odogioRpcUrl);
+		//string odogioRpcUrl = "http://rpc.odiogo.com/ping/";
+		//ServicePinger pinger = new ServicePinger(
+		//	siteSettings.SiteName,
+		//	SiteRoot,
+		//	odogioRpcUrl);
 
-		List<ServicePinger> pingers = new List<ServicePinger>();
-		pingers.Add(pinger);
-
-
-		if (!ThreadPool.QueueUserWorkItem(new WaitCallback(DoPings), pingers))
-		{
-			throw new Exception("Couldn't queue the DoPings on a new thread.");
-		}
+		//List<ServicePinger> pingers = new List<ServicePinger>();
+		//pingers.Add(pinger);
 
 
+		//if (!ThreadPool.QueueUserWorkItem(new WaitCallback(DoPings), pingers))
+		//{
+		//	throw new Exception("Couldn't queue the DoPings on a new thread.");
+		//}
 	}
 
 

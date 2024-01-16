@@ -1,10 +1,8 @@
-using System;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
 using log4net;
 using mojoPortal.Data;
-using static System.FormattableString;
 
 namespace mojoPortal.Business;
 
@@ -134,7 +132,7 @@ public class SiteSettings
 	private bool allowWindowsLiveAuth = false;
 	private string gmapApiKey = string.Empty;
 
-	// AddThisDotComUsername maps to apiKeyExtra1
+	// not used
 	private string apiKeyExtra1 = string.Empty;
 
 	//GoogleAnalyticsAccountCode
@@ -168,7 +166,6 @@ public class SiteSettings
 	public Guid SiteGuid
 	{
 		get { return siteGuid; }
-
 	}
 
 	public string SiteName
@@ -758,12 +755,6 @@ public class SiteSettings
 	{
 		get { return gmapApiKey; }
 		set { gmapApiKey = value; }
-	}
-
-	public string AddThisDotComUsername
-	{
-		get { return apiKeyExtra1; }
-		set { apiKeyExtra1 = value; }
 	}
 
 	public string GoogleAnalyticsAccountCode

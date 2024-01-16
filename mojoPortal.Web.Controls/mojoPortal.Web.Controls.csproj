@@ -229,8 +229,6 @@
     <Compile Include="Gravatar\Gravatar.cs" />
     <Compile Include="jsCalendarDatePicker.cs" />
     <Compile Include="mojoGridView.cs" />
-    <Compile Include="Odiogo\OdiogoItem.cs" />
-    <Compile Include="Sharing\AddThisButton.cs" />
     <Compile Include="SiteLabel.cs" />
   </ItemGroup>
   <ItemGroup>

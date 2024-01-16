@@ -178,15 +178,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Share This Using Popular Bookmarking Services.
-        /// </summary>
-        internal static string AddThisButtonAltText {
-            get {
-                return ResourceManager.GetString("AddThisButtonAltText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Index Browser.
         /// </summary>
         internal static string AdminIndexBrowser {
@@ -15538,15 +15529,6 @@ namespace Resources {
         internal static string SiteSettingsAddHostButtonLabel {
             get {
                 return ResourceManager.GetString("SiteSettingsAddHostButtonLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to AddThis.com Username:.
-        /// </summary>
-        internal static string SiteSettingsAddThisAccountIdLabel {
-            get {
-                return ResourceManager.GetString("SiteSettingsAddThisAccountIdLabel", resourceCulture);
             }
         }
         

@@ -830,11 +830,6 @@
 									<asp:TextBox ID="txtDisqusSiteShortName" TabIndex="10" MaxLength="255" runat="server" CssClass="forminput widetextbox" />
 									<portal:mojoHelpLink runat="server" HelpKey="disqus-siteshortname-help" />
 								</portal:FormGroupPanel>
-								<portal:FormGroupPanel runat="server">
-									<mp:SiteLabel runat="server" ForControl="txtAddThisUserId" CssClass="settinglabel" ConfigKey="SiteSettingsAddThisAccountIdLabel" />
-									<asp:TextBox ID="txtAddThisUserId" TabIndex="10" MaxLength="100" Columns="45" runat="server" CssClass="forminput widetextbox" />
-									<portal:mojoHelpLink runat="server" HelpKey="sitesettingsaddthisuseridhelp" />
-								</portal:FormGroupPanel>
 							</div>
 
 							<div id="tabMailSettings" runat="server">

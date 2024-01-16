@@ -136,61 +136,6 @@ namespace mojoPortal.Web.BlogUI
 
 			pageSize = WebUtils.ParseInt32FromHashtable(settings, "BlogEntriesToShowSetting", pageSize);
 
-			if (settings.Contains("OdiogoFeedIDSetting"))
-			{
-				odiogoFeedId = settings["OdiogoFeedIDSetting"].ToString();
-			}
-
-			if (settings.Contains("OdiogoPodcastUrlSetting"))
-				odiogoPodcastUrl = settings["OdiogoPodcastUrlSetting"].ToString();
-
-			hideAddThisButton = WebUtils.ParseBoolFromHashtable(settings, "BlogHideAddThisButtonSetting", hideAddThisButton);
-
-			if (settings.Contains("BlogAddThisDotComUsernameSetting"))
-			{
-				addThisAccountId = settings["BlogAddThisDotComUsernameSetting"].ToString().Trim();
-			}
-
-			//useAddThisMouseOverWidget = WebUtils.ParseBoolFromHashtable(settings, "BlogAddThisDotComUseMouseOverWidgetSetting", useAddThisMouseOverWidget);
-
-
-			//if (settings.Contains("BlogAddThisButtonImageUrlSetting"))
-			//{
-			//    string buttonImage = settings["BlogAddThisButtonImageUrlSetting"].ToString().Trim();
-			//    if (buttonImage.Length > 0)
-			//    {
-			//        addThisButtonImageUrl = buttonImage;
-			//    }
-			//}
-
-			if (settings.Contains("BlogAddThisRssButtonImageUrlSetting"))
-				addThisRssButtonImageUrl = settings["BlogAddThisRssButtonImageUrlSetting"].ToString().Trim();
-
-			//if (settings.Contains("BlogAddThisCustomBrandSetting"))
-			//{
-			//    addThisCustomBrand = settings["BlogAddThisCustomBrandSetting"].ToString().Trim();
-			//}
-
-			//if (settings.Contains("BlogAddThisCustomOptionsSetting"))
-			//{
-			//    addThisCustomOptions = settings["BlogAddThisCustomOptionsSetting"].ToString().Trim();
-			//}
-
-			//if (settings.Contains("BlogAddThisCustomLogoUrlSetting"))
-			//{
-			//    addThisCustomLogoUrl = settings["BlogAddThisCustomLogoUrlSetting"].ToString().Trim();
-			//}
-
-			//if (settings.Contains("BlogAddThisCustomLogoBackColorSetting"))
-			//{
-			//    addThisCustomLogoBackColor = settings["BlogAddThisCustomLogoBackColorSetting"].ToString().Trim();
-			//}
-
-			//if (settings.Contains("BlogAddThisCustomLogoForeColorSetting"))
-			//{
-			//    addThisCustomLogoForeColor = settings["BlogAddThisCustomLogoForeColorSetting"].ToString().Trim();
-			//}
-
 			if (settings.Contains("BlogFeedburnerFeedUrl"))
 			{
 				feedburnerFeedUrl = settings["BlogFeedburnerFeedUrl"].ToString().Trim();
@@ -286,8 +231,6 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 			addFeedDiscoveryLink = WebUtils.ParseBoolFromHashtable(settings, "AddFeedDiscoveryLink", addFeedDiscoveryLink);
-
-			showPlusOneButton = WebUtils.ParseBoolFromHashtable(settings, "ShowPlusOneButton", showPlusOneButton);
 
 			maxFeedItems = WebUtils.ParseInt32FromHashtable(settings, "MaxFeedItems", maxFeedItems);
 			relatedItemsToShow = WebUtils.ParseInt32FromHashtable(settings, "RelatedItemsToShow", relatedItemsToShow);
@@ -667,13 +610,6 @@ namespace mojoPortal.Web.BlogUI
 			get { return lowerSidebar; }
 		}
 
-		private bool showPlusOneButton = false;
-
-		public bool ShowPlusOneButton
-		{
-			get { return showPlusOneButton; }
-		}
-
 		private bool showTweetThisLink = false;
 
 		public bool ShowTweetThisLink
@@ -829,83 +765,6 @@ namespace mojoPortal.Web.BlogUI
 		public string FeedburnerFeedUrl
 		{
 			get { return feedburnerFeedUrl; }
-		}
-
-		//private string addThisCustomLogoForeColor = string.Empty;
-
-		//public string AddThisCustomLogoForeColor
-		//{
-		//    get { return addThisCustomLogoForeColor; }
-		//}
-
-		//private string addThisCustomLogoBackColor = string.Empty;
-
-		//public string AddThisCustomLogoBackColor
-		//{
-		//    get { return addThisCustomLogoBackColor; }
-		//}
-
-		//private string addThisCustomLogoUrl = string.Empty;
-
-		//public string AddThisCustomLogoUrl
-		//{
-		//    get { return addThisCustomLogoUrl; }
-		//}
-
-		//private string addThisCustomOptions = string.Empty;
-
-		//public string AddThisCustomOptions
-		//{
-		//    get { return addThisCustomOptions; }
-		//}
-
-		//private string addThisCustomBrand = string.Empty;
-
-		//public string AddThisCustomBrand
-		//{
-		//    get { return addThisCustomBrand; }
-		//}
-
-		//private string addThisButtonImageUrl = "~/Data/SiteImages/addthissharebutton.gif";
-
-		//public string AddThisButtonImageUrl
-		//{
-		//    get { return addThisButtonImageUrl; }
-		//}
-
-		private string addThisRssButtonImageUrl = "~/Data/SiteImages/addthisrss.gif";
-
-		public string AddThisRssButtonImageUrl
-		{
-			get { return addThisRssButtonImageUrl; }
-		}
-
-		//private bool useAddThisMouseOverWidget = true;
-
-		//public bool UseAddThisMouseOverWidget
-		//{
-		//    get { return useAddThisMouseOverWidget; }
-		//}
-
-		private string addThisAccountId = string.Empty;
-
-		public string AddThisAccountId
-		{
-			get { return addThisAccountId; }
-		}
-
-		private string odiogoFeedId = string.Empty;
-
-		public string OdiogoFeedId
-		{
-			get { return odiogoFeedId; }
-		}
-
-		private string odiogoPodcastUrl = string.Empty;
-
-		public string OdiogoPodcastUrl
-		{
-			get { return odiogoPodcastUrl; }
 		}
 
 		private int pageSize = 10;
@@ -1146,13 +1005,6 @@ namespace mojoPortal.Web.BlogUI
 		public bool EnableRatingComments
 		{
 			get { return enableRatingComments; }
-		}
-
-		private bool hideAddThisButton = false;
-
-		public bool HideAddThisButton
-		{
-			get { return hideAddThisButton; }
 		}
 
 		private int excerptLength = 250;

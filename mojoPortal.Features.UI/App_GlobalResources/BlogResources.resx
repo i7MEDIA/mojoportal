@@ -117,33 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BlogAddThisCustomBrandSetting" xml:space="preserve">
-    <value>AddThis.com Custom Brand</value>
-  </data>
-  <data name="BlogAddThisCustomLogoBackColorSetting" xml:space="preserve">
-    <value>AddThis.com Custom Back Color</value>
-  </data>
-  <data name="BlogAddThisCustomLogoForeColorSetting" xml:space="preserve">
-    <value>AddThis.com Custom Fore Color</value>
-  </data>
-  <data name="BlogAddThisCustomLogoUrlSetting" xml:space="preserve">
-    <value>AddThis.com Custom Logo Url</value>
-  </data>
-  <data name="BlogAddThisCustomOptionsSetting" xml:space="preserve">
-    <value>AddThis.com Custom Options</value>
-  </data>
-  <data name="BlogAddThisDotComUseMouseOverWidgetSetting" xml:space="preserve">
-    <value>AddThis.com Use Mouseover Widget</value>
-  </data>
-  <data name="BlogAddThisDotComUsernameSetting" xml:space="preserve">
-    <value>AddThis.com Username</value>
-  </data>
-  <data name="BlogAddThisRssButtonImageUrlSetting" xml:space="preserve">
-    <value>AddThis.com RSS Feed Button Url</value>
-  </data>
-  <data name="BlogAddThisSubscribeAltText" xml:space="preserve">
-    <value>Subscribe</value>
-  </data>
   <data name="BlogAllowComments" xml:space="preserve">
     <value>Allow Comments?</value>
   </data>
@@ -306,9 +279,6 @@
   <data name="BlogFeedburnerFeedUrl" xml:space="preserve">
     <value>Feedburner Feed Url</value>
   </data>
-  <data name="BlogHideAddThisButtonSetting" xml:space="preserve">
-    <value>Hide AddThis Button?</value>
-  </data>
   <data name="BlogModuleAddToGoogleLink" xml:space="preserve">
     <value>Add To Google</value>
   </data>
@@ -377,9 +347,6 @@
   </data>
   <data name="BlogUseLinkForHeading" xml:space="preserve">
     <value>Render Title As Link</value>
-  </data>
-  <data name="AddThisButtonAltText" xml:space="preserve">
-    <value>Share This Using Popular Bookmarking Services</value>
   </data>
   <data name="BlogAddCategoriesLabel" xml:space="preserve">
     <value>Add Category</value>
@@ -459,12 +426,6 @@
   <data name="GoogleMapWidthSetting" xml:space="preserve">
     <value>Map Width</value>
   </data>
-  <data name="OdiogoFeedIDSetting" xml:space="preserve">
-    <value>Odiogo Feed ID</value>
-  </data>
-  <data name="OdiogoPodcastUrlSetting" xml:space="preserve">
-    <value>Odiogo Podcast Url</value>
-  </data>
   <data name="ShowPageLeftContentSetting" xml:space="preserve">
     <value>Show Page Left Content in Blog?</value>
   </data>
@@ -509,9 +470,6 @@
   </data>
   <data name="FriendlyUrlRegexWarning" xml:space="preserve">
     <value>Url must start with ~/ and must contain no white spaces.</value>
-  </data>
-  <data name="BlogAddThisButtonImageUrlSetting" xml:space="preserve">
-    <value>AddThis.com Button Image Url</value>
   </data>
   <data name="RSSAddCommentsLink" xml:space="preserve">
     <value>Add Comments Link To RSS Feed?</value>
