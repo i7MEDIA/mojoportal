@@ -17,6 +17,7 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using Resources;
+using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web.ELetterUI
 {

@@ -3,20 +3,22 @@
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 
-<div class="breadcrumbs">
-<span id="spnAdmin" runat="server"><asp:HyperLink ID="lnkLetterAdmin" runat="server" CssClass="unselectedcrumb" />&nbsp;&gt;</span>
-<asp:HyperLink ID="lnkThisPage" runat="server" CssClass="selectedcrumb" />
-</div>
+	<div class="breadcrumbs">
+		<span id="spnAdmin" runat="server">
+			<asp:HyperLink ID="lnkLetterAdmin" runat="server" CssClass="unselectedcrumb" />&nbsp;&gt;</span>
+		<asp:HyperLink ID="lnkThisPage" runat="server" CssClass="selectedcrumb" />
+	</div>
 
-<portal:SubscriberPreferences id="newsLetterPrefs" runat="server"></portal:SubscriberPreferences>
-<asp:Panel ID="pnlAnonymousSubscriber" runat="server">
-<fieldset>
-<legend><asp:Literal ID="litAnonymousHeader" runat="server"></asp:Literal></legend>
-<div class="modulecontent">
-<portal:Subscribe ID="anonymousSubscribe" runat="server" />
-</div>
-</fieldset>
-</asp:Panel>
+	<portal:SubscriberPreferences ID="newsLetterPrefs" runat="server"></portal:SubscriberPreferences>
+	<asp:Panel ID="pnlAnonymousSubscriber" runat="server">
+		<fieldset>
+			<legend>
+				<asp:Literal ID="litAnonymousHeader" runat="server"></asp:Literal></legend>
+			<div class="modulecontent">
+				<portal:Subscribe ID="anonymousSubscribe" runat="server" />
+			</div>
+		</fieldset>
+	</asp:Panel>
 
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

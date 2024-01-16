@@ -37,7 +37,6 @@ public partial class ArchivePage : NonCmsBasePage
 
 		PopulateLabels();
 		PopulateControls();
-
 	}
 
 	private void PopulateControls()
@@ -58,7 +57,6 @@ public partial class ArchivePage : NonCmsBasePage
 	private void BindGrid()
 	{
 		var LetterList = Letter.GetPage(letterInfoGuid, pageNumber, pageSize, out totalPages);
-
 
 		string pageUrl = $"{SiteRoot}/eletter/Archive.aspx?l={letterInfoGuid}&amp;pagenumber={{0}}";
 
@@ -113,8 +111,6 @@ public partial class ArchivePage : NonCmsBasePage
 		base.OnInit(e);
 		this.Load += new EventHandler(this.Page_Load);
 		ScriptConfig.IncludeJQTable = true;
-
 	}
-
 	#endregion
 }
