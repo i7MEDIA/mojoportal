@@ -1,301 +1,294 @@
-﻿/// Author:					
-/// Created:				2008-09-12
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBSiteSettingsEx
 {
-    public static class DBSiteSettingsEx
-    {
-        public static IDataReader GetSiteSettingsExList(int siteId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  e.* ");
+	public static IDataReader GetSiteSettingsExList(int siteId)
+	{
+		string sqlCommand = @"
+SELECT e.* 
+FROM mp_SiteSettingsEx e 
+JOIN mp_SiteSettingsExDef d 
+ON e.KeyName = d.KeyName 
+AND e.GroupName = d.GroupName 
+WHERE e.SiteID = ?SiteID 
+ORDER BY d.GroupName, d.SortOrder;";
 
-            sqlCommand.Append("FROM	mp_SiteSettingsEx e ");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			}
+		};
 
-            sqlCommand.Append("JOIN ");
-            sqlCommand.Append("mp_SiteSettingsExDef d ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("e.KeyName = d.KeyName ");
-            sqlCommand.Append("AND e.GroupName = d.GroupName ");
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("e.SiteID = ?SiteID ");
+	}
 
-            sqlCommand.Append("ORDER BY d.GroupName, d.SortOrder ");
-            sqlCommand.Append(";");
+	public static void EnsureSettings()
+	{
+		string sqlCommand = @"
+INSERT INTO 
+    mp_SiteSettingsEx ( 
+        SiteID, 
+        SiteGuid, 
+        KeyName, 
+        KeyValue, 
+        GroupName 
+    )
+SELECT 
+    t.SiteID, 
+    t.SiteGuid, 
+    t.KeyName, 
+    t.DefaultValue, 
+    t.GroupName  
+FROM ( 
+    SELECT 
+    s.SiteID, 
+    s.SiteGuid, 
+    d.KeyName, 
+    d.DefaultValue, 
+    d.GroupName 
+    FROM 
+    mp_Sites s, 
+    mp_SiteSettingsExDef d 
+) t 
+LEFT OUTER JOIN 
+    mp_SiteSettingsEx e 
+ON 
+    e.SiteID = t.SiteID 
+AND 
+    e.KeyName = t.KeyName 
+WHERE 
+    e.SiteID IS NULL; ";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString());
 
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+	}
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	public static bool SaveExpandoProperty(
+	   int siteId,
+	   Guid siteGuid,
+	   string groupName,
+	   string keyName,
+	   string keyValue)
+	{
+		int count = GetCount(siteId, keyName);
+		if (count > 0)
+		{
+			return Update(siteId, keyName, keyValue);
 
-        }
+		}
+		else
+		{
+			return Create(siteId, siteGuid, keyName, keyValue, groupName);
 
-        public static void EnsureSettings()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_SiteSettingsEx");
-            sqlCommand.Append("( ");
-            sqlCommand.Append("SiteID, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("KeyName, ");
-            sqlCommand.Append("KeyValue, ");
-            sqlCommand.Append("GroupName ");
-            sqlCommand.Append(")");
+		}
 
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("t.SiteID, ");
-            sqlCommand.Append("t.SiteGuid, ");
-            sqlCommand.Append("t.KeyName, ");
-            sqlCommand.Append("t.DefaultValue, ");
-            sqlCommand.Append("t.GroupName  ");
+	}
 
-            sqlCommand.Append("FROM ");
+	public static bool UpdateRelatedSitesProperty(
+		int siteId,
+		string keyName,
+		string keyValue)
+	{
 
-            sqlCommand.Append("( ");
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("s.SiteID, ");
-            sqlCommand.Append("s.SiteGuid, ");
-            sqlCommand.Append("d.KeyName, ");
-            sqlCommand.Append("d.DefaultValue, ");
-            sqlCommand.Append("d.GroupName ");
-            sqlCommand.Append("FROM ");
-            sqlCommand.Append("mp_Sites s, ");
-            sqlCommand.Append("mp_SiteSettingsExDef d ");
-            sqlCommand.Append(") t ");
+		string sqlCommand = @"
+UPDATE mp_SiteSettingsEx 
+SET KeyValue = ?KeyValue 
+WHERE SiteID <> ?SiteID AND 
+KeyName = ?KeyName;";
 
-            sqlCommand.Append("LEFT OUTER JOIN ");
-            sqlCommand.Append("mp_SiteSettingsEx e ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("e.SiteID = t.SiteID ");
-            sqlCommand.Append("AND e.KeyName = t.KeyName ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("e.SiteID IS NULL ");
-            sqlCommand.Append("; ");
-            
-            CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString());
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			},
 
-        }
+			new("?KeyName", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = keyName
+			},
 
-        public static bool SaveExpandoProperty(
-           int siteId,
-           Guid siteGuid,
-           string groupName,
-           string keyName,
-           string keyValue)
-        {
-            int count = GetCount(siteId, keyName);
-            if (count > 0)
-            {
-                return Update(siteId, keyName, keyValue);
+			new("?KeyValue", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = keyValue
+			}
+		};
 
-            }
-            else
-            {
-                return Create(siteId, siteGuid, keyName, keyValue, groupName);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            }
+		return rowsAffected > -1;
 
-        }
+	}
 
-        public static bool UpdateRelatedSitesProperty(
-            int siteId,
-            string keyName,
-            string keyValue)
-        {
+	private static bool Create(
+		int siteId,
+		Guid siteGuid,
+		string keyName,
+		string keyValue,
+		string groupName)
+	{
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_SiteSettingsEx ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("KeyValue = ?KeyValue ");
+		string sqlCommand = @"
+INSERT INTO 
+    mp_SiteSettingsEx (
+        SiteID, 
+        SiteGuid, 
+        KeyName, 
+        KeyValue, 
+        GroupName 
+    )
+VALUES (
+    ?SiteId, 
+    ?SiteGuid, 
+    ?KeyName, 
+    ?KeyValue, 
+    ?GroupName 
+);";
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("SiteID <> ?SiteID AND ");
-            sqlCommand.Append("KeyName = ?KeyName ");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteId", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+			new("?SiteGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			},
 
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			new("?KeyName", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = keyName
+			},
 
-            arParams[1] = new MySqlParameter("?KeyName", MySqlDbType.VarChar, 128);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = keyName;
+			new("?KeyValue", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = keyValue
+			},
 
-            arParams[2] = new MySqlParameter("?KeyValue", MySqlDbType.Text);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = keyValue;
+			new("?GroupName", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = groupName
+			}
+		};
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            return (rowsAffected > -1);
+		return rowsAffected > 0;
 
-        }
+	}
 
-        private static bool Create(
-            int siteId,
-            Guid siteGuid,
-            string keyName,
-            string keyValue,
-            string groupName)
-        {
-           
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_SiteSettingsEx (");
-            sqlCommand.Append("SiteID, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("KeyName, ");
-            sqlCommand.Append("KeyValue, ");
-            sqlCommand.Append("GroupName )");
+	private static bool Update(
+		int siteID,
+		string keyName,
+		string keyValue)
+	{
+		string sqlCommand = @"
+UPDATE mp_SiteSettingsEx 
+SET KeyValue = ?KeyValue 
+WHERE SiteID = ?SiteID AND 
+KeyName = ?KeyName;";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?SiteId, ");
-            sqlCommand.Append("?SiteGuid, ");
-            sqlCommand.Append("?KeyName, ");
-            sqlCommand.Append("?KeyValue, ");
-            sqlCommand.Append("?GroupName )");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteID
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[5];
+			new("?KeyName", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = keyName
+			},
 
-            arParams[0] = new MySqlParameter("?SiteId", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
+			new("?KeyValue", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = keyValue
+			}
+		};
 
-            arParams[1] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            arParams[2] = new MySqlParameter("?KeyName", MySqlDbType.VarChar, 128);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = keyName;
+		return rowsAffected > -1;
 
-            arParams[3] = new MySqlParameter("?KeyValue", MySqlDbType.Text);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = keyValue;
+	}
 
-            arParams[4] = new MySqlParameter("?GroupName", MySqlDbType.VarChar, 128);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = groupName;
+	private static int GetCount(
+		int siteID,
+		string keyName)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_SiteSettingsEx 
+WHERE SiteID = ?SiteID AND 
+KeyName = ?KeyName;";
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteID
+			},
 
-            return (rowsAffected > 0);
+			new("?KeyName", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = keyName
+			}
+		};
 
-        }
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams));
+	}
 
-        private static bool Update(
-            int siteID,
-            string keyName,
-            string keyValue)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_SiteSettingsEx ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("KeyValue = ?KeyValue ");
-   
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("SiteID = ?SiteID AND ");
-            sqlCommand.Append("KeyName = ?KeyName ");
-            sqlCommand.Append(";");
+	public static IDataReader GetDefaultExpandoSettings()
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_SiteSettingsExDef ;";
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString());
+	}
 
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteID;
 
-            arParams[1] = new MySqlParameter("?KeyName", MySqlDbType.VarChar, 128);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = keyName;
-
-            arParams[2] = new MySqlParameter("?KeyValue", MySqlDbType.Text);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = keyValue;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > -1);
-
-        }
-
-        private static int GetCount(
-            int siteID,
-            string keyName)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_SiteSettingsEx ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteID = ?SiteID AND ");
-            sqlCommand.Append("KeyName = ?KeyName ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteID;
-
-            arParams[1] = new MySqlParameter("?KeyName", MySqlDbType.VarChar, 128);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = keyName;
-
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
-        }
-
-        public static IDataReader GetDefaultExpandoSettings()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SiteSettingsExDef ");
-            sqlCommand.Append(";");
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString());
-        }
-        
-
-    }
 }

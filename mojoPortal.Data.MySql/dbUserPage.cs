@@ -1,279 +1,296 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
-
 using System;
-using System.Text;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBUserPage
 {
-    public static class DBUserPage
-    {
 
-        public static int AddUserPage(
-            Guid userPageId,
-            Guid siteGuid,
-            int siteId,
-            Guid userGuid,
-            string pageName,
-            string pagePath,
-            int pageOrder)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_UserPages ");
-            sqlCommand.Append("( ");
-            sqlCommand.Append("UserPageID, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("SiteID, ");
-            sqlCommand.Append("UserGuid, ");
-            sqlCommand.Append("PageName, ");
-            sqlCommand.Append("PagePath, ");
-            sqlCommand.Append("PageOrder ");
-            sqlCommand.Append(")");
-
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?UserPageID, ");
-            sqlCommand.Append("?SiteGuid, ");
-            sqlCommand.Append("?SiteID, ");
-            sqlCommand.Append("?UserGuid, ");
-            sqlCommand.Append("?PageName, ");
-            sqlCommand.Append("?PagePath, ");
-            sqlCommand.Append("?PageOrder ");
-
-            sqlCommand.Append(");");
+	public static int AddUserPage(
+		Guid userPageId,
+		Guid siteGuid,
+		int siteId,
+		Guid userGuid,
+		string pageName,
+		string pagePath,
+		int pageOrder)
+	{
+		string sqlCommand = @"
+INSERT INTO mp_UserPages ( 
+    UserPageID, 
+    SiteGuid, 
+    SiteID, 
+    UserGuid, 
+    PageName, 
+    PagePath, 
+    PageOrder 
+) 
+VALUES (
+    ?UserPageID, 
+    ?SiteGuid, 
+    ?SiteID, 
+    ?UserGuid, 
+    ?PageName, 
+    ?PagePath, 
+    ?PageOrder 
+);";
 
 
-            MySqlParameter[] arParams = new MySqlParameter[7];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserPageID", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userPageId.ToString()
+			},
 
-            arParams[0] = new MySqlParameter("?UserPageID", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userPageId.ToString();
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			},
 
-            arParams[1] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteId;
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			},
 
-            arParams[2] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = userGuid.ToString();
+			new("?PageName", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageName
+			},
 
-            arParams[3] = new MySqlParameter("?PageName", MySqlDbType.VarChar, 255);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageName;
+			new("?PagePath", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pagePath
+			},
 
-            arParams[4] = new MySqlParameter("?PagePath", MySqlDbType.VarChar, 255);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pagePath;
+			new("?PageOrder", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageOrder
+			},
 
-            arParams[5] = new MySqlParameter("?PageOrder", MySqlDbType.Int32);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = pageOrder;
+			new("?SiteGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			}
+		};
 
-            arParams[6] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = siteGuid.ToString();
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return rowsAffected;
 
-            return rowsAffected;
+	}
 
-        }
+	public static bool UpdateUserPage(
+	Guid userPageId,
+	string pageName,
+	int pageOrder)
+	{
+		string sqlCommand = @"
+UPDATE mp_UserPages 
+SET 
+    PageName = ?PageName, 
+    PageOrder = ?PageOrder 
+WHERE 
+    UserPageID = ?UserPageID; ";
 
-        public static bool UpdateUserPage(
-        Guid userPageId,
-        string pageName,
-        int pageOrder)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_UserPages ");
-            sqlCommand.Append("SET ");
-            sqlCommand.Append("PageName = ?PageName, ");
-            sqlCommand.Append("PageOrder = ?PageOrder ");
-            sqlCommand.Append("WHERE UserPageID = ?UserPageID; ");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserPageID", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userPageId.ToString()
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+			new("?PageName", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageName
+			},
 
-            arParams[0] = new MySqlParameter("?UserPageID", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userPageId.ToString();
+			new("?PageOrder", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageOrder
+			}
+		};
 
-            arParams[1] = new MySqlParameter("?PageName", MySqlDbType.VarChar, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageName;
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            arParams[2] = new MySqlParameter("?PageOrder", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageOrder;
+		return rowsAffected > 0;
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	}
 
-            return (rowsAffected > 0);
+	public static bool DeleteUserPage(Guid userPageId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_UserPages 
+WHERE UserPageID = ?UserPageID; ";
 
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserPageID", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userPageId.ToString()
+			}
+		};
 
-        public static bool DeleteUserPage(Guid userPageId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_UserPages ");
-            sqlCommand.Append("WHERE UserPageID = ?UserPageID; ");
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return rowsAffected > 0;
 
-            arParams[0] = new MySqlParameter("?UserPageID", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userPageId.ToString();
+	}
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	public static bool DeleteByUser(Guid userGuid)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_UserPages 
+WHERE UserGuid = ?UserGuid; ";
 
-            return (rowsAffected > 0);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			}
+		};
 
-        }
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        public static bool DeleteByUser(Guid userGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_UserPages ");
-            sqlCommand.Append("WHERE UserGuid = ?UserGuid; ");
+		return rowsAffected > 0;
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	public static IDataReader GetUserPage(Guid userPageId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_UserPages 
+WHERE UserPageID = ?UserPageID ;";
 
-            arParams[0] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userGuid.ToString();
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserPageID", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userPageId.ToString()
+			}
+		};
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            return (rowsAffected > 0);
-        }
+	}
 
-        public static IDataReader GetUserPage(Guid userPageId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_UserPages ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("UserPageID = ?UserPageID ;");
+	public static IDataReader SelectByUser(Guid userGuid)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_UserPages 
+WHERE UserGuid = ?UserGuid 
+ORDER BY PageOrder ;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?UserPageID", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userPageId.ToString();
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	}
 
-        }
+	public static int GetNextPageOrder(Guid userGuid)
+	{
+		string sqlCommand = @"
+SELECT COALESCE(MAX(PageOrder),-1)  
+FROM mp_UserPages 
+WHERE UserGuid = ?UserGuid ; ";
 
-        public static IDataReader SelectByUser(Guid userGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_UserPages ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("UserGuid = ?UserGuid ");
-            sqlCommand.Append("ORDER BY PageOrder ;");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			}
+		};
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		int nextPageOrder = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams)) + 2;
 
-            arParams[0] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userGuid.ToString();
+		if (nextPageOrder == 1)
+		{
+			nextPageOrder = 3;
+		}
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return nextPageOrder;
 
-        }
+	}
 
-        public static int GetNextPageOrder(Guid userGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT COALESCE(MAX(PageOrder),-1)  ");
-            sqlCommand.Append("FROM	mp_UserPages ");
+	public static bool UpdatePageOrder(Guid userPageId, int pageOrder)
+	{
+		string sqlCommand = @"
+UPDATE mp_UserPages 
+SET PageOrder = ?PageOrder 
+WHERE UserPageID = ?UserPageID; ";
 
-            sqlCommand.Append("WHERE UserGuid = ?UserGuid ; ");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserPageID", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userPageId.ToString()
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+			new("?PageOrder", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageOrder
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userGuid.ToString();
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            int nextPageOrder = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams)) + 2;
+		return rowsAffected > 0;
 
-            if (nextPageOrder == 1)
-            {
-                nextPageOrder = 3;
-            }
-
-            return nextPageOrder;
-
-        }
-
-        public static bool UpdatePageOrder(Guid userPageId, int pageOrder)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_UserPages ");
-            sqlCommand.Append("SET ");
-            sqlCommand.Append("PageOrder = ?PageOrder ");
-            sqlCommand.Append("WHERE UserPageID = ?UserPageID; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?UserPageID", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userPageId.ToString();
-
-            arParams[1] = new MySqlParameter("?PageOrder", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageOrder;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        
+	}
 
 
-    }
+
+
 }

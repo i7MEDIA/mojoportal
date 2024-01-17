@@ -1,230 +1,237 @@
-﻿// Author:					
-// Created:					2014-08-11
-// Last Modified:			2014-08-11
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using MySqlConnector;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+
+public static class DBUserClaims
 {
 
-    public static class DBUserClaims
-    {
+	public static int Create(
+		string userId,
+		string claimType,
+		string claimValue)
+	{
 
-        public static int Create(
-            string userId,
-            string claimType,
-            string claimValue)
-        {
-            
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_UserClaims (");
-            sqlCommand.Append("UserId, ");
-            sqlCommand.Append("ClaimType, ");
-            sqlCommand.Append("ClaimValue )");
+		string sqlCommand = @"
+INSERT INTO mp_UserClaims (
+    UserId, 
+    ClaimType, 
+    ClaimValue 
+) 
+VALUES (
+    ?UserId, 
+    ?ClaimType, 
+    ?ClaimValue 
+);
+SELECT LAST_INSERT_ID();";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?UserId, ");
-            sqlCommand.Append("?ClaimType, ");
-            sqlCommand.Append("?ClaimValue )");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserId", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userId
+			},
 
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
+			new("?ClaimType", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = claimType
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+			new("?ClaimValue", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = claimValue
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?UserId", MySqlDbType.VarChar, 128);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams).ToString());
 
-            arParams[1] = new MySqlParameter("?ClaimType", MySqlDbType.Text);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = claimType;
+		return newID;
 
-            arParams[2] = new MySqlParameter("?ClaimValue", MySqlDbType.Text);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = claimValue;
-
-            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams).ToString());
-
-            return newID;
-
-        }
-
-
-        public static bool Delete(int id)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_UserClaims ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Id = ?Id ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?Id", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = id;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool DeleteByUser(string userId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_UserClaims ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("UserId = ?UserId ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?UserId", MySqlDbType.VarChar, 128);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool DeleteByUser(string userId, string claimType)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_UserClaims ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("UserId = ?UserId ");
-            sqlCommand.Append("AND ");
-            sqlCommand.Append("ClaimType = ?ClaimType ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?UserId", MySqlDbType.VarChar, 128);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
-
-            arParams[1] = new MySqlParameter("?ClaimType", MySqlDbType.Text);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = claimType;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
+	}
 
 
-        }
+	public static bool Delete(int id)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_UserClaims 
+WHERE Id = ?Id ;";
 
-        public static bool DeleteByUser(string userId, string claimType, string claimValue)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_UserClaims ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("UserId = ?UserId ");
-            sqlCommand.Append("AND ");
-            sqlCommand.Append("ClaimType = ?ClaimType ");
-            sqlCommand.Append("AND ");
-            sqlCommand.Append("ClaimValue = ?ClaimValue ");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Id", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = id
+			}
+		};
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            arParams[0] = new MySqlParameter("?UserId", MySqlDbType.VarChar, 128);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
+		return rowsAffected > 0;
 
-            arParams[1] = new MySqlParameter("?ClaimType", MySqlDbType.Text);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = claimType;
+	}
 
-            arParams[2] = new MySqlParameter("?ClaimValue", MySqlDbType.Text);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = claimValue;
+	public static bool DeleteByUser(string userId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_UserClaims 
+WHERE UserId = ?UserId ;";
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserId", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userId
+			}
+		};
 
-            return (rowsAffected > 0);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        }
+		return rowsAffected > 0;
 
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_UserClaims ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("UserId IN (SELECT UserGuid FROM mp_Users WHERE SiteGuid = ?SiteGuid) ");
-            sqlCommand.Append(";");
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	public static bool DeleteByUser(string userId, string claimType)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_UserClaims 
+WHERE UserId = ?UserId 
+AND ClaimType = ?ClaimType ;";
 
-            arParams[0] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 128);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteGuid.ToString();
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserId", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userId
+			},
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+			new("?ClaimType", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = claimType
+			}
+		};
 
-            return (rowsAffected > 0);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        }
+		return rowsAffected > 0;
 
-        public static IDataReader GetByUser(string userId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_UserClaims ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("UserId = ?UserId ");
-            sqlCommand.Append(";");
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	}
 
-            arParams[0] = new MySqlParameter("?UserId", MySqlDbType.VarChar, 128);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = userId;
+	public static bool DeleteByUser(string userId, string claimType, string claimValue)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_UserClaims 
+WHERE UserId = ?UserId 
+AND ClaimType = ?ClaimType 
+AND ClaimValue = ?ClaimValue ;";
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserId", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userId
+			},
 
-        }
+			new("?ClaimType", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = claimType
+			},
 
-        
+			new("?ClaimValue", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = claimValue
+			}
+		};
 
-        
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-        
-    }
+		return rowsAffected > 0;
+
+	}
+
+	public static bool DeleteBySite(Guid siteGuid)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_UserClaims 
+WHERE 
+UserId IN (
+    SELECT UserGuid 
+    FROM mp_Users 
+    WHERE SiteGuid = ?SiteGuid
+) ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteGuid", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+	public static IDataReader GetByUser(string userId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_UserClaims 
+WHERE UserId = ?UserId ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?UserId", MySqlDbType.VarChar, 128)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+
+
+
+
 }

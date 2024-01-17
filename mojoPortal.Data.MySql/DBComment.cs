@@ -370,7 +370,7 @@ WHERE
 			sqlCommand.ToString(),
 			arParams);
 
-		return (rowsAffected > -1);
+		return rowsAffected > -1;
 	}
 
 	/// <summary>
