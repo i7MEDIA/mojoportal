@@ -36,9 +36,9 @@
 	</head>
 	<body class="pagebody" id="Body" runat="server">
 		<portal:FacebookSdk ID="fbsdk" runat="server" />
-		<portal:AnalyticsAsyncTopScript id="analyticsTop" runat="server" />
+
 		<portal:LayoutDisplaySettings ID="LayoutDisplaySettings1" runat="server" />
-		<form id="frmMain" runat="server" class="main-form">
+		<form ID="frmMain" runat="server" class="main-form">
 			<a href="#main-content" class="sr-only skiplink"><%= Resources.Resource.SkipLink %></a>
 			<asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />
 			<asp:SiteMapDataSource ID="PageMapDataSource" runat="server" ShowStartingNode="false" />
@@ -60,11 +60,14 @@
 									<span class="icon-bar"></span>
 								</button>
 
-								<% if (siteSettings.Logo != "" && siteSettings.Logo != "blank.gif") { %>
+								<% if (siteSettings.Logo != "" && siteSettings.Logo != "blank.gif")
+									{ %>
 								<portal:SiteLogo runat="server" ImageCssClass="site-logo" LinkCssClass="navbar-brand navbar-logo" />
-									<portal:SiteTitle runat="server" SkinID="HiddenTitle" UseLink="false" />
-								<% } else { %>
-									<portal:SiteTitle runat="server" SkinID="navbar-brand" UseLink="true" />
+								<portal:SiteTitle runat="server" SkinID="HiddenTitle" UseLink="false" />
+								<% }
+								else
+								{ %>
+								<portal:SiteTitle runat="server" SkinID="navbar-brand" UseLink="true" />
 								<% } %>
 							</div>
 
@@ -111,13 +114,13 @@
 				</main>
 			</div>
 
-
 			<footer class="foot">
 				<div class="container">
 					<hr>
 					<div class="row">
 						<div class="col-sm-6 text-xs-center text-sm-left">
-							<small>&copy; <%= DateTime.Now.Year.ToString() %> <portal:CompanyNameLiteral ID="CompanyName1" runat="server" /></small>
+							<small>&copy; <%= DateTime.Now.Year.ToString() %>
+								<portal:CompanyNameLiteral ID="CompanyName1" runat="server" /></small>
 						</div>
 						<div class="col-sm-6 text-xs-center text-sm-right">
 							<portal:LoginLink ID="LoginLink" runat="server" RenderAsListItem="false" />
@@ -127,8 +130,6 @@
 				</div>
 			</footer>
 		</form>
-
-		<portal:AnalyticsAsyncBottomScript id="analyticsBottom" runat="server" />
 
 		<!-- Main Script -->
 		<portal:SkinFolderScript runat="server" ScriptFileName="js/bootstrap.min.js" RenderInPlace="true" />

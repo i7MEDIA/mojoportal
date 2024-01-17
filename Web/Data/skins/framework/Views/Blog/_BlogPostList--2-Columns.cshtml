@@ -28,7 +28,7 @@
 					}
 				</header>
 				<div class="blog-postlist__item-body">
-					@if (String.IsNullOrWhiteSpace(item.Excerpt))
+					@if (string.IsNullOrWhiteSpace(item.Excerpt))
 					{
 						@Html.Raw(item.Body)
 					} else {

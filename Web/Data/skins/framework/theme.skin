@@ -294,6 +294,9 @@
 <asp:TextBox runat="server" SkinId="regex"
 	CssClass="form-control pwd-regex"
 />
+<mp:WatermarkTextBox runat="server"
+	CssClass="form-control watermarktextbox"
+/>
 <asp:ListBox  runat="server" SkinID="PageTree"
 	CssClass="form-control page-tree"
 />
@@ -825,9 +828,6 @@ http://foundation.zurb.com/docs/ui.php
 	SuppressCornerDivs="true"
 	MaxDataBindDepth="1"
 	/>
-
-	
-
 
 <portal:mojoTreeView runat="server" SkinID="PageMenu"
 	ContainerElement="nav"
