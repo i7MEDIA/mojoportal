@@ -626,20 +626,20 @@ ORDER BY
 	public static DataTable GetModuleDefinitionsBySite(Guid siteGuid)
 	{
 		//string sqlCommand = @"
-		//sqlCommand.Append("SELECT md.* ");
-		//sqlCommand.Append("FROM	mp_ModuleDefinitions md ");
+		//sqlCommand += "SELECT md.* ");
+		//sqlCommand += "FROM	mp_ModuleDefinitions md ");
 
-		//sqlCommand.Append("JOIN	mp_SiteModuleDefinitions smd  ");
-		//sqlCommand.Append("ON md.ModuleDefID = smd.ModuleDefID  ");
+		//sqlCommand += "JOIN	mp_SiteModuleDefinitions smd  ");
+		//sqlCommand += "ON md.ModuleDefID = smd.ModuleDefID  ");
 
-		//sqlCommand.Append("WHERE smd.SiteGuid = ?SiteGuid ");
-		//sqlCommand.Append("ORDER BY md.SortOrder, md.FeatureName ;");
+		//sqlCommand += "WHERE smd.SiteGuid = ?SiteGuid ");
+		//sqlCommand += "ORDER BY md.SortOrder, md.FeatureName ;");
 
 		//var arParams = new List<MySqlParameter> 
 
-		//new("?SiteGuid", MySqlDbType.VarChar, 36);
+		//new("?SiteGuid", MySqlDbType.VarChar, 36) {
 		//Direction = ParameterDirection.Input,
-		//Value = siteGuid.ToString();
+		//Value = siteGuid.ToString()
 
 		DataTable dt = new();
 		dt.Columns.Add("ModuleDefID", typeof(int));

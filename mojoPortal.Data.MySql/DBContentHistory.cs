@@ -188,7 +188,7 @@ WHERE
 			sqlCommand.ToString(),
 			arParams);
 
-		return (rowsAffected > 0);
+		return rowsAffected > 0;
 	}
 
 	/// <summary>
@@ -222,7 +222,7 @@ WHERE
 			sqlCommand.ToString(),
 			arParams);
 
-		return (rowsAffected > 0);
+		return rowsAffected > 0;
 
 	}
 

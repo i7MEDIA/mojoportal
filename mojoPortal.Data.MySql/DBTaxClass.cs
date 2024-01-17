@@ -1,335 +1,347 @@
-﻿///							DBTaxClass.cs
-/// Author:					
-/// Created:				2008-06-25
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
 using MySqlConnector;
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBTaxClass
 {
-    public static class DBTaxClass
-    {
-        
-
-        /// <summary>
-        /// Inserts a row in the mp_TaxClass table. Returns rows affected count.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="siteGuid"> siteGuid </param>
-        /// <param name="title"> title </param>
-        /// <param name="description"> description </param>
-        /// <param name="lastModified"> lastModified </param>
-        /// <param name="created"> created </param>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid guid,
-            Guid siteGuid,
-            string title,
-            string description,
-            DateTime lastModified,
-            DateTime created)
-        {
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_TaxClass (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("Title, ");
-            sqlCommand.Append("Description, ");
-            sqlCommand.Append("LastModified, ");
-            sqlCommand.Append("Created )");
-
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?Guid, ");
-            sqlCommand.Append("?SiteGuid, ");
-            sqlCommand.Append("?Title, ");
-            sqlCommand.Append("?Description, ");
-            sqlCommand.Append("?LastModified, ");
-            sqlCommand.Append("?Created )");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[6];
-
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            arParams[1] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
-
-            arParams[2] = new MySqlParameter("?Title", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = title;
-
-            arParams[3] = new MySqlParameter("?Description", MySqlDbType.Text);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = description;
-
-            arParams[4] = new MySqlParameter("?LastModified", MySqlDbType.DateTime);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = lastModified;
-
-            arParams[5] = new MySqlParameter("?Created", MySqlDbType.DateTime);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = created;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return rowsAffected;
-
-        }
 
 
-        /// <summary>
-        /// Updates a row in the mp_TaxClass table. Returns true if row updated.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <param name="siteGuid"> siteGuid </param>
-        /// <param name="title"> title </param>
-        /// <param name="description"> description </param>
-        /// <param name="lastModified"> lastModified </param>
-        /// <param name="created"> created </param>
-        /// <returns>bool</returns>
-        public static bool Update(
-            Guid guid,
-            string title,
-            string description,
-            DateTime lastModified,
-            DateTime created)
-        {
-            
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_TaxClass ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("Title = ?Title, ");
-            sqlCommand.Append("Description = ?Description, ");
-            sqlCommand.Append("LastModified = ?LastModified, ");
-            sqlCommand.Append("Created = ?Created ");
+	/// <summary>
+	/// Inserts a row in the mp_TaxClass table. Returns rows affected count.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <param name="siteGuid"> siteGuid </param>
+	/// <param name="title"> title </param>
+	/// <param name="description"> description </param>
+	/// <param name="lastModified"> lastModified </param>
+	/// <param name="created"> created </param>
+	/// <returns>int</returns>
+	public static int Create(
+		Guid guid,
+		Guid siteGuid,
+		string title,
+		string description,
+		DateTime lastModified,
+		DateTime created)
+	{
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+		string sqlCommand = @"
+INSERT INTO mp_TaxClass (
+    Guid, 
+    SiteGuid, 
+    Title, 
+    Description, 
+    LastModified, 
+    Created 
+) 
+VALUES (
+    ?Guid, 
+    ?SiteGuid, 
+    ?Title, 
+    ?Description, 
+    ?LastModified, 
+    ?Created 
+);";
 
-            MySqlParameter[] arParams = new MySqlParameter[5];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			},
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+			new("?SiteGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			},
 
-            
-            arParams[1] = new MySqlParameter("?Title", MySqlDbType.VarChar, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = title;
+			new("?Title", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = title
+			},
 
-            arParams[2] = new MySqlParameter("?Description", MySqlDbType.Text);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = description;
+			new("?Description", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = description
+			},
 
-            arParams[3] = new MySqlParameter("?LastModified", MySqlDbType.DateTime);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = lastModified;
+			new("?LastModified", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = lastModified
+			},
 
-            arParams[4] = new MySqlParameter("?Created", MySqlDbType.DateTime);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = created;
+			new("?Created", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = created
+			}
+		};
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected;
 
-            return (rowsAffected > -1);
+	}
 
-        }
 
-        /// <summary>
-        /// Deletes a row from the mp_TaxClass table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool Delete(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_TaxClass ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+	/// <summary>
+	/// Updates a row in the mp_TaxClass table. Returns true if row updated.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <param name="siteGuid"> siteGuid </param>
+	/// <param name="title"> title </param>
+	/// <param name="description"> description </param>
+	/// <param name="lastModified"> lastModified </param>
+	/// <param name="created"> created </param>
+	/// <returns>bool</returns>
+	public static bool Update(
+		Guid guid,
+		string title,
+		string description,
+		DateTime lastModified,
+		DateTime created)
+	{
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		string sqlCommand = @"
+UPDATE mp_TaxClass 
+SET  
+    Title = ?Title, 
+    Description = ?Description, 
+    LastModified = ?LastModified, 
+    Created = ?Created 
+WHERE Guid = ?Guid ;";
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			},
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
+			new("?Title", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = title
+			},
 
-        }
+			new("?Description", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = description
+			},
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_TaxClass table.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        public static IDataReader GetOne(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_TaxClass ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("Guid = ?Guid ");
-            sqlCommand.Append(";");
+			new("?LastModified", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = lastModified
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+			new("?Created", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = created
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+		return rowsAffected > -1;
 
-        }
+	}
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the mp_TaxClass table.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        public static IDataReader GetBySite(Guid siteGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_TaxClass ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteGuid = ?SiteGuid ");
-            sqlCommand.Append("ORDER BY Title ");
-            sqlCommand.Append(";");
+	/// <summary>
+	/// Deletes a row from the mp_TaxClass table. Returns true if row deleted.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	/// <returns>bool</returns>
+	public static bool Delete(Guid guid)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_TaxClass 
+WHERE Guid = ?Guid ;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteGuid.ToString();
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+	}
 
-        }
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_TaxClass table.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	public static IDataReader GetOne(Guid guid)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_TaxClass 
+WHERE Guid = ?Guid ;";
 
-        /// <summary>
-        /// Gets a count of rows in the mp_TaxClass table.
-        /// </summary>
-        public static int GetCountBySite(Guid siteGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_TaxClass ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteGuid = ?SiteGuid ");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?Guid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = guid.ToString()
+			}
+		};
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            arParams[0] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteGuid.ToString();
+	}
 
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
-        }
+	/// <summary>
+	/// Gets an IDataReader with one row from the mp_TaxClass table.
+	/// </summary>
+	/// <param name="guid"> guid </param>
+	public static IDataReader GetBySite(Guid siteGuid)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_TaxClass 
+WHERE SiteGuid = ?SiteGuid 
+ORDER BY Title ;";
 
-        /// <summary>
-        /// Gets a page of data from the mp_TaxClass table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-        public static IDataReader GetPage(
-            Guid siteGuid,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCountBySite(siteGuid);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			}
+		};
 
-            if (pageSize > 0) totalPages = totalRows / pageSize;
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
 
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
+	}
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT	* ");
-            sqlCommand.Append("FROM	mp_TaxClass  ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("SiteGuid = ?SiteGuid ");
-            sqlCommand.Append("ORDER BY Title ");
-            //sqlCommand.Append("  ");
-            sqlCommand.Append("LIMIT ?PageSize ");
+	/// <summary>
+	/// Gets a count of rows in the mp_TaxClass table.
+	/// </summary>
+	public static int GetCountBySite(Guid siteGuid)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_TaxClass 
+WHERE SiteGuid = ?SiteGuid ;";
 
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			}
+		};
 
-            sqlCommand.Append(";");
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams));
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+	/// <summary>
+	/// Gets a page of data from the mp_TaxClass table.
+	/// </summary>
+	/// <param name="pageNumber">The page number.</param>
+	/// <param name="pageSize">Size of the page.</param>
+	/// <param name="totalPages">total pages</param>
+	public static IDataReader GetPage(
+		Guid siteGuid,
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCountBySite(siteGuid);
 
-            arParams[0] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteGuid.ToString();
+		if (pageSize > 0) totalPages = totalRows / pageSize;
 
-            arParams[1] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageSize;
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
 
-            arParams[2] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageLowerBound;
+		string sqlCommand = @"
+SELECT	* 
+FROM	mp_TaxClass  
+WHERE 
+SiteGuid = ?SiteGuid 
+ORDER BY Title 
+LIMIT ?PageSize ";
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-    }
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ";";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
 }

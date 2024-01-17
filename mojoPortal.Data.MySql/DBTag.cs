@@ -53,57 +53,57 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
 				},
-				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				new("?SiteGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
 				},
-				new MySqlParameter("?FeatureGuid", MySqlDbType.VarChar, 36)
+				new("?FeatureGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36)
+				new("?ModuleGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
 				},
-				new MySqlParameter("?Tag", MySqlDbType.VarChar, 255)
+				new("?Tag", MySqlDbType.VarChar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagText
 				},
-				new MySqlParameter("?CreatedUtc", MySqlDbType.DateTime)
+				new("?CreatedUtc", MySqlDbType.DateTime)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdUtc
 				},
-				new MySqlParameter("?CreatedBy", MySqlDbType.VarChar, 36)
+				new("?CreatedBy", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdBy.ToString()
 				},
-				new MySqlParameter("?ModifiedUtc", MySqlDbType.DateTime)
+				new("?ModifiedUtc", MySqlDbType.DateTime)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdUtc
 				},
-				new MySqlParameter("?ModifiedBy", MySqlDbType.VarChar, 36)
+				new("?ModifiedBy", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = createdBy.ToString()
 				},
-				new MySqlParameter("?ItemCount", MySqlDbType.Int32)
+				new("?ItemCount", MySqlDbType.Int32)
 				{
 					Direction = ParameterDirection.Input,
 					Value = 0
 				},
-				new MySqlParameter("?VocabularyGuid", MySqlDbType.VarChar, 36)
+				new("?VocabularyGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = vocabularyGuid.ToString()
@@ -140,27 +140,27 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
 				},
-				new MySqlParameter("?Tag", MySqlDbType.VarChar, 255)
+				new("?Tag", MySqlDbType.VarChar, 255)
 				{
 					Direction = ParameterDirection.Input,
 					Value = tagText
 				},
-				new MySqlParameter("?ModifiedUtc", MySqlDbType.DateTime)
+				new("?ModifiedUtc", MySqlDbType.DateTime)
 				{
 					Direction = ParameterDirection.Input,
 					Value = modifiedUtc
 				},
-				new MySqlParameter("?ModifiedBy", MySqlDbType.VarChar, 36)
+				new("?ModifiedBy", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = modifiedBy.ToString()
 				},
-				new MySqlParameter("?VocabularyGuid", MySqlDbType.VarChar, 36)
+				new("?VocabularyGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = vocabularyGuid.ToString()
@@ -190,7 +190,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -217,7 +217,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				new("?SiteGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -240,7 +240,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -263,7 +263,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36)
+				new("?ModuleGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
@@ -286,7 +286,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?FeatureGuid", MySqlDbType.VarChar, 36)
+				new("?FeatureGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
@@ -313,7 +313,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -348,7 +348,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = guid.ToString()
@@ -371,7 +371,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -400,7 +400,7 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?ID", MySqlDbType.Int32)
+				new("?ID", MySqlDbType.Int32)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteId.ToString()
@@ -421,12 +421,12 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36)
+				new("?ModuleGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = moduleGuid.ToString()
 				},
-				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				new("?SiteGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -447,12 +447,12 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = featureGuid.ToString()
 				},
-				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				new("?SiteGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
@@ -473,12 +473,12 @@ namespace mojoPortal.Data
 
 			var arParams = new List<MySqlParameter>
 			{
-				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				new("?Guid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = vocabularyGuid.ToString()
 				},
-				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				new("?SiteGuid", MySqlDbType.VarChar, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = siteGuid.ToString()
