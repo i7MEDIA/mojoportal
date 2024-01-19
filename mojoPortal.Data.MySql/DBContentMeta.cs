@@ -377,8 +377,6 @@ WHERE
 
 		};
 
-
-
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
 			sqlCommand.ToString(),
