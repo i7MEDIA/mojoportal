@@ -3,3796 +3,4350 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Text;
 
 
-namespace mojoPortal.Data
+namespace mojoPortal.Data;
+
+public static class DBBlog
 {
-	public static class DBBlog
-    {
-        
-        public static IDataReader GetBlogs(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
 
-            sqlCommand.Append("SELECT SettingValue ");
-            sqlCommand.Append("FROM mp_ModuleSettings ");
-            sqlCommand.Append("WHERE SettingName = 'BlogEntriesToShowSetting' ");
-            sqlCommand.Append("AND ModuleID = ?ModuleID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsToShow = int.Parse(ConfigurationManager.AppSettings["DefaultBlogPageSize"]);
-
-            using (IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
-            {
-                if (reader.Read())
-                {
-                    try
-                    {
-                        rowsToShow = Convert.ToInt32(reader["SettingValue"]);
-                    }
-                    catch { }
-
-                }
-            }
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-            sqlCommand.Append("LIMIT " + rowsToShow.ToString() + " ;  ");
-
-            arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        /// <summary>
-        /// gets top 20 related posts ordered by created date desc
-        /// based on categories of current post itemid
-        /// </summary>
-        /// <param name="itemId"></param>
-        /// <returns></returns>
-        public static IDataReader GetRelatedPosts(int itemId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-           
-            sqlCommand.Append("SELECT DISTINCT b.ItemID, b.ItemUrl, b.Heading ");
-            sqlCommand.Append("FROM mp_Blogs b ");
-            sqlCommand.Append("JOIN (SELECT ItemID, CategoryID FROM mp_BlogItemCategories) bc1 ");
-            sqlCommand.Append("ON bc1.ItemID = b.ItemID ");
-            sqlCommand.Append("JOIN (SELECT ItemID, CategoryID FROM mp_BlogItemCategories WHERE ItemID = ?ItemID) bc2 ");
-            sqlCommand.Append("ON bc1.CategoryID = bc2.CategoryID ");
-            sqlCommand.Append("WHERE b.ItemID <> ?ItemID ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-            sqlCommand.Append("LIMIT 20  ");
-            sqlCommand.Append(" ;  ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            arParams[1] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = DateTime.UtcNow;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetBlogsForFeed(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT SettingValue ");
-            sqlCommand.Append("FROM mp_ModuleSettings ");
-            sqlCommand.Append("WHERE SettingName = 'MaxFeedItems' ");
-            sqlCommand.Append("AND ModuleID = ?ModuleID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsToShow = 20;
-
-            using (IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
-            {
-                if (reader.Read())
-                {
-                    try
-                    {
-                        rowsToShow = Convert.ToInt32(reader["SettingValue"]);
-                    }
-                    catch { }
-
-                }
-            }
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-            sqlCommand.Append("LIMIT " + rowsToShow.ToString() + " ;  ");
-
-            arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetBlogsForMetaWeblogApi(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT SettingValue ");
-            sqlCommand.Append("FROM mp_ModuleSettings ");
-            sqlCommand.Append("WHERE SettingName = 'MaxMetaweblogRecentItems' ");
-            sqlCommand.Append("AND ModuleID = ?ModuleID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsToShow = 100;
-
-            using (IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
-            {
-                if (reader.Read())
-                {
-                    try
-                    {
-                        rowsToShow = Convert.ToInt32(reader["SettingValue"]);
-                    }
-                    catch { }
-
-                }
-            }
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            //sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-            sqlCommand.Append("LIMIT " + rowsToShow.ToString() + " ;  ");
-
-            arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetBlogCategoriesForMetaWeblogApi(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT SettingValue ");
-            sqlCommand.Append("FROM mp_ModuleSettings ");
-            sqlCommand.Append("WHERE SettingName = 'MaxMetaweblogRecentItems' ");
-            sqlCommand.Append("AND ModuleID = ?ModuleID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsToShow = 100;
-
-            using (IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
-            {
-                if (reader.Read())
-                {
-                    try
-                    {
-                        rowsToShow = Convert.ToInt32(reader["SettingValue"]);
-                    }
-                    catch { }
-
-                }
-            }
-
-            sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.ID, ");
-            sqlCommand.Append("bic.ItemID, ");
-            sqlCommand.Append("bic.CategoryID, ");
-            sqlCommand.Append("bc.Category ");
-
-            sqlCommand.Append("FROM mp_BlogItemCategories bic ");
-
-            sqlCommand.Append("JOIN	mp_BlogCategories bc ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-
-            sqlCommand.Append("JOIN ( ");
-            
-
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            //sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-            sqlCommand.Append("LIMIT " + rowsToShow.ToString() + "   ");
-
-            sqlCommand.Append(") b ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("ORDER BY bc.Category ");
-            sqlCommand.Append(" ;  ");
-
-            arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static int GetCountClosed(
-            int moduleId,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_Blogs ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND EndDate < ?CurrentTime  ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = currentTime;
-
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                 ConnectionString.GetReadConnectionString(),
-                 sqlCommand.ToString(),
-                 arParams));
-
-        }
-
-        public static IDataReader GetClosed(
-            int moduleId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCountClosed(moduleId, currentTime);
-
-            if (pageSize > 0) totalPages = totalRows / pageSize;
-
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.FirstName, ");
-            sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            //sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            //sqlCommand.Append("AND b.IsPublished = 1 ");
-            //sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND b.EndDate < ?CurrentTime  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[4];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = currentTime;
-
-            arParams[2] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageSize;
-
-            arParams[3] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-
-        }
-
-        public static IDataReader GetAttachmentsForClosed(
-            int moduleId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.*, ");
-            sqlCommand.Append("b2.ShowDownloadLink ");
-
-            sqlCommand.Append("FROM mp_FileAttachment bic ");
-
-            sqlCommand.Append("JOIN mp_Blogs b2 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b2.BlogGuid = bic.ItemGuid ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.* ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND b.EndDate < ?CurrentTime  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.BlogGuid = bic.ItemGuid ");
-
-            sqlCommand.Append("; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[4];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = currentTime;
-
-            arParams[2] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageSize;
-
-            arParams[3] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetCategoriesForClosed(
-            int moduleId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.ID, ");
-            sqlCommand.Append("bic.ItemID, ");
-            sqlCommand.Append("bic.CategoryID, ");
-            sqlCommand.Append("bc.Category ");
-
-            sqlCommand.Append("FROM mp_BlogItemCategories bic ");
-
-            sqlCommand.Append("JOIN	mp_BlogCategories bc ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND b.EndDate < ?CurrentTime  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("ORDER BY bc.Category; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[4];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = currentTime;
-
-            arParams[2] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = pageSize;
-
-            arParams[3] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static int GetCountOfDrafts(
-            int moduleId,
-            Guid userGuid,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_Blogs ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND (?UserGuid = '00000000-0000-0000-0000-000000000000' OR UserGuid  = ?UserGuid)  ");
-            sqlCommand.Append("AND ((StartDate > ?CurrentTime) OR (IsPublished = 0)) ");
-            
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = userGuid.ToString();
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                 ConnectionString.GetReadConnectionString(),
-                 sqlCommand.ToString(),
-                 arParams));
-
-        }
-
-        public static IDataReader GetPageOfDrafts(
-            int moduleId,
-            Guid userGuid,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCountOfDrafts(moduleId, userGuid, currentTime);
-
-            if (pageSize > 0) totalPages = totalRows / pageSize;
-
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.FirstName, ");
-            sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND (?UserGuid = '00000000-0000-0000-0000-000000000000' OR b.UserGuid  = ?UserGuid)  ");
-            sqlCommand.Append("AND ((b.StartDate > ?CurrentTime) OR (b.IsPublished = 0)) ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = userGuid.ToString();
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            arParams[3] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageSize;
-
-            arParams[4] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-
-        }
-
-
-        public static int GetCount(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_Blogs ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= StartDate  ");
-            sqlCommand.Append("AND IsPublished = 1 ");
-            sqlCommand.Append("AND StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (EndDate IS NULL OR EndDate > ?CurrentTime)  ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                 ConnectionString.GetReadConnectionString(),
-                 sqlCommand.ToString(),
-                 arParams));
-
-        }
-
-        public static IDataReader GetPage(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCount(moduleId, beginDate, currentTime);
-
-            if (pageSize > 0) totalPages = totalRows / pageSize;
-
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.FirstName, ");
-            sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            arParams[3] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageSize;
-
-            arParams[4] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-
-        }
-
-        public static IDataReader GetAttachmentsForPage(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.*, ");
-            sqlCommand.Append("b2.ShowDownloadLink ");
-
-            sqlCommand.Append("FROM mp_FileAttachment bic ");
-
-            sqlCommand.Append("JOIN mp_Blogs b2 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b2.BlogGuid = bic.ItemGuid ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.* ");
-            
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.BlogGuid = bic.ItemGuid ");
-
-            sqlCommand.Append("; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            arParams[3] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageSize;
-
-            arParams[4] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetAttachmentsForPage(
-            int moduleId,
-            int categoryId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.*, ");
-            sqlCommand.Append("b2.ShowDownloadLink ");
-
-            sqlCommand.Append("FROM mp_FileAttachment bic ");
-
-            sqlCommand.Append("JOIN mp_Blogs b2 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b2.BlogGuid = bic.ItemGuid ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.* ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("JOIN	mp_BlogItemCategories bic2 ");
-            sqlCommand.Append("ON b.ItemID = bic2.ItemID ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID   ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-            sqlCommand.Append("AND  bic2.CategoryID = ?CategoryID   ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.BlogGuid = bic.ItemGuid ");
-
-            //sqlCommand.Append("ORDER BY bc.Category ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = categoryId;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            arParams[3] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageSize;
-
-            arParams[4] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetAttachmentsForPage(
-            int month,
-            int year,
-            int moduleId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.*, ");
-            sqlCommand.Append("b2.ShowDownloadLink ");
-
-            sqlCommand.Append("FROM mp_FileAttachment bic ");
-
-            sqlCommand.Append("JOIN mp_Blogs b2 ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b2.BlogGuid = bic.ItemGuid ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.* ");
-            
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("AND DATE_FORMAT(b.StartDate, '%Y') = ?Year  ");
-            sqlCommand.Append(" AND MONTH(b.StartDate)  = ?Month  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.BlogGuid = bic.ItemGuid ");
-
-            sqlCommand.Append("; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[6];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?Year", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = year;
-
-            arParams[2] = new MySqlParameter("?Month", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = month;
-
-            arParams[3] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = currentTime;
-
-            arParams[4] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageSize;
-
-            arParams[5] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetCategoriesForPage(
-            int moduleId,
-            DateTime beginDate,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.ID, ");
-            sqlCommand.Append("bic.ItemID, ");
-            sqlCommand.Append("bic.CategoryID, ");
-            sqlCommand.Append("bc.Category ");
-
-            sqlCommand.Append("FROM mp_BlogItemCategories bic ");
-
-            sqlCommand.Append("JOIN	mp_BlogCategories bc ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("ORDER BY bc.Category; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = beginDate;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            arParams[3] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageSize;
-
-            arParams[4] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static int GetCountByMonth(
-            int month,
-            int year,
-            int moduleId,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_Blogs ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND IsPublished = 1 ");
-            sqlCommand.Append("AND StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (EndDate IS NULL OR EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("AND DATE_FORMAT(StartDate, '%Y') = ?Year  ");
-            sqlCommand.Append(" AND MONTH(StartDate)  = ?Month  ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[4];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?Year", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = year;
-
-            arParams[2] = new MySqlParameter("?Month", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = month;
-
-            arParams[3] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = currentTime;
-
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                 ConnectionString.GetReadConnectionString(),
-                 sqlCommand.ToString(),
-                 arParams));
-
-        }
-
-        public static IDataReader GetBlogEntriesByMonth(
-            int month, 
-            int year, 
-            int moduleId, 
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCountByMonth(month, year, moduleId, currentTime);
-
-            if (pageSize > 0) totalPages = totalRows / pageSize;
-
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  b.*, ");
-            sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.FirstName, ");
-            sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("AND DATE_FORMAT(b.StartDate, '%Y') = ?Year  ");
-            sqlCommand.Append(" AND MONTH(b.StartDate)  = ?Month  ");
-
-            sqlCommand.Append("ORDER BY b.StartDate DESC ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            
-
-            sqlCommand.Append(";");
-
-
-            MySqlParameter[] arParams = new MySqlParameter[6];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?Year", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = year;
-
-            arParams[2] = new MySqlParameter("?Month", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = month;
-
-            arParams[3] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = currentTime;
-
-            arParams[4] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageSize;
-
-            arParams[5] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetCategoriesForPage(
-            int month,
-            int year,
-            int moduleId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.ID, ");
-            sqlCommand.Append("bic.ItemID, ");
-            sqlCommand.Append("bic.CategoryID, ");
-            sqlCommand.Append("bc.Category ");
-
-            sqlCommand.Append("FROM mp_BlogItemCategories bic ");
-
-            sqlCommand.Append("JOIN	mp_BlogCategories bc ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.*, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            //sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            //sqlCommand.Append("AND ?BeginDate >= b.StartDate  ");
-            //sqlCommand.Append("AND b.IsPublished = 1 ");
-            //sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("AND DATE_FORMAT(b.StartDate, '%Y') = ?Year  ");
-            sqlCommand.Append(" AND MONTH(b.StartDate)  = ?Month  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("ORDER BY bc.Category; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[6];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?Year", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = year;
-
-            arParams[2] = new MySqlParameter("?Month", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = month;
-
-            arParams[3] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = currentTime;
-
-            arParams[4] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageSize;
-
-            arParams[5] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-
-        public static IDataReader GetBlogEntriesByMonth(int month, int year, int moduleId, DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-
-            sqlCommand.Append("FROM	mp_Blogs ");
-
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND IsPublished = 1 ");
-            sqlCommand.Append("AND StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (EndDate IS NULL OR EndDate > ?CurrentTime)  ");
-
-            sqlCommand.Append("AND DATE_FORMAT(StartDate, '%Y') = ?Year  ");
-            sqlCommand.Append(" AND MONTH(StartDate)  = ?Month  ");
-
-            sqlCommand.Append("ORDER BY StartDate DESC ;");
-
-
-            MySqlParameter[] arParams = new MySqlParameter[4];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?Year", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = year;
-
-            arParams[2] = new MySqlParameter("?Month", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = month;
-
-            arParams[3] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = currentTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static int GetCountByCategory(
-            int moduleId,
-            int categoryId,
-            DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("JOIN	mp_BlogItemCategories bic ");
-            sqlCommand.Append("ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND  bic.CategoryID = ?CategoryID   ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = categoryId;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                 ConnectionString.GetReadConnectionString(),
-                 sqlCommand.ToString(),
-                 arParams));
-
-        }
-
-        public static IDataReader GetEntriesByCategory(
-            int moduleId,
-            int categoryId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize,
-            out int totalPages)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-            totalPages = 1;
-            int totalRows = GetCountByCategory(moduleId, categoryId, currentTime);
-
-            if (pageSize > 0) totalPages = totalRows / pageSize;
-
-            if (totalRows <= pageSize)
-            {
-                totalPages = 1;
-            }
-            else
-            {
-                int remainder;
-                Math.DivRem(totalRows, pageSize, out remainder);
-                if (remainder > 0)
-                {
-                    totalPages += 1;
-                }
-            }
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  b.*, ");
-            sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.FirstName, ");
-            sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("JOIN	mp_BlogItemCategories bic ");
-            sqlCommand.Append("ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID   ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-            sqlCommand.Append("AND  bic.CategoryID = ?CategoryID   ");
-
-            sqlCommand.Append("ORDER BY b.StartDate DESC   ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            // categoryid is uint in db so don't allow -1
-            if (categoryId <= -1) { categoryId = 1; }
-
-            arParams[1] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = categoryId;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            arParams[3] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageSize;
-
-            arParams[4] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-
-
-        }
-
-        public static IDataReader GetCategoriesForPage(
-            int moduleId,
-            int categoryId,
-            DateTime currentTime,
-            int pageNumber,
-            int pageSize)
-        {
-            int pageLowerBound = (pageSize * pageNumber) - pageSize;
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("SELECT ");
-            sqlCommand.Append("bic.ID, ");
-            sqlCommand.Append("bic.ItemID, ");
-            sqlCommand.Append("bic.CategoryID, ");
-            sqlCommand.Append("bc.Category ");
-
-            sqlCommand.Append("FROM mp_BlogItemCategories bic ");
-
-            sqlCommand.Append("JOIN	mp_BlogCategories bc ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-
-            sqlCommand.Append("JOIN	( ");
-            sqlCommand.Append("SELECT b.* ");
-            
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("JOIN	mp_BlogItemCategories bic2 ");
-            sqlCommand.Append("ON b.ItemID = bic2.ItemID ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID   ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-            sqlCommand.Append("AND  bic2.CategoryID = ?CategoryID   ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-
-            sqlCommand.Append("LIMIT ?PageSize ");
-
-            if (pageNumber > 1)
-            {
-                sqlCommand.Append("OFFSET ?OffsetRows ");
-            }
-
-            sqlCommand.Append(") b ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("ORDER BY bc.Category; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[5];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = categoryId;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            arParams[3] = new MySqlParameter("?PageSize", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = pageSize;
-
-            arParams[4] = new MySqlParameter("?OffsetRows", MySqlDbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = pageLowerBound;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetEntriesByCategory(int moduleId, int categoryId, DateTime currentTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  b.* ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-            sqlCommand.Append("JOIN	mp_BlogItemCategories bic ");
-            sqlCommand.Append("ON b.ItemID = bic.ItemID ");
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID   ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentTime ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  ");
-            sqlCommand.Append("AND  bic.CategoryID = ?CategoryID   ");
-            sqlCommand.Append("ORDER BY b.StartDate DESC ;  ");
-
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = categoryId;
-
-            arParams[2] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = currentTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-
-
-        }
-
-
-        public static IDataReader GetBlogsForSiteMap(int siteId, DateTime currentUtcDateTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  ");
-            sqlCommand.Append("b.ItemUrl, ");
-            sqlCommand.Append("b.LastModUtc, ");
-            sqlCommand.Append("b.ItemID, ");
-            sqlCommand.Append("b.ModuleID, ");
-            sqlCommand.Append("pm.PageID ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("JOIN mp_Modules m ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b.ModuleID = m.ModuleID ");
-
-            sqlCommand.Append("JOIN mp_PageModules pm ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b.ModuleID = pm.ModuleID ");
-
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("m.SiteID = ?SiteID ");
-            sqlCommand.Append("AND b.IncludeInSiteMap = 1 ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentDateTime  ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentDateTime)  ");
-            sqlCommand.Append("AND b.ItemUrl <> ''  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-            sqlCommand.Append(" ;  ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new MySqlParameter("?CurrentDateTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = currentUtcDateTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader GetBlogsForNewsMap(int siteId, DateTime utcThresholdTime)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  ");
-            sqlCommand.Append("b.ItemUrl, ");
-            sqlCommand.Append("b.LastModUtc, ");
-            sqlCommand.Append("b.ItemID, ");
-            sqlCommand.Append("b.ModuleID, ");
-
-            sqlCommand.Append("b.HeadlineImageUrl, ");
-            sqlCommand.Append("b.PubAccess, ");
-            sqlCommand.Append("b.PubGenres, ");
-            sqlCommand.Append("b.PubGeoLocations, ");
-            sqlCommand.Append("b.PubKeyWords, ");
-            sqlCommand.Append("b.PubLanguage,");
-            sqlCommand.Append("b.PubName, ");
-            sqlCommand.Append("b.PubStockTickers, ");
-            sqlCommand.Append("b.StartDate,");
-            sqlCommand.Append("b.Title, ");
-            sqlCommand.Append("b.Heading, ");
-
-            sqlCommand.Append("pm.PageID ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("JOIN mp_Modules m ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b.ModuleID = m.ModuleID ");
-
-            sqlCommand.Append("JOIN mp_PageModules pm ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("b.ModuleID = pm.ModuleID ");
-
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("m.SiteID = ?SiteID ");
-            sqlCommand.Append("AND b.IncludeInNews = 1 ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate >= ?UtcThresholdTime  ");
-            
-            sqlCommand.Append("AND b.ItemUrl <> ''  ");
-
-            sqlCommand.Append("ORDER BY  b.StartDate DESC  ");
-            sqlCommand.Append(" ;  ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new MySqlParameter("?UtcThresholdTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = utcThresholdTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-
-        public static IDataReader GetDrafts(
-            int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT * ");
-
-            sqlCommand.Append("FROM	mp_Blogs ");
-
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND ((StartDate > ?BeginDate) OR (IsPublished = 0))  ");
-
-            sqlCommand.Append("ORDER BY  StartDate DESC  ");
-            sqlCommand.Append(" ;  ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?BeginDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = DateTime.UtcNow;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-
-
-
-
-        public static IDataReader GetBlogsByPage(int siteId, int pageId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  b.*, ");
-
-            sqlCommand.Append("m.ModuleTitle, ");
-            sqlCommand.Append("m.ViewRoles, ");
-            sqlCommand.Append("md.FeatureName, ");
-
-            sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.FirstName, ");
-            sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("JOIN	mp_Modules m ");
-            sqlCommand.Append("ON b.ModuleID = m.ModuleID ");
-
-            sqlCommand.Append("JOIN	mp_ModuleDefinitions md ");
-            sqlCommand.Append("ON m.ModuleDefID = md.ModuleDefID ");
-
-            sqlCommand.Append("JOIN	mp_PageModules pm ");
-            sqlCommand.Append("ON m.ModuleID = pm.ModuleID ");
-
-            sqlCommand.Append("JOIN	mp_Pages p ");
-            sqlCommand.Append("ON p.PageID = pm.PageID ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("p.SiteID = ?SiteID ");
-            sqlCommand.Append("AND pm.PageID = ?PageID ");
-
-            
-            sqlCommand.Append(" ; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            arParams[1] = new MySqlParameter("?PageID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = pageId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-
-        public static IDataReader GetBlogStats(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  ");
-            sqlCommand.Append("ModuleID, ");
-            sqlCommand.Append("EntryCount, ");
-            sqlCommand.Append("CommentCount ");
-
-            sqlCommand.Append("FROM	mp_BlogStats ");
-
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-
-        public static IDataReader GetBlogMonthArchive(int moduleId, DateTime currentTime)
+	public static IDataReader GetBlogs(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+
+SELECT SettingValue 
+FROM mp_ModuleSettings 
+WHERE SettingName = 'BlogEntriesToShowSetting' 
+AND ModuleID = ?ModuleID ;";
+
+		var arParams = new List<MySqlParameter>
 		{
-			var sqlCommand = @"
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowsToShow = int.Parse(ConfigurationManager.AppSettings["DefaultBlogPageSize"]);
+
+		using (IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams))
+		{
+			if (reader.Read())
+			{
+				try
+				{
+					rowsToShow = Convert.ToInt32(reader["SettingValue"]);
+				}
+				catch { }
+
+			}
+		}
+
+		string sqlCommand1 = $@"
+SELECT b.*, 
+u.Name, 
+u.LoginName, 
+u.Email 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND ?BeginDate >= b.StartDate  
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime  
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+ORDER BY  b.StartDate DESC  
+LIMIT {rowsToShow.ToString()} ;";
+
+		var arParams1 = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand1.ToString(),
+			arParams1);
+
+	}
+
+	/// <summary>
+	/// gets top 20 related posts ordered by created date desc
+	/// based on categories of current post itemid
+	/// </summary>
+	/// <param name="itemId"></param>
+	/// <returns></returns>
+	public static IDataReader GetRelatedPosts(int itemId)
+	{
+		string sqlCommand = @"           
+SELECT DISTINCT 
+    b.ItemID, 
+    b.ItemUrl, 
+    b.Heading 
+FROM mp_Blogs b 
+JOIN (SELECT ItemID, CategoryID FROM mp_BlogItemCategories) bc1 
+ON bc1.ItemID = b.ItemID 
+JOIN (SELECT ItemID, CategoryID FROM mp_BlogItemCategories WHERE ItemID = ?ItemID) bc2 
+ON bc1.CategoryID = bc2.CategoryID 
+WHERE b.ItemID <> ?ItemID 
+AND b.StartDate <= ?CurrentTime  
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+ORDER BY  b.StartDate DESC  
+LIMIT 20 ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DateTime.UtcNow
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetBlogsForFeed(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+
+SELECT SettingValue 
+FROM mp_ModuleSettings 
+WHERE SettingName = 'MaxFeedItems' 
+AND ModuleID = ?ModuleID;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowsToShow = 20;
+
+		using (IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams))
+		{
+			if (reader.Read())
+			{
+				try
+				{
+					rowsToShow = Convert.ToInt32(reader["SettingValue"]);
+				}
+				catch { }
+
+			}
+		}
+
+		string sqlCommand1 = $@"
+SELECT 
+    b.*, 
+    u.Name, 
+    u.LoginName, 
+    u.Email 
+FROM 
+    mp_Blogs b 
+LEFT OUTER JOIN	
+    mp_Users u 
+ON 
+    b.UserGuid = u.UserGuid 
+WHERE 
+    b.ModuleID = ?ModuleID  
+AND 
+    ?BeginDate >= b.StartDate  
+AND 
+    b.IsPublished = 1 
+AND 
+    b.StartDate <= ?CurrentTime  
+AND 
+    (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+ORDER BY  
+    b.StartDate DESC  
+LIMIT 
+    {rowsToShow.ToString()}; ";
+
+		var arParams1 = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand1.ToString(),
+			arParams1);
+
+	}
+
+	public static IDataReader GetBlogsForMetaWeblogApi(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT SettingValue 
+FROM mp_ModuleSettings 
+WHERE SettingName = 'MaxMetaweblogRecentItems' 
+AND ModuleID = ?ModuleID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowsToShow = 100;
+
+		using (IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams))
+		{
+			if (reader.Read())
+			{
+				try
+				{
+					rowsToShow = Convert.ToInt32(reader["SettingValue"]);
+				}
+				catch { }
+
+			}
+		}
+
+		string sqlCommand1 = $@"
+SELECT b.*, 
+    u.Name, 
+    u.LoginName, 
+    u.Email 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND ?BeginDate >= b.StartDate  
+AND b.StartDate <= ?CurrentTime  
+ORDER BY  b.StartDate DESC  
+LIMIT {rowsToShow.ToString()}; ";
+
+		var arParams1 = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand1.ToString(),
+			arParams1);
+
+	}
+
+	public static IDataReader GetBlogCategoriesForMetaWeblogApi(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT SettingValue 
+FROM mp_ModuleSettings 
+WHERE SettingName = 'MaxMetaweblogRecentItems' 
+AND ModuleID = ?ModuleID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowsToShow = 100;
+
+		using (IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams))
+		{
+			if (reader.Read())
+			{
+				try
+				{
+					rowsToShow = Convert.ToInt32(reader["SettingValue"]);
+				}
+				catch { }
+
+			}
+		}
+
+		string sqlCommand1 = $@"
+SELECT 
+bic.ID, 
+bic.ItemID, 
+bic.CategoryID, 
+bc.Category 
+FROM mp_BlogItemCategories bic 
+JOIN	mp_BlogCategories bc 
+ON bc.CategoryID = bic.CategoryID 
+JOIN ( 
+SELECT b.*, 
+u.Name, 
+u.LoginName, 
+u.Email 
+FROM	mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND ?BeginDate >= b.StartDate  
+AND b.StartDate <= ?CurrentTime  
+ORDER BY  b.StartDate DESC  
+LIMIT {rowsToShow.ToString()} ) b 
+ON b.ItemID = bic.ItemID 
+ORDER BY bc.Category ; ";
+
+		var arParams1 = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand1.ToString(),
+			arParams1);
+
+	}
+
+	public static int GetCountClosed(
+		int moduleId,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID  
+AND EndDate < ?CurrentTime ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			 ConnectionString.GetReadConnectionString(),
+			 sqlCommand.ToString(),
+			 arParams));
+
+	}
+
+	public static IDataReader GetClosed(
+		int moduleId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCountClosed(moduleId, currentTime);
+
+		if (pageSize > 0) totalPages = totalRows / pageSize;
+
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
+
+		string sqlCommand = @"
+SELECT b.*, 
+COALESCE(u.UserID, -1) AS UserID, 
+u.Name, 
+u.FirstName, 
+u.LastName, 
+u.LoginName, 
+u.Email, 
+u.AvatarUrl, 
+u.AuthorBio 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND b.EndDate < ?CurrentTime  
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ";";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+
+	}
+
+	public static IDataReader GetAttachmentsForClosed(
+		int moduleId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.*, 
+    b2.ShowDownloadLink 
+FROM mp_FileAttachment bic 
+JOIN mp_Blogs b2 
+ON 
+    b2.BlogGuid = bic.ItemGuid 
+JOIN ( 
+    SELECT 
+        b.* 
+    FROM 
+        mp_Blogs b 
+    WHERE 
+        b.ModuleID = ?ModuleID  
+    AND 
+        b.EndDate < ?CurrentTime  
+    ORDER BY  
+        b.StartDate DESC  
+    LIMIT 
+        ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ") b ON b.BlogGuid = bic.ItemGuid ";
+
+		sqlCommand += "; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetCategoriesForClosed(
+		int moduleId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.ID, 
+    bic.ItemID, 
+    bic.CategoryID, 
+    bc.Category 
+FROM mp_BlogItemCategories bic 
+JOIN mp_BlogCategories bc 
+ON bc.CategoryID = bic.CategoryID 
+JOIN	( 
+SELECT 
+    b.*, 
+    u.Name, 
+    u.LoginName, 
+    u.Email 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND b.EndDate < ?CurrentTime  
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += "b ON b.ItemID = bic.ItemID ";
+
+		sqlCommand += "ORDER BY bc.Category; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static int GetCountOfDrafts(
+		int moduleId,
+		Guid userGuid,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID  
+AND (?UserGuid = '00000000-0000-0000-0000-000000000000' OR UserGuid  = ?UserGuid)  
+AND ((StartDate > ?CurrentTime) OR (IsPublished = 0)) ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			 ConnectionString.GetReadConnectionString(),
+			 sqlCommand.ToString(),
+			 arParams));
+
+	}
+
+	public static IDataReader GetPageOfDrafts(
+		int moduleId,
+		Guid userGuid,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCountOfDrafts(moduleId, userGuid, currentTime);
+
+		if (pageSize > 0) totalPages = totalRows / pageSize;
+
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
+
+		string sqlCommand = @"
+SELECT 
+    b.*, 
+    COALESCE(u.UserID, -1) AS UserID, 
+        u.Name, 
+        u.FirstName, 
+        u.LastName, 
+        u.LoginName, 
+        u.Email, 
+        u.AvatarUrl, 
+        u.AuthorBio 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND (?UserGuid = '00000000-0000-0000-0000-000000000000' OR b.UserGuid  = ?UserGuid)  
+AND ((b.StartDate > ?CurrentTime) OR (b.IsPublished = 0)) 
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ; ";
+		}
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+
+	}
+
+
+	public static int GetCount(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID  
+AND ?BeginDate >= StartDate  
+AND IsPublished = 1 
+AND StartDate <= ?CurrentTime  
+AND (EndDate IS NULL OR EndDate > ?CurrentTime) ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			 ConnectionString.GetReadConnectionString(),
+			 sqlCommand.ToString(),
+			 arParams));
+
+	}
+
+	public static IDataReader GetPage(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCount(moduleId, beginDate, currentTime);
+
+		if (pageSize > 0) totalPages = totalRows / pageSize;
+
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
+
+		string sqlCommand = @"
+SELECT 
+    b.*, 
+    COALESCE(u.UserID, -1) AS UserID, 
+        u.Name, 
+        u.FirstName, 
+        u.LastName, 
+        u.LoginName, 
+        u.Email, 
+        u.AvatarUrl, 
+        u.AuthorBio 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND ?BeginDate >= b.StartDate  
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime  
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ";";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+
+	}
+
+	public static IDataReader GetAttachmentsForPage(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.*, 
+    b2.ShowDownloadLink 
+FROM mp_FileAttachment bic 
+JOIN mp_Blogs b2 
+ON 
+b2.BlogGuid = bic.ItemGuid 
+JOIN ( 
+SELECT b.* 
+FROM mp_Blogs b 
+WHERE b.ModuleID = ?ModuleID  
+AND ?BeginDate >= b.StartDate  
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime  
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ") b ON b.BlogGuid = bic.ItemGuid ; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetAttachmentsForPage(
+		int moduleId,
+		int categoryId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.*, 
+    b2.ShowDownloadLink 
+FROM mp_FileAttachment bic 
+JOIN mp_Blogs b2 
+ON 
+b2.BlogGuid = bic.ItemGuid 
+JOIN ( 
+SELECT b.* 
+FROM mp_Blogs b 
+JOIN mp_BlogItemCategories bic2 
+ON b.ItemID = bic2.ItemID 
+WHERE b.ModuleID = ?ModuleID   
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime 
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+AND  bic2.CategoryID = ?CategoryID   
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ") b ON b.BlogGuid = bic.ItemGuid ; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetAttachmentsForPage(
+		int month,
+		int year,
+		int moduleId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.*, 
+    b2.ShowDownloadLink 
+FROM mp_FileAttachment bic 
+JOIN mp_Blogs b2 
+ON b2.BlogGuid = bic.ItemGuid 
+JOIN	( 
+    SELECT b.* 
+    FROM mp_Blogs b 
+    WHERE b.ModuleID = ?ModuleID  
+    AND b.IsPublished = 1 
+    AND b.StartDate <= ?CurrentTime 
+    AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+    AND DATE_FORMAT(b.StartDate, '%Y') = ?Year  
+    AND MONTH(b.StartDate) = ?Month  
+    ORDER BY b.StartDate DESC  
+    LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ") b ON b.BlogGuid = bic.ItemGuid ; ";
+
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?Year", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = year
+			},
+
+			new("?Month", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = month
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetCategoriesForPage(
+		int moduleId,
+		DateTime beginDate,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.ID, 
+    bic.ItemID, 
+    bic.CategoryID, 
+    bc.Category 
+FROM mp_BlogItemCategories bic 
+JOIN mp_BlogCategories bc 
+ON bc.CategoryID = bic.CategoryID 
+JOIN ( 
+    SELECT 
+        b.*, 
+        u.Name, 
+        u.LoginName, 
+        u.Email 
+    FROM mp_Blogs b 
+    LEFT OUTER JOIN	mp_Users u 
+    ON b.UserGuid = u.UserGuid 
+    WHERE b.ModuleID = ?ModuleID  
+    AND ?BeginDate >= b.StartDate  
+    AND b.IsPublished = 1 
+    AND b.StartDate <= ?CurrentTime  
+    AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+    ORDER BY  b.StartDate DESC  
+    LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ") b ON b.ItemID = bic.ItemID ";
+
+		sqlCommand += "ORDER BY bc.Category; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = beginDate
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static int GetCountByMonth(
+		int month,
+		int year,
+		int moduleId,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID  
+AND IsPublished = 1 
+AND StartDate <= ?CurrentTime 
+AND (EndDate IS NULL OR EndDate > ?CurrentTime)  
+AND DATE_FORMAT(StartDate, '%Y') = ?Year  
+AND MONTH(StartDate)  = ?Month  ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?Year", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = year
+			},
+
+			new("?Month", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = month
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			 ConnectionString.GetReadConnectionString(),
+			 sqlCommand.ToString(),
+			 arParams));
+
+	}
+
+	public static IDataReader GetBlogEntriesByMonth(
+		int month,
+		int year,
+		int moduleId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCountByMonth(month, year, moduleId, currentTime);
+
+		if (pageSize > 0) totalPages = totalRows / pageSize;
+
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
+
+		string sqlCommand = @"
+SELECT  
+    .*, 
+    COALESCE(u.UserID, -1) AS UserID, 
+    u.Name, 
+    u.FirstName, 
+    u.LastName, 
+    u.LoginName, 
+    u.Email, 
+    u.AvatarUrl, 
+    u.AuthorBio 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime 
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+AND DATE_FORMAT(b.StartDate, '%Y') = ?Year  
+AND MONTH(b.StartDate)  = ?Month  
+ORDER BY b.StartDate DESC 
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ; ";
+		}
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?Year", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = year
+			},
+
+			new("?Month", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = month
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetCategoriesForPage(
+		int month,
+		int year,
+		int moduleId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.ID, 
+    bic.ItemID, 
+    bic.CategoryID, 
+    bc.Category 
+FROM mp_BlogItemCategories bic 
+JOIN mp_BlogCategories bc 
+ON bc.CategoryID = bic.CategoryID 
+JOIN ( 
+SELECT b.*, 
+u.Name, 
+u.LoginName, 
+u.Email 
+FROM	mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ModuleID = ?ModuleID  
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime 
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+AND DATE_FORMAT(b.StartDate, '%Y') = ?Year  
+AND MONTH(b.StartDate)  = ?Month  
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ") b ON b.ItemID = bic.ItemID ";
+
+		sqlCommand += "ORDER BY bc.Category; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?Year", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = year
+			},
+
+			new("?Month", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = month
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+	public static IDataReader GetBlogEntriesByMonth(int month, int year, int moduleId, DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID  
+AND IsPublished = 1 
+AND StartDate <= ?CurrentTime 
+AND (EndDate IS NULL OR EndDate > ?CurrentTime)  
+AND DATE_FORMAT(StartDate, '%Y') = ?Year  
+AND MONTH(StartDate)  = ?Month  
+ORDER BY StartDate DESC ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?Year", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = year
+			},
+
+			new("?Month", MySqlDbType.Int32) {
+			Direction = ParameterDirection.Input,
+			Value = month
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static int GetCountByCategory(
+		int moduleId,
+		int categoryId,
+		DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_Blogs b 
+JOIN mp_BlogItemCategories bic 
+ON b.ItemID = bic.ItemID 
+WHERE b.ModuleID = ?ModuleID  
+AND  bic.CategoryID = ?CategoryID   
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime  
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime) ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			 ConnectionString.GetReadConnectionString(),
+			 sqlCommand.ToString(),
+			 arParams));
+
+	}
+
+	public static IDataReader GetEntriesByCategory(
+		int moduleId,
+		int categoryId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize,
+		out int totalPages)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		totalPages = 1;
+		int totalRows = GetCountByCategory(moduleId, categoryId, currentTime);
+
+		if (pageSize > 0) totalPages = totalRows / pageSize;
+
+		if (totalRows <= pageSize)
+		{
+			totalPages = 1;
+		}
+		else
+		{
+			int remainder;
+			Math.DivRem(totalRows, pageSize, out remainder);
+			if (remainder > 0)
+			{
+				totalPages += 1;
+			}
+		}
+
+		string sqlCommand = @"
+SELECT 
+    b.*, 
+    COALESCE(u.UserID, -1) AS UserID, 
+    u.Name, 
+    u.FirstName, 
+    u.LastName, 
+    u.LoginName, 
+    u.Email, 
+    u.AvatarUrl, 
+    u.AuthorBio 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+JOIN mp_BlogItemCategories bic 
+ON b.ItemID = bic.ItemID 
+WHERE b.ModuleID = ?ModuleID   
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime 
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+AND  bic.CategoryID = ?CategoryID   
+ORDER BY b.StartDate DESC   
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ; ";
+		}
+
+
+
+		// categoryid is uint in db so don't allow -1
+		if (categoryId <= -1) { categoryId = 1; }
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+
+		};
+
+
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+
+
+	}
+
+	public static IDataReader GetCategoriesForPage(
+		int moduleId,
+		int categoryId,
+		DateTime currentTime,
+		int pageNumber,
+		int pageSize)
+	{
+		int pageLowerBound = (pageSize * pageNumber) - pageSize;
+
+		string sqlCommand = @"
+SELECT 
+    bic.ID, 
+    bic.ItemID, 
+    bic.CategoryID, 
+    bc.Category 
+FROM mp_BlogItemCategories bic 
+JOIN mp_BlogCategories bc 
+ON bc.CategoryID = bic.CategoryID 
+JOIN ( 
+SELECT b.* 
+FROM mp_Blogs b 
+JOIN mp_BlogItemCategories bic2 
+ON b.ItemID = bic2.ItemID 
+WHERE b.ModuleID = ?ModuleID   
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime 
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+AND  bic2.CategoryID = ?CategoryID   
+ORDER BY  b.StartDate DESC  
+LIMIT ?PageSize ";
+
+		if (pageNumber > 1)
+		{
+			sqlCommand += "OFFSET ?OffsetRows ";
+		}
+
+		sqlCommand += ") b ON b.ItemID = bic.ItemID ";
+
+		sqlCommand += "ORDER BY bc.Category; ";
+
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			},
+
+			new("?PageSize", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageSize
+			},
+
+			new("?OffsetRows", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageLowerBound
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetEntriesByCategory(int moduleId, int categoryId, DateTime currentTime)
+	{
+		string sqlCommand = @"
+SELECT b.* 
+FROM mp_Blogs b 
+JOIN mp_BlogItemCategories bic 
+ON b.ItemID = bic.ItemID 
+WHERE b.ModuleID = ?ModuleID   
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentTime 
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentTime)  
+AND  bic.CategoryID = ?CategoryID   
+ORDER BY b.StartDate DESC ;  ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+
+
+	}
+
+
+	public static IDataReader GetBlogsForSiteMap(int siteId, DateTime currentUtcDateTime)
+	{
+		string sqlCommand = @"
+SELECT  
+    b.ItemUrl, 
+    b.LastModUtc, 
+    b.ItemID, 
+    b.ModuleID, 
+    pm.PageID 
+FROM mp_Blogs b 
+JOIN mp_Modules m 
+ON b.ModuleID = m.ModuleID 
+JOIN mp_PageModules pm 
+ON b.ModuleID = pm.ModuleID 
+WHERE 
+    m.SiteID = ?SiteID 
+    AND b.IncludeInSiteMap = 1 
+    AND b.IsPublished = 1 
+    AND b.StartDate <= ?CurrentDateTime  
+    AND (b.EndDate IS NULL OR b.EndDate > ?CurrentDateTime)  
+    AND b.ItemUrl <> ''  
+ORDER BY  b.StartDate DESC  ;  ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			},
+
+			new("?CurrentDateTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentUtcDateTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+	public static IDataReader GetBlogsForNewsMap(int siteId, DateTime utcThresholdTime)
+	{
+		string sqlCommand = @"
+SELECT  
+    b.ItemUrl, 
+    b.LastModUtc, 
+    b.ItemID, 
+    b.ModuleID, 
+    b.HeadlineImageUrl, 
+    b.PubAccess, 
+    b.PubGenres, 
+    b.PubGeoLocations, 
+    b.PubKeyWords, 
+    b.PubLanguage,
+    b.PubName, 
+    b.PubStockTickers, 
+    b.StartDate,
+    b.Title, 
+    b.Heading, 
+    pm.PageID 
+FROM mp_Blogs b 
+JOIN mp_Modules m 
+ON b.ModuleID = m.ModuleID 
+JOIN mp_PageModules pm 
+ON b.ModuleID = pm.ModuleID 
+WHERE 
+    m.SiteID = ?SiteID 
+    AND b.IncludeInNews = 1 
+    AND b.IsPublished = 1 
+    AND b.StartDate >= ?UtcThresholdTime  
+    AND b.ItemUrl <> ''  
+ORDER BY  b.StartDate DESC  ;  ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			},
+
+			new("?UtcThresholdTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = utcThresholdTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+	public static IDataReader GetDrafts(
+		int moduleId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID  
+AND ((StartDate > ?BeginDate) OR (IsPublished = 0))  
+ORDER BY  StartDate DESC  ;  ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?BeginDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DateTime.UtcNow
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+
+
+
+	public static IDataReader GetBlogsByPage(int siteId, int pageId)
+	{
+		string sqlCommand = @"
+SELECT 
+    b.*, 
+    m.ModuleTitle, 
+    m.ViewRoles, 
+    md.FeatureName, 
+    COALESCE(u.UserID, -1) AS UserID, 
+    u.Name, 
+    u.FirstName, 
+    u.LastName, 
+    u.LoginName, 
+    u.Email, 
+    u.AvatarUrl 
+FROM mp_Blogs b 
+JOIN mp_Modules m 
+ON b.ModuleID = m.ModuleID 
+JOIN mp_ModuleDefinitions md 
+ON m.ModuleDefID = md.ModuleDefID 
+JOIN mp_PageModules pm 
+ON m.ModuleID = pm.ModuleID 
+JOIN mp_Pages p 
+ON p.PageID = pm.PageID 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE p.SiteID = ?SiteID 
+AND pm.PageID = ?PageID ; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			},
+
+			new("?PageID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pageId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+	public static IDataReader GetBlogStats(int moduleId)
+	{
+		string sqlCommand = @"
+SELECT  
+ModuleID, 
+EntryCount, 
+CommentCount 
+FROM mp_BlogStats 
+WHERE ModuleID = ?ModuleID  ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+	public static IDataReader GetBlogMonthArchive(int moduleId, DateTime currentTime)
+	{
+		string sqlCommand = @"
 SELECT  
     MONTH(StartDate) AS `Month`, 
     DATE_FORMAT(StartDate, '%M') AS `MonthName`, 
     YEAR(StartDate) AS `Year`, 
     1 AS `Day`, 
     count(*) AS `Count` 
-FROM	
-    mp_Blogs 
-WHERE 
-    ModuleID = ?ModuleID  
-AND 
-    IsPublished = 1 
-AND 
-    StartDate <= ?CurrentDate
+FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID  
+AND IsPublished = 1 
+AND StartDate <= ?CurrentDate
 GROUP BY 
-    `Year`, `Month`, `MonthName`  
+    `Year`, 
+    `Month`, 
+    `MonthName`  
 ORDER BY 	
-    `Year` desc, `Month` desc ;
-";
+    `Year` desc, 
+    `Month` desc ; ";
 
-			var sqlParams = new List<MySqlParameter>() {
-				new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId },
-				new MySqlParameter("?CurrentDate", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = currentTime }
+		var sqlParams = new List<MySqlParameter>()
+			{
+				new("?ModuleID", MySqlDbType.Int32)
+				{   Direction = ParameterDirection.Input,
+					Value = moduleId
+				},
+
+				new("?CurrentDate", MySqlDbType.DateTime)
+				{
+					Direction = ParameterDirection.Input,
+					Value = currentTime
+				}
 			};
 
-			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString(),
-				sqlParams.ToArray());
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			sqlParams.ToArray());
+	}
+
+	public static IDataReader GetSingleBlog(int itemId, DateTime currentTime)
+	{
+
+
+		string sqlCommand = @"
+SELECT  
+    b.*, (
+        SELECT b2.ItemUrl 
+        FROM mp_Blogs b2 
+        WHERE b2.IsPublished = 1 
+        AND b2.StartDate <= ?CurrentTime 
+        AND (
+            b2.EndDate IS NULL 
+            OR b2.EndDate > ?CurrentTime
+            ) 
+        AND (
+            b2.StartDate > b.StartDate
+        ) 
+        AND b2.ModuleID = b.ModuleID 
+        AND b2.ItemUrl IS NOT NULL 
+        AND (b2.ItemUrl <> '') 
+        ORDER BY b2.StartDate LIMIT 1 
+    ) 
+    AS NextPost, (
+        SELECT b4.Title 
+        FROM mp_Blogs b4 
+        WHERE b4.IsPublished = 1 
+        AND b4.StartDate <= ?CurrentTime 
+        AND (b4.EndDate IS NULL 
+        OR b4.EndDate > ?CurrentTime) 
+        AND (b4.StartDate > b.StartDate) 
+        AND b4.ModuleID = b.ModuleID 
+        AND b4.ItemUrl IS NOT NULL 
+        AND (b4.ItemUrl <> '') 
+        ORDER BY b4.StartDate LIMIT 1 
+    ) AS NextPostTitle, 
+    COALESCE(
+        (
+            SELECT b6.ItemID 
+            FROM mp_Blogs b6 
+            WHERE b6.IsPublished = 1 
+            AND b6.StartDate <= ?CurrentTime 
+            AND (b6.EndDate IS NULL 
+            OR b6.EndDate > ?CurrentTime) 
+            AND (b6.StartDate > b.StartDate) 
+            AND b6.ModuleID = b.ModuleID  
+            ORDER BY b6.StartDate LIMIT 1 
+        ),-1
+    ) AS NextItemID, (
+        SELECT b3.ItemUrl 
+        FROM mp_Blogs b3 
+        WHERE b3.IsPublished = 1 
+        AND b3.StartDate <= ?CurrentTime 
+        AND (b3.EndDate IS NULL OR b3.EndDate > ?CurrentTime) 
+        AND (b3.StartDate < b.StartDate) 
+        AND b3.ModuleID = b.ModuleID AND b3.ItemUrl IS NOT NULL 
+        AND (b3.ItemUrl <> '') 
+        ORDER BY b3.StartDate DESC LIMIT 1 
+    ) AS PreviousPost, (
+        SELECT b5.Title 
+        FROM mp_Blogs b5 
+        WHERE b5.IsPublished = 1 
+        AND b5.StartDate <= ?CurrentTime 
+        AND (b5.EndDate IS NULL 
+        OR b5.EndDate > ?CurrentTime) 
+        AND (b5.StartDate < b.StartDate) 
+        AND b5.ModuleID = b.ModuleID 
+        AND b5.ItemUrl IS NOT NULL 
+        AND (b5.ItemUrl <> '') 
+        ORDER BY b5.StartDate DESC LIMIT 1 
+    ) AS PreviousPostTitle,  
+    COALESCE(
+        (
+            SELECT b7.ItemID 
+            FROM mp_Blogs b7 
+            WHERE b7.IsPublished = 1 
+            AND b7.StartDate <= ?CurrentTime 
+            AND (b7.EndDate IS NULL OR b7.EndDate > ?CurrentTime) 
+            AND (b7.StartDate < b.StartDate) 
+            AND b7.ModuleID = b.ModuleID  
+            ORDER BY b7.StartDate DESC LIMIT 1 
+        ),-1
+    ) AS PreviousItemID,  
+        COALESCE(u.UserID, -1) AS UserID, 
+        u.Name, 
+        u.FirstName, 
+        u.LastName, 
+        u.LoginName, 
+        u.Email, 
+        u.AvatarUrl, 
+        u.AuthorBio 
+FROM mp_Blogs b 
+LEFT OUTER JOIN	mp_Users u 
+ON b.UserGuid = u.UserGuid 
+WHERE b.ItemID = ?ItemID ; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			},
+
+			new("?CurrentTime", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = currentTime
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+
+	public static bool DeleteBlog(int itemId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_Blogs 
+WHERE ItemID = ?ItemID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+	public static bool DeleteByModule(int moduleId)
+	{
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		string sqlCommand = @"
+DELETE FROM mp_BlogItemCategories 
+WHERE ItemID IN (
+    SELECT ItemID 
+    FROM mp_Blogs 
+    WHERE ModuleID = ?ModuleID 
+) ;";
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		string sqlCommand1 = @"
+DELETE FROM mp_FriendlyUrls 
+WHERE PageGuid IN (
+    SELECT BlogGuid 
+    FROM mp_Blogs 
+    WHERE ModuleID = ?ModuleID 
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand1.ToString(),
+			arParams);
+
+		string sqlCommand2 = @"
+DELETE FROM mp_ContentHistory 
+WHERE ContentGuid IN (
+    SELECT BlogGuid 
+    FROM mp_Blogs 
+    WHERE ModuleID = ?ModuleID 
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand2.ToString(),
+			arParams);
+
+		string sqlCommand3 = @"
+DELETE FROM mp_ContentRating 
+WHERE ContentGuid IN (
+    SELECT BlogGuid 
+    FROM mp_Blogs 
+    WHERE ModuleID = ?ModuleID 
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand3.ToString(),
+			arParams);
+
+		string sqlCommand4 = @"
+DELETE FROM mp_BlogCategories 
+WHERE ModuleID = ?ModuleID ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand4.ToString(),
+			arParams);
+
+		string sqlCommand5 = @"
+DELETE FROM mp_BlogStats 
+WHERE ModuleID = ?ModuleID ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand5.ToString(),
+			arParams);
+
+		string sqlCommand6 = @"
+DELETE FROM mp_BlogComments 
+WHERE ModuleID = ?ModuleID ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand6.ToString(),
+			arParams);
+
+		string sqlCommand7 = @"
+DELETE FROM mp_Blogs 
+WHERE ModuleID = ?ModuleID ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand7.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+	public static bool DeleteBySite(int siteId)
+	{
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			}
+		};
+
+
+		string sqlCommand = @"
+DELETE FROM mp_BlogItemCategories 
+WHERE ItemID IN (
+    SELECT ItemID 
+    FROM mp_Blogs 
+    WHERE ModuleID IN (
+        SELECT ModuleID 
+        FROM mp_Modules 
+        WHERE SiteID = ?SiteID
+    ) 
+) ;";
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		string sqlCommand1 = @"
+DELETE FROM mp_FriendlyUrls 
+WHERE PageGuid IN (
+    SELECT ModuleGuid 
+    FROM mp_Blogs 
+    WHERE ModuleID IN (
+        SELECT ModuleID 
+        FROM mp_Modules 
+        WHERE SiteID = ?SiteID
+    ) 
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand1.ToString(),
+			arParams);
+
+		string sqlCommand2 = @"
+DELETE FROM mp_FriendlyUrls 
+WHERE PageGuid IN (
+    SELECT BlogGuid 
+    FROM mp_Blogs 
+    WHERE ModuleID IN (
+        SELECT ModuleID 
+        FROM mp_Modules 
+        WHERE SiteID = ?SiteID
+    ) 
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand2.ToString(),
+			arParams);
+
+		string sqlCommand3 = @"
+DELETE FROM mp_ContentHistory 
+WHERE ContentGuid IN (
+    SELECT BlogGuid 
+    FROM mp_Blogs 
+    WHERE ModuleID IN (
+        SELECT ModuleID 
+        FROM mp_Modules 
+        WHERE SiteID = ?SiteID
+    ) 
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand3.ToString(),
+			arParams);
+
+		string sqlCommand4 = @"
+DELETE FROM mp_ContentRating 
+WHERE ContentGuid IN (
+    SELECT BlogGuid 
+    FROM mp_Blogs 
+    WHERE ModuleID IN (
+        SELECT ModuleID 
+        FROM mp_Modules 
+        WHERE SiteID = ?SiteID
+    ) 
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand4.ToString(),
+			arParams);
+
+		string sqlCommand5 = @"
+DELETE FROM mp_BlogCategories 
+WHERE ModuleID IN (
+    SELECT ModuleID 
+    FROM mp_Modules 
+    WHERE SiteID = ?SiteID
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand5.ToString(),
+			arParams);
+
+		string sqlCommand6 = @"
+DELETE FROM mp_BlogStats 
+WHERE ModuleID IN (
+    SELECT ModuleID 
+    FROM mp_Modules 
+    WHERE SiteID = ?SiteID
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand6.ToString(),
+			arParams);
+
+		string sqlCommand7 = @"
+DELETE FROM mp_BlogComments 
+WHERE ModuleID IN (
+    SELECT ModuleID 
+    FROM mp_Modules 
+    WHERE SiteID = ?SiteID
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand7.ToString(),
+			arParams);
+
+		string sqlCommand8 = @"
+DELETE FROM mp_Blogs 
+WHERE ModuleID IN (
+    SELECT ModuleID 
+    FROM mp_Modules 
+    WHERE SiteID = ?SiteID
+) ;";
+
+		rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand8.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+
+	public static int AddBlog(
+		Guid blogGuid,
+		Guid moduleGuid,
+		int moduleId,
+		string userName,
+		string title,
+		string excerpt,
+		string description,
+		DateTime startDate,
+		bool isInNewsletter,
+		bool includeInFeed,
+		int allowCommentsForDays,
+		string location,
+		Guid userGuid,
+		DateTime createdDate,
+		string itemUrl,
+		string metaKeywords,
+		string metaDescription,
+		string compiledMeta,
+		bool isPublished,
+		string subTitle,
+		DateTime endDate,
+		bool approved,
+		Guid approvedBy,
+		DateTime approvedDate,
+		bool showAuthorName,
+		bool showAuthorAvatar,
+		bool showAuthorBio,
+		bool includeInSearch,
+		bool useBingMap,
+		string mapHeight,
+		string mapWidth,
+		bool showMapOptions,
+		bool showZoomTool,
+		bool showLocationInfo,
+		bool useDrivingDirections,
+		string mapType,
+		int mapZoom,
+		bool showDownloadLink,
+		bool includeInSiteMap,
+		bool excludeFromRecentContent,
+
+		bool includeInNews,
+		string pubName,
+		string pubLanguage,
+		string pubAccess,
+		string pubGenres,
+		string pubKeyWords,
+		string pubGeoLocations,
+		string pubStockTickers,
+		string headlineImageUrl,
+		bool includeImageInExcerpt,
+			bool includeImageInPost
+		)
+	{
+
+		#region bit conversion
+
+		string inNews;
+		if (isInNewsletter)
+		{
+			inNews = "1";
+		}
+		else
+		{
+			inNews = "0";
 		}
 
-		public static IDataReader GetSingleBlog(int itemId, DateTime currentTime)
-        {
-            
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  b.*, ");
-
-            sqlCommand.Append("(SELECT b2.ItemUrl FROM mp_Blogs b2 WHERE b2.IsPublished = 1 AND b2.StartDate <= ?CurrentTime AND (b2.EndDate IS NULL OR b2.EndDate > ?CurrentTime) AND (b2.StartDate > b.StartDate) AND b2.ModuleID = b.ModuleID AND b2.ItemUrl IS NOT NULL AND (b2.ItemUrl <> '') ORDER BY b2.StartDate LIMIT 1 ) AS NextPost, ");
-            sqlCommand.Append("(SELECT b4.Title FROM mp_Blogs b4 WHERE b4.IsPublished = 1 AND b4.StartDate <= ?CurrentTime AND (b4.EndDate IS NULL OR b4.EndDate > ?CurrentTime) AND (b4.StartDate > b.StartDate) AND b4.ModuleID = b.ModuleID AND b4.ItemUrl IS NOT NULL AND (b4.ItemUrl <> '') ORDER BY b4.StartDate LIMIT 1 ) AS NextPostTitle, ");
-
-            sqlCommand.Append("COALESCE((SELECT b6.ItemID FROM mp_Blogs b6 WHERE b6.IsPublished = 1 AND b6.StartDate <= ?CurrentTime AND (b6.EndDate IS NULL OR b6.EndDate > ?CurrentTime) AND (b6.StartDate > b.StartDate) AND b6.ModuleID = b.ModuleID  ORDER BY b6.StartDate LIMIT 1 ),-1) AS NextItemID, ");
-
-
-            sqlCommand.Append(" (SELECT b3.ItemUrl FROM mp_Blogs b3 WHERE b3.IsPublished = 1 AND b3.StartDate <= ?CurrentTime AND (b3.EndDate IS NULL OR b3.EndDate > ?CurrentTime) AND (b3.StartDate < b.StartDate) AND b3.ModuleID = b.ModuleID AND b3.ItemUrl IS NOT NULL AND (b3.ItemUrl <> '') ORDER BY b3.StartDate DESC LIMIT 1 ) AS PreviousPost, ");
-            sqlCommand.Append(" (SELECT b5.Title FROM mp_Blogs b5 WHERE b5.IsPublished = 1 AND b5.StartDate <= ?CurrentTime AND (b5.EndDate IS NULL OR b5.EndDate > ?CurrentTime) AND (b5.StartDate < b.StartDate) AND b5.ModuleID = b.ModuleID AND b5.ItemUrl IS NOT NULL AND (b5.ItemUrl <> '') ORDER BY b5.StartDate DESC LIMIT 1 ) AS PreviousPostTitle,  ");
-
-            sqlCommand.Append(" COALESCE((SELECT b7.ItemID FROM mp_Blogs b7 WHERE b7.IsPublished = 1 AND b7.StartDate <= ?CurrentTime AND (b7.EndDate IS NULL OR b7.EndDate > ?CurrentTime) AND (b7.StartDate < b.StartDate) AND b7.ModuleID = b.ModuleID  ORDER BY b7.StartDate DESC LIMIT 1 ),-1) AS PreviousItemID,  ");
-
-            sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
-            sqlCommand.Append("u.Name, ");
-            sqlCommand.Append("u.FirstName, ");
-            sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
-
-            sqlCommand.Append("FROM	mp_Blogs b ");
-
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
-            sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
-
-            sqlCommand.Append("WHERE b.ItemID = ?ItemID ; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            arParams[1] = new MySqlParameter("?CurrentTime", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = currentTime;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        
-
-        public static bool DeleteBlog(int itemId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_Blogs ");
-            sqlCommand.Append("WHERE ItemID = ?ItemID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool DeleteByModule(int moduleId)
-        {
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogItemCategories ");
-            sqlCommand.Append("WHERE ItemID IN (SELECT ItemID FROM mp_Blogs WHERE ModuleID  ");
-            sqlCommand.Append(" = ?ModuleID ) ");
-            sqlCommand.Append(";");
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_FriendlyUrls ");
-            sqlCommand.Append("WHERE PageGuid IN (SELECT BlogGuid FROM mp_Blogs WHERE ModuleID  ");
-            sqlCommand.Append(" = ?ModuleID ) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_ContentHistory ");
-            sqlCommand.Append("WHERE ContentGuid IN (SELECT BlogGuid FROM mp_Blogs WHERE ModuleID  ");
-            sqlCommand.Append(" = ?ModuleID ) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_ContentRating ");
-            sqlCommand.Append("WHERE ContentGuid IN (SELECT BlogGuid FROM mp_Blogs WHERE ModuleID  ");
-            sqlCommand.Append(" = ?ModuleID ) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogCategories ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogStats ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogComments ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_Blogs ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool DeleteBySite(int siteId)
-        {
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogItemCategories ");
-            sqlCommand.Append("WHERE ItemID IN (SELECT ItemID FROM mp_Blogs WHERE ModuleID IN ");
-            sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
-            sqlCommand.Append(";");
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_FriendlyUrls ");
-            sqlCommand.Append("WHERE PageGuid IN (SELECT ModuleGuid FROM mp_Blogs WHERE ModuleID IN ");
-            sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_FriendlyUrls ");
-            sqlCommand.Append("WHERE PageGuid IN (SELECT BlogGuid FROM mp_Blogs WHERE ModuleID IN ");
-            sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_ContentHistory ");
-            sqlCommand.Append("WHERE ContentGuid IN (SELECT BlogGuid FROM mp_Blogs WHERE ModuleID IN ");
-            sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_ContentRating ");
-            sqlCommand.Append("WHERE ContentGuid IN (SELECT BlogGuid FROM mp_Blogs WHERE ModuleID IN ");
-            sqlCommand.Append("(SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogCategories ");
-            sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogStats ");
-            sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogComments ");
-            sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_Blogs ");
-            sqlCommand.Append("WHERE ModuleID IN (SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID) ");
-            sqlCommand.Append(";");
-
-            rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-
-        public static int AddBlog(
-            Guid blogGuid,
-            Guid moduleGuid,
-            int moduleId,
-            string userName,
-            string title,
-            string excerpt,
-            string description,
-            DateTime startDate,
-            bool isInNewsletter,
-            bool includeInFeed,
-            int allowCommentsForDays,
-            string location,
-            Guid userGuid,
-            DateTime createdDate,
-            string itemUrl,
-            string metaKeywords,
-            string metaDescription,
-            string compiledMeta,
-            bool isPublished,
-            string subTitle,
-            DateTime endDate,
-            bool approved,
-            Guid approvedBy,
-            DateTime approvedDate,
-            bool showAuthorName,
-            bool showAuthorAvatar,
-            bool showAuthorBio,
-            bool includeInSearch,
-            bool useBingMap,
-            string mapHeight,
-            string mapWidth,
-            bool showMapOptions,
-            bool showZoomTool,
-            bool showLocationInfo,
-            bool useDrivingDirections,
-            string mapType,
-            int mapZoom,
-            bool showDownloadLink,
-            bool includeInSiteMap,
-            bool excludeFromRecentContent,
-
-            bool includeInNews,
-            string pubName,
-            string pubLanguage,
-            string pubAccess,
-            string pubGenres,
-            string pubKeyWords,
-            string pubGeoLocations,
-            string pubStockTickers,
-            string headlineImageUrl,
-            bool includeImageInExcerpt,
+		string inFeed;
+		if (includeInFeed)
+		{
+			inFeed = "1";
+		}
+		else
+		{
+			inFeed = "0";
+		}
+
+		string isPub;
+		if (isPublished)
+		{
+			isPub = "1";
+		}
+		else
+		{
+			isPub = "0";
+		}
+
+		int intApproved = 0;
+		if (approved) { intApproved = 1; }
+
+		int intshowAuthorName = 0;
+		if (showAuthorName) { intshowAuthorName = 1; }
+
+		int intshowAuthorAvatar = 0;
+		if (showAuthorAvatar) { intshowAuthorAvatar = 1; }
+
+		int intshowAuthorBio = 0;
+		if (showAuthorBio) { intshowAuthorBio = 1; }
+
+		int intincludeInSearch = 0;
+		if (includeInSearch) { intincludeInSearch = 1; }
+
+		int intuseBingMap = 0;
+		if (useBingMap) { intuseBingMap = 1; }
+
+		int intshowMapOptions = 0;
+		if (showMapOptions) { intshowMapOptions = 1; }
+
+		int intshowZoomTool = 0;
+		if (showZoomTool) { intshowZoomTool = 1; }
+
+		int intshowLocationInfo = 0;
+		if (showLocationInfo) { intshowLocationInfo = 1; }
+
+		int intuseDrivingDirections = 0;
+		if (useDrivingDirections) { intuseDrivingDirections = 1; }
+
+		int intshowDownloadLink = 0;
+		if (showDownloadLink) { intshowDownloadLink = 1; }
+
+		int intincludeInSiteMap = 0;
+		if (includeInSiteMap) { intincludeInSiteMap = 1; }
+
+		int intExcludeRecent = 0;
+		if (excludeFromRecentContent) { intExcludeRecent = 1; }
+
+		int intincludeInNews = 0;
+		if (includeInNews) { intincludeInNews = 1; }
+
+		int intincludeImageInExcerpt = 0;
+		if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
+
+		int intincludeImageInPost = 0;
+		if (includeImageInPost) { intincludeImageInPost = 1; }
+
+
+		#endregion
+
+		string sqlCommand = @"
+INSERT INTO mp_Blogs (  
+    ModuleID, 
+    CreatedByUser, 
+    CreatedDate, 
+    Heading, 
+    Abstract, 
+    Description, 
+    StartDate, 
+    AllowCommentsForDays, 
+    BlogGuid, 
+    ModuleGuid, 
+    Location, 
+    UserGuid, 
+    LastModUserGuid, 
+    LastModUtc, 
+    ItemUrl, 
+    MetaKeywords, 
+    MetaDescription, 
+    CompiledMeta, 
+    SubTitle, 
+    EndDate, 
+    Approved, 
+    ApprovedDate, 
+    ApprovedBy, 
+    ShowAuthorName, 
+    ShowAuthorAvatar, 
+    ShowAuthorBio, 
+    IncludeInSearch, 
+    IncludeInSiteMap, 
+    UseBingMap, 
+    MapHeight, 
+    MapWidth, 
+    ShowMapOptions, 
+    ShowZoomTool, 
+    ShowLocationInfo, 
+    UseDrivingDirections, 
+    MapType, 
+    MapZoom, 
+    ShowDownloadLink, 
+    ExcludeFromRecentContent, 
+    IncludeInNews, 
+    PubName, 
+    PubLanguage, 
+    PubAccess, 
+    PubGenres, 
+    PubKeyWords, 
+    PubGeoLocations, 
+    PubStockTickers, 
+    HeadlineImageUrl, 
+    IncludeImageInExcerpt, 
+    IncludeImageInPost, 
+    IsInNewsletter, 
+    IsPublished, 
+    IncludeInFeed 
+)
+VALUES (
+    ?ModuleID , 
+    ?UserName  , 
+    ?CreatedDate, 
+    ?Heading , 
+    ?Abstract , 
+    ?Description  , 
+    ?StartDate , 
+    ?AllowCommentsForDays , 
+    ?BlogGuid, 
+    ?ModuleGuid, 
+    ?Location, 
+    ?UserGuid, 
+    ?UserGuid, 
+    ?CreatedDate, 
+    ?ItemUrl, 
+    ?MetaKeywords, 
+    ?MetaDescription, 
+    ?CompiledMeta, 
+    ?SubTitle, 
+    ?EndDate, 
+    ?Approved, 
+    ?ApprovedDate, 
+    ?ApprovedBy, 
+    ?ShowAuthorName, 
+    ?ShowAuthorAvatar, 
+    ?ShowAuthorBio, 
+    ?IncludeInSearch, 
+    ?IncludeInSiteMap, 
+    ?UseBingMap, 
+    ?MapHeight, 
+    ?MapWidth, 
+    ?ShowMapOptions, 
+    ?ShowZoomTool, 
+    ?ShowLocationInfo, 
+    ?UseDrivingDirections, 
+    ?MapType, 
+    ?MapZoom, 
+    ?ShowDownloadLink, 
+    ?ExcludeFromRecentContent, 
+    ?IncludeInNews, 
+    ?PubName, 
+    ?PubLanguage, 
+    ?PubAccess, 
+    ?PubGenres, 
+    ?PubKeyWords, 
+    ?PubGeoLocations, 
+    ?PubStockTickers, 
+    ?HeadlineImageUrl, 
+    ?IncludeImageInExcerpt, 
+    ?IncludeImageInPost, 
+    " + inNews + ", " + isPub + " " + inFeed + " SELECT LAST_INSERT_ID()" +
+") ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?UserName", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userName
+			},
+
+			new("?Heading", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = title
+			},
+
+			new("?Abstract", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = excerpt
+			},
+
+			new("?Description", MySqlDbType.LongText)
+			{
+				Direction = ParameterDirection.Input,
+				Value = description
+			},
+
+			new("?StartDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = startDate
+			},
+
+			new("?AllowCommentsForDays", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = allowCommentsForDays
+			},
+
+			new("?BlogGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = blogGuid.ToString()
+			},
+
+			new("?ModuleGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleGuid.ToString()
+			},
+
+			new("?Location", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = location
+			},
+
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			},
+
+			new("?CreatedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = createdDate
+			},
+
+			new("?ItemUrl", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemUrl
+			},
+
+			new("?MetaKeywords", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = metaKeywords
+			},
+
+			new("?MetaDescription", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = metaDescription
+			},
+
+			new("?CompiledMeta", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = compiledMeta
+			},
+
+			new("?SubTitle", MySqlDbType.VarChar, 500)
+			{
+				Direction = ParameterDirection.Input,
+				Value = subTitle
+			},
+
+			new("?EndDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+			},
+
+			new("?Approved", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intApproved
+			},
+
+			new("?ApprovedBy", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = approvedBy.ToString()
+			},
+
+			new("?ApprovedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+			},
+
+			new("?ShowAuthorName", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowAuthorName
+			},
+
+			new("?ShowAuthorAvatar", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowAuthorAvatar
+			},
+
+			new("?ShowAuthorBio", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowAuthorBio
+			},
+
+			new("?IncludeInSearch", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeInSearch
+			},
+
+			new("?IncludeInSiteMap", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeInSiteMap
+			},
+
+			new("?UseBingMap", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intuseBingMap
+			},
+
+			new("?MapHeight", MySqlDbType.VarChar, 10)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapHeight
+			},
+
+			new("?MapWidth", MySqlDbType.VarChar, 10)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapWidth
+			},
+
+			new("?ShowMapOptions", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowMapOptions
+			},
+
+			new("?ShowZoomTool", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowZoomTool
+			},
+
+			new("?ShowLocationInfo", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowLocationInfo
+			},
+
+			new("?UseDrivingDirections", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intuseDrivingDirections
+			},
+
+			new("?MapType", MySqlDbType.VarChar, 20)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapType
+			},
+
+			new("?MapZoom", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapZoom
+			},
+
+			new("?ShowDownloadLink", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowDownloadLink
+			},
+
+			new("?ExcludeFromRecentContent", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intExcludeRecent
+			},
+
+			new("?IncludeInNews", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeInNews
+			},
+
+			new("?PubName", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubName
+			},
+
+			new("?PubLanguage", MySqlDbType.VarChar, 7)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubLanguage
+			},
+
+			new("?PubAccess", MySqlDbType.VarChar, 20)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubAccess
+			},
+
+			new("?PubGenres", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubGenres
+			},
+
+			new("?PubKeyWords", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubKeyWords
+			},
+
+			new("?PubGeoLocations", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubGeoLocations
+			},
+
+			new("?PubStockTickers", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubStockTickers
+			},
+
+			new("?HeadlineImageUrl", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = headlineImageUrl
+			},
+
+			new("?IncludeImageInExcerpt", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeImageInExcerpt
+			},
+
+			new("?IncludeImageInPost", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeImageInPost
+			}
+		};
+
+
+		if (endDate < DateTime.MaxValue)
+		{
+			arParams.Add(new("?EndDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = endDate
+			});
+		}
+		else
+		{
+			arParams.Add(new("?EndDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DBNull.Value
+			});
+		}
+
+
+		if (endDate < DateTime.MaxValue)
+		{
+			arParams.Add(new("?ApprovedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = approvedDate
+			});
+		}
+		else
+		{
+			arParams.Add(new("?ApprovedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DBNull.Value
+			});
+		}
+
+
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
+		ConnectionString.GetWriteConnectionString(),
+		sqlCommand.ToString(),
+		arParams).ToString());
+
+		string sqlCommand1 = @"
+SELECT count(*) 
+FROM mp_BlogStats 
+WHERE ModuleID = ?ModuleID ;";
+
+		var arParams1 = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowCount = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand1.ToString(),
+			arParams1).ToString());
+
+		if (rowCount > 0)
+		{
+			string sqlCommand2 = @"
+UPDATE mp_BlogStats 
+SET EntryCount = EntryCount + 1 
+WHERE ModuleID = ?ModuleID ;";
+
+			var arParams2 = new List<MySqlParameter>
+			{
+				new("?ModuleID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleId
+				}
+			};
+
+			CommandHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand2.ToString(),
+				arParams2);
+
+
+		}
+		else
+		{
+			string sqlCommand3 = @"
+INSERT INTO mp_BlogStats(
+    ModuleGuid, 
+    ModuleID, 
+    EntryCount, 
+    CommentCount, 
+    TrackBackCount
+) 
+VALUES (
+    ?ModuleGuid, 
+    ?ModuleID, 
+    1, 
+    0, 
+    0
+); ";
+
+			var arParams3 = new List<MySqlParameter>
+			{
+				new("?ModuleID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleId
+				},
+
+				new("?ModuleGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleGuid.ToString()
+				}
+			};
+
+			CommandHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand3.ToString(),
+				arParams3);
+
+
+		}
+
+		return newID;
+
+	}
+
+
+
+
+	public static bool UpdateBlog(
+		int moduleId,
+		int itemId,
+		string userName,
+		string title,
+		string excerpt,
+		string description,
+		DateTime startDate,
+		bool isInNewsletter,
+		bool includeInFeed,
+		int allowCommentsForDays,
+		string location,
+		Guid lastModUserGuid,
+		DateTime lastModUtc,
+		string itemUrl,
+		string metaKeywords,
+		string metaDescription,
+		string compiledMeta,
+		bool isPublished,
+		string subTitle,
+		DateTime endDate,
+		bool approved,
+		Guid approvedBy,
+		DateTime approvedDate,
+		bool showAuthorName,
+		bool showAuthorAvatar,
+		bool showAuthorBio,
+		bool includeInSearch,
+		bool useBingMap,
+		string mapHeight,
+		string mapWidth,
+		bool showMapOptions,
+		bool showZoomTool,
+		bool showLocationInfo,
+		bool useDrivingDirections,
+		string mapType,
+		int mapZoom,
+		bool showDownloadLink,
+		bool includeInSiteMap,
+		bool excludeFromRecentContent,
+
+		bool includeInNews,
+		string pubName,
+		string pubLanguage,
+		string pubAccess,
+		string pubGenres,
+		string pubKeyWords,
+		string pubGeoLocations,
+		string pubStockTickers,
+		string headlineImageUrl,
+		bool includeImageInExcerpt,
 			bool includeImageInPost
 		)
-        {
-
-            #region bit conversion
-
-            string inNews;
-            if (isInNewsletter)
-            {
-                inNews = "1";
-            }
-            else
-            {
-                inNews = "0";
-            }
-
-            string inFeed;
-            if (includeInFeed)
-            {
-                inFeed = "1";
-            }
-            else
-            {
-                inFeed = "0";
-            }
-
-            string isPub;
-            if (isPublished)
-            {
-                isPub = "1";
-            }
-            else
-            {
-                isPub = "0";
-            }
-
-            int intApproved = 0;
-            if (approved) { intApproved = 1; }
-
-            int intshowAuthorName = 0;
-            if (showAuthorName) { intshowAuthorName = 1; }
-
-            int intshowAuthorAvatar = 0;
-            if (showAuthorAvatar) { intshowAuthorAvatar = 1; }
-
-            int intshowAuthorBio = 0;
-            if (showAuthorBio) { intshowAuthorBio = 1; }
-
-            int intincludeInSearch = 0;
-            if (includeInSearch) { intincludeInSearch = 1; }
-
-            int intuseBingMap = 0;
-            if (useBingMap) { intuseBingMap = 1; }
-
-            int intshowMapOptions = 0;
-            if (showMapOptions) { intshowMapOptions = 1; }
-
-            int intshowZoomTool = 0;
-            if (showZoomTool) { intshowZoomTool = 1; }
-
-            int intshowLocationInfo = 0;
-            if (showLocationInfo) { intshowLocationInfo = 1; }
-
-            int intuseDrivingDirections = 0;
-            if (useDrivingDirections) { intuseDrivingDirections = 1; }
-
-            int intshowDownloadLink = 0;
-            if (showDownloadLink) { intshowDownloadLink = 1; }
-
-            int intincludeInSiteMap = 0;
-            if (includeInSiteMap) { intincludeInSiteMap = 1; }
-
-            int intExcludeRecent = 0;
-            if (excludeFromRecentContent) { intExcludeRecent = 1; }
-
-            int intincludeInNews = 0;
-            if (includeInNews) { intincludeInNews = 1; }
-
-			int intincludeImageInExcerpt = 0;
-			if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
-
-			int intincludeImageInPost = 0;
-			if (includeImageInPost) { intincludeImageInPost = 1; }
-
-
-			#endregion
-
-			StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_Blogs (  ");
-            sqlCommand.Append("ModuleID, ");
-            sqlCommand.Append("CreatedByUser, ");
-            sqlCommand.Append("CreatedDate, ");
-            sqlCommand.Append("Heading, ");
-            sqlCommand.Append("Abstract, ");
-            sqlCommand.Append("Description, ");
-            sqlCommand.Append("StartDate, ");
-            sqlCommand.Append("AllowCommentsForDays, ");
-
-            sqlCommand.Append("BlogGuid, ");
-            sqlCommand.Append("ModuleGuid, ");
-            sqlCommand.Append("Location, ");
-            sqlCommand.Append("UserGuid, ");
-            sqlCommand.Append("LastModUserGuid, ");
-            sqlCommand.Append("LastModUtc, ");
-            sqlCommand.Append("ItemUrl, ");
-            sqlCommand.Append("MetaKeywords, ");
-            sqlCommand.Append("MetaDescription, ");
-            sqlCommand.Append("CompiledMeta, ");
-
-            sqlCommand.Append("SubTitle, ");
-            sqlCommand.Append("EndDate, ");
-            sqlCommand.Append("Approved, ");
-            sqlCommand.Append("ApprovedDate, ");
-            sqlCommand.Append("ApprovedBy, ");
-
-            sqlCommand.Append("ShowAuthorName, ");
-            sqlCommand.Append("ShowAuthorAvatar, ");
-            sqlCommand.Append("ShowAuthorBio, ");
-            sqlCommand.Append("IncludeInSearch, ");
-            sqlCommand.Append("IncludeInSiteMap, ");
-            sqlCommand.Append("UseBingMap, ");
-            sqlCommand.Append("MapHeight, ");
-            sqlCommand.Append("MapWidth, ");
-            sqlCommand.Append("ShowMapOptions, ");
-            sqlCommand.Append("ShowZoomTool, ");
-            sqlCommand.Append("ShowLocationInfo, ");
-            sqlCommand.Append("UseDrivingDirections, ");
-            sqlCommand.Append("MapType, ");
-            sqlCommand.Append("MapZoom, ");
-            sqlCommand.Append("ShowDownloadLink, ");
-            sqlCommand.Append("ExcludeFromRecentContent, ");
-
-            sqlCommand.Append("IncludeInNews, ");
-            sqlCommand.Append("PubName, ");
-            sqlCommand.Append("PubLanguage, ");
-            sqlCommand.Append("PubAccess, ");
-            sqlCommand.Append("PubGenres, ");
-            sqlCommand.Append("PubKeyWords, ");
-            sqlCommand.Append("PubGeoLocations, ");
-            sqlCommand.Append("PubStockTickers, ");
-            sqlCommand.Append("HeadlineImageUrl, ");
-            sqlCommand.Append("IncludeImageInExcerpt, ");
-            sqlCommand.Append("IncludeImageInPost, ");
-
-			sqlCommand.Append("IsInNewsletter, ");
-            sqlCommand.Append("IsPublished, ");
-            sqlCommand.Append("IncludeInFeed ");
-            sqlCommand.Append(" )");
-
-
-            sqlCommand.Append(" VALUES (");
-
-            sqlCommand.Append(" ?ModuleID , ");
-            sqlCommand.Append(" ?UserName  , ");
-            sqlCommand.Append(" ?CreatedDate, ");
-            sqlCommand.Append(" ?Heading , ");
-            sqlCommand.Append(" ?Abstract , ");
-            sqlCommand.Append(" ?Description  , ");
-            sqlCommand.Append(" ?StartDate , ");
-            sqlCommand.Append(" ?AllowCommentsForDays , ");
-            sqlCommand.Append(" ?BlogGuid, ");
-            sqlCommand.Append(" ?ModuleGuid, ");
-            sqlCommand.Append(" ?Location, ");
-            sqlCommand.Append(" ?UserGuid, ");
-            sqlCommand.Append(" ?UserGuid, ");
-            sqlCommand.Append(" ?CreatedDate, ");
-            sqlCommand.Append(" ?ItemUrl, ");
-            sqlCommand.Append(" ?MetaKeywords, ");
-            sqlCommand.Append(" ?MetaDescription, ");
-            sqlCommand.Append(" ?CompiledMeta, ");
-
-            sqlCommand.Append("?SubTitle, ");
-            sqlCommand.Append("?EndDate, ");
-            sqlCommand.Append("?Approved, ");
-            sqlCommand.Append("?ApprovedDate, ");
-            sqlCommand.Append("?ApprovedBy, ");
-
-            sqlCommand.Append("?ShowAuthorName, ");
-            sqlCommand.Append("?ShowAuthorAvatar, ");
-            sqlCommand.Append("?ShowAuthorBio, ");
-            sqlCommand.Append("?IncludeInSearch, ");
-            sqlCommand.Append("?IncludeInSiteMap, ");
-            sqlCommand.Append("?UseBingMap, ");
-            sqlCommand.Append("?MapHeight, ");
-            sqlCommand.Append("?MapWidth, ");
-            sqlCommand.Append("?ShowMapOptions, ");
-            sqlCommand.Append("?ShowZoomTool, ");
-            sqlCommand.Append("?ShowLocationInfo, ");
-            sqlCommand.Append("?UseDrivingDirections, ");
-            sqlCommand.Append("?MapType, ");
-            sqlCommand.Append("?MapZoom, ");
-            sqlCommand.Append("?ShowDownloadLink, ");
-            sqlCommand.Append("?ExcludeFromRecentContent, ");
-
-            sqlCommand.Append("?IncludeInNews, ");
-            sqlCommand.Append("?PubName, ");
-            sqlCommand.Append("?PubLanguage, ");
-            sqlCommand.Append("?PubAccess, ");
-            sqlCommand.Append("?PubGenres, ");
-            sqlCommand.Append("?PubKeyWords, ");
-            sqlCommand.Append("?PubGeoLocations, ");
-            sqlCommand.Append("?PubStockTickers, ");
-            sqlCommand.Append("?HeadlineImageUrl, ");
-            sqlCommand.Append("?IncludeImageInExcerpt, ");
-            sqlCommand.Append("?IncludeImageInPost, ");
-
-			sqlCommand.Append(" " + inNews + ",  ");
-            sqlCommand.Append(" " + isPub + ",  ");
-            sqlCommand.Append(" " + inFeed + "  ");
-
-            sqlCommand.Append(");");
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
-
-            MySqlParameter[] arParams = new MySqlParameter[48];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?UserName", MySqlDbType.VarChar, 100);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = userName;
-
-            arParams[2] = new MySqlParameter("?Heading", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = title;
-
-            arParams[3] = new MySqlParameter("?Abstract", MySqlDbType.Text);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = excerpt;
-
-            arParams[4] = new MySqlParameter("?Description", MySqlDbType.LongText);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = description;
-
-            arParams[5] = new MySqlParameter("?StartDate", MySqlDbType.DateTime);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = startDate;
-
-            arParams[6] = new MySqlParameter("?AllowCommentsForDays", MySqlDbType.Int32);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = allowCommentsForDays;
-
-            arParams[7] = new MySqlParameter("?BlogGuid", MySqlDbType.VarChar, 36);
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = blogGuid.ToString();
-
-            arParams[8] = new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36);
-            arParams[8].Direction = ParameterDirection.Input;
-            arParams[8].Value = moduleGuid.ToString();
-
-            arParams[9] = new MySqlParameter("?Location", MySqlDbType.Text);
-            arParams[9].Direction = ParameterDirection.Input;
-            arParams[9].Value = location;
-
-            arParams[10] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[10].Direction = ParameterDirection.Input;
-            arParams[10].Value = userGuid.ToString();
-
-            arParams[11] = new MySqlParameter("?CreatedDate", MySqlDbType.DateTime);
-            arParams[11].Direction = ParameterDirection.Input;
-            arParams[11].Value = createdDate;
-
-            arParams[12] = new MySqlParameter("?ItemUrl", MySqlDbType.VarChar, 255);
-            arParams[12].Direction = ParameterDirection.Input;
-            arParams[12].Value = itemUrl;
-
-            arParams[13] = new MySqlParameter("?MetaKeywords", MySqlDbType.VarChar, 255);
-            arParams[13].Direction = ParameterDirection.Input;
-            arParams[13].Value = metaKeywords;
-
-            arParams[14] = new MySqlParameter("?MetaDescription", MySqlDbType.VarChar, 255);
-            arParams[14].Direction = ParameterDirection.Input;
-            arParams[14].Value = metaDescription;
-
-            arParams[15] = new MySqlParameter("?CompiledMeta", MySqlDbType.Text);
-            arParams[15].Direction = ParameterDirection.Input;
-            arParams[15].Value = compiledMeta;
-
-            arParams[16] = new MySqlParameter("?SubTitle", MySqlDbType.VarChar, 500);
-            arParams[16].Direction = ParameterDirection.Input;
-            arParams[16].Value = subTitle;
-
-            arParams[17] = new MySqlParameter("?EndDate", MySqlDbType.DateTime);
-            arParams[17].Direction = ParameterDirection.Input;
-            if (endDate < DateTime.MaxValue)
-            {
-                arParams[17].Value = endDate;
-            }
-            else
-            {
-                arParams[17].Value = DBNull.Value;
-            }
-
-            arParams[18] = new MySqlParameter("?Approved", MySqlDbType.UInt16);
-            arParams[18].Direction = ParameterDirection.Input;
-            arParams[18].Value = intApproved;
-
-            arParams[19] = new MySqlParameter("?ApprovedBy", MySqlDbType.VarChar, 36);
-            arParams[19].Direction = ParameterDirection.Input;
-            arParams[19].Value = approvedBy.ToString();
-
-            arParams[20] = new MySqlParameter("?ApprovedDate", MySqlDbType.DateTime);
-            arParams[20].Direction = ParameterDirection.Input;
-            if (endDate < DateTime.MaxValue)
-            {
-                arParams[20].Value = approvedDate;
-            }
-            else
-            {
-                arParams[20].Value = DBNull.Value;
-            }
-
-            arParams[21] = new MySqlParameter("?ShowAuthorName", MySqlDbType.UInt16);
-            arParams[21].Direction = ParameterDirection.Input;
-            arParams[21].Value = intshowAuthorName;
-
-            arParams[22] = new MySqlParameter("?ShowAuthorAvatar", MySqlDbType.UInt16);
-            arParams[22].Direction = ParameterDirection.Input;
-            arParams[22].Value = intshowAuthorAvatar;
-
-            arParams[23] = new MySqlParameter("?ShowAuthorBio", MySqlDbType.UInt16);
-            arParams[23].Direction = ParameterDirection.Input;
-            arParams[23].Value = intshowAuthorBio;
-
-            arParams[24] = new MySqlParameter("?IncludeInSearch", MySqlDbType.UInt16);
-            arParams[24].Direction = ParameterDirection.Input;
-            arParams[24].Value = intincludeInSearch;
-
-            arParams[25] = new MySqlParameter("?IncludeInSiteMap", MySqlDbType.UInt16);
-            arParams[25].Direction = ParameterDirection.Input;
-            arParams[25].Value = intincludeInSiteMap;
-
-            arParams[26] = new MySqlParameter("?UseBingMap", MySqlDbType.UInt16);
-            arParams[26].Direction = ParameterDirection.Input;
-            arParams[26].Value = intuseBingMap;
-
-            arParams[27] = new MySqlParameter("?MapHeight", MySqlDbType.VarChar, 10);
-            arParams[27].Direction = ParameterDirection.Input;
-            arParams[27].Value = mapHeight;
-
-            arParams[28] = new MySqlParameter("?MapWidth", MySqlDbType.VarChar, 10);
-            arParams[28].Direction = ParameterDirection.Input;
-            arParams[28].Value = mapWidth;
-
-            arParams[29] = new MySqlParameter("?ShowMapOptions", MySqlDbType.UInt16);
-            arParams[29].Direction = ParameterDirection.Input;
-            arParams[29].Value = intshowMapOptions;
-
-            arParams[30] = new MySqlParameter("?ShowZoomTool", MySqlDbType.UInt16);
-            arParams[30].Direction = ParameterDirection.Input;
-            arParams[30].Value = intshowZoomTool;
-
-            arParams[31] = new MySqlParameter("?ShowLocationInfo", MySqlDbType.UInt16);
-            arParams[31].Direction = ParameterDirection.Input;
-            arParams[31].Value = intshowLocationInfo;
-
-            arParams[32] = new MySqlParameter("?UseDrivingDirections", MySqlDbType.UInt16);
-            arParams[32].Direction = ParameterDirection.Input;
-            arParams[32].Value = intuseDrivingDirections;
-
-            arParams[33] = new MySqlParameter("?MapType", MySqlDbType.VarChar, 20);
-            arParams[33].Direction = ParameterDirection.Input;
-            arParams[33].Value = mapType;
-
-            arParams[34] = new MySqlParameter("?MapZoom", MySqlDbType.UInt16);
-            arParams[34].Direction = ParameterDirection.Input;
-            arParams[34].Value = mapZoom;
-
-            arParams[35] = new MySqlParameter("?ShowDownloadLink", MySqlDbType.UInt16);
-            arParams[35].Direction = ParameterDirection.Input;
-            arParams[35].Value = intshowDownloadLink;
-
-            arParams[36] = new MySqlParameter("?ExcludeFromRecentContent", MySqlDbType.UInt16);
-            arParams[36].Direction = ParameterDirection.Input;
-            arParams[36].Value = intExcludeRecent;
-
-            arParams[37] = new MySqlParameter("?IncludeInNews", MySqlDbType.UInt16);
-            arParams[37].Direction = ParameterDirection.Input;
-            arParams[37].Value = intincludeInNews;
-
-            arParams[38] = new MySqlParameter("?PubName", MySqlDbType.VarChar, 255);
-            arParams[38].Direction = ParameterDirection.Input;
-            arParams[38].Value = pubName;
-
-            arParams[39] = new MySqlParameter("?PubLanguage", MySqlDbType.VarChar, 7);
-            arParams[39].Direction = ParameterDirection.Input;
-            arParams[39].Value = pubLanguage;
-
-            arParams[40] = new MySqlParameter("?PubAccess", MySqlDbType.VarChar, 20);
-            arParams[40].Direction = ParameterDirection.Input;
-            arParams[40].Value = pubAccess;
-
-            arParams[41] = new MySqlParameter("?PubGenres", MySqlDbType.VarChar, 255);
-            arParams[41].Direction = ParameterDirection.Input;
-            arParams[41].Value = pubGenres;
-
-            arParams[42] = new MySqlParameter("?PubKeyWords", MySqlDbType.VarChar, 255);
-            arParams[42].Direction = ParameterDirection.Input;
-            arParams[42].Value = pubKeyWords;
-
-            arParams[43] = new MySqlParameter("?PubGeoLocations", MySqlDbType.VarChar, 255);
-            arParams[43].Direction = ParameterDirection.Input;
-            arParams[43].Value = pubGeoLocations;
-
-            arParams[44] = new MySqlParameter("?PubStockTickers", MySqlDbType.VarChar, 255);
-            arParams[44].Direction = ParameterDirection.Input;
-            arParams[44].Value = pubStockTickers;
-
-            arParams[45] = new MySqlParameter("?HeadlineImageUrl", MySqlDbType.VarChar, 255);
-            arParams[45].Direction = ParameterDirection.Input;
-            arParams[45].Value = headlineImageUrl;
-
-			arParams[46] = new MySqlParameter("?IncludeImageInExcerpt", MySqlDbType.UInt16);
-			arParams[46].Direction = ParameterDirection.Input;
-			arParams[46].Value = intincludeImageInExcerpt;
-
-			arParams[47] = new MySqlParameter("?IncludeImageInPost", MySqlDbType.UInt16);
-			arParams[47].Direction = ParameterDirection.Input;
-			arParams[47].Value = intincludeImageInPost;
-
-
-			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams).ToString());
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT count(*) FROM mp_BlogStats WHERE ModuleID = ?ModuleID ;");
-
-            arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowCount = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams).ToString());
-
-            if (rowCount > 0)
-            {
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("UPDATE mp_BlogStats ");
-                sqlCommand.Append("SET EntryCount = EntryCount + 1 ");
-                sqlCommand.Append("WHERE ModuleID = ?ModuleID ;");
-
-                arParams = new MySqlParameter[1];
-
-                arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-                arParams[0].Direction = ParameterDirection.Input;
-                arParams[0].Value = moduleId;
-
-                CommandHelper.ExecuteNonQuery(
-                    ConnectionString.GetWriteConnectionString(), 
-                    sqlCommand.ToString(), 
-                    arParams);
-
-
-            }
-            else
-            {
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("INSERT INTO mp_BlogStats(ModuleGuid, ModuleID, EntryCount, CommentCount, TrackBackCount) ");
-                sqlCommand.Append("VALUES (?ModuleGuid, ?ModuleID, 1, 0, 0); ");
-
-                arParams = new MySqlParameter[2];
-
-                arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-                arParams[0].Direction = ParameterDirection.Input;
-                arParams[0].Value = moduleId;
-
-                arParams[1] = new MySqlParameter("?ModuleGuid", MySqlDbType.VarChar, 36);
-                arParams[1].Direction = ParameterDirection.Input;
-                arParams[1].Value = moduleGuid.ToString();
-
-                CommandHelper.ExecuteNonQuery(
-                    ConnectionString.GetWriteConnectionString(), 
-                    sqlCommand.ToString(), 
-                    arParams);
-
-
-            }
-
-            return newID;
-
-        }
-
-
-
-
-        public static bool UpdateBlog(
-            int moduleId,
-            int itemId,
-            string userName,
-            string title,
-            string excerpt,
-            string description,
-            DateTime startDate,
-            bool isInNewsletter,
-            bool includeInFeed,
-            int allowCommentsForDays,
-            string location,
-            Guid lastModUserGuid,
-            DateTime lastModUtc,
-            string itemUrl,
-            string metaKeywords,
-            string metaDescription,
-            string compiledMeta,
-            bool isPublished,
-            string subTitle,
-            DateTime endDate,
-            bool approved,
-            Guid approvedBy,
-            DateTime approvedDate,
-            bool showAuthorName,
-            bool showAuthorAvatar,
-            bool showAuthorBio,
-            bool includeInSearch,
-            bool useBingMap,
-            string mapHeight,
-            string mapWidth,
-            bool showMapOptions,
-            bool showZoomTool,
-            bool showLocationInfo,
-            bool useDrivingDirections,
-            string mapType,
-            int mapZoom,
-            bool showDownloadLink,
-            bool includeInSiteMap,
-            bool excludeFromRecentContent,
-
-            bool includeInNews,
-            string pubName,
-            string pubLanguage,
-            string pubAccess,
-            string pubGenres,
-            string pubKeyWords,
-            string pubGeoLocations,
-            string pubStockTickers,
-            string headlineImageUrl,
-            bool includeImageInExcerpt,
-			bool includeImageInPost
-		)
-        {
-
-            #region bit conversion
-
-            string inNews;
-            if (isInNewsletter)
-            {
-                inNews = "1";
-            }
-            else
-            {
-                inNews = "0";
-            }
-
-            string inFeed;
-            if (includeInFeed)
-            {
-                inFeed = "1";
-            }
-            else
-            {
-                inFeed = "0";
-            }
-
-            string isPub;
-            if (isPublished)
-            {
-                isPub = "1";
-            }
-            else
-            {
-                isPub = "0";
-            }
-
-            int intApproved = 0;
-            if (approved) { intApproved = 1; }
-
-            int intshowAuthorName = 0;
-            if (showAuthorName) { intshowAuthorName = 1; }
-
-            int intshowAuthorAvatar = 0;
-            if (showAuthorAvatar) { intshowAuthorAvatar = 1; }
-
-            int intshowAuthorBio = 0;
-            if (showAuthorBio) { intshowAuthorBio = 1; }
-
-            int intincludeInSearch = 0;
-            if (includeInSearch) { intincludeInSearch = 1; }
-
-            int intuseBingMap = 0;
-            if (useBingMap) { intuseBingMap = 1; }
-
-            int intshowMapOptions = 0;
-            if (showMapOptions) { intshowMapOptions = 1; }
-
-            int intshowZoomTool = 0;
-            if (showZoomTool) { intshowZoomTool = 1; }
-
-            int intshowLocationInfo = 0;
-            if (showLocationInfo) { intshowLocationInfo = 1; }
-
-            int intuseDrivingDirections = 0;
-            if (useDrivingDirections) { intuseDrivingDirections = 1; }
-
-            int intshowDownloadLink = 0;
-            if (showDownloadLink) { intshowDownloadLink = 1; }
-
-            int intincludeInSiteMap = 0;
-            if (includeInSiteMap) { intincludeInSiteMap = 1; }
-
-            int intExcludeRecent = 0;
-            if (excludeFromRecentContent) { intExcludeRecent = 1; }
-
-            int intincludeInNews = 0;
-            if (includeInNews) { intincludeInNews = 1; }
-
-			int intincludeImageInExcerpt = 0;
-			if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
-
-			int intincludeImageInPost = 0;
-			if (includeImageInPost) { intincludeImageInPost = 1; }
-
-			#endregion
-
-			StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_Blogs ");
-            sqlCommand.Append("SET  ");
-
-            sqlCommand.Append("Heading = ?Heading  , ");
-            sqlCommand.Append("Abstract = ?Abstract  , ");
-            sqlCommand.Append("Description = ?Description , ");
-            sqlCommand.Append("IsInNewsletter = " + inNews + " , ");
-            sqlCommand.Append("IncludeInFeed = " + inFeed + " , ");
-            sqlCommand.Append("IsPublished = " + isPub + " , ");
-            sqlCommand.Append("Description = ?Description  , ");
-            sqlCommand.Append("AllowCommentsForDays = ?AllowCommentsForDays, ");
-            sqlCommand.Append("Location = ?Location, ");
-            sqlCommand.Append("MetaKeywords = ?MetaKeywords, ");
-            sqlCommand.Append("MetaDescription = ?MetaDescription, ");
-            sqlCommand.Append("CompiledMeta = ?CompiledMeta, ");
-
-            sqlCommand.Append("SubTitle = ?SubTitle, ");
-            sqlCommand.Append("EndDate = ?EndDate, ");
-            sqlCommand.Append("Approved = ?Approved, ");
-            sqlCommand.Append("ApprovedDate = ?ApprovedDate, ");
-            sqlCommand.Append("ApprovedBy = ?ApprovedBy, ");
-
-            sqlCommand.Append("ShowAuthorName = ?ShowAuthorName, ");
-            sqlCommand.Append("ShowAuthorAvatar = ?ShowAuthorAvatar, ");
-            sqlCommand.Append("ShowAuthorBio = ?ShowAuthorBio, ");
-            sqlCommand.Append("IncludeInSearch = ?IncludeInSearch, ");
-            sqlCommand.Append("IncludeInSiteMap = ?IncludeInSiteMap, ");
-            sqlCommand.Append("UseBingMap = ?UseBingMap, ");
-            sqlCommand.Append("MapHeight = ?MapHeight, ");
-            sqlCommand.Append("MapWidth = ?MapWidth, ");
-            sqlCommand.Append("ShowMapOptions = ?ShowMapOptions, ");
-            sqlCommand.Append("ShowZoomTool = ?ShowZoomTool, ");
-            sqlCommand.Append("ShowLocationInfo = ?ShowLocationInfo, ");
-            sqlCommand.Append("UseDrivingDirections = ?UseDrivingDirections, ");
-            sqlCommand.Append("MapType = ?MapType, ");
-            sqlCommand.Append("MapZoom = ?MapZoom, ");
-            sqlCommand.Append("ShowDownloadLink = ?ShowDownloadLink, ");
-            sqlCommand.Append("ExcludeFromRecentContent = ?ExcludeFromRecentContent, ");
-
-            sqlCommand.Append("IncludeInNews = ?IncludeInNews, ");
-            sqlCommand.Append("PubName = ?PubName, ");
-            sqlCommand.Append("PubLanguage = ?PubLanguage, ");
-            sqlCommand.Append("PubAccess = ?PubAccess, ");
-            sqlCommand.Append("PubGenres = ?PubGenres, ");
-            sqlCommand.Append("PubKeyWords = ?PubKeyWords, ");
-            sqlCommand.Append("PubGeoLocations = ?PubGeoLocations, ");
-            sqlCommand.Append("PubStockTickers = ?PubStockTickers, ");
-            sqlCommand.Append("HeadlineImageUrl = ?HeadlineImageUrl, ");
-			sqlCommand.Append("IncludeImageInExcerpt = ?IncludeImageInExcerpt, ");
-			sqlCommand.Append("IncludeImageInPost = ?IncludeImageInPost, ");
-
-
-            sqlCommand.Append("ItemUrl = ?ItemUrl, ");
-            sqlCommand.Append("LastModUserGuid = ?LastModUserGuid, ");
-            sqlCommand.Append("LastModUtc = ?LastModUtc, ");
-
-            sqlCommand.Append("StartDate = ?StartDate   ");
-
-
-            sqlCommand.Append("WHERE ItemID = " + itemId.ToString() + " ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[46];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            arParams[1] = new MySqlParameter("?UserName", MySqlDbType.VarChar, 100);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = userName;
-
-            arParams[2] = new MySqlParameter("?Heading", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = title;
-
-            arParams[3] = new MySqlParameter("?Abstract", MySqlDbType.Text);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = excerpt;
-
-            arParams[4] = new MySqlParameter("?Description", MySqlDbType.LongText);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = description;
-
-            arParams[5] = new MySqlParameter("?StartDate", MySqlDbType.DateTime);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = startDate;
-
-            arParams[6] = new MySqlParameter("?AllowCommentsForDays", MySqlDbType.Int32);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = allowCommentsForDays;
-
-            arParams[7] = new MySqlParameter("?Location", MySqlDbType.Text);
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = location;
-
-            arParams[8] = new MySqlParameter("?LastModUserGuid", MySqlDbType.VarChar, 36);
-            arParams[8].Direction = ParameterDirection.Input;
-            arParams[8].Value = lastModUserGuid.ToString();
-
-            arParams[9] = new MySqlParameter("?LastModUtc", MySqlDbType.DateTime);
-            arParams[9].Direction = ParameterDirection.Input;
-            arParams[9].Value = lastModUtc;
-
-            arParams[10] = new MySqlParameter("?ItemUrl", MySqlDbType.VarChar, 255);
-            arParams[10].Direction = ParameterDirection.Input;
-            arParams[10].Value = itemUrl;
-
-            arParams[11] = new MySqlParameter("?MetaKeywords", MySqlDbType.VarChar, 255);
-            arParams[11].Direction = ParameterDirection.Input;
-            arParams[11].Value = metaKeywords;
-
-            arParams[12] = new MySqlParameter("?MetaDescription", MySqlDbType.VarChar, 255);
-            arParams[12].Direction = ParameterDirection.Input;
-            arParams[12].Value = metaDescription;
-
-            arParams[13] = new MySqlParameter("?CompiledMeta", MySqlDbType.Text);
-            arParams[13].Direction = ParameterDirection.Input;
-            arParams[13].Value = compiledMeta;
-
-            arParams[14] = new MySqlParameter("?SubTitle", MySqlDbType.VarChar, 500);
-            arParams[14].Direction = ParameterDirection.Input;
-            arParams[14].Value = subTitle;
-
-            arParams[15] = new MySqlParameter("?EndDate", MySqlDbType.DateTime);
-            arParams[15].Direction = ParameterDirection.Input;
-            if (endDate < DateTime.MaxValue)
-            {
-                arParams[15].Value = endDate;
-            }
-            else
-            {
-                arParams[15].Value = DBNull.Value;
-            }
-
-            arParams[16] = new MySqlParameter("?Approved", MySqlDbType.UInt16);
-            arParams[16].Direction = ParameterDirection.Input;
-            arParams[16].Value = intApproved;
-
-            arParams[17] = new MySqlParameter("?ApprovedBy", MySqlDbType.VarChar, 36);
-            arParams[17].Direction = ParameterDirection.Input;
-            arParams[17].Value = approvedBy.ToString();
-
-            arParams[18] = new MySqlParameter("?ApprovedDate", MySqlDbType.DateTime);
-            arParams[18].Direction = ParameterDirection.Input;
-            if (endDate < DateTime.MaxValue)
-            {
-                arParams[18].Value = approvedDate;
-            }
-            else
-            {
-                arParams[18].Value = DBNull.Value;
-            }
-
-            arParams[19] = new MySqlParameter("?ShowAuthorName", MySqlDbType.UInt16);
-            arParams[19].Direction = ParameterDirection.Input;
-            arParams[19].Value = intshowAuthorName;
-
-            arParams[20] = new MySqlParameter("?ShowAuthorAvatar", MySqlDbType.UInt16);
-            arParams[20].Direction = ParameterDirection.Input;
-            arParams[20].Value = intshowAuthorAvatar;
-
-            arParams[21] = new MySqlParameter("?ShowAuthorBio", MySqlDbType.UInt16);
-            arParams[21].Direction = ParameterDirection.Input;
-            arParams[21].Value = intshowAuthorBio;
-
-            arParams[22] = new MySqlParameter("?IncludeInSearch", MySqlDbType.UInt16);
-            arParams[22].Direction = ParameterDirection.Input;
-            arParams[22].Value = intincludeInSearch;
-
-            arParams[23] = new MySqlParameter("?IncludeInSiteMap", MySqlDbType.UInt16);
-            arParams[23].Direction = ParameterDirection.Input;
-            arParams[23].Value = intincludeInSiteMap;
-
-            arParams[24] = new MySqlParameter("?UseBingMap", MySqlDbType.UInt16);
-            arParams[24].Direction = ParameterDirection.Input;
-            arParams[24].Value = intuseBingMap;
-
-            arParams[25] = new MySqlParameter("?MapHeight", MySqlDbType.VarChar, 10);
-            arParams[25].Direction = ParameterDirection.Input;
-            arParams[25].Value = mapHeight;
-
-            arParams[26] = new MySqlParameter("?MapWidth", MySqlDbType.VarChar, 10);
-            arParams[26].Direction = ParameterDirection.Input;
-            arParams[26].Value = mapWidth;
-
-            arParams[27] = new MySqlParameter("?ShowMapOptions", MySqlDbType.UInt16);
-            arParams[27].Direction = ParameterDirection.Input;
-            arParams[27].Value = intshowMapOptions;
-
-            arParams[28] = new MySqlParameter("?ShowZoomTool", MySqlDbType.UInt16);
-            arParams[28].Direction = ParameterDirection.Input;
-            arParams[28].Value = intshowZoomTool;
-
-            arParams[29] = new MySqlParameter("?ShowLocationInfo", MySqlDbType.UInt16);
-            arParams[29].Direction = ParameterDirection.Input;
-            arParams[29].Value = intshowLocationInfo;
-
-            arParams[30] = new MySqlParameter("?UseDrivingDirections", MySqlDbType.UInt16);
-            arParams[30].Direction = ParameterDirection.Input;
-            arParams[30].Value = intuseDrivingDirections;
-
-            arParams[31] = new MySqlParameter("?MapType", MySqlDbType.VarChar, 20);
-            arParams[31].Direction = ParameterDirection.Input;
-            arParams[31].Value = mapType;
-
-            arParams[32] = new MySqlParameter("?MapZoom", MySqlDbType.UInt16);
-            arParams[32].Direction = ParameterDirection.Input;
-            arParams[32].Value = mapZoom;
-
-            arParams[33] = new MySqlParameter("?ShowDownloadLink", MySqlDbType.UInt16);
-            arParams[33].Direction = ParameterDirection.Input;
-            arParams[33].Value = intshowDownloadLink;
-
-            arParams[34] = new MySqlParameter("?ExcludeFromRecentContent", MySqlDbType.UInt16);
-            arParams[34].Direction = ParameterDirection.Input;
-            arParams[34].Value = intExcludeRecent;
-
-            arParams[35] = new MySqlParameter("?IncludeInNews", MySqlDbType.UInt16);
-            arParams[35].Direction = ParameterDirection.Input;
-            arParams[35].Value = intincludeInNews;
-
-            arParams[36] = new MySqlParameter("?PubName", MySqlDbType.VarChar, 255);
-            arParams[36].Direction = ParameterDirection.Input;
-            arParams[36].Value = pubName;
-
-            arParams[37] = new MySqlParameter("?PubLanguage", MySqlDbType.VarChar, 7);
-            arParams[37].Direction = ParameterDirection.Input;
-            arParams[37].Value = pubLanguage;
-
-            arParams[38] = new MySqlParameter("?PubAccess", MySqlDbType.VarChar, 20);
-            arParams[38].Direction = ParameterDirection.Input;
-            arParams[38].Value = pubAccess;
-
-            arParams[39] = new MySqlParameter("?PubGenres", MySqlDbType.VarChar, 255);
-            arParams[39].Direction = ParameterDirection.Input;
-            arParams[39].Value = pubGenres;
-
-            arParams[40] = new MySqlParameter("?PubKeyWords", MySqlDbType.VarChar, 255);
-            arParams[40].Direction = ParameterDirection.Input;
-            arParams[40].Value = pubKeyWords;
-
-            arParams[41] = new MySqlParameter("?PubGeoLocations", MySqlDbType.VarChar, 255);
-            arParams[41].Direction = ParameterDirection.Input;
-            arParams[41].Value = pubGeoLocations;
-
-            arParams[42] = new MySqlParameter("?PubStockTickers", MySqlDbType.VarChar, 255);
-            arParams[42].Direction = ParameterDirection.Input;
-            arParams[42].Value = pubStockTickers;
-
-            arParams[43] = new MySqlParameter("?HeadlineImageUrl", MySqlDbType.VarChar, 255);
-            arParams[43].Direction = ParameterDirection.Input;
-            arParams[43].Value = headlineImageUrl;
-
-			arParams[44] = new MySqlParameter("?IncludeImageInExcerpt", MySqlDbType.UInt16);
-			arParams[44].Direction = ParameterDirection.Input;
-			arParams[44].Value = intincludeImageInExcerpt;
-
-			arParams[45] = new MySqlParameter("?IncludeImageInPost", MySqlDbType.UInt16);
-			arParams[45].Direction = ParameterDirection.Input;
-			arParams[45].Value = intincludeImageInPost;
-
-			int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > -1);
-
-        }
-
-        public static bool UpdateCommentCount(Guid blogGuid, int commentCount)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_Blogs ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("CommentCount = ?CommentCount  ");
-            sqlCommand.Append("WHERE BlogGuid = ?BlogGuid  ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?BlogGuid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = blogGuid.ToString() ;
-
-            arParams[1] = new MySqlParameter("?CommentCount", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = commentCount;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > -1);
-
-        }
-
-
-        public static bool AddBlogComment(
-            int moduleId,
-            int itemId,
-            string name,
-            string title,
-            string url,
-            string comment,
-            DateTime dateCreated)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_BlogComments (ModuleID, ItemID, Name, Title, URL, Comment, DateCreated)");
-            sqlCommand.Append(" VALUES (");
-
-            sqlCommand.Append(" ?ModuleID , ");
-            sqlCommand.Append(" ?ItemID  , ");
-            sqlCommand.Append(" ?Name , ");
-            sqlCommand.Append(" ?Title , ");
-            sqlCommand.Append(" ?URL , ");
-            sqlCommand.Append(" ?Comment  , ");
-            sqlCommand.Append(" ?DateCreated ");
-
-            sqlCommand.Append(");    ");
-
-            MySqlParameter[] arParams = new MySqlParameter[7];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = itemId;
-
-            arParams[2] = new MySqlParameter("?Name", MySqlDbType.VarChar, 100);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = name;
-
-            arParams[3] = new MySqlParameter("?Title", MySqlDbType.VarChar, 100);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = title;
-
-            arParams[4] = new MySqlParameter("?URL", MySqlDbType.VarChar, 200);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = url;
-
-            arParams[5] = new MySqlParameter("?Comment", MySqlDbType.Text);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = comment;
-
-            arParams[6] = new MySqlParameter("?DateCreated", MySqlDbType.DateTime);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = dateCreated;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("Update mp_Blogs ");
-            sqlCommand.Append("SET CommentCount = CommentCount + 1 ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID AND ItemID = ?ItemID ;");
-
-            arParams = new MySqlParameter[2];
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = itemId;
-
-            CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("Update mp_BlogStats ");
-            sqlCommand.Append("SET CommentCount = CommentCount + 1 ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID  ;");
-
-            arParams = new MySqlParameter[1];
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool DeleteAllCommentsForBlog(int itemId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE ");
-            sqlCommand.Append("FROM	mp_BlogComments ");
-
-            sqlCommand.Append("WHERE ItemID = ?ItemID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-
-        }
-
-        public static bool UpdateCommentStats(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_BlogStats ");
-            sqlCommand.Append("SET 	CommentCount = (SELECT COUNT(*) FROM mp_BlogComments WHERE ModuleID = ?ModuleID) ");
-
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-
-        }
-
-        public static bool UpdateEntryStats(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_BlogStats ");
-            sqlCommand.Append("SET 	EntryCount = (SELECT COUNT(*) FROM mp_Blogs WHERE ModuleID = ?ModuleID) ");
-
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-
-        }
-
-
-        public static bool DeleteBlogComment(int blogCommentId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT ModuleID, ItemID ");
-            sqlCommand.Append("FROM	mp_BlogComments ");
-
-            sqlCommand.Append("WHERE BlogCommentID = ?BlogCommentID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?BlogCommentID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = blogCommentId;
-
-            int moduleId = -1;
-            int itemId = -1;
-
-            using (IDataReader reader = CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams))
-            {
-
-                if (reader.Read())
-                {
-                    moduleId = (int)reader["ModuleID"];
-                    itemId = (int)reader["ItemID"];
-                }
-            }
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogComments ");
-            sqlCommand.Append("WHERE BlogCommentID = ?BlogCommentID ;");
-
-            arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?BlogCommentID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = blogCommentId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams);
-
-            if (moduleId > -1)
-            {
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("UPDATE mp_Blogs ");
-                sqlCommand.Append("SET CommentCount = CommentCount - 1 ");
-                sqlCommand.Append("WHERE ModuleID = ?ModuleID AND ItemID = ?ItemID ;");
-
-                sqlCommand.Append("UPDATE mp_BlogStats ");
-                sqlCommand.Append("SET CommentCount = CommentCount - 1 ");
-                sqlCommand.Append("WHERE ModuleID = ?ModuleID  ;");
-
-                arParams = new MySqlParameter[2];
-
-                arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-                arParams[0].Direction = ParameterDirection.Input;
-                arParams[0].Value = moduleId;
-
-                arParams[1] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-                arParams[1].Direction = ParameterDirection.Input;
-                arParams[1].Value = itemId;
-
-                CommandHelper.ExecuteNonQuery(
-                    ConnectionString.GetWriteConnectionString(),
-                    sqlCommand.ToString(),
-                    arParams);
-
-
-                return (rowsAffected > 0);
-
-
-            }
-
-            return (rowsAffected > 0);
-
-        }
-
-
-        public static IDataReader GetBlogComments(int moduleId, int itemId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_BlogComments ");
-            sqlCommand.Append("WHERE ModuleID = ?ModuleID AND ItemID = ?ItemID  ");
-            sqlCommand.Append("ORDER BY BlogCommentID,  DateCreated DESC  ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = itemId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-
-
-        public static int AddBlogCategory(
-            int moduleId,
-            string category)
-        {
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_BlogCategories (ModuleID, Category)");
-            sqlCommand.Append(" VALUES (");
-
-            sqlCommand.Append(" ?ModuleID , ");
-            sqlCommand.Append(" ?Category   ");
-
-            sqlCommand.Append(");    ");
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
-
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?Category", MySqlDbType.VarChar, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = category;
-
-            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams).ToString());
-
-            return newID;
-
-        }
-
-        public static bool UpdateBlogCategory(
-            int categoryId,
-            string category)
-        {
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_BlogCategories ");
-            sqlCommand.Append(" SET  ");
-            sqlCommand.Append("Category =  ?Category   ");
-
-            sqlCommand.Append("WHERE CategoryID = ?CategoryID ;    ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = categoryId;
-
-            arParams[1] = new MySqlParameter("?Category", MySqlDbType.VarChar, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = category;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool DeleteCategory(int categoryId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogItemCategories ");
-            sqlCommand.Append("WHERE CategoryID = ?CategoryID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = categoryId;
-
-
-
-            CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogCategories ");
-            sqlCommand.Append("WHERE CategoryID = ?CategoryID ;");
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-
-
-        public static IDataReader GetCategory(int categoryId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_BlogCategories ");
-            sqlCommand.Append("WHERE CategoryID = ?CategoryID ;  ");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = categoryId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-
-        public static IDataReader GetCategories(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  bc.CategoryID, bc.Category, COUNT(bic.ItemID) As PostCount ");
-            sqlCommand.Append("FROM	mp_BlogCategories bc ");
-            sqlCommand.Append("JOIN	mp_BlogItemCategories bic ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-
-            sqlCommand.Append("JOIN	mp_Blogs b ");
-            sqlCommand.Append("ON b.ItemID = bic.ItemID ");
-
-            sqlCommand.Append("WHERE b.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("AND b.IsPublished = 1 ");
-            sqlCommand.Append("AND b.StartDate <= ?CurrentDate ");
-            sqlCommand.Append("AND (b.EndDate IS NULL OR b.EndDate > ?CurrentDate) ");
-
-            sqlCommand.Append("GROUP BY bc.CategoryID, bc.Category ");
-            sqlCommand.Append("ORDER BY bc.Category; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            arParams[1] = new MySqlParameter("?CurrentDate", MySqlDbType.DateTime);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = DateTime.UtcNow;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-
-        public static IDataReader GetCategoriesList(int moduleId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  bc.CategoryID, bc.Category, COUNT(bic.ItemID) As PostCount ");
-            sqlCommand.Append("FROM	mp_BlogCategories bc ");
-            sqlCommand.Append("LEFT OUTER JOIN	mp_BlogItemCategories bic ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-            sqlCommand.Append("WHERE bc.ModuleID = ?ModuleID  ");
-            sqlCommand.Append("GROUP BY bc.CategoryID, bc.Category; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
-
-        public static int AddBlogItemCategory(
-            int itemId,
-            int categoryId)
-        {
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_BlogItemCategories (ItemID, CategoryID)");
-            sqlCommand.Append(" VALUES (");
-
-            sqlCommand.Append(" ?ItemID , ");
-            sqlCommand.Append(" ?CategoryID   ");
-
-            sqlCommand.Append(");    ");
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
-
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            arParams[1] = new MySqlParameter("?CategoryID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = categoryId;
-
-            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams).ToString());
-
-            return newID;
-
-        }
-
-
-        public static bool DeleteItemCategories(int itemId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_BlogItemCategories ");
-            sqlCommand.Append("WHERE ItemID = ?ItemID ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-            return (rowsAffected > 0);
-
-        }
-
-        public static IDataReader GetBlogItemCategories(int itemId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  bic.ItemID, ");
-            sqlCommand.Append("bic.CategoryID, ");
-            sqlCommand.Append("bc.Category ");
-            sqlCommand.Append("FROM	mp_BlogItemCategories bic ");
-            sqlCommand.Append("JOIN	mp_BlogCategories bc ");
-            sqlCommand.Append("ON bc.CategoryID = bic.CategoryID ");
-            sqlCommand.Append("WHERE bic.ItemID = ?ItemID   ");
-            sqlCommand.Append("ORDER BY bc.Category ;  ");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = itemId;
-
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        
-
-
-
-
-    }
+	{
+
+		#region bit conversion
+
+		string inNews;
+		if (isInNewsletter)
+		{
+			inNews = "1";
+		}
+		else
+		{
+			inNews = "0";
+		}
+
+		string inFeed;
+		if (includeInFeed)
+		{
+			inFeed = "1";
+		}
+		else
+		{
+			inFeed = "0";
+		}
+
+		string isPub;
+		if (isPublished)
+		{
+			isPub = "1";
+		}
+		else
+		{
+			isPub = "0";
+		}
+
+		int intApproved = 0;
+		if (approved) { intApproved = 1; }
+
+		int intshowAuthorName = 0;
+		if (showAuthorName) { intshowAuthorName = 1; }
+
+		int intshowAuthorAvatar = 0;
+		if (showAuthorAvatar) { intshowAuthorAvatar = 1; }
+
+		int intshowAuthorBio = 0;
+		if (showAuthorBio) { intshowAuthorBio = 1; }
+
+		int intincludeInSearch = 0;
+		if (includeInSearch) { intincludeInSearch = 1; }
+
+		int intuseBingMap = 0;
+		if (useBingMap) { intuseBingMap = 1; }
+
+		int intshowMapOptions = 0;
+		if (showMapOptions) { intshowMapOptions = 1; }
+
+		int intshowZoomTool = 0;
+		if (showZoomTool) { intshowZoomTool = 1; }
+
+		int intshowLocationInfo = 0;
+		if (showLocationInfo) { intshowLocationInfo = 1; }
+
+		int intuseDrivingDirections = 0;
+		if (useDrivingDirections) { intuseDrivingDirections = 1; }
+
+		int intshowDownloadLink = 0;
+		if (showDownloadLink) { intshowDownloadLink = 1; }
+
+		int intincludeInSiteMap = 0;
+		if (includeInSiteMap) { intincludeInSiteMap = 1; }
+
+		int intExcludeRecent = 0;
+		if (excludeFromRecentContent) { intExcludeRecent = 1; }
+
+		int intincludeInNews = 0;
+		if (includeInNews) { intincludeInNews = 1; }
+
+		int intincludeImageInExcerpt = 0;
+		if (includeImageInExcerpt) { intincludeImageInExcerpt = 1; }
+
+		int intincludeImageInPost = 0;
+		if (includeImageInPost) { intincludeImageInPost = 1; }
+
+		#endregion
+
+		string sqlCommand = $@"
+UPDATE 
+    mp_Blogs 
+SET  
+    Heading = ?Heading,
+    Abstract = ?Abstract,
+    Description = ?Description,
+    IsInNewsletter = {inNews},
+    IncludeInFeed = {inFeed},
+    IsPublished {isPub},
+    Description = ?Description,
+    AllowCommentsForDays = ?AllowCommentsForDays,
+    Location = ?Location,
+    MetaKeywords = ?MetaKeywords,
+    MetaDescription = ?MetaDescription,
+    CompiledMeta = ?CompiledMeta,
+    SubTitle = ?SubTitle,
+    EndDate = ?EndDate,
+    Approved = ?Approved,
+    ApprovedDate = ?ApprovedDate,
+    ApprovedBy = ?ApprovedBy,
+    ShowAuthorName = ?ShowAuthorName,
+    ShowAuthorAvatar = ?ShowAuthorAvatar,
+    ShowAuthorBio = ?ShowAuthorBio,
+    IncludeInSearch = ?IncludeInSearch,
+    IncludeInSiteMap = ?IncludeInSiteMap,
+    UseBingMap = ?UseBingMap,
+    MapHeight = ?MapHeight,
+    MapWidth = ?MapWidth,
+    ShowMapOptions = ?ShowMapOptions,
+    ShowZoomTool = ?ShowZoomTool,
+    ShowLocationInfo = ?ShowLocationInfo,
+    UseDrivingDirections = ?UseDrivingDirections,
+    MapType = ?MapType,
+    MapZoom = ?MapZoom,
+    ShowDownloadLink = ?ShowDownloadLink,
+    ExcludeFromRecentContent = ?ExcludeFromRecentContent,
+    IncludeInNews = ?IncludeInNews,
+    PubName = ?PubName,
+    PubLanguage = ?PubLanguage,
+    PubAccess = ?PubAccess,
+    PubGenres = ?PubGenres,
+    PubKeyWords = ?PubKeyWords,
+    PubGeoLocations = ?PubGeoLocations,
+    PubStockTickers = ?PubStockTickers,
+    HeadlineImageUrl = ?HeadlineImageUrl,
+    IncludeImageInExcerpt = ?IncludeImageInExcerpt,
+    IncludeImageInPost = ?IncludeImageInPost,
+    ItemUrl = ?ItemUrl,
+    LastModUserGuid = ?LastModUserGuid,
+    LastModUtc = ?LastModUtc,
+    StartDate = ?StartDate 
+WHERE 
+    ItemID = {itemId.ToString()} ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			},
+
+			new("?UserName", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userName
+			},
+
+			new("?Heading", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = title
+			},
+
+			new("?Abstract", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = excerpt
+			},
+
+			new("?Description", MySqlDbType.LongText)
+			{
+				Direction = ParameterDirection.Input,
+				Value = description
+			},
+
+			new("?StartDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = startDate
+			},
+
+			new("?AllowCommentsForDays", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = allowCommentsForDays
+			},
+
+			new("?Location", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = location
+			},
+
+			new("?LastModUserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = lastModUserGuid.ToString()
+			},
+
+			new("?LastModUtc", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = lastModUtc
+			},
+
+			new("?ItemUrl", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemUrl
+			},
+
+			new("?MetaKeywords", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = metaKeywords
+			},
+
+			new("?MetaDescription", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = metaDescription
+			},
+
+			new("?CompiledMeta", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = compiledMeta
+			},
+
+			new("?SubTitle", MySqlDbType.VarChar, 500)
+			{
+				Direction = ParameterDirection.Input,
+				Value = subTitle
+			},
+
+			new("?EndDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+			},
+
+			new("?Approved", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intApproved
+			},
+
+			new("?ApprovedBy", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = approvedBy.ToString()
+			},
+
+			new("?ApprovedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+			},
+
+			new("?ShowAuthorName", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowAuthorName
+			},
+
+			new("?ShowAuthorAvatar", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowAuthorAvatar
+			},
+
+			new("?ShowAuthorBio", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowAuthorBio
+			},
+
+			new("?IncludeInSearch", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeInSearch
+			},
+
+			new("?IncludeInSiteMap", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeInSiteMap
+			},
+
+			new("?UseBingMap", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intuseBingMap
+			},
+
+			new("?MapHeight", MySqlDbType.VarChar, 10)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapHeight
+			},
+
+			new("?MapWidth", MySqlDbType.VarChar, 10)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapWidth
+			},
+
+			new("?ShowMapOptions", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowMapOptions
+			},
+
+			new("?ShowZoomTool", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowZoomTool
+			},
+
+			new("?ShowLocationInfo", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowLocationInfo
+			},
+
+			new("?UseDrivingDirections", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intuseDrivingDirections
+			},
+
+			new("?MapType", MySqlDbType.VarChar, 20)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapType
+			},
+
+			new("?MapZoom", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = mapZoom
+			},
+
+			new("?ShowDownloadLink", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intshowDownloadLink
+			},
+
+			new("?ExcludeFromRecentContent", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intExcludeRecent
+			},
+
+			new("?IncludeInNews", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeInNews
+			},
+
+			new("?PubName", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubName
+			},
+
+			new("?PubLanguage", MySqlDbType.VarChar, 7)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubLanguage
+			},
+
+			new("?PubAccess", MySqlDbType.VarChar, 20)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubAccess
+			},
+
+			new("?PubGenres", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubGenres
+			},
+
+			new("?PubKeyWords", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubKeyWords
+			},
+
+			new("?PubGeoLocations", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubGeoLocations
+			},
+
+			new("?PubStockTickers", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = pubStockTickers
+			},
+
+			new("?HeadlineImageUrl", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = headlineImageUrl
+			},
+
+			new("?IncludeImageInExcerpt", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeImageInExcerpt
+			},
+
+			new("?IncludeImageInPost", MySqlDbType.UInt16)
+			{
+				Direction = ParameterDirection.Input,
+				Value = intincludeImageInPost
+			}
+		};
+
+
+		if (endDate < DateTime.MaxValue)
+		{
+			arParams.Add(new("?EndDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = endDate
+			});
+		}
+		else
+		{
+			arParams.Add(new("?EndDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DBNull.Value
+			});
+		}
+
+
+		if (endDate < DateTime.MaxValue)
+		{
+			arParams.Add(new("?ApprovedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = approvedDate
+			});
+		}
+		else
+		{
+			arParams.Add(new("?ApprovedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DBNull.Value
+			});
+		}
+
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > -1;
+
+	}
+
+	public static bool UpdateCommentCount(Guid blogGuid, int commentCount)
+	{
+		string sqlCommand = @"
+UPDATE 
+    mp_Blogs 
+SET 
+    CommentCount = ?CommentCount 
+WHERE 
+    BlogGuid = ?BlogGuid ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?BlogGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = blogGuid.ToString()
+			},
+
+			new("?CommentCount", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = commentCount
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > -1;
+
+	}
+
+
+	public static bool AddBlogComment(
+		int moduleId,
+		int itemId,
+		string name,
+		string title,
+		string url,
+		string comment,
+		DateTime dateCreated)
+	{
+		string sqlCommand = @"
+INSERT INTO 
+    mp_BlogComments (
+        ModuleID, 
+        ItemID, 
+        Name, 
+        Title, 
+        URL, 
+        Comment, 
+        DateCreated
+)
+VALUES (
+    ?ModuleID,
+    ?ItemID,
+    ?Name,
+    ?Title,
+    ?URL,
+    ?Comment,
+    ?DateCreated
+);";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			},
+
+			new("?Name", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = name
+			},
+
+			new("?Title", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = title
+			},
+
+			new("?URL", MySqlDbType.VarChar, 200)
+			{
+				Direction = ParameterDirection.Input,
+				Value = url
+			},
+
+			new("?Comment", MySqlDbType.Text)
+			{
+				Direction = ParameterDirection.Input,
+				Value = comment
+			},
+
+			new("?DateCreated", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = dateCreated
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		string sqlCommand1 = @"
+Update mp_Blogs 
+SET CommentCount = CommentCount + 1 
+WHERE ModuleID = ?ModuleID 
+AND ItemID = ?ItemID ;";
+
+		var arParams1 = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			}
+		};
+
+		CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand1.ToString(),
+			arParams1);
+
+		string sqlCommand2 = @"
+Update mp_BlogStats 
+SET CommentCount = CommentCount + 1 
+WHERE ModuleID = ?ModuleID  ;";
+
+		var arParams2 = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand2.ToString(),
+			arParams2);
+
+		return rowsAffected > 0;
+
+	}
+
+	public static bool DeleteAllCommentsForBlog(int itemId)
+	{
+		string sqlCommand = @"
+DELETE 
+FROM mp_BlogComments 
+WHERE ItemID = ?ItemID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+
+	}
+
+	public static bool UpdateCommentStats(int moduleId)
+	{
+		string sqlCommand = @"
+UPDATE 
+    mp_BlogStats 
+SET CommentCount = (
+    SELECT COUNT(*) 
+    FROM mp_BlogComments 
+    WHERE ModuleID = ?ModuleID
+) 
+WHERE 
+    ModuleID = ?ModuleID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+
+	}
+
+	public static bool UpdateEntryStats(int moduleId)
+	{
+		string sqlCommand = @"
+UPDATE mp_BlogStats 
+SET EntryCount = (
+    SELECT COUNT(*) 
+    FROM mp_Blogs 
+    WHERE ModuleID = ?ModuleID
+) 
+WHERE ModuleID = ?ModuleID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+
+	}
+
+
+	public static bool DeleteBlogComment(int blogCommentId)
+	{
+		string sqlCommand = @"
+SELECT ModuleID, ItemID 
+FROM mp_BlogComments 
+WHERE BlogCommentID = ?BlogCommentID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?BlogCommentID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = blogCommentId
+			}
+		};
+
+		int moduleId = -1;
+		int itemId = -1;
+
+		using (IDataReader reader = CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams))
+		{
+
+			if (reader.Read())
+			{
+				moduleId = (int)reader["ModuleID"];
+				itemId = (int)reader["ItemID"];
+			}
+		}
+
+		string sqlCommand1 = @"
+DELETE FROM mp_BlogComments 
+WHERE BlogCommentID = ?BlogCommentID;";
+
+		var arParams1 = new List<MySqlParameter>
+		{
+			new("?BlogCommentID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = blogCommentId
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand1.ToString(),
+			arParams1);
+
+		if (moduleId > -1)
+		{
+			string sqlCommand2 = @"
+UPDATE mp_Blogs 
+SET CommentCount = CommentCount - 1 
+WHERE ModuleID = ?ModuleID 
+AND ItemID = ?ItemID ;
+UPDATE mp_BlogStats 
+SET CommentCount = CommentCount - 1 
+WHERE ModuleID = ?ModuleID ;";
+
+			var arParams2 = new List<MySqlParameter>
+			{
+				new("?ModuleID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = moduleId
+				},
+
+				new("?ItemID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = itemId
+				}
+			};
+
+			CommandHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand2.ToString(),
+				arParams);
+
+
+			return rowsAffected > 0;
+
+
+		}
+
+		return rowsAffected > 0;
+
+	}
+
+
+	public static IDataReader GetBlogComments(int moduleId, int itemId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_BlogComments 
+WHERE ModuleID = ?ModuleID 
+AND ItemID = ?ItemID 
+ORDER BY BlogCommentID, DateCreated DESC ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
+
+
+	public static int AddBlogCategory(
+		int moduleId,
+		string category)
+	{
+
+		string sqlCommand = @"
+INSERT INTO mp_BlogCategories (
+    ModuleID, 
+    Category
+)
+VALUES (
+    ?ModuleID , 
+    ?Category   
+);    
+SELECT LAST_INSERT_ID();";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?Category", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = category
+			}
+		};
+
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams).ToString());
+
+		return newID;
+
+	}
+
+	public static bool UpdateBlogCategory(
+		int categoryId,
+		string category)
+	{
+
+		string sqlCommand = @"
+UPDATE mp_BlogCategories 
+SET Category = ?Category 
+WHERE CategoryID = ?CategoryID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			},
+
+			new("?Category", MySqlDbType.VarChar, 255)
+			{
+				Direction = ParameterDirection.Input,
+				Value = category
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+	public static bool DeleteCategory(int categoryId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_BlogItemCategories 
+WHERE CategoryID = ?CategoryID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			}
+		};
+
+		CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		string sqlCommand1 = @"
+DELETE FROM mp_BlogCategories 
+WHERE CategoryID = ?CategoryID ;";
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand1.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+
+
+	public static IDataReader GetCategory(int categoryId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_BlogCategories 
+WHERE CategoryID = ?CategoryID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
+
+	public static IDataReader GetCategories(int moduleId)
+	{
+		string sqlCommand = @"
+SELECT 
+    bc.CategoryID, 
+    bc.Category, 
+    COUNT(bic.ItemID) As PostCount 
+FROM mp_BlogCategories bc 
+JOIN mp_BlogItemCategories bic 
+ON bc.CategoryID = bic.CategoryID 
+JOIN mp_Blogs b 
+ON b.ItemID = bic.ItemID 
+WHERE b.ModuleID = ?ModuleID 
+AND b.IsPublished = 1 
+AND b.StartDate <= ?CurrentDate 
+AND (b.EndDate IS NULL OR b.EndDate > ?CurrentDate) 
+GROUP BY bc.CategoryID, bc.Category 
+ORDER BY bc.Category; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			},
+
+			new("?CurrentDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DateTime.UtcNow
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
+
+	public static IDataReader GetCategoriesList(int moduleId)
+	{
+		string sqlCommand = @"
+SELECT 
+    bc.CategoryID, 
+    bc.Category, COUNT(bic.ItemID) As PostCount 
+FROM mp_BlogCategories bc 
+LEFT OUTER JOIN	mp_BlogItemCategories bic 
+ON bc.CategoryID = bic.CategoryID 
+WHERE bc.ModuleID = ?ModuleID  
+GROUP BY bc.CategoryID, bc.Category; ";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
+
+	public static int AddBlogItemCategory(
+		int itemId,
+		int categoryId)
+	{
+
+		string sqlCommand = @"
+INSERT INTO mp_BlogItemCategories (
+    ItemID,
+    CategoryID
+)
+VALUES (
+    ?ItemID,
+    ?CategoryID
+);
+SELECT LAST_INSERT_ID();";
+
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			},
+
+			new("?CategoryID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = categoryId
+			}
+		};
+
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams).ToString());
+
+		return newID;
+
+	}
+
+
+	public static bool DeleteItemCategories(int itemId)
+	{
+		string sqlCommand = @"
+DELETE FROM mp_BlogItemCategories 
+WHERE ItemID = ?ItemID ;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			}
+		};
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+		return rowsAffected > 0;
+
+	}
+
+	public static IDataReader GetBlogItemCategories(int itemId)
+	{
+		string sqlCommand = @"
+SELECT 
+    bic.ItemID,
+    bic.CategoryID,
+    bc.Category 
+FROM mp_BlogItemCategories bic 
+JOIN mp_BlogCategories bc 
+ON bc.CategoryID = bic.CategoryID 
+WHERE bic.ItemID = ?ItemID 
+ORDER BY bc.Category;";
+
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ItemID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = itemId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+
+	}
+
+
+
+
+
+
 }
