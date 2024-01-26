@@ -1,9 +1,8 @@
-﻿using System;
+﻿using mojoPortal.Data;
+using MySqlConnector;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Text;
-using mojoPortal.Data;
-using MySqlConnector;
 
 namespace SurveyFeature.Data;
 
@@ -190,11 +189,14 @@ WHERE
 	{
 		//first delete questionOptions
 		var sqlCommand = @"
-DELETE FROM mp_SurveyQuestionOptions 
-WHERE QuestionGuid IN (
+DELETE FROM 
+	mp_SurveyQuestionOptions 
+WHERE QuestionGuid 
+IN (
 	SELECT QuestionGuid 
 	FROM mp_SurveyQuestions 
-	WHERE PageGuid IN (
+	WHERE PageGuid 
+	IN (
 		SELECT PageGuid 
 		FROM mp_SurveyPages 
 		WHERE SurveyGuid = ?SurveyGuid
@@ -203,8 +205,10 @@ WHERE QuestionGuid IN (
 
 		//now delete survey questions
 		sqlCommand += @"
-DELETE FROM mp_SurveyQuestions 
-WHERE PageGuid IN (
+DELETE FROM 
+	mp_SurveyQuestions 
+WHERE PageGuid 
+IN (
 	SELECT PageGuid 
 	FROM mp_SurveyPages 
 	WHERE SurveyGuid = ?SurveyGuid
@@ -239,50 +243,94 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static bool DeleteBySite(int siteId)
 	{
 		//first delete questionOptions
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("DELETE FROM mp_SurveyQuestionOptions ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("QuestionGuid IN (");
-		sqlCommand.Append("SELECT QuestionGuid ");
-		sqlCommand.Append("FROM mp_SurveyQuestions ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("PageGuid IN (");
-		sqlCommand.Append("SELECT PageGuid ");
-		sqlCommand.Append("FROM mp_SurveyPages ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("SurveyGuid IN (SELECT SurveyGuid FROM mp_Surveys ");
-		sqlCommand.Append("WHERE SiteGuid IN (SELECT SiteGuid FROM mp_Sites WHERE SiteID = ?SiteID) ");
-		sqlCommand.Append("))); ");
+		string sqlCommand = @"
+DELETE FROM 
+	mp_SurveyQuestionOptions 
+WHERE 
+	QuestionGuid 
+IN (
+	SELECT QuestionGuid 
+	FROM mp_SurveyQuestions 
+	WHERE 
+	PageGuid 
+	IN (
+		SELECT PageGuid 
+		FROM mp_SurveyPages 
+		WHERE 
+		SurveyGuid 
+		IN (
+			SELECT SurveyGuid 
+			FROM mp_Surveys 
+			WHERE SiteGuid 
+			IN (
+				SELECT SiteGuid 
+				FROM mp_Sites 
+				WHERE SiteID = ?SiteID
+			) 
+		)
+	)
+); ";
 
 		//now delete survey questions
-		sqlCommand.Append("DELETE FROM mp_SurveyQuestions ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("PageGuid IN (");
-		sqlCommand.Append("SELECT PageGuid ");
-		sqlCommand.Append("FROM mp_SurveyPages ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("SurveyGuid IN (SELECT SurveyGuid FROM mp_Surveys ");
-		sqlCommand.Append("WHERE SiteGuid IN (SELECT SiteGuid FROM mp_Sites WHERE SiteID = ?SiteID) ");
-		sqlCommand.Append("))); ");
+		sqlCommand += @"
+DELETE FROM 
+	mp_SurveyQuestions 
+WHERE 
+	PageGuid 
+	IN (
+		SELECT PageGuid 
+		FROM mp_SurveyPages 
+		WHERE 
+		SurveyGuid 
+		IN (
+			SELECT SurveyGuid 
+			FROM mp_Surveys 
+			WHERE SiteGuid 
+			IN (
+				SELECT SiteGuid 
+				FROM mp_Sites 
+				WHERE SiteID = ?SiteID
+			) 
+		)
+	)
+); ";
 
 		//now delete survey pages
-		sqlCommand.Append("DELETE FROM mp_SurveyPages ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("SurveyGuid IN (SELECT SurveyGuid FROM mp_Surveys ");
-		sqlCommand.Append("WHERE SiteGuid IN (SELECT SiteGuid FROM mp_Sites WHERE SiteID = ?SiteID) ");
-		sqlCommand.Append("))); ");
+		sqlCommand += @"
+DELETE FROM mp_SurveyPages 
+WHERE 
+	SurveyGuid 
+	IN (
+		SELECT SurveyGuid 
+		FROM mp_Surveys 
+		WHERE SiteGuid 
+		IN (
+			SELECT SiteGuid 
+			FROM mp_Sites 
+			WHERE SiteID = ?SiteID
+		) 
+	)
+)); ";
 
 		//now delete survey
-		sqlCommand.Append("DELETE FROM mp_Surveys ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("SiteGuid IN (SELECT SiteGuid FROM mp_Sites WHERE SiteID = ?SiteID);");
+		sqlCommand += @"
+DELETE FROM mp_Surveys 
+WHERE 
+	SiteGuid 
+	IN (
+		SELECT SiteGuid 
+		FROM mp_Sites 
+		WHERE SiteID = ?SiteID
+	)
+;";
 
-		MySqlParameter[] arParams = new MySqlParameter[1];
-
-		arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32)
+		var arParams = new List<MySqlParameter>
 		{
-			Direction = ParameterDirection.Input,
-			Value = siteId
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			}
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
@@ -290,7 +338,7 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 			sqlCommand.ToString(),
 			arParams);
 
-		return (rowsAffected > 0);
+		return rowsAffected > 0;
 	}
 
 
@@ -301,20 +349,21 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static IDataReader GetOne(
 		Guid surveyGuid)
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("SELECT  s.*, ");
-		sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyPages sp WHERE sp.SurveyGuid = s.SurveyGuid) AS PageCount, ");
-		sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyResponses sr WHERE sr.SurveyGuid = s.SurveyGuid) AS ResponseCount ");
-		sqlCommand.Append("FROM	mp_Surveys s ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("s.SurveyGuid = ?SurveyGuid; ");
+		string sqlCommand = @"
+SELECT 
+	s.*, 
+	(SELECT COUNT(*) FROM mp_SurveyPages sp WHERE sp.SurveyGuid = s.SurveyGuid) AS PageCount, 
+	(SELECT COUNT(*) FROM mp_SurveyResponses sr WHERE sr.SurveyGuid = s.SurveyGuid) AS ResponseCount 
+FROM mp_Surveys s 
+WHERE s.SurveyGuid = ?SurveyGuid; ";
 
-		MySqlParameter[] arParams = new MySqlParameter[1];
-
-		arParams[0] = new MySqlParameter("?SurveyGuid", MySqlDbType.VarChar, 36)
+		var arParams = new List<MySqlParameter>
 		{
-			Direction = ParameterDirection.Input,
-			Value = surveyGuid.ToString()
+			new("?SurveyGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = surveyGuid.ToString()
+			}
 		};
 
 		return CommandHelper.ExecuteReader(
@@ -330,9 +379,9 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	/// </summary>
 	public static int GetCount()
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("SELECT  Count(*) ");
-		sqlCommand.Append("FROM	mp_Surveys; ");
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_Surveys; ";
 
 		return Convert.ToInt32(
 			CommandHelper.ExecuteScalar(
@@ -345,19 +394,19 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	/// </summary>
 	public static int GetResponseCount(Guid surveyGuid)
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("SELECT Count(*) ");
-		sqlCommand.Append("FROM	mp_SurveyResponses ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("SurveyGuid = ?SurveyGuid ");
-		sqlCommand.Append("And Complete = 1; ");
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_SurveyResponses 
+WHERE SurveyGuid = ?SurveyGuid 
+And Complete = 1; ";
 
-		MySqlParameter[] arParams = new MySqlParameter[1];
-
-		arParams[0] = new MySqlParameter("?SurveyGuid", MySqlDbType.VarChar, 36)
+		var arParams = new List<MySqlParameter>
 		{
-			Direction = ParameterDirection.Input,
-			Value = surveyGuid.ToString()
+			new("?SurveyGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = surveyGuid.ToString()
+			}
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
@@ -372,30 +421,31 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	/// </summary>
 	public static IDataReader GetAll(Guid siteGuid)
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("SELECT ");
-		sqlCommand.Append("s.SurveyGuid, ");
-		sqlCommand.Append("s.SiteGuid, ");
-		sqlCommand.Append("s.SurveyName, ");
-		sqlCommand.Append("s.CreationDate, ");
-		sqlCommand.Append("s.StartPageText, ");
-		sqlCommand.Append("s.EndPageText, ");
-		sqlCommand.Append("s.SubmissionLimit, ");
-		sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyPages sp WHERE sp.SurveyGuid = s.SurveyGuid) AS PageCount, ");
-		sqlCommand.Append("(SELECT COUNT(*) FROM mp_SurveyResponses sr WHERE sr.SurveyGuid = s.SurveyGuid) AS ResponseCount ");
-		sqlCommand.Append("FROM	mp_Surveys s ");
-		sqlCommand.Append("WHERE ");
-		sqlCommand.Append("s.SiteGuid = ?SiteGuid ");
-		sqlCommand.Append("ORDER BY ");
-		sqlCommand.Append("s.SurveyName ");
-		sqlCommand.Append(";");
+		string sqlCommand = @"
+SELECT 
+	s.SurveyGuid, 
+	s.SiteGuid, 
+	s.SurveyName, 
+	s.CreationDate, 
+	s.StartPageText, 
+	s.EndPageText, 
+	s.SubmissionLimit, 
+	(SELECT COUNT(*) FROM mp_SurveyPages sp WHERE sp.SurveyGuid = s.SurveyGuid) AS PageCount, 
+	(SELECT COUNT(*) FROM mp_SurveyResponses sr WHERE sr.SurveyGuid = s.SurveyGuid) AS ResponseCount 
+FROM 
+	mp_Surveys s 
+WHERE 
+	s.SiteGuid = ?SiteGuid 
+ORDER BY 
+	s.SurveyName ;";
 
-		MySqlParameter[] arParams = new MySqlParameter[1];
-
-		arParams[0] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+		var arParams = new List<MySqlParameter>
 		{
-			Direction = ParameterDirection.Input,
-			Value = siteGuid.ToString()
+			new("?SiteGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteGuid.ToString()
+			}
 		};
 
 		return CommandHelper.ExecuteReader(
@@ -411,17 +461,18 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	/// <returns></returns>
 	public static int PagesCount(Guid surveyGuid)
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("SELECT Count(*) ");
-		sqlCommand.Append("FROM	mp_SurveyPages ");
-		sqlCommand.Append("WHERE SurveyGuid = ?SurveyGuid; ");
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_SurveyPages 
+WHERE SurveyGuid = ?SurveyGuid; ";
 
-		MySqlParameter[] arParams = new MySqlParameter[1];
-
-		arParams[0] = new MySqlParameter("?SurveyGuid", MySqlDbType.VarChar, 36)
+		var arParams = new List<MySqlParameter>
 		{
-			Direction = ParameterDirection.Input,
-			Value = surveyGuid.ToString()
+			new("?SurveyGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = surveyGuid.ToString()
+			}
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
@@ -437,13 +488,12 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	/// <param name="moduleId"></param>
 	public static void AddToModule(Guid surveyGuid, int moduleId)
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("DELETE ");
-		sqlCommand.Append("FROM mp_SurveyModules ");
-		sqlCommand.Append("WHERE ModuleId = ?ModuleId; ");
-
-		sqlCommand.Append("INSERT INTO mp_SurveyModules (SurveyGuid, ModuleId) ");
-		sqlCommand.Append("VALUES(?SurveyGuid, ?ModuleId); ");
+		string sqlCommand = @"
+DELETE 
+FROM mp_SurveyModules 
+WHERE ModuleId = ?moduleId 
+INSERT INTO mp_SurveyModules (SurveyGuid, ModuleId) 
+VALUES(?SurveyGuid, ?ModuleId); ";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -468,24 +518,25 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 
 	public static void RemoveFromModule(Guid surveyGuid, int moduleId)
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("DELETE ");
-		sqlCommand.Append("FROM mp_SurveyModules ");
-		sqlCommand.Append("WHERE ModuleId = ?ModuleId ");
-		sqlCommand.Append("AND SurveyGuid = ?SurveyGuid; ");
+		string sqlCommand = @"
+DELETE 
+FROM mp_SurveyModules 
+WHERE ModuleId = ?ModuleId 
+AND SurveyGuid = ?SurveyGuid; ";
 
-		MySqlParameter[] arParams = new MySqlParameter[2];
-
-		arParams[0] = new MySqlParameter("?SurveyGuid", MySqlDbType.VarChar, 36)
+		var arParams = new List<MySqlParameter>
 		{
-			Direction = ParameterDirection.Input,
-			Value = surveyGuid.ToString()
-		};
+			new("?SurveyGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = surveyGuid.ToString()
+			},
 
-		arParams[1] = new MySqlParameter("?ModuleId", MySqlDbType.Int32)
-		{
-			Direction = ParameterDirection.Input,
-			Value = moduleId
+			new("?ModuleId", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
 		};
 
 		CommandHelper.ExecuteNonQuery(
@@ -496,18 +547,18 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 
 	public static void RemoveFromModule(int moduleId)
 	{
-		StringBuilder sqlCommand = new();
-		sqlCommand.Append("DELETE ");
-		sqlCommand.Append("FROM mp_SurveyModules ");
-		sqlCommand.Append("WHERE ModuleId = ?ModuleId ");
-		sqlCommand.Append("; ");
+		string sqlCommand = @"
+DELETE 
+FROM mp_SurveyModules 
+WHERE ModuleId = ?ModuleId ; ";
 
-		MySqlParameter[] arParams = new MySqlParameter[1];
-
-		arParams[0] = new MySqlParameter("?ModuleId", MySqlDbType.Int32)
+		var arParams = new List<MySqlParameter>
 		{
-			Direction = ParameterDirection.Input,
-			Value = moduleId
+			new("?ModuleId", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
 		};
 
 		CommandHelper.ExecuteNonQuery(
@@ -525,12 +576,9 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static Guid GetModulesCurrentSurvey(int moduleId)
 	{
 		string sqlCommand = @"
-				SELECT
-					SurveyGuid
-				FROM
-					mp_SurveyModules
-				WHERE
-					moduleId = ?ModuleId;";
+SELECT SurveyGuid
+FROM mp_SurveyModules
+WHERE moduleId = ?moduleId";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -561,16 +609,11 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static Guid GetFirstPageGuid(Guid surveyGuid)
 	{
 		string sqlCommand = @"
-				SELECT
-					PageGuid
-				FROM
-					mp_SurveyPages
-				WHERE
-					SurveyGuid = ?SurveyGuid
-				ORDER BY
-					PageOrder
-				LIMIT
-					1;";
+SELECT PageGuid
+FROM mp_SurveyPages
+WHERE SurveyGuid = ?SurveyGuid
+ORDER BY PageOrder
+LIMIT 1;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -601,32 +644,24 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static Guid GetNextPageGuid(Guid pageGuid)
 	{
 		string sqlCommand = @"
-				SELECT
-					PageGuid
-				FROM
-					mp_SurveyPages
-				WHERE
-					PageOrder > (
-						SELECT
-							PageOrder
-						FROM
-							mp_SurveyPages
-						WHERE
-							PageGuid = ?PageGuid
-					)
-				AND
-					SurveyGuid = (
-						SELECT
-							SurveyGuid
-						FROM
-							mp_SurveyPages
-						WHERE
-							PageGuid = ?PageGuid
-					)
-				ORDER BY
-					PageOrder 
-				LIMIT
-					1;";
+SELECT
+	PageGuid
+FROM
+	mp_SurveyPages
+WHERE
+	PageOrder > (
+		SELECT PageOrder
+		FROM mp_SurveyPages
+		WHERE PageGuid = ?PageGuid
+	)
+AND
+SurveyGuid = (
+	SELECT SurveyGuid
+	FROM mp_SurveyPages
+	WHERE PageGuid = ?PageGuid
+)
+ORDER BY PageOrder 
+LIMIT 1;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -657,32 +692,24 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static Guid GetPreviousPageGuid(Guid pageGuid)
 	{
 		string sqlCommand = @"
-				SELECT
-					PageGuid
-				FROM
-					mp_SurveyPages
-				WHERE
-					PageOrder < (
-						SELECT
-							PageOrder
-						FROM
-							mp_SurveyPages
-						WHERE
-							PageGuid = ?PageGuid
-					)
-				AND 
-					SurveyGuid = (
-						SELECT
-							SurveyGuid
-						FROM
-							mp_SurveyPages
-						WHERE
-							PageGuid = ?PageGuid
-				) 
-				ORDER BY
-					PageOrder DESC
-				LIMIT
-					1;";
+SELECT
+	PageGuid
+FROM
+	mp_SurveyPages
+WHERE
+	PageOrder < (
+		SELECT PageOrder
+		FROM mp_SurveyPages
+		WHERE PageGuid = ?PageGuid
+	)
+AND 
+SurveyGuid = (
+	SELECT SurveyGuid
+	FROM mp_SurveyPages
+	WHERE PageGuid = ?PageGuid
+) 
+ORDER BY PageOrder DESC
+LIMIT 1;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -712,29 +739,25 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static IDataReader GetResults(Guid surveyGuid)
 	{
 		string sqlCommand = @"
-				SELECT
-					qa.ResponseGuid AS ResponseSet,
-					u.Name AS UserName,
-					u.Email AS UserEmail,
-					qa.AnsweredDate AS Date,
-					q.QuestionName AS Question,
-					qa.Answer
-				FROM
-					mp_SurveyQuestionAnswers qa
-				JOIN
-					mp_SurveyResponses sr
-				ON
-					qa.ResponseGuid = sr.ResponseGuid
-				JOIN
-					mp_SurveyQuestions q
-				ON
-					qa.QuestionGuid = q.QuestionGuid
-				LEFT OUTER JOIN
-					mp_Users u
-				ON
-					u.UserGuid = sr.UserGuid
-				WHERE
-					sr.SurveyGuid = ?SurveyGuid;";
+SELECT
+	qa.ResponseGuid AS ResponseSet,
+	u.Name AS UserName,
+	u.Email AS UserEmail,
+	qa.AnsweredDate AS Date,
+	q.QuestionName AS Question,
+	qa.Answer
+FROM
+	mp_SurveyQuestionAnswers qa
+JOIN
+	mp_SurveyResponses sr
+ON qa.ResponseGuid = sr.ResponseGuid
+JOIN
+	mp_SurveyQuestions q
+ON qa.QuestionGuid = q.QuestionGuid
+LEFT OUTER JOIN
+	mp_Users u
+ON u.UserGuid = sr.UserGuid
+WHERE sr.SurveyGuid = ?SurveyGuid;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -760,36 +783,29 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 	public static IDataReader GetOneResult(Guid responseGuid)
 	{
 		string sqlCommand = @"
-				SELECT
-					*
-				FROM
-					mp_Surveys s
-				JOIN
-					mp_SurveyResponses sr
-				ON
-					s.SurveyGuid = sr.SurveyGuid
-				JOIN
-					mp_SurveyPages sp
-				ON
-					sr.SurveyGuid = sp.SurveyGuid
-				JOIN
-					mp_SurveyQuestions sq
-				ON
-					sp.PageGuid = sq.PageGuid
-				LEFT JOIN
-					mp_SurveyQuestionAnswers qa
-				ON
-					sq.QuestionGuid = qa.QuestionGuid
-				AND
-					sr.ResponseGuid = qa.ResponseGuid
-				WHERE
-					sr.ResponseGuid = ?ResponseGuid
-				AND
-					sr.Complete = 1
-				AND
-					sp.PageEnabled = 1
-				ORDER BY
-					sp.PageOrder, sq.QuestionOrder;";
+SELECT *
+FROM mp_Surveys s
+JOIN 
+	mp_SurveyResponses sr
+ON s.SurveyGuid = sr.SurveyGuid
+JOIN
+	mp_SurveyPages sp
+ON sr.SurveyGuid = sp.SurveyGuid
+JOIN
+	mp_SurveyQuestions sq
+ON sp.PageGuid = sq.PageGuid
+LEFT JOIN
+	mp_SurveyQuestionAnswers qa
+ON sq.QuestionGuid = qa.QuestionGuid
+AND sr.ResponseGuid = qa.ResponseGuid
+WHERE
+	sr.ResponseGuid = ?ResponseGuid
+AND
+	sr.Complete = 1
+AND
+	sp.PageEnabled = 1
+ORDER BY
+	sp.PageOrder, sq.Questionorder";
 
 		var arParams = new List<MySqlParameter>
 		{
