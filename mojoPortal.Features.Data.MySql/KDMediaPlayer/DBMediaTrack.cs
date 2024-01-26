@@ -1,391 +1,427 @@
-﻿// Author:					Kerry Doan
-// Created:					2011-09-14
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// Modified: 2011-12-02 by  initial integration
-
-using System;
-using System.Data;
-using System.Text;
+﻿using mojoPortal.Data;
 using MySqlConnector;
-using mojoPortal.Data;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
-namespace mojoPortal.MediaPlayer.Data
+namespace mojoPortal.MediaPlayer.Data;
+
+public static class DBMediaTrack
 {
-    public static class DBMediaTrack
-    {
-        /// <summary>
-        /// Inserts a row in the mp_MediaTrack table.
-        /// </summary>
-        /// <param name="playerID">The ID of the player to which the Media Track is being added.</param>
-        /// <param name="trackType">The type of the track.</param>
-        /// <param name="trackOrder">The order position of the Media Track.</param>
-        /// <param name="name">The name of the Media Track.</param>
-        /// <param name="artist">The artist of the Media Track.</param>
-        /// <param name="userGuid">The Guid of the user who added the Media Track.</param>
-        /// <returns>The ID of the Media Track in the doan_MediaTracks table.</returns>
-        public static int Insert(
-            int playerId,
-            string trackType,
-            int trackOrder,
-            string name,
-            string artist,
-            Guid userGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_MediaTrack (");
-            sqlCommand.Append("PlayerID, ");
-            sqlCommand.Append("TrackType, ");
-            sqlCommand.Append("TrackOrder, ");
-            sqlCommand.Append("Name, ");
-            sqlCommand.Append("Artist, ");
-            sqlCommand.Append("CreatedDate, ");
-            sqlCommand.Append("UserGuid )");
+	/// <summary>
+	/// Inserts a row in the mp_MediaTrack table.
+	/// </summary>
+	/// <param name="playerID">The ID of the player to which the Media Track is being added.</param>
+	/// <param name="trackType">The type of the track.</param>
+	/// <param name="trackOrder">The order position of the Media Track.</param>
+	/// <param name="name">The name of the Media Track.</param>
+	/// <param name="artist">The artist of the Media Track.</param>
+	/// <param name="userGuid">The Guid of the user who added the Media Track.</param>
+	/// <returns>The ID of the Media Track in the doan_MediaTracks table.</returns>
+	public static int Insert(
+		int playerId,
+		string trackType,
+		int trackOrder,
+		string name,
+		string artist,
+		Guid userGuid)
+	{
+		string sqlCommand = @"
+INSERT INTO mp_MediaTrack (
+    PlayerID, 
+    TrackType, 
+    TrackOrder, 
+    Name, 
+    Artist, 
+    CreatedDate, 
+    UserGuid )
+     VALUES (
+    ?PlayerID, 
+    ?TrackType, 
+    ?TrackOrder, 
+    ?Name, 
+    ?Artist, 
+    ?CreatedDate, 
+    ?UserGuid 
+);
+SELECT LAST_INSERT_ID(); ";
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?PlayerID, ");
-            sqlCommand.Append("?TrackType, ");
-            sqlCommand.Append("?TrackOrder, ");
-            sqlCommand.Append("?Name, ");
-            sqlCommand.Append("?Artist, ");
-            sqlCommand.Append("?CreatedDate, ");
-            sqlCommand.Append("?UserGuid )");
-            sqlCommand.Append(";");
+		var arParams = new List<MySqlParameter>
+		{
+			new("?PlayerID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = playerId
+			},
 
-            sqlCommand.Append("SELECT LAST_INSERT_ID();");
+			new("?TrackType", MySqlDbType.VarChar, 10)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackType
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[7];
+			new("?TrackOrder", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackOrder
+			},
 
-            arParams[0] = new MySqlParameter("?PlayerID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = playerId;
+			new("?Name", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = name
+			},
 
-            arParams[1] = new MySqlParameter("?TrackType", MySqlDbType.VarChar, 10);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = trackType;
+			new("?Artist", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = artist
+			},
 
-            arParams[2] = new MySqlParameter("?TrackOrder", MySqlDbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = trackOrder;
+			new("?CreatedDate", MySqlDbType.DateTime)
+			{
+				Direction = ParameterDirection.Input,
+				Value = DateTime.Now
+			},
 
-            arParams[3] = new MySqlParameter("?Name", MySqlDbType.VarChar, 100);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = name;
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			}
+		};
 
-            arParams[4] = new MySqlParameter("?Artist", MySqlDbType.VarChar, 100);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = artist;
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams).ToString());
+		return newID;
+	}
 
-            arParams[5] = new MySqlParameter("?CreatedDate", MySqlDbType.DateTime);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = DateTime.Now;
+	/// <summary>
+	/// Updates a row in the mp_MediaTrack table.
+	/// </summary>
+	/// <param name="trackID">The ID of the track.</param>
+	/// <param name="playerID">The ID of the player instance.</param>
+	/// <param name="trackType">The type of the track.</param>
+	/// <param name="trackOrder">The order position of the Media Track.</param>
+	/// <param name="name">The name of the Media Track.</param>
+	/// <param name="artist">The artist of the Media Track.</param>
+	/// <param name="userGuid">The Guid of the user who added the Media Track.</param>
+	/// <returns>True if the row is successfully updated.</returns>
+	public static bool Update(
+		int trackId,
+		int playerId,
+		string trackType,
+		int trackOrder,
+		string name,
+		string artist,
+		Guid userGuid)
+	{
+		string sqlCommand = @"
+UPDATE 
+    mp_MediaTrack 
+SET  
+    PlayerID = ?PlayerID, 
+    TrackType = ?TrackType, 
+    TrackOrder = ?TrackOrder, 
+    Name = ?Name, 
+    Artist = ?Artist, 
+    UserGuid = ?UserGuid 
+WHERE 
+    TrackID = ?TrackID ;";
 
-            arParams[6] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = userGuid.ToString();
+		var arParams = new List<MySqlParameter>
+		{
+			new("?TrackID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackId
+			},
 
-            int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams).ToString());
-            return newID;
-        }
+			new("?PlayerID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = playerId
+			},
 
-        /// <summary>
-        /// Updates a row in the mp_MediaTrack table.
-        /// </summary>
-        /// <param name="trackID">The ID of the track.</param>
-        /// <param name="playerID">The ID of the player instance.</param>
-        /// <param name="trackType">The type of the track.</param>
-        /// <param name="trackOrder">The order position of the Media Track.</param>
-        /// <param name="name">The name of the Media Track.</param>
-        /// <param name="artist">The artist of the Media Track.</param>
-        /// <param name="userGuid">The Guid of the user who added the Media Track.</param>
-        /// <returns>True if the row is successfully updated.</returns>
-        public static bool Update(
-            int trackId,
-            int playerId,
-            string trackType,
-            int trackOrder,
-            string name,
-            string artist,
-            Guid userGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_MediaTrack ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("PlayerID = ?PlayerID, ");
-            sqlCommand.Append("TrackType = ?TrackType, ");
-            sqlCommand.Append("TrackOrder = ?TrackOrder, ");
-            sqlCommand.Append("Name = ?Name, ");
-            sqlCommand.Append("Artist = ?Artist, ");
-    
-            sqlCommand.Append("UserGuid = ?UserGuid ");
+			new("?TrackType", MySqlDbType.VarChar, 10)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackType
+			},
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("TrackID = ?TrackID ");
-            sqlCommand.Append(";");
+			new("?TrackOrder", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackOrder
+			},
 
-            MySqlParameter[] arParams = new MySqlParameter[7];
+			new("?Name", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = name
+			},
 
-            arParams[0] = new MySqlParameter("?TrackID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = trackId;
+			new("?Artist", MySqlDbType.VarChar, 100)
+			{
+				Direction = ParameterDirection.Input,
+				Value = artist
+			},
 
-            arParams[1] = new MySqlParameter("?PlayerID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = playerId;
+			new("?UserGuid", MySqlDbType.VarChar, 36)
+			{
+				Direction = ParameterDirection.Input,
+				Value = userGuid.ToString()
+			}
+		};
 
-            arParams[2] = new MySqlParameter("?TrackType", MySqlDbType.VarChar, 10);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = trackType;
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
+	}
 
-            arParams[3] = new MySqlParameter("?TrackOrder", MySqlDbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = trackOrder;
+	/// <summary>
+	/// Updates the TrackOrder values for the tracks that remain for the PlayerID by incrementing any Tracks that have a TrackOrder value
+	/// greater than the provided trackOrder.
+	/// </summary>
+	/// <param name="playerID">The ID of the Player.</param>
+	/// <param name="trackOrder">The TrackOrder value.</param>
+	/// <returns>The number of rows affected by the update.</returns>
+	public static int AdjustTrackOrdersForDelete(int playerId, int trackOrder)
+	{
+		string sqlCommand = @"
+UPDATE mp_MediaTrack 
+SET TrackOrder = TrackOrder - 1 
+WHERE PlayerID = ?PlayerID 
+AND TrackOrder > ?TrackOrder ;";
 
-            arParams[4] = new MySqlParameter("?Name", MySqlDbType.VarChar, 100);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = name;
+		var arParams = new List<MySqlParameter>
+		{
+			new("?TrackOrder", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackOrder
+			},
 
-            arParams[5] = new MySqlParameter("?Artist", MySqlDbType.VarChar, 100);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = artist;
+			new("?PlayerID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = playerId
+			}
+		};
 
-            arParams[6] = new MySqlParameter("?UserGuid", MySqlDbType.VarChar, 36);
-            arParams[6].Direction = ParameterDirection.Input;
-            arParams[6].Value = userGuid.ToString();
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected;
+	}
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-        }
+	/// <summary>
+	/// Deletes a row from the doan_MediaTracks table.
+	/// </summary>
+	/// <param name="trackID">The ID of the track.</param>
+	/// <returns>True if a row was deleted.</returns>
+	public static bool Delete(int trackId)
+	{
+		DBMediaFile.DeleteByTrack(trackId);
 
-        /// <summary>
-        /// Updates the TrackOrder values for the tracks that remain for the PlayerID by incrementing any Tracks that have a TrackOrder value
-        /// greater than the provided trackOrder.
-        /// </summary>
-        /// <param name="playerID">The ID of the Player.</param>
-        /// <param name="trackOrder">The TrackOrder value.</param>
-        /// <returns>The number of rows affected by the update.</returns>
-        public static int AdjustTrackOrdersForDelete(int playerId, int trackOrder)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE mp_MediaTrack ");
-            sqlCommand.Append("SET TrackOrder = TrackOrder - 1 ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("PlayerID = ?PlayerID ");
-            sqlCommand.Append("AND TrackOrder > ?TrackOrder ");
-            sqlCommand.Append(";");
+		string sqlCommand = @"
+DELETE FROM mp_MediaTrack 
+WHERE TrackID = ?TrackID ;";
 
-            MySqlParameter[] arParams = new MySqlParameter[2];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?TrackID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackId
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?TrackOrder", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = trackOrder;
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
+	}
 
-            arParams[1] = new MySqlParameter("?PlayerID", MySqlDbType.Int32);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = playerId;
+	/// <summary>
+	/// Deletes all rows from the doan_MediaTracks table for a particular player instance.
+	/// </summary>
+	/// <param name="playerID">The ID of the player.</param>
+	/// <returns>True if rows were deleted.</returns>
+	public static bool DeleteByPlayer(int playerId)
+	{
+		DBMediaFile.DeleteByPlayer(playerId);
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return rowsAffected;
-        }
+		string sqlCommand = @"
+DELETE FROM mp_MediaTrack 
+WHERE PlayerID = ?PlayerID ;";
 
-        /// <summary>
-        /// Deletes a row from the doan_MediaTracks table.
-        /// </summary>
-        /// <param name="trackID">The ID of the track.</param>
-        /// <returns>True if a row was deleted.</returns>
-        public static bool Delete(int trackId)
-        {
-            DBMediaFile.DeleteByTrack(trackId);
+		var arParams = new List<MySqlParameter>
+		{
+			new("?PlayerID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = playerId
+			}
+		};
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_MediaTrack ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("TrackID = ?TrackID ");
-            sqlCommand.Append(";");
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
+	}
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+	public static bool DeleteByModule(int moduleId)
+	{
+		DBMediaFile.DeleteByModule(moduleId);
 
-            arParams[0] = new MySqlParameter("?TrackID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = trackId;
+		string sqlCommand = @"
+DELETE FROM mp_MediaTrack 
+WHERE PlayerID IN (
+    SELECT PlayerID 
+    FROM mp_MediaPlayer 
+    WHERE ModuleID = ?ModuleID
+);";
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-        }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?ModuleID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = moduleId
+			}
+		};
 
-        /// <summary>
-        /// Deletes all rows from the doan_MediaTracks table for a particular player instance.
-        /// </summary>
-        /// <param name="playerID">The ID of the player.</param>
-        /// <returns>True if rows were deleted.</returns>
-        public static bool DeleteByPlayer(int playerId)
-        {
-            DBMediaFile.DeleteByPlayer(playerId);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
+	}
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_MediaTrack ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("PlayerID = ?PlayerID ");
-            sqlCommand.Append(";");
+	public static bool DeleteBySite(int siteId)
+	{
+		DBMediaFile.DeleteBySite(siteId);
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		string sqlCommand = @"
+DELETE FROM mp_MediaTrack 
+WHERE 
+PlayerID IN (
+    SELECT PlayerID 
+    FROM mp_MediaPlayer 
+    WHERE ModuleID IN ( 
+        SELECT ModuleID 
+        FROM mp_Modules 
+        WHERE SiteID = ?SiteID
+    )
+); ";
 
-            arParams[0] = new MySqlParameter("?PlayerID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = playerId;
+		var arParams = new List<MySqlParameter>
+		{
+			new("?SiteID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = siteId
+			}
+		};
 
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-        }
+		int rowsAffected = CommandHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+		return rowsAffected > 0;
 
-        public static bool DeleteByModule(int moduleId)
-        {
-            DBMediaFile.DeleteByModule(moduleId);
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_MediaTrack ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("PlayerID IN (SELECT PlayerID FROM mp_MediaPlayer WHERE ModuleID = ?ModuleID) ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?ModuleID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = moduleId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-        }
-
-        public static bool DeleteBySite(int siteId)
-        {
-            DBMediaFile.DeleteBySite(siteId);
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_MediaTrack ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("PlayerID IN (SELECT PlayerID FROM mp_MediaPlayer WHERE ModuleID IN ( ");
-            sqlCommand.Append("SELECT ModuleID FROM mp_Modules WHERE SiteID = ?SiteID)) ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = siteId;
-
-            int rowsAffected = CommandHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-            return (rowsAffected > 0);
-
-        }
-
-
-        /// <summary>
-        /// Gets a count of rows for a particular player in the doan_MediaTracks table.
-        /// </summary>
-        /// <param name="playerID">The ID of the player.</param>
-        /// <returns>The count of rows.</returns>
-        public static int GetCountByPlayer(int playerId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  Count(*) ");
-            sqlCommand.Append("FROM	mp_MediaTrack ");
-            sqlCommand.Append("WHERE PlayerID = ?PlayerID ");
-            sqlCommand.Append(";");
-
-            MySqlParameter[] arParams = new MySqlParameter[1];
-
-            arParams[0] = new MySqlParameter("?PlayerID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = playerId;
-
-            return Convert.ToInt32(CommandHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
-        }
+	}
 
 
-        /// <summary>
-        /// Selects a particular Track from the doan_MediaTracks table.
-        /// </summary>
-        /// <param name="trackID">The ID of the track.</param>
-        /// <returns>An IDataReader containing the MediaTrack data.</returns>
-        public static IDataReader Select(int trackId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_MediaTrack ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("TrackID = ?TrackID ");
-            sqlCommand.Append(";");
+	/// <summary>
+	/// Gets a count of rows for a particular player in the doan_MediaTracks table.
+	/// </summary>
+	/// <param name="playerID">The ID of the player.</param>
+	/// <returns>The count of rows.</returns>
+	public static int GetCountByPlayer(int playerId)
+	{
+		string sqlCommand = @"
+SELECT Count(*) 
+FROM mp_MediaTrack 
+WHERE PlayerID = ?PlayerID ;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?PlayerID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = playerId
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?TrackID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = trackId;
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams));
+	}
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
 
-        /// <summary>
-        /// Selects all Tracks for a particular player instance from the doan_MediaTracks table.
-        /// </summary>
-        /// <param name="playerID">The ID of the player.</param>
-        /// <returns>An IDataReader containing the MediaTrack(s) data.</returns>
-        public static IDataReader SelectByPlayer(int playerId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_MediaTrack ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("PlayerID = ?PlayerID ");
-            sqlCommand.Append("ORDER BY TrackOrder ");
-            sqlCommand.Append(";");
+	/// <summary>
+	/// Selects a particular Track from the doan_MediaTracks table.
+	/// </summary>
+	/// <param name="trackID">The ID of the track.</param>
+	/// <returns>An IDataReader containing the MediaTrack data.</returns>
+	public static IDataReader Select(int trackId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_MediaTrack 
+WHERE TrackID = ?TrackID ;";
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+		var arParams = new List<MySqlParameter>
+		{
+			new("?TrackID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = trackId
+			}
+		};
 
-            arParams[0] = new MySqlParameter("?PlayerID", MySqlDbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = playerId;
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
 
-            return CommandHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-        }
+	/// <summary>
+	/// Selects all Tracks for a particular player instance from the doan_MediaTracks table.
+	/// </summary>
+	/// <param name="playerID">The ID of the player.</param>
+	/// <returns>An IDataReader containing the MediaTrack(s) data.</returns>
+	public static IDataReader SelectByPlayer(int playerId)
+	{
+		string sqlCommand = @"
+SELECT * 
+FROM mp_MediaTrack 
+WHERE PlayerID = ?PlayerID 
+ORDER BY TrackOrder ;";
 
-    }
+		var arParams = new List<MySqlParameter>
+		{
+			new("?PlayerID", MySqlDbType.Int32)
+			{
+				Direction = ParameterDirection.Input,
+				Value = playerId
+			}
+		};
+
+		return CommandHelper.ExecuteReader(
+			ConnectionString.GetReadConnectionString(),
+			sqlCommand.ToString(),
+			arParams);
+	}
+
 }
