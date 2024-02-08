@@ -7450,6 +7450,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You should have received an email message with a link to login this account. If you did not receive the email message with the login link after 1 hour, please contact the site Administrator for assistance..
+        /// </summary>
+        internal static string LoginUnconfirmedEmailMfaMessage {
+            get {
+                return ResourceManager.GetString("LoginUnconfirmedEmailMfaMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
         internal static string LogoutLink {

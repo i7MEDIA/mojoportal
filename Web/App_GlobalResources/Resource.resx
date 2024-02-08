@@ -6745,4 +6745,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="CopyRestoreSkinsButtonToolTip" xml:space="preserve">
     <value>Restore skins from local catalog, overwriting local skins.</value>
   </data>
+  <data name="LoginUnconfirmedEmailMfaMessage" xml:space="preserve">
+    <value>You should have received an email message with a link to login this account. If you did not receive the email message with the login link after 1 hour, please contact the site Administrator for assistance.</value>
+  </data>
 </root>
