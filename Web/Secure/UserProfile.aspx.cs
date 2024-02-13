@@ -493,11 +493,6 @@ public partial class UserProfile : NonCmsBasePage
 			rpxLink.Visible = divOpenID.Visible;
 		}
 
-		if (!mojoSetup.RunningInFullTrust())
-		{
-			divOpenID.Visible = false;
-		}
-
 		if (WebConfigSettings.GloballyDisableMemberUseOfWindowsLiveMessenger
 			|| !siteSettings.AllowWindowsLiveMessengerForMembers
 			|| siteSettings.WindowsLiveAppId.Length == 0

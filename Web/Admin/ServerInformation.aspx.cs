@@ -53,7 +53,7 @@ namespace mojoPortal.Web.AdminUI
 				litServerTimeZone.Text = TimeZone.CurrentTimeZone.StandardName;
 			}
 
-			double preferredOffset = DateTimeHelper.GetPreferredGmtOffset();
+			//double preferredOffset = DateTimeHelper.GetPreferredGmtOffset();
 
 			litServerLocalTime.Text = DateTime.Now.ToString();
 			litCurrentGMT.Text = DateTime.UtcNow.ToString();
@@ -67,40 +67,44 @@ namespace mojoPortal.Web.AdminUI
 			}
 			catch (InvalidOperationException) { }
 
-			string space = " ";
+			litDotNetVersion.Text = Environment.Version.ToString();
 
-			try
-			{
-				//http://stackoverflow.com/questions/13748055/could-not-load-type-system-runtime-compilerservices-extensionattribute-from-as
 
-				//http://en.wikipedia.org/wiki/.NET_Framework_version_history
+			//Medium Trust doesn't exist anymore so we're always in Full Trust
+			//string space = " ";
+			//try
+			//{
+			//	//http://stackoverflow.com/questions/13748055/could-not-load-type-system-runtime-compilerservices-extensionattribute-from-as
 
-				//http://en.wikipedia.org/wiki/List_of_.NET_Framework_versions
+			//	//http://en.wikipedia.org/wiki/.NET_Framework_version_history
 
-				//http://stackoverflow.com/questions/16137658/system-environment-version-providing-an-inaccurate-value
+			//	//http://en.wikipedia.org/wiki/List_of_.NET_Framework_versions
 
-				//http://stackoverflow.com/questions/8517159/how-to-detect-at-runtime-that-net-version-4-5-currently-running-your-code
+			//	//http://stackoverflow.com/questions/16137658/system-environment-version-providing-an-inaccurate-value
 
-				//http://blog.marcgravell.com/2012/09/iterator-blocks-missing-methods-and-net.html
+			//	//http://stackoverflow.com/questions/8517159/how-to-detect-at-runtime-that-net-version-4-5-currently-running-your-code
 
-				//litDotNetVersion.Text = System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion();
-				//litDotNetVersion.Text = typeof(int).Assembly.ImageRuntimeVersion;
-				//litDotNetVersion.Text = System.Runtime.InteropServices.RuntimeEnvironment.
-				litDotNetVersion.Text = Environment.Version.ToString();
-			}
-			catch (System.Security.SecurityException) //happens under medium trust at elast in 3.5 .NET
-			{
-				space = string.Empty;
-			}
+			//	//http://blog.marcgravell.com/2012/09/iterator-blocks-missing-methods-and-net.html
 
-			if (mojoSetup.RunningInFullTrust())
-			{
-				litDotNetVersion.Text += space + Resource.RunningInFullTrust;
-			}
-			else
-			{
-				litDotNetVersion.Text += space + Resource.RunningInPartialTrust;
-			}
+			//	//litDotNetVersion.Text = System.Runtime.InteropServices.RuntimeEnvironment.GetSystemVersion();
+			//	//litDotNetVersion.Text = typeof(int).Assembly.ImageRuntimeVersion;
+			//	//litDotNetVersion.Text = System.Runtime.InteropServices.RuntimeEnvironment.
+			//	litDotNetVersion.Text = Environment.Version.ToString();
+			//}
+			//catch (System.Security.SecurityException) //happens under medium trust at elast in 3.5 .NET
+			//{
+			//	space = string.Empty;
+			//}
+
+
+			//if (mojoSetup.RunningInFullTrust())
+			//{
+			//	litDotNetVersion.Text += space + Resource.RunningInFullTrust;
+			//}
+			//else
+			//{
+			//	litDotNetVersion.Text += space + Resource.RunningInPartialTrust;
+			//}
 
 			using (IDataReader reader = DatabaseHelper.SchemaVersionGetNonCore())
 			{
@@ -115,7 +119,6 @@ namespace mojoPortal.Web.AdminUI
 		{
 			if (WebConfigSettings.AllowUpdateCheck)
 			{
-
 				var request = WebRequest.CreateHttp(new Uri("https://www.mojoportal.com:443/currentVersion.js"));
 				WebResponse response;
 				try
