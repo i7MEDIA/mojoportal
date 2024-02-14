@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
@@ -586,16 +587,16 @@ public sealed class mojoSetup
 			new() {Path = siteFolderPath},
 			new() {Path = $"{siteFolderPath}SharedFiles/"},
 			new() {Path = $"{siteFolderPath}SharedFiles/History/" },
-			new() {Path = $"{siteFolderPath}userfiles"},
-			new() {Path = $"{siteFolderPath}skins" },
+			new() {Path = $"{siteFolderPath}userfiles/"},
+			new() {Path = $"{siteFolderPath}skins/", DeleteTestFile = true },
 			new() {Path = $"{siteFolderPath}media/", DeleteTestFile = true},
-			new() {Path = $"{siteFolderPath}htmltemplateimages", BaseFilesPath = "~/Data/htmltemplateimages", DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}htmltemplateimages/", BaseFilesPath = "~/Data/htmltemplateimages", DeleteTestFile = true},
 
 			new() {Path = $"{siteFolderPath}systemfiles/", Condition = WebConfigSettings.UseCacheDependencyFiles},
 			new() {Path = $"{siteFolderPath}index/", Condition = !WebConfigSettings.DisableSearchIndex, DeleteTestFile = true},
 
-			new() {Path = $"{siteFolderPath}media/logos", BaseFilesPath = "~/Data/logos", Condition = WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
-			new() {Path = $"{siteFolderPath}logos", BaseFilesPath = "~/Data/logos", Condition = !WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}media/logos/", BaseFilesPath = "~/Data/logos", Condition = WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}logos/", BaseFilesPath = "~/Data/logos", Condition = !WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
 
 			new() {Path = $"{siteFolderPath}media/GalleryImages/", Condition = WebConfigSettings.ImageGalleryUseMediaFolder},
 			new() {Path = $"{siteFolderPath}GalleryImages/", Condition = !WebConfigSettings.ImageGalleryUseMediaFolder},
@@ -640,19 +641,22 @@ public sealed class mojoSetup
 			return false;
 		}
 
-		string skinFolderPath = Invariant($"{GetApplicationRoot()}{pathSep}Data{pathSep}Sites{pathSep}{siteId}{pathSep}skins");
+		string siteSkinsPath = HttpContext.Current.Server.MapPath(Invariant($"{GetApplicationRoot()}{pathSep}Data{pathSep}Sites{pathSep}{siteId}{pathSep}skins"));
 		string sourceFilesPath = HttpContext.Current.Server.MapPath($"{GetApplicationRoot()}{pathSep}Data{pathSep}skins");
-		DirectoryInfo dir;
-		DirectoryInfo dirDest;
+		DirectoryInfo srcDir;
+		DirectoryInfo destDir;
 
-		if (Directory.Exists(skinFolderPath) && (restore || copyNew))
+		if (Directory.Exists(sourceFilesPath))
 		{
-			if (Directory.Exists(sourceFilesPath))
+			if (restore
+				|| copyNew
+				|| !Directory.Exists(siteSkinsPath)
+				|| Directory.EnumerateDirectories(siteSkinsPath).Count() == 0)
 			{
-				dirDest = new DirectoryInfo(skinFolderPath);
-				dir = new DirectoryInfo(sourceFilesPath);
+				srcDir = new DirectoryInfo(sourceFilesPath);
+				destDir = new DirectoryInfo(siteSkinsPath);
 
-				recursiveCopy(dir, dirDest, copyNew);
+				recursiveCopy(srcDir, destDir, copyNew);
 			}
 		}
 

@@ -144,7 +144,7 @@ public partial class SetupHome : Page
 			if (HttpContext.Current is not null && !Directory.Exists(HttpContext.Current.Server.MapPath(siteFolderPath)))
 			{
 				mojoSetup.CreateDefaultSiteFolders(siteSettings.SiteId, true);
-				mojoSetup.EnsureSkins(siteSettings.SiteId);
+				//mojoSetup.EnsureSkins(siteSettings.SiteId);
 			}
 		}
 
