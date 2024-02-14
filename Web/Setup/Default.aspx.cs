@@ -1,7 +1,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Web;
 using System.Web.UI;
 using log4net;
@@ -128,11 +127,27 @@ public partial class SetupHome : Page
 			return;
 		}
 
-		existingSiteCount = DatabaseHelper.ExistingSiteCount();
-		if (existingSiteCount == 0)
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+		//existingSiteCount = DatabaseHelper.ExistingSiteCount();
+		if (DatabaseHelper.ExistingSiteCount() == 0)
 		{
-			CreateSiteAndAdminUser();
+			CreateAdminUser(CreateSite());
 		}
+		else if (siteSettings is not null)
+		{
+			//check for site folder in data, restore if it's missing
+			//this helps during development
+			string siteFolderPath = Invariant($"~/Data/Sites/{siteSettings.SiteId}/");
+
+
+			if (HttpContext.Current is not null && !Directory.Exists(HttpContext.Current.Server.MapPath(siteFolderPath)))
+			{
+				mojoSetup.CreateDefaultSiteFolders(siteSettings.SiteId, true);
+				mojoSetup.EnsureSkins(siteSettings.SiteId);
+			}
+		}
+
 
 		// look for new features or settings to install
 		SetupFeatures("mojoportal-core");
@@ -169,9 +184,7 @@ public partial class SetupHome : Page
 		WritePageContent(SetupResource.EnsuringFeaturesInAdminSites, true);
 		ModuleDefinition.EnsureInstallationInAdminSites();
 
-		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-		if (siteSettings != null)
+		if (siteSettings is not null)
 		{
 			if (PageSettings.GetCountOfPages(siteSettings.SiteId) == 0)
 			{
@@ -199,7 +212,7 @@ public partial class SetupHome : Page
 		//ThreadPool.QueueUserWorkItem(new WaitCallback(SyncDefinitions), null);
 		//ModuleDefinition.SyncDefinitions();
 		SiteSettings.EnsureExpandoSettings();
-		mojoSetup.EnsureAdditionalSiteFolders();
+		//mojoSetup.EnsureAdditionalSiteFolders();
 
 		// added 2013-10-18 
 		if (WebConfigSettings.TryEnsureCustomMachineKeyOnSetup)
@@ -529,12 +542,16 @@ public partial class SetupHome : Page
 		return result;
 	}
 
-	private void CreateSiteAndAdminUser()
+	private SiteSettings CreateSite()
 	{
 		WritePageContent(SetupResource.CreatingSiteMessage, true);
 		SiteSettings newSite = mojoSetup.CreateNewSite();
 		mojoSetup.CreateDefaultSiteFolders(newSite.SiteId);
 		mojoSetup.EnsureSkins(newSite.SiteId);
+		return newSite;
+	}
+	private void CreateAdminUser(SiteSettings newSite)
+	{
 		WritePageContent(SetupResource.CreatingRolesAndAdminUserMessage, true);
 		mojoSetup.EnsureRolesAndAdminUser(newSite);
 	}
@@ -726,7 +743,7 @@ public partial class SetupHome : Page
 		{
 			WritePageContent(SetupResource.FileSystemPermissionProblemsMessage, false);
 
-			WritePageContent($"<div>{GetFolderDetailsHtml()}</div>", false);
+			WritePageContent($"<div>{SetupResource.DataFolderNotWritableMessage.Replace("\r\n", " <br />")}</div>", false);
 		}
 
 		canAccessDatabase = DatabaseHelper.CanAccessDatabase();
@@ -862,75 +879,76 @@ public partial class SetupHome : Page
 		return result;
 	}
 
-	private string GetFolderDetailsHtml()
-	{
-		var folderErrors = new StringBuilder();
-		string crlf = "\r\n";
-		folderErrors.Append($"{SetupResource.DataFolderNotWritableMessage.Replace(crlf, "<br />")}<h3>{SetupResource.FolderDetailsLabel}</h3>");
+	//JMD: I don't like how this is done, I want this configurable and this is not entirely necessary anyway because we always recommend the entire /Data directory is writable
+	//private string GetFolderDetailsHtml()
+	//{
+	//	var folderErrors = new StringBuilder();
+	//	string crlf = "\r\n";
+	//	folderErrors.Append($"{SetupResource.DataFolderNotWritableMessage.Replace(crlf, "<br />")}<h3>{SetupResource.FolderDetailsLabel}</h3>");
 
-		var pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/test.config");
-		try
-		{
-			mojoSetup.TouchTestFile(pathToTestFile);
-		}
-		catch (UnauthorizedAccessException)
-		{
-			folderErrors.Append($"<li>{SetupResource.DataRootNotWritableMessage}</li>");
-		}
+	//	var pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/test.config");
+	//	try
+	//	{
+	//		mojoSetup.TouchTestFile(pathToTestFile);
+	//	}
+	//	catch (UnauthorizedAccessException)
+	//	{
+	//		folderErrors.Append($"<li>{SetupResource.DataRootNotWritableMessage}</li>");
+	//	}
 
-		pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/test.config");
-		try
-		{
-			mojoSetup.TouchTestFile(pathToTestFile);
-		}
-		catch (UnauthorizedAccessException)
-		{
-			folderErrors.Append($"<li>{SetupResource.DataSiteFolderNotWritableMessage}</li>");
-		}
+	//	pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/test.config");
+	//	try
+	//	{
+	//		mojoSetup.TouchTestFile(pathToTestFile);
+	//	}
+	//	catch (UnauthorizedAccessException)
+	//	{
+	//		folderErrors.Append($"<li>{SetupResource.DataSiteFolderNotWritableMessage}</li>");
+	//	}
 
-		pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/systemfiles/test.config");
-		try
-		{
-			mojoSetup.TouchTestFile(pathToTestFile);
-		}
-		catch (UnauthorizedAccessException)
-		{
-			folderErrors.Append($"<li>{SetupResource.DataSystemFilesFolderNotWritableMessage}</li>");
-		}
+	//	pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/systemfiles/test.config");
+	//	try
+	//	{
+	//		mojoSetup.TouchTestFile(pathToTestFile);
+	//	}
+	//	catch (UnauthorizedAccessException)
+	//	{
+	//		folderErrors.Append($"<li>{SetupResource.DataSystemFilesFolderNotWritableMessage}</li>");
+	//	}
 
-		pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/index/test.config");
-		try
-		{
-			mojoSetup.TouchTestFile(pathToTestFile);
-		}
-		catch (UnauthorizedAccessException)
-		{
-			folderErrors.Append($"<li>{SetupResource.DataSiteIndexFolderNotWritableMessage}</li>");
-		}
+	//	pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/index/test.config");
+	//	try
+	//	{
+	//		mojoSetup.TouchTestFile(pathToTestFile);
+	//	}
+	//	catch (UnauthorizedAccessException)
+	//	{
+	//		folderErrors.Append($"<li>{SetupResource.DataSiteIndexFolderNotWritableMessage}</li>");
+	//	}
 
-		pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/test.config");
-		try
-		{
-			mojoSetup.TouchTestFile(pathToTestFile);
-		}
-		catch (UnauthorizedAccessException)
-		{
-			folderErrors.Append($"<li>{SetupResource.DataSharedFilesFolderNotWritableMessage}</li>");
-		}
+	//	pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/test.config");
+	//	try
+	//	{
+	//		mojoSetup.TouchTestFile(pathToTestFile);
+	//	}
+	//	catch (UnauthorizedAccessException)
+	//	{
+	//		folderErrors.Append($"<li>{SetupResource.DataSharedFilesFolderNotWritableMessage}</li>");
+	//	}
 
-		pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/History/test.config");
-		try
-		{
-			mojoSetup.TouchTestFile(pathToTestFile);
-		}
-		catch (UnauthorizedAccessException)
-		{
-			folderErrors.Append($"<li>{SetupResource.DataSharedFilesHistoryFolderNotWritableMessage}</li>");
+	//	pathToTestFile = HttpContext.Current.Server.MapPath("~/Data/Sites/1/SharedFiles/History/test.config");
+	//	try
+	//	{
+	//		mojoSetup.TouchTestFile(pathToTestFile);
+	//	}
+	//	catch (UnauthorizedAccessException)
+	//	{
+	//		folderErrors.Append($"<li>{SetupResource.DataSharedFilesHistoryFolderNotWritableMessage}</li>");
 
-		}
+	//	}
 
-		return folderErrors.ToString();
-	}
+	//	return folderErrors.ToString();
+	//}
 
 
 	void SetupHome_Error(object sender, EventArgs e)

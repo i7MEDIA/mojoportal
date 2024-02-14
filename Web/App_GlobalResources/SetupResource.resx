@@ -189,16 +189,6 @@
   <data name="DatabaseStatusLabel" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="DataFolderNotWritableMessage" xml:space="preserve">
-    <value>The Data folder beneath the root of the web site is not writable by the ASP.NET worker process. 
-
-You need to make this folder and all its child folders and files writable before setup can proceed. mojoPortal needs this to be able to write search index files, error logs, image gallery uploads, and other important features. 
-
-Right Click the Data folder in Windows explorer, choose properties and go to the Security tab. (On XP if you don't see the security tab then google for XP Simple File sharing to learn how to make that tab appear.) On XP you typically need to give write permission to ASPNET user while on Windows 2003 you need to give it to IIS_WPG user. 
-
-Obviously, instructions are a little different on Linux/Mono but the same principle is true, the Data folder and all its child objects must be writable.
-</value>
-  </data>
   <data name="DataGalleryFolderNotWritableMessage" xml:space="preserve">
     <value>The Data/Sites/1/GalleryImages folder is not writable</value>
   </data>
@@ -383,5 +373,15 @@ You can get more information or download npgsql from here: http://npgsql.project
   </data>
   <data name="RoleNameRoleAdministrators" xml:space="preserve">
     <value>Role Administrators</value>
+  </data>
+  <data name="DataFolderNotWritableMessage" xml:space="preserve">
+    <value>The Data folder beneath the root of the web site is not writable by the website application pool identity. 
+
+You need to make this folder and all its child folders and files writable before setup can proceed. mojoPortal needs this to be able to write search index files, error logs, image gallery uploads, and other important features. 
+
+Right Click the Data folder in Windows File Explorer, choose properties and go to the Security tab. Depending on your setup, you will need to either grant write permission to the "IUSRS" group or to the "IIS AppPool\&lt;name of app pool&gt;" user.
+
+Obviously, instructions will be different across hosting environments but the same principle is true, the Data folder and all its child objects must be writable.
+</value>
   </data>
 </root>

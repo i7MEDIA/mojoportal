@@ -286,11 +286,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  The Data folder beneath the root of the web site is not writable by the ASP.NET worker process. 
+        ///   Looks up a localized string similar to  The Data folder beneath the root of the web site is not writable by the website application pool identity. 
         ///
         ///You need to make this folder and all its child folders and files writable before setup can proceed. mojoPortal needs this to be able to write search index files, error logs, image gallery uploads, and other important features. 
         ///
-        ///Right Click the Data folder in Windows explorer, choose properties and go to the Security tab. (On XP if you don&apos;t see the security tab then google for XP Simple File sharing to lea [rest of string was truncated]&quot;;.
+        ///Right Click the Data folder in Windows File Explorer, choose properties and go to the Security tab. Depending on your setup, you will need to either grant write permissio [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DataFolderNotWritableMessage {
             get {
