@@ -45,7 +45,6 @@ using System.Web.UI;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.FileSystem;
 using mojoPortal.Web.App_Start;
 using mojoPortal.Web.Caching;
 using mojoPortal.Web.Components;
@@ -78,7 +77,7 @@ public class Global : HttpApplication
 	public static SkinConfigManager SkinConfigManager { get; private set; }
 	public static SkinConfig SkinConfig { get; private set; }
 	public static Dictionary<string, int> SiteHostMap { get; } = [];
-	public static IFileSystem FileSystem { get; private set; }
+	//public static IFileSystem FileSystem { get; private set; }
 
 	// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
 	// to help mitigate against xsrf attacks
@@ -315,22 +314,24 @@ public class Global : HttpApplication
 		}
 
 		#region FileSystem Init
-		if (FileSystem is null)
-		{
-			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+		//not used right now because of how the permissions are loaded and we need those loaded per "transaction" basically
 
-			if (p == null)
-			{
-				log.Fatal(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
-			}
+		//if (FileSystem is null)
+		//{
+		//	FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 
-			FileSystem = p.GetFileSystem();
+		//	if (p == null)
+		//	{
+		//		log.Fatal(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
+		//	}
 
-			if (FileSystem == null)
-			{
-				log.Fatal(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
-			}
-		}
+		//	FileSystem = p.GetFileSystem();
+
+		//	if (FileSystem == null)
+		//	{
+		//		log.Fatal(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
+		//	}
+		//}
 		#endregion
 	}
 
