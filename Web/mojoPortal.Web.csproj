@@ -963,6 +963,7 @@
       <DependentUpon>closed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\BundleConfig.cs" />
+    <Compile Include="Components\FileSystem\FileSystemHelper.cs" />
     <Compile Include="Components\GlobalUsings.cs" />
     <Compile Include="Components\ICustomField.cs" />
     <Compile Include="Components\MenuItem.cs" />
