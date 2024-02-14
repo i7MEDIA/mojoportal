@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -300,10 +301,12 @@ public class WidgetRazor : WebControl
 
 		var viewEngine = new mojoViewEngine();
 
-		model.Site.SkinViewPath = $"{model.Site.SkinPath}Views/{Config.RelativeSolutionLocation.Replace("~/Data/", string.Empty).Replace(Invariant($"sites/{model.Site.Id}"), string.Empty)}/{Config.ViewName}";
+		var solutionDirectory = new DirectoryInfo(Config.RelativeSolutionLocation);
+
+		model.Site.SkinViewPath = $"{model.Site.SkinPath}Views/{solutionDirectory.Name}/{Config.ViewName}";
 
 		var masterLocationFormats = new List<string>(viewEngine.MasterLocationFormats);
-		masterLocationFormats.Insert(0, "~/Data/Sites/$SiteId$/skins/$Skin$/Views/SuperFlexi/{0}.cshtml");
+		masterLocationFormats.Insert(0, $"~/{model.Site.SkinPath}Views/SuperFlexi/{{0}}.cshtml");
 		viewEngine.MasterLocationFormats = masterLocationFormats.ToArray();
 
 		var partialViewLocationFormats = new List<string>(viewEngine.PartialViewLocationFormats);
@@ -322,13 +325,7 @@ public class WidgetRazor : WebControl
 		}
 		catch (Exception ex)
 		{
-
-			log.DebugFormat(
-				"chosen layout ({0}) for _SuperFlexiRazor was not found in skin {1} or SuperFlexi Solution. Perhaps it is in a different skin or Solution. \nError was: {2}",
-				Config.ViewName,
-				SiteUtils.GetSkinBaseUrl(true, Page),
-				ex
-			);
+			log.Debug($"chosen layout ({Config.ViewName}) for {Config.MarkupDefinitionName} was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)} or SuperFlexi Solution. Perhaps it is in a different skin or Solution. \nError was: {ex}");
 
 			try
 			{
