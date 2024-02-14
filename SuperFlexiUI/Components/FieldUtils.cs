@@ -407,12 +407,17 @@ public class FieldUtils
 
 	public static void GetFieldAttributes(string p, out AttributeCollection attribCollection)
 	{
-		List<string> attributes = p.SplitOnChar(';');
-		StateBag bag = new StateBag();
+		var attributes = p.SplitOnChar(';');
+		var bag = new StateBag();
 		attribCollection = new AttributeCollection(bag);
 		foreach (string attribute in attributes)
 		{
 			List<string> attr = attribute.SplitOnCharAndTrim('|');
+			if (attr.Count < 2 )
+			{
+				//no value so we set the value equal to the name
+				attr.Add(attr[0]);
+			}
 			attribCollection.Add(attr[0], attr[1]);
 		}
 	}
