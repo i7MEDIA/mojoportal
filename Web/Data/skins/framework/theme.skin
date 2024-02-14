@@ -294,9 +294,6 @@
 <asp:TextBox runat="server" SkinId="regex"
 	CssClass="form-control pwd-regex"
 />
-<mp:WatermarkTextBox runat="server"
-	CssClass="form-control watermarktextbox"
-/>
 <asp:ListBox  runat="server" SkinID="PageTree"
 	CssClass="form-control page-tree"
 />
@@ -1181,12 +1178,3 @@ http://foundation.zurb.com/docs/ui.php
 	RepeatDirection="vertical"
 	RepeatLayout="UnorderedList"
 />
-
-
-
-
-<%-- Obsolete --%>
-
-<%-- these are used in other skins to add additional markup for nifty corners --%>
-<mp:CornerRounderTop    runat="server" DoRounding="false" />
-<mp:CornerRounderBottom runat="server" DoRounding="false" />
