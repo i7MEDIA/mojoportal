@@ -7,6 +7,7 @@ using System.Web.UI;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
@@ -170,18 +171,21 @@ public partial class FolderGalleryEditPage : NonCmsBasePage
 			if (!config.GalleryRootFolder.StartsWith(basePath))
 			{
 				// legacy path
-				basePath = Invariant($"~/Data/Sites/{siteSettings.SiteId}/FolderGalleries/");				
+				basePath = Invariant($"~/Data/Sites/{siteSettings.SiteId}/FolderGalleries/");
 			}
 		}
 
-		try
+		if (FileSystemHelper.LoadFileSystem() is IFileSystem fileSystem)
 		{
-			Global.FileSystem.CreateFolder(Server.MapPath(basePath));
-		}
-		catch (IOException ex)
-		{
-			log.Error(ex);
-		}
+			try
+			{
+				fileSystem.CreateFolder(Server.MapPath(basePath));
+			}
+			catch (IOException ex)
+			{
+				log.Error(ex);
+			}
+		}		
 
 		if (!WebUser.IsAdminOrContentAdmin)
 		{

@@ -21,7 +21,7 @@ public class ModuleConfiguration
 	private readonly int siteId;
 	private readonly Hashtable settings;
 	//private readonly FileSystemProvider fsProvider;
-	//private readonly IFileSystem fileSystem;
+	private readonly IFileSystem fileSystem;
 
 	#region contstructors
 	public ModuleConfiguration()
@@ -46,33 +46,7 @@ public class ModuleConfiguration
 			FeatureGuid = module.FeatureGuid;
 			settings = ModuleSettings.GetModuleSettings(module.ModuleId);
 
-			
-
-			//try
-			//{
-			//	fsProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-			//	if (fsProvider is null)
-			//	{
-			//		log.Error("File System Provider Could Not Be Loaded.");
-			//		return;
-			//	}
-			//	fileSystem = fsProvider.GetFileSystem(siteId);
-			//	if (fileSystem is null)
-			//	{
-			//		log.Error("File System Could Not Be Loaded.");
-			//		return;
-			//	}
-			//}
-			//catch (TypeInitializationException ex)
-			//{
-			//	log.Error(ex);
-			//	return;
-			//}
-			//catch (NullReferenceException ex)
-			//{
-			//	log.Error(ex);
-			//	return;
-			//}
+			fileSystem = FileSystemHelper.LoadFileSystem();
 
 			LoadSettings(settings, reloadDefinitionFromDisk);
 		}
@@ -87,11 +61,11 @@ public class ModuleConfiguration
 	public void CopyMarkupDefinitionToDatabase()
 	{
 		bool changed = false;
-		var sfMarkup = Global.FileSystem.RetrieveFile(MarkupDefinitionFile);
+		var sfMarkup = fileSystem.RetrieveFile(MarkupDefinitionFile);
 
 		if (sfMarkup is not null)
 		{
-			var sr = new StreamReader(Global.FileSystem.GetAsStream(sfMarkup.VirtualPath));
+			var sr = new StreamReader(fileSystem.GetAsStream(sfMarkup.VirtualPath));
 			string mdContent = sr.ReadToEnd();
 			sr.Close();
 			if (mdContent != MarkupDefinitionContent)
@@ -149,9 +123,9 @@ public class ModuleConfiguration
 			MarkupDefinitionFile = $"~{MarkupDefinitionFile}";
 		}
 
-		if (Global.FileSystem.FileExists(MarkupDefinitionFile))
+		if (fileSystem.FileExists(MarkupDefinitionFile))
 		{
-			WebFile sfMarkupFile = Global.FileSystem.RetrieveFile(MarkupDefinitionFile);
+			WebFile sfMarkupFile = fileSystem.RetrieveFile(MarkupDefinitionFile);
 			SolutionLocation = sfMarkupFile.FolderVirtualPath;
 		}
 
@@ -178,9 +152,9 @@ public class ModuleConfiguration
 			// can't use HttpContext because we use this method in SuperFlexiIndexBuilderProvider.RebuildIndex which doesn't have HttpContext
 			//string fullPath = HttpContext.Current.Server.MapPath(markupDefinitionFile); 
 
-			if (Global.FileSystem.FileExists(MarkupDefinitionFile))
+			if (fileSystem.FileExists(MarkupDefinitionFile))
 			{
-				var webFile = Global.FileSystem.RetrieveFile(MarkupDefinitionFile);
+				var webFile = fileSystem.RetrieveFile(MarkupDefinitionFile);
 				MapNodes(XmlHelper.GetXmlDocument(webFile.Path));
 			}
 		}

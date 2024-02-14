@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using log4net;
 using mojoPortal.Business;
-using mojoPortal.Web;
+using mojoPortal.FileSystem;
 using Resources;
 
 namespace mojoPortal.Features.UI.BetterImageGallery;
@@ -23,6 +23,7 @@ public class BetterImageGalleryService
 	private string mediaRootPath = string.Empty;
 	private string galleryRootPath = string.Empty;
 	private string galleryPath = string.Empty;
+	private IFileSystem fileSystem;	
 
 	protected string EditContentImage = WebConfigSettings.EditContentImage;
 	protected BIGConfig bigConfig = new();
@@ -37,7 +38,7 @@ public class BetterImageGalleryService
 
 	public void Setup()
 	{
-		if (Error == null)
+		if (Error is null)
 		{
 			SetupThumbnails();
 		}
@@ -63,8 +64,8 @@ public class BetterImageGalleryService
 			path = galleryRootPath + path;
 		}
 
-		var folderList = Global.FileSystem.GetFolderList(path).ToList();
-		var imagesList = Global.FileSystem.GetFileList(path).Where(x => SiteUtils.IsWebImageFile(x)).ToList();
+		var folderList = fileSystem?.GetFolderList(path).ToList();
+		var imagesList = fileSystem?.GetFileList(path).Where(x => SiteUtils.IsWebImageFile(x)).ToList();
 
 		foreach (var folder in folderList)
 		{
@@ -120,40 +121,45 @@ public class BetterImageGalleryService
 			bigConfig = new BIGConfig(moduleSettings);
 		}
 
-		// Media Folder
-		//VirtualRoot isn't always media folder, depending on how the site is configured, so we'll make sure to use media folder
+		fileSystem = FileSystemHelper.LoadFileSystem();
 
-		mediaRootPath = Global.FileSystem.VirtualRoot;
-		if (!mediaRootPath.TrimEnd('/').EndsWith("media"))
+		if (fileSystem is not null)
 		{
-			mediaRootPath = mediaRootPath.TrimEnd('/') + "/media/";
-		}
+			// Media Folder
+			//VirtualRoot isn't always media folder, depending on how the site is configured, so we'll make sure to use media folder
 
-		// Gallery Module Folder
-		galleryRootPath = mediaRootPath + "BetterImageGallery/";
-		// Gallery Folder
-		galleryPath = galleryRootPath + bigConfig.FolderPath.TrimEnd('/');
-
-		// Creates the Gallery Module Folder if it doesn't exist
-		if (!Global.FileSystem.FolderExists(galleryRootPath))
-		{
-			Global.FileSystem.CreateFolder(galleryRootPath);
-		}
-
-		// Creates the Gallery Module Folder if it doesn't exist
-		if (!Global.FileSystem.FolderExists(galleryPath))
-		{
-			Error = new BIGErrorResult
+			mediaRootPath = fileSystem.VirtualRoot;
+			if (!mediaRootPath.TrimEnd('/').EndsWith("media"))
 			{
-				Type = "FolderNotFound",
-				Message = BetterImageGalleryResources.FolderNotFound
-			};
-		}
+				mediaRootPath = $"{mediaRootPath.TrimEnd('/')}/media/";
+			}
 
-		// Creates module thumbnail cache folder if it doesn't exist
-		if (!Global.FileSystem.FolderExists(moduleThumbnailCachePath))
-		{
-			Global.FileSystem.CreateFolder(moduleThumbnailCachePath);
+			// Gallery Module Folder
+			galleryRootPath = $"{mediaRootPath}BetterImageGallery/";
+			// Gallery Folder
+			galleryPath = galleryRootPath + bigConfig.FolderPath.TrimEnd('/');
+
+			// Creates the Gallery Module Folder if it doesn't exist
+			if (!fileSystem.FolderExists(galleryRootPath))
+			{
+				fileSystem.CreateFolder(galleryRootPath);
+			}
+
+			// Creates the Gallery Module Folder if it doesn't exist
+			if (!fileSystem.FolderExists(galleryPath))
+			{
+				Error = new BIGErrorResult
+				{
+					Type = "FolderNotFound",
+					Message = BetterImageGalleryResources.FolderNotFound
+				};
+			}
+
+			// Creates module thumbnail cache folder if it doesn't exist
+			if (!fileSystem.FolderExists(moduleThumbnailCachePath))
+			{
+				fileSystem.CreateFolder(moduleThumbnailCachePath);
+			}
 		}
 	}
 
@@ -170,9 +176,9 @@ public class BetterImageGalleryService
 
 		// Creates thumbnail cache folder if it doesn't exist, should only happen
 		// the first time this gallery instance is hit.
-		if (!Global.FileSystem.FolderExists(thumbnailCachePath))
+		if (fileSystem is not null && !fileSystem.FolderExists(thumbnailCachePath))
 		{
-			Global.FileSystem.CreateFolder(thumbnailCachePath);
+			fileSystem.CreateFolder(thumbnailCachePath);
 			//CreateThumbnailDataFile(images, thumbnailCachePath);
 			CreateThumbnails(images, thumbnailCachePath);
 		}
@@ -211,9 +217,9 @@ public class BetterImageGalleryService
 			var imageFolder = imageRelativePath.Replace(Path.GetFileName(imageRelativePath), string.Empty);
 			var thumbnailDiscPath = HttpContext.Current.Server.MapPath(thumbnailCachePath + imageName);
 
-			if (imageFolder != "/")
+			if (imageFolder != "/" && fileSystem is not null)
 			{
-				Global.FileSystem.CreateFolder(thumbnailCachePath + imageFolder);
+				fileSystem.CreateFolder(thumbnailCachePath + imageFolder);
 			}
 
 			newImage.Save(thumbnailDiscPath, ImageFormat.Jpeg);
@@ -263,7 +269,7 @@ public class BetterImageGalleryService
 
 	private string FileNameWithJpegExt(string str)
 	{
-		return Path.GetFileNameWithoutExtension(str) + ".jpg";
+		return $"{Path.GetFileNameWithoutExtension(str)}.jpg";
 	}
 
 	private string FileWithFolderAndJpegExt(string str)

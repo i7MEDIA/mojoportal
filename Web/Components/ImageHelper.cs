@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using log4net;
+using mojoPortal.FileSystem;
 
 namespace mojoPortal.Web;
 
@@ -330,7 +331,12 @@ public sealed class ImageHelper
 	/// <param name="maxHeight"></param>
 	public static void ResizeImage(string imageFilePath, string mimeType, int maxWidth, int maxHeight, bool allowEnlargement, Color backgroundColor)
 	{
-		if (!Global.FileSystem.FileExists(imageFilePath)) { return; }
+		var fileSystem = FileSystemHelper.LoadFileSystem();
+
+		if (fileSystem is null || !fileSystem.FileExists(imageFilePath))
+		{
+			return;
+		}
 
 		double scaleFactor = 0;
 		string tmpFilePath = imageFilePath + ".tmp" + Path.GetExtension(imageFilePath);
@@ -341,11 +347,11 @@ public sealed class ImageHelper
 			//we can't overwrite the same file we have open so first make a temp copy
 
 			//File.Copy(imageFilePath, tmpFilePath, true);
-			Global.FileSystem.CopyFile(imageFilePath, tmpFilePath, true);
+			fileSystem.CopyFile(imageFilePath, tmpFilePath, true);
 
 			// this will only work with disk file needed to change to use FromStream
 			//using (Image fullsizeImage = Image.FromFile(tmpFilePath))
-			using (Stream tmpFileStream = Global.FileSystem.GetAsStream(tmpFilePath))
+			using (Stream tmpFileStream = fileSystem.GetAsStream(tmpFilePath))
 			{
 				using (Image fullsizeImage = Image.FromStream(tmpFileStream))
 				{
@@ -395,9 +401,9 @@ public sealed class ImageHelper
 
 										//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 										// as the original
-										Global.FileSystem.DeleteFile(imageFilePath);
+										fileSystem.DeleteFile(imageFilePath);
 										// use a stream so we can support alternate file system providers
-										using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
+										using (Stream stream = fileSystem.GetWritableStream(imageFilePath))
 										{
 											resizedBitmap.Save(stream, codecInfo, encoderParams);
 										}
@@ -412,10 +418,10 @@ public sealed class ImageHelper
 
 									//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 									// as the original
-									Global.FileSystem.DeleteFile(imageFilePath);
+									fileSystem.DeleteFile(imageFilePath);
 
 									//resizedBitmap.Save(imageFilePath, ImageFormat.Gif);
-									using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
+									using (Stream stream = fileSystem.GetWritableStream(imageFilePath))
 									{
 										resizedBitmap.Save(stream, ImageFormat.Gif);
 									}
@@ -425,10 +431,10 @@ public sealed class ImageHelper
 
 									//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 									// as the original
-									Global.FileSystem.DeleteFile(imageFilePath);
+									fileSystem.DeleteFile(imageFilePath);
 									// use a stream
 									//resizedBitmap.Save(imageFilePath, ImageFormat.Png);
-									using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
+									using (Stream stream = fileSystem.GetWritableStream(imageFilePath))
 									{
 										resizedBitmap.Save(stream, ImageFormat.Png);
 									}
@@ -464,7 +470,7 @@ public sealed class ImageHelper
 		try
 		{
 			//if (File.Exists(tmpFilePath)) { File.Delete(tmpFilePath); }
-			if (Global.FileSystem.FileExists(tmpFilePath)) { Global.FileSystem.DeleteFile(tmpFilePath); }
+			if (fileSystem.FileExists(tmpFilePath)) { fileSystem.DeleteFile(tmpFilePath); }
 		}
 		catch (ArgumentException) { }
 		catch (IOException) { }
@@ -483,7 +489,12 @@ public sealed class ImageHelper
 	/// <param name="maxHeight"></param>
 	public static void ResizeAndSquareImage(string imageFilePath, string mimeType, int sideLength, Color backgroundColor)
 	{
-		if (!Global.FileSystem.FileExists(imageFilePath)) { return; }
+		var fileSystem = FileSystemHelper.LoadFileSystem();
+
+		if (fileSystem is null || !fileSystem.FileExists(imageFilePath))
+		{
+			return;
+		}
 
 		string tmpFilePath = imageFilePath + ".tmp" + Path.GetExtension(imageFilePath);
 
@@ -492,10 +503,10 @@ public sealed class ImageHelper
 			//we can't overwrite the same file we have open so first make a temp copy
 
 			//File.Copy(imageFilePath, tmpFilePath, true);
-			Global.FileSystem.CopyFile(imageFilePath, tmpFilePath, true);
+			fileSystem.CopyFile(imageFilePath, tmpFilePath, true);
 
 			//using (Image fullsizeImage = Image.FromFile(tmpFilePath))
-			using (Stream tmpFileStream = Global.FileSystem.GetAsStream(tmpFilePath))
+			using (Stream tmpFileStream = fileSystem.GetAsStream(tmpFilePath))
 			{
 				using Image fullsizeImage = Image.FromStream(tmpFileStream);
 				int a = Math.Min(fullsizeImage.Width, fullsizeImage.Height);
@@ -530,8 +541,8 @@ public sealed class ImageHelper
 
 							//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 							// as the original
-							Global.FileSystem.DeleteFile(imageFilePath);
-							using Stream stream = Global.FileSystem.GetWritableStream(imageFilePath);
+							fileSystem.DeleteFile(imageFilePath);
+							using Stream stream = fileSystem.GetWritableStream(imageFilePath);
 							resizedBitmap.Save(stream, codecInfo, encoderParams);
 						}
 						break;
@@ -540,8 +551,8 @@ public sealed class ImageHelper
 
 						//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 						// as the original
-						Global.FileSystem.DeleteFile(imageFilePath);
-						using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
+						fileSystem.DeleteFile(imageFilePath);
+						using (Stream stream = fileSystem.GetWritableStream(imageFilePath))
 						{
 							resizedBitmap.Save(stream, ImageFormat.Gif);
 						}
@@ -551,9 +562,9 @@ public sealed class ImageHelper
 
 						//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 						// as the original
-						Global.FileSystem.DeleteFile(imageFilePath);
+						fileSystem.DeleteFile(imageFilePath);
 						//resizedBitmap.Save(imageFilePath, ImageFormat.Png);
-						using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
+						using (Stream stream = fileSystem.GetWritableStream(imageFilePath))
 						{
 							resizedBitmap.Save(stream, ImageFormat.Png);
 						}
@@ -561,7 +572,7 @@ public sealed class ImageHelper
 				}
 			} //end using tmpFileStream
 
-			Global.FileSystem.DeleteFile(tmpFilePath);
+			fileSystem.DeleteFile(tmpFilePath);
 		}
 		catch (OutOfMemoryException ex)
 		{
@@ -592,7 +603,9 @@ public sealed class ImageHelper
 	/// <param name="y"></param>
 	public static void CropImage(string imageFilePath, string destFilePath, string mimeType, int width, int height, int x, int y, Color backgroundColor)
 	{
-		if (!Global.FileSystem.FileExists(imageFilePath))
+		var fileSystem = FileSystemHelper.LoadFileSystem();
+
+		if (fileSystem is null || !fileSystem.FileExists(imageFilePath))
 		{
 			return;
 		}
@@ -602,9 +615,9 @@ public sealed class ImageHelper
 		try
 		{
 			//we can't overwrite the same file we have open so first make a temp copy
-			Global.FileSystem.CopyFile(imageFilePath, tmpFilePath, true);
+			fileSystem.CopyFile(imageFilePath, tmpFilePath, true);
 
-			using (Stream tmpFileStream = Global.FileSystem.GetAsStream(tmpFilePath))
+			using (Stream tmpFileStream = fileSystem.GetAsStream(tmpFilePath))
 			{
 				using Image fullsizeImage = Image.FromStream(tmpFileStream);
 				using Bitmap resizedBitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
@@ -635,23 +648,19 @@ public sealed class ImageHelper
 							{
 								//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 								// as the original
-								Global.FileSystem.DeleteFile(destFilePath);
+								fileSystem.DeleteFile(destFilePath);
 								//resizedBitmap.Save(destFilePath, codecInfo, encoderParams);
-								using (Stream stream = Global.FileSystem.GetWritableStream(destFilePath))
-								{
-									resizedBitmap.Save(stream, codecInfo, encoderParams);
-								}
+								using Stream stream = fileSystem.GetWritableStream(destFilePath);
+								resizedBitmap.Save(stream, codecInfo, encoderParams);
 							}
 							else
 							{
 								//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 								// as the original
-								Global.FileSystem.DeleteFile(imageFilePath);
+								fileSystem.DeleteFile(imageFilePath);
 								//resizedBitmap.Save(imageFilePath, codecInfo, encoderParams);
-								using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
-								{
-									resizedBitmap.Save(stream, codecInfo, encoderParams);
-								}
+								using Stream stream = fileSystem.GetWritableStream(imageFilePath);
+								resizedBitmap.Save(stream, codecInfo, encoderParams);
 							}
 						}
 
@@ -663,23 +672,19 @@ public sealed class ImageHelper
 						{
 							//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 							// as the original
-							Global.FileSystem.DeleteFile(destFilePath);
+							fileSystem.DeleteFile(destFilePath);
 							//resizedBitmap.Save(destFilePath, ImageFormat.Gif);
-							using (Stream stream = Global.FileSystem.GetWritableStream(destFilePath))
-							{
-								resizedBitmap.Save(stream, ImageFormat.Gif);
-							}
+							using Stream stream = fileSystem.GetWritableStream(destFilePath);
+							resizedBitmap.Save(stream, ImageFormat.Gif);
 						}
 						else
 						{
 							//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 							// as the original
-							Global.FileSystem.DeleteFile(imageFilePath);
+							fileSystem.DeleteFile(imageFilePath);
 							//resizedBitmap.Save(imageFilePath, ImageFormat.Gif);
-							using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
-							{
-								resizedBitmap.Save(stream, ImageFormat.Gif);
-							}
+							using Stream stream = fileSystem.GetWritableStream(imageFilePath);
+							resizedBitmap.Save(stream, ImageFormat.Gif);
 						}
 						break;
 
@@ -688,30 +693,26 @@ public sealed class ImageHelper
 						{
 							//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 							// as the original
-							Global.FileSystem.DeleteFile(destFilePath);
+							fileSystem.DeleteFile(destFilePath);
 							//resizedBitmap.Save(destFilePath, ImageFormat.Png);
-							using (Stream stream = Global.FileSystem.GetWritableStream(destFilePath))
-							{
-								resizedBitmap.Save(stream, ImageFormat.Png);
-							}
+							using Stream stream = fileSystem.GetWritableStream(destFilePath);
+							resizedBitmap.Save(stream, ImageFormat.Png);
 						}
 						else
 						{
 							//deleting the file seems to be needed otherwise the resized smaller file is still the same size on disk
 							// as the original
-							Global.FileSystem.DeleteFile(imageFilePath);
+							fileSystem.DeleteFile(imageFilePath);
 							//resizedBitmap.Save(imageFilePath, ImageFormat.Png);
-							using (Stream stream = Global.FileSystem.GetWritableStream(imageFilePath))
-							{
-								resizedBitmap.Save(stream, ImageFormat.Png);
-							}
+							using Stream stream = fileSystem.GetWritableStream(imageFilePath);
+							resizedBitmap.Save(stream, ImageFormat.Png);
 						}
 						break;
 
 				}
 			} //end using tmpFileStream
 
-			Global.FileSystem.DeleteFile(tmpFilePath);
+			fileSystem.DeleteFile(tmpFilePath);
 		}
 		catch (OutOfMemoryException ex)
 		{
