@@ -286,7 +286,7 @@ public sealed class mojoSetup
 	public static Role EnsureRole(SiteSettings site, string roleName, string displayName)
 	{
 		var role = new Role(site.SiteId, roleName);
-		if (role is not null)
+		if (role is not null && role.RoleId != -1)
 		{
 			return role;
 		}
