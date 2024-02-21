@@ -30,12 +30,14 @@ public class RazorBridge
 		rt = new RouteData();
 		rt.Values.Add("controller", controller);
 
-		Controller theController = new BaseController();
-
-		theController.ViewData = viewData;
+		var theController = new BaseController
+		{
+			ViewData = viewData
+		};
 
 		//create a controller context for the route and http context
-		ctx = new ControllerContext(new RequestContext(httpCtx, rt), theController);
+		var controllerContext = new ControllerContext(new RequestContext(httpCtx, rt), theController);
+		ctx = controllerContext;
 
 		//find the partial view using the viewengine
 		veResult = ViewEngines.Engines.FindPartialView(ctx, partialName);
@@ -87,7 +89,8 @@ public class RazorBridge
 
 		if (view is null)
 		{
-			PrepareContexts(partialName.Substring(0, partialName.Substring(partialName.IndexOf("--")).Length + 2), model, controller, viewData);
+
+			PrepareContexts(partialName.Substring(0, partialName.Substring(partialName.IndexOf("--"))?.Length + 2 ?? 0), model, controller, viewData);
 		}
 
 		using var sw = new StringWriter();

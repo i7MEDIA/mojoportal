@@ -39,6 +39,7 @@ public class WidgetRazor : WebControl
 	private List<ItemWithValues> itemsWithValues = [];
 	private SiteSettings siteSettings;
 	private Module module;
+	private WidgetModel model;
 
 	public ModuleConfiguration Config { get; set; } = new ModuleConfiguration();
 	public string SiteRoot { get; set; } = string.Empty;
@@ -237,9 +238,15 @@ public class WidgetRazor : WebControl
 
 	protected override void RenderContents(HtmlTextWriter writer)
 	{
+		prepareModel();	
+		writer.Write(getViewContent());
+	}
+
+	private void prepareModel()
+	{
 		string featuredImageUrl = string.Empty;
 
-		featuredImageUrl = String.IsNullOrWhiteSpace(Config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + Config.InstanceFeaturedImage;
+		featuredImageUrl = string.IsNullOrWhiteSpace(Config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + Config.InstanceFeaturedImage;
 
 		var superFlexiItemClass = new ClassBuilder(itemsWithValues)
 		{
@@ -247,7 +254,7 @@ public class WidgetRazor : WebControl
 			PageId = PageId
 		}.Init();
 
-		var model = new WidgetModel()
+		model = new WidgetModel()
 		{
 			Module = new ModuleModel
 			{
@@ -296,17 +303,19 @@ public class WidgetRazor : WebControl
 		}
 
 		model.Items = superFlexiItemClass.Items;
+	}
 
+	private string getViewContent()
+	{
 		var viewPath = $"{Config.RelativeSolutionLocation}/{Config.ViewName}";
 
 		var viewEngine = new mojoViewEngine();
 
 		var solutionDirectory = new DirectoryInfo(Config.RelativeSolutionLocation);
-
-		model.Site.SkinViewPath = $"{model.Site.SkinPath}Views/{solutionDirectory.Name}/{Config.ViewName}";
+		model.Site.SkinViewPath = $"{model.Site.SkinPath}Views/SuperFlexi/{solutionDirectory.Name}/{Config.ViewName}";
 
 		var masterLocationFormats = new List<string>(viewEngine.MasterLocationFormats);
-		masterLocationFormats.Insert(0, $"~/{model.Site.SkinPath}Views/SuperFlexi/{{0}}.cshtml");
+		masterLocationFormats.Insert(0, $"~{model.Site.SkinPath}Views/SuperFlexi/{{0}}.cshtml");
 		viewEngine.MasterLocationFormats = masterLocationFormats.ToArray();
 
 		var partialViewLocationFormats = new List<string>(viewEngine.PartialViewLocationFormats);
@@ -317,41 +326,24 @@ public class WidgetRazor : WebControl
 		viewLocationFormats.Insert(0, model.Site.SkinViewPath.Replace(Config.ViewName, string.Empty) + "/{0}.cshtml");
 		viewEngine.ViewLocationFormats = viewLocationFormats.ToArray();
 
-		string content;
-
 		try
 		{
-			content = RazorBridge.RenderPartialToString(model.Site.SkinViewPath, model, "SuperFlexi");
+			return RazorBridge.RenderPartialToString(model.Site.SkinViewPath, model, "SuperFlexi");
 		}
 		catch (Exception ex)
 		{
-			log.Debug($"chosen layout ({Config.ViewName}) for {Config.MarkupDefinitionName} was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)} or SuperFlexi Solution. Perhaps it is in a different skin or Solution. \nError was: {ex}");
+			log.Debug($"chosen layout ({Config.ViewName}) for ({Config.RelativeSolutionLocation}) was not found in skin {model.Site.SkinPath}. Perhaps it is in a different skin. \nError was: {ex}");
 
 			try
 			{
-				content = RazorBridge.RenderPartialToString(viewPath, model, "SuperFlexi");
+				return RazorBridge.RenderPartialToString(viewPath, model, "SuperFlexi");
 			}
 			catch (Exception ex2)
 			{
-				renderDefaultView(ex2.ToString());
+				log.Error($"chosen layout ({Config.ViewName}) was not found in skin ({model.Site.SkinPath}) or SuperFlexi Solution ({Config.RelativeSolutionLocation}). Perhaps it is in a different skin or Solution. \nError was: {ex2}");
+				return RazorBridge.RenderPartialToString("_SuperFlexiRazor", model, "SuperFlexi");
 			}
 		}
-
-		void renderDefaultView(string error = "")
-		{
-			if (!string.IsNullOrWhiteSpace(error))
-			{
-				log.ErrorFormat(
-					"chosen layout ({0}) for _SuperFlexiRazor was not found in skin {1} or SuperFlexi Solution. Perhaps it is in a different skin or Solution. \nError was: {2}",
-					Config.ViewName,
-					SiteUtils.GetSkinBaseUrl(true, Page),
-					error
-				);
-			}
-			content = RazorBridge.RenderPartialToString("_SuperFlexiRazor", model, "SuperFlexi");
-		}
-
-		writer.Write(content);
 	}
 
 	protected override void Render(HtmlTextWriter writer)

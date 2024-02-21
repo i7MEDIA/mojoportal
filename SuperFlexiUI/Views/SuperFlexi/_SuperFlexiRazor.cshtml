@@ -21,16 +21,16 @@
 	<p class="alert alert-warning"><strong>Warning</strong> The selected solution does not contain a matching view.</p>
 </div>
 
-@{ 
+@*@{ 
 
 	var siteSettings = CacheHelper.GetCurrentSiteSettings();
 	var pageSettings = new PageSettings(Model.Site.Id, Model.Page.Id);
 	var module = new Module(Model.Module.Guid);
 
 	foreach (PageModule foo in PageModule.GetPageModulesByModule(Model.Module.Id))
-			{
-				<div>@foo.PaneName</div>
-			}
+	{
+		<div>@foo.PaneName</div>
+	}
 
 	if (!pageSettings.BodyCssClass.Contains("food"))
 	{
@@ -39,7 +39,7 @@
 		pageSettings.Save();
 	}
 
-}
+}*@
 
 @if (Model.Module.IsEditable && Model.Config.Debug)
 {
