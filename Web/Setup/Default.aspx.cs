@@ -127,14 +127,20 @@ public partial class SetupHome : Page
 			return;
 		}
 
-		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		SiteSettings siteSettings;
 
 		//existingSiteCount = DatabaseHelper.ExistingSiteCount();
 		if (DatabaseHelper.ExistingSiteCount() == 0)
 		{
-			CreateAdminUser(CreateSite());
+			siteSettings = CreateSite();
+			CreateAdminUser(siteSettings);
 		}
-		else if (siteSettings is not null)
+		else
+		{
+			siteSettings = CacheHelper.GetCurrentSiteSettings();
+		}
+
+		if (siteSettings is not null)
 		{
 			//check for site folder in data, restore if it's missing
 			//this helps during development

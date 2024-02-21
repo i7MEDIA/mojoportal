@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Web;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -74,7 +76,7 @@ public class MenuOptions
 
 public class SkinConfigManager
 {
-	private Dictionary<string, SkinConfig> configs = [];
+	private ConcurrentDictionary<string, SkinConfig> configs = [];
 
 	/// <summary>
 	/// Called from global.asax. Should not be called from anywhere else
@@ -90,27 +92,19 @@ public class SkinConfigManager
 	public SkinConfig GetConfig()
 	{
 		ensureSkinConfig();
-		return configs[SiteUtils.GetSkinName(true)];
+		string skinName = SiteUtils.GetSkinName(true);
+		return configs.GetOrAdd(skinName, getSkinConfig(skinName));
 	}
-
-	//public SkinConfig GetConfig(string skinName)
-	//{
-
-	//}
 
 	public void RefreshSkinConfig(string skinName)
 	{
-		configs.Remove(skinName);
-		configs.Add(skinName, getSkinConfig(skinName));
+		configs.AddOrUpdate(skinName, getSkinConfig(skinName), (key, oldValue) => getSkinConfig(skinName));
 	}
 
 	private void ensureSkinConfig()
 	{
 		string skinName = SiteUtils.GetSkinName(true);
-		if (!configs.ContainsKey(skinName))
-		{
-			configs.Add(skinName, getSkinConfig(skinName));
-		}
+		configs.AddOrUpdate(skinName, getSkinConfig(skinName), (key, oldValue) => getSkinConfig(skinName));
 	}
 
 	public void ClearAll()
@@ -191,7 +185,7 @@ public class SkinConfigManager
 		}
 
 		skinConfig.EditorStyles = styles;
-		
+
 		#endregion
 
 		return skinConfig;
@@ -203,7 +197,7 @@ public class SkinConfigManager
 		{
 			return VirtualPathUtility.ToAbsolute(path.Replace("$SkinPath$/", skinUrlPath).Replace("$SkinPath$", skinUrlPath));
 		}
-		
+
 		return path;
 	}
 }

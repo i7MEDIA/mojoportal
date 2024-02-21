@@ -409,8 +409,6 @@ public static class CacheHelper
 		string cachekey;
 		int siteId;
 
-
-
 		if (useFolderForSiteDetection)
 		{
 			string siteFolderName = VirtualFolderEvaluator.VirtualFolderName();
@@ -419,7 +417,7 @@ public static class CacheHelper
 			if (!Global.SiteHostMap.TryGetValue(siteFolderName, out siteId))
 			{
 				siteId = SiteSettings.GetSiteIdByFolder(siteFolderName);
-				Global.SiteHostMap.Add(siteFolderName, siteId);
+				Global.SiteHostMap.TryAdd(siteFolderName, siteId);
 			}
 		}
 		else
@@ -428,21 +426,24 @@ public static class CacheHelper
 
 			if (!Global.SiteHostMap.TryGetValue(hostName, out siteId))
 			{
-				siteId = SiteSettings.GetSiteIdByHostName(hostName);
-				Global.SiteHostMap.Add(hostName, siteId);
+				if (DatabaseHelper.ExistingSiteCount() > 0)
+				{
+					siteId = SiteSettings.GetSiteIdByHostName(hostName);
+					Global.SiteHostMap.TryAdd(hostName, siteId);
+				}
 			}
 		}
-		cachekey = "SiteSettings_" + siteId.ToInvariantString();
+		cachekey = Invariant($"SiteSettings_{siteId}");
 
-		DateTime expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
+		var expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
 
 		try
 		{
-			SiteSettings siteSettings = CacheManager.Cache.Get<SiteSettings>(cachekey, expiration, () =>
+			var siteSettings = CacheManager.Cache.Get<SiteSettings>(cachekey, expiration, () =>
 			{
 				// This is the anonymous function which gets called if the data is not in the cache.
 				// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
-				SiteSettings site = LoadSiteSettings();
+				var site = LoadSiteSettings();
 				return site;
 			});
 
@@ -453,13 +454,14 @@ public static class CacheHelper
 			log.Error("failed to get siteSettings from cache so loading it directly", ex);
 			return LoadSiteSettings();
 		}
-
 	}
-
 
 	private static SiteSettings LoadSiteSettings()
 	{
-		if (debugLog) log.Debug("CacheHelper.cs LoadSiteSettings");
+		if (debugLog)
+		{
+			log.Debug("CacheHelper.cs LoadSiteSettings");
+		}
 
 		SiteSettings siteSettings = null;
 
@@ -495,7 +497,6 @@ public static class CacheHelper
 				{
 					siteSettings.SiteFolderName = siteFolderName;
 				}
-
 			}
 			else
 			{

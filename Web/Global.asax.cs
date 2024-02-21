@@ -1,36 +1,6 @@
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 
-// 
-// 3/13/2005  added handler in Application_BeginRequest 
-// for db404 error which is raised if pageid doesn't exist for siteid	
-// 
-// 6/22/2005  added log4net error logging	
-// 11/30/2005
-// 1/16/2006 JA added VirtualPathProvider
-// 1/29/2006 added Windows Auth support from Haluk Eryuksel
-// 2/4/2006  added mojoSetup 
-// 11/8/2006  added tracking user activity time in Application_EndRequest
-// 12/3/2006 added tracking of session count
-// 1/29/2007 added upgrade check to error handling
-// 2/9/2007 added rethrow unhandled error
-// 3/15/2007 refactor usercount increment
-// 2007/04/26 swap Principal in authenticate request
-// 2007-08-04 removed upgrade logic, its all done in Setup/Default.aspx now
-// 2007-09-20 added option to force a specific culture
-// 2009-06-24 some cleanup
-// 2009-11-20 use config settings for keepalivetask settings
-// 2011-03-14 added logic for .NET 4 to enable memory and excepton monitoring
-// 2011-08-05  refactored end request user activity tracking
-// 2014-07-11 added updated routing for web api and mvc
-// 2019-04-04 SystemInfoCaching
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Net;
 using System.Security.Cryptography;
@@ -76,7 +46,7 @@ public class Global : HttpApplication
 	public static bool RegisteredVirtualThemes { get; private set; } = false;
 	public static SkinConfigManager SkinConfigManager { get; private set; }
 	public static SkinConfig SkinConfig { get; private set; }
-	public static Dictionary<string, int> SiteHostMap { get; } = [];
+	public static ConcurrentDictionary<string, int> SiteHostMap { get; } = [];
 	//public static IFileSystem FileSystem { get; private set; }
 
 	// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
