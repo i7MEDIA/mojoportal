@@ -8,7 +8,6 @@
 		<asp:HyperLink ID="lnkAltPageManager" runat="server" Visible="false" />
 	</portal:AdminCrumbContainer>
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-		
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin pagetree">
 			<portal:HeadingControl ID="heading" runat="server" />
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
@@ -68,9 +67,9 @@
 					</div>
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			
+
 		</portal:InnerWrapperPanel>
-		
+
 	</portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />

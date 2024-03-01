@@ -8,7 +8,7 @@
 		<asp:HyperLink ID="lnkThisPage" runat="server" CssClass="selectedcrumb" />
 	</portal:AdminCrumbContainer>
 
-	<asp:Panel ID="pnl1" runat="server" CssClass="panelwrapper contenttemplates yui-skin-sam">
+	<asp:Panel ID="pnl1" runat="server" CssClass="panelwrapper contenttemplates ">
 		<div class="modulecontent">
 			<div class="settingrow">
 				<mp:SiteLabel ID="lblTitle" runat="server" ForControl="txtTitle" CssClass="settinglabeltight" ConfigKey="ContentTemplateTitleLabel" ResourceFile="Resource" />
@@ -23,7 +23,7 @@
 						<em>
 							<asp:Literal ID="litDescriptionTab" runat="server" /></em></a></li>
 					<li id="liSecurity" runat="server" visible="false"><a id="lnkSecurity" runat="server" href="#tabSecurity"><em>
-							<asp:Literal ID="litSecurityTab" runat="server" /></em></a></li>
+						<asp:Literal ID="litSecurityTab" runat="server" /></em></a></li>
 				</ul>
 				<div id="tabTemplate">
 					<div class="settingrow">

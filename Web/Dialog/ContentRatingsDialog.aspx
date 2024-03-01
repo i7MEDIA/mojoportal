@@ -3,7 +3,7 @@
 
 <asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server" />
 <asp:Content ContentPlaceHolderID="phMain" ID="MainContent" runat="server">
-	<div style="padding: 5px 5px 5px 5px;" class="yui-skin-sam">
+	<div class="contentratingdialog">
 		<mp:mojoGridView ID="grdContentRating" runat="server" CssClass="" AutoGenerateColumns="false"
 			DataKeyNames="RowGuid">
 			<Columns>

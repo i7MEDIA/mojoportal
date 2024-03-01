@@ -133,7 +133,7 @@
 							<mpe:EditorControl ID="edDescription" runat="server" />
 						</div>
 						<div id="tabSecurity">
-							<ul class="yui-nav">
+							<ul>
 								<li class="selected"><a href="#tabSubscribeRoles"><em>
 									<asp:Literal ID="litSubscribeRolesTab" runat="server" /></em></a></li>
 								<li id="liEditRoles" runat="server" visible="false"><a id="lnkEditRoles" runat="server"
@@ -146,7 +146,7 @@
 									href="#tabSendRoles"><em>
 										<asp:Literal ID="litSendRolesTab" runat="server" /></em></a></li>
 							</ul>
-							<div id="tpLetterInfoSecurity" class="yui-content">
+							<div id="tpLetterInfoSecurity">
 								<div id="tabSubscribeRoles" runat="server" cssclass="modulecontent">
 									<asp:CheckBoxList ID="chkListAvailableToRoles" runat="server" SkinID="Roles">
 									</asp:CheckBoxList>

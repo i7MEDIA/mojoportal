@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PaymentLogList.ascx.cs" Inherits="mojoPortal.Web.UI.PaymentLogList" %>
-<asp:Panel ID="pnlCheckoutLog" runat="server" CssClass="checkoutlog yui-skin-sam">
+<asp:Panel ID="pnlCheckoutLog" runat="server" CssClass="checkoutlog ">
     <h2 class="heading"><asp:Literal ID="litHeading" runat="server" /></h2>
     <mp:mojoGridView ID="grdCheckoutLog" runat="server" 
         AllowPaging="false" 

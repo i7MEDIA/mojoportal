@@ -1,8 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/DialogMaster.Master" CodeBehind="ContentPublishDialog.aspx.cs" Inherits="mojoPortal.Web.AdminUI.ContentPublishDialog" %>
 
-<asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server"></asp:Content>
+<asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server" />
 <asp:Content ContentPlaceHolderID="phMain" ID="MainContent" runat="server">
-	<div style="padding: 5px 5px 5px 5px;" class="yui-skin-sam">
+	<div class="contentpublishdialog">
 		<asp:Panel ID="pnlUpdate" runat="server">
 			<div class="settingrow">
 				<mp:SiteLabel ID="SiteLabel5" runat="server" ConfigKey="PageSettingsPageNameLabel" CssClass="settinglabel" />
