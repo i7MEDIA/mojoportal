@@ -10,6 +10,7 @@ using System.Threading;
 using log4net;
 using mojoPortal.Core.Configuration;
 using mojoPortal.Web.Framework;
+
 namespace mojoPortal.Net;
 
 /// <summary>
@@ -25,9 +26,6 @@ public static class Email
 	public const string PriorityHigh = "High";
 
 	const int SmtpAuthenticated = 1;
-
-
-
 
 	public static void SendEmail(
 		SmtpSettings smtpSettings,

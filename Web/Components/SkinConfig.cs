@@ -93,7 +93,11 @@ public class SkinConfigManager
 	{
 		ensureSkinConfig();
 		string skinName = SiteUtils.GetSkinName(true);
-		return configs.GetOrAdd(skinName, getSkinConfig(skinName));
+		if (!configs.ContainsKey(skinName))
+		{
+			return configs.GetOrAdd(skinName, getSkinConfig(skinName));
+		}
+		return configs[skinName];
 	}
 
 	public void RefreshSkinConfig(string skinName)
@@ -104,7 +108,10 @@ public class SkinConfigManager
 	private void ensureSkinConfig()
 	{
 		string skinName = SiteUtils.GetSkinName(true);
-		configs.AddOrUpdate(skinName, getSkinConfig(skinName), (key, oldValue) => getSkinConfig(skinName));
+		if (!configs.ContainsKey(skinName))
+		{
+			configs.AddOrUpdate(skinName, getSkinConfig(skinName), (key, oldValue) => getSkinConfig(skinName));
+		}
 	}
 
 	public void ClearAll()
