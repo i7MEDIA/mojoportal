@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using mojoPortal.Core.Helpers;
@@ -46,7 +47,6 @@ public static class StringExtensions
 	public static bool IsCaseInsensitiveMatch(this string str1, string str2)
 	{
 		return string.Equals(str1, str2, StringComparison.InvariantCultureIgnoreCase);
-
 	}
 
 	public static string ToSerialDate(this string s)
@@ -74,23 +74,51 @@ public static class StringExtensions
 
 	public static string CsvEscapeQuotes(this string s)
 	{
-		if (string.IsNullOrWhiteSpace(s)) { return s; }
+		if (string.IsNullOrWhiteSpace(s))
+		{
+			return s;
+		}
 
 		return s.Replace("\"", "\"\"");
 	}
 
-	public static string RemoveAngleBrackets(this string s)
-	{
-		if (string.IsNullOrWhiteSpace(s)) { return s; }
+	public static string RemoveAngleBrackets(this string s) => s.Remove(["<", ">"]);
+	public static string RemovePunctuation(this string s) => s.Remove([".", ",", ":", "?", "!", ";", "&", "{", "}", "[", "]"]);
 
-		return s.Replace("<", string.Empty).Replace(">", string.Empty);
-	}
+	public static string Remove(this string s, string str) => s.Remove([str]);
 
-	public static string Coalesce(this string s, string alt)
+	public static string Remove(this string s, char[] chars)
 	{
-		if (string.IsNullOrWhiteSpace(s)) { return alt; }
+		if (!string.IsNullOrWhiteSpace(s) && chars is not null)
+		{
+			foreach (var c in chars)
+			{
+				s = s.Replace(c.ToString(), string.Empty);
+			}
+		}
 		return s;
 	}
+
+	public static string Remove(this string s, string[] strings)
+	{
+		if (!string.IsNullOrWhiteSpace(s) && strings is not null)
+		{
+			foreach (var str in strings)
+			{
+				s = s.Replace(str, string.Empty);
+			}
+		}
+		return s;
+	}
+
+
+	/// <summary>
+	/// Evaluates the string and the argument (alt), returns the first one that is not null.
+	/// </summary>
+	/// <param name="s"></param>
+	/// <param name="alt"></param>
+	/// <returns></returns>
+	public static string Coalesce(this string s, string alt) => string.IsNullOrWhiteSpace(s) ? alt : s;
 
 	/// <summary>
 	/// Converts a unicode string into its closest ascii equivalent

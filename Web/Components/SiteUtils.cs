@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -16,8 +17,7 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
-using mojoPortal.Core.Helpers;
+using mojoPortal.Core.Configuration;
 using mojoPortal.FileSystem;
 using mojoPortal.Net;
 using mojoPortal.SearchIndex;
@@ -25,8 +25,6 @@ using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
-using static System.FormattableString;
-using Config = mojoPortal.Core.Configuration;
 
 namespace mojoPortal.Web
 {
@@ -62,48 +60,51 @@ namespace mojoPortal.Web
 		/// <returns></returns>
 		public static bool UrlsMatch(string url1, string url2)
 		{
-			if (string.IsNullOrEmpty(url1)) { return false; }
-			if (string.IsNullOrEmpty(url2)) { return false; }
+			if (string.IsNullOrEmpty(url1) || string.IsNullOrEmpty(url2))
+			{
+				return false;
+			}
 
 			return string.Equals(url1, url2, StringComparison.InvariantCultureIgnoreCase);
-
 		}
 
 		//Updated 2011-10-04 based on suggestions by Warner
 		//http://www.mojoportal.com/Forums/Thread.aspx?thread=9176&mid=34&pageid=5&ItemID=9&pagenumber=1#post38114
 
-		public static string SuggestFriendlyUrl(
-			string pageName,
-			SiteSettings siteSettings,
-			string prefix = "")
+		public static string SuggestFriendlyUrl(string pageName, SiteSettings siteSettings, string prefix = "")
 		{
-			string friendlyUrl = CleanStringForUrl(prefix, false) + CleanStringForUrl(pageName);
+			string friendlyUrl;
+			if (string.IsNullOrWhiteSpace(prefix))
+			{
+				friendlyUrl = CleanStringForUrl(pageName);
+			}
+			else
+			{
+				friendlyUrl = CleanStringForUrl(prefix, false) + CleanStringForUrl(pageName);
+			}
+
 			if (WebConfigSettings.AlwaysUrlEncode)
 			{
 				friendlyUrl = HttpUtility.UrlEncode(friendlyUrl);
 			}
 
-			string urlTail = string.Empty;
-			switch (siteSettings.DefaultFriendlyUrlPattern)
-			{
-				case SiteSettings.FriendlyUrlPattern.PageNameWithDotASPX:
-					urlTail = ".aspx";
-					break;
-
-			}
+			string urlTail = siteSettings.DefaultFriendlyUrlPattern == SiteSettings.FriendlyUrlPattern.PageNameWithDotASPX ? ".aspx" : string.Empty;
 
 			string tempFriendlyUrl = friendlyUrl;
 			int i = 1;
 
 			while (FriendlyUrl.Exists(siteSettings.SiteId, tempFriendlyUrl + urlTail) || SiteFolder.Exists(tempFriendlyUrl))
 			{
-				tempFriendlyUrl = friendlyUrl + "-" + i.ToString();
+				tempFriendlyUrl = $"{friendlyUrl}-{i}";
 				i++;
 			}
 
 			friendlyUrl = tempFriendlyUrl + urlTail;
 
-			if (WebConfigSettings.ForceFriendlyUrlsToLowerCase) { return friendlyUrl.ToLower(); }
+			if (WebConfigSettings.ForceFriendlyUrlsToLowerCase)
+			{
+				return friendlyUrl.ToLower();
+			}
 
 			return friendlyUrl;
 		}
@@ -111,14 +112,15 @@ namespace mojoPortal.Web
 		/// <summary>
 		/// to help mitigate cross site request forgery
 		/// </summary>
-		/// <param name="page"></param>
-		/// <returns></returns>
-		public static bool IsFishyPost(Page page)
-		{
-			return IsFishyPost(page.Request);
+		/// <param name="page">Page</param>
+		/// <returns>bool</returns>
+		public static bool IsFishyPost(Page page) => IsFishyPost(page.Request);
 
-		}
-
+		/// <summary>
+		/// to help mitigate cross site request forgery
+		/// </summary>
+		/// <param name="request">HttpRequest</param>
+		/// <returns>bool</returns>
 		public static bool IsFishyPost(HttpRequest request)
 		{
 			if (!WebConfigSettings.CheckFishyReferrer)
@@ -126,42 +128,54 @@ namespace mojoPortal.Web
 				return false; // a way to disable this if it causes problems
 			}
 
-			if (request.RequestType == "GET") { return false; } //not a postback
+			if (request.RequestType == "GET")
+			{
+				//not a postback
+				return false;
+			}
 
 			if (!request.UrlReferrer.IsWellFormedOriginalString())
 			{
+				//bogus referer
 				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
+					log.Warn(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
 				}
 
-				return true; //bogus referer
+				return true;
 			}
 
 			if (!request.UrlReferrer.Host.Equals(request.Url.Host))
 			{
+				//referer is different host
 				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
+					log.Warn(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
 				}
 
-				return true; //referer is different host
+				return true;
 			}
 
 			if (Regex.IsMatch(request.UrlReferrer.ToString(), "%3C", RegexOptions.IgnoreCase))
 			{
+				//referrer has angle brakcets
 				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
+					log.Warn(string.Format(Resource.FishyPostFoundFromReferrer, request.UrlReferrer.ToString()));
 				}
 
-				return true; //referrer has angle brakcets
+				return true;
 			}
 
 			//ok
 			return false;
 		}
 
+		/// <summary>
+		/// to help mitigate cross site request forgery
+		/// </summary>
+		/// <param name="request">HttpRequestMessage</param>
+		/// <returns>bool</returns>
 		public static bool IsFishyPost(HttpRequestMessage request)
 		{
 			if (!WebConfigSettings.CheckFishyReferrer)
@@ -171,68 +185,59 @@ namespace mojoPortal.Web
 
 			if (!request.RequestUri.IsWellFormedOriginalString())
 			{
+				//bogus referer
 				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
+					log.Warn(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
 				}
 
-				return true; //bogus referer
+				return true;
 			}
 
 			if (!request.RequestUri.Host.Equals(request.RequestUri.Host))
 			{
+				//referer is different host
 				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
+					log.Warn(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
 				}
-				return true; //referer is different host
+
+				return true;
 			}
 
 			if (Regex.IsMatch(request.RequestUri.ToString(), "%3C", RegexOptions.IgnoreCase))
 			{
+				//referrer has angle brakcets
 				if (WebConfigSettings.LogFishyReferrer)
 				{
-					log.Info(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
+					log.Warn(string.Format(Resource.FishyPostFoundFromReferrer, request.RequestUri.ToString()));
 				}
 
-				return true; //referrer has angle brakcets
+				return true;
 			}
 
-			return false; // OK
+			// OK
+			return false;
 		}
 
-		public static string RemoveInvalidUrlChars(string input)
-		{
-			return input.Replace(":", string.Empty).Replace("?", string.Empty).Replace("&", "-").Replace("#", string.Empty);
-		}
+		public static string RemoveInvalidUrlChars(string input) => input.Remove([":", "?", "#"]).Replace("&", "-");
 
-		public static string RemoveQuotes(string input)
-		{
-			string outputString = input.Replace("\"", string.Empty).Replace("'", string.Empty);
-			return outputString;
-		}
+		public static string RemoveQuotes(string input) => input.Remove(["\"", "'"]);
 
 		public static string CleanStringForUrl(string input, bool removeForwardSlash = true)
 		{
-			string outputString = RemovePunctuation(input.Replace("&", "-")).Replace("\\", "-").Replace(" - ", "-").Replace("--", "-").Replace(" ", "-").Replace("\"", string.Empty).Replace("'", string.Empty).Replace("#", string.Empty).Replace("~", string.Empty).Replace("`", string.Empty).Replace("@", string.Empty).Replace("$", string.Empty).Replace("*", string.Empty).Replace("^", string.Empty).Replace("(", string.Empty).Replace(")", string.Empty).Replace("+", string.Empty).Replace("=", string.Empty).Replace("%", string.Empty).Replace(">", string.Empty).Replace("<", string.Empty);
+			string outputString = input.RemovePunctuation().Remove(["\"", "'", "#", "~", "`", "@", "$", "*", "^", "(", ")", "+", "=", "%", ">", "<"]).Replace("&", "-").Replace("\\", "-").Replace(" - ", "-").Replace(" ", "-").Replace("--", "-");
 
 			if (removeForwardSlash)
 			{
-				outputString = outputString.Replace("/", string.Empty);
+				outputString = outputString.Remove(["/"]);
 			}
 
-			if (WebConfigSettings.UseClosestAsciiCharsForUrls) { return outputString.ToAsciiIfPossible(); }
-
-			return outputString;
-		}
-
-		private static string RemovePunctuation(string input)
-		{
-			string outputString = string.Empty;
-			if (input is not null)
+			if (WebConfigSettings.UseClosestAsciiCharsForUrls)
 			{
-				outputString = input.Replace(".", string.Empty).Replace(",", string.Empty).Replace(":", string.Empty).Replace("?", string.Empty).Replace("!", string.Empty).Replace(";", string.Empty).Replace("&", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty).Replace("[", string.Empty).Replace("]", string.Empty);
+				return outputString.ToAsciiIfPossible();
 			}
+
 			return outputString;
 		}
 
@@ -272,7 +277,7 @@ namespace mojoPortal.Web
 			var queryParams = new StringBuilder("?");
 			if (siteId != -1)
 			{
-				queryParams.Append(Invariant($"siteId={siteId}&")); 
+				queryParams.Append(Invariant($"siteId={siteId}&"));
 			}
 
 			if (pageId != -1)
@@ -305,40 +310,38 @@ namespace mojoPortal.Web
 		/// <param name="editor"></param>
 		public static void SetupNewsletterEditor(EditorControl editor)
 		{
-			if (HttpContext.Current is null) { return; }
-			if (HttpContext.Current.Request is null) { return; }
-			if (editor is null)
+			if (HttpContext.Current is null || HttpContext.Current.Request is null || editor is null)
 			{
 				return;
 			}
 
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			if (siteSettings is null) { return; }
+			if (siteSettings is null)
+			{
+				return;
+			}
 
-			string providerName = siteSettings.NewsletterEditor;
+			var providerName = siteSettings.NewsletterEditor;
 
-			string loweredBrowser = string.Empty;
+			var loweredBrowser = string.Empty;
 
 			if (HttpContext.Current.Request.UserAgent is not null)
 			{
 				loweredBrowser = HttpContext.Current.Request.UserAgent.ToLower();
 			}
 
-			if (
-				(loweredBrowser.Contains("iphone"))
-				&& (WebConfigSettings.ForcePlainTextInIphone)
-				)
-			{
-				providerName = "TextAreaProvider";
-			}
+			//if (loweredBrowser.Contains("iphone") && WebConfigSettings.ForcePlainTextInIphone)
+			//{
+			//	providerName = "TextAreaProvider";
+			//}
 
-			if (
-				(loweredBrowser.Contains("android"))
-				&& (WebConfigSettings.ForcePlainTextInAndroid)
-				)
-			{
-				providerName = "TextAreaProvider";
-			}
+			//if (
+			//	(loweredBrowser.Contains("android"))
+			//	&& (WebConfigSettings.ForcePlainTextInAndroid)
+			//	)
+			//{
+			//	providerName = "TextAreaProvider";
+			//}
 
 			//string siteRoot = null;
 			//if (siteSettings.SiteFolderName.Length > 0)
@@ -352,21 +355,19 @@ namespace mojoPortal.Web
 			editor.ProviderName = providerName;
 			editor.WebEditor.SiteRoot = siteRoot;
 
-			CultureInfo defaultCulture = GetDefaultCulture();
-			if (defaultCulture.TextInfo.IsRightToLeft)
+			if (GetDefaultCulture().TextInfo.IsRightToLeft)
 			{
 				editor.WebEditor.TextDirection = Direction.RightToLeft;
 			}
-
-
-
 		}
 
 		public static string GetIP4Address()
 		{
 			string ip4Address = string.Empty;
-			if (HttpContext.Current is null) { return ip4Address; }
-			if (HttpContext.Current.Request is null) { return ip4Address; }
+			if (HttpContext.Current is null || HttpContext.Current.Request is null)
+			{
+				return ip4Address;
+			}
 
 			if (!string.IsNullOrWhiteSpace(WebConfigSettings.ClientIpServerVariable))
 			{
@@ -376,12 +377,18 @@ namespace mojoPortal.Web
 				}
 			}
 
-			if (HttpContext.Current.Request.UserHostAddress is null) { return ip4Address; }
+			if (HttpContext.Current.Request.UserHostAddress is null)
+			{
+				return ip4Address;
+			}
 
 			try
 			{
 				IPAddress ip = IPAddress.Parse(HttpContext.Current.Request.UserHostAddress);
-				if (ip.AddressFamily.ToString() == "InterNetwork") { return ip.ToString(); }
+				if (ip.AddressFamily.ToString() == "InterNetwork")
+				{
+					return ip.ToString();
+				}
 			}
 			catch (FormatException)
 			{ }
@@ -550,14 +557,14 @@ namespace mojoPortal.Web
 
 		public static bool IsAllowedFileType(this WebFile file, string allowedExtensionsString)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
+			string extension = Path.GetExtension(file.Name);
 			List<string> allowedExtensions = allowedExtensionsString.SplitOnPipes();
 			return allowedExtensions.Contains(extension.ToLower());
 		}
 
 		public static bool IsAllowedFileType(this Dtos.FileServiceDto file, string allowedExtensionsString)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
+			string extension = Path.GetExtension(file.Name);
 			List<string> allowedExtensions = allowedExtensionsString.SplitOnPipes();
 			return allowedExtensions.Contains(extension.ToLower());
 		}
@@ -575,14 +582,14 @@ namespace mojoPortal.Web
 
 		private static bool isExtensionAllowed(WebFile file, string configSetting)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
+			string extension = Path.GetExtension(file.Name);
 			List<string> allowedExtensions = configSetting.SplitOnPipes();
 			return allowedExtensions.Contains(extension.ToLower());
 		}
 
 		private static bool isExtensionAllowed(Dtos.FileServiceDto file, string configSetting)
 		{
-			string extension = System.IO.Path.GetExtension(file.Name);
+			string extension = Path.GetExtension(file.Name);
 			List<string> allowedExtensions = configSetting.SplitOnPipes();
 			return allowedExtensions.Contains(extension.ToLower());
 		}
@@ -1222,15 +1229,15 @@ namespace mojoPortal.Web
 			if (WebConfigSettings.SiteLogoUseMediaFolder)
 			{
 				logoPath = HttpContext.Current.Server.MapPath
-				(WebUtils.GetApplicationRoot() + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/media/logos/");
+				(Invariant($"{WebUtils.GetApplicationRoot()}/Data/Sites/{siteSettings.SiteId}/media/logos/"));
 			}
 			else
 			{
 				logoPath = HttpContext.Current.Server.MapPath
-				(WebUtils.GetApplicationRoot() + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/logos/");
+				(Invariant($"{WebUtils.GetApplicationRoot()}/Data/Sites/{siteSettings.SiteId}/logos/"));
 			}
 
-			DirectoryInfo dir = new DirectoryInfo(logoPath);
+			var dir = new DirectoryInfo(logoPath);
 
 			if (!dir.Exists)
 			{
@@ -1248,13 +1255,13 @@ namespace mojoPortal.Web
 			}
 
 			string filePath = HttpContext.Current.Server.MapPath
-				(WebUtils.GetApplicationRoot() + "/Data/Sites/" + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture) + "/htmltemplateimages/");
+				(Invariant($"{WebUtils.GetApplicationRoot()}/Data/Sites/{siteSettings.SiteId}/htmltemplateimages/"));
 
-			DirectoryInfo dir = new DirectoryInfo(filePath);
-			return dir.Exists ? dir.GetFiles() : null;
+			var dir = new DirectoryInfo(filePath);
+			return dir.Exists ? dir.GetFiles().Where(f => IsImageFileExtension(f.Name)).ToArray() : null;
 		}
 
-		public static mojoPortal.Web.UI.Avatar.RatingType GetMaxAllowedGravatarRating()
+		public static Avatar.RatingType GetMaxAllowedGravatarRating()
 		{
 			switch (WebConfigSettings.GravatarMaxAllowedRating)
 			{
@@ -1268,7 +1275,7 @@ namespace mojoPortal.Web
 					return Avatar.RatingType.X;
 			}
 
-			return mojoPortal.Web.UI.Avatar.RatingType.G;
+			return Avatar.RatingType.G;
 		}
 
 		public static FileInfo[] GetAvatarList(SiteSettings siteSettings)
@@ -1278,10 +1285,10 @@ namespace mojoPortal.Web
 				return null;
 			}
 
-			string p = WebUtils.GetApplicationRoot() + "/Data/Sites/" + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture) + "/avatars";
+			string p = Invariant($"{WebUtils.GetApplicationRoot()}/Data/Sites/{siteSettings.SiteId}/avatars");
 			string avatarPath = HttpContext.Current.Server.MapPath(p);
 
-			DirectoryInfo dir = new DirectoryInfo(avatarPath);
+			var dir = new DirectoryInfo(avatarPath);
 			return dir.Exists ? dir.GetFiles("*.gif") : null;
 		}
 
@@ -1292,9 +1299,9 @@ namespace mojoPortal.Web
 			string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Data/SiteImages/Icons");
 			if (Directory.Exists(filePath))
 			{
-				DirectoryInfo dir = new DirectoryInfo(filePath);
-				FileInfo[] files = dir.GetFiles("*.png");
-				foreach (FileInfo f in files)
+				var dir = new DirectoryInfo(filePath);
+
+				foreach (FileInfo f in dir.GetFiles("*.png"))
 				{
 					fileNames.Add(f.Name);
 				}
@@ -1306,7 +1313,7 @@ namespace mojoPortal.Web
 		{
 			string filePath = System.Web.Hosting.HostingEnvironment.MapPath("~/Data/SiteImages/Icons");
 
-			DirectoryInfo dir = new DirectoryInfo(filePath);
+			var dir = new DirectoryInfo(filePath);
 			return dir.Exists ? dir.GetFiles("*.png") : null;
 		}
 
@@ -1325,7 +1332,7 @@ namespace mojoPortal.Web
 		/// </summary>
 		/// <param name="fileExtension"></param>
 		/// <returns>bool</returns>
-		public static bool IsNonAttachmentFileType(string fileExtension) => IOHelper.IsNonAttachmentFileType(fileExtension);		
+		public static bool IsNonAttachmentFileType(string fileExtension) => IOHelper.IsNonAttachmentFileType(fileExtension);
 
 		public static string GetSiteSystemFolder()
 		{
@@ -1333,20 +1340,23 @@ namespace mojoPortal.Web
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (siteSettings is null) { return string.Empty; }
 
-			return HttpContext.Current.Server.MapPath("~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/systemfiles/");
-
-
+			return HttpContext.Current.Server.MapPath(Invariant($"~/Data/Sites/{siteSettings.SiteId}/systemfiles/"));
 		}
 
 		public static string GetSiteSkinFolderPath()
 		{
-			if (HttpContext.Current is null) { return string.Empty; }
+			if (HttpContext.Current is null)
+			{
+				return string.Empty;
+			}
+
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			if (siteSettings is null) { return string.Empty; }
+			if (siteSettings is null)
+			{
+				return string.Empty;
+			}
 
-			return HttpContext.Current.Server.MapPath("~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/");
-
-
+			return HttpContext.Current.Server.MapPath(Invariant($"~/Data/Sites/{siteSettings.SiteId}/skins/"));
 		}
 
 		public static DirectoryInfo[] GetSkinList(SiteSettings siteSettings)
@@ -1357,9 +1367,9 @@ namespace mojoPortal.Web
 			}
 
 			string skinPath = HttpContext.Current.Server.MapPath
-				(WebUtils.GetApplicationRoot() + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/");
+				(Invariant($"{WebUtils.GetApplicationRoot()}/Data/Sites/{siteSettings.SiteId}/skins/"));
 
-			DirectoryInfo dir = new DirectoryInfo(skinPath);
+			var dir = new DirectoryInfo(skinPath);
 			return dir.Exists ? dir.GetDirectories() : null;
 		}
 
@@ -1367,7 +1377,7 @@ namespace mojoPortal.Web
 		{
 			string skinPath = HttpContext.Current.Server.MapPath("~/Data/skins/");
 
-			DirectoryInfo dir = new DirectoryInfo(skinPath);
+			var dir = new DirectoryInfo(skinPath);
 			return dir.Exists ? dir.GetDirectories() : null;
 		}
 
@@ -1375,7 +1385,7 @@ namespace mojoPortal.Web
 		{
 			string filePath = HttpContext.Current.Server.MapPath("~/DevAdmin/CodeTemplates");
 
-			DirectoryInfo dir = new DirectoryInfo(filePath);
+			var dir = new DirectoryInfo(filePath);
 			return dir.Exists ? dir.GetFiles("*.aspx") : null;
 		}
 
@@ -1395,12 +1405,21 @@ namespace mojoPortal.Web
 
 		public static SmtpSettings GetSmtpSettings(SiteSettings siteSettings)
 		{
-			SmtpSettings smtpSettings = new SmtpSettings();
+			var smtpSettings = new SmtpSettings();
 
 			if (WebConfigSettings.EnableSiteSettingsSmtpSettings)
 			{
 				if (siteSettings is not null)
 				{
+					smtpSettings = new SmtpSettings
+					{
+						Server = siteSettings.SMTPServer,
+						Port = siteSettings.SMTPPort,
+						RequiresAuthentication = siteSettings.SMTPRequiresAuthentication,
+						UseSsl = siteSettings.SMTPUseSsl,
+						PreferredEncoding = siteSettings.SMTPPreferredEncoding
+					};
+
 					if (WebConfigSettings.UseLegacyCryptoHelper)
 					{
 						if (siteSettings.SMTPUser.Length > 0)
@@ -1417,20 +1436,14 @@ namespace mojoPortal.Web
 					{
 						if (siteSettings.SMTPUser.Length > 0)
 						{
-							smtpSettings.User = SiteUtils.Decrypt(siteSettings.SMTPUser);
+							smtpSettings.User = Decrypt(siteSettings.SMTPUser);
 						}
 
 						if (siteSettings.SMTPPassword.Length > 0)
 						{
-							smtpSettings.Password = SiteUtils.Decrypt(siteSettings.SMTPPassword);
+							smtpSettings.Password = Decrypt(siteSettings.SMTPPassword);
 						}
 					}
-
-					smtpSettings.Server = siteSettings.SMTPServer;
-					smtpSettings.Port = siteSettings.SMTPPort;
-					smtpSettings.RequiresAuthentication = siteSettings.SMTPRequiresAuthentication;
-					smtpSettings.UseSsl = siteSettings.SMTPUseSsl;
-					smtpSettings.PreferredEncoding = siteSettings.SMTPPreferredEncoding;
 
 					foreach (var header in siteSettings.SMTPCustomHeaders.SplitOnNewLineAndTrim())
 					{
@@ -1445,50 +1458,23 @@ namespace mojoPortal.Web
 			{
 				return GetSmtpSettingsFromConfig();
 			}
-
 			return smtpSettings;
+
 		}
 
-		private static SmtpSettings GetSmtpSettingsFromConfig()
+		private static SmtpSettings GetSmtpSettingsFromConfig() => new()
 		{
-			SmtpSettings smtpSettings = new SmtpSettings();
-
-			if (ConfigurationManager.AppSettings["SMTPUser"] is not null)
-			{
-				smtpSettings.User = ConfigurationManager.AppSettings["SMTPUser"];
-			}
-
-			if (ConfigurationManager.AppSettings["SMTPPassword"] is not null)
-			{
-				smtpSettings.Password = ConfigurationManager.AppSettings["SMTPPassword"];
-			}
-			if (ConfigurationManager.AppSettings["SMTPServer"] is not null)
-			{
-				smtpSettings.Server = ConfigurationManager.AppSettings["SMTPServer"];
-			}
-
-			smtpSettings.Port = Config.ConfigHelper.GetIntProperty("SMTPPort", 25);
-
-			bool byPassContext = true;
-			smtpSettings.RequiresAuthentication = Config.ConfigHelper.GetBoolProperty("SMTPRequiresAuthentication", false, byPassContext); ;
-			smtpSettings.UseSsl = Config.ConfigHelper.GetBoolProperty("SMTPUseSsl", false, byPassContext);
-
-			if (
-		   (ConfigurationManager.AppSettings["SmtpPreferredEncoding"] is not null)
-		   && (ConfigurationManager.AppSettings["SmtpPreferredEncoding"].Length > 0)
-		   )
-			{
-				smtpSettings.PreferredEncoding = ConfigurationManager.AppSettings["SmtpPreferredEncoding"];
-			}
-
+			Port = ConfigHelper.GetIntProperty("SMTPPort", 25),
+			RequiresAuthentication = ConfigHelper.GetBoolProperty("SMTPRequiresAuthentication", false, true),
+			UseSsl = ConfigHelper.GetBoolProperty("SMTPUseSsl", false, true),
+			User = ConfigHelper.GetStringProperty("SMTPUser", string.Empty),
+			Password = ConfigHelper.GetStringProperty("SMTPPassword", string.Empty),
+			Server = ConfigHelper.GetStringProperty("SMTPServer", string.Empty),
+			PreferredEncoding = ConfigHelper.GetStringProperty("SmtpPreferredEncoding", string.Empty)
 			///
 			/// IF YOU WANT TO USE THE SMTPCUSTOMHEADERS, YOU MUST ENTER THEM IN THE SITE SETTINGS
 			///
-
-
-			return smtpSettings;
-		}
-
+		};
 
 		[Obsolete("Use GetSkinBaseUrl(Page page)")]
 		/// <summary>
@@ -1505,7 +1491,6 @@ namespace mojoPortal.Web
 			bool allowPageOverride = true;
 			return GetSkinBaseUrl(allowPageOverride, page);
 		}
-
 
 		public static string GetSkinBaseUrl(bool allowPageOverride, Page page)
 		{
@@ -1534,8 +1519,6 @@ namespace mojoPortal.Web
 				}
 			}
 			return baseUrl;
-
-
 		}
 
 		private static string GetSkinBaseUrlWithOverride(Page page)
@@ -1555,31 +1538,24 @@ namespace mojoPortal.Web
 				}
 			}
 			return baseUrl;
-
-
 		}
 
-		private static string DetermineSkinBaseUrl(bool allowPageOverride, Page page)
-		{
-			bool fullUrl = true;
-
-			return DetermineSkinBaseUrl(allowPageOverride, fullUrl, page);
-
-
-		}
+		private static string DetermineSkinBaseUrl(bool allowPageOverride, Page page) => DetermineSkinBaseUrl(allowPageOverride, true, page);
 
 		public static string DetermineSkinBaseUrl(string skinName)
 		{
-			if (string.IsNullOrEmpty(skinName)) { return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/"; }
+			if (string.IsNullOrEmpty(skinName))
+			{
+				return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/";
+			}
 
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			if (siteSettings is null) { return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/"; }
+			if (siteSettings is null)
+			{
+				return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/";
+			}
 
-
-			string skinUrl = $"/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{skinName}/";
-
-			return skinUrl;
-
+			return $"/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/skins/{skinName}/";
 		}
 
 		public static string DetermineSkinBaseUrl(bool allowPageOverride, bool fullUrl, Page page)
@@ -1626,21 +1602,20 @@ namespace mojoPortal.Web
 					&& siteSettings.AllowPageSkins
 					&& (page is not null)
 						&& (
-						(page is mojoPortal.Web.AdminUI.PageLayout)
-						|| (page is mojoPortal.Web.AdminUI.PageProperties)
-						|| (page is mojoPortal.Web.AdminUI.ModuleSettingsPage)
-						|| (!(page is NonCmsBasePage))
+						(page is AdminUI.PageLayout)
+						|| (page is AdminUI.PageProperties)
+						|| (page is AdminUI.ModuleSettingsPage)
+						|| (page is not NonCmsBasePage)
 						)
 					)
 				{
 					if (currentPage.Skin.Length > 0)
 					{
-						currentSkin = currentPage.Skin + "/";
-
+						currentSkin = $"{currentPage.Skin}/";
 					}
 				}
 
-				if (SiteUtils.UseMobileSkin())
+				if (UseMobileSkin())
 				{
 					if (siteSettings.MobileSkin.Length > 0)
 					{
@@ -1653,14 +1628,11 @@ namespace mojoPortal.Web
 					}
 				}
 
-
-				skinFolder = siteRoot + "/Data/Sites/"
-					+ siteSettings.SiteId.ToInvariantString() + "/skins/";
-
+				skinFolder = Invariant($"{siteRoot}/Data/Sites/{siteSettings.SiteId}/skins/");
 
 				if (HttpContext.Current.Request.Params.Get("skin") is not null)
 				{
-					currentSkin = SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin")) + "/";
+					currentSkin = $"{SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin"))}/";
 				}
 			}
 
@@ -1669,7 +1641,10 @@ namespace mojoPortal.Web
 
 		public static string GetEditorStyleSheetUrl(bool allowPageOverride, bool fullUrl, Page page)
 		{
-			if (!string.IsNullOrWhiteSpace(WebConfigSettings.EditorCssUrlOverride)) { return WebConfigSettings.EditorCssUrlOverride; }
+			if (!string.IsNullOrWhiteSpace(WebConfigSettings.EditorCssUrlOverride))
+			{
+				return WebConfigSettings.EditorCssUrlOverride;
+			}
 
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (siteSettings is null)
@@ -1679,19 +1654,8 @@ namespace mojoPortal.Web
 
 			if (page is not null)
 			{
-				if (fullUrl)
-				{
-					return GetNavigationSiteRoot() + "/csshandler.ashx?skin=" + SiteUtils.GetSkinName(allowPageOverride, page)
-						+ "&amp;s=" + siteSettings.SiteId.ToInvariantString()
-						 + "&amp;sv=" + siteSettings.SkinVersion + WebConfigSettings.EditorExtraCssUrlCsv;
-				}
-				else
-				{
-					return GetRelativeNavigationSiteRoot() + "/csshandler.ashx?skin=" + SiteUtils.GetSkinName(allowPageOverride, page)
-						+ "&amp;s=" + siteSettings.SiteId.ToInvariantString()
-						 + "&amp;sv=" + siteSettings.SkinVersion + WebConfigSettings.EditorExtraCssUrlCsv;
-				}
-
+				var root = fullUrl ? GetNavigationSiteRoot() : GetRelativeNavigationSiteRoot();
+				return Invariant($"{root}/csshandler.ashx?skin={GetSkinName(allowPageOverride, page)}&amp;s={siteSettings.SiteId}&amp;sv={siteSettings.SkinVersion}{WebConfigSettings.EditorExtraCssUrlCsv}");
 			}
 
 			string editorCss = "csshandler.ashx";
@@ -1700,13 +1664,12 @@ namespace mojoPortal.Web
 				editorCss = "style.css";
 			}
 
-			string skinName = WebConfigSettings.DefaultInitialSkin;
+			string skinName;
 
-
-
-			string basePath = WebUtils.GetSiteRoot() + "/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/";
+			string basePath = Invariant($"{WebUtils.GetSiteRoot()}/Data/Sites/{siteSettings.SiteId}/skins/");
 
 			PageSettings currentPage = CacheHelper.GetCurrentPage();
+
 			if (siteSettings is not null)
 			{
 				// very old skins were .ascx
@@ -1714,11 +1677,12 @@ namespace mojoPortal.Web
 
 				if (siteSettings.AllowUserSkins)
 				{
-					string skinCookieName = "mojoUserSkin" + siteSettings.SiteId.ToInvariantString();
+					string skinCookieName = Invariant($"mojoUserSkin{siteSettings.SiteId}");
 
 					if (CookieHelper.CookieExists(skinCookieName))
 					{
 						string cookieValue = CookieHelper.GetCookieValue(skinCookieName);
+
 						if (cookieValue.Length > 0)
 						{
 							skinName = cookieValue.Replace(".ascx", string.Empty);
@@ -1726,44 +1690,31 @@ namespace mojoPortal.Web
 					}
 				}
 
-				if ((currentPage is not null) && (siteSettings.AllowPageSkins))
+				if (currentPage is not null && siteSettings.AllowPageSkins)
 				{
 					if (currentPage.Skin.Length > 0)
 					{
 						skinName = currentPage.Skin.Replace(".ascx", string.Empty);
-
 					}
 				}
-
-
 
 				if (HttpContext.Current.Request.Params.Get("skin") is not null)
 				{
 					skinName = HttpContext.Current.Request.Params.Get("skin");
-
 				}
 
 				if (editorCss == "csshandler.ashx")
 				{
-
 					//return basePath + skinName + "/" + editorCss + "?skin=" + skinName;
 
-					if (fullUrl)
-					{
-						return GetNavigationSiteRoot() + "/csshandler.ashx?skin=" + skinName + WebConfigSettings.EditorExtraCssUrlCsv;
-					}
-					else
-					{
-
-						return GetRelativeNavigationSiteRoot() + "/csshandler.ashx?skin=" + skinName + WebConfigSettings.EditorExtraCssUrlCsv;
-					}
+					var root = fullUrl ? GetNavigationSiteRoot() : GetRelativeNavigationSiteRoot();
+					return $"{root}/csshandler.ashx?skin={skinName}{WebConfigSettings.EditorExtraCssUrlCsv}";
 				}
 
-				return basePath + skinName + "/" + editorCss + WebConfigSettings.EditorExtraCssUrlCsv;
-
+				return $"{basePath}{skinName}/{editorCss}{WebConfigSettings.EditorExtraCssUrlCsv}";
 			}
 
-			return "/Data/Sites/1/skins/" + WebConfigSettings.DefaultInitialSkin + "/style.css" + WebConfigSettings.EditorExtraCssUrlCsv;
+			return $"/Data/Sites/1/skins/{WebConfigSettings.DefaultInitialSkin}/style.css{WebConfigSettings.EditorExtraCssUrlCsv}";
 		}
 
 		public static void SetupEditor(EditorControl editor)
@@ -1885,7 +1836,7 @@ namespace mojoPortal.Web
 					editor.WebEditor.EditorCSSUrl = GetEditorStyleSheetUrl(allowPageOverride, fullUrl, page);
 				}
 
-				CultureInfo defaultCulture = SiteUtils.GetDefaultCulture();
+				CultureInfo defaultCulture = GetDefaultCulture();
 				if (defaultCulture.TextInfo.IsRightToLeft)
 				{
 					editor.WebEditor.TextDirection = Direction.RightToLeft;
@@ -1987,8 +1938,8 @@ namespace mojoPortal.Web
 			bool allowPageOverride = false;
 
 			//string cssUrl = SiteUtils.GetSkinBaseUrl(allowPageOverride, page)
-			string cssUrl = SiteUtils.GetNavigationSiteRoot()
-			+ "/csshandler.ashx?skin=" + SiteUtils.GetSkinName(allowPageOverride, page);
+			string cssUrl = GetNavigationSiteRoot()
+			+ "/csshandler.ashx?skin=" + GetSkinName(allowPageOverride, page);
 
 			return cssUrl;
 		}
@@ -2056,8 +2007,8 @@ namespace mojoPortal.Web
 			if (navigationRoot.StartsWith("http:"))
 			{
 				var useSSL = false;
-				if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && siteSettings.UseSslOnAllPages) 
-				{ 
+				if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && siteSettings.UseSslOnAllPages)
+				{
 					useSSL = true;
 				}
 				if (WebHelper.IsSecureRequest() || useSSL)
@@ -2386,7 +2337,7 @@ namespace mojoPortal.Web
 				string key = $"Site{siteSettings.SiteId.ToInvariantString()}-SSLIsAvailable";
 				if (ConfigurationManager.AppSettings[key] is not null)
 				{
-					return Config.ConfigHelper.GetBoolProperty(key, false);
+					return ConfigHelper.GetBoolProperty(key, false);
 				}
 			}
 
@@ -2476,7 +2427,7 @@ namespace mojoPortal.Web
 		{
 			if (Membership.Provider is not mojoMembershipProvider m)
 			{
-				throw new System.InvalidOperationException("could not obtain membership provider to use for decryption");
+				throw new InvalidOperationException("could not obtain membership provider to use for decryption");
 			}
 
 			return m.UnencodePassword(encrypted, MembershipPasswordFormat.Encrypted);
@@ -2756,7 +2707,7 @@ namespace mojoPortal.Web
 			if (HttpContext.Current.Request is null) { return; }
 
 			HttpContext.Current.Response.Clear();
-			HttpContext.Current.Response.Redirect($"{SiteUtils.GetNavigationSiteRoot()}/Logoff.aspx", true);
+			HttpContext.Current.Response.Redirect($"{GetNavigationSiteRoot()}/Logoff.aspx", true);
 		}
 
 		#region Current User
@@ -3581,7 +3532,7 @@ namespace mojoPortal.Web
 
 			string key = $"Site{siteSettings.SiteId.ToInvariantString()}-DisableRecentContentFeed";
 
-			return Config.ConfigHelper.GetBoolProperty(key, WebConfigSettings.DisableRecentContentFeed);
+			return ConfigHelper.GetBoolProperty(key, WebConfigSettings.DisableRecentContentFeed);
 		}
 
 		public static string RecentContentChannelDescription(SiteSettings siteSettings)
@@ -3593,7 +3544,7 @@ namespace mojoPortal.Web
 
 			string key = $"Site{siteSettings.SiteId.ToInvariantString()}-RecentContentChannelDescription";
 
-			return Config.ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelDescription);
+			return ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelDescription);
 		}
 
 		public static string RecentContentChannelCopyright(SiteSettings siteSettings)
@@ -3602,7 +3553,7 @@ namespace mojoPortal.Web
 
 			string key = $"Site{siteSettings.SiteId.ToInvariantString()}-RecentContentChannelCopyright";
 
-			return Config.ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelCopyright);
+			return ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelCopyright);
 		}
 
 		public static string RecentContentChannelNotifyEmail(SiteSettings siteSettings)
@@ -3611,7 +3562,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentChannelNotifyEmail";
 
-			return Config.ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelNotifyEmail);
+			return ConfigHelper.GetStringProperty(key, WebConfigSettings.RecentContentChannelNotifyEmail);
 
 		}
 
@@ -3621,7 +3572,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentFeedMaxDaysOld";
 
-			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedMaxDaysOld);
+			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedMaxDaysOld);
 
 		}
 
@@ -3633,7 +3584,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentDefaultItemsToRetrieve";
 
-			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentDefaultItemsToRetrieve);
+			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentDefaultItemsToRetrieve);
 
 		}
 
@@ -3643,7 +3594,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentMaxItemsToRetrieve";
 
-			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentMaxItemsToRetrieve);
+			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentMaxItemsToRetrieve);
 
 		}
 
@@ -3653,7 +3604,7 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentFeedTimeToLive";
 
-			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedTimeToLive);
+			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedTimeToLive);
 
 		}
 
@@ -3663,13 +3614,13 @@ namespace mojoPortal.Web
 
 			string key = "Site" + siteSettings.SiteId.ToInvariantString() + "-RecentContentFeedCacheTimeInMinutes";
 
-			return Config.ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedCacheTimeInMinutes);
+			return ConfigHelper.GetIntProperty(key, WebConfigSettings.RecentContentFeedCacheTimeInMinutes);
 
 		}
 
 		public static bool RedirectToPageAfterCreation(SiteSettings siteSettings)
 		{
-			return Config.ConfigHelper.GetSiteConfigSetting(siteSettings.SiteId, "RedirectToPageAfterCreation", WebConfigSettings.RedirectToNewPageOnCreationGlobalDefault);
+			return ConfigHelper.GetSiteConfigSetting(siteSettings.SiteId, "RedirectToPageAfterCreation", WebConfigSettings.RedirectToNewPageOnCreationGlobalDefault);
 		}
 
 
