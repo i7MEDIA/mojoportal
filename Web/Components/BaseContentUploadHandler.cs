@@ -1,16 +1,4 @@
-﻿//  Author:                     
-//  Created:                    2013-04-01
-//	Last Modified:              2014-04-22
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using log4net;
+﻿using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
@@ -18,152 +6,210 @@ using mojoPortal.Web.Framework;
 using System;
 using System.Web;
 
-namespace mojoPortal.Web.UI
+namespace mojoPortal.Web.UI;
+
+/// <summary>
+/// Provides common functionality for upload handlers
+/// </summary>
+public class BaseContentUploadHandler
 {
-    /// <summary>
-    /// provides some common functionality for upload handlers to use
-    /// </summary>
-    public class BaseContentUploadHandler 
-    {
-        protected static readonly ILog log = LogManager.GetLogger(typeof(BaseContentUploadHandler));
+	protected static readonly ILog log = LogManager.GetLogger(typeof(BaseContentUploadHandler));
 
-        protected HttpRequest Request;
-        protected HttpResponse Response;
-        protected HttpServerUtility Server;
-        protected IFileSystem FileSystem = null;
-        protected int PageId = -1;
-        protected int ModuleId = -1;
-        protected SiteSettings CurrentSite = null;
-        protected PageSettings CurrentPage = null;
-        protected SiteUser CurrentUser = null;
+	protected HttpRequest Request;
+	protected HttpResponse Response;
+	protected HttpServerUtility Server;
+	protected IFileSystem FileSystem = null;
+	protected int PageId = -1;
+	protected int ModuleId = -1;
+	protected SiteSettings CurrentSite = null;
+	protected PageSettings CurrentPage = null;
+	protected SiteUser CurrentUser = null;
 
-        private bool userIsAdmin = false;
+	public bool UserIsAdmin { get; private set; } = false;
 
-        public bool UserIsAdmin
-        {
-            get { return userIsAdmin; }
-        }
+	public bool UserIsContentAdmin { get; private set; } = false;
 
-        private bool userIsContentAdmin = false;
+	public bool UserIsSiteEditor { get; private set; } = false;
 
-        public bool UserIsContentAdmin
-        {
-            get { return userIsContentAdmin; }
-        }
+	public void Initialize(HttpContext context)
+	{
+		Request = context.Request;
+		Response = context.Response;
+		Server = context.Server;
 
-        private bool userIsSiteEditor = false;
+		PageId = WebUtils.ParseInt32FromQueryString("pageid", PageId);
+		ModuleId = WebUtils.ParseInt32FromQueryString("mid", ModuleId);
+		CurrentSite = CacheHelper.GetCurrentSiteSettings();
+		CurrentUser = SiteUtils.GetCurrentSiteUser();
 
-        public bool UserIsSiteEditor
-        {
-            get { return userIsSiteEditor; }
-        }
+		UserIsAdmin = WebUser.IsAdmin;
 
-        public void Initialize(HttpContext context)
-        {
-            Request = context.Request;
-            Response = context.Response;
-            Server = context.Server;
+		if (!UserIsAdmin)
+		{
+			UserIsContentAdmin = WebUser.IsContentAdmin;
+			if (!UserIsContentAdmin)
+			{
+				UserIsSiteEditor = SiteUtils.UserIsSiteEditor();
+			}
+		}
 
-            PageId = WebUtils.ParseInt32FromQueryString("pageid", PageId);
-            ModuleId = WebUtils.ParseInt32FromQueryString("mid", ModuleId);
-            CurrentSite = CacheHelper.GetCurrentSiteSettings();
-            CurrentUser = SiteUtils.GetCurrentSiteUser();
+		FileSystem = FileSystemHelper.LoadFileSystem(WebConfigSettings.FileSystemProvider);
+	}
 
-            userIsAdmin = WebUser.IsAdmin;
-            if (!userIsAdmin)
-            {
-                userIsContentAdmin = WebUser.IsContentAdmin;
-                if (!userIsContentAdmin)
-                {
-                    userIsSiteEditor = SiteUtils.UserIsSiteEditor();
-                }
-            }
+	public bool UserCanEditModule(int moduleId, Guid featureGuid)
+	{
+		if (!Request.IsAuthenticated)
+		{
+			return false;
+		}
 
-            FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-            if (p == null) { return; }
+		if (WebConfigSettings.FileServiceRejectFishyPosts)
+		{
+			if (SiteUtils.IsFishyPost(Request))
+			{
+				return false;
+			}
+		}
 
-            FileSystem = p.GetFileSystem();
+		CurrentPage ??= CacheHelper.GetCurrentPage();
 
-            
+		if (CurrentPage is null)
+		{
+			return false;
+		}
 
-        }
+		if (!UserIsAdmin && CurrentPage.EditRoles == "Admins;")
+		{
+			return false;
+		}
 
-        public bool UserCanEditModule(int moduleId, Guid featureGuid)
-        {
-            if (!Request.IsAuthenticated) { return false; }
+		bool moduleFoundOnPage = false;
+		string moduleEditRoles = string.Empty;
 
-            if (WebConfigSettings.FileServiceRejectFishyPosts)
-            {
-                if (SiteUtils.IsFishyPost(Request))
-                {
-                    return false;
-                }
-            }
+		foreach (Module m in CurrentPage.Modules)
+		{
+			if (m.ModuleId == moduleId && (featureGuid == Guid.Empty || m.FeatureGuid == featureGuid))
+			{
+				moduleFoundOnPage = true;
+				moduleEditRoles = m.AuthorizedEditRoles;
+			}
+		}
 
-            if (CurrentPage == null) { CurrentPage = CacheHelper.GetCurrentPage(); }
-            if (CurrentPage == null) { return false; }
+		if (!moduleFoundOnPage)
+		{
+			return false;
+		}
 
-            if ((!userIsAdmin) && (CurrentPage.EditRoles == "Admins;")) { return false; }
+		if (!UserIsAdmin && moduleEditRoles == "Admins;")
+		{
+			return false;
+		}
 
-            bool moduleFoundOnPage = false;
-            string moduleEditRoles = string.Empty;
+		if (UserIsAdmin || UserIsContentAdmin || UserIsSiteEditor)
+		{
+			return true;
+		}
 
-            foreach (Module m in CurrentPage.Modules)
-            {
-                if (
-                    (m.ModuleId == moduleId)
-                    && ((featureGuid == Guid.Empty) || (m.FeatureGuid == featureGuid))
-                    )
-                {
-                    moduleFoundOnPage = true;
-                    moduleEditRoles = m.AuthorizedEditRoles;
-                }
-            }
+		if (WebUser.IsInRoles(moduleEditRoles) || WebUser.IsInRoles(CurrentPage.EditRoles))
+		{
+			return true;
+		}
 
-            if (!moduleFoundOnPage) return false;
-
-            if ((!userIsAdmin) && (moduleEditRoles == "Admins;")) { return false; }
-
-            if (userIsAdmin || userIsContentAdmin || userIsSiteEditor) return true;
-
-            if (WebUser.IsInRoles(moduleEditRoles)) return true;
-
-            if (WebUser.IsInRoles(CurrentPage.EditRoles)) return true;
-
-            return false;
-
-        }
+		return false;
+	}
 
 
-        public Module GetModule(int moduleId, Guid featureGuid)
-        {
-            if (CurrentPage == null) { CurrentPage = CacheHelper.GetCurrentPage(); }
+	public Module GetModule(int moduleId, Guid featureGuid)
+	{
+		CurrentPage ??= CacheHelper.GetCurrentPage();
 
-            if (CurrentPage == null) { return null; }
+		if (CurrentPage is null)
+		{
+			return null;
+		}
 
-            foreach (Module m in CurrentPage.Modules)
-            {
-                if (
-                    (m.ModuleId == moduleId)
-                    && ((featureGuid == Guid.Empty) || (m.FeatureGuid == featureGuid))
-                    )
-                { return m; }
-            }
+		foreach (Module m in CurrentPage.Modules)
+		{
+			if (m.ModuleId == moduleId && (featureGuid == Guid.Empty || m.FeatureGuid == featureGuid))
+			{
+				return m;
+			}
+		}
 
-            return null;
-        }
+		return null;
+	}
 
-    }
+	public bool UserCanViewPage(int moduleId, Guid featureGuid)
+	{
+		if (CurrentPage is null)
+		{
+			return false;
+		}
 
-    public class UploadFilesResult
-    {
-        public string Thumbnail_url { get; set; }
-        public string FileUrl { get; set; }
-        public string FullSizeUrl { get; set; }
-        public string Name { get; set; }
-        public int Length { get; set; }
-        public string Type { get; set; }
-        public string ReturnValue { get; set; }
-        public string ErrorMessage { get; set; }
-    }
+		var module = GetModule(moduleId, featureGuid);
+
+		if (module is null)
+		{
+			return false;
+		}
+
+		if (WebUser.IsAdmin)
+		{
+			return true;
+		}
+
+		if (WebUser.IsContentAdmin)
+		{
+			if (CurrentPage.AuthorizedRoles == "Admins;")
+			{
+				return false;
+			}
+
+			if (module.ViewRoles == "Admins;")
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		if (SiteUtils.UserIsSiteEditor())
+		{
+			if (CurrentPage.AuthorizedRoles == "Admins;")
+			{
+				return false;
+			}
+
+			if (module.ViewRoles == "Admins;")
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		if (!WebUser.IsInRoles(module.ViewRoles))
+		{
+			return false;
+		}
+
+		if (WebUser.IsInRoles(CurrentPage.AuthorizedRoles))
+		{
+			return true;
+		}
+
+		return false;
+	}
+}
+
+public class UploadFilesResult
+{
+	public string Thumbnail_url { get; set; }
+	public string FileUrl { get; set; }
+	public string FullSizeUrl { get; set; }
+	public string Name { get; set; }
+	public int Length { get; set; }
+	public string Type { get; set; }
+	public string ReturnValue { get; set; }
+	public string ErrorMessage { get; set; }
 }
