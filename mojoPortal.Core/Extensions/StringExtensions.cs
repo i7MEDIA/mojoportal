@@ -83,11 +83,12 @@ public static class StringExtensions
 	}
 
 	public static string RemoveAngleBrackets(this string s) => s.Remove(["<", ">"]);
-	public static string RemovePunctuation(this string s) => s.Remove([".", ",", ":", "?", "!", ";", "&", "{", "}", "[", "]"]);
+
+	public static string RemovePunctuation(this string s) => s.Remove(".", ",", ":", "?", "!", ";", "&", "{", "}", "[", "]");
 
 	public static string Remove(this string s, string str) => s.Remove([str]);
 
-	public static string Remove(this string s, char[] chars)
+	public static string Remove(this string s, params char[] chars)
 	{
 		if (!string.IsNullOrWhiteSpace(s) && chars is not null)
 		{
@@ -99,7 +100,7 @@ public static class StringExtensions
 		return s;
 	}
 
-	public static string Remove(this string s, string[] strings)
+	public static string Remove(this string s, params string[] strings)
 	{
 		if (!string.IsNullOrWhiteSpace(s) && strings is not null)
 		{
