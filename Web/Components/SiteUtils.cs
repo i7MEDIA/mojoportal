@@ -1324,11 +1324,8 @@ namespace mojoPortal.Web
 		/// deprecated, better to just call IOHelper.IsNonAttacmentFileType
 		/// </summary>
 		/// <param name="fileExtension"></param>
-		/// <returns></returns>
-		public static bool IsNonAttacmentFileType(string fileExtension)
-		{
-			return IOHelper.IsNonAttacmentFileType(fileExtension);
-		}
+		/// <returns>bool</returns>
+		public static bool IsNonAttachmentFileType(string fileExtension) => IOHelper.IsNonAttachmentFileType(fileExtension);		
 
 		public static string GetSiteSystemFolder()
 		{

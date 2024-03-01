@@ -311,7 +311,7 @@ public static class IOHelper
 		return "application/" + fileType;
 	}
 
-	public static bool IsNonAttacmentFileType(string fileExtension)
+	public static bool IsNonAttachmentFileType(string fileExtension)
 	{
 		if (string.IsNullOrEmpty(fileExtension))
 		{

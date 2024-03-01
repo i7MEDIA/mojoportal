@@ -102,7 +102,7 @@ namespace mojoPortal.Web.SharedFilesUI
 				//Page.Response.ContentType = mimeType;
 				Page.Response.ContentType = "application/" + fileType;
 
-				if (!SharedFilesConfiguration.TreatPdfAsAttachment && SiteUtils.IsNonAttacmentFileType(fileType))
+				if (!SharedFilesConfiguration.TreatPdfAsAttachment && IOHelper.IsNonAttachmentFileType(fileType))
 				{
 					//this will display the pdf right in the browser
 					// and the file may be cached by the web browser

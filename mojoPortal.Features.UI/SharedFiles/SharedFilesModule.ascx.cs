@@ -233,7 +233,7 @@ namespace mojoPortal.Web.SharedFilesUI
 					string mimeType = SiteUtils.GetMimeType(fileType);
 					Page.Response.ContentType = mimeType;
 
-					if (SiteUtils.IsNonAttacmentFileType(fileType))
+					if (IOHelper.IsNonAttachmentFileType(fileType))
 					{
 						//this will display the pdf right in the browser
 						Page.Response.AddHeader("Content-Disposition", "filename=\"" + HttpUtility.UrlEncode(sharedFile.FriendlyName.Replace(" ", string.Empty), Encoding.UTF8) + "\"");
