@@ -98,7 +98,7 @@ namespace mojoPortal.Web.SharedFilesUI
 
 				string fileType = Path.GetExtension(sharedFile.FriendlyName).Replace(".", string.Empty);
 
-				string mimeType = SiteUtils.GetMimeType(fileType);
+				//string mimeType = IOHelper.GetMimeType(fileType);
 				//Page.Response.ContentType = mimeType;
 				Page.Response.ContentType = "application/" + fileType;
 

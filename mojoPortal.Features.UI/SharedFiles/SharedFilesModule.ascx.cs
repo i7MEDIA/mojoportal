@@ -230,7 +230,7 @@ namespace mojoPortal.Web.SharedFilesUI
 						+ "/SharedFiles/" + sharedFile.ServerFileName;
 
 					string fileType = Path.GetExtension(sharedFile.OriginalFileName).Replace(".", string.Empty);
-					string mimeType = SiteUtils.GetMimeType(fileType);
+					string mimeType = IOHelper.GetMimeType(fileType);
 					Page.Response.ContentType = mimeType;
 
 					if (IOHelper.IsNonAttachmentFileType(fileType))
