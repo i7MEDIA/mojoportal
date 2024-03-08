@@ -1823,7 +1823,6 @@
     <Compile Include="Components\OpenIdRpxAccountInfo.cs" />
     <Compile Include="Components\OpenIdRpxAuthInfo.cs" />
     <Compile Include="Components\OpenIdRpxHelper.cs" />
-    <Compile Include="Components\PageNotFoundHttpModule.cs" />
     <Compile Include="Components\SitePreDeleteHtmlHandler.cs" />
     <Compile Include="Components\WebPageInfo.cs" />
     <Compile Include="Components\WebConfigSettings.cs" />
