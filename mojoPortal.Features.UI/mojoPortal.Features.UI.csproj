@@ -372,7 +372,6 @@
     <Compile Include="BetterImageGallery\BetterImageGalleryController.cs" />
     <Compile Include="BetterImageGallery\BetterImageGalleryModule.ascx.cs">
       <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BetterImageGallery\BetterImageGalleryModule.ascx.designer.cs">
       <DependentUpon>BetterImageGalleryModule.ascx</DependentUpon>
@@ -391,7 +390,6 @@
     </Compile>
     <Compile Include="Blog\BlogCompare.aspx.cs">
       <DependentUpon>BlogCompare.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\BlogCompare.aspx.designer.cs">
       <DependentUpon>BlogCompare.aspx</DependentUpon>
@@ -421,7 +419,6 @@
     <Compile Include="Blog\Controls\PostListRazor.cs" />
     <Compile Include="Blog\PostListModule.ascx.cs">
       <DependentUpon>PostListModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\PostListModule.ascx.designer.cs">
       <DependentUpon>PostListModule.ascx</DependentUpon>
@@ -431,14 +428,12 @@
     </Compile>
     <Compile Include="Blog\ClosedPosts.aspx.cs">
       <DependentUpon>ClosedPosts.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\ClosedPosts.aspx.designer.cs">
       <DependentUpon>ClosedPosts.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog\CommentDialog.aspx.cs">
       <DependentUpon>CommentDialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\CommentDialog.aspx.designer.cs">
       <DependentUpon>CommentDialog.aspx</DependentUpon>
@@ -545,7 +540,6 @@
     </Compile>
     <Compile Include="Blog\Manage.aspx.cs">
       <DependentUpon>Manage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\Manage.aspx.designer.cs">
       <DependentUpon>Manage.aspx</DependentUpon>
@@ -568,42 +562,36 @@
     </Compile>
     <Compile Include="Blog\ViewArchive.aspx.cs">
       <DependentUpon>ViewArchive.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\ViewArchive.aspx.designer.cs">
       <DependentUpon>ViewArchive.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog\EditCategory.aspx.cs">
       <DependentUpon>EditCategory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\EditCategory.aspx.designer.cs">
       <DependentUpon>EditCategory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog\ViewCategory.aspx.cs">
       <DependentUpon>ViewCategory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\ViewCategory.aspx.designer.cs">
       <DependentUpon>ViewCategory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog\Drafts.aspx.cs">
       <DependentUpon>Drafts.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\Drafts.aspx.designer.cs">
       <DependentUpon>Drafts.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog\EditPost.aspx.cs">
       <DependentUpon>EditPost.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\EditPost.aspx.designer.cs">
       <DependentUpon>EditPost.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog\BlogModule.ascx.cs">
       <DependentUpon>BlogModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\BlogModule.ascx.designer.cs">
       <DependentUpon>BlogModule.ascx</DependentUpon>
@@ -613,14 +601,12 @@
     </Compile>
     <Compile Include="Blog\ViewList.aspx.cs">
       <DependentUpon>ViewList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\ViewList.aspx.designer.cs">
       <DependentUpon>ViewList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Blog\ViewPost.aspx.cs">
       <DependentUpon>ViewPost.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Blog\ViewPost.aspx.designer.cs">
       <DependentUpon>ViewPost.aspx</DependentUpon>
@@ -628,14 +614,12 @@
     <Compile Include="Comments\CommentsConfiguration.cs" />
     <Compile Include="Comments\CommentsDialog.aspx.cs">
       <DependentUpon>CommentsDialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Comments\CommentsDialog.aspx.designer.cs">
       <DependentUpon>CommentsDialog.aspx</DependentUpon>
     </Compile>
     <Compile Include="Comments\CommentsModule.ascx.cs">
       <DependentUpon>CommentsModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Comments\CommentsModule.ascx.designer.cs">
       <DependentUpon>CommentsModule.ascx</DependentUpon>
@@ -646,7 +630,6 @@
     <Compile Include="ContactForm\Components\SitePreDeleteContactFormHandler.cs" />
     <Compile Include="ContactForm\ContactForm.ascx.cs">
       <DependentUpon>ContactForm.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ContactForm\ContactForm.ascx.designer.cs">
       <DependentUpon>ContactForm.ascx</DependentUpon>
@@ -654,7 +637,6 @@
     <Compile Include="ContactForm\ContactFormDisplaySettings.cs" />
     <Compile Include="ContactForm\MessageListDialog.aspx.cs">
       <DependentUpon>MessageListDialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ContactForm\MessageListDialog.aspx.designer.cs">
       <DependentUpon>MessageListDialog.aspx</DependentUpon>
@@ -665,28 +647,24 @@
     <Compile Include="EventCalendar\Components\SitePreDeleteEventCalendarHandler.cs" />
     <Compile Include="EventCalendar\EventCalendarModule.ascx.cs">
       <DependentUpon>EventCalendarModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EventCalendar\EventCalendarModule.ascx.designer.cs">
       <DependentUpon>EventCalendarModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="EventCalendar\DayView.aspx.cs">
       <DependentUpon>DayView.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EventCalendar\DayView.aspx.designer.cs">
       <DependentUpon>DayView.aspx</DependentUpon>
     </Compile>
     <Compile Include="EventCalendar\EditEvent.aspx.cs">
       <DependentUpon>EditEvent.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EventCalendar\EditEvent.aspx.designer.cs">
       <DependentUpon>EditEvent.aspx</DependentUpon>
     </Compile>
     <Compile Include="EventCalendar\EventDetails.aspx.cs">
       <DependentUpon>EventDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EventCalendar\EventDetails.aspx.designer.cs">
       <DependentUpon>EventDetails.aspx</DependentUpon>
@@ -713,21 +691,18 @@
     <Compile Include="FeedManager\FeedCache.cs" />
     <Compile Include="FeedManager\FeedEdit.aspx.cs">
       <DependentUpon>FeedEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FeedManager\FeedEdit.aspx.designer.cs">
       <DependentUpon>FeedEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="FeedManager\FeedManager.aspx.cs">
       <DependentUpon>FeedManager.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FeedManager\FeedManager.aspx.designer.cs">
       <DependentUpon>FeedManager.aspx</DependentUpon>
     </Compile>
     <Compile Include="FeedManager\FeedManagerModule.ascx.cs">
       <DependentUpon>FeedManagerModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
       <DependentUpon>FeedManagerModule.ascx</DependentUpon>
@@ -736,14 +711,12 @@
     <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
     <Compile Include="FolderGallery\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FolderGallery\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="FolderGallery\FolderGalleryModule.ascx.cs">
       <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FolderGallery\FolderGalleryModule.ascx.designer.cs">
       <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
@@ -828,7 +801,6 @@
     </Compile>
     <Compile Include="Forums\EditForum.aspx.cs">
       <DependentUpon>EditForum.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\EditForum.aspx.designer.cs">
       <DependentUpon>EditForum.aspx</DependentUpon>
@@ -836,28 +808,24 @@
     <Compile Include="Forums\ForumMod.cs" />
     <Compile Include="Forums\ForumModule.ascx.cs">
       <DependentUpon>ForumModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\ForumModule.ascx.designer.cs">
       <DependentUpon>ForumModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="Forums\EditSubscriptions.aspx.cs">
       <DependentUpon>EditSubscriptions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\EditSubscriptions.aspx.designer.cs">
       <DependentUpon>EditSubscriptions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\EditPost.aspx.cs">
       <DependentUpon>EditPost.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\EditPost.aspx.designer.cs">
       <DependentUpon>EditPost.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\EditThread.aspx.cs">
       <DependentUpon>EditThread.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\EditThread.aspx.designer.cs">
       <DependentUpon>EditThread.aspx</DependentUpon>
@@ -870,42 +838,36 @@
     </Compile>
     <Compile Include="Forums\SubscriberDialog.aspx.cs">
       <DependentUpon>SubscriberDialog.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\SubscriberDialog.aspx.designer.cs">
       <DependentUpon>SubscriberDialog.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\Thread.aspx.cs">
       <DependentUpon>Thread.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\Thread.aspx.designer.cs">
       <DependentUpon>Thread.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\UnsubscribeForum.aspx.cs">
       <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\UnsubscribeForum.aspx.designer.cs">
       <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\UnsubscribeThread.aspx.cs">
       <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\UnsubscribeThread.aspx.designer.cs">
       <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\UserThreads.aspx.cs">
       <DependentUpon>UserThreads.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\UserThreads.aspx.designer.cs">
       <DependentUpon>UserThreads.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\ForumView.aspx.cs">
       <DependentUpon>ForumView.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\ForumView.aspx.designer.cs">
       <DependentUpon>ForumView.aspx</DependentUpon>
@@ -920,42 +882,36 @@
     <Compile Include="GoogleMap\Components\GoogleMapConfiguration.cs" />
     <Compile Include="GoogleMap\GoogleMapModule.ascx.cs">
       <DependentUpon>GoogleMapModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GoogleMap\GoogleMapModule.ascx.designer.cs">
       <DependentUpon>GoogleMapModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="GoogleTranslate\GoogleTranslateModule.ascx.cs">
       <DependentUpon>GoogleTranslateModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GoogleTranslate\GoogleTranslateModule.ascx.designer.cs">
       <DependentUpon>GoogleTranslateModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.cs">
       <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.designer.cs">
       <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
     </Compile>
     <Compile Include="HtmlInclude\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="HtmlInclude\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="IFrame\IframeModule.ascx.cs">
       <DependentUpon>IframeModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="IFrame\IframeModule.ascx.designer.cs">
       <DependentUpon>IframeModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="ImageGallery\BulkUpload.aspx.cs">
       <DependentUpon>BulkUpload.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ImageGallery\BulkUpload.aspx.designer.cs">
       <DependentUpon>BulkUpload.aspx</DependentUpon>
@@ -969,21 +925,18 @@
     <Compile Include="ImageGallery\Controls\GalleryDisplaySettings.cs" />
     <Compile Include="ImageGallery\Gallery.ascx.cs">
       <DependentUpon>Gallery.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ImageGallery\Gallery.ascx.designer.cs">
       <DependentUpon>Gallery.ascx</DependentUpon>
     </Compile>
     <Compile Include="ImageGallery\GalleryBrowse.aspx.cs">
       <DependentUpon>GalleryBrowse.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ImageGallery\GalleryBrowse.aspx.designer.cs">
       <DependentUpon>GalleryBrowse.aspx</DependentUpon>
     </Compile>
     <Compile Include="ImageGallery\EditImage.aspx.cs">
       <DependentUpon>EditImage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ImageGallery\EditImage.aspx.designer.cs">
       <DependentUpon>EditImage.aspx</DependentUpon>
@@ -993,7 +946,6 @@
     </Compile>
     <Compile Include="KDMediaPlayer\AudioPlayer.ascx.cs">
       <DependentUpon>AudioPlayer.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="KDMediaPlayer\AudioPlayer.ascx.designer.cs">
       <DependentUpon>AudioPlayer.ascx</DependentUpon>
@@ -1005,21 +957,18 @@
     <Compile Include="KDMediaPlayer\Components\VideoPlayerConfiguration.cs" />
     <Compile Include="KDMediaPlayer\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="KDMediaPlayer\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="KDMediaPlayer\EditTrack.aspx.cs">
       <DependentUpon>EditTrack.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="KDMediaPlayer\EditTrack.aspx.designer.cs">
       <DependentUpon>EditTrack.aspx</DependentUpon>
     </Compile>
     <Compile Include="KDMediaPlayer\VideoPlayer.ascx.cs">
       <DependentUpon>VideoPlayer.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="KDMediaPlayer\VideoPlayer.ascx.designer.cs">
       <DependentUpon>VideoPlayer.ascx</DependentUpon>
@@ -1039,28 +988,24 @@
     <Compile Include="List\Controls\ListDisplaySettings.cs" />
     <Compile Include="List\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="List\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
     </Compile>
     <Compile Include="List\EditIntro.aspx.cs">
       <DependentUpon>EditIntro.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="List\EditIntro.aspx.designer.cs">
       <DependentUpon>EditIntro.aspx</DependentUpon>
     </Compile>
     <Compile Include="List\ListModule.ascx.cs">
       <DependentUpon>ListModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="List\ListModule.ascx.designer.cs">
       <DependentUpon>ListModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="List\ViewList.aspx.cs">
       <DependentUpon>ViewList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="List\ViewList.aspx.designer.cs">
       <DependentUpon>ViewList.aspx</DependentUpon>
@@ -1070,28 +1015,24 @@
     <Compile Include="Poll\Helpers\SitePreDeletePollsHandler.cs" />
     <Compile Include="Poll\MyPollHistory.aspx.cs">
       <DependentUpon>MyPollHistory.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Poll\MyPollHistory.aspx.designer.cs">
       <DependentUpon>MyPollHistory.aspx</DependentUpon>
     </Compile>
     <Compile Include="Poll\PollChoose.aspx.cs">
       <DependentUpon>PollChoose.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Poll\PollChoose.aspx.designer.cs">
       <DependentUpon>PollChoose.aspx</DependentUpon>
     </Compile>
     <Compile Include="Poll\PollEdit.aspx.cs">
       <DependentUpon>PollEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Poll\PollEdit.aspx.designer.cs">
       <DependentUpon>PollEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Poll\PollModule.ascx.cs">
       <DependentUpon>PollModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Poll\PollModule.ascx.designer.cs">
       <DependentUpon>PollModule.ascx</DependentUpon>
@@ -1109,21 +1050,18 @@
     <Compile Include="SharedFiles\Controls\SharedFilesDisplaySettings.cs" />
     <Compile Include="SharedFiles\SharedFilesModule.ascx.cs">
       <DependentUpon>SharedFilesModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SharedFiles\SharedFilesModule.ascx.designer.cs">
       <DependentUpon>SharedFilesModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="SharedFiles\Download.aspx.cs">
       <DependentUpon>Download.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SharedFiles\Download.aspx.designer.cs">
       <DependentUpon>Download.aspx</DependentUpon>
     </Compile>
     <Compile Include="SharedFiles\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SharedFiles\Edit.aspx.designer.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
@@ -1133,7 +1071,6 @@
     </Compile>
     <Compile Include="Survey\CompleteSurvey.aspx.cs">
       <DependentUpon>CompleteSurvey.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\CompleteSurvey.aspx.designer.cs">
       <DependentUpon>CompleteSurvey.aspx</DependentUpon>
@@ -1149,56 +1086,48 @@
     <Compile Include="Survey\Controls\TextBoxQuestion.cs" />
     <Compile Include="Survey\Results.aspx.cs">
       <DependentUpon>Results.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\Results.aspx.designer.cs">
       <DependentUpon>Results.aspx</DependentUpon>
     </Compile>
     <Compile Include="Survey\SurveyEdit.aspx.cs">
       <DependentUpon>SurveyEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\SurveyEdit.aspx.designer.cs">
       <DependentUpon>SurveyEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Survey\SurveyModule.ascx.cs">
       <DependentUpon>SurveyModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\SurveyModule.ascx.designer.cs">
       <DependentUpon>SurveyModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="Survey\SurveyPageEdit.aspx.cs">
       <DependentUpon>SurveyPageEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\SurveyPageEdit.aspx.designer.cs">
       <DependentUpon>SurveyPageEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Survey\SurveyPages.aspx.cs">
       <DependentUpon>SurveyPages.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\SurveyPages.aspx.designer.cs">
       <DependentUpon>SurveyPages.aspx</DependentUpon>
     </Compile>
     <Compile Include="Survey\SurveyQuestionEdit.aspx.cs">
       <DependentUpon>SurveyQuestionEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\SurveyQuestionEdit.aspx.designer.cs">
       <DependentUpon>SurveyQuestionEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Survey\SurveyQuestions.aspx.cs">
       <DependentUpon>SurveyQuestions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\SurveyQuestions.aspx.designer.cs">
       <DependentUpon>SurveyQuestions.aspx</DependentUpon>
     </Compile>
     <Compile Include="Survey\Surveys.aspx.cs">
       <DependentUpon>Surveys.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Survey\Surveys.aspx.designer.cs">
       <DependentUpon>Surveys.aspx</DependentUpon>
@@ -1209,14 +1138,12 @@
     </Compile>
     <Compile Include="XmlXsl\XmlEdit.aspx.cs">
       <DependentUpon>XmlEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="XmlXsl\XmlEdit.aspx.designer.cs">
       <DependentUpon>XmlEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="XmlXsl\XmlModule.ascx.cs">
       <DependentUpon>XmlModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="XmlXsl\XmlModule.ascx.designer.cs">
       <DependentUpon>XmlModule.ascx</DependentUpon>
