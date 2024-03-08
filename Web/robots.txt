@@ -10,11 +10,7 @@ Disallow: /bin/
 Disallow: /Blog/ViewCategory.aspx$
 Disallow: /Blog/ViewArchive.aspx$
 Disallow: /Data/SiteImages/emoticons
-Disallow: /MyPage.aspx
-Disallow: /MyPage.aspx$
-Disallow: /MyPage.aspx*
 Disallow: /NeatHtml/
-Disallow: /NeatUpload/
 Disallow: /nofollow/
 Disallow: /nf/
 Disallow: /Secure/
@@ -24,6 +20,7 @@ Disallow: /SearchResults.aspx*
 Disallow: /SiteMap.aspx
 Disallow: /SiteOffice/
 Disallow: /Setup/
+Disallow: /SuperFlexi/
 Disallow: /WebStore/CartAdd.aspx$
 Disallow: /WebStore/CartAdd.aspx*
 Disallow: /WebStore/Cart.aspx$
