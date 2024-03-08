@@ -103,6 +103,7 @@ public static class DateTimeHelper
 	public const string TasmaniaStandardTime = "Tasmania Standard Time;600;(GMT+10:00) Hobart;Tasmania Standard Time;Tasmania Daylight Time;[01:01:0001;12:31:2007;60;[0;02:00:00;10;1;0;];[0;03:00:00;3;5;0;];][01:01:2008;12:31:9999;60;[0;02:00:00;10;1;0;];[0;03:00:00;4;1;0;];];";
 	public const string TokyoStandardTime = "Tokyo Standard Time;540;(GMT+09:00) Osaka, Sapporo, Tokyo;Tokyo Standard Time;Tokyo Daylight Time;;";
 	public const string TongaStandardTime = "Tonga Standard Time;780;(GMT+13:00) Nuku'alofa;Tonga Standard Time;Tonga Daylight Time;;";
+	public const string TurkeyStandardTime = "Turkey Standard Time;180;(GMT+03:00) Istanbul;Turkey Standard Time;Turkey Daylight Time;[01:01:0001;12:31:2010;60;[0;03:00:00;3;5;0;];[0;04:00:00;10;5;0;];-60;][01:01:2011;12:31:2011;60;[0;03:00:00;3;5;1;];[0;04:00:00;10;5;0;];-60;][01:01:2012;12:31:2012;60;[0;03:00:00;3;5;0;];[0;04:00:00;10;5;0;];-60;][01:01:2013;12:31:2013;60;[0;03:00:00;3;5;0;];[0;04:00:00;10;5;0;];-60;][01:01:2014;12:31:2014;60;[0;03:00:00;3;5;1;];[0;04:00:00;10;5;0;];-60;][01:01:2015;12:31:2015;60;[0;03:00:00;3;5;0;];[0;04:00:00;11;2;0;];-60;][01:01:2016;12:31:2016;-60;[0;00:00:00;1;1;5;];[0;03:00:00;3;5;0;];];";
 	public const string USEasternStandardTime = "US Eastern Standard Time;-300;(GMT-05:00) Indiana (East);US Eastern Standard Time;US Eastern Daylight Time;;";
 	public const string USMountainStandardTime = "US Mountain Standard Time;-420;(GMT-07:00) Arizona;US Mountain Standard Time;US Mountain Daylight Time;;";
 	public const string VenezuelaStandardTime = "Venezuela Standard Time;-270;(GMT-04:30) Caracas;Venezuela Standard Time;Venezuela Daylight Time;;";
@@ -301,6 +302,7 @@ public static class DateTimeHelper
 			TimeZoneInfo.FromSerializedString(TasmaniaStandardTime),
 			TimeZoneInfo.FromSerializedString(TokyoStandardTime),
 			TimeZoneInfo.FromSerializedString(TongaStandardTime),
+			TimeZoneInfo.FromSerializedString(TurkeyStandardTime),
 			TimeZoneInfo.FromSerializedString(USEasternStandardTime),
 			TimeZoneInfo.FromSerializedString(USMountainStandardTime),
 			TimeZoneInfo.FromSerializedString(VenezuelaStandardTime),
