@@ -2,10 +2,10 @@
 	
 	@Html.Partial("_ModuleTitle")
 
-	@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
+	@*@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
 	{
 		<div class="social-links__header">@Html.Raw(@Model.Config.HeaderContent)</div>
-	}
+	}*@
 
 	<div class="social-links__items" id="social-links-@(Model.Module.Id)" role="tablist" aria-multiselectable="true">
 		@foreach (var item in Model.Items)
@@ -19,7 +19,7 @@
 			</div>
 		}
 	</div>
-	@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
+	@*@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
 	{
 		<div class="social-links__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
 	}
@@ -27,5 +27,5 @@
 	{
 		<a href="#modelinfo@(Model.Module.Id)" data-toggle="collapse">show/hide model info</a>
 			<div class="collapse" id="modelinfo@(Model.Module.Id)">@ObjectInfo.Print(Model)</div>
-	}
+	}*@
 </div>
