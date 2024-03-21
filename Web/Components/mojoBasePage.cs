@@ -1135,9 +1135,7 @@ public class mojoBasePage : Page
 
 		if (SetMasterInBasePage)
 		{
-			StyleSheetCombiner styleCombiner = (StyleSheetCombiner)Master.FindControl("StyleSheetCombiner");
-
-			if (styleCombiner is not null)
+			if (Master.FindControl("StyleSheetCombiner") is StyleSheetCombiner styleCombiner)
 			{
 				styleCombiner.AllowPageOverride = AllowSkinOverride;
 			}
@@ -1151,7 +1149,7 @@ public class mojoBasePage : Page
 		}
 
 		var head = Master.FindControl("Head1") ?? Master.FindControl("Head");
-		if (head is not null)
+		if (head is not null && siteSettings is not null)
 		{
 			head.ClientIDMode = (ClientIDMode)Enum.Parse(typeof(ClientIDMode), WebConfigSettings.HeadElementClientIDMode);
 

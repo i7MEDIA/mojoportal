@@ -379,9 +379,9 @@ public class UrlRewriter : IHttpModule
 		//lookup if this url is to be redirected, if found return the new url
 		string newUrl = string.Empty;
 
-		SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-		using (IDataReader reader = RedirectInfo.GetBySiteAndUrl(siteSettings.SiteId, targetUrl))
+		if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
 		{
+			using IDataReader reader = RedirectInfo.GetBySiteAndUrl(siteSettings.SiteId, targetUrl);
 			if (reader.Read())
 			{
 				newUrl = reader["NewUrl"].ToString();

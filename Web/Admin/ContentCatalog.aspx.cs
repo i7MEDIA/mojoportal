@@ -84,7 +84,7 @@ public partial class ContentCatalogPage : NonCmsBasePage
 			sortByAuthor,
 			out totalPages);
 
-		string pageUrl = $"{SiteRoot}/Admin/ContentCatalog.aspx?md={moduleDefId}&amp;title={Server.UrlEncode(title)}&amp;sort={sort}&amp;pagenumber={{0}}";
+		string pageUrl = Invariant($"{SiteRoot}/Admin/ContentCatalog.aspx?md={moduleDefId}&amp;title={Server.UrlEncode(title)}&amp;sort={sort}&amp;pagenumber={{0}}");
 
 		pgrContent.PageURLFormat = pageUrl;
 		pgrContent.ShowFirstLast = true;
@@ -142,7 +142,7 @@ public partial class ContentCatalogPage : NonCmsBasePage
 
 		title = txtTitleFilter.Text;
 
-		string redirectUrl = $"{SiteRoot}/Admin/ContentCatalog.aspx?md={moduleDefId.ToInvariantString()}&title={Server.UrlEncode(title)}&sort={sort}&pagenumber={pageNumber.ToInvariantString()}";
+		string redirectUrl = Invariant($"{SiteRoot}/Admin/ContentCatalog.aspx?md={moduleDefId}&title={Server.UrlEncode(title)}&sort={sort}&pagenumber={pageNumber}");
 
 		WebUtils.SetupRedirect(this, redirectUrl);
 	}
@@ -165,7 +165,7 @@ public partial class ContentCatalogPage : NonCmsBasePage
 
 	protected void grdContent_Sorting(object sender, GridViewSortEventArgs e)
 	{
-		string redirectUrl = $"{SiteRoot}/Admin/ContentCatalog.aspx?md={moduleDefId.ToInvariantString()}&title={Server.UrlEncode(title)}&sort={e.SortExpression}&pagenumber={pageNumber.ToInvariantString()}";
+		string redirectUrl = Invariant($"{SiteRoot}/Admin/ContentCatalog.aspx?md={moduleDefId}&title={Server.UrlEncode(title)}&sort={e.SortExpression}&pagenumber={pageNumber}");
 
 		WebUtils.SetupRedirect(this, redirectUrl);
 	}

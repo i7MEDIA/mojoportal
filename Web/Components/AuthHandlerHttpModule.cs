@@ -136,7 +136,7 @@ public class AuthHandlerHttpModule : IHttpModule
 		{
 			// replace GenericPrincipal with custom one
 			//string roles = string.Empty;
-			if (!(app.Context.User is mojoIdentity))
+			if (!(app.Context.User is mojoPrincipal))
 			{
 				app.Context.User = new mojoPrincipal(app.Context.User);
 			}

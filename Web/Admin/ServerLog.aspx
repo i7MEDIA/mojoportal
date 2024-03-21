@@ -1,4 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="ServerLog.aspx.cs" Inherits="mojoPortal.Web.AdminUI.ServerLog" %>
+<%@ Import Namespace="mojoPortal.Core.Extensions" %>
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
@@ -19,10 +20,10 @@
 								<dl class="errorlog">
 							</HeaderTemplate>
 							<ItemTemplate>
-								<dt class="logmessage <%# Eval("LogLevel").ToString() == "ERROR" ? "text-danger" : Eval("LogLevel").ToString() == "WARN" ? "text-warning" : "text-info" %>">
+								<dt class="logmessage <%# Eval("LogLevel").ToString().IsIn("ERROR", "FATAL") ? "text-danger" : Eval("LogLevel").ToString() == "WARN" ? "text-warning" : "text-info" %>">
 									<asp:ImageButton ImageUrl='<%# DeleteLinkImage %>' CommandName="deleteitem" CommandArgument='<%# Eval("ID") %>' AlternateText="<%# Resources.Resource.DeleteButton %>" ToolTip="<%# Resources.Resource.DeleteButton %>" runat="server" ID="btnDeleteItem" />
 									<%# FormatDate(Convert.ToDateTime(Eval("LogDate"))) %> <%# Eval("LogLevel") %> <%# Eval("Logger") %> <%# FormatIpAddress(Eval("IpAddress").ToString()) %> <%# Eval("Culture") %> <%# Server.HtmlEncode(Eval("ShortUrl").ToString()) %>  </dt>
-								<dd class="logmessage <%# Eval("LogLevel").ToString() == "ERROR" ? "text-danger" : Eval("LogLevel").ToString() == "WARN" ? "text-warning" : "text-info" %>">
+								<dd class="logmessage <%# Eval("LogLevel").ToString().IsIn("ERROR", "FATAL") ? "text-danger" : Eval("LogLevel").ToString() == "WARN" ? "text-warning" : "text-info" %>">
 									<%# Server.HtmlEncode(Eval("Message").ToString()) %>
 								</dd>
 							</ItemTemplate>
