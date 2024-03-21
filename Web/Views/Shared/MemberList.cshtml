@@ -254,12 +254,12 @@
 	Html.RenderPartial("_Pager", pagerModel);
 }
 
-<script type="text/javascript">
+<script data-loader="MemberList.cshtml">
 	(() => {
 		function onSearch(type, value) {
 			const url = new URL('@pagePath');
 
-			url.searchParams.set(type, encodeURIComponent(value));
+			url.searchParams.set(type, value);
 
 			window.location.href = url;
 		}
