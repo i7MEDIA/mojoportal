@@ -1154,10 +1154,10 @@ SELECT LAST_INSERT_ID();";
 				Value = passwordSalt
 			},
 
-			new("?DateOfBirth", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input
-			},
+			//new("?DateOfBirth", MySqlDbType.DateTime)
+			//{
+			//	Direction = ParameterDirection.Input
+			//},
 
 			new("?EmailConfirmed", MySqlDbType.Int32)
 			{
@@ -1201,10 +1201,10 @@ SELECT LAST_INSERT_ID();";
 				Value = intTwoFactorEnabled
 			},
 
-			new("?LockoutEndDateUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input
-			}
+			//new("?LockoutEndDateUtc", MySqlDbType.DateTime)
+			//{
+			//	Direction = ParameterDirection.Input
+			//}
 		};
 
 
@@ -1648,10 +1648,10 @@ WHERE
 				Value = authorBio
 			},
 
-			new("?DateOfBirth", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input
-			},
+			//new("?DateOfBirth", MySqlDbType.DateTime)
+			//{
+			//	Direction = ParameterDirection.Input
+			//},
 
 			new("?EmailConfirmed", MySqlDbType.Int32)
 			{
@@ -1695,11 +1695,10 @@ WHERE
 				Value = intTwoFactorEnabled
 			},
 
-			new("?LockoutEndDateUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input
-
-			}
+			//new("?LockoutEndDateUtc", MySqlDbType.DateTime)
+			//{
+			//	Direction = ParameterDirection.Input
+			//}
 		};
 
 

@@ -321,7 +321,7 @@ public static class DatabaseHelper
 
 		var appID = Guid.NewGuid();
 
-		using (IDataReader reader = DBPortal.DatabaseHelperGetApplicationId(applicationName))
+		using (IDataReader reader = DBPortal.GetApplicationId(applicationName))
 		{
 			if (reader.Read())
 			{
@@ -392,10 +392,10 @@ public static class DatabaseHelper
 		);
 	}
 
-	public static IDataReader GetReader(string connectionString, string tableName, string whereClause)
-	{
-		return DBPortal.DatabaseHelperGetReader(connectionString, tableName, whereClause);
-	}
+	//public static IDataReader GetReader(string connectionString, string tableName, string whereClause)
+	//{
+	//	return DBPortal.DatabaseHelperGetReader(connectionString, tableName, whereClause);
+	//}
 
 	public static DataTable GetTable(string connectionString, string tableName, string whereClause)
 	{

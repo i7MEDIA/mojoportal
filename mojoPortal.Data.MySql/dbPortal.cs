@@ -7,53 +7,39 @@ using System.IO;
 using log4net;
 using MySqlConnector;
 
-
 namespace mojoPortal.Data;
-
 
 public static class DBPortal
 {
 
 	private static readonly ILog log = LogManager.GetLogger(typeof(DBPortal));
 
-	public static string DBPlatform()
-	{
-		return "MySQL";
-	}
-
+	public static string DBPlatform() => "MySQL";
 
 	public static void EnsureDatabase()
 	{
 		//not applicable for this platform
-
 	}
-
 
 	#region Versioning and Upgrade Helpers
 
-
-
 	#region Schema Table Methods
 
-	public static IDataReader DatabaseHelperGetApplicationId(string applicationName)
+	public static IDataReader GetApplicationId(string applicationName)
 	{
-		return DatabaseHelperGetReader(
-			ConnectionString.GetReadConnectionString(),
-			"mp_SchemaVersion",
-			" WHERE LCASE(ApplicationName) = '" + applicationName.ToLower() + "'");
+		string sqlCommand = "SELECT * FROM mp_SchemaVersion WHERE LCASE(ApplicationName) = ?appName;";
 
+		var param = new MySqlParameter("?appName", MySqlDbType.VarChar, 255)
+		{
+			Direction = ParameterDirection.Input,
+			Value = applicationName.ToLower()
+		};
+
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, param);
 	}
 
-
-	public static bool SchemaVersionAddSchemaVersion(
-		Guid applicationId,
-		string applicationName,
-		int major,
-		int minor,
-		int build,
-		int revision)
+	public static bool SchemaVersionAddSchemaVersion(Guid applicationId, string applicationName, int major, int minor, int build, int revision)
 	{
-
 		#region Bit Conversion
 
 
@@ -189,39 +175,25 @@ WHERE ApplicationID = ?ApplicationID;";
 			}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
 
 		return rowsAffected > -1;
-
 	}
 
 
-	public static bool SchemaVersionDeleteSchemaVersion(
-		Guid applicationId)
+	public static bool SchemaVersionDeleteSchemaVersion(Guid applicationId)
 	{
-		string sqlCommand = @"
-DELETE FROM mp_SchemaVersion 
-WHERE ApplicationID = ?ApplicationID;";
+		string sqlCommand = "DELETE FROM mp_SchemaVersion WHERE ApplicationID = ?ApplicationID;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?ApplicationID", MySqlDbType.VarChar, 36)
 		{
-			new("?ApplicationID", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = applicationId.ToString()
-			}
+			Direction = ParameterDirection.Input,
+			Value = applicationId.ToString()
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), param);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static bool SchemaVersionExists(Guid applicationId)
@@ -230,7 +202,7 @@ WHERE ApplicationID = ?ApplicationID;";
 
 		using (IDataReader reader = SchemaVersionGetSchemaVersion(applicationId))
 		{
-			if (reader.Read())
+			while (reader.Read())
 			{
 				result = true;
 			}
@@ -256,11 +228,7 @@ WHERE ApplicationID = ?ApplicationID;";
 			}
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString(), arParams);
 	}
 
 	public static IDataReader SchemaVersionGetNonCore()
@@ -271,10 +239,7 @@ FROM mp_SchemaVersion
 WHERE ApplicationID <> '077E4857-F583-488E-836E-34A4B04BE855' 
 ORDER BY ApplicationName;";
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString());
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString());
 	}
 
 	public static int SchemaScriptHistoryAddSchemaScriptHistory(
@@ -359,83 +324,50 @@ SELECT LAST_INSERT_ID();";
 			}
 		};
 
-		int newID = 0;
-		newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams).ToString());
+		var result = CommandHelper.ExecuteScalar(ConnectionString.GetWriteConnectionString(), sqlCommand, arParams).ToString();
+		int newID = Convert.ToInt32(result);
 		return newID;
-
 	}
 
 	public static bool SchemaScriptHistoryDeleteSchemaScriptHistory(int id)
 	{
-		string sqlCommand = @"
-DELETE FROM mp_SchemaScriptHistory 
-WHERE ID = ?ID ;";
+		string sqlCommand = "DELETE FROM mp_SchemaScriptHistory WHERE ID = ?ID;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?ID", MySqlDbType.Int32)
 		{
-			new("?ID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = id
-			}
+			Direction = ParameterDirection.Input,
+			Value = id
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), param);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static IDataReader SchemaScriptHistoryGetSchemaScriptHistory(int id)
 	{
-		string sqlCommand = @"
-SELECT * 
-FROM mp_SchemaScriptHistory 
-WHERE ID = ?ID;";
+		string sqlCommand = "SELECT * FROM mp_SchemaScriptHistory WHERE ID = ?ID;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?ID", MySqlDbType.Int32)
 		{
-			new("?ID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = id
-			}
+			Direction = ParameterDirection.Input,
+			Value = id
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString(), param);
 	}
 
 	public static IDataReader SchemaScriptHistoryGetSchemaScriptHistory(Guid applicationId)
 	{
-		string sqlCommand = @"
-SELECT * 
-FROM mp_SchemaScriptHistory 
-WHERE ApplicationID = ?ApplicationID;";
+		string sqlCommand = "SELECT * FROM mp_SchemaScriptHistory WHERE ApplicationID = ?ApplicationID;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?ApplicationID", MySqlDbType.VarChar, 36)
 		{
-			new("?ApplicationID", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = applicationId.ToString()
-			}
+			Direction = ParameterDirection.Input,
+			Value = applicationId.ToString()
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString(), param);
 	}
 
 	public static IDataReader SchemaScriptHistoryGetSchemaScriptErrorHistory(Guid applicationId)
@@ -446,20 +378,16 @@ FROM mp_SchemaScriptHistory
 WHERE ApplicationID = ?ApplicationID 
 AND ErrorOccurred = 1;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?ApplicationID", MySqlDbType.VarChar, 36)
 		{
-			new("?ApplicationID", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = applicationId.ToString()
-			}
+			Direction = ParameterDirection.Input,
+			Value = applicationId.ToString()
 		};
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
 			sqlCommand.ToString(),
-			arParams);
-
+			param);
 	}
 
 	public static bool SchemaScriptHistoryExists(Guid applicationId, string scriptFile)
@@ -491,15 +419,11 @@ AND ScriptFile = ?ScriptFile;";
 			arParams));
 
 		return count > 0;
-
 	}
 
+	#endregion Schema Table Methods
 
-
-
-	#endregion
-
-	#endregion
+	#endregion Versioning and Upgrade Helpers
 
 
 	#region DatabaseHelper
@@ -532,56 +456,43 @@ AND ScriptFile = ?ScriptFile;";
 					column.ReadOnly = Convert.ToBoolean(schemaTable.Rows[i]["IsReadOnly"]);
 					arrayList.Add(column.ColumnName);
 					dataTable.Columns.Add(column);
-
 				}
-
 			}
 
 			while (reader.Read())
 			{
-
 				row = dataTable.NewRow();
 
 				for (int i = 0; i < arrayList.Count; i++)
 				{
-
 					row[((string)arrayList[i])] = reader[(string)arrayList[i]];
-
 				}
 
 				dataTable.Rows.Add(row);
-
 			}
-
 		}
 
 		return dataTable;
-
 	}
 
-	public static DbException DatabaseHelperGetConnectionError(string overrideConnectionInfo)
+	public static DbException DatabaseHelperGetConnectionError(string connectionString)
 	{
 		DbException exception = null;
 
 		MySqlConnection connection;
 
-		if (
-			(overrideConnectionInfo != null)
-			&& (overrideConnectionInfo.Length > 0)
-		  )
+		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connection = new MySqlConnection(overrideConnectionInfo);
+			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
 		}
 		else
 		{
-			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
+			connection = new MySqlConnection(connectionString);
 		}
 
 		try
 		{
 			connection.Open();
-
-
 		}
 		catch (DbException ex)
 		{
@@ -590,53 +501,45 @@ AND ScriptFile = ?ScriptFile;";
 		finally
 		{
 			if (connection.State == ConnectionState.Open)
+			{
 				connection.Close();
+			}
 		}
 
-
 		return exception;
-
 	}
 
-	public static bool DatabaseHelperCanAccessDatabase(string overrideConnectionInfo)
+	public static bool DatabaseHelperCanAccessDatabase(string connectionString = "")
 	{
 		bool result = false;
 
 		MySqlConnection connection;
 
-		if (
-			(overrideConnectionInfo != null)
-			&& (overrideConnectionInfo.Length > 0)
-		  )
+		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connection = new MySqlConnection(overrideConnectionInfo);
+			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
 		}
 		else
 		{
-			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
+			connection = new MySqlConnection(connectionString);
 		}
 
 		try
 		{
 			connection.Open();
-			result = (connection.State == ConnectionState.Open);
+			result = connection.State == ConnectionState.Open;
 
 		}
 		catch { }
 		finally
 		{
 			if (connection.State == ConnectionState.Open)
+			{
 				connection.Close();
+			}
 		}
 
-
 		return result;
-
-	}
-
-	public static bool DatabaseHelperCanAccessDatabase()
-	{
-		return DatabaseHelperCanAccessDatabase(null);
 	}
 
 	public static bool DatabaseHelperCanAlterSchema(string engine, string overrideConnectionInfo)
@@ -715,37 +618,35 @@ DROP TABLE Temptest;";
 		return result;
 	}
 
-	public static bool DatabaseHelperRunScript(
-		FileInfo scriptFile,
-		string overrideConnectionInfo)
+	public static bool DatabaseHelperRunScript(FileInfo scriptFile, string connectionString)
 	{
-		if (scriptFile == null) return false;
+		if (scriptFile == null)
+		{
+			return false;
+		}
 
 		string script = File.ReadAllText(scriptFile.FullName);
 
-		if ((script == null) || (script.Length == 0)) return true;
-
-		return DatabaseHelperRunScript(script, overrideConnectionInfo);
-
+		return string.IsNullOrWhiteSpace(script) || DatabaseHelperRunScript(script, connectionString);
 	}
 
-	public static bool DatabaseHelperRunScript(string script, string overrideConnectionInfo)
+	public static bool DatabaseHelperRunScript(string script, string connectionString)
 	{
-		if ((script == null) || (script.Trim().Length == 0)) return true;
+		if (string.IsNullOrWhiteSpace(script))
+		{
+			return true;
+		}
 
 		bool result = false;
 		MySqlConnection connection;
 
-		if (
-			(overrideConnectionInfo != null)
-			&& (overrideConnectionInfo.Length > 0)
-		  )
+		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connection = new MySqlConnection(overrideConnectionInfo);
+			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
 		}
 		else
 		{
-			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
+			connection = new MySqlConnection(connectionString);
 		}
 
 		connection.Open();
@@ -784,26 +685,17 @@ DROP TABLE Temptest;";
 		string additionalWhere)
 	{
 
-		string sqlCommand = @"
-UPDATE " + tableName + " SET " + dataFieldName + " = ?fieldValue WHERE " + keyFieldName + " = " + keyFieldValue + " " + additionalWhere + " ; ";
+		string sqlCommand = $"UPDATE {tableName} SET {dataFieldName} = ?fieldValue WHERE {keyFieldName} = {keyFieldValue} {additionalWhere} ; ";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?fieldValue", MySqlDbType.Blob)
 		{
-			new("?fieldValue", MySqlDbType.Blob)
-			{
-				Direction = ParameterDirection.Input,
-				Value = dataFieldValue
-			}
+			Direction = ParameterDirection.Input,
+			Value = dataFieldValue
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			connectionString,
-			sqlCommand.ToString(),
-			arParams);
-
+		int rowsAffected = CommandHelper.ExecuteNonQuery(connectionString, sqlCommand.ToString(), param);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static bool DatabaseHelperUpdateTableField(
@@ -814,245 +706,124 @@ UPDATE " + tableName + " SET " + dataFieldName + " = ?fieldValue WHERE " + keyFi
 		string dataFieldValue,
 		string additionalWhere)
 	{
-		string sqlCommand = @"
-UPDATE " + tableName + " SET " + dataFieldName + " = ?fieldValue WHERE " + keyFieldName + " = " + keyFieldValue + " " + additionalWhere + " ; ";
+		string sqlCommand = $"UPDATE {tableName} SET {dataFieldName} = ?fieldValue WHERE {keyFieldName} = {keyFieldValue} {additionalWhere} ; ";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?fieldValue", MySqlDbType.Blob)
 		{
-			new("?fieldValue", MySqlDbType.Blob)
-			{
-				Direction = ParameterDirection.Input,
-				Value = dataFieldValue
-			}
+			Direction = ParameterDirection.Input,
+			Value = dataFieldValue
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), param);
 
 		return rowsAffected > 0;
-
 	}
 
-	public static IDataReader DatabaseHelperGetReader(
-		string connectionString,
-		string tableName,
-		string whereClause)
+	public static IDataReader DatabaseHelperGetReader(string connectionString, string query)
 	{
-		string sqlCommand = @"
-SELECT * FROM " + tableName + " " + whereClause + " ; ";
-
-		return CommandHelper.ExecuteReader(
-			connectionString,
-			sqlCommand.ToString());
-
-	}
-
-	public static IDataReader DatabaseHelperGetReader(
-		string connectionString,
-		string query
-		)
-	{
-		if (string.IsNullOrEmpty(connectionString)) { connectionString = ConnectionString.GetReadConnectionString(); }
-
-		return CommandHelper.ExecuteReader(
-			connectionString,
-			query);
-
-	}
-
-	public static int DatabaseHelperExecteNonQuery(
-		string connectionString,
-		string query
-		)
-	{
-		if (string.IsNullOrEmpty(connectionString)) { connectionString = ConnectionString.GetWriteConnectionString(); }
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			connectionString,
-			query);
-
-		return rowsAffected;
-
-	}
-
-	public static DataTable DatabaseHelperGetTable(
-		string connectionString,
-		string tableName,
-		string whereClause)
-	{
-		string sqlCommand = @"
-SELECT * FROM " + tableName + " " + whereClause + " ; ";
-
-		DataSet ds = CommandHelper.ExecuteDataset(
-			connectionString,
-			sqlCommand.ToString());
-
-		return ds.Tables[0];
-
-	}
-
-	public static void DatabaseHelperDoForumVersion2202PostUpgradeTasks(
-		string overrideConnectionInfo)
-	{
-		string connectionString;
-		if (
-			(overrideConnectionInfo != null)
-			&& (overrideConnectionInfo.Length > 0)
-		  )
-		{
-			connectionString = overrideConnectionInfo;
-		}
-		else
-		{
-			connectionString = ConnectionString.GetWriteConnectionString();
-		}
-
-		DataTable dataTable = DatabaseHelperGetTable(
-			connectionString,
-			"mp_Forums",
-			" where (ForumGuid is null OR ForumGuid = '00000000-0000-0000-0000-000000000000') ");
-
-
-		foreach (DataRow row in dataTable.Rows)
-		{
-			DatabaseHelperUpdateTableField(
-				"mp_Forums",
-				"ItemID",
-				row["ItemID"].ToString(),
-				"ForumGuid",
-				Guid.NewGuid().ToString(),
-				"  ");
-
-		}
-
-		dataTable = DatabaseHelperGetTable(
-			connectionString,
-			"mp_ForumThreads",
-			" where (ThreadGuid is null OR ThreadGuid = '00000000-0000-0000-0000-000000000000') ");
-
-
-		foreach (DataRow row in dataTable.Rows)
-		{
-			DatabaseHelperUpdateTableField(
-				"mp_ForumThreads",
-				"ThreadID",
-				row["ThreadID"].ToString(),
-				"ThreadGuid",
-				Guid.NewGuid().ToString(),
-				"  ");
-
-		}
-
-		dataTable = DatabaseHelperGetTable(
-			connectionString,
-			"mp_ForumPosts",
-			" where (PostGuid is null OR PostGuid = '00000000-0000-0000-0000-000000000000') ");
-
-
-		foreach (DataRow row in dataTable.Rows)
-		{
-			DatabaseHelperUpdateTableField(
-				"mp_ForumPosts",
-				"PostID",
-				row["PostID"].ToString(),
-				"PostGuid",
-				Guid.NewGuid().ToString(),
-				"  ");
-
-		}
-
-	}
-
-	public static void DatabaseHelperDoForumVersion2203PostUpgradeTasks(
-		string overrideConnectionInfo)
-	{
-		string connectionString;
-		if (
-			(overrideConnectionInfo != null)
-			&& (overrideConnectionInfo.Length > 0)
-		  )
-		{
-			connectionString = overrideConnectionInfo;
-		}
-		else
-		{
-			connectionString = ConnectionString.GetWriteConnectionString();
-		}
-
-		string sqlCommand = @"
-SELECT SubscriptionID 
-FROM mp_ForumSubscriptions 
-WHERE (SubGuid is null 
-OR SubGuid = '00000000-0000-0000-0000-000000000000') ; ";
-
-		DataSet ds = CommandHelper.ExecuteDataset(
-			connectionString,
-			sqlCommand.ToString());
-
-		DataTable dataTable = ds.Tables[0];
-
-
-		foreach (DataRow row in dataTable.Rows)
-		{
-			DatabaseHelperUpdateTableField(
-				"mp_ForumSubscriptions",
-				"SubscriptionID",
-				row["SubscriptionID"].ToString(),
-				"SubGuid",
-				Guid.NewGuid().ToString(),
-				"  ");
-
-		}
-
-
-
-		string sqlCommand1 = @"
-SELECT ThreadSubscriptionID 
-FROM mp_ForumThreadSubscriptions 
-WHERE (SubGuid is null 
-OR SubGuid = '00000000-0000-0000-0000-000000000000') ; ";
-
-		ds = CommandHelper.ExecuteDataset(
-			connectionString,
-			sqlCommand1.ToString());
-
-		dataTable = ds.Tables[0];
-
-
-		foreach (DataRow row in dataTable.Rows)
-		{
-			DatabaseHelperUpdateTableField(
-				"mp_ForumThreadSubscriptions",
-				"ThreadSubscriptionID",
-				row["ThreadSubscriptionID"].ToString(),
-				"SubGuid",
-				Guid.NewGuid().ToString(),
-				"  ");
-
-		}
-
-
-
-	}
-
-	public static void DatabaseHelperDoVersion2320PostUpgradeTasks(
-		string overrideConnectionInfo)
-	{
-		string connectionString;
-		if (
-			(overrideConnectionInfo != null)
-			&& (overrideConnectionInfo.Length > 0)
-		  )
-		{
-			connectionString = overrideConnectionInfo;
-		}
-		else
+		if (string.IsNullOrWhiteSpace(connectionString))
 		{
 			connectionString = ConnectionString.GetReadConnectionString();
 		}
 
+		return CommandHelper.ExecuteReader(connectionString, query);
+	}
+
+	public static int DatabaseHelperExecteNonQuery(string connectionString, string query)
+	{
+		if (string.IsNullOrWhiteSpace(connectionString))
+		{
+			connectionString = ConnectionString.GetWriteConnectionString();
+		}
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(connectionString, query);
+
+		return rowsAffected;
+	}
+
+	//todo: can we get rid of this so we're not concatenating where clauses?
+	public static DataTable DatabaseHelperGetTable(string connectionString, string tableName, string whereClause)
+	{
+		string sqlCommand = $"SELECT * FROM {tableName} {whereClause};";
+
+		DataSet ds = CommandHelper.ExecuteDataset(connectionString, sqlCommand.ToString());
+
+		return ds.Tables[0];
+	}
+
+	public static void DatabaseHelperDoForumVersion2202PostUpgradeTasks(string connectionString)
+	{
+		if (string.IsNullOrWhiteSpace(connectionString))
+		{
+			connectionString = ConnectionString.GetWriteConnectionString();
+		}
+
+		DataTable dataTable = DatabaseHelperGetTable(connectionString, "mp_Forums", " where (ForumGuid is null OR ForumGuid = '00000000-0000-0000-0000-000000000000') ");
+
+		foreach (DataRow row in dataTable.Rows)
+		{
+			DatabaseHelperUpdateTableField("mp_Forums", "ItemID", row["ItemID"].ToString(), "ForumGuid", Guid.NewGuid().ToString(), string.Empty);
+		}
+
+		dataTable = DatabaseHelperGetTable(connectionString, "mp_ForumThreads", " where (ThreadGuid is null OR ThreadGuid = '00000000-0000-0000-0000-000000000000') ");
+
+		foreach (DataRow row in dataTable.Rows)
+		{
+			DatabaseHelperUpdateTableField("mp_ForumThreads", "ThreadID", row["ThreadID"].ToString(), "ThreadGuid", Guid.NewGuid().ToString(), string.Empty);
+		}
+
+		dataTable = DatabaseHelperGetTable(connectionString, "mp_ForumPosts", " where (PostGuid is null OR PostGuid = '00000000-0000-0000-0000-000000000000') ");
+
+		foreach (DataRow row in dataTable.Rows)
+		{
+			DatabaseHelperUpdateTableField("mp_ForumPosts", "PostID", row["PostID"].ToString(), "PostGuid", Guid.NewGuid().ToString(), string.Empty);
+		}
+	}
+
+	public static void DatabaseHelperDoForumVersion2203PostUpgradeTasks(string connectionString)
+	{
+		if (string.IsNullOrWhiteSpace(connectionString))
+		{
+			connectionString = ConnectionString.GetWriteConnectionString();
+		}
+
+		string sqlCommand = @"
+SELECT	SubscriptionID 
+FROM	mp_ForumSubscriptions 
+WHERE	(SubGuid is null 
+OR		SubGuid = '00000000-0000-0000-0000-000000000000');";
+
+		DataSet ds = CommandHelper.ExecuteDataset(connectionString, sqlCommand.ToString());
+
+		DataTable dataTable = ds.Tables[0];
+
+		foreach (DataRow row in dataTable.Rows)
+		{
+			DatabaseHelperUpdateTableField("mp_ForumSubscriptions", "SubscriptionID", row["SubscriptionID"].ToString(), "SubGuid", Guid.NewGuid().ToString(), string.Empty);
+		}
+
+		string sqlCommand1 = @"
+SELECT	ThreadSubscriptionID 
+FROM	mp_ForumThreadSubscriptions 
+WHERE	(SubGuid is null 
+OR		SubGuid = '00000000-0000-0000-0000-000000000000') ; ";
+
+		ds = CommandHelper.ExecuteDataset(connectionString, sqlCommand1.ToString());
+
+		dataTable = ds.Tables[0];
+
+		foreach (DataRow row in dataTable.Rows)
+		{
+			DatabaseHelperUpdateTableField("mp_ForumThreadSubscriptions", "ThreadSubscriptionID", row["ThreadSubscriptionID"].ToString(), "SubGuid", Guid.NewGuid().ToString(), string.Empty);
+		}
+	}
+
+	public static void DatabaseHelperDoVersion2320PostUpgradeTasks(string connectionString)
+	{
+		if (string.IsNullOrWhiteSpace(connectionString))
+		{
+			connectionString = ConnectionString.GetWriteConnectionString();
+		}
 
 		string sqlCommand = @"
 SELECT  
@@ -1069,15 +840,12 @@ JOIN
 ON 
 	u.UserGuid = ls.UserGuid;";
 
-		DataSet ds = CommandHelper.ExecuteDataset(
-			connectionString,
-			sqlCommand.ToString());
+		DataSet ds = CommandHelper.ExecuteDataset(connectionString, sqlCommand);
 
 		DataTable dataTable = ds.Tables[0];
 
 		foreach (DataRow row in dataTable.Rows)
 		{
-
 			DBLetterSubscription.Create(
 				Guid.NewGuid(),
 				new Guid(row["SiteGuid"].ToString()),
@@ -1088,44 +856,23 @@ ON
 				new Guid("00000000-0000-0000-0000-000000000000"),
 				Convert.ToDateTime(row["BeginUTC"]),
 				Convert.ToBoolean(row["UseHtml"]));
-
 		}
-
 	}
 
-	public static void DatabaseHelperDoVersion2230PostUpgradeTasks(
-		string overrideConnectionInfo)
+	public static void DatabaseHelperDoVersion2230PostUpgradeTasks(string connectionString)
 	{
-		string connectionString;
-		if (
-			(overrideConnectionInfo != null)
-			&& (overrideConnectionInfo.Length > 0)
-		  )
-		{
-			connectionString = overrideConnectionInfo;
-		}
-		else
+		if (string.IsNullOrWhiteSpace(connectionString))
 		{
 			connectionString = ConnectionString.GetWriteConnectionString();
 		}
 
-		DataTable dataTable = DatabaseHelperGetTable(
-			connectionString,
-			"mp_ModuleDefinitions",
-			" where Guid is null ");
+		DataTable dataTable = DatabaseHelperGetTable(connectionString, "mp_ModuleDefinitions", " where Guid is null ");
 
 		// UPDATE mp_ModuleDefinitions SET [Guid] = newid() 
 		// WHERE [Guid] IS NULL
 		foreach (DataRow row in dataTable.Rows)
 		{
-			DatabaseHelperUpdateTableField(
-				"mp_ModuleDefinitions",
-				"ModuleDefID",
-				row["ModuleDefID"].ToString(),
-				"guid",
-				Guid.NewGuid().ToString(),
-				" AND Guid is null ");
-
+			DatabaseHelperUpdateTableField("mp_ModuleDefinitions", "ModuleDefID", row["ModuleDefID"].ToString(), "guid", Guid.NewGuid().ToString(), " AND Guid is null ");
 		}
 
 		string sqlCommand = @"
@@ -1136,19 +883,10 @@ WHERE mp_ModuleDefinitions.ModuleDefID
  = mp_ModuleDefinitionSettings.ModuleDefID LIMIT 1)
 ;";
 
-		DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
-
-		DatabaseHelperRunScript(
-			"ALTER TABLE `mp_ModuleDefinitions` CHANGE `Guid` `Guid` CHAR(36)  NOT NULL;",
-			overrideConnectionInfo);
-
-		DatabaseHelperRunScript(
-			"ALTER TABLE `mp_ModuleDefinitionSettings` CHANGE `FeatureGuid` `FeatureGuid` CHAR(36)  NOT NULL;",
-			overrideConnectionInfo);
-
-
+		DatabaseHelperRunScript(sqlCommand.ToString(), connectionString);
+		DatabaseHelperRunScript("ALTER TABLE `mp_ModuleDefinitions` CHANGE `Guid` `Guid` CHAR(36) NOT NULL;", connectionString);
+		DatabaseHelperRunScript("ALTER TABLE `mp_ModuleDefinitionSettings` CHANGE `FeatureGuid` `FeatureGuid` CHAR(36) NOT NULL;", connectionString);
 	}
-
 
 	/// <summary>
 	/// Runs tasks after Upgrade scripts
@@ -1156,18 +894,17 @@ WHERE mp_ModuleDefinitions.ModuleDefID
 	/// <param name="version"></param>
 	/// <param name="overrideConnectionString"></param>
 	/// <returns>True if tasks for versions completed successfully, false if they did not.</returns>
-	public static bool RunPostUpgradeTask(Version version, string overrideConnectionString)
+	public static bool RunPostUpgradeTask(Version version, string connectionString)
 	{
-		var connectionString = ConnectionString.GetWriteConnectionString();
-		if (!string.IsNullOrWhiteSpace(overrideConnectionString))
+		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = overrideConnectionString;
+			connectionString = ConnectionString.GetWriteConnectionString();
 		}
 
-		bool result = true;
-		DataTable dataTable = new();
+		var result = true;
+		var dataTable = new DataTable();
+		var localResult = false;
 		string sqlCommand;
-		bool localResult;
 		switch (version)
 		{
 			case var _ when version == new Version(2, 2, 3, 0):

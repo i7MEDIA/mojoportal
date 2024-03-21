@@ -5,7 +5,6 @@ using MySqlConnector;
 
 namespace mojoPortal.Data;
 
-
 public static class DBPageSettings
 {
 	public static int Create(
@@ -35,7 +34,7 @@ public static class DBPageSettings
 		bool showChildPageMenu,
 		bool hideMainMenu,
 		bool includeInMenu,
-		String menuImage,
+		string menuImage,
 		string changeFrequency,
 		string siteMapPriority,
 		Guid pageGuid,
@@ -101,13 +100,11 @@ public static class DBPageSettings
 			hideauth = 1;
 		}
 
-
 		byte ssl = 0;
 		if (requireSsl)
 		{
 			ssl = 1;
 		}
-
 
 		byte show = 0;
 		if (showBreadcrumbs)
@@ -115,13 +112,11 @@ public static class DBPageSettings
 			show = 1;
 		}
 
-
 		byte u = 0;
 		if (useUrl)
 		{
 			u = 1;
 		}
-
 
 		byte nw = 0;
 		if (openInNewWindow)
@@ -129,13 +124,11 @@ public static class DBPageSettings
 			nw = 1;
 		}
 
-
 		byte cm = 0;
 		if (showChildPageMenu)
 		{
 			cm = 1;
 		}
-
 
 		byte cb = 0;
 		if (showChildPageBreadcrumbs)
@@ -143,13 +136,11 @@ public static class DBPageSettings
 			cb = 1;
 		}
 
-
 		byte hm = 0;
 		if (hideMainMenu)
 		{
 			hm = 1;
 		}
-
 
 		byte inMenu = 0;
 		if (includeInMenu)
@@ -662,11 +653,10 @@ SELECT LAST_INSERT_ID();";
 				Value = intShowPageHeading
 			},
 
-			new("?PubDateUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-
-			}
+			//new("?PubDateUtc", MySqlDbType.DateTime)
+			//{
+			//	Direction = ParameterDirection.Input,
+			//}
 		};
 
 		if (pubDateUtc == DateTime.MaxValue)
@@ -675,7 +665,7 @@ SELECT LAST_INSERT_ID();";
 			{
 				Direction = ParameterDirection.Input,
 				Value = DBNull.Value
-			}); ;
+			});
 		}
 		else
 		{
@@ -683,17 +673,15 @@ SELECT LAST_INSERT_ID();";
 			{
 				Direction = ParameterDirection.Input,
 				Value = pubDateUtc
-			}); ;
+			});
 		}
-
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 					ConnectionString.GetWriteConnectionString(),
-					sqlCommand.ToString(),
+					sqlCommand,
 					arParams).ToString());
 
 		return newID;
-
 	}
 
 	public static bool UpdatePage(
@@ -724,7 +712,7 @@ SELECT LAST_INSERT_ID();";
 		bool showChildPageMenu,
 		bool hideMainMenu,
 		bool includeInMenu,
-		String menuImage,
+		string menuImage,
 		string changeFrequency,
 		string siteMapPriority,
 		Guid parentGuid,
@@ -1320,7 +1308,7 @@ WHERE PageID = ?PageID;";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -1334,9 +1322,10 @@ WHERE PageID = ?PageID;";
 		int parentId)
 	{
 		string sqlCommand = @"
-SELECT COALESCE(MAX(PageOrder),-1) 
-FROM mp_Pages 
-WHERE SiteID = ?SiteID AND ParentID = ?ParentID ;";
+SELECT	COALESCE(MAX(PageOrder),-1) 
+FROM	mp_Pages 
+WHERE	SiteID = ?SiteID 
+	AND ParentID = ?ParentID ;";
 
 		var arParams = new List<MySqlParameter>
 		{
@@ -1355,7 +1344,7 @@ WHERE SiteID = ?SiteID AND ParentID = ?ParentID ;";
 
 		int nextPageOrder = Convert.ToInt32(CommandHelper.ExecuteScalar(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams)) + 2;
 		if (nextPageOrder == 1)
 		{
@@ -1370,64 +1359,51 @@ WHERE SiteID = ?SiteID AND ParentID = ?ParentID ;";
 	{
 		string sqlCommand = @"
 SELECT 
-    p.*, 
-    u1.Name As CreatedByName, 
-    u1.Email As CreatedByEmail, 
-    u1.FirstName As CreatedByFirstName, 
-    u1.LastName As CreatedByLastName, 
-    u2.Name As LastModByName, 
-    u2.Email As LastModByEmail, 
-    u2.FirstName As LastModByFirstName, 
-    u2.LastName As LastModByLastName 
-FROM 
-    mp_Pages p 
-LEFT OUTER JOIN	
-    mp_Users u1 
-ON 
-    p.PCreatedBy = u1.UserGuid 
-LEFT OUTER JOIN	
-    mp_Users u2 
-ON 
-    p.PLastModBy = u2.UserGuid 
-WHERE 
-    p.PageGuid = ?PageGuid  
-LIMIT 1;";
+		p.*, 
+		u1.Name As CreatedByName, 
+		u1.Email As CreatedByEmail, 
+		u1.FirstName As CreatedByFirstName, 
+		u1.LastName As CreatedByLastName, 
+		u2.Name As LastModByName, 
+		u2.Email As LastModByEmail, 
+		u2.FirstName As LastModByFirstName, 
+		u2.LastName As LastModByLastName 
+FROM	mp_Pages p 
+LEFT OUTER JOIN	mp_Users u1 ON p.PCreatedBy = u1.UserGuid 
+LEFT OUTER JOIN	mp_Users u2 ON p.PLastModBy = u2.UserGuid 
+WHERE	p.PageGuid = ?PageGuid  
+LIMIT	1;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?PageGuid", MySqlDbType.VarChar, 36)
 		{
-			new("?PageGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageGuid.ToString()
-			}
+			Direction = ParameterDirection.Input,
+			Value = pageGuid.ToString()
 		};
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+			sqlCommand,
+			param);
 	}
 
 	public static IDataReader GetPage(int siteId, int pageId)
 	{
 
 		string sqlCommand = @"
-SELECT p.*, 
-    u1.Name As CreatedByName, 
-    u1.Email As CreatedByEmail, 
-    u1.FirstName As CreatedByFirstName, 
-    u1.LastName As CreatedByLastName, 
-    u2.Name As LastModByName, 
-    u2.Email As LastModByEmail, 
-    u2.FirstName As LastModByFirstName, 
-    u2.LastName As LastModByLastName 
-FROM mp_Pages p 
-LEFT OUTER JOIN	mp_Users u1 
-ON p.PCreatedBy = u1.UserGuid 
-LEFT OUTER JOIN	mp_Users u2 
-ON p.PLastModBy = u2.UserGuid 
-WHERE (p.PageID = ?PageID OR ?PageID = -1)  
-AND p.SiteID = ?SiteID  
+SELECT	p.*, 
+		u1.Name As CreatedByName, 
+		u1.Email As CreatedByEmail, 
+		u1.FirstName As CreatedByFirstName, 
+		u1.LastName As CreatedByLastName, 
+		u2.Name As LastModByName, 
+		u2.Email As LastModByEmail, 
+		u2.FirstName As LastModByFirstName, 
+		u2.LastName As LastModByLastName 
+FROM	mp_Pages p 
+LEFT OUTER JOIN	mp_Users u1 ON p.PCreatedBy = u1.UserGuid 
+LEFT OUTER JOIN	mp_Users u2 ON p.PLastModBy = u2.UserGuid 
+WHERE	(p.PageID = ?PageID OR ?PageID = -1)  
+AND		p.SiteID = ?SiteID
 ORDER BY p.ParentID, p.PageOrder  
 LIMIT 1;";
 
@@ -1448,15 +1424,12 @@ LIMIT 1;";
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
-
-
 	}
 
 	public static IDataReader GetChildPages(int siteId, int parentPageId)
 	{
-
 		string sqlCommand = @"
 SELECT * 
 FROM mp_Pages 
@@ -1481,17 +1454,11 @@ ORDER BY PageOrder;";
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
-
-
 	}
 
-
-
-	public static bool UpdateTimestamp(
-		int pageId,
-		DateTime lastModifiedUtc)
+	public static bool UpdateTimestamp(int pageId, DateTime lastModifiedUtc)
 	{
 		string sqlCommand = @"
 UPDATE mp_Pages 
@@ -1515,11 +1482,10 @@ WHERE PageID = ?PageID;";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool UpdatePageOrder(int pageId, int pageOrder)
@@ -1547,11 +1513,10 @@ WHERE PageID = ?PageID;";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool DeletePage(int pageId)
@@ -1571,11 +1536,10 @@ WHERE PageID = ?PageID;";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static bool CleanupOrphans()
@@ -1590,12 +1554,10 @@ AND p2.PageID IS NULL;";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString());
+			sqlCommand);
 
 		return rowsAffected > 0;
-
 	}
-
 
 	public static IDataReader GetPageList(int siteId)
 	{
@@ -1605,19 +1567,17 @@ FROM mp_Pages
 WHERE SiteID = ?SiteID 
 ORDER BY ParentID, PageOrder, PageName;";
 
-		var arParams = new List<MySqlParameter>
+
+		var param = new MySqlParameter("?SiteID", MySqlDbType.Int32)
 		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			}
+			Direction = ParameterDirection.Input,
+			Value = siteId
 		};
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+			sqlCommand,
+			param);
 	}
 
 	/// <summary>
@@ -1653,7 +1613,7 @@ ORDER BY PageName;";
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 	}
 
@@ -1665,20 +1625,16 @@ FROM mp_Pages
 WHERE SiteGuid = ?SiteGuid 
 AND IsPending = 1;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
 		{
-			new("?SiteGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteGuid
-			}
+			Direction = ParameterDirection.Input,
+			Value = siteGuid
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams));
-
+			sqlCommand,
+			param));
 	}
 
 	public static IDataReader GetPendingPageListPage(
@@ -1699,8 +1655,7 @@ AND IsPending = 1;";
 		}
 		else
 		{
-			int remainder;
-			Math.DivRem(totalRows, pageSize, out remainder);
+			Math.DivRem(totalRows, pageSize, out int remainder);
 			if (remainder > 0)
 			{
 				totalPages += 1;
@@ -1766,11 +1721,7 @@ LIMIT
 			}
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
 	}
 
 
@@ -1802,7 +1753,7 @@ AND ((IsPending = 0) OR (?IncludePending = 1));";
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams));
 
 	}
@@ -1835,7 +1786,7 @@ AND ((IsPending = 0) OR (?IncludePending = 1));";
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams));
 
 	}
@@ -1859,8 +1810,7 @@ AND ((IsPending = 0) OR (?IncludePending = 1));";
 		}
 		else
 		{
-			int remainder;
-			Math.DivRem(totalRows, pageSize, out remainder);
+			Math.DivRem(totalRows, pageSize, out int remainder);
 			if (remainder > 0)
 			{
 				totalPages += 1;
@@ -1914,7 +1864,7 @@ LIMIT ?PageSize ";
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 
 	}

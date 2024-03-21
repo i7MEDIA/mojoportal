@@ -1,12 +1,7 @@
 using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using MySqlConnector;
 using System.Collections.Generic;
+using System.Data;
+using MySqlConnector;
 
 namespace mojoPortal.Data;
 
@@ -114,7 +109,7 @@ VALUES (
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
 			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams).ToString());
 
 		return newID;
@@ -190,7 +185,7 @@ WHERE
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > -1;
@@ -213,12 +208,9 @@ WHERE UrlID = ?UrlID;";
 			}
 		};
 
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand, arParams);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static bool DeleteByPageId(int pageId)
@@ -227,9 +219,7 @@ WHERE UrlID = ?UrlID;";
 DELETE FROM mp_FriendlyUrls 
 WHERE RealUrl LIKE '%pageid=" + pageId.ToString() + "' ;";
 
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(), sqlCommand.ToString());
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand);
 
 		return rowsAffected > 0;
 
@@ -250,9 +240,8 @@ WHERE PageGuid = ?PageGuid;";
 			}
 		};
 
-
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
+			ConnectionString.GetWriteConnectionString(), sqlCommand, arParams);
 
 		return rowsAffected > 0;
 
@@ -264,31 +253,21 @@ WHERE PageGuid = ?PageGuid;";
 		string sqlCommand = @"
 SELECT * 
 FROM	mp_FriendlyUrls 
-WHERE 
-UrlID = ?UrlID;";
+WHERE	UrlID = ?UrlID;";
 
 		var arParams = new List<MySqlParameter>
 		{
-			new("?UrlID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = urlId
-			}
+			new("?UrlID", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = urlId }
 		};
 
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
 	}
 
 
 	public static DataTable GetByHostName(string hostName)
 	{
 
-		DataTable dt = new DataTable();
+		var dt = new DataTable();
 		int siteId = 1;
 
 		dt.Columns.Add("UrlID", typeof(int));
@@ -314,7 +293,7 @@ WHERE mp_SiteHosts.HostName = ?HostName;";
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams))
 		{
 			if (reader.Read())
@@ -326,8 +305,7 @@ WHERE mp_SiteHosts.HostName = ?HostName;";
 		string sqlCommand1 = @"
 SELECT  * 
 FROM	mp_FriendlyUrls 
-WHERE 
-SiteID = ?SiteID;";
+WHERE	SiteID = ?SiteID;";
 
 		var arParams1 = new List<MySqlParameter>
 		{
@@ -351,19 +329,16 @@ SiteID = ?SiteID;";
 				row["RealUrl"] = reader["RealUrl"];
 				row["IsPattern"] = reader["IsPattern"];
 				dt.Rows.Add(row);
-
 			}
-
 		}
 
 		return dt;
-
 	}
 
 	public static DataTable GetBySite(int siteId)
 	{
 
-		DataTable dt = new DataTable();
+		var dt = new DataTable();
 
 		dt.Columns.Add("UrlID", typeof(int));
 		dt.Columns.Add("FriendlyUrl", typeof(string));
@@ -373,21 +348,18 @@ SiteID = ?SiteID;";
 		string sqlCommand = @"
 SELECT * 
 FROM mp_FriendlyUrls 
-WHERE SiteID = ?SiteID ORDER BY FriendlyUrl;";
+WHERE SiteID = ?SiteID 
+ORDER BY FriendlyUrl;";
 
 		var arParams = new List<MySqlParameter>
 		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			}
+			new("?SiteID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = siteId }
 		};
 
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams))
 		{
 			while (reader.Read())
@@ -398,13 +370,10 @@ WHERE SiteID = ?SiteID ORDER BY FriendlyUrl;";
 				row["RealUrl"] = reader["RealUrl"];
 				row["IsPattern"] = reader["IsPattern"];
 				dt.Rows.Add(row);
-
 			}
-
 		}
 
 		return dt;
-
 	}
 
 	public static IDataReader GetByUrl(string hostName, string friendlyUrl)
@@ -422,58 +391,33 @@ AND FriendlyUrl = ?FriendlyUrl;";
 
 		var arParams = new List<MySqlParameter>
 		{
-			new("?HostName", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = hostName
-			},
-
-			new("?FriendlyUrl", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = friendlyUrl
-			}
+			new("?HostName", MySqlDbType.VarChar, 255){ Direction = ParameterDirection.Input, Value = hostName },
+			new("?FriendlyUrl", MySqlDbType.VarChar, 255){ Direction = ParameterDirection.Input, Value = friendlyUrl }
 		};
-
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
-
 	}
 
 	public static IDataReader GetFriendlyUrl(int siteId, String friendlyUrl)
 	{
 
 		string sqlCommand = @"
-SELECT * 
-FROM mp_FriendlyUrls 
-WHERE SiteID = ?SiteID AND FriendlyUrl = ?FriendlyUrl;";
+SELECT	* 
+FROM	mp_FriendlyUrls 
+WHERE	SiteID = ?SiteID 
+	AND FriendlyUrl = ?FriendlyUrl;";
 
 		var arParams = new List<MySqlParameter>
 		{
-			new(" ? SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			},
-			new("?FriendlyUrl", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = friendlyUrl
-			}
-	};
+			new("?SiteID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = siteId },
+			new("?FriendlyUrl", MySqlDbType.VarChar, 255){ Direction = ParameterDirection.Input, Value = friendlyUrl }
+		};
 
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
 	}
-
-
 
 	/// <summary>
 	/// Gets a count of rows in the mp_FriendlyUrls table.
@@ -485,20 +429,16 @@ SELECT Count(*)
 FROM mp_FriendlyUrls 
 WHERE SiteID = ?SiteID;";
 
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?SiteID", MySqlDbType.Int32)
 		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			}
+			Direction = ParameterDirection.Input,
+			Value = siteId
 		};
-
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams));
+			sqlCommand,
+			param));
 	}
 
 
@@ -543,30 +483,12 @@ LIMIT ?Offset, ?PageSize;";
 
 		var arParams = new List<MySqlParameter>
 		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			},
-
-			new("?Offset", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageLowerBound
-			},
-
-			new("?PageSize", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageSize
-			}
+			new("?SiteID", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = siteId },
+			new("?Offset", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound },
+			new("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize }
 		};
 
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
 	}
 
 	/// <summary>
@@ -598,7 +520,7 @@ AND FriendlyUrl LIKE ?SearchTerm;";
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams));
 	}
 
@@ -667,11 +589,8 @@ LIMIT ?Offset, ?PageSize;";
 
 		return CommandHelper.ExecuteReader(
 			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			sqlCommand,
 			arParams);
 
 	}
-
-
-
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-//using MySqlConnector;
 using MySqlConnector;
 
 namespace mojoPortal.Data;
@@ -403,9 +402,7 @@ WHERE Guid = ?Guid ;";
 	{
 		var sqlCommand = "DELETE FROM mp_TaskQueue WHERE CompleteUTC IS NOT NULL;";
 
-		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString());
+		CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand);
 	}
 
 	/// <summary>
