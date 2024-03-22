@@ -28,7 +28,7 @@ ORDER BY d.GroupName, d.SortOrder;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -72,7 +72,7 @@ WHERE
     e.SiteID IS NULL; ";
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString());
 
 	}
@@ -132,7 +132,7 @@ KeyName = ?KeyName;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -199,7 +199,7 @@ VALUES (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -240,7 +240,7 @@ KeyName = ?KeyName;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -274,7 +274,7 @@ KeyName = ?KeyName;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 	}
@@ -286,7 +286,7 @@ SELECT *
 FROM mp_SiteSettingsExDef ;";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 	}
 

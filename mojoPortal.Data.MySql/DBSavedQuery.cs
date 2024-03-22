@@ -92,7 +92,7 @@ VALUES (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected;
@@ -152,7 +152,7 @@ Id = ?Id;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -181,7 +181,7 @@ WHERE Id = ?Id ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected > 0;
@@ -209,7 +209,7 @@ WHERE Id = ?Id ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -236,7 +236,7 @@ WHERE Name = ?Name ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -252,7 +252,7 @@ SELECT *
 FROM mp_SavedQuery ;";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 	}
 

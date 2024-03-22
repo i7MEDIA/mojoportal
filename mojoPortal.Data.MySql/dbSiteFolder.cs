@@ -48,7 +48,7 @@ FolderName )
 
 		int rowsAffected = 0;
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected;
@@ -93,7 +93,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -118,7 +118,7 @@ WHERE Guid = ?Guid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -144,7 +144,7 @@ WHERE Guid = ?Guid ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -168,7 +168,7 @@ WHERE SiteGuid = ?SiteGuid ;";
 
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -195,7 +195,7 @@ FROM mp_SiteFolders
 WHERE FolderName = ?FolderName ;";
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -216,7 +216,7 @@ ORDER BY SiteID
 LIMIT 1 ;";
 
 			using IDataReader reader = CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand1.ToString());
 
 			if (reader.Read())
@@ -247,7 +247,7 @@ WHERE FolderName = ?FolderName ;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 

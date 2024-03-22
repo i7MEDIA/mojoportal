@@ -677,7 +677,7 @@ SELECT LAST_INSERT_ID();";
 		}
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-					ConnectionString.GetWriteConnectionString(),
+					ConnectionString.GetWrite(),
 					sqlCommand,
 					arParams).ToString());
 
@@ -1307,7 +1307,7 @@ WHERE PageID = ?PageID;";
 
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams);
 
@@ -1343,7 +1343,7 @@ WHERE	SiteID = ?SiteID
 		};
 
 		int nextPageOrder = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams)) + 2;
 		if (nextPageOrder == 1)
@@ -1381,7 +1381,7 @@ LIMIT	1;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			param);
 	}
@@ -1423,7 +1423,7 @@ LIMIT 1;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams);
 	}
@@ -1453,7 +1453,7 @@ ORDER BY PageOrder;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams);
 	}
@@ -1481,7 +1481,7 @@ WHERE PageID = ?PageID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams);
 
@@ -1512,7 +1512,7 @@ WHERE PageID = ?PageID;";
 
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams);
 
@@ -1535,7 +1535,7 @@ WHERE PageID = ?PageID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams);
 
@@ -1553,7 +1553,7 @@ WHERE p1.ParentID <> -1
 AND p2.PageID IS NULL;";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand);
 
 		return rowsAffected > 0;
@@ -1575,7 +1575,7 @@ ORDER BY ParentID, PageOrder, PageName;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			param);
 	}
@@ -1612,7 +1612,7 @@ ORDER BY PageName;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams);
 	}
@@ -1632,7 +1632,7 @@ AND IsPending = 1;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			param));
 	}
@@ -1721,7 +1721,7 @@ LIMIT
 			}
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, arParams);
 	}
 
 
@@ -1752,7 +1752,7 @@ AND ((IsPending = 0) OR (?IncludePending = 1));";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams));
 
@@ -1785,7 +1785,7 @@ AND ((IsPending = 0) OR (?IncludePending = 1));";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams));
 
@@ -1863,7 +1863,7 @@ LIMIT ?PageSize ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams);
 

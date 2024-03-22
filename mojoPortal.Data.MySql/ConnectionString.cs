@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace mojoPortal.Data;
 
@@ -7,9 +8,14 @@ public static class ConnectionString
 	private const string connectionString = "MySqlConnectionString";
 	private const string writeString = "MySqlWriteConnectionString";
 
-	public static string GetReadConnectionString() => GetString();
+	public static string GetRead() => GetString();
+	public static string GetWrite() => GetString("write");
 
-	public static string GetWriteConnectionString() => GetString("write");
+	[Obsolete("Use GetRead()")]
+	public static string GetReadConnectionString() => GetRead();
+	[Obsolete("Use GetWrite()")]
+	public static string GetWriteConnectionString() => GetWrite();
+
 
 	private static string GetString(string type = "")
 	{

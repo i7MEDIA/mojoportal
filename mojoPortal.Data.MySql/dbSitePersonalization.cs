@@ -133,7 +133,7 @@ WHERE PathID = ?PathID AND UserID = ?UserID ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -178,7 +178,7 @@ AND u.LastActivityDate <= ?LastActivityDate ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -216,7 +216,7 @@ AND u.LastActivityDate <= ?LastActivityDate ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -254,7 +254,7 @@ AND u.LastActivityDate <= ?LastActivityDate ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -283,7 +283,7 @@ WHERE pu.UserID = ?UserID ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -311,7 +311,7 @@ WHERE u.LastActivityDate <= ?LastActivityDate ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -328,7 +328,7 @@ SELECT Count(pu.*)
 FROM mp_SitePersonalizationPerUser pu ;";
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString()));
 
 		return count;
@@ -354,7 +354,7 @@ WHERE PathID = ?PathID  ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -370,7 +370,7 @@ SELECT Count(*)
 FROM mp_SitePersonalizationAllUsers ; ";
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString()));
 
 		return count;
@@ -429,7 +429,7 @@ WHERE PathID = ?PathID AND UserID = ?UserID LIMIT 1 ; ";
 		try
 		{
 			result = (byte[])CommandHelper.ExecuteScalar(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand.ToString(),
 				arParams);
 		}
@@ -473,7 +473,7 @@ WHERE PathID = ?PathID AND UserID = ?UserID  ;";
 		};
 
 		CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -502,7 +502,7 @@ WHERE PathID IN (
 		};
 
 		CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -533,7 +533,7 @@ WHERE PathID = ?PathID  LIMIT 1 ; ";
 		try
 		{
 			result = (byte[])CommandHelper.ExecuteScalar(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand.ToString(),
 				arParams);
 		}
@@ -627,7 +627,7 @@ VALUES (
 		};
 
 		int rowsAffected = Convert.ToInt32(CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -674,7 +674,7 @@ VALUES (
 		};
 
 		int rowsAffected = Convert.ToInt32(CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -725,7 +725,7 @@ WHERE UserID = ?UserID AND PathID = ?PathID ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -769,7 +769,7 @@ WHERE PathID = ?PathID  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -800,7 +800,7 @@ WHERE PathID = ?PathID AND UserID = ?UserID ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -829,7 +829,7 @@ WHERE PathID = ?PathID  ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -880,7 +880,7 @@ WHERE SiteID = ?SiteID AND LoweredPath = ?LoweredPath LIMIT 1 ; ";
 		};
 
 		string guidString = CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString();
 
@@ -916,7 +916,7 @@ WHERE SiteID = ?SiteID AND LoweredPath = ?LoweredPath ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -983,7 +983,7 @@ VALUES (
 		};
 
 		int rowsAffected = Convert.ToInt32(CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 

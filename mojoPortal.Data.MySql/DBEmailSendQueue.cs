@@ -203,7 +203,7 @@ VALUES (
 
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -233,7 +233,7 @@ WHERE Guid = ?Guid;";
 
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 			return rowsAffected > 0;
@@ -262,7 +262,7 @@ WHERE DateToSend >= ?CurrentTime;";
 
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand.ToString(),
 				arParams);
 

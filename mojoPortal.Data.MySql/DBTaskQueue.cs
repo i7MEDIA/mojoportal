@@ -240,7 +240,7 @@ VALUES (
 		//    return rowsAffected;
 		//};
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected;
@@ -319,7 +319,7 @@ WHERE Guid = ?Guid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -359,7 +359,7 @@ WHERE Guid = ?Guid;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -388,7 +388,7 @@ WHERE Guid = ?Guid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected > 0;
@@ -402,7 +402,7 @@ WHERE Guid = ?Guid ;";
 	{
 		var sqlCommand = "DELETE FROM mp_TaskQueue WHERE CompleteUTC IS NOT NULL;";
 
-		CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand);
+		CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand);
 	}
 
 	/// <summary>
@@ -426,7 +426,7 @@ WHERE Guid = ?Guid ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -442,7 +442,7 @@ SELECT Count(*)
 FROM mp_TaskQueue ;";
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString()));
 	}
 
@@ -467,7 +467,7 @@ WHERE SiteGuid = ?SiteGuid ;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 	}
@@ -489,7 +489,7 @@ WHERE SerializedTaskType LIKE ?TaskType ;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 	}
@@ -510,7 +510,7 @@ WHERE SerializedTaskType LIKE ?TaskType ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected > 0;
@@ -527,7 +527,7 @@ FROM mp_TaskQueue
 WHERE CompleteUTC IS NULL ;";
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString()));
 	}
 
@@ -553,7 +553,7 @@ AND CompleteUTC IS NULL ;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 	}
@@ -569,7 +569,7 @@ FROM mp_TaskQueue
 WHERE StartUTC IS NULL ;";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 	}
 
@@ -586,7 +586,7 @@ AND CompleteUTC IS NOT NULL
 AND NotificationSentUTC IS NULL ;";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 	}
 
@@ -601,7 +601,7 @@ FROM mp_TaskQueue
 WHERE CompleteUTC IS NULL ;";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 	}
 
@@ -628,7 +628,7 @@ AND CompleteUTC IS NULL ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -685,7 +685,7 @@ LIMIT " + pageLowerBound.ToString() + ", ?PageSize ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -748,7 +748,7 @@ LIMIT " + pageLowerBound.ToString() + ", ?PageSize ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -804,7 +804,7 @@ LIMIT " + pageLowerBound.ToString() + ", ?PageSize ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -869,7 +869,7 @@ LIMIT " + pageLowerBound.ToString() + ", ?PageSize ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}

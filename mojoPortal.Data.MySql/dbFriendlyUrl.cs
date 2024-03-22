@@ -108,7 +108,7 @@ VALUES (
 
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams).ToString());
 
@@ -184,7 +184,7 @@ WHERE
 
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams);
 
@@ -208,7 +208,7 @@ WHERE UrlID = ?UrlID;";
 			}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand, arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, arParams);
 
 		return rowsAffected > 0;
 	}
@@ -219,7 +219,7 @@ WHERE UrlID = ?UrlID;";
 DELETE FROM mp_FriendlyUrls 
 WHERE RealUrl LIKE '%pageid=" + pageId.ToString() + "' ;";
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand);
 
 		return rowsAffected > 0;
 
@@ -241,7 +241,7 @@ WHERE PageGuid = ?PageGuid;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(), sqlCommand, arParams);
+			ConnectionString.GetWrite(), sqlCommand, arParams);
 
 		return rowsAffected > 0;
 
@@ -260,7 +260,7 @@ WHERE	UrlID = ?UrlID;";
 			new("?UrlID", MySqlDbType.Int32){ Direction = ParameterDirection.Input, Value = urlId }
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, arParams);
 	}
 
 
@@ -292,7 +292,7 @@ WHERE mp_SiteHosts.HostName = ?HostName;";
 
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams))
 		{
@@ -317,7 +317,7 @@ WHERE	SiteID = ?SiteID;";
 		};
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand1.ToString(),
 			arParams1))
 		{
@@ -358,7 +358,7 @@ ORDER BY FriendlyUrl;";
 
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams))
 		{
@@ -396,7 +396,7 @@ AND FriendlyUrl = ?FriendlyUrl;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams);
 	}
@@ -416,7 +416,7 @@ WHERE	SiteID = ?SiteID
 			new("?FriendlyUrl", MySqlDbType.VarChar, 255){ Direction = ParameterDirection.Input, Value = friendlyUrl }
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, arParams);
 	}
 
 	/// <summary>
@@ -436,7 +436,7 @@ WHERE SiteID = ?SiteID;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			param));
 	}
@@ -488,7 +488,7 @@ LIMIT ?Offset, ?PageSize;";
 			new("?PageSize", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize }
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, arParams);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, arParams);
 	}
 
 	/// <summary>
@@ -519,7 +519,7 @@ AND FriendlyUrl LIKE ?SearchTerm;";
 
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams));
 	}
@@ -588,7 +588,7 @@ LIMIT ?Offset, ?PageSize;";
 
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams);
 

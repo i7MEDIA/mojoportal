@@ -281,7 +281,7 @@ SELECT LAST_INSERT_ID();";
 		};
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -342,7 +342,7 @@ VALUES (
 			};
 
 			CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand1.ToString(),
 				arParams1);
 
@@ -584,7 +584,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -633,7 +633,7 @@ AND PageID = ?PageID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -660,7 +660,7 @@ WHERE ModuleID = ?ModuleID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -690,7 +690,7 @@ WHERE ModuleID = ?ModuleID AND PageID = ?PageID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -714,7 +714,7 @@ WHERE PageID = ?PageID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -745,7 +745,7 @@ WHERE ModuleID = ?ModuleID AND PageID = ?PageID;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -816,7 +816,7 @@ WHERE
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -853,7 +853,7 @@ WHERE
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -996,7 +996,7 @@ VALUES (
 		}
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1078,7 +1078,7 @@ WHERE
 		}
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1110,7 +1110,7 @@ WHERE ModuleID = ?ModuleID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1148,7 +1148,7 @@ WHERE ModuleID = ?ModuleID AND PageID = ?PageID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1176,7 +1176,7 @@ AND md.IsAdmin = 0";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -1201,7 +1201,7 @@ WHERE m.SiteID = ?SiteID AND m.AvailableForMyPage = 1;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -1249,7 +1249,7 @@ AND md.IsAdmin = 0 ";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -1273,7 +1273,7 @@ ModuleDefID = ?ModuleDefID;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 	}
@@ -1405,7 +1405,7 @@ AND (
 		dt.Columns.Add("UseCount", typeof(int));
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -1466,7 +1466,7 @@ AND m.ModuleID NOT IN (SELECT ModuleID FROM mp_PageModules WHERE PageID = ?PageI
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -1574,7 +1574,7 @@ ORDER BY m.ModuleTitle, md.FeatureName";
 		dt.Columns.Add("UseCount", typeof(int));
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -1629,7 +1629,7 @@ WHERE
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1661,7 +1661,7 @@ WHERE
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1711,7 +1711,7 @@ WHERE
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1766,7 +1766,7 @@ ORDER BY pm.ModuleOrder;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1809,7 +1809,7 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1866,7 +1866,7 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -1895,7 +1895,7 @@ LEFT OUTER JOIN
 	mp_Users u ON m.CreatedByUserID = u.UserID";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			commandText
 		);
 	}

@@ -203,8 +203,8 @@ SELECT LAST_INSERT_ID();";
 		};
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-		ConnectionString.GetWriteConnectionString(),
-		sqlCommand.ToString(),
+		ConnectionString.GetWrite(),
+		sqlCommand,
 		arParams).ToString());
 
 		return newID;
@@ -357,8 +357,8 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-		ConnectionString.GetWriteConnectionString(),
-		sqlCommand.ToString(),
+		ConnectionString.GetWrite(),
+		sqlCommand,
 		arParams);
 
 		return (rowsAffected > -1);
@@ -382,8 +382,8 @@ WHERE ItemID = ?ItemID ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -406,8 +406,8 @@ WHERE ModuleID  = ?ModuleID ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -434,8 +434,8 @@ ModuleID IN (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -460,8 +460,8 @@ WHERE ItemID = ?ItemID ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 	}
@@ -503,8 +503,8 @@ WHERE
 ORDER BY EventDate ;";
 
 		return CommandHelper.ExecuteDataset(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 	}
@@ -565,7 +565,7 @@ ORDER BY EventDate;";
 		dt.Columns.Add("ShowMap", typeof(bool));
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-		ConnectionString.GetReadConnectionString(),
+		ConnectionString.GetRead(),
 		sqlCommand,
 		sqlParams.ToArray()))
 		{
@@ -633,8 +633,8 @@ AND pm.PageID = ?PageID; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 	}

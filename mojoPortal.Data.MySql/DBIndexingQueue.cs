@@ -92,7 +92,7 @@ SELECT LAST_INSERT_ID();";
 		try
 		{
 			newID = Convert.ToInt64(CommandHelper.ExecuteScalar(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams).ToString());
 		}
@@ -124,7 +124,7 @@ WHERE RowId = ?RowId;";
 
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected > 0;
@@ -142,7 +142,7 @@ WHERE RowId = ?RowId;";
 DELETE FROM mp_IndexingQueue;";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString());
 		return rowsAffected > 0;
 
@@ -159,7 +159,7 @@ FROM mp_IndexingQueue;";
 
 		return Convert.ToInt32(
 			CommandHelper.ExecuteScalar(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand.ToString()
 			)
 		);
@@ -194,7 +194,7 @@ ORDER BY RowId;";
 		dt.Columns.Add("RemoveOnly", typeof(bool));
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -242,7 +242,7 @@ ORDER BY RowId;";
 		dt.Columns.Add("RemoveOnly", typeof(bool));
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -276,7 +276,7 @@ FROM mp_IndexingQueue
 ORDER BY IndexPath;";
 
 		IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 
 		return DBPortal.GetTableFromDataReader(reader);
@@ -290,7 +290,7 @@ FROM mp_IndexingQueue
 ORDER BY SiteID;";
 
 		IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 
 		return DBPortal.GetTableFromDataReader(reader);

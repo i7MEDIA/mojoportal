@@ -65,7 +65,7 @@ Sort )
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -128,7 +128,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -157,7 +157,7 @@ WHERE Guid = ?Guid;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected > 0;
@@ -185,7 +185,7 @@ WHERE Guid = ?Guid;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -202,7 +202,7 @@ FROM mp_Language
 ORDER BY Sort;";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 	}
 
@@ -217,7 +217,7 @@ FROM mp_Language;";
 
 		return Convert.ToInt32(
 			CommandHelper.ExecuteScalar(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand.ToString()
 			)
 		);
@@ -282,7 +282,7 @@ LIMIT ?PageSize";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}

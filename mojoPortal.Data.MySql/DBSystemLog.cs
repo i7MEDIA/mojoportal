@@ -113,7 +113,7 @@ SELECT LAST_INSERT_ID();";
 			};
 
 			int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams).ToString());
 
@@ -133,7 +133,7 @@ SELECT LAST_INSERT_ID();";
 DELETE FROM mp_SystemLog ;";
 
 			CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString());
 
 		}
@@ -159,7 +159,7 @@ WHERE ID = ?ID ;";
 			};
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -187,7 +187,7 @@ WHERE LogDate < ?CutoffDate ;";
 			};
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -216,7 +216,7 @@ WHERE LogLevel = ?LogLevel;";
 			};
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -235,7 +235,7 @@ FROM mp_SystemLog ;";
 
 			return Convert.ToInt32(
 				CommandHelper.ExecuteScalar(
-					ConnectionString.GetReadConnectionString(),
+					ConnectionString.GetRead(),
 					sqlCommand.ToString()
 				)
 			);
@@ -302,7 +302,7 @@ LIMIT ?PageSize ";
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -369,7 +369,7 @@ LIMIT ?PageSize ";
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand.ToString(),
 				arParams);
 

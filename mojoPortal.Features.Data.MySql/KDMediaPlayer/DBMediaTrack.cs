@@ -92,8 +92,8 @@ SELECT LAST_INSERT_ID(); ";
 		};
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams).ToString());
 		return newID;
 	}
@@ -177,8 +177,8 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 	}
@@ -214,8 +214,8 @@ AND TrackOrder > ?TrackOrder ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected;
 	}
@@ -243,8 +243,8 @@ WHERE TrackID = ?TrackID ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 	}
@@ -272,8 +272,8 @@ WHERE PlayerID = ?PlayerID ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 	}
@@ -300,8 +300,8 @@ WHERE PlayerID IN (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 	}
@@ -333,8 +333,8 @@ PlayerID IN (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 
@@ -363,8 +363,8 @@ WHERE PlayerID = ?PlayerID ;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams));
 	}
 
@@ -391,8 +391,8 @@ WHERE TrackID = ?TrackID ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 	}
 
@@ -419,8 +419,8 @@ ORDER BY TrackOrder ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 	}
 

@@ -35,7 +35,7 @@ public static class DBPortal
 			Value = applicationName.ToLower()
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand, param);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 	}
 
 	public static bool SchemaVersionAddSchemaVersion(Guid applicationId, string applicationName, int major, int minor, int build, int revision)
@@ -105,7 +105,7 @@ VALUES (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -175,7 +175,7 @@ WHERE ApplicationID = ?ApplicationID;";
 			}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand.ToString(), arParams);
 
 		return rowsAffected > -1;
 	}
@@ -191,7 +191,7 @@ WHERE ApplicationID = ?ApplicationID;";
 			Value = applicationId.ToString()
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), param);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand.ToString(), param);
 
 		return rowsAffected > 0;
 	}
@@ -228,7 +228,7 @@ WHERE ApplicationID = ?ApplicationID;";
 			}
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString(), arParams);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand.ToString(), arParams);
 	}
 
 	public static IDataReader SchemaVersionGetNonCore()
@@ -239,7 +239,7 @@ FROM mp_SchemaVersion
 WHERE ApplicationID <> '077E4857-F583-488E-836E-34A4B04BE855' 
 ORDER BY ApplicationName;";
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString());
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand.ToString());
 	}
 
 	public static int SchemaScriptHistoryAddSchemaScriptHistory(
@@ -324,7 +324,7 @@ SELECT LAST_INSERT_ID();";
 			}
 		};
 
-		var result = CommandHelper.ExecuteScalar(ConnectionString.GetWriteConnectionString(), sqlCommand, arParams).ToString();
+		var result = CommandHelper.ExecuteScalar(ConnectionString.GetWrite(), sqlCommand, arParams).ToString();
 		int newID = Convert.ToInt32(result);
 		return newID;
 	}
@@ -339,7 +339,7 @@ SELECT LAST_INSERT_ID();";
 			Value = id
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), param);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand.ToString(), param);
 
 		return rowsAffected > 0;
 	}
@@ -354,7 +354,7 @@ SELECT LAST_INSERT_ID();";
 			Value = id
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString(), param);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand.ToString(), param);
 	}
 
 	public static IDataReader SchemaScriptHistoryGetSchemaScriptHistory(Guid applicationId)
@@ -367,7 +367,7 @@ SELECT LAST_INSERT_ID();";
 			Value = applicationId.ToString()
 		};
 
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand.ToString(), param);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand.ToString(), param);
 	}
 
 	public static IDataReader SchemaScriptHistoryGetSchemaScriptErrorHistory(Guid applicationId)
@@ -385,7 +385,7 @@ AND ErrorOccurred = 1;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			param);
 	}
@@ -414,7 +414,7 @@ AND ScriptFile = ?ScriptFile;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -483,7 +483,7 @@ AND ScriptFile = ?ScriptFile;";
 
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
+			connection = new MySqlConnection(ConnectionString.GetWrite());
 		}
 		else
 		{
@@ -517,7 +517,7 @@ AND ScriptFile = ?ScriptFile;";
 
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
+			connection = new MySqlConnection(ConnectionString.GetWrite());
 		}
 		else
 		{
@@ -607,7 +607,7 @@ DROP TABLE Temptest;";
 
 		try
 		{
-			DatabaseHelperRunScript(sqlCommand.ToString(), ConnectionString.GetWriteConnectionString());
+			DatabaseHelperRunScript(sqlCommand.ToString(), ConnectionString.GetWrite());
 		}
 		catch (Exception)
 		{
@@ -642,7 +642,7 @@ DROP TABLE Temptest;";
 
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connection = new MySqlConnection(ConnectionString.GetWriteConnectionString());
+			connection = new MySqlConnection(ConnectionString.GetWrite());
 		}
 		else
 		{
@@ -656,7 +656,7 @@ DROP TABLE Temptest;";
 		try
 		{
 			CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			script);
 			result = true;
 		}
@@ -714,7 +714,7 @@ DROP TABLE Temptest;";
 			Value = dataFieldValue
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), param);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand.ToString(), param);
 
 		return rowsAffected > 0;
 	}
@@ -723,7 +723,7 @@ DROP TABLE Temptest;";
 	{
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = ConnectionString.GetReadConnectionString();
+			connectionString = ConnectionString.GetRead();
 		}
 
 		return CommandHelper.ExecuteReader(connectionString, query);
@@ -733,7 +733,7 @@ DROP TABLE Temptest;";
 	{
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = ConnectionString.GetWriteConnectionString();
+			connectionString = ConnectionString.GetWrite();
 		}
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(connectionString, query);
@@ -755,7 +755,7 @@ DROP TABLE Temptest;";
 	{
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = ConnectionString.GetWriteConnectionString();
+			connectionString = ConnectionString.GetWrite();
 		}
 
 		DataTable dataTable = DatabaseHelperGetTable(connectionString, "mp_Forums", " where (ForumGuid is null OR ForumGuid = '00000000-0000-0000-0000-000000000000') ");
@@ -784,7 +784,7 @@ DROP TABLE Temptest;";
 	{
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = ConnectionString.GetWriteConnectionString();
+			connectionString = ConnectionString.GetWrite();
 		}
 
 		string sqlCommand = @"
@@ -822,7 +822,7 @@ OR		SubGuid = '00000000-0000-0000-0000-000000000000') ; ";
 	{
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = ConnectionString.GetWriteConnectionString();
+			connectionString = ConnectionString.GetWrite();
 		}
 
 		string sqlCommand = @"
@@ -863,7 +863,7 @@ ON
 	{
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = ConnectionString.GetWriteConnectionString();
+			connectionString = ConnectionString.GetWrite();
 		}
 
 		DataTable dataTable = DatabaseHelperGetTable(connectionString, "mp_ModuleDefinitions", " where Guid is null ");
@@ -898,7 +898,7 @@ WHERE mp_ModuleDefinitions.ModuleDefID
 	{
 		if (string.IsNullOrWhiteSpace(connectionString))
 		{
-			connectionString = ConnectionString.GetWriteConnectionString();
+			connectionString = ConnectionString.GetWrite();
 		}
 
 		var result = true;
@@ -1142,7 +1142,7 @@ JOIN mp_Users u ON u.UserGuid = ls.UserGuid;";
 
 	public static bool DatabaseHelperTableExists(string tableName)
 	{
-		using MySqlConnection connection = new(ConnectionString.GetWriteConnectionString());
+		using MySqlConnection connection = new(ConnectionString.GetWrite());
 		string[] restrictions = new string[4];
 		restrictions[2] = tableName;
 		connection.Open();

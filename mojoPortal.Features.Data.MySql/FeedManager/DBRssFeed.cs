@@ -157,8 +157,8 @@ SELECT LAST_INSERT_ID();";
 		};
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams).ToString());
 
 		return newID;
@@ -282,8 +282,8 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > -1;
@@ -307,8 +307,8 @@ WHERE ItemID = ?ItemID ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -335,8 +335,8 @@ WHERE FeedID IN (
 );";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		string sqlCommand1 = @"
@@ -344,7 +344,7 @@ DELETE FROM mp_RssFeeds
 WHERE ModuleID  = ?ModuleID ;";
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand1.ToString(),
 			arParams);
 
@@ -377,8 +377,8 @@ WHERE FeedID IN (
 );";
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		string sqlCommand1 = @"
@@ -390,7 +390,7 @@ WHERE ModuleID IN (
 );";
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand1.ToString(),
 			arParams);
 
@@ -416,8 +416,8 @@ WHERE ItemID = ?ItemID ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 	}
@@ -447,8 +447,8 @@ ORDER BY f.SortRank, f.Author;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 	}
@@ -479,8 +479,8 @@ ORDER BY e.PubDate DESC, e.PubDateMils DESC ;";
 		};
 
 		IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 		DataTable dataTable = new DataTable();
@@ -548,8 +548,8 @@ AND PubDate < ?ExpiredDate ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -578,8 +578,8 @@ WHERE ModuleGuid = ?ModuleGuid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -609,8 +609,8 @@ AND Confirmed = 0 ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -639,8 +639,8 @@ AND Confirmed = 0 ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -668,8 +668,8 @@ WHERE FeedId = ?FeedId ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -702,8 +702,8 @@ AND EntryHash = ?EntryHash;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams));
 
 		return (count > 0);
@@ -734,8 +734,8 @@ LIMIT 1 ;";
 		DateTime result = DateTime.UtcNow.AddDays(-1);
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams))
 		{
 
@@ -917,8 +917,8 @@ VALUES (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		// needed because even PubDateMils milliseconds is not different if rows are processed fast
@@ -1017,8 +1017,8 @@ AND EntryHash = ?EntryHash ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > -1;
@@ -1080,8 +1080,8 @@ AND EntryHash = ?EntryHash ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > -1;

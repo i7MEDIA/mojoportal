@@ -184,7 +184,7 @@ SELECT LAST_INSERT_ID();";
 
 		newID = Convert.ToInt32(
 			CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -222,7 +222,7 @@ VALUES (
 			};
 
 			CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand1.ToString(),
 				arParams1);
 		}
@@ -377,7 +377,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -415,7 +415,7 @@ ModuleDefID = ?ModuleDefID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -440,7 +440,7 @@ WHERE ModuleDefID = ?ModuleDefID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -464,7 +464,7 @@ WHERE ModuleDefID = ?ModuleDefID ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -490,7 +490,7 @@ WHERE ModuleDefID = ?ModuleDefID;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -514,7 +514,7 @@ WHERE Guid = ?FeatureGuid;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -539,7 +539,7 @@ WHERE Guid = ?FeatureGuid;";
 		int moduleDefId = -1;
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -584,7 +584,7 @@ AND
 	);";
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString());
 
 	}
@@ -617,7 +617,7 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -684,7 +684,7 @@ SELECT * FROM mp_ModuleDefinitions WHERE SkinFileName = ?SkinFileName LIMIT 1;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			 ConnectionString.GetReadConnectionString(),
+			 ConnectionString.GetRead(),
 			 sqlCommand.ToString(),
 			 arParams);
 	}
@@ -695,7 +695,7 @@ SELECT * FROM mp_ModuleDefinitions WHERE SkinFileName = ?SkinFileName LIMIT 1;";
 SELECT SkinFileName FROM mp_ModuleDefinitions;";
 
 		return CommandHelper.ExecuteReader(
-			 ConnectionString.GetReadConnectionString(),
+			 ConnectionString.GetRead(),
 			 sqlCommand.ToString());
 	}
 
@@ -731,7 +731,7 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			commandText,
 			commandParameters
 		);
@@ -758,7 +758,7 @@ ORDER BY md.SortOrder, md.SearchListName ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -807,7 +807,7 @@ AND SettingName = ?SettingName;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -920,7 +920,7 @@ AND
 			};
 
 			rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand1.ToString(),
 				arParams1);
 
@@ -1045,7 +1045,7 @@ VALUES (
 			};
 
 			rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand1.ToString(),
 				arParams1);
 
@@ -1172,7 +1172,7 @@ AND
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1196,7 +1196,7 @@ WHERE ID = ?ID;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1223,7 +1223,7 @@ ModuleDefID = ?ModuleDefID;";
 
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1258,7 +1258,7 @@ AND SettingName = ?SettingName;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}

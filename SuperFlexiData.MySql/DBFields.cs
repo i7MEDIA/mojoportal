@@ -203,7 +203,7 @@ namespace SuperFlexiData
 
 			int rowsAffected = Convert.ToInt32(
 				CommandHelper.ExecuteNonQuery(
-					ConnectionString.GetWriteConnectionString(),
+					ConnectionString.GetWrite(),
 					sqlCommand,
 					sqlParams.ToArray()
 				)
@@ -367,7 +367,7 @@ namespace SuperFlexiData
 
 			int rowsAffected = Convert.ToInt32(
 				CommandHelper.ExecuteNonQuery(
-					ConnectionString.GetWriteConnectionString(),
+					ConnectionString.GetWrite(),
 					sqlCommand,
 					sqlParams.ToArray()
 				).ToString()
@@ -394,7 +394,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -419,7 +419,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -444,7 +444,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -468,7 +468,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -484,7 +484,7 @@ namespace SuperFlexiData
 
 			return Convert.ToInt32(
 				CommandHelper.ExecuteScalar(
-					ConnectionString.GetReadConnectionString(),
+					ConnectionString.GetRead(),
 					sqlCommand.ToString()
 				)
 			);
@@ -499,7 +499,7 @@ namespace SuperFlexiData
 			const string sqlCommand = "SELECT * FROM `i7_sflexi_fields` WHERE `IsDeleted` = 0;";
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand
 			);
 		}
@@ -521,7 +521,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParams.ToArray()
 			);
@@ -570,7 +570,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand,
 				sqlParams.ToArray()
 			);
@@ -593,7 +593,7 @@ namespace SuperFlexiData
 			};
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);

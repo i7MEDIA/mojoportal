@@ -126,8 +126,8 @@ VALUES (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected;
 
@@ -239,8 +239,8 @@ RowGuid = ?RowGuid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > -1;
@@ -268,8 +268,8 @@ WHERE RowGuid = ?RowGuid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 
@@ -291,8 +291,8 @@ WHERE ModuleGuid = ?ModuleGuid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 
@@ -318,8 +318,8 @@ WHERE SiteGuid IN (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 		return rowsAffected > 0;
 	}
@@ -346,8 +346,8 @@ WHERE RowGuid = ?RowGuid ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 	}
@@ -370,8 +370,8 @@ WHERE ModuleGuid = ?ModuleGuid ;";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams));
 	}
 
@@ -426,8 +426,8 @@ LIMIT {pageLowerBound.ToString(CultureInfo.InvariantCulture)}
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 	}
 }

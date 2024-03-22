@@ -36,7 +36,7 @@ WHERE
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -68,7 +68,7 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -130,7 +130,7 @@ LIMIT " + rowsToGet.ToString() + "; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -175,7 +175,7 @@ LIMIT " + rowsToGet.ToString() + " ; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -195,7 +195,7 @@ SELECT COUNT(*) FROM mp_Users WHERE SiteID = ?SiteID;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -218,7 +218,7 @@ SELECT COUNT(*) FROM mp_Users WHERE SiteID = ?SiteID AND IsLockedOut = 1;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -241,7 +241,7 @@ SELECT COUNT(*) FROM mp_Users WHERE SiteID = ?SiteID AND ApprovedForForums = 0;"
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -286,7 +286,7 @@ AND ProfileApproved = 1 ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams.ToArray()).ToString());
 
@@ -326,7 +326,7 @@ AND DateCreated < ?EndDate; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -356,7 +356,7 @@ AND LastActivityDate > ?SinceTime ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -388,7 +388,7 @@ AND DisplayInMemberList = 1 ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -421,7 +421,7 @@ LIMIT 50 ; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -443,7 +443,7 @@ SELECT MAX(UserID) FROM mp_Users WHERE SiteID = ?SiteID;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -483,7 +483,7 @@ AND ProfileApproved = 1 ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -565,7 +565,7 @@ AND u.IsDeleted = 0";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand1,
 			commandParameters
 		);
@@ -609,7 +609,7 @@ OR (Lower(FirstName) LIKE LOWER(?SearchInput))";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -706,7 +706,7 @@ OR (Lower(FirstName) LIKE LOWER(?SearchInput)))";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -746,7 +746,7 @@ OR (Lower(FirstName) LIKE LOWER(?SearchInput)))";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -840,7 +840,7 @@ OR (Lower(Email) LIKE LOWER(?SearchInput))
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -899,7 +899,7 @@ LIMIT " + pageLowerBound.ToString(CultureInfo.InvariantCulture) + ", ?PageSize  
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -956,7 +956,7 @@ LIMIT " + pageLowerBound.ToString(CultureInfo.InvariantCulture) + ", ?PageSize  
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1244,7 +1244,7 @@ SELECT LAST_INSERT_ID();";
 		}
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -1739,7 +1739,7 @@ WHERE
 
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1764,7 +1764,7 @@ WHERE UserID = ?UserID  ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1795,7 +1795,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1829,7 +1829,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1862,7 +1862,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1895,7 +1895,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1930,7 +1930,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1965,7 +1965,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2000,7 +2000,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2035,7 +2035,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2069,7 +2069,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2104,7 +2104,7 @@ WHERE RegisterConfirmGuid = ?RegisterConfirmGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2133,7 +2133,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2186,7 +2186,7 @@ WHERE UserID = ?UserID  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2230,7 +2230,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2258,7 +2258,7 @@ WHERE UserGuid = ?UserGuid  ;";
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2275,7 +2275,7 @@ SET TotalRevenue = COALESCE((
 , 0) ;";
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString());
 	}
 
@@ -2300,7 +2300,7 @@ WHERE UserID = ?UserID  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2327,7 +2327,7 @@ WHERE UserID = ?UserID  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2354,7 +2354,7 @@ WHERE UserID = ?UserID  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2382,7 +2382,7 @@ WHERE UserID = ?UserID  ;";
 		int rowsAffected = 0;
 
 		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2420,7 +2420,7 @@ AND mp_Users.UserID = ?UserID  ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2449,7 +2449,7 @@ WHERE SiteID = ?SiteID AND RegisterConfirmGuid = ?RegisterConfirmGuid  ; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2479,7 +2479,7 @@ WHERE SiteID = ?SiteID AND LoweredEmail = ?Email  ; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2523,7 +2523,7 @@ WHERE SiteID = ?SiteID  ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2558,7 +2558,7 @@ AND
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -2592,7 +2592,7 @@ AND
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -2627,7 +2627,7 @@ AND OpenIDURI = ?OpenIDURI  ; ";
 		Guid userGuid = Guid.Empty;
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2670,7 +2670,7 @@ AND WindowsLiveID = ?WindowsLiveID ;  ";
 		Guid userGuid = Guid.Empty;
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2719,7 +2719,7 @@ AND Pwd = ?Password ;  ";
 		string userName = string.Empty;
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2768,7 +2768,7 @@ AND Pwd = ?Password ;  ";
 		string userName = string.Empty;
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2805,7 +2805,7 @@ UserGuid = ?UserGuid ;";
 		dataTable.Columns.Add("PropertyValueBinary", typeof(object));
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2848,7 +2848,7 @@ LIMIT 1 ; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2877,7 +2877,7 @@ WHERE UserGuid = ?UserGuid AND PropertyName = ?PropertyName ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -2961,7 +2961,7 @@ VALUES (
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -3026,7 +3026,7 @@ WHERE
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -3049,7 +3049,7 @@ WHERE UserGuid = ?UserGuid ;";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 		return rowsAffected > 0;

@@ -89,7 +89,7 @@ VALUES (
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -171,7 +171,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -225,8 +225,8 @@ DELETE FROM mp_Surveys
 WHERE SurveyGuid = ?SurveyGuid; ";
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			new MySqlParameter("?SurveyGuid", MySqlDbType.VarChar, 36)
 			{
 				Direction = ParameterDirection.Input,
@@ -334,8 +334,8 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 
 		return rowsAffected > 0;
@@ -367,8 +367,8 @@ WHERE s.SurveyGuid = ?SurveyGuid; ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 
 	}
@@ -385,8 +385,8 @@ FROM mp_Surveys; ";
 
 		return Convert.ToInt32(
 			CommandHelper.ExecuteScalar(
-				ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString()));
+				ConnectionString.GetRead(),
+				sqlCommand));
 	}
 
 	/// <summary>
@@ -410,8 +410,8 @@ And Complete = 1; ";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams));
 
 	}
@@ -449,8 +449,8 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams);
 	}
 
@@ -476,8 +476,8 @@ WHERE SurveyGuid = ?SurveyGuid; ";
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetRead(),
+			sqlCommand,
 			arParams));
 	}
 
@@ -511,8 +511,8 @@ VALUES(?SurveyGuid, ?ModuleId); ";
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 	}
 
@@ -540,8 +540,8 @@ AND SurveyGuid = ?SurveyGuid; ";
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 	}
 
@@ -562,8 +562,8 @@ WHERE ModuleId = ?ModuleId ; ";
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
+			ConnectionString.GetWrite(),
+			sqlCommand,
 			arParams);
 	}
 
@@ -590,7 +590,7 @@ WHERE moduleId = ?moduleId";
 		};
 
 		object id = CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -625,7 +625,7 @@ LIMIT 1;";
 		};
 
 		object id = CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -673,7 +673,7 @@ LIMIT 1;";
 		};
 
 		object id = CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -721,7 +721,7 @@ LIMIT 1;";
 		};
 
 		object id = CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -769,7 +769,7 @@ WHERE sr.SurveyGuid = ?SurveyGuid;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -817,7 +817,7 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);

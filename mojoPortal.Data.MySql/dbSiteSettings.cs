@@ -595,7 +595,7 @@ SELECT LAST_INSERT_ID();";
 
 
 		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams).ToString());
 
@@ -1093,7 +1093,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1388,7 +1388,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1436,7 +1436,7 @@ WHERE
 
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1601,7 +1601,7 @@ WHERE
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1776,7 +1776,7 @@ WHERE SiteID = ?SiteID  ; ";
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1808,7 +1808,7 @@ AND ModuleDefID = ?ModuleDefID;";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -1867,7 +1867,7 @@ VALUES (
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1899,7 +1899,7 @@ WHERE SiteID = ?SiteID AND ModuleDefID = ?ModuleDefID ; ";
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1923,7 +1923,7 @@ WHERE SiteID = ?SiteID;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -1931,7 +1931,7 @@ WHERE SiteID = ?SiteID;";
 	public static IDataReader GetHostList()
 	{
 		string sqlCommand = @"SELECT * FROM mp_SiteHosts order by HostName;";
-		return CommandHelper.ExecuteReader(ConnectionString.GetReadConnectionString(), sqlCommand);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand);
 	}
 
 	public static void AddHost(Guid siteGuid, int siteId, string hostName)
@@ -1970,7 +1970,7 @@ VALUES (
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -1992,7 +1992,7 @@ DELETE FROM mp_SiteHosts WHERE HostID = ?HostID ;";
 		};
 
 		CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2004,7 +2004,7 @@ DELETE FROM mp_SiteHosts WHERE HostID = ?HostID ;";
 SELECT * FROM	mp_Sites ORDER BY SiteName ;";
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString());
 	}
 
@@ -2016,7 +2016,7 @@ FROM mp_Sites
 ORDER BY SiteID LIMIT 1 ;";
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString()));
 	}
 
@@ -2040,7 +2040,7 @@ ORDER BY SiteName ;";
 		Guid siteGuid = Guid.Empty;
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2074,7 +2074,7 @@ ORDER BY SiteName ;";
 		int siteID = -1;
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2106,7 +2106,7 @@ ORDER BY SiteName ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -2129,7 +2129,7 @@ ORDER BY SiteName ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -2157,7 +2157,7 @@ FROM mp_SiteHosts
 WHERE mp_SiteHosts.HostName = ?HostName ;";
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2184,7 +2184,7 @@ LIMIT 1 ;";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand1.ToString(),
 			arParams1);
 
@@ -2216,7 +2216,7 @@ ORDER BY
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 	}
@@ -2239,7 +2239,7 @@ WHERE SiteID <> ?CurrentSiteID
 		};
 
 		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -2307,7 +2307,7 @@ LIMIT ?PageSize ";
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams);
 
@@ -2335,7 +2335,7 @@ FROM mp_SiteHosts
 WHERE HostName = ?HostName ;";
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2354,7 +2354,7 @@ ORDER BY SiteID
 LIMIT 1 ;";
 
 			using IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand1.ToString());
 			if (reader.Read())
 			{
@@ -2391,7 +2391,7 @@ ORDER BY s.SiteID
 ;";
 
 		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams))
 		{
@@ -2410,7 +2410,7 @@ ORDER BY SiteID
 LIMIT 1 ;";
 
 			using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand1.ToString()))
 			{
 				if (reader.Read())
@@ -2442,7 +2442,7 @@ WHERE HostName = ?HostName ; ";
 		};
 
 		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand.ToString(),
 			arParams));
 
@@ -2467,7 +2467,7 @@ WHERE HostName = ?HostName ; ";
 			};
 
 		CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			sqlParams.ToArray());
 	}

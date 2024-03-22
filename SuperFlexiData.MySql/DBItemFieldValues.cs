@@ -62,7 +62,7 @@ namespace SuperFlexiData
 
 			return Convert.ToInt32(
 				CommandHelper.ExecuteNonQuery(
-					ConnectionString.GetWriteConnectionString(),
+					ConnectionString.GetWrite(),
 					sqlCommand,
 					sqlParams.ToArray()
 				)
@@ -117,7 +117,7 @@ namespace SuperFlexiData
 
 			int rowsAffected = Convert.ToInt32(
 				CommandHelper.ExecuteNonQuery(
-					ConnectionString.GetWriteConnectionString(),
+					ConnectionString.GetWrite(),
 					sqlCommand,
 					sqlParams.ToArray()
 				)
@@ -139,7 +139,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ValueGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = valueGuid };
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -160,7 +160,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?SiteGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = siteGuid };
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -181,7 +181,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid };
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -202,7 +202,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid };
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -223,7 +223,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid };
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -247,7 +247,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ValueGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = valueGuid };
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -263,7 +263,7 @@ namespace SuperFlexiData
 
 			return Convert.ToInt32(
 				CommandHelper.ExecuteScalar(
-					ConnectionString.GetReadConnectionString(),
+					ConnectionString.GetRead(),
 					sqlCommand
 				)
 			);
@@ -281,7 +281,7 @@ namespace SuperFlexiData
 				JOIN `i7_sflexi_fields` f ON f.FieldGuid = v.FieldGuid;";
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand
 			);
 		}
@@ -309,7 +309,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParams.ToArray()
 			);
@@ -352,7 +352,7 @@ namespace SuperFlexiData
 			}
 
 			return CommandHelper.ExecuteReader(
-			   ConnectionString.GetWriteConnectionString(),
+			   ConnectionString.GetWrite(),
 			   sqlCommand,
 			   sqlParams.ToArray()
 			);
@@ -369,7 +369,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ItemGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = itemGuid };
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -387,7 +387,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?ModuleGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = moduleGuid };
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -405,7 +405,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?DefinitionGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = definitionGuid };
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -423,7 +423,7 @@ namespace SuperFlexiData
 			var sqlParam = new MySqlParameter("?FieldGuid", MySqlDbType.Guid) { Direction = ParameterDirection.Input, Value = fieldGuid };
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParam
 			);
@@ -446,7 +446,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				sqlParams.ToArray()
 			);
@@ -468,7 +468,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				sqlParams.ToArray()
 			);
@@ -555,7 +555,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand,
 				sqlParams.ToArray()
 			);
@@ -608,7 +608,7 @@ namespace SuperFlexiData
 			};
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand,
 				sqlParams.ToArray()
 			);

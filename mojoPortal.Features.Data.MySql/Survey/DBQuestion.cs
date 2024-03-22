@@ -108,7 +108,7 @@ public static class DBQuestion
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -214,7 +214,7 @@ public static class DBQuestion
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams.ToArray());
 
@@ -249,7 +249,7 @@ public static class DBQuestion
 		};
 
 		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
+			ConnectionString.GetWrite(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -282,7 +282,7 @@ public static class DBQuestion
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);
@@ -315,7 +315,7 @@ public static class DBQuestion
 		};
 
 		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
+			ConnectionString.GetRead(),
 			sqlCommand,
 			arParams.ToArray()
 		);

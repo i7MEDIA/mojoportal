@@ -89,7 +89,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -116,7 +116,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -139,7 +139,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -162,7 +162,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -185,7 +185,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -208,7 +208,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -231,7 +231,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -254,7 +254,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand,
 				arParams
 			);
@@ -296,7 +296,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand,
 				arParams
 			);
@@ -338,7 +338,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand,
 				arParams
 			);
@@ -380,7 +380,7 @@ namespace mojoPortal.Data
 			}.ToArray();
 
 			return CommandHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
+				ConnectionString.GetRead(),
 				sqlCommand,
 				arParams
 			);

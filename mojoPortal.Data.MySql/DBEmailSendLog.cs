@@ -186,7 +186,7 @@ VALUES (
 
 
 			CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -215,7 +215,7 @@ WHERE Guid = ?Guid;";
 
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -243,7 +243,7 @@ WHERE SiteGuid = ?SiteGuid;";
 
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 
@@ -273,7 +273,7 @@ WHERE ModuleGuid = ?ModuleGuid;";
 
 
 			int rowsAffected = CommandHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
+				ConnectionString.GetWrite(),
 				sqlCommand.ToString(),
 				arParams);
 

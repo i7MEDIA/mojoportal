@@ -4,7 +4,6 @@ using System.Data;
 using System.Globalization;
 using MySqlConnector;
 
-
 namespace mojoPortal.Data;
 
 public static class DBForums
@@ -21,7 +20,6 @@ public static class DBForums
 		int postsPerPage,
 		int threadsPerPage,
 		bool allowAnonymousPosts,
-
 		string rolesThatCanPost,
 		string rolesThatCanModerate,
 		string moderatorNotifyEmail,
@@ -42,19 +40,16 @@ public static class DBForums
 		{
 			moderated = 0;
 		}
-
 		byte active = 1;
 		if (!isActive)
 		{
 			active = 0;
 		}
-
 		byte allowAnonymous = 1;
 		if (!allowAnonymousPosts)
 		{
 			allowAnonymous = 0;
 		}
-
 		int intIncludeInGoogleMap = includeInGoogleMap ? 1 : 0;
 		int intAddNoIndexMeta = addNoIndexMeta ? 1 : 0;
 		int intClosed = closed ? 1 : 0;
@@ -93,177 +88,62 @@ INSERT INTO	mp_Forums (
 	AllowAnonymousPosts 
 ) 
 VALUES (
-	?ModuleID , 
-	?UserID  , 
-	now(), 
-	?Title , 
-	?Description , 
-	?IsModerated , 
-	?IsActive , 
-	?SortOrder , 
-	?PostsPerPage , 
-	?ThreadsPerPage , 
-	?ForumGuid , 
-	?RolesThatCanPost, 
-	?RolesThatCanModerate, 
-	?ModeratorNotifyEmail, 
-	?IncludeInGoogleMap, 
-	?AddNoIndexMeta, 
-	?Closed, 
-	?Visible, 
-	?RequireModeration, 
-	?RequireModForNotify, 
-	?AllowTrustedDirectPosts, 
-	?AllowTrustedDirectNotify, 
-	?AllowAnonymousPosts 
+	?ModuleID 
+	,?UserID  
+	,now()
+	,?Title 
+	,?Description 
+	,?IsModerated 
+	,?IsActive 
+	,?SortOrder 
+	,?PostsPerPage 
+	,?ThreadsPerPage 
+	,?ForumGuid 
+	,?RolesThatCanPost
+	,?RolesThatCanModerate
+	,?ModeratorNotifyEmail
+	,?IncludeInGoogleMap
+	,?AddNoIndexMeta
+	,?Closed
+	,?Visible
+	,?RequireModeration
+	,?RequireModForNotify
+	,?AllowTrustedDirectPosts
+	,?AllowTrustedDirectNotify
+	,?AllowAnonymousPosts 
 );
 SELECT LAST_INSERT_ID();";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ModuleID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moduleId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?Title", MySqlDbType.VarChar, 100)
-			{
-				Direction = ParameterDirection.Input,
-				Value = title
-			},
-
-			new("?Description", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = description
-			},
-
-			new("?IsModerated", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moderated
-			},
-
-			new("?IsActive", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = active
-			},
-
-			new("?SortOrder", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = sortOrder
-			},
-
-			new("?PostsPerPage", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postsPerPage
-			},
-
-			new("?ThreadsPerPage", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadsPerPage
-			},
-
-			new("?AllowAnonymousPosts", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = allowAnonymous
-			},
-
-			new("?ForumGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumGuid.ToString()
-			},
-
-			new("?RolesThatCanPost", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = rolesThatCanPost
-			},
-
-			new("?RolesThatCanModerate", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = rolesThatCanModerate
-			},
-
-			new("?ModeratorNotifyEmail", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moderatorNotifyEmail
-			},
-
-			new("?IncludeInGoogleMap", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intIncludeInGoogleMap
-			},
-
-			new("?AddNoIndexMeta", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intAddNoIndexMeta
-			},
-
-			new("?Closed", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intClosed
-			},
-
-			new("?Visible", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intVisible
-			},
-
-			new("?RequireModeration", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intRequireModeration
-			},
-
-			new("?RequireModForNotify", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intRequireModForNotify
-			},
-
-			new("?AllowTrustedDirectPosts", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intAllowTrustedDirectPosts
-			},
-
-			new("?AllowTrustedDirectNotify", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intAllowTrustedDirectNotify
-			}
+			new("?ModuleID", MySqlDbType.Int32){Value = moduleId},
+			new("?UserID", MySqlDbType.Int32){Value = userId},
+			new("?Title", MySqlDbType.VarChar, 100){Value = title},
+			new("?Description", MySqlDbType.Text){Value = description},
+			new("?IsModerated", MySqlDbType.Int32){Value = moderated},
+			new("?IsActive", MySqlDbType.Int32){Value = active},
+			new("?SortOrder", MySqlDbType.Int32){Value = sortOrder},
+			new("?PostsPerPage", MySqlDbType.Int32){Value = postsPerPage},
+			new("?ThreadsPerPage", MySqlDbType.Int32){Value = threadsPerPage},
+			new("?AllowAnonymousPosts", MySqlDbType.Int32){Value = allowAnonymous},
+			new("?ForumGuid", MySqlDbType.VarChar, 36){Value = forumGuid.ToString()},
+			new("?RolesThatCanPost", MySqlDbType.Text){Value = rolesThatCanPost},
+			new("?RolesThatCanModerate", MySqlDbType.Text){Value = rolesThatCanModerate},
+			new("?ModeratorNotifyEmail", MySqlDbType.Text){Value = moderatorNotifyEmail},
+			new("?IncludeInGoogleMap", MySqlDbType.Int32){Value = intIncludeInGoogleMap},
+			new("?AddNoIndexMeta", MySqlDbType.Int32){Value = intAddNoIndexMeta},
+			new("?Closed", MySqlDbType.Int32){Value = intClosed},
+			new("?Visible", MySqlDbType.Int32){Value = intVisible},
+			new("?RequireModeration", MySqlDbType.Int32){Value = intRequireModeration},
+			new("?RequireModForNotify", MySqlDbType.Int32){Value = intRequireModForNotify},
+			new("?AllowTrustedDirectPosts", MySqlDbType.Int32){Value = intAllowTrustedDirectPosts},
+			new("?AllowTrustedDirectNotify", MySqlDbType.Int32){Value = intAllowTrustedDirectNotify}
 		};
 
-		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams).ToString());
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetWrite(), sqlCommand, sqlParams).ToString());
 
 		return newID;
-
 	}
-
-
 
 	public static bool Update(
 		int itemId,
@@ -296,13 +176,11 @@ SELECT LAST_INSERT_ID();";
 		{
 			moderated = 0;
 		}
-
 		byte active = 1;
 		if (!isActive)
 		{
 			active = 0;
 		}
-
 		byte allowAnonymous = 1;
 		if (!allowAnonymousPosts)
 		{
@@ -324,158 +202,55 @@ SELECT LAST_INSERT_ID();";
 UPDATE 
 	mp_Forums 
 SET	
-	Title = ?Title, 
-	Description = ?Description, 
-	IsModerated = ?IsModerated, 
-	IsActive = ?IsActive, 
-	SortOrder = ?SortOrder, 
-	PostsPerPage = ?PostsPerPage, 
-	ThreadsPerPage = ?ThreadsPerPage, 
-	RolesThatCanPost = ?RolesThatCanPost, 
-	RolesThatCanModerate = ?RolesThatCanModerate, 
-	ModeratorNotifyEmail = ?ModeratorNotifyEmail, 
-	IncludeInGoogleMap = ?IncludeInGoogleMap, 
-	AddNoIndexMeta = ?AddNoIndexMeta, 
-	Closed = ?Closed, 
-	Visible = ?Visible, 
-	RequireModeration = ?RequireModeration, 
-	RequireModForNotify = ?RequireModForNotify, 
-	AllowTrustedDirectPosts = ?AllowTrustedDirectPosts, 
-	AllowTrustedDirectNotify = ?AllowTrustedDirectNotify, 
-	AllowAnonymousPosts = ?AllowAnonymousPosts 
+	Title = ?Title 
+	,Description = ?Description 
+	,IsModerated = ?IsModerated 
+	,IsActive = ?IsActive 
+	,SortOrder = ?SortOrder 
+	,PostsPerPage = ?PostsPerPage 
+	,ThreadsPerPage = ?ThreadsPerPage 
+	,RolesThatCanPost = ?RolesThatCanPost 
+	,RolesThatCanModerate = ?RolesThatCanModerate 
+	,ModeratorNotifyEmail = ?ModeratorNotifyEmail 
+	,IncludeInGoogleMap = ?IncludeInGoogleMap 
+	,AddNoIndexMeta = ?AddNoIndexMeta 
+	,Closed = ?Closed 
+	,Visible = ?Visible 
+	,RequireModeration = ?RequireModeration 
+	,RequireModForNotify = ?RequireModForNotify 
+	,AllowTrustedDirectPosts = ?AllowTrustedDirectPosts 
+	,AllowTrustedDirectNotify = ?AllowTrustedDirectNotify 
+	,AllowAnonymousPosts = ?AllowAnonymousPosts 
 WHERE 
 	ItemID = ?ItemID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = itemId
-			},
-
-			new("?Title", MySqlDbType.VarChar, 100)
-			{
-				Direction = ParameterDirection.Input,
-				Value = title
-			},
-
-			new("?Description", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = description
-			},
-
-			new("?IsModerated", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moderated
-			},
-
-			new("?IsActive", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = active
-			},
-
-			new("?SortOrder", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = sortOrder
-			},
-
-			new("?PostsPerPage", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postsPerPage
-			},
-
-			new("?ThreadsPerPage", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadsPerPage
-			},
-
-			new("?AllowAnonymousPosts", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = allowAnonymous
-			},
-
-			new("?RolesThatCanPost", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = rolesThatCanPost
-			},
-
-			new("?RolesThatCanModerate", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = rolesThatCanModerate
-			},
-
-			new("?ModeratorNotifyEmail", MySqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moderatorNotifyEmail
-			},
-
-			new("?IncludeInGoogleMap", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intIncludeInGoogleMap
-			},
-
-			new("?AddNoIndexMeta", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intAddNoIndexMeta
-			},
-
-			new("?Closed", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intClosed
-			},
-
-			new("?Visible", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intVisible
-			},
-
-			new("?RequireModeration", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intRequireModeration
-			},
-
-			new("?RequireModForNotify", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intRequireModForNotify
-			},
-
-			new("?AllowTrustedDirectPosts", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intAllowTrustedDirectPosts
-			},
-
-			new("?AllowTrustedDirectNotify", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intAllowTrustedDirectNotify
-			}
+			new("?ItemID", MySqlDbType.Int32){Value = itemId},
+			new("?Title", MySqlDbType.VarChar, 100){Value = title},
+			new("?Description", MySqlDbType.Text){Value = description},
+			new("?IsModerated", MySqlDbType.Int32){Value = moderated},
+			new("?IsActive", MySqlDbType.Int32){Value = active},
+			new("?SortOrder", MySqlDbType.Int32){Value = sortOrder},
+			new("?PostsPerPage", MySqlDbType.Int32){Value = postsPerPage},
+			new("?ThreadsPerPage", MySqlDbType.Int32){Value = threadsPerPage},
+			new("?AllowAnonymousPosts", MySqlDbType.Int32){Value = allowAnonymous},
+			new("?RolesThatCanPost", MySqlDbType.Text){Value = rolesThatCanPost},
+			new("?RolesThatCanModerate", MySqlDbType.Text){Value = rolesThatCanModerate},
+			new("?ModeratorNotifyEmail", MySqlDbType.Text){Value = moderatorNotifyEmail},
+			new("?IncludeInGoogleMap", MySqlDbType.Int32){Value = intIncludeInGoogleMap},
+			new("?AddNoIndexMeta", MySqlDbType.Int32){Value = intAddNoIndexMeta},
+			new("?Closed", MySqlDbType.Int32){Value = intClosed},
+			new("?Visible", MySqlDbType.Int32){Value = intVisible},
+			new("?RequireModeration", MySqlDbType.Int32){Value = intRequireModeration},
+			new("?RequireModForNotify", MySqlDbType.Int32){Value = intRequireModForNotify},
+			new("?AllowTrustedDirectPosts", MySqlDbType.Int32){Value = intAllowTrustedDirectPosts},
+			new("?AllowTrustedDirectNotify", MySqlDbType.Int32){Value = intAllowTrustedDirectNotify}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool Delete(int itemId)
@@ -487,35 +262,23 @@ WHERE ThreadID IN (
 	FROM mp_ForumThreads 
 	WHERE ForumID = ?ItemID 
 );
+
 DELETE FROM mp_ForumThreadSubscriptions 
 WHERE ThreadID IN (
 	SELECT ThreadID 
 	FROM mp_ForumThreads 
 	WHERE ForumID = ?ItemID 
 );
-DELETE FROM mp_ForumThreads 
-WHERE ForumID = ?itemId ;
-DELETE FROM mp_ForumSubscriptions 
-WHERE ForumID = ?ItemID ;
-DELETE FROM mp_Forums 
-WHERE ItemID = ?ItemID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = itemId
-			}
-		};
+DELETE FROM mp_ForumThreads WHERE ForumID = ?ItemId;
+DELETE FROM mp_ForumSubscriptions WHERE ForumID = ?ItemID;
+DELETE FROM mp_Forums WHERE ItemID = ?ItemID ;";
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		var param = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Value = itemId };
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static bool DeleteByModule(int moduleId)
@@ -531,6 +294,7 @@ WHERE ThreadID IN (
 		WHERE ModuleID = ?ModuleID
 	) 
 );
+
 DELETE FROM mp_ForumThreadSubscriptions 
 WHERE ThreadID IN (
 	SELECT ThreadID 
@@ -541,37 +305,28 @@ WHERE ThreadID IN (
 		WHERE ModuleID = ?ModuleID
 	) 
 );
+
 DELETE FROM mp_ForumThreads 
 WHERE ForumID IN (
 	SELECT ItemID 
 	FROM mp_Forums 
 	WHERE ModuleID = ?ModuleId
 );
+
 DELETE FROM mp_ForumSubscriptions 
 WHERE ForumID IN (
 	SELECT ItemID 
 	FROM mp_Forums 
 	WHERE ModuleID = ?ModuleID
-) ;
-DELETE FROM mp_Forums 
-WHERE ModuleID = ?moduleId";
+);
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ModuleID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moduleId
-			}
-		};
+DELETE FROM mp_Forums WHERE ModuleID = ?moduleId";
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		var param = new MySqlParameter("?ModuleID", MySqlDbType.Int32) { Value = moduleId };
+
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static bool DeleteBySite(int siteId)
@@ -591,6 +346,7 @@ WHERE ThreadID IN (
 		) 
 	) 
 );
+
 DELETE FROM mp_ForumThreadSubscriptions 
 WHERE ThreadID IN (
 	SELECT ThreadID 
@@ -605,6 +361,7 @@ WHERE ThreadID IN (
 		) 
 	) 
 );
+
 DELETE FROM mp_ForumThreads 
 WHERE ForumID IN (
 	SELECT ItemID 
@@ -615,6 +372,7 @@ WHERE ForumID IN (
 		WHERE SiteID = ?SiteID
 	) 
 );
+
 DELETE FROM mp_ForumSubscriptions 
 WHERE ForumID IN (
 	SELECT ItemID 
@@ -625,6 +383,7 @@ WHERE ForumID IN (
 		WHERE SiteID = ?SiteID
 	) 
 );
+
 DELETE FROM mp_Forums 
 WHERE ModuleID IN (
 	SELECT ModuleID 
@@ -632,29 +391,15 @@ WHERE ModuleID IN (
 	WHERE SiteID = ?SiteID
 );";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			}
-		};
+		var param = new MySqlParameter("?SiteID", MySqlDbType.Int32) { Value = siteId };
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > 0;
-
 	}
-
-
 
 	public static IDataReader GetForums(int moduleId, int userId)
 	{
-
 		string sqlCommand = @"
 SELECT 
 	f.*, 
@@ -669,9 +414,7 @@ SELECT
 	As SubscriberCount  
 FROM 
 	mp_Forums f 
-LEFT OUTER JOIN 
-	mp_Users u 
-ON 
+LEFT OUTER JOIN mp_Users u ON 
 	f.MostRecentPostUserID = u.UserID 
 LEFT OUTER JOIN	
 	mp_ForumSubscriptions s 
@@ -686,26 +429,13 @@ ORDER BY
 	f.SortOrder, 
 	f.ItemID ; ";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ModuleID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moduleId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
+			new("?ModuleID", MySqlDbType.Int32){Value = moduleId},
+			new("?UserID", MySqlDbType.Int32){Value = userId}
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
 
 	public static IDataReader GetForum(int itemId)
@@ -728,28 +458,13 @@ ON
 WHERE 
 	f.ItemID = ?ItemID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = itemId
-			}
-		};
+		var param = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Value = itemId };
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 	}
 
-	public static bool IncrementPostCount(
-		int forumId,
-		int mostRecentPostUserId,
-		DateTime mostRecentPostDate)
+	public static bool IncrementPostCount(int forumId, int mostRecentPostUserId, DateTime mostRecentPostDate)
 	{
-
 		string sqlCommand = @"
 UPDATE mp_Forums 
 SET 
@@ -758,32 +473,16 @@ SET
 	PostCount = PostCount + 1 
 WHERE ItemID = ?ItemID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?MostRecentPostUserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = mostRecentPostUserId
-			},
-
-			new("?MostRecentPostDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = mostRecentPostDate
-			}
+			new("?ItemID", MySqlDbType.Int32){Value = forumId},
+			new("?MostRecentPostUserID", MySqlDbType.Int32){Value = mostRecentPostUserId},
+			new("?MostRecentPostDate", MySqlDbType.DateTime){Value = mostRecentPostDate}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(), sqlCommand.ToString(), arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool UpdateUserStats(int userId)
@@ -801,76 +500,33 @@ SET
 		{
 			sqlCommand += "WHERE UserID = ?UserID ;";
 		}
+		var param = new MySqlParameter("?UserID", MySqlDbType.Int32) { Value = userId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
-		};
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool IncrementPostCount(int forumId)
 	{
+		string sqlCommand = "UPDATE mp_Forums SET PostCount = PostCount + 1 WHERE ItemID = ?ItemID ;";
 
-		string sqlCommand = @"
-UPDATE mp_Forums 
-SET PostCount = PostCount + 1 
-WHERE ItemID = ?ItemID ;";
+		var param = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Value = forumId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool DecrementPostCount(int forumId)
 	{
+		string sqlCommand = @"UPDATE mp_Forums SET PostCount = PostCount - 1 WHERE ItemID = ?ItemID ;";
 
-		string sqlCommand = @"
-UPDATE mp_Forums 
-SET PostCount = PostCount - 1 
-WHERE ItemID = ?ItemID ;";
+		var param = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Value = forumId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
-
 	}
 
 	public static bool RecalculatePostStats(int forumId)
@@ -879,15 +535,7 @@ WHERE ItemID = ?ItemID ;";
 		int mostRecentPostUserID = -1;
 		int postCount = 0;
 
-
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
+		var param = new MySqlParameter("?ForumID", MySqlDbType.Int32) { Value = forumId };
 
 		string sqlCommand = @"
 SELECT 
@@ -898,12 +546,8 @@ WHERE ForumID = ?ForumID
 ORDER BY MostRecentPostDate DESC 
 LIMIT 1 ;";
 
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param))
 		{
-
 			if (reader.Read())
 			{
 				if (reader["MostRecentPostUserID"] != DBNull.Value)
@@ -923,12 +567,8 @@ COALESCE(SUM(TotalReplies) + COUNT(*),0) As PostCount
 FROM mp_ForumThreads 
 WHERE ForumID = ?ForumID ;";
 
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand1.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand1.ToString(), param))
 		{
-
 			if (reader.Read())
 			{
 				postCount = Convert.ToInt32(reader["PostCount"]);
@@ -943,94 +583,40 @@ MostRecentPostUserID = ?MostRecentPostUserID,
 PostCount = ?PostCount 
 WHERE ItemID = ?ForumID ;";
 
-		var arParams3 = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?MostRecentPostDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = mostRecentPostDate
-			},
-
-			new("?MostRecentPostUserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = mostRecentPostUserID
-			},
-
-			new("?PostCount", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postCount
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?MostRecentPostDate", MySqlDbType.DateTime) { Value = mostRecentPostDate },
+			new("?MostRecentPostUserID", MySqlDbType.Int32) { Value = mostRecentPostUserID },
+			new("?PostCount", MySqlDbType.Int32) { Value = postCount }
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand2.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand2.ToString(), sqlParams);
 
 		return rowsAffected > -1;
-
 	}
-
 
 	public static bool IncrementThreadCount(int forumId)
 	{
-		string sqlCommand = @"
-UPDATE mp_Forums 
-SET	ThreadCount = ThreadCount + 1 
-WHERE ItemID = ?ItemID ;";
+		string sqlCommand = @"UPDATE mp_Forums SET ThreadCount = ThreadCount + 1 WHERE ItemID = ?ItemID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
+		var param = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Value = forumId };
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool DecrementThreadCount(int forumId)
 	{
+		string sqlCommand = @"UPDATE mp_Forums SET ThreadCount = ThreadCount - 1 WHERE ItemID = ?ItemID;";
 
-		string sqlCommand = @"
-UPDATE mp_Forums 
-SET ThreadCount = ThreadCount - 1 
-WHERE ItemID = ?ItemID;";
+		var param = new MySqlParameter("?ItemID", MySqlDbType.Int32) { Value = forumId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ItemID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
-
 
 	public static int GetUserThreadCount(int userId, int siteId)
 	{
@@ -1048,34 +634,16 @@ AND ft.ThreadID IN (
 	WHERE mp_ForumPosts.UserID = ?UserID
 );";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			}
+			new("?UserID", MySqlDbType.Int32) { Value = userId },
+			new("?SiteID", MySqlDbType.Int32) { Value = siteId }
 		};
 
-		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams));
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetRead(), sqlCommand, sqlParams));
 	}
 
-
-	public static IDataReader GetThreadPageByUser(
-		int userId,
-		int siteId,
-		int pageNumber,
-		int pageSize,
-		out int totalPages)
+	public static IDataReader GetThreadPageByUser(int userId, int siteId, int pageNumber, int pageSize, out int totalPages)
 	{
 		int pageLowerBound = (pageSize * pageNumber) - pageSize;
 		totalPages = 1;
@@ -1089,14 +657,12 @@ AND ft.ThreadID IN (
 		}
 		else
 		{
-			int remainder;
-			Math.DivRem(totalRows, pageSize, out remainder);
+			Math.DivRem(totalRows, pageSize, out int remainder);
 			if (remainder > 0)
 			{
 				totalPages += 1;
 			}
 		}
-
 		string sqlCommand = $@"
 SELECT	 
 	t.*, 
@@ -1113,12 +679,8 @@ SELECT
 	s.Name As StartedBy 
 FROM 
 	mp_ForumThreads t 
-JOIN 
-	mp_Forums f 
-ON t.ForumID = f.ItemID 
-JOIN 
-	mp_Modules m 
-ON f.ModuleID = m.ModuleID 
+JOIN mp_Forums f ON t.ForumID = f.ItemID 
+JOIN mp_Modules m ON f.ModuleID = m.ModuleID 
 LEFT OUTER JOIN	
 	mp_Users u 
 ON t.MostRecentPostUserID = u.UserID 
@@ -1138,42 +700,16 @@ LIMIT
 	{pageLowerBound.ToString(CultureInfo.InvariantCulture)}, 
 	?PageSize ;";
 
-
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?PageSize", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageSize
-			},
-
-			new ("?CurrentDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			},
-
-			new ("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			}
+			new("?UserID", MySqlDbType.Int32) { Value = userId },
+			new("?PageSize", MySqlDbType.Int32) { Value = pageSize },
+			new ("?CurrentDate", MySqlDbType.DateTime) { Value = DateTime.UtcNow },
+			new ("?SiteID", MySqlDbType.Int32) { Value = siteId }
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
-
-
 
 	public static IDataReader GetThreadsForSiteMap(int siteId)
 	{
@@ -1186,42 +722,21 @@ SELECT
 	p.PageID, 
 	p.AuthorizedRoles 
 FROM mp_ForumThreads ft 
-JOIN 
-	mp_Forums f 
-ON f.ItemID = ft.ForumID 
-JOIN 
-	mp_Modules m 
-ON f.ModuleID = m.ModuleID 
-JOIN 
-	mp_PageModules pm 
-ON pm.ModuleID = m.ModuleID 
-JOIN 
-	mp_Pages p 
-ON p.PageID = pm.PageID 
+JOIN mp_Forums f ON f.ItemID = ft.ForumID 
+JOIN mp_Modules m ON f.ModuleID = m.ModuleID 
+JOIN mp_PageModules pm ON pm.ModuleID = m.ModuleID 
+JOIN mp_Pages p ON p.PageID = pm.PageID 
 WHERE p.SiteID = ?SiteID 
 AND ft.IncludeInSiteMap = 1 
 ORDER BY ft.ThreadID DESC ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			}
-		};
+		var param = new MySqlParameter("?SiteID", MySqlDbType.Int32) { Value = siteId };
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 	}
-
 
 	public static IDataReader GetThreads(int forumId, int pageNumber)
 	{
-
 		int pageSize = 1;
 		int totalRows = 0;
 		using (IDataReader reader = GetForum(forumId))
@@ -1232,7 +747,6 @@ ORDER BY ft.ThreadID DESC ;";
 				totalRows = Convert.ToInt32(reader["ThreadCount"]);
 			}
 		}
-
 		int totalPages = totalRows / pageSize;
 		if (totalRows <= pageSize)
 		{
@@ -1240,8 +754,7 @@ ORDER BY ft.ThreadID DESC ;";
 		}
 		else
 		{
-			int remainder = 0;
-			Math.DivRem(totalRows, pageSize, out remainder);
+			Math.DivRem(totalRows, pageSize, out int remainder);
 			if (remainder > 0)
 			{
 				totalPages += 1;
@@ -1249,7 +762,6 @@ ORDER BY ft.ThreadID DESC ;";
 		}
 
 		int offset = pageSize * (pageNumber - 1);
-
 
 		string sqlCommand = @"
 SELECT	 
@@ -1260,9 +772,7 @@ FROM mp_ForumThreads t
 LEFT OUTER JOIN	
 	mp_Users u 
 ON t.MostRecentPostUserID = u.UserID 
-LEFT OUTER JOIN 
-	mp_Users s 
-ON t.StartedByUserID = s.UserID 
+LEFT OUTER JOIN mp_Users s ON t.StartedByUserID = s.UserID 
 WHERE t.ForumID = ?ForumID 
 ORDER BY 
 	t.SortOrder, 
@@ -1276,47 +786,21 @@ ORDER BY
 		{
 			sqlCommand += "LIMIT {pageSize.ToString(CultureInfo.InvariantCulture)} ";
 		}
-
 		sqlCommand += " ; ";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
+		var sqlParams = new MySqlParameter("?ForumID", MySqlDbType.Int32) { Value = forumId };
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
-
 	public static int ForumThreadGetPostCount(int threadId)
 	{
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		string sqlCommand = "SELECT COUNT(*) FROM mp_ForumPosts WHERE ThreadID = ?ThreadID; ";
 
-		string sqlCommand = @"
-SELECT COUNT(*) FROM mp_ForumPosts WHERE ThreadID = ?ThreadID; ";
-
-		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams).ToString());
+		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetRead(), sqlCommand, param));
 
 		return count;
-
 	}
 
 	public static int GetSubscriberCount(int forumId)
@@ -1327,28 +811,12 @@ FROM mp_ForumSubscriptions
 WHERE ForumID = ?ForumID 
 AND UnSubscribeDate IS NULL ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
+		var param = new MySqlParameter("?ForumID", MySqlDbType.Int32) { Value = forumId };
 
-		return Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams));
-
+		return Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetRead(), sqlCommand, param));
 	}
 
-
-	public static IDataReader GetSubscriberPage(
-		int forumId,
-		int pageNumber,
-		int pageSize,
-		out int totalPages)
+	public static IDataReader GetSubscriberPage(int forumId, int pageNumber, int pageSize, out int totalPages)
 	{
 		int pageLowerBound = (pageSize * pageNumber) - pageSize;
 		totalPages = 1;
@@ -1362,14 +830,12 @@ AND UnSubscribeDate IS NULL ;";
 		}
 		else
 		{
-			int remainder;
-			Math.DivRem(totalRows, pageSize, out remainder);
+			Math.DivRem(totalRows, pageSize, out int remainder);
 			if (remainder > 0)
 			{
 				totalPages += 1;
 			}
 		}
-
 		string sqlCommand = @"
 SELECT 
 	fs.SubscriptionID, 
@@ -1378,9 +844,7 @@ SELECT
 	u.LoginName, 
 	u.Email 
 FROM mp_ForumSubscriptions fs  
-LEFT OUTER JOIN 
-	mp_Users u 
-ON 
+LEFT OUTER JOIN mp_Users u ON 
 	u.UserID = fs.UserID 
 WHERE 
 	fs.ForumID = ?ForumID 
@@ -1394,37 +858,17 @@ LIMIT ?PageSize ";
 		{
 			sqlCommand += "OFFSET ?OffsetRows ";
 		}
-
 		sqlCommand += ";";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?PageSize", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageSize
-			},
-
-			new("?OffsetRows", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageLowerBound
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?PageSize", MySqlDbType.Int32) { Value = pageSize },
+			new("?OffsetRows", MySqlDbType.Int32) { Value = pageLowerBound }
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
-
 
 	public static bool AddSubscriber(int forumId, int userId, Guid subGuid)
 	{
@@ -1433,57 +877,30 @@ SELECT COUNT(*) As SubscriptionCount
 FROM mp_ForumSubscriptions  
 WHERE ForumID = ?ForumID AND UserID = ?UserID AND UnSubscribeDate IS NULL ; ";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?UserID", MySqlDbType.Int32) { Value = userId }
 		};
 
 		int subscriptionCount = 0;
 
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams))
 		{
 			if (reader.Read())
 			{
 				subscriptionCount = Convert.ToInt32(reader["SubscriptionCount"]);
 			}
 		}
-
 		int rowsAffected = -1;
 
 		if (subscriptionCount > 0)
 		{
-			var arParams1 = new List<MySqlParameter>
+			var sqlParams1 = new MySqlParameter[]
 			{
-				new("?ForumID", MySqlDbType.Int32)
-				{
-					Direction = ParameterDirection.Input,
-					Value = forumId
-				},
-
-				new("?UserID", MySqlDbType.Int32)
-				{
-					Direction = ParameterDirection.Input,
-					Value = userId
-				},
-
-				new("?SubscribeDate", MySqlDbType.DateTime)
-				{
-					Direction = ParameterDirection.Input,
-					Value = DateTime.UtcNow
-				}
+				new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+				new("?UserID", MySqlDbType.Int32) { Value = userId },
+				new("?SubscribeDate", MySqlDbType.DateTime) { Value = DateTime.UtcNow }
 			};
 
 			string sqlCommand1 = @"
@@ -1493,38 +910,15 @@ WHERE ForumID = ?ForumID
 AND UserID = ?UserID 
 AND UnSubscribeDate IS NULL ;";
 
-			rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand1.ToString(),
-			arParams1);
-
+			rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand1.ToString(), sqlParams1);
 		}
 
-		var arParams2 = new List<MySqlParameter>
+		var sqlParams2 = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?SubscribeDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			},
-
-			new("?SubGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subGuid.ToString()
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?UserID", MySqlDbType.Int32) { Value = userId },
+			new("?SubscribeDate", MySqlDbType.DateTime) { Value = DateTime.UtcNow },
+			new("?SubGuid", MySqlDbType.VarChar, 36) { Value = subGuid.ToString() }
 		};
 
 		string sqlCommand2 = @"
@@ -1541,65 +935,29 @@ VALUES (
 	?SubscribeDate
 ) ;";
 
-		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand2.ToString(),
-			arParams2);
-
+		rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand2.ToString(), sqlParams2);
 
 		return rowsAffected > -1;
-
-
-
 	}
 
 	public static bool DeleteSubscription(int subscriptionId)
 	{
-		string sqlCommand = @"
-DELETE FROM mp_ForumSubscriptions 
-WHERE SubscriptionID = ?SubscriptionID ;";
+		string sqlCommand = @"DELETE FROM mp_ForumSubscriptions WHERE SubscriptionID = ?SubscriptionID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?SubscriptionID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subscriptionId
-			}
-		};
+		var param = new MySqlParameter("?SubscriptionID", MySqlDbType.Int32) { Value = subscriptionId };
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > 0;
-
 	}
 
 	public static IDataReader GetForumSubscription(Guid subGuid)
 	{
+		string sqlCommand = @"SELECT * FROM mp_ForumSubscriptions WHERE SubGuid = ?SubGuid ;";
 
-		string sqlCommand = @"
-SELECT * 
-FROM mp_ForumSubscriptions 
-WHERE SubGuid = ?SubGuid ;";
+		var param = new MySqlParameter("?SubGuid", MySqlDbType.VarChar, 36) { Value = subGuid.ToString() };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?SubGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subGuid.ToString()
-			}
-		};
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 	}
 
 	public static bool Unsubscribe(Guid subGuid)
@@ -1609,28 +967,15 @@ UPDATE mp_ForumSubscriptions
 SET UnSubscribeDate = ?UnSubscribeDate 
 WHERE SubGuid = ?SubGuid ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?SubGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subGuid.ToString()
-			},
-
-			new("?UnSubscribeDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			}
+			new("?SubGuid", MySqlDbType.VarChar, 36) { Value = subGuid },
+			new("?UnSubscribeDate", MySqlDbType.DateTime) { Value = DateTime.UtcNow }
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool Unsubscribe(int forumId, int userId)
@@ -1640,34 +985,16 @@ UPDATE mp_ForumSubscriptions
 SET UnSubscribeDate = ?UnSubscribeDate 
 WHERE ForumID = ?ForumID AND UserID = ?UserID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?UnSubscribeDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?UserID", MySqlDbType.Int32) { Value = userId },
+			new("?UnSubscribeDate", MySqlDbType.DateTime) { Value = DateTime.UtcNow }
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool UnsubscribeAll(int userId)
@@ -1677,28 +1004,15 @@ UPDATE mp_ForumSubscriptions
 SET UnSubscribeDate = ?UnSubscribeDate 
 WHERE UserID = ?UserID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?UnSubscribeDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			}
+			new("?UserID", MySqlDbType.Int32) { Value = userId },
+			new("?UnSubscribeDate", MySqlDbType.DateTime) { Value = DateTime.UtcNow }
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
 
 	public static bool ForumSubscriptionExists(int forumId, int userId)
@@ -1710,28 +1024,15 @@ WHERE ForumID = ?ForumID
 AND UserID = ?UserID 
 AND UnSubscribeDate IS NULL ; ";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?UserID", MySqlDbType.Int32) { Value = userId }
 		};
 
-		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams));
+		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetRead(), sqlCommand, sqlParams));
 
-		return (count > 0);
-
+		return count > 0;
 	}
 
 	public static bool ForumThreadSubscriptionExists(int threadId, int userId)
@@ -1743,36 +1044,19 @@ WHERE ThreadID = ?ThreadID
 AND UserID = ?UserID 
 AND UnSubscribeDate IS NULL ; ";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?UserID", MySqlDbType.Int32) { Value = userId }
 		};
 
-		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams));
+		int count = Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetRead(), sqlCommand, sqlParams));
 
-		return (count > 0);
-
+		return count > 0;
 	}
-
-
-
 
 	public static IDataReader ForumThreadGetThread(int threadId)
 	{
-
 		string sqlCommand = @"
 SELECT 
 	t.*, 
@@ -1781,55 +1065,23 @@ SELECT
 	f.PostsPerPage, 
 	f.ModuleID 
 FROM mp_ForumThreads t 
-LEFT OUTER JOIN 
-	mp_Users u 
-ON t.MostRecentPostUserID = u.UserID 
-LEFT OUTER JOIN 
-	mp_Users s 
-ON t.StartedByUserID = s.UserID 
-JOIN 
-	mp_Forums f 
-ON f.ItemID = t.ForumID 
+LEFT OUTER JOIN mp_Users u ON t.MostRecentPostUserID = u.UserID 
+LEFT OUTER JOIN mp_Users s ON t.StartedByUserID = s.UserID 
+JOIN mp_Forums f ON f.ItemID = t.ForumID 
 WHERE t.ThreadID = ?ThreadID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var @params = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, @params);
 	}
 
 	public static IDataReader ForumThreadGetPost(int postId)
 	{
+		string sqlCommand = @"SELECT fp.* FROM mp_ForumPosts fp WHERE fp.PostID = ?PostID ;";
 
-		string sqlCommand = @"
-SELECT fp.* 
-FROM mp_ForumPosts fp 
-WHERE fp.PostID = ?PostID ;";
+		var param = new MySqlParameter("?PostID", MySqlDbType.Int32) { Value = postId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?PostID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postId
-			}
-		};
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 
 	}
 
@@ -1851,16 +1103,12 @@ WHERE fp.PostID = ?PostID ;";
 
 		byte locked = 1;
 		if (!isLocked) { locked = 0; }
-
 		byte isQ = 1;
 		if (!isQuestion) { isQ = 0; }
-
 		byte inMap = 1;
 		if (!includeInSiteMap) { inMap = 0; }
-
 		byte noIndex = 1;
 		if (!setNoIndexMeta) { noIndex = 0; }
-
 		int forumSequence = 1;
 
 		string sqlCommand = @"
@@ -1871,26 +1119,15 @@ As ForumSequence
 FROM mp_ForumThreads 
 WHERE ForumID = ?ForumID ; ";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			}
-		};
+		var param = new MySqlParameter("?ForumID", MySqlDbType.Int32) { Value = forumId };
 
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param))
 		{
 			if (reader.Read())
 			{
 				forumSequence = Convert.ToInt32(reader["ForumSequence"]);
 			}
 		}
-
 
 		string sqlCommand1 = @"
 INSERT INTO mp_ForumThreads ( 
@@ -1931,102 +1168,28 @@ VALUES (
 );
 SELECT LAST_INSERT_ID();";
 
-		var arParams1 = new List<MySqlParameter>
+		var sqlParams1 = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?ThreadSubject", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadSubject
-			},
-
-			new("?SortOrder", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = sortOrder
-			},
-
-			new("?IsLocked", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = locked
-			},
-
-			new("?StartedByUserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = startedByUserId
-			},
-
-			new("?ThreadDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadDate
-			},
-
-			new("?ForumSequence", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumSequence
-			},
-
-			new("?ThreadGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadGuid.ToString()
-			},
-
-			new("?IsQuestion", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = isQ
-			},
-
-			new("?IncludeInSiteMap", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = inMap
-			},
-
-			new("?SetNoIndexMeta", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = noIndex
-			},
-
-			new("?PTitleOverride", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageTitleOverride
-			},
-
-			new("?ModStatus", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = modStatus
-			},
-
-			new("?ThreadType", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadType
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?ThreadSubject", MySqlDbType.VarChar, 255) { Value = threadSubject },
+			new("?SortOrder", MySqlDbType.Int32) { Value = sortOrder },
+			new("?IsLocked", MySqlDbType.Int32) { Value = locked },
+			new("?StartedByUserID", MySqlDbType.Int32) { Value = startedByUserId },
+			new("?ThreadDate", MySqlDbType.DateTime) { Value = threadDate },
+			new("?ForumSequence", MySqlDbType.Int32) { Value = forumSequence },
+			new("?ThreadGuid", MySqlDbType.VarChar, 36) { Value = threadGuid },
+			new("?IsQuestion", MySqlDbType.Int32) { Value = isQ },
+			new("?IncludeInSiteMap", MySqlDbType.Int32) { Value = inMap },
+			new("?SetNoIndexMeta", MySqlDbType.Int32) { Value = noIndex },
+			new("?PTitleOverride", MySqlDbType.VarChar, 255) { Value = pageTitleOverride },
+			new("?ModStatus", MySqlDbType.Int32) { Value = modStatus },
+			new("?ThreadType", MySqlDbType.VarChar, 255) { Value = threadType }
 		};
 
-		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand1.ToString(),
-			arParams1).ToString()
-		);
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetWrite(), sqlCommand1, sqlParams1));
 
 		return newID;
 	}
-
 
 	public static bool ForumThreadDelete(int threadId)
 	{
@@ -2046,71 +1209,34 @@ SET MostRecentPostDate = (
 );
 DELETE FROM mp_ForumThreads WHERE ThreadID = ?ThreadID;";
 
-		var sqlParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		var rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand,
-			sqlParams
-		);
+		var rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
 	}
-
 
 	public static bool ForumThreadDeletePosts(int threadId)
 	{
 		var sqlCommand = "DELETE FROM mp_ForumPosts WHERE ThreadID = ?ThreadID ;";
 
-		var sqlParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		var rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand,
-			sqlParams
-		);
+		var rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
-
 
 	public static bool ForumThreadDeleteSubscriptions(int threadId)
 	{
 		var sqlCommand = "DELETE FROM mp_ForumThreadSubscriptions WHERE ThreadID = ?ThreadID;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand,
-			arParams
-		);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
 	}
-
 
 	public static bool ForumThreadUpdate(
 		int threadId,
@@ -2132,16 +1258,12 @@ DELETE FROM mp_ForumThreads WHERE ThreadID = ?ThreadID;";
 	{
 		byte locked = 1;
 		if (!isLocked) { locked = 0; }
-
 		byte isQ = 1;
 		if (!isQuestion) { isQ = 0; }
-
 		byte inMap = 1;
 		if (!includeInSiteMap) { inMap = 0; }
-
 		byte noIndex = 1;
 		if (!setNoIndexMeta) { noIndex = 0; }
-
 		string sqlCommand = @"
 UPDATE mp_ForumThreads 
 SET 
@@ -2161,130 +1283,30 @@ SET
 	IsLocked = ?IsLocked 
 WHERE ThreadID = ?ThreadID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new List<MySqlParameter>
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?ThreadSubject", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadSubject
-			},
-
-			new("?SortOrder", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = sortOrder
-			},
-
-			new("?IsLocked", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = locked
-			},
-
-			new("?IsQuestion", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = isQ
-			},
-
-			new("?IncludeInSiteMap", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = inMap
-			},
-
-			new("?SetNoIndexMeta", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = noIndex
-			},
-
-			new("?PTitleOverride", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageTitleOverride
-			},
-
-			new("?ModStatus", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = modStatus
-			},
-
-			new("?ThreadType", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadType
-			},
-
-			new("?AssignedTo", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = assignedTo.ToString()
-			},
-
-			new("?LockedBy", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = lockedBy.ToString()
-			},
-
-			new("?LockedReason", MySqlDbType.VarChar, 100)
-			{
-				Direction = ParameterDirection.Input,
-				Value = lockedReason
-			},
-
-			new("?LockedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-			}
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId },
+			new("?ThreadSubject", MySqlDbType.VarChar, 255) { Value = threadSubject },
+			new("?SortOrder", MySqlDbType.Int32) { Value = sortOrder },
+			new("?IsLocked", MySqlDbType.Int32) { Value = locked },
+			new("?IsQuestion", MySqlDbType.Int32) { Value = isQ },
+			new("?IncludeInSiteMap", MySqlDbType.Int32) { Value = inMap },
+			new("?SetNoIndexMeta", MySqlDbType.Int32) { Value = noIndex },
+			new("?PTitleOverride", MySqlDbType.VarChar, 255) { Value = pageTitleOverride },
+			new("?ModStatus", MySqlDbType.Int32) { Value = modStatus },
+			new("?ThreadType", MySqlDbType.VarChar, 255) { Value = threadType },
+			new("?AssignedTo", MySqlDbType.VarChar, 36) { Value = assignedTo },
+			new("?LockedBy", MySqlDbType.VarChar, 36) { Value = lockedBy },
+			new("?LockedReason", MySqlDbType.VarChar, 100) { Value = lockedReason },
+			new("?LockedUtc", MySqlDbType.DateTime) { Value = (lockedUtc < DateTime.MaxValue) ? lockedUtc : DBNull.Value }
 		};
 
-
-		if (lockedUtc < DateTime.MaxValue)
-		{
-			arParams.Add(new("?LockedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = lockedUtc
-			});
-		}
-		else
-		{
-			arParams.Add(new("?LockedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DBNull.Value
-			});
-		}
-
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
-
-	public static bool ForumThreadIncrementReplyStats(
-		int threadId,
-		int mostRecentPostUserId,
-		DateTime mostRecentPostDate)
+	public static bool ForumThreadIncrementReplyStats(int threadId, int mostRecentPostUserId, DateTime mostRecentPostDate)
 	{
 		string sqlCommand = @"
 UPDATE mp_ForumThreads 
@@ -2294,36 +1316,17 @@ SET
 	MostRecentPostDate = ?MostRecentPostDate 
 WHERE ThreadID = ?ThreadID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?MostRecentPostUserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = mostRecentPostUserId
-			},
-
-			new("?MostRecentPostDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = mostRecentPostDate
-			}
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?MostRecentPostUserID", MySqlDbType.Int32) { Value = mostRecentPostUserId },
+			new("?MostRecentPostDate", MySqlDbType.DateTime) { Value = mostRecentPostDate }
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static bool ForumThreadDecrementReplyStats(int threadId)
 	{
 		string sqlCommand = @"
@@ -2332,22 +1335,12 @@ FROM mp_ForumPosts
 WHERE ThreadID = ?ThreadID 
 ORDER BY PostID DESC ";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
 		int userId = 0;
 		DateTime postDate = DateTime.Now;
 
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param))
 		{
 			if (reader.Read())
 			{
@@ -2355,7 +1348,6 @@ ORDER BY PostID DESC ";
 				postDate = Convert.ToDateTime(reader["PostDate"]);
 			}
 		}
-
 		string sqlCommand1 = @"
 UPDATE mp_ForumThreads 
 SET 
@@ -2364,61 +1356,27 @@ SET
 	MostRecentPostDate = ?MostRecentPostDate 
 WHERE ThreadID = ?ThreadID ;";
 
-		var arParams1 = new List<MySqlParameter>
+		var sqlParams1 = new MySqlParameter[]
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?MostRecentPostUserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?MostRecentPostDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postDate
-			}
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?MostRecentPostUserID", MySqlDbType.Int32) { Value = userId },
+			new("?MostRecentPostDate", MySqlDbType.DateTime) { Value = postDate }
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand1.ToString(),
-			arParams1);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand1.ToString(), sqlParams1);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static bool ForumThreadUpdateViewStats(int threadId)
 	{
-		string sqlCommand = @"
-UPDATE mp_ForumThreads 
-SET TotalViews = TotalViews + 1 
-WHERE ThreadID = ?ThreadID ;";
+		string sqlCommand = "UPDATE mp_ForumThreads SET TotalViews = TotalViews + 1 WHERE ThreadID = ?ThreadID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static IDataReader ForumThreadGetPosts(int threadId, int pageNumber)
 	{
 		int postsPerPage = 10;
@@ -2430,37 +1388,22 @@ JOIN mp_Forums f
 ON ft.ForumID = f.ItemID 
 WHERE ft.ThreadID = ?ThreadID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-
-
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param))
 		{
 			if (reader.Read())
 			{
 				postsPerPage = Convert.ToInt32(reader["PostsPerPage"]);
 			}
 		}
-
 		int currentPageMaxThreadSequence = postsPerPage * pageNumber;
 		int beginSequence = 1;
 		int endSequence;
 		if (currentPageMaxThreadSequence > postsPerPage)
 		{
 			beginSequence = currentPageMaxThreadSequence - postsPerPage + 1;
-
 		}
-
 		endSequence = beginSequence + postsPerPage;
 
 		string sqlCommand1 = @"
@@ -2479,63 +1422,30 @@ SELECT
 	up.WebSiteURL As PostAuthorWebSiteUrl, 
 	up.Signature As PostAuthorSignature 
 FROM mp_ForumPosts p 
-JOIN 
-	mp_ForumThreads ft 
-ON p.ThreadID = ft.ThreadID 
-LEFT OUTER JOIN 
-	mp_Users u 
-ON ft.MostRecentPostUserID = u.UserID 
-LEFT OUTER JOIN 
-	mp_Users s 
-ON ft.StartedByUserID = s.UserID 
-LEFT OUTER JOIN 
-	mp_Users up 
-ON up.UserID = p.UserID 
+JOIN mp_ForumThreads ft ON p.ThreadID = ft.ThreadID 
+LEFT OUTER JOIN mp_Users u ON ft.MostRecentPostUserID = u.UserID 
+LEFT OUTER JOIN mp_Users s ON ft.StartedByUserID = s.UserID 
+LEFT OUTER JOIN mp_Users up ON up.UserID = p.UserID 
 WHERE ft.ThreadID = ?ThreadID 
 AND p.ThreadSequence >= ?BeginSequence 
 AND p.ThreadSequence <= ?EndSequence 
 ORDER BY p.SortOrder, p.ThreadSequence ;";
 
-		// TODO:
-		//using 'Guest' here is not culture neutral, need to pass in a label
+		// TODO: using 'Guest' here is not culture neutral, need to pass in a label
 
-		var arParams1 = new List<MySqlParameter>
+		var sqlParams1 = new MySqlParameter[]
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?PageNumber", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageNumber
-			},
-
-			new("?BeginSequence", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = beginSequence
-			},
-
-			new("?EndSequence", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = endSequence
-			}
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?PageNumber", MySqlDbType.Int32) { Value = pageNumber },
+			new("?BeginSequence", MySqlDbType.Int32) { Value = beginSequence },
+			new("?EndSequence", MySqlDbType.Int32) { Value = endSequence }
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand1.ToString(),
-			arParams1);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand1, sqlParams1);
 	}
-
 	public static IDataReader ForumThreadGetPosts(int threadId)
 	{
-
+		// TODO: using 'Guest' here is not culture neutral, need to pass in a label
 		string sqlCommand = @"
 SELECT 
 	p.*, 
@@ -2552,42 +1462,20 @@ SELECT
 	up.WebSiteURL As PostAuthorWebSiteUrl, 
 	up.Signature As PostAuthorSignature 
 FROM mp_ForumPosts p 
-JOIN mp_ForumThreads ft 
-ON p.ThreadID = ft.ThreadID 
-LEFT OUTER JOIN 
-	mp_Users u 
-ON ft.MostRecentPostUserID = u.UserID 
-LEFT OUTER JOIN 
-	mp_Users s 
-ON ft.StartedByUserID = s.UserID 
-LEFT OUTER JOIN	
-	mp_Users up 
-ON up.UserID = p.UserID 
+JOIN mp_ForumThreads ft ON p.ThreadID = ft.ThreadID 
+LEFT OUTER JOIN mp_Users u ON ft.MostRecentPostUserID = u.UserID 
+LEFT OUTER JOIN mp_Users s ON ft.StartedByUserID = s.UserID 
+LEFT OUTER JOIN	mp_Users up ON up.UserID = p.UserID 
 WHERE ft.ThreadID = ?ThreadID 
 ORDER BY p.PostID ;";
 
-		// TODO:
-		//using 'Guest' here is not culture neutral, need to pass in a label
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 	}
-
 	public static IDataReader ForumThreadGetPostsReverseSorted(int threadId)
 	{
-
+		// TODO: using 'Guest' here is not culture neutral, need to pass in a label
 		string sqlCommand = @"
 SELECT 
 	p.*, 
@@ -2604,39 +1492,17 @@ SELECT
 	up.WebSiteURL As PostAuthorWebSiteUrl, 
 	up.Signature As PostAuthorSignature 
 FROM mp_ForumPosts p 
-JOIN mp_ForumThreads ft 
-ON p.ThreadID = ft.ThreadID 
-LEFT OUTER JOIN 
-	mp_Users u 
-ON ft.MostRecentPostUserID = u.UserID 
-LEFT OUTER JOIN 
-	mp_Users s 
-ON ft.StartedByUserID = s.UserID 
-LEFT OUTER JOIN 
-	mp_Users up 
-ON up.UserID = p.UserID 
+JOIN mp_ForumThreads ft ON p.ThreadID = ft.ThreadID 
+LEFT OUTER JOIN mp_Users u ON ft.MostRecentPostUserID = u.UserID 
+LEFT OUTER JOIN mp_Users s ON ft.StartedByUserID = s.UserID 
+LEFT OUTER JOIN mp_Users up ON up.UserID = p.UserID 
 WHERE ft.ThreadID = ?ThreadID 
 ORDER BY p.ThreadSequence DESC ;";
 
-		// TODO:
-		//using 'Guest' here is not culture neutral, need to pass in a label
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 	}
-
 	public static IDataReader ForumThreadGetPostsByPage(int siteId, int pageId)
 	{
 		string sqlCommand = @"
@@ -2649,51 +1515,23 @@ SELECT
 	m.ViewRoles, 
 	md.FeatureName 
 FROM mp_ForumPosts fp 
-JOIN
-	mp_ForumThreads ft 
-ON fp.ThreadID = ft.ThreadID 
-JOIN 
-	mp_Forums f 
-ON f.ItemID = ft.ForumID 
-JOIN 
-	mp_Modules m 
-ON f.ModuleID = m.ModuleID 
-JOIN 
-	mp_ModuleDefinitions md 
-ON m.ModuleDefID = md.ModuleDefID 
-JOIN 
-	mp_PageModules pm 
-ON m.ModuleID = pm.ModuleID 
-JOIN 
-	mp_Pages p 
-ON p.PageID = pm.PageID 
-WHERE 
-p.SiteID = ?SiteID 
+JOIN mp_ForumThreads ft ON fp.ThreadID = ft.ThreadID 
+JOIN mp_Forums f ON f.ItemID = ft.ForumID 
+JOIN mp_Modules m ON f.ModuleID = m.ModuleID 
+JOIN mp_ModuleDefinitions md ON m.ModuleDefID = md.ModuleDefID 
+JOIN mp_PageModules pm ON m.ModuleID = pm.ModuleID 
+JOIN mp_Pages p ON p.PageID = pm.PageID 
+WHERE p.SiteID = ?SiteID 
 AND pm.PageID = ?PageID ; ";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			},
-
-			new("?PageID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageId
-			}
+			new("?SiteID", MySqlDbType.Int32) { Value = siteId },
+			new("?PageID", MySqlDbType.Int32) { Value = pageId }
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
-
-
 	public static IDataReader ForumThreadGetThreadsByPage(int siteId, int pageId)
 	{
 		string sqlCommand = @"
@@ -2705,47 +1543,23 @@ SELECT
 	m.ViewRoles, 
 	md.FeatureName 
 FROM mp_ForumThreads ft 
-JOIN 
-	mp_Forums f 
-ON f.ItemID = ft.ForumID 
-JOIN 
-	mp_Modules m 
-ON f.ModuleID = m.ModuleID 
-JOIN 
-	mp_ModuleDefinitions md 
-ON m.ModuleDefID = md.ModuleDefID 
-JOIN 
-	mp_PageModules pm 
-ON m.ModuleID = pm.ModuleID 
-JOIN 
-	mp_Pages p 
-ON p.PageID = pm.PageID 
+JOIN mp_Forums f ON f.ItemID = ft.ForumID 
+JOIN mp_Modules m ON f.ModuleID = m.ModuleID 
+JOIN mp_ModuleDefinitions md ON m.ModuleDefID = md.ModuleDefID 
+JOIN mp_PageModules pm ON m.ModuleID = pm.ModuleID 
+JOIN mp_Pages p ON p.PageID = pm.PageID 
 WHERE 
 p.SiteID = ?SiteID 
 AND pm.PageID = ?PageID ; ";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?SiteID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			},
-
-			new("?PageID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageId
-			}
+			new("?SiteID", MySqlDbType.Int32) { Value = siteId },
+			new("?PageID", MySqlDbType.Int32) { Value = pageId }
 		};
 
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
-
 	public static IDataReader ForumThreadGetPostsForRss(int siteId, int pageId, int moduleId, int itemId, int threadId, int maximumDays)
 	{
 		string sqlCommand = @"
@@ -2764,30 +1578,16 @@ SELECT
 	up.WebSiteURL as PostAuthorWebSiteUrl, 
 	up.Signature as PostAuthorSignature 
 FROM mp_ForumPosts fp 
-JOIN 
-	mp_ForumThreads ft 
-ON fp.ThreadID = ft.ThreadID 
-JOIN 
-	mp_Forums f 
-ON ft.ForumID = f.ItemID 
-JOIN 
-	mp_Modules m 
-ON f.ModuleID = m.ModuleID 
+JOIN mp_ForumThreads ft ON fp.ThreadID = ft.ThreadID 
+JOIN mp_Forums f ON ft.ForumID = f.ItemID 
+JOIN mp_Modules m ON f.ModuleID = m.ModuleID 
 JOIN
 	mp_PageModules pm 
 ON pm.ModuleID = m.ModuleID 
-JOIN 
-	mp_Pages p 
-ON pm.PageID = p.PageID 
-LEFT OUTER JOIN 
-	mp_Users u 
-ON ft.MostRecentPostUserID = u.UserID 
-LEFT OUTER JOIN 
-	mp_Users s 
-ON ft.StartedByUserID = s.UserID 
-LEFT OUTER JOIN 
-	mp_Users up 
-ON up.UserID = fp.UserID 
+JOIN mp_Pages p ON pm.PageID = p.PageID 
+LEFT OUTER JOIN mp_Users u ON ft.MostRecentPostUserID = u.UserID 
+LEFT OUTER JOIN mp_Users s ON ft.StartedByUserID = s.UserID 
+LEFT OUTER JOIN mp_Users up ON up.UserID = fp.UserID 
 WHERE p.SiteID = ?SiteID 
 AND	(?PageID = -1 OR p.PageID = ?PageID) 
 AND	(?ModuleID = -1 OR m.ModuleID = ?ModuleID) 
@@ -2797,52 +1597,18 @@ AND	( (?MaximumDays = -1)
 OR  ((now() - ?MaximumDays) >= fp.PostDate )) 
 ORDER BY fp.PostDate DESC ; ";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?SiteID", SqlDbType.Int)
-			{
-				Direction = ParameterDirection.Input,
-				Value = siteId
-			},
+			new("?SiteID",SqlDbType.Int) { Value = siteId },
+			new("?PageID", SqlDbType.Int) { Value = pageId },
+			new("?ModuleID", SqlDbType.Int) { Value = moduleId },
+			new("?ItemID", SqlDbType.Int) { Value = itemId },
+			new("?ThreadID", SqlDbType.Int) { Value = threadId },
+			new("?MaximumDays", SqlDbType.Int) { Value = maximumDays }
+		};
 
-			new("?PageID", SqlDbType.Int)
-			{
-				Direction = ParameterDirection.Input,
-				Value = pageId
-			},
-
-			new("?ModuleID", SqlDbType.Int)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moduleId
-			},
-
-			new("?ItemID", SqlDbType.Int)
-			{
-				Direction = ParameterDirection.Input,
-				Value = itemId
-			},
-
-			new("?ThreadID", SqlDbType.Int)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?MaximumDays", SqlDbType.Int)
-			{
-				Direction = ParameterDirection.Input,
-				Value = maximumDays
-		}
-	};
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
-
 	public static DataSet ForumThreadGetSubscribers(int forumId, int threadId, int currentPostUserId, bool includeCurrentUser)
 	{
 		string sqlCommand = @"
@@ -2868,147 +1634,75 @@ WHERE ";
 		{
 			sqlCommand += " u.UserID <> ?CurrentPostUserID AND ";
 		}
-
 		sqlCommand += @"
 (
-(fts.ThreadSubscriptionID IS NOT NULL )
+	(fts.ThreadSubscriptionID IS NOT NULL )
 OR 
-(fs.SubscriptionID IS NOT NULL )
+	(fs.SubscriptionID IS NOT NULL )
 );";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ForumID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = forumId
-			},
-
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?CurrentPostUserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = currentPostUserId
-			}
+			new("?ForumID", MySqlDbType.Int32) { Value = forumId},
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?CurrentPostUserID", MySqlDbType.Int32) { Value = currentPostUserId }
 		};
 
-		return CommandHelper.ExecuteDataset(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
+		return CommandHelper.ExecuteDataset(ConnectionString.GetRead(), sqlCommand, sqlParams);
 	}
-
 
 	public static IDataReader ForumThreadGetSubscriber(Guid subGuid)
 	{
+		string sqlCommand = "SELECT * FROM mp_ForumThreadSubscriptions WHERE SubGuid = ?SubGuid ;";
 
-		string sqlCommand = @"
-SELECT * 
-FROM mp_ForumThreadSubscriptions 
-WHERE SubGuid = ?SubGuid ;";
+		var param = new MySqlParameter("?SubGuid", MySqlDbType.VarChar, 36) { Value = subGuid };
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?SubGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subGuid.ToString()
-			}
-		};
-
-		return CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
-
-
+		return CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCommand, param);
 	}
-
 	public static bool ForumThreadAddSubscriber(int threadId, int userId, Guid subGuid)
 	{
-		string sqlCommand = @"
+		string sqlCount = @"
 SELECT COUNT(*) As SubscriptionCount 
 FROM mp_ForumThreadSubscriptions 
 WHERE ThreadID = ?ThreadID 
 AND UserID = ?UserID 
 AND UnSubscribeDate IS NULL ; ";
 
-		var arParams = new List<MySqlParameter>
+		var countParams = new MySqlParameter[]
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
+			new("?ThreadID", MySqlDbType.Int32){Value = threadId},
+			new("?UserID", MySqlDbType.Int32){Value = userId}
 		};
 
 		int subscriptionCount = 0;
 
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), sqlCount, countParams))
 		{
 			if (reader.Read())
 			{
 				subscriptionCount = Convert.ToInt32(reader["SubscriptionCount"]);
 			}
 		}
-
-
 		int rowsAffected = -1;
-
-		var arParams1 = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?CurrentTime", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			}
-		};
-
 
 		if (subscriptionCount > 0)
 		{
-			string sqlCommand1 = @"
+			string sqlUpdateSubscriptions = @"
 UPDATE mp_ForumThreadSubscriptions 
 SET UnSubscribeDate = ?CurrentTime 
 WHERE ThreadID = ?ThreadID 
 AND UserID = ?UserID 
 AND UnSubscribeDate IS NULL ;";
 
-			rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand1.ToString(),
-			arParams1);
+			var updateSubscriptionsParams = new MySqlParameter[]
+			{
+				new("?ThreadID", MySqlDbType.Int32){Value = threadId},
+				new("?UserID", MySqlDbType.Int32){Value = userId},
+				new("?CurrentTime", MySqlDbType.DateTime){Value = DateTime.UtcNow}
+			};
 
+			CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlUpdateSubscriptions, updateSubscriptionsParams);
 		}
-
-
 		string sqlCommand2 = @"
 INSERT INTO	mp_ForumThreadSubscriptions ( 
 	ThreadID, 
@@ -3023,131 +1717,56 @@ VALUES (
 	?UserID 
 ) ;";
 
-		var arParams2 = new List<MySqlParameter>
+		var sqlParams2 = new MySqlParameter[]
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?SubGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subGuid.ToString()
-			},
-
-			new("?CurrentTime", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			}
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?UserID", MySqlDbType.Int32) { Value = userId },
+			new("?SubGuid", MySqlDbType.VarChar, 36) { Value = subGuid.ToString() },
+			new("?CurrentTime", MySqlDbType.DateTime) { Value = DateTime.UtcNow}
 		};
 
-
-		rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand2.ToString(),
-			arParams2);
+		rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand2.ToString(), sqlParams2);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static bool ForumThreadUnSubscribe(Guid subGuid)
 	{
-		string sqlCommand = @"
-UPDATE mp_ForumThreadSubscriptions 
-SET UnSubscribeDate = ?CurrentTime 
-WHERE SubGuid = ?SubGuid ;";
+		string sqlCommand = @"UPDATE mp_ForumThreadSubscriptions SET UnSubscribeDate = ?CurrentTime WHERE SubGuid = ?SubGuid ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?SubGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subGuid.ToString()
-			},
-
-			new("?CurrentTime", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DateTime.UtcNow
-			}
+			new("?SubGuid", MySqlDbType.VarChar, 36) { Value = subGuid.ToString() },
+			new("?CurrentTime", MySqlDbType.DateTime) { Value = DateTime.UtcNow}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static bool ForumThreadUNSubscribe(int threadId, int userId)
 	{
-		string sqlCommand = @"
-UPDATE mp_ForumThreadSubscriptions 
-SET UnSubscribeDate = now() 
-WHERE ThreadID = ?ThreadID 
-AND UserID = ?UserID ;";
+		string sqlCommand = @"UPDATE mp_ForumThreadSubscriptions SET UnSubscribeDate = now() WHERE ThreadID = ?ThreadID AND UserID = ?UserID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?UserID", MySqlDbType.Int32) { Value = userId}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static bool ForumThreadUnsubscribeAll(int userId)
 	{
-		string sqlCommand = @"
-UPDATE mp_ForumThreadSubscriptions 
-SET UnSubscribeDate = now() 
-WHERE UserID = ?UserID ;";
+		string sqlCommand = @"UPDATE mp_ForumThreadSubscriptions SET UnSubscribeDate = now() WHERE UserID = ?UserID ;";
 
-		var arParams = new List<MySqlParameter>
-		{
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			}
-		};
+		var param = new MySqlParameter("?UserID", MySqlDbType.Int32) { Value = userId };
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static int ForumPostCreate(
 		int threadId,
 		string subject,
@@ -3162,40 +1781,23 @@ WHERE UserID = ?UserID ;";
 		bool notificationSent,
 		int modStatus)
 	{
+		var approve = approved ? 1 : 0;
+		var intNotificationSent = notificationSent ? 1 : 0;
 
-		byte approve = 1;
-		if (!approved)
-		{
-			approve = 0;
-		}
+		string threadSql = @"SELECT COALESCE(Max(ThreadSequence) + 1,1) As ThreadSequence FROM mp_ForumPosts WHERE ThreadID = ?ThreadID ; ";
 
-		int intNotificationSent = notificationSent ? 1 : 0;
-
-		string sqlCommand = @"SELECT COALESCE(Max(ThreadSequence) + 1,1) As ThreadSequence FROM mp_ForumPosts WHERE ThreadID = ?ThreadID ; ";
-
-		var arParams = new List<MySqlParameter>
-		{
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
-		};
+		var param = new MySqlParameter("?ThreadID", MySqlDbType.Int32) { Value = threadId };
 
 		int threadSequence = 1;
 
-		using (IDataReader reader = CommandHelper.ExecuteReader(
-			ConnectionString.GetReadConnectionString(),
-			sqlCommand.ToString(),
-			arParams))
+		using (IDataReader reader = CommandHelper.ExecuteReader(ConnectionString.GetRead(), threadSql, param))
 		{
 			if (reader.Read())
 			{
 				threadSequence = Convert.ToInt32(reader["ThreadSequence"]);
 			}
 		}
-
-		string sqlCommand1 = @"
+		string sqlCommand = @"
 INSERT INTO mp_ForumPosts ( 
 	ThreadID, 
 	Subject, 
@@ -3230,113 +1832,27 @@ VALUES (
 );
 SELECT LAST_INSERT_ID();";
 
-		var arParams1 = new List<MySqlParameter>
+		var sqlParams = new List<MySqlParameter>
 		{
-			new("?Subject", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subject
-			},
-
-			new("?Post", MySqlDbType.MediumText)
-			{
-				Direction = ParameterDirection.Input,
-				Value = post
-			},
-
-			new("?Approved", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = approve
-			},
-
-			new("?UserID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userId
-			},
-
-			new("?PostDate", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postDate
-			},
-
-			new("?ThreadSequence", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadSequence
-			},
-
-			new("?PostGuid", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postGuid.ToString()
-			},
-
-			new("?ApprovedBy", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = approvedBy.ToString()
-			},
-
-			new("?ApprovedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-			},
-
-			new("?UserIp", MySqlDbType.VarChar, 50)
-			{
-				Direction = ParameterDirection.Input,
-				Value = userIp
-			},
-
-			new("?NotificationSent", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intNotificationSent
-			},
-
-			new("?ModStatus", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = modStatus
-			},
-
-			new("?ThreadID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadId
-			}
+			new("?Subject", MySqlDbType.VarChar, 255) { Value = subject },
+			new("?Post", MySqlDbType.MediumText) { Value = post },
+			new("?Approved", MySqlDbType.Int32) { Value = approve },
+			new("?UserID", MySqlDbType.Int32) { Value = userId },
+			new("?PostDate", MySqlDbType.DateTime) { Value = postDate },
+			new("?ThreadSequence", MySqlDbType.Int32) { Value = threadSequence },
+			new("?PostGuid", MySqlDbType.VarChar, 36) { Value = postGuid.ToString() },
+			new("?ApprovedBy", MySqlDbType.VarChar, 36) { Value = approvedBy.ToString() },
+			new("?UserIp", MySqlDbType.VarChar, 50) { Value = userIp },
+			new("?NotificationSent", MySqlDbType.Int32) { Value = intNotificationSent },
+			new("?ModStatus", MySqlDbType.Int32) { Value = modStatus },
+			new("?ThreadID", MySqlDbType.Int32) { Value = threadId },
+			new("?ApprovedUtc", MySqlDbType.DateTime) {  Value = (approvedUtc > DateTime.MinValue) ? approvedUtc : DBNull.Value }
 		};
 
-		if (approvedUtc > DateTime.MinValue)
-		{
-			arParams.Add(new("?ApprovedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = approvedUtc
-			});
-		}
-		else
-		{
-			arParams.Add(new("?ApprovedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DBNull.Value
-			});
-		}
-
-		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand1.ToString(),
-			arParams1).ToString());
+		int newID = Convert.ToInt32(CommandHelper.ExecuteScalar(ConnectionString.GetWrite(), sqlCommand, sqlParams));
 
 		return newID;
-
-
 	}
-
 	public static bool ForumPostUpdate(
 		int postId,
 		string subject,
@@ -3348,171 +1864,65 @@ SELECT LAST_INSERT_ID();";
 		bool notificationSent,
 		int modStatus)
 	{
-		byte approve = 1;
-		if (!approved)
-		{
-			approve = 0;
-		}
-
-		int intNotificationSent = notificationSent ? 1 : 0;
+		var approve = approved ? 1 : 0;
+		var intNotificationSent = notificationSent ? 1 : 0;
 
 		string sqlCommand = @"
 UPDATE mp_ForumPosts 
-SET Subject = ?Subject, 
-Post = ?Post, 
-SortOrder = ?SortOrder, 
-NotificationSent = ?NotificationSent, 
-ModStatus = ?ModStatus, 
-ApprovedBy = ?ApprovedBy, 
-ApprovedUtc = ?ApprovedUtc, 
-Approved = ?Approved 
+SET 
+	Subject = ?Subject 
+	,Post = ?Post
+	,SortOrder = ?SortOrder
+	,NotificationSent = ?NotificationSent
+	,ModStatus = ?ModStatus
+	,ApprovedBy = ?ApprovedBy
+	,ApprovedUtc = ?ApprovedUtc
+	,Approved = ?Approved 
 WHERE PostID = ?PostID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new List<MySqlParameter>
 		{
-			new("?PostID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postId
-			},
-
-			new("?Subject", MySqlDbType.VarChar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = subject
-			},
-
-			new("?Post", MySqlDbType.MediumText)
-			{
-				Direction = ParameterDirection.Input,
-				Value = post
-			},
-
-			new("?SortOrder", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = sortOrder
-			},
-
-			new("?Approved", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = approve
-			},
-
-			new("?ApprovedBy", MySqlDbType.VarChar, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = approvedBy.ToString()
-			},
-
-			new("?ApprovedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-
-			},
-			new("?NotificationSent", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = intNotificationSent
-			},
-
-			new("?ModStatus", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = modStatus
-			}
+			new("?PostID", MySqlDbType.Int32){Value = postId},
+			new("?Subject", MySqlDbType.VarChar, 255){Value = subject},
+			new("?Post", MySqlDbType.MediumText){Value = post},
+			new("?SortOrder", MySqlDbType.Int32){Value = sortOrder},
+			new("?Approved", MySqlDbType.Int32){Value = approve},
+			new("?ApprovedBy", MySqlDbType.VarChar, 36){Value = approvedBy.ToString()},
+			new("?NotificationSent", MySqlDbType.Int32){Value = intNotificationSent},
+			new("?ModStatus", MySqlDbType.Int32){Value = modStatus},
+			new("?ApprovedUtc", MySqlDbType.DateTime) {  Value = (approvedUtc > DateTime.MinValue) ? approvedUtc : DBNull.Value }
 		};
 
-
-		if (approvedUtc > DateTime.MinValue)
-		{
-			arParams.Add(new("?ApprovedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = approvedUtc
-			});
-		}
-		else
-		{
-			arParams.Add(new("?ApprovedUtc", MySqlDbType.DateTime)
-			{
-				Direction = ParameterDirection.Input,
-				Value = DBNull.Value
-			});
-		}
-
-
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
-
-	public static bool ForumPostUpdateThreadSequence(
-		int postId,
-		int threadSequence)
+	public static bool ForumPostUpdateThreadSequence(int postId, int threadSequence)
 	{
-		string sqlCommand = @"
-UPDATE mp_ForumPosts 
-SET ThreadSequence = ?ThreadSequence 
-WHERE PostID = ?PostID ;";
+		string sqlCommand = "UPDATE mp_ForumPosts SET ThreadSequence = ?ThreadSequence WHERE PostID = ?PostID ;";
 
-		var arParams = new List<MySqlParameter>
+		var sqlParams = new MySqlParameter[]
 		{
-			new("?PostID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postId
-			},
-
-			new("?ThreadSequence", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = threadSequence
-			}
+			new("?PostID", MySqlDbType.Int32){Value = postId},
+			new("?ThreadSequence", MySqlDbType.Int32){Value = threadSequence}
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, sqlParams);
 
 		return rowsAffected > -1;
-
 	}
-
 	public static bool ForumPostDelete(int postId)
 	{
+		string sqlCommand = "DELETE FROM mp_ForumPosts WHERE PostID = ?PostID;";
 
-		string sqlCommand = @"
-DELETE FROM mp_ForumPosts 
-WHERE PostID = ?PostID ;";
-
-		var arParams = new List<MySqlParameter>
+		var param = new MySqlParameter("?PostID", MySqlDbType.Int32)
 		{
-			new("?PostID", MySqlDbType.Int32)
-			{
-				Direction = ParameterDirection.Input,
-				Value = postId
-			}
+
+			Value = postId
 		};
 
-		int rowsAffected = CommandHelper.ExecuteNonQuery(
-			ConnectionString.GetWriteConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+		int rowsAffected = CommandHelper.ExecuteNonQuery(ConnectionString.GetWrite(), sqlCommand, param);
 
 		return rowsAffected > -1;
-
 	}
-
-
-
-
-
-
 }
