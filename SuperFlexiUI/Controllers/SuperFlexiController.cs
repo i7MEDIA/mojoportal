@@ -47,8 +47,8 @@ namespace SuperFlexiUI.Controllers
 					Status = "error",
 					ExtraData = new Dictionary<string, string>
 					{
-						["ErrorCode"] = "100",
-						["ErrorMessage"] = "Not Allowed"
+						["ErrorCode"] = "401",
+						["ErrorMessage"] = "Not Authorized"
 					}
 				};
 			}
@@ -59,7 +59,11 @@ namespace SuperFlexiUI.Controllers
 			var totalRows = 0;
 			var items = new List<ItemWithValues>();
 
-			if (r.SearchObject != null && r.SearchObject.Count > 0)
+			if (r.ItemId > 0)
+			{
+				items.Add(new ItemWithValues(r.ItemId));
+			}
+			else if (r.SearchObject != null && r.SearchObject.Count > 0)
 			{
 				foreach (var set in r.SearchObject)
 				{

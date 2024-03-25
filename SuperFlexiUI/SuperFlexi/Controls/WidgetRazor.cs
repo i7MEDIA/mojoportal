@@ -93,7 +93,7 @@ public class WidgetRazor : WebControl
 		foreach (string param in HttpContext.Current.Request.QueryString.Keys)
 		{
 			//the keys (param) can be null because some dev somewhere is an asshole
-			if (param is not null && param.StartsWith($"sf{ModuleId}_")
+			if (param is not null && param.StartsWith($"sf{ModuleId}")
 				&& param != $"sf{ModuleId}_PageNumber"
 				&& param != $"sf{ModuleId}_PageSize"
 				&& param != $"sf{ModuleId}_ItemId")
@@ -172,8 +172,23 @@ public class WidgetRazor : WebControl
 				{
 					foreach (var setValue in set.Value.SplitOnCharAndTrim(';'))
 					{
-						itemsWithValues.AddRange(GetItemsWithValues(setValue, set.Key));
+						if (set.Key.ToLower() == $"sf{ModuleId}")
+						{
+							itemsWithValues.AddRange(GetItemsWithValues(set.Value));
+						}
+						else
+						{
+							itemsWithValues.AddRange(GetItemsWithValues(setValue, set.Key));
+						}
 					}
+				}
+				else if (set.Key.ToLower() == $"sf{ModuleId}")
+				{
+					itemsWithValues.AddRange(GetItemsWithValues(set.Value));
+				}
+				else
+				{
+					itemsWithValues.AddRange(GetItemsWithValues(set.Value, set.Key));
 				}
 			}
 
