@@ -137,19 +137,16 @@ namespace SuperFlexiData
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOne", 1);
             sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
             return sph.ExecuteReader();
-
         }
 
         /// <summary>
         /// Gets an IDataReader with one row from the i7_sflexi_items table.
         /// </summary>
-        public static IDataReader GetOne(
-            Guid itemGuid)
+        public static IDataReader GetOne(Guid itemGuid)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOneByGuid", 1);
             sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
             return sph.ExecuteReader();
-
         }
 
 		/// <summary>
@@ -178,7 +175,6 @@ namespace SuperFlexiData
 			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 
 			return sph.ExecuteReader();
-
 		}
 
 		/// <summary>
