@@ -182,9 +182,7 @@ public class NewPageLink : HyperLink
 			}
 			else
 			{
-				string skinPath = SiteUtils.GetSkinBaseUrl(Page);
-
-				ImageUrl = Page.ResolveUrl(skinPath + linkImageUrl.TrimStart('/'));
+				ImageUrl = SiteUtils.DetermineSkinBaseUrl(Page) + linkImageUrl.TrimStart('/');
 			}
 		}
 	}

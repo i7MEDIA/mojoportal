@@ -72,7 +72,7 @@ public class layout : MasterPage
 			return;
 		}
 
-		SkinBaseUrl = SiteUtils.GetSkinBaseUrl(Page);
+		SkinBaseUrl = SiteUtils.DetermineSkinBaseUrl(allowPageOverride: true, fullUrl: true, Page);
 
 		isMobileDevice = SiteUtils.IsMobileDevice();
 

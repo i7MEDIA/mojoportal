@@ -92,17 +92,7 @@ public class Menu : WebControl
 		}
 		catch (Exception ex)
 		{
-			renderDefaultView(ex.ToString());
-		}
-
-		void renderDefaultView(string error = "")
-		{
-			if (!string.IsNullOrWhiteSpace(error))
-			{
-				log.Error($"chosen layout ({View}) for Menu control was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {error}");
-			}
-
-			renderString = RazorBridge.RenderPartialToString("Menu", model, "Shared");
+			renderString = RazorBridge.RenderFallback(View, "Menu control", "Menu", model, "Shared", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, false, Page)); 
 		}
 
 		writer.Write(renderString);

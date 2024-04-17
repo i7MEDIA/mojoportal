@@ -33,7 +33,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 	private int pageId = -1;
 	private int moduleId = -1;
 	private SiteMapDataSource siteMapDataSource;
-	private string skinBaseUrl = string.Empty;
+	//private string skinBaseUrl = string.Empty;
 	private bool useSeparatePagesForRoles = false;
 	private bool use3LevelWorkFlow = false;
 
@@ -1222,7 +1222,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 	{
 		moduleId = WebUtils.ParseInt32FromQueryString("mid", -1);
 		iconPath = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/";
-		skinBaseUrl = SiteUtils.GetSkinBaseUrl(this);
+		//skinBaseUrl = SiteUtils.GetSkinBaseUrl(this);
 		lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
 		acUser.BlockTargetFocus = !WebConfigSettings.AllowDirectEntryOfUserIdForEditPermission;

@@ -203,11 +203,11 @@ namespace mojoPortal.Web.UI
 
 			if (SiteUtils.SslIsAvailable())
 			{
-				NavigateUrl = basePage.SiteRoot + "/FileManager" + queryString;
+				NavigateUrl = $"{basePage.SiteRoot}/FileManager{queryString}";
 			}
 			else
 			{
-				NavigateUrl = basePage.RelativeSiteRoot + "/FileManager" + queryString;
+				NavigateUrl = $"{basePage.RelativeSiteRoot}/FileManager{queryString}";
 			}
 
 			if (!string.IsNullOrWhiteSpace(linkImageUrl) && !openInModal)
@@ -218,9 +218,7 @@ namespace mojoPortal.Web.UI
 				}
 				else
 				{
-					string skinPath = SiteUtils.GetSkinBaseUrl(Page);
-
-					ImageUrl = Page.ResolveUrl(skinPath + linkImageUrl.TrimStart('/'));
+					ImageUrl = SiteUtils.DetermineSkinBaseUrl(Page) + linkImageUrl.TrimStart('/');
 				}
 			}
 		}

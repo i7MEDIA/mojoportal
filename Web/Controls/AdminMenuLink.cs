@@ -50,7 +50,7 @@ public class AdminMenuLink : HyperLink
 			}
 			else
 			{
-				ImageUrl = Page.ResolveUrl($"{SiteUtils.GetSkinBaseUrl(Page)}{LinkImageUrl.TrimStart('/')}");
+				ImageUrl = SiteUtils.DetermineSkinBaseUrl(Page) + LinkImageUrl.TrimStart('/');
 			}
 		}
 

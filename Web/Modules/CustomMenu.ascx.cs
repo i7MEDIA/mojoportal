@@ -77,22 +77,7 @@ public partial class CustomMenu : SiteModuleControl
 		}
 		catch (Exception ex)
 		{
-			renderDefaultView(ex.ToString());
-		}
-
-		void renderDefaultView(string error = "")
-		{
-			if (!string.IsNullOrWhiteSpace(error))
-			{
-				log.ErrorFormat(
-					"chosen layout ({0}) for _CustomMenu was not found in skin {1}. perhaps it is in a different skin. Error was: {2}",
-					viewName,
-				SiteUtils.GetSkinBaseUrl(true, Page),
-				error
-				);
-			}
-
-			lit1.Text = RazorBridge.RenderPartialToString("_CustomMenu", model, "Common");
+			lit1.Text = RazorBridge.RenderFallback(viewName, "_CustomMenu", "_CustomMenu", model, "Common", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, false, Page));
 		}
 	}
 }

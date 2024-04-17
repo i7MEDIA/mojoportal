@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using log4net;
@@ -448,17 +449,7 @@ public class PostListRazor : WebControl
 		}
 		catch (Exception ex)
 		{
-			renderDefaultView(ex.ToString());
-		}
-
-		void renderDefaultView(string error = "")
-		{
-			if (!string.IsNullOrWhiteSpace(error))
-			{
-				log.Error($"\r\nChosen layout ({Config.Layout}) for _BlogPostList was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {error}");
-			}
-
-			text = RazorBridge.RenderPartialToString("_BlogPostList", postListObject, "Blog");
+			text = RazorBridge.RenderFallback(Config.Layout, "BlogPostList", "_BlogPostList", postListObject, "Blog", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, false, Page));
 		}
 		output.Write(text);
 	}

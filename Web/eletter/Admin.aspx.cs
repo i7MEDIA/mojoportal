@@ -43,9 +43,10 @@ public partial class AdminPage : NonCmsBasePage
 		}
 		catch (System.Web.HttpException ex)
 		{
-			log.Error($"layout for Newsletter _Admin was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {ex}");
+			log.Error($"layout for Newsletter _Admin was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, false, Page)}. perhaps it is in a different skin. Error was: {ex}");
 		}
 	}
+
 	private void PopulateLabels()
 	{
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminMenuNewsletterAdminLabel);

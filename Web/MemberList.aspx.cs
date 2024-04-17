@@ -141,7 +141,7 @@ namespace mojoPortal.Web.UI.Pages
 			}
 			catch (HttpException ex)
 			{
-				log.Error($"layout (MemberList) was not found in skin {SiteUtils.GetSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {ex}");
+				log.Error($"layout (MemberList) was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, false, Page)}. perhaps it is in a different skin. Error was: {ex}");
 			}
 		}
 

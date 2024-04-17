@@ -115,7 +115,7 @@ public class RazorBridge
 		return sw.GetStringBuilder().ToString();
 	}
 
-	public static string RenderPartialToString(string partialName, object model, string controller = "BaseController")
+	public static string RenderPartialToString(string partialName, object model, string controller = "BaseController", string error = "")
 	{
 		var viewData = new ViewDataDictionary();
 		return RenderPartialToString(partialName, model, viewData, controller);
@@ -131,24 +131,24 @@ public class RazorBridge
 		{
 			if (model.Page != null)
 			{
-				log.ErrorFormat(
-					$"Chosen layout ({{0}}) for {model.CustomTemplate} was not found in skin {{1}}. Perhaps it is in a different skin. Error was: \n{{2}}",
-					model.Data,
-					SiteUtils.GetSkinBaseUrl(true, model.Page),
-					ex
-				);
+				log.Error($"Chosen layout ({model.Data}) for {model.CustomTemplate} was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, false, model.Page)}. Perhaps it is in a different skin. Error was: \n{ex}");
 			}
 			else
 			{
-				log.ErrorFormat(
-					$"Chosen layout ({{0}}) for {model.CustomTemplate} was not found. Perhaps it is in a different skin. Error was: \n{{1}}",
-					model.Data,
-					ex
-				);
+				log.ErrorFormat($"Chosen layout ({model.Data}) for {model.CustomTemplate} was not found. Perhaps it is in a different skin. Error was: \n{ex}");
 			}
 
 			return RenderPartialToString(model.DefaultTemplate, model.Data, model.Controller);
 		}
+	}
+
+	public static string RenderFallback(string failedPartialName, string featureName, string fallbackPartialName, object model, string controller = "BaseController", string error = "", string skinUrl = "")
+	{
+		if (!string.IsNullOrWhiteSpace(error))
+		{
+			log.Error($"\r\nChosen layout ({failedPartialName}) for {featureName} was not found in skin {skinUrl}. Perhaps it is in a different skin. Error was:\r\n{error}");
+		}
+		return RenderPartialToString(fallbackPartialName, model, controller);
 	}
 }
 

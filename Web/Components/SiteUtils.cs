@@ -1427,51 +1427,13 @@ namespace mojoPortal.Web
 		//	return GetSkinBaseUrl(null);
 		//}
 
-		public static string GetSkinBaseUrl(Page page)
-		{
-			bool allowPageOverride = true;
-			return GetSkinBaseUrl(allowPageOverride, page);
-		}
+		/// <param name="page"></param>
+		/// <returns>Full Path to Skin with trailing slash</returns>
+		[Obsolete("Use DetermineSkinBaseUrl", true)]
+		public static string GetSkinBaseUrl(Page page) => DetermineSkinBaseUrl(page);
 
-		public static string GetSkinBaseUrl(bool allowPageOverride, Page page) => allowPageOverride ? GetSkinBaseUrlWithOverride(page) : GetSkinBaseUrlNoOverride(page);
-
-		private static string GetSkinBaseUrlNoOverride(Page page)
-		{
-			if (HttpContext.Current is null)
-			{
-				return string.Empty;
-			}
-
-			if (HttpContext.Current.Items["skinBaseUrlfalse"] is not string baseUrl)
-			{
-				baseUrl = DetermineSkinBaseUrl(false, page);
-				if (baseUrl is not null)
-				{
-					HttpContext.Current.Items["skinBaseUrlfalse"] = baseUrl;
-				}
-			}
-			return baseUrl;
-		}
-
-		private static string GetSkinBaseUrlWithOverride(Page page)
-		{
-			if (HttpContext.Current is null)
-			{
-				return string.Empty;
-			}
-
-			if (HttpContext.Current.Items["skinBaseUrltrue"] is not string baseUrl)
-			{
-				baseUrl = DetermineSkinBaseUrl(true, page);
-				if (baseUrl is not null)
-				{
-					HttpContext.Current.Items["skinBaseUrltrue"] = baseUrl;
-				}
-			}
-			return baseUrl;
-		}
-
-		private static string DetermineSkinBaseUrl(bool allowPageOverride, Page page) => DetermineSkinBaseUrl(allowPageOverride, true, page);
+		[Obsolete("Use DetermineSkinBaseUrl", true)] 
+		public static string GetSkinBaseUrl(bool allowPageOverride, Page page) => DetermineSkinBaseUrl(allowPageOverride, page);
 
 		public static string DetermineSkinBaseUrl(string skinName)
 		{
@@ -1489,6 +1451,16 @@ namespace mojoPortal.Web
 			return Invariant($"/Data/Sites/{siteSettings.SiteId}/skins/{skinName}/");
 		}
 
+		/// <param name="page"></param>
+		/// <returns>Full URL to Skin with trailing slash.</returns>
+		public static string DetermineSkinBaseUrl(Page page) => DetermineSkinBaseUrl(allowPageOverride: true, fullUrl: true, page);
+
+		public static string DetermineSkinBaseUrl(bool allowPageOverride, Page page) => DetermineSkinBaseUrl(allowPageOverride, true, page);
+
+		/// <param name="allowPageOverride"></param>
+		/// <param name="fullUrl"></param>
+		/// <param name="page"></param>
+		/// <returns>Skin URL with trailing slash. When fullUrl is true, the siteRoot is prepended to the Skin URL</returns>
 		public static string DetermineSkinBaseUrl(bool allowPageOverride, bool fullUrl, Page page)
 		{
 			string skinFolder;
@@ -1508,63 +1480,65 @@ namespace mojoPortal.Web
 			var currentSkin = WebConfigSettings.DefaultInitialSkin;
 
 			var siteSettings = CacheHelper.GetCurrentSiteSettings();
-			var currentPage = CacheHelper.GetCurrentPage();
+			//var currentPage = CacheHelper.GetCurrentPage();
 
 			if (siteSettings is not null)
 			{
-				currentSkin = siteSettings.Skin + "/";
-
-				if (siteSettings.AllowUserSkins)
-				{
-					string skinCookieName = "mojoUserSkin" + siteSettings.SiteId.ToInvariantString();
-					if (CookieHelper.CookieExists(skinCookieName))
-					{
-						string cookieValue = CookieHelper.GetCookieValue(skinCookieName);
-						if (cookieValue.Length > 0)
-						{
-							currentSkin = cookieValue + "/";
-						}
-					}
-				}
-
-				if (
-					allowPageOverride
-					&& (currentPage is not null)
-					&& siteSettings.AllowPageSkins
-					&& (page is not null)
-						&& (
-						(page is AdminUI.PageLayout)
-						|| (page is AdminUI.PageProperties)
-						|| (page is AdminUI.ModuleSettingsPage)
-						|| (page is not NonCmsBasePage)
-						)
-					)
-				{
-					if (currentPage.Skin.Length > 0)
-					{
-						currentSkin = $"{currentPage.Skin}/";
-					}
-				}
-
-				if (UseMobileSkin())
-				{
-					if (siteSettings.MobileSkin.Length > 0)
-					{
-						currentSkin = siteSettings.MobileSkin + "/";
-					}
-					//web.config setting trumps site setting
-					if (!string.IsNullOrWhiteSpace(WebConfigSettings.MobilePhoneSkin))
-					{
-						currentSkin = WebConfigSettings.MobilePhoneSkin + "/";
-					}
-				}
-
-				skinFolder = Invariant($"{siteRoot}/Data/Sites/{siteSettings.SiteId}/skins/");
-
 				if (HttpContext.Current.Request.Params.Get("skin") is not null)
 				{
 					currentSkin = $"{SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin"))}/";
 				}
+				else
+				{
+					currentSkin = siteSettings.Skin + "/";
+
+					if (siteSettings.AllowUserSkins)
+					{
+						string skinCookieName = Invariant($"mojoUserSkin{siteSettings.SiteId}");
+						if (CookieHelper.CookieExists(skinCookieName))
+						{
+							string cookieValue = CookieHelper.GetCookieValue(skinCookieName);
+							if (cookieValue.Length > 0)
+							{
+								currentSkin = cookieValue + "/";
+							}
+						}
+					}
+
+					if (
+						allowPageOverride
+						&& siteSettings.AllowPageSkins
+						&& (CacheHelper.GetCurrentPage() is PageSettings currentPage)
+						&& (page is not null)
+							&& (
+							(page is AdminUI.PageLayout)
+							|| (page is AdminUI.PageProperties)
+							|| (page is AdminUI.ModuleSettingsPage)
+							|| (page is not NonCmsBasePage)
+							)
+						)
+					{
+						if (currentPage.Skin.Length > 0)
+						{
+							currentSkin = $"{currentPage.Skin}/";
+						}
+					}
+
+					if (UseMobileSkin())
+					{
+						if (siteSettings.MobileSkin.Length > 0)
+						{
+							currentSkin = siteSettings.MobileSkin + "/";
+						}
+						//web.config setting trumps site setting
+						if (!string.IsNullOrWhiteSpace(WebConfigSettings.MobilePhoneSkin))
+						{
+							currentSkin = WebConfigSettings.MobilePhoneSkin + "/";
+						}
+					}
+				}
+
+				skinFolder = Invariant($"{siteRoot}/Data/Sites/{siteSettings.SiteId}/skins/");
 			}
 
 			return skinFolder + currentSkin;

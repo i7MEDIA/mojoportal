@@ -77,7 +77,7 @@ public class SearchEngineInfo : IHttpHandler
 		xmlTextWriter.WriteAttributeString("type", "image/x-icon");
 		xmlTextWriter.WriteAttributeString("width", "16");
 		xmlTextWriter.WriteAttributeString("height", "16");
-		xmlTextWriter.WriteValue(SiteUtils.GetSkinBaseUrl(false, null) + "favicon.ico");
+		xmlTextWriter.WriteValue(SiteUtils.DetermineSkinBaseUrl(false, true, null) + "favicon.ico");
 		xmlTextWriter.WriteEndElement();
 
 		//self update url
