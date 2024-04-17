@@ -1809,15 +1809,14 @@ namespace mojoPortal.Web
 			string currentSkin = WebConfigSettings.DefaultInitialSkin;
 
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			PageSettings currentPage = CacheHelper.GetCurrentPage();
 
 			if (siteSettings is not null)
 			{
 				currentSkin = siteSettings.Skin;
 
 				if (allowPageOverride
-					&& currentPage is not null
 					&& siteSettings.AllowPageSkins
+					&& CacheHelper.GetCurrentPage() is PageSettings currentPage
 					&& !string.IsNullOrWhiteSpace(currentPage.Skin))
 				{
 					currentSkin = currentPage.Skin;

@@ -276,11 +276,18 @@ public class Global : HttpApplication
 		}
 		//moved RegisterBundles here so it can properly check the request for SSL. Can't do that when called from Application_Start
 		BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-		if (siteCount > 0)
+		try
 		{
-			SkinConfigManager ??= new SkinConfigManager();
-			SkinConfig = SkinConfigManager.GetConfig();
+			if (siteCount > 0)
+			{
+				SkinConfigManager ??= new SkinConfigManager();
+				SkinConfig = SkinConfigManager.GetConfig();
+			}
+		}
+		catch (IndexOutOfRangeException ex)
+		{
+			//this can happen if we're upgrading from an old version of mojoPortal which doesn't have some Page attributes
+			log.Error($"Cannot get skin config because of missing page attributes,\r\n{ex}");
 		}
 
 		#region FileSystem Init
