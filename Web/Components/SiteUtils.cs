@@ -295,13 +295,13 @@ namespace mojoPortal.Web
 				queryParams.Append(Invariant($"itemId={itemId}&"));
 			}
 
-			string siteRoot = GetNavigationSiteRoot();
-			if (!includeSiteRoot)
+			string siteRoot = string.Empty;
+			if (includeSiteRoot)
 			{
-				siteRoot = string.Empty;
+				siteRoot = GetNavigationSiteRoot();
 			}
 
-			return $"{siteRoot}/{pageUrl.TrimStart('/')}{queryParams.ToString().TrimEnd('&')}";
+			return $"{siteRoot}/{pageUrl.TrimStart('~','/')}{queryParams.ToString().TrimEnd('&')}".TrimStart('/');
 		}
 
 		/// <summary>
