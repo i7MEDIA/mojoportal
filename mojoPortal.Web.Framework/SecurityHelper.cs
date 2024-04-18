@@ -164,25 +164,19 @@ public static class SecurityHelper
 		return "[\\s\\S]{0," + length.ToInvariantString() + "}";
 	}
 
-
 	public static string PreventCrossSiteScripting(String html)
 	{
-
 		String errorHeader = ResourceHelper.GetMessageTemplate("NeatHtmlValidationErrorHeader.config");
 		return PreventCrossSiteScripting(html, errorHeader);
-
 	}
 
 	public static string PreventCrossSiteScripting(String html, String errorHeader)
 	{
-
 		return PreventCrossSiteScripting(html, errorHeader, false);
-
 	}
 
 	public static string PreventCrossSiteScripting(String html, String errorHeader, bool removeMarkupOnFailure)
 	{
-
 		try
 		{
 			XssFilter filter = GetXssFilter();
@@ -192,7 +186,6 @@ public static class SecurityHelper
 				log.Info("XssFilter was null");
 				return html.Replace("script", "s cript");
 			}
-
 
 			return filter.FilterFragment(html);
 		}
@@ -211,11 +204,8 @@ public static class SecurityHelper
 		}
 	}
 
-
-
 	public static string SanitizeHtml(String html)
 	{
-
 		try
 		{
 			XssFilter filter = GetXssFilter();
@@ -227,14 +217,11 @@ public static class SecurityHelper
 				return RemoveMarkup(html);
 			}
 
-
 			return filter.FilterFragment(html);
 		}
 		catch (Exception)
 		{
-
 			return RemoveMarkup(html);
-
 		}
 	}
 
@@ -259,58 +246,7 @@ public static class SecurityHelper
 
 			return filter;
 		}
-
-
 	}
-
-
-
-
-	//private static XssFilter GetXssFilter()
-	//{
-
-	//    string cachekey = "xssfilter";
-
-
-	//    if (HttpRuntime.Cache[cachekey] == null)
-	//    {
-	//        int cacheTimeout = 120;
-
-	//        RefreshSchemaFilterCache(cachekey, cacheTimeout);
-	//    }
-
-	//    // Return object from cache, or null if it is not there for some reason
-	//    return HttpRuntime.Cache[cachekey] as XssFilter;
-	//}
-
-	//private static void RefreshSchemaFilterCache(String cacheKey, int cacheTimeout)
-	//{
-	//    if (HttpContext.Current == null) return;
-
-	//    string schemaFolder = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/NeatHtml/schema");
-	//    string schemaFile = Path.Combine(schemaFolder, "NeatHtml.xsd");
-
-	//    XssFilter filter = XssFilter.GetForSchema(schemaFile);
-
-	//    CacheDependency cacheDependency = new CacheDependency(schemaFile);
-
-	//    DateTime absoluteExpiration = DateTime.Now.AddSeconds(cacheTimeout);
-	//    TimeSpan slidingExpiration = TimeSpan.Zero;
-	//    CacheItemPriority priority = CacheItemPriority.Default;
-	//    CacheItemRemovedCallback callback = null;
-
-	//    HttpRuntime.Cache.Insert(
-	//        cacheKey,
-	//        filter,
-	//        cacheDependency,
-	//        absoluteExpiration,
-	//        slidingExpiration,
-	//        priority,
-	//        callback);
-	//}
-
-
-
 
 	public static string RemoveMarkup(string text)
 	{
@@ -325,26 +261,33 @@ public static class SecurityHelper
 
 	public static string RemoveAngleBrackets(string text)
 	{
-		if (string.IsNullOrEmpty(text)) { return text; }
+		if (string.IsNullOrEmpty(text))
+		{
+			return text;
+		}
 
 		return text.Replace("<", string.Empty).Replace(">", string.Empty);
 	}
 
-
-	public static string GetRandomASPNET20machinekey()
+	/// <summary>
+	/// Checks string for possible XSS content.
+	/// </summary>
+	/// <param name="text"></param>
+	/// <returns>True if string is possibly XSS attemp. False if string is clean.</returns>
+	public static bool IsPossibleXss(string text)
 	{
-		StringBuilder machinekey = new StringBuilder();
-		string key64byte = GetRandomKey(64);
-		string key32byte = GetRandomKey(32);
-		machinekey.Append("<machineKey \n");
-		machinekey.Append("validationKey=\"" + key64byte + "\"\n");
-		machinekey.Append("decryptionKey=\"" + key32byte + "\"\n");
-		machinekey.Append("validation=\"SHA1\" decryption=\"AES\"\n");
-		machinekey.Append("/>\n");
-		return machinekey.ToString();
+		if (RemoveMarkup(text) != text)
+		{
+			return true;
+		}
+
+		if (RemoveAngleBrackets(text) != text)
+		{
+			return true;
+		}
+
+		return false;
 	}
-
-
 
 	public static string GetRandomKey(int bytelength)
 	{
@@ -368,7 +311,6 @@ public static class SecurityHelper
 			HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 			HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 			HttpContext.Current.Response.Cache.AppendCacheExtension("post-check=0,pre-check=0");
-
 		}
 	}
 
@@ -395,38 +337,4 @@ public static class SecurityHelper
 		HttpContext.Current.Response.Cache.AppendCacheExtension("post-check=0,pre-check=0");
 
 	}
-
-	/// <summary>
-	/// Gets the current Trust Level
-	/// </summary>
-	/// <returns></returns>
-	public static AspNetHostingPermissionLevel GetCurrentTrustLevel()
-	{
-		foreach (AspNetHostingPermissionLevel trustLevel in
-				new AspNetHostingPermissionLevel[] {
-			AspNetHostingPermissionLevel.Unrestricted,
-			AspNetHostingPermissionLevel.High,
-			AspNetHostingPermissionLevel.Medium,
-			AspNetHostingPermissionLevel.Low,
-			AspNetHostingPermissionLevel.Minimal
-		})
-		{
-			try
-			{
-				new AspNetHostingPermission(trustLevel).Demand();
-			}
-			catch (System.Security.SecurityException)
-			{
-				continue;
-			}
-
-			return trustLevel;
-		}
-
-		return AspNetHostingPermissionLevel.None;
-	}
-
-
-
-
 }

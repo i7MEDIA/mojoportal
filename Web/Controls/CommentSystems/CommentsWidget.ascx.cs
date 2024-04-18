@@ -874,7 +874,7 @@ public partial class CommentsWidget : UserControl, IRefreshAfterPostback, IUpdat
 	{
 		if ((showUserUrl) && (!string.IsNullOrEmpty(authorUrl)))
 		{
-			return "<a rel='nofollow' href='" + SecurityHelper.SanitizeHtml(authorUrl) + "'>" + userName + "</a>";
+			return $"<a rel=\"nofollow\" href=\"{SecurityHelper.SanitizeHtml(authorUrl)}\">{userName}</a>";
 		}
 
 		if (userId == -1) { return userName; }
@@ -886,10 +886,8 @@ public partial class CommentsWidget : UserControl, IRefreshAfterPostback, IUpdat
 			if (!WebUser.IsInRoles(siteSettings.RolesThatCanViewMemberList)) { return userName; }
 		}
 
-
-
 		// if user is not authenticated we don't know if he will be allowed but he will be prompted to login first so its ok to show the link
-		return "<a rel='nofollow' href='" + SiteRoot + "/ProfileView.aspx?userid=" + userId.ToInvariantString() + "'>" + userName + "</a>";
+		return $"<a rel=\"nofollow\" href=\"{SiteRoot}/ProfileView.aspx?userid={userId.ToInvariantString()}\">{userName}</a>";
 
 	}
 

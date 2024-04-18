@@ -23,6 +23,7 @@
 				ConfigKey="CommentUserName" ResourceFile="Resource" EnableViewState="false" />
 			<asp:TextBox ID="txtName" runat="server" MaxLength="100" EnableViewState="true" CssClass="forminput widetextbox" />
 			<asp:RequiredFieldValidator ID="reqName" runat="server" ValidationGroup="comments" ControlToValidate="txtName" Display="Dynamic" EnableClientScript="true" SetFocusOnError="true" />
+
 		</div>
 		<div id="divCommentUrl" runat="server" class="settingrow">
 			<mp:SiteLabel ID="lblCommentURL" runat="server" ForControl="txtURL" CssClass="settinglabel"

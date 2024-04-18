@@ -9,7 +9,9 @@
 						<portal:CommentItemLeftPanel ID="pnlLeft" runat="server" RenderId="false" CssClass='<%# LeftPanelCssClass %>'>
 							<portal:CommentItemInnerPanel ID="usernamepanel" runat="server" CssClass='<%# UsernameWrapperCssClass %>' RenderId="false">
 								<%# GetProfileManageIcon(Convert.ToInt32(Eval("UserId"))) %>
-								<%# GetProfileLinkOrLabel(Convert.ToInt32(Eval("UserId")), Eval("PostAuthor").ToString(), Eval("PostAuthorWebSiteUrl").ToString())%>
+								<NeatHtml:UntrustedContent ID="UntrustedAuthorInfo" runat="server" TrustedImageUrlPattern="<%# AllowedImageUrlRegexPatern %>">
+									<%# GetProfileLinkOrLabel(Convert.ToInt32(Eval("UserId")), Eval("PostAuthor").ToString(), Eval("PostAuthorWebSiteUrl").ToString())%>
+								</NeatHtml:UntrustedContent>
 							</portal:CommentItemInnerPanel>
 							<portal:CommentItemInnerPanel ID="avatarpanel" runat="server" CssClass='<%# AvatarWrapperCssClass %>' RenderId="false">
 								<portal:Avatar ID="av1" runat="server"
