@@ -1395,14 +1395,14 @@ public partial class SiteSettingsPage : NonCmsBasePage
 
 	private void btnTestSMTPSettings_Click(object sender, EventArgs e)
 	{
-		string validFormat = displaySettings.AlertNoticeMarkup;
-		string invalidFormat = displaySettings.AlertErrorMarkup;
+		var validFormat = displaySettings.AlertNoticeMarkup;
+		var invalidFormat = displaySettings.AlertErrorMarkup;
 
 		btnTestSMTPSettings.Text = Resource.SiteSettingsTestSMTPSettingsButtonSending;
 		btnTestSMTPSettings.Enabled = false;
 
-		SmtpSettings smtpSettings = new();
-		SmtpSettings savedSmtpSettings = SiteUtils.GetSmtpSettings();
+		var smtpSettings = new SmtpSettings();
+		var savedSmtpSettings = SiteUtils.GetSmtpSettings();
 
 		if (!WebConfigSettings.EnableSiteSettingsSmtpSettings)
 		{
@@ -1443,8 +1443,6 @@ public partial class SiteSettingsPage : NonCmsBasePage
 			}
 		}
 
-
-
 		foreach (var header in txtSMTPHeaders.Text.SplitOnNewLineAndTrim())
 		{
 			var keyFinalIndex = header.IndexOf(':');
@@ -1456,22 +1454,21 @@ public partial class SiteSettingsPage : NonCmsBasePage
 
 		if (smtpSettings.IsValid)
 		{
-			string msg = ResourceHelper.GetMessageTemplate("TestEmailSettings.config");
-			string subj = ResourceHelper.GetMessageTemplate("TestEmailSettingsSubject.config");
+			var msg = ResourceHelper.GetMessageTemplate("TestEmailSettings.config");
+			var subj = ResourceHelper.GetMessageTemplate("TestEmailSettingsSubject.config");
 			if (string.IsNullOrWhiteSpace(subj))
 			{
-				subj = $"{siteSettings.SiteName} Email Test";
+				subj = $"{siteSettings.SiteName} {Resource.SiteSettingsTestSMTPSettingsMessageSubject}";
 			}
 			else
 			{
 				subj = subj.Replace("{SiteName}", siteSettings.SiteName);
 			}
 
-			StringBuilder message = new StringBuilder();
-			message.Append(string.IsNullOrWhiteSpace(msg) ? "If you're reading this, your email settings on your website are working fine." : msg);
+			var message = new StringBuilder();
+			message.Append(string.IsNullOrWhiteSpace(msg) ? Resource.SiteSettingsTestSMTPSettingsMessage : msg);
 			message.Replace("{SiteName}", siteSettings.SiteName);
 			message.Replace("{AdminEmail}", txtSiteEmailFromAddress.Text);
-			string resultMessage = string.Empty;
 			bool result = Email.Send(
 				smtpSettings,
 				txtSiteEmailFromAddress.Text,
@@ -1484,7 +1481,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 				message.ToString(),
 				false,
 				"Normal",
-				out resultMessage);
+				out string resultMessage);
 			if (result)
 			{
 				litTestSMTPResult.Text = string.Format(validFormat, Resource.SiteSettingsTestSMTPSettingsValidMessage);

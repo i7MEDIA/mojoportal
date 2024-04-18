@@ -6745,4 +6745,10 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="CopyRestoreSkinsButtonToolTip" xml:space="preserve">
     <value>Restore skins from local catalog, overwriting local skins.</value>
   </data>
+  <data name="SiteSettingsTestSMTPSettingsMessage" xml:space="preserve">
+    <value>If you're reading this, the email settings on the "{SiteName}" website are working fine.</value>
+  </data>
+  <data name="SiteSettingsTestSMTPSettingsMessageSubject" xml:space="preserve">
+    <value>{SiteName} Email Test</value>
+  </data>
 </root>

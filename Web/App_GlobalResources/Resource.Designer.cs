@@ -17351,6 +17351,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re reading this, the email settings on the &quot;{SiteName}&quot; website are working fine..
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsMessage {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {SiteName} Email Test.
+        /// </summary>
+        internal static string SiteSettingsTestSMTPSettingsMessageSubject {
+            get {
+                return ResourceManager.GetString("SiteSettingsTestSMTPSettingsMessageSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings are valid. Email was sent. This does not ensure your message will arrive, only that we were able to connect to the specified email server, authenticate, and relay an email to it..
         /// </summary>
         internal static string SiteSettingsTestSMTPSettingsValidMessage {
