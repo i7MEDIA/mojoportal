@@ -613,15 +613,7 @@ namespace mojoPortal.Web.BlogUI
 			}
 
 			return
-				"<" +
-				displaySettings.ListViewPostSubtitleElement +
-				" class='" +
-				displaySettings.ListViewPostSubtitleClass +
-				"'>" +
-				SecurityHelper.SanitizeHtml(subTitle) +
-				"</" +
-				displaySettings.ListViewPostSubtitleElement +
-				">"
+				$"<{displaySettings.ListViewPostSubtitleElement} class='{displaySettings.ListViewPostSubtitleClass}'>{SecurityHelper.SanitizeHtml(subTitle)}</{displaySettings.ListViewPostSubtitleElement}>"
 			;
 		}
 

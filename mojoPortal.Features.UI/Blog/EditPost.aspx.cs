@@ -759,7 +759,7 @@ public partial class BlogEdit : NonCmsBasePage
 					SiteGuid = siteSettings.SiteGuid,
 					PageGuid = blog.BlogGuid,
 					Url = friendlyUrlString,
-					RealUrl = SiteUtils.GetUrlWithQueryParams("~/Blog/ViewPost.aspx", -1, pageId, blog.ModuleId, blog.ItemId, false)
+					RealUrl = SiteUtils.GetUrlWithQueryParams("Blog/ViewPost.aspx", -1, pageId, blog.ModuleId, blog.ItemId, false)
 					//$"~/Blog/ViewPost.aspx?pageid={pageId.ToInvariantString()}&mid={blog.ModuleId.ToInvariantString()}&ItemID={blog.ItemId.ToInvariantString()}"
 				};
 
@@ -776,7 +776,7 @@ public partial class BlogEdit : NonCmsBasePage
 					&& (!RedirectInfo.Exists(siteSettings.SiteId, newUrl))
 					)
 				{
-					RedirectInfo redirect = new RedirectInfo
+					var redirect = new RedirectInfo
 					{
 						SiteGuid = siteSettings.SiteGuid,
 						SiteId = siteSettings.SiteId,
