@@ -85,20 +85,18 @@
 										DataBinder.Eval(Container.DataItem,"ItemID") +
 										"&amp;mid=" +
 										ModuleId.ToString()
-									%>'
-								/>
+									%>' />
 
 								<asp:HyperLink runat="server"
 									ID="Hyperlink2"
 									NavigateUrl='<%# DataBinder.Eval(Container, "DataItem.Url")%>'>
 									<%# DataBinder.Eval(Container, "DataItem.Author")%>
 								</asp:HyperLink>
-					
+
 								<asp:HyperLink runat="server"
 									ID="Hyperlink3"
 									ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/" + RssImageFile %>'
-									NavigateUrl='<%# DataBinder.Eval(Container, "DataItem.RssUrl")%>'
-								/>
+									NavigateUrl='<%# DataBinder.Eval(Container, "DataItem.RssUrl")%>' />
 							</itemtemplate>
 						</portal:mojoDataList>
 					</asp:Panel>
@@ -106,7 +104,7 @@
 					<portal:mojoButton ID="btnClearCache" runat="server" CausesValidation="False" />
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			
+
 		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>

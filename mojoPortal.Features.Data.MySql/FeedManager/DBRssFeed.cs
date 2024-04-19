@@ -848,7 +848,7 @@ namespace mojoPortal.Data
         /// <param name="entryHash"> entryHash </param>
         /// <param name="cachedTimeUtc"> cachedTimeUtc </param>
         /// <returns>bool</returns>
-        public static bool UpdateEnry(
+        public static bool UpdateEntry(
             Guid moduleGuid,
             string title,
             string author,

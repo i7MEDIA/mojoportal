@@ -12,12 +12,10 @@
 				<ContentTemplate>
 					<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent rsswrapper">
 						<asp:Panel ID="divNav" runat="server" CssClass="rssnavright" SkinID="plain">
-							<asp:Label ID="lblFeedListName" Font-Bold="True" runat="server"></asp:Label>
-
+							<asp:Label ID="lblFeedListName" Font-Bold="True" runat="server" />
 							<a id="lnkAggregateRSS" href="~/FeedManager/FeedAggregate.aspx" runat="server" class="feedlink feedag" enableviewstate="false">
 								<img runat="server" alt="RSS" id="imgAggregateRSS" enableviewstate="false" />
 							</a>
-
 							<portal:mojoDataList ID="dlstFeedList" runat="server" EnableViewState="false">
 								<ItemTemplate>
 									<asp:HyperLink runat="server"
@@ -26,21 +24,13 @@
 										EnableViewState="false"
 										Text="<%# Resources.FeedResources.EditImageAltText%>"
 										ToolTip="<%# Resources.FeedResources.EditImageAltText%>"
-										ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/" + EditContentImage %>'
-										NavigateUrl='<%#
-											this.SiteRoot +
-											"/FeedManager/FeedEdit.aspx?pageid=" +
-											PageId.ToString() +
-											"&amp;ItemID=" +
-											Eval("ItemID") +
-											"&amp;mid=" +
-											ModuleId.ToString()
-										%>'
+										ImageUrl='<%# $"{this.ImageSiteRoot}/Data/SiteImages/{EditContentImage}" %>'
+										NavigateUrl='<%# SiteUtils.GetUrlWithQueryParams("FeedManager/FeedEdit.aspx", pageId: PageId, moduleId: ModuleId, itemId: Convert.ToInt32(Eval("ItemID"))) %>'
 										Visible="<%# IsEditable %>" />
 
 									<asp:HyperLink runat="server"
 										ID="Hyperlink2"
-										CssClass='<%# "feedlink lnk" + Eval("ItemID")%>'
+										CssClass='<%# $"feedlink lnk{Eval("ItemID")}"%>'
 										EnableViewState="false"
 										Visible="<%# LinkToAuthorSite && (!displaySettings.UseNoFollowOnFeedSiteLinks) %>"
 										NavigateUrl='<%# Eval("Url")%>'>
@@ -49,7 +39,7 @@
 
 									<portal:NoFollowHyperlink runat="server"
 										ID="Hyperlink4"
-										CssClass='<%# "feedlink lnk" + Eval("ItemID")%>'
+										CssClass='<%# $"feedlink lnk{Eval("ItemID")}"%>'
 										EnableViewState="false"
 										Visible="<%# LinkToAuthorSite && displaySettings.UseNoFollowOnFeedSiteLinks %>"
 										NavigateUrl='<%# Eval("Url")%>'>
@@ -65,10 +55,10 @@
 
 									<portal:NoFollowHyperlink runat="server"
 										ID="Hyperlink3"
-										CssClass='<%# "feed" + Eval("ItemID")%>'
+										CssClass='<%# $"feed{Eval("ItemID")}"%>'
 										EnableViewState="false"
 										Visible="<%# config.ShowIndividualFeedLinks %>"
-										ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/" + RssImageFile %>'
+										ImageUrl='<%# $"{this.ImageSiteRoot}/Data/SiteImages/{RssImageFile}" %>'
 										NavigateUrl='<%# Eval("RssUrl")%>'>
 
 									</portal:NoFollowHyperlink>
@@ -88,21 +78,12 @@
 											EnableViewState="false"
 											Text="<%# Resources.FeedResources.EditImageAltText%>"
 											ToolTip="<%# Resources.FeedResources.EditImageAltText%>"
-											ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/" + EditContentImage %>'
-											NavigateUrl='<%#
-												this.SiteRoot +
-												"/FeedManager/FeedEdit.aspx?pageid=" +
-												PageId.ToString() +
-												"&amp;ItemID=" +
-												Eval("ItemID") +
-												"&amp;mid=" +
-												ModuleId.ToString()
-											%>'
+											ImageUrl='<%# $"{this.ImageSiteRoot}/Data/SiteImages/{EditContentImage}" %>'
+											NavigateUrl='<%# SiteUtils.GetUrlWithQueryParams("FeedManager/FeedEdit.aspx", pageId: PageId, moduleId: ModuleId, itemId: Convert.ToInt32(Eval("ItemID"))) %>'
 											Visible="<%# IsEditable %>" />
-
 										<asp:HyperLink runat="server"
 											ID="lnkItem"
-											CssClass='<%# "feedsitelink lnk" + Eval("ItemID")%>'
+											CssClass='<%# $"feedsitelink lnk{Eval("ItemID")}"%>'
 											EnableViewState="false" Visible="<%# LinkToAuthorSite && (!displaySettings.UseNoFollowOnFeedSiteLinks) %>"
 											NavigateUrl='<%# Eval("Url")%>'>
 											<%# DataBinder.Eval(Container, "DataItem.Author")%>
@@ -110,7 +91,7 @@
 
 										<portal:NoFollowHyperlink runat="server"
 											ID="HyperLink7"
-											CssClass='<%# "feedsitelink lnk" + Eval("ItemID")%>'
+											CssClass='<%# $"feedsitelink lnk{Eval("ItemID")}"%>'
 											EnableViewState="false"
 											Visible="<%# LinkToAuthorSite && displaySettings.UseNoFollowOnFeedSiteLinks %>"
 											NavigateUrl='<%# Eval("Url")%>'>
@@ -127,10 +108,10 @@
 
 										<portal:NoFollowHyperlink runat="server"
 											ID="lnkFeed"
-											CssClass='<%# "feedlink feed" + Eval("ItemID")%>'
+											CssClass='<%# $"feedlink feed{Eval("ItemID")}"%>'
 											EnableViewState="false"
 											Visible="<%# config.ShowIndividualFeedLinks %>"
-											ImageUrl='<%# this.ImageSiteRoot + "/Data/SiteImages/" + RssImageFile %>'
+											ImageUrl='<%# $"{this.ImageSiteRoot}/Data/SiteImages/{RssImageFile}" %>'
 											NavigateUrl='<%# Eval("RssUrl")%>' />
 									</li>
 								</ItemTemplate>

@@ -1,17 +1,12 @@
-﻿using mojoPortal.Business;
+﻿using System;
+using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using System;
 
-namespace mojoPortal.Features
+namespace mojoPortal.Features;
+
+public class FeedContentDeleteHandler : ContentDeleteHandlerProvider
 {
-	public class FeedContentDeleteHandler : ContentDeleteHandlerProvider
-	{
-		public FeedContentDeleteHandler()
-		{ }
+	public FeedContentDeleteHandler() { }
 
-		public override void DeleteContent(int moduleId, Guid moduleGuid)
-		{
-			RssFeed.DeleteByModule(moduleId);
-		}
-	}
+	public override void DeleteContent(int moduleId, Guid moduleGuid) => RssFeed.DeleteByModule(moduleId);
 }

@@ -17,7 +17,6 @@
 						<ContentTemplate>
 							<asp:Panel ID="divFeedEntries" runat="server" CssClass="rsscenter-rightnav" SkinID="plain">
 								<asp:Literal ID="lblFeedHeading" runat="server" Visible="false" />
-
 								<asp:Repeater ID="rptEntries" runat="server" OnItemCommand="rptEntries_ItemCommand">
 									<ItemTemplate>
 										<asp:ImageButton runat="server"
@@ -29,13 +28,13 @@
 
 										<div class='<%# "rssfeedentry" + DataBinder.Eval(Container, "DataItem.Confirmed") %>' id="divFeedEntry" runat="server">
 											<div class="rsstitle">
-												<%# "<" + FeedItemHeadingElement + ">" %>
+												<%# $"<{FeedItemHeadingElement}>" %>
 
 												<asp:HyperLink ID="Hyperlink4" runat="server" SkinID="BlogTitle" NavigateUrl='<%# DataBinder.Eval(Container, "DataItem.Link")%>'>
 													<%# Server.HtmlEncode(DataBinder.Eval(Container, "DataItem.Title").ToString())%>
 												</asp:HyperLink>
 
-												<%# "</" + FeedItemHeadingElement + ">" %>
+												<%# $"</{FeedItemHeadingElement}>" %>
 											</div>
 
 											<div class="rssdate" id="divDate" runat="server" visible='<%# config.ShowDate %>'>
@@ -59,13 +58,11 @@
 									</ItemTemplate>
 								</asp:Repeater>
 							</asp:Panel>
-
 							<portal:mojoCutePager ID="pgrRptEntries" runat="server" />
 						</ContentTemplate>
 					</asp:UpdatePanel>
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-			
 		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>
