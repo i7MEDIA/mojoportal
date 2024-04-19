@@ -125,7 +125,6 @@
     <Compile Include="dbRoles.cs" />
     <Compile Include="DBSavedQuery.cs" />
     <Compile Include="dbSiteFolder.cs" />
-    <Compile Include="dbSitePersonalization.cs" />
     <Compile Include="dbSiteSettings.cs" />
     <Compile Include="DBSiteSettingsEx.cs" />
     <Compile Include="dbSiteUser.cs" />
@@ -143,7 +142,6 @@
       <Version>2.0.15</Version>
     </PackageReference>
   </ItemGroup>
-
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>

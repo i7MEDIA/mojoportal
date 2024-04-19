@@ -205,7 +205,6 @@
     <Compile Include="dbRoles.cs" />
     <Compile Include="DBSavedQuery.cs" />
     <Compile Include="dbSiteFolder.cs" />
-    <Compile Include="dbSitePersonalization.cs" />
     <Compile Include="dbSiteSettings.cs" />
     <Compile Include="DBSiteSettingsEx.cs" />
     <Compile Include="dbSiteUser.cs" />

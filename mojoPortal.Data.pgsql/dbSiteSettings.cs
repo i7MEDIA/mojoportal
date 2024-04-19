@@ -991,9 +991,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("DELETE FROM mp_pages WHERE siteid = :siteid; ");
             sqlCommand.Append("DELETE FROM mp_roles WHERE siteid = :siteid; ");
             sqlCommand.Append("DELETE FROM mp_sitehosts WHERE siteid = :siteid; ");
-            sqlCommand.Append("DELETE FROM mp_sitepersonalizationallusers WHERE pathid IN (SELECT pathid FROM mp_sitepaths WHERE siteid = :siteid);");
-            sqlCommand.Append("DELETE FROM mp_sitepersonalizationperuser WHERE pathid IN (SELECT pathid FROM mp_sitepaths WHERE siteid = :siteid);");
-            sqlCommand.Append("DELETE FROM mp_sitepaths WHERE siteid = :siteid; ");
+            //sqlCommand.Append("DELETE FROM mp_sitepersonalizationallusers WHERE pathid IN (SELECT pathid FROM mp_sitepaths WHERE siteid = :siteid);");
+            //sqlCommand.Append("DELETE FROM mp_sitepersonalizationperuser WHERE pathid IN (SELECT pathid FROM mp_sitepaths WHERE siteid = :siteid);");
+            //sqlCommand.Append("DELETE FROM mp_sitepaths WHERE siteid = :siteid; ");
             sqlCommand.Append("DELETE FROM mp_sitefolders WHERE siteguid IN (SELECT siteguid FROM mp_sites WHERE siteid = :siteid);");
 
             sqlCommand.Append("DELETE FROM mp_sitesettingsex WHERE siteid = :siteid; ");

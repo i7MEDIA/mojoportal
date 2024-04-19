@@ -292,7 +292,6 @@
     <Compile Include="SavedQueryRepository.cs" />
     <Compile Include="SiteFolder.cs" />
     <Compile Include="SiteModuleDefinition.cs" />
-    <Compile Include="SitePersonalization.cs" />
     <Compile Include="SiteSettings.cs">
       <SubType>Code</SubType>
     </Compile>
