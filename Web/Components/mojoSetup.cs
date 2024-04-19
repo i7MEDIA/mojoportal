@@ -21,7 +21,6 @@ public sealed class mojoSetup
 	public const string DefaultPageEncoding = "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />";
 	private static readonly char pathSep = Path.DirectorySeparatorChar;
 	private const string testFilename = "test.config";
-	private const string sitesPath = "~/Data/Sites/";
 
 	#region File System Tests
 
@@ -95,13 +94,16 @@ public sealed class mojoSetup
 		}
 	}
 
-	public static void EnsureFolderGalleryFolder(SiteSettings siteSettings)
-	{
-		if (HttpContext.Current is null) return;
+	//public static void EnsureFolderGalleryFolder(SiteSettings siteSettings)
+	//{
+	//	if (HttpContext.Current is null)
+	//	{
+	//		return;
+	//	}
 
-		string path = Invariant($"{sitesPath}{siteSettings.SiteId}/FolderGalleries/");
-		TouchTestFile(path, true);
-	}
+	//	string path = Invariant($"{sitesPath}{siteSettings.SiteId}/FolderGalleries/");
+	//	TouchTestFile(path, true);
+	//}
 
 	#endregion
 

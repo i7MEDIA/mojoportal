@@ -3886,6 +3886,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This feature has been deprecated and will be removed in a future release. Site admins should work on migrating their content from this feature to a replacement..
+        /// </summary>
+        internal static string DeprecatedFeature {
+            get {
+                return ResourceManager.GetString("DeprecatedFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         internal static string DialogCloseLink {

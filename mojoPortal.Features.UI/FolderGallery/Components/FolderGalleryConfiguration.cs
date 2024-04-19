@@ -1,118 +1,45 @@
-﻿// Author:				    
-// Created:			        2013-04-04
-// Last Modified:		    2011-04-04
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-
-using System;
+﻿using System;
 using System.Collections;
-using System.Drawing;
-using System.Globalization;
-using System.Web.UI.WebControls;
 using mojoPortal.Web.Framework;
 
-namespace mojoPortal.Web.GalleryUI
+namespace mojoPortal.Web.GalleryUI;
+
+public class FolderGalleryConfiguration
 {
-    public class FolderGalleryConfiguration
-    {
-        private const string featureGuid = "9e58fcda-90de-4ed7-abc7-12f096f5c58f";
+	public static Guid FeatureGuid => new("9e58fcda-90de-4ed7-abc7-12f096f5c58f");
 
-        public static Guid FeatureGuid
-        {
-            get { return new Guid(featureGuid); }
-        }
+	public FolderGalleryConfiguration() { }
 
-        public FolderGalleryConfiguration()
-        { }
+	public FolderGalleryConfiguration(Hashtable settings) => LoadSettings(settings);
 
-        public FolderGalleryConfiguration(Hashtable settings)
-        {
-            LoadSettings(settings);
+	private void LoadSettings(Hashtable settings)
+	{
+		if (settings is null)
+		{
+			throw new ArgumentException("must pass in a hashtable of settings");
+		}
 
-        }
+		GalleryRootFolder = WebUtils.ParseStringFromHashtable(settings, "FolderGalleryRootFolder", GalleryRootFolder);
+		CustomCssClass = WebUtils.ParseStringFromHashtable(settings, "CustomCssClassSetting", CustomCssClass);
+		ShowPermaLinks = WebUtils.ParseBoolFromHashtable(settings, "ShowPermaLinksSetting", ShowPermaLinks);
+		ShowMetaDetails = WebUtils.ParseBoolFromHashtable(settings, "ShowMetaDetailsSetting", ShowMetaDetails);
+		AllowEditUsersToChangeFolderPath = WebUtils.ParseBoolFromHashtable(settings, "AllowEditUsersToChangeFolderPath", AllowEditUsersToChangeFolderPath);
+		AllowEditUsersToUpload = WebUtils.ParseBoolFromHashtable(settings, "AllowEditUsersToUpload", AllowEditUsersToUpload);
+	}
 
-        private void LoadSettings(Hashtable settings)
-        {
-            if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
+	public string CustomCssClass { get; private set; } = string.Empty;
 
-            if (settings.Contains("FolderGalleryRootFolder"))
-            {
-                folderGalleryRootFolder = settings["FolderGalleryRootFolder"].ToString();
-            }
+	public string GalleryRootFolder { get; private set; } = string.Empty;
 
-            if (settings.Contains("CustomCssClassSetting"))
-            {
-                customCssClassSetting = settings["CustomCssClassSetting"].ToString();
-            }
+	public bool AllowEditUsersToChangeFolderPath { get; private set; } = true;
 
-            showPermaLinksSetting = WebUtils.ParseBoolFromHashtable(settings, "ShowPermaLinksSetting", showPermaLinksSetting);
+	public bool AllowEditUsersToUpload { get; private set; } = true;
 
-            showMetaDetailsSetting = WebUtils.ParseBoolFromHashtable(settings, "ShowMetaDetailsSetting", showMetaDetailsSetting);
+	public bool ShowPermaLinks { get; private set; } = false;
 
-            allowEditUsersToChangeFolderPath = WebUtils.ParseBoolFromHashtable(settings, "AllowEditUsersToChangeFolderPath", allowEditUsersToChangeFolderPath);
+	public bool ShowMetaDetails { get; private set; } = false;
 
-            allowEditUsersToUpload = WebUtils.ParseBoolFromHashtable(settings, "AllowEditUsersToUpload", allowEditUsersToUpload);
+	public static int MaxFilesToUploadAtOnce => ConfigHelper.GetIntProperty("FolderGallery:MaxFilesToUploadAtOnce", 20);
 
-        }
-
-        private string customCssClassSetting = string.Empty;
-
-        public string CustomCssClass
-        {
-            get { return customCssClassSetting; }
-        }
-
-        private string folderGalleryRootFolder = string.Empty;
-
-        public string GalleryRootFolder
-        {
-            get { return folderGalleryRootFolder; }
-        }
-
-        private bool allowEditUsersToChangeFolderPath = true;
-
-        public bool AllowEditUsersToChangeFolderPath
-        {
-            get { return allowEditUsersToChangeFolderPath; }
-        }
-
-        private bool allowEditUsersToUpload = true;
-
-        public bool AllowEditUsersToUpload
-        {
-            get { return allowEditUsersToUpload; }
-        }
-
-        private bool showPermaLinksSetting = false;
-
-        public bool ShowPermaLinks
-        {
-            get { return showPermaLinksSetting; }
-        }
-
-        private bool showMetaDetailsSetting = false;
-
-        public bool ShowMetaDetails
-        {
-            get { return showMetaDetailsSetting; }
-        }
-
-
-        public static int MaxFilesToUploadAtOnce
-        {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetIntProperty("FolderGallery:MaxFilesToUploadAtOnce", 20); }
-        }
-
-        public static string BasePathFormat
-        {
-            get { return mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("FolderGallery:BasePathFormat", "~/Data/Sites/{0}/media/FolderGalleries/"); }
-        }
-    }
+	public static string BasePathFormat => ConfigHelper.GetStringProperty("FolderGallery:BasePathFormat", "~/Data/Sites/{0}/media/FolderGalleries/");
 }

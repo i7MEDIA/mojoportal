@@ -221,7 +221,6 @@ public class DiskFileSystem : IFileSystem
 		return File.OpenWrite(fullPath);
 	}
 
-
 	public Stream GetAsStream(string virtualPath)
 	{
 		return File.OpenRead(MapPath(virtualPath));

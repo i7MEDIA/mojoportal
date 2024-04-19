@@ -48,7 +48,10 @@ public partial class FolderGalleryEditPage : NonCmsBasePage
 	{
 		lblBasePath.Text = basePath;
 
-		if (Page.IsPostBack) return;
+		if (Page.IsPostBack)
+		{
+			return;
+		}
 
 		if (config.GalleryRootFolder.Length > 0)
 		{
@@ -75,7 +78,6 @@ public partial class FolderGalleryEditPage : NonCmsBasePage
 			txtFolderName.Text = string.Empty;
 			lblError.Text = FolderGalleryResources.FolderGalleryFolderNotExistsMessage;
 			return;
-
 		}
 
 		ModuleSettings.UpdateModuleSetting(m.ModuleGuid, m.ModuleId, "FolderGalleryRootFolder", newPath);
@@ -155,7 +157,9 @@ public partial class FolderGalleryEditPage : NonCmsBasePage
 	private void LoadSettings()
 	{
 		lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
-		mojoSetup.EnsureFolderGalleryFolder(siteSettings);
+
+		//this is now done within this class, not in mojoSetup
+		//mojoSetup.EnsureFolderGalleryFolder(siteSettings);
 
 		pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
 		moduleId = WebUtils.ParseInt32FromQueryString("mid", -1);
@@ -179,7 +183,7 @@ public partial class FolderGalleryEditPage : NonCmsBasePage
 		{
 			try
 			{
-				fileSystem.CreateFolder(Server.MapPath(basePath));
+				fileSystem.CreateFolder(basePath);
 			}
 			catch (IOException ex)
 			{

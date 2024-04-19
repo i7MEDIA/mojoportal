@@ -170,10 +170,10 @@ namespace mojoPortal.Web.GalleryUI
 			return basePath;
 		}
 
-
 		private void PopulateLabels()
 		{
 			TitleControl.EditText = FolderGalleryResources.FolderGalleryEditLink;
+			lblDeprecated.Visible = IsEditable;
 		}
 
 		private void LoadSettings()

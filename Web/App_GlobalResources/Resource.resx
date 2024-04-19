@@ -6751,4 +6751,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="SiteSettingsTestSMTPSettingsMessageSubject" xml:space="preserve">
     <value>{SiteName} Email Test</value>
   </data>
+  <data name="DeprecatedFeature" xml:space="preserve">
+    <value>This feature has been deprecated and will be removed in a future release. Site admins should work on migrating their content from this feature to a replacement.</value>
+  </data>
 </root>
