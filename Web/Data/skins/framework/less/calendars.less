@@ -313,3 +313,107 @@ li.ecp-category-item:first-child {
 li.ecp-category-item {
     padding-top: 10px;
 }
+
+
+// Convert basic event calendar to a list view on mobile
+.eventcalendarbasic {
+	overflow-x: auto;
+}
+
+@media (max-width: @screen-sm) {
+	.eventcalendarbasic table, .eventcalendarbasic tbody, .eventcalendarbasic tr {
+		display: flex;
+		flex-flow: row wrap;
+		border: 0 none;
+		width: 100%;
+	}
+
+	.eventcalendarbasic td {
+		border: 0 none !important;
+		border-top: 1px solid @gray-lighter !important;
+		background: transparent;
+		width: 100%;
+		text-align: left;
+		padding: 10px 0 !important;
+		height: auto;
+	}
+
+	.eventcalendarbasic tr:first-child td {
+		border: 0 none !important;
+	}
+
+	.eventcalendarbasic td:first-child {
+		border-top: 0 none;
+	}
+
+	.eventcalendarbasic .ec-title tr {
+		gap: 0 20px;
+	}
+	
+	.eventcalendarbasic .ec-title .ec-next-prev {
+		order: 2;
+		width: auto;
+	}
+
+	.eventcalendarbasic .ec-title .ec-next-prev:last-child {
+		order: 3;
+	}
+	
+	.eventcalendarbasic .ec-title td:nth-child(2) {
+		order: 1;
+		width: 100%;
+		text-align: left;
+		margin-bottom: 0;
+		padding: 0 !important;
+	}
+	
+	.eventcalendarbasic th.ec-head,
+	.eventcalendarbasic .ec-other-month,
+	.eventcalendarbasic .ec-day:not(.daywithevents) {
+		display: none;
+	}
+
+	.eventcalendarbasic tr:nth-child(2) ~ tr td > a {
+		color: @text-color;
+		text-decoration: none;
+		font-size: 2rem;
+
+		&:hover,
+		&:focus {
+			color: @text-color;
+			text-decoration: underline;
+		}
+	}
+
+	.eventcalendarbasic .eventlink {
+		font-size: 1.3rem;
+	}
+	
+	.eventcalendarbasic tr:nth-child(2) ~ tr td:first-child > a::before {
+		content: "Sunday ";
+	}
+	
+	.eventcalendarbasic tr:nth-child(2) ~ tr td:nth-child(2) > a::before {
+		content: "Monday ";
+	}
+	
+	.eventcalendarbasic tr:nth-child(2) ~ tr td:nth-child(3) > a::before {
+		content: "Tuesday ";
+	}
+	
+	.eventcalendarbasic tr:nth-child(2) ~ tr td:nth-child(4) > a::before {
+		content: "Wednesday ";
+	}
+	
+	.eventcalendarbasic tr:nth-child(2) ~ tr td:nth-child(5) > a::before {
+		content: "Thursday ";
+	}
+	
+	.eventcalendarbasic tr:nth-child(2) ~ tr td:nth-child(6) > a::before {
+		content: "Friday ";
+	}
+	
+	.eventcalendarbasic tr:nth-child(2) ~ tr td:nth-child(7) > a::before {
+		content: "Saturday ";
+	}
+}

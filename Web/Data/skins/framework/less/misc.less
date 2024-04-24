@@ -1,3 +1,45 @@
+// Expose compiled vars to plain CSS for easy overrides and use in SuperFlexi Solutions separate from the skin
+:root {
+    --gray-base:       @gray-base;
+    --gray-darker:     @gray-darker;
+    --gray-dark:       @gray-dark;
+    --gray:            @gray;
+    --gray-light:      @gray-light;
+    --gray-midlight:   @gray-midlight;
+    --gray-lighter:    @gray-lighter;
+    --brand-primary:   @brand-primary;
+    --brand-success:   @brand-success;
+    --brand-info:      @brand-info;
+    --brand-warning:   @brand-warning;
+    --brand-danger:    @brand-danger;
+    --text-color:      @text-color;
+
+    --screen-xs:       @screen-xs;
+    --screen-md:       @screen-md;
+    --screen-lg:       @screen-lg; 
+
+	--grid-gutter-width: @grid-gutter-width;
+
+	--font-family-base: 		@font-family-base;
+	--font-family-sans-serif: 	@font-family-sans-serif;
+	--font-family-serif: 		@font-family-serif;
+	--font-family-monospace: 	@font-family-monospace;
+
+	--font-size-base: 		@font-size-base;
+	--font-size-large:		@font-size-large;
+	--font-size-small:		@font-size-small;
+	--font-size-h1:   		@font-size-h1;
+	--font-size-h2:   		@font-size-h2;
+	--font-size-h3:   		@font-size-h3;
+	--font-size-h4:   		@font-size-h4;
+	--font-size-h5:   		@font-size-h5;
+	--font-size-h6:   		@font-size-h6;
+	--headings-font-family: @headings-font-family;
+	--headings-font-weight: @headings-font-weight;
+	--headings-line-height: @headings-line-height;
+	--headings-color:		@headings-color;
+} 
+
 // Server log
 .serverlog dd.logmessage { 
     overflow: auto hidden; 
@@ -388,14 +430,14 @@ body.dialogpage {
 }
 
 // Ensure logolist is visible and the img next to it isn't huge
-.logolist:extend(.settingrow all) { 
+.logolist:extend(.settingrow all) {  
 	select {
 		max-height: auto !important;
 		height: auto !important;
 
-		& + img,
-		& + svg {
-			max-width: 200px;
+		& ~ img,
+		& ~ svg {
+			max-width: 300px;
 			margin-left: 20px;
 		}
 		
@@ -858,6 +900,13 @@ input.list-inline {
 	input[type='checkbox']:active {
 	  outline: none;
 	}
+
+	// highlight focused boxes using focus-visible so that it only appears when you're tabbing
+	input[type='checkbox']:focus-visible:after,
+	input[type='radio']:focus-visible:after {
+		outline: 1px solid @text-color;
+	}
+
 	input[type='radio'] + label,
 	input[type='checkbox'] + label,
 	.aspNetDisabled + .prettyemptylabel {

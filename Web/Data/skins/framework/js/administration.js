@@ -5,7 +5,13 @@
  * ======================================================================== */
 
 
-
+// Polyfil to support dispatchEvent in older browsers
+function Event( event, params ) {
+    params = params || { bubbles: false, cancelable: false, detail: undefined };
+    var evt = document.createEvent( 'CustomEvent' );
+    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
+    return evt;
+}
 
 
 //
@@ -65,7 +71,56 @@
 })(); 
 
 
+//
+// For the workflow toggle
+// --------------------------------------------------
+;(function() {
+	var workFlow = {
+		link: document.querySelector('.admin-drawer .workflow-type > a'),
+		select: document.querySelector('.admin-drawer .workflow-type select'),
+		thumb: document.querySelector('.admin-drawer .slider-switch__thumb'),
+		toggle: function() {
+			var _this = this;
 
+			if (_this.select.value == 'Live') {
+				_this.thumb.classList.remove('active');
+
+				setTimeout(function() {
+					_this.select.value = 'WorkInProgress';
+					_this.select.dispatchEvent(new Event('change'));
+				}, 280);
+			} else {
+				_this.thumb.classList.add('active');
+
+				setTimeout(function() {
+					_this.select.value = 'Live';
+					_this.select.dispatchEvent(new Event('change'));
+				}, 280)
+			}
+		},
+		init: function() {
+			var _this = this;
+
+			if (_this.select.value == 'Live') {
+				_this.thumb.classList.add('active', 'refresh');
+
+				setTimeout(function() {
+					_this.thumb.classList.remove('refresh');
+				}, 280);
+			}
+
+			_this.link.addEventListener('click', function(e) {
+				e.preventDefault();
+
+				_this.toggle();
+			});
+
+		}
+	}
+	if (document.querySelector('.admin-drawer .workflow-type')) {
+		workFlow.init();
+	}
+});
 
 
 //
@@ -135,3 +190,43 @@
 		adminDrawer.init();
 	}
 })();
+
+// Slight stylistic improvement for the administration page, this was not directly changed in mojo to avoid conflicts with older versions of fontawesome in older skins
+var secIcon = `<span class="fa-stack" style="margin: 10px 0;"><i class="fa fa-shield fa-stack-2x"></i><i class="fa fa-exclamation fa-inverse fa-stack-1x"></i></span>`;
+if (document.querySelector('.adminlink-securityadvisor > a > .fa.fa-shield')) {
+	document.querySelector('.adminlink-securityadvisor > a > .fa.fa-shield').insertAdjacentHTML('beforebegin', secIcon);
+	document.querySelector('.adminlink-securityadvisor > a > .fa.fa-shield').remove();
+}
+
+// For Workflow Icons | Needs to be refactored into plain JS
+// Places better content for styling that fowards the click to original input
+$(document).ready(function() {
+	$('a.ModuleRejectContentLink').html('<i class="fa fa-ban"></i>').addClass('workflow-icon');
+
+	$('input.ModuleCancelChangesLink').each(function() {
+		$('<a class="workflow-icon" href="#"><i class="fa fa-times-circle"></i></a>').attr({
+			title: this.title
+		}).insertBefore(this).uiTooltip().click(function() {
+			$(this).next().click();
+			return false;
+		});
+	}).hide();
+
+	$('input.ModulePostDraftForApprovalLink, input.ModuleApproveContentLink').each(function() {
+		$('<a class="workflow-icon" href="#"><i class="fa fa-check-circle"></i></a>').attr({
+			title: this.title
+		}).insertBefore(this).uiTooltip().click(function() {
+			$(this).next().click();
+			return false;
+		});
+	}).hide();
+
+	$('.modulelinks img[src="/Data/SiteImages/info.gif"]').each(function() {
+		$('<a class="workflow-icon" href="#"><i class="fa fa-info-circle"></i></a>').attr({
+			title: this.title
+		}).insertBefore(this).uiTooltip().css('cursor', 'pointer').click(function(e) {
+			e.preventDefault();
+		});;
+		return false;
+	}).remove();
+});

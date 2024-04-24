@@ -194,7 +194,9 @@
 				// 	content: "\f05a";
 				// }
 
-				&:hover {
+				&:hover,
+				&:focus,
+				&:active {
 					background-color: @nav-link-hover-bg;
 					text-decoration: none;
 				}
@@ -203,3 +205,20 @@
 		}
 	}
 }
+
+// Shim for backward compatibility with old version of fontawesome
+.fa-handshake-o:before {
+    content: "\f2b5";
+}
+.fa-hand-pointer-o:before {
+    content: "\f25a";
+}
+.fa-address-book-o:before, .fa-contact-book-o:before {
+    content: "\f2b9";
+}
+.fa-newspaper-o:before {
+    content: "\f1ea";
+}
+
+// Ensure security advisor icon is properly highlighted when an error is known
+.adminlink-securityadvisor.text-danger .fa-shield:extend(.text-danger all) {}
