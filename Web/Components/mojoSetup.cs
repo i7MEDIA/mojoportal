@@ -588,6 +588,7 @@ public sealed class mojoSetup
 			new() {Path = "~/Data/"},
 			new() {Path = siteFolderPath},
 			new() {Path = $"{siteFolderPath}SharedFiles/"},
+			new() {Path = $"{siteFolderPath}SharedFiles/"},
 			new() {Path = $"{siteFolderPath}SharedFiles/History/" },
 			new() {Path = $"{siteFolderPath}userfiles/"},
 			new() {Path = $"{siteFolderPath}skins/", DeleteTestFile = true },

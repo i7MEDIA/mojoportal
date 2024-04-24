@@ -1281,7 +1281,12 @@ namespace mojoPortal.Web
 				return string.Empty;
 			}
 
-			return HttpContext.Current.Server.MapPath(Invariant($"~/Data/Sites/{siteSettings.SiteId}/systemfiles/"));
+			var systemFilesPath = HttpContext.Current.Server.MapPath(Invariant($"~/Data/Sites/{siteSettings.SiteId}/systemfiles/"));
+			
+			//ensure the directory exists
+			Directory.CreateDirectory(systemFilesPath);
+
+			return systemFilesPath;			
 		}
 
 		public static string GetSiteSkinFolderPath()
