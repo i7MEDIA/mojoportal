@@ -1,0 +1,60 @@
+@model SuperFlexiUI.Models.WidgetModel
+
+
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Business;
+
+@* Scripts & CSS for this solution are being loaded via the solution's .sfMarkup file for reasons explained in comments in that file *@
+
+<div class="@(Model.Config.ModuleCssClass)" id="module@(Model.Module.Id)" data-contentsection="@Model.Config.ModuleFriendlyName" data-customsettings="@Model.Config.CustomizableSettings">
+
+	@Html.Raw("<" + Model.Module.TitleElement + " class=\"" + Model.Config.ModuleCssClass +"__title moduletitle\" data-moduleid=\"module" + Model.Module.Id + "\">")
+	<text>@Model.Module.Title</text>
+	@Html.Raw("</" + Model.Module.TitleElement + ">")
+
+	@if (Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))
+	{
+	<div class="content-slider__header">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+	<div class="content-slider__wrap">
+		@if (Model.Module.IsEditable)
+		{
+			@Html.Partial("_ModuleLinks")
+		}
+		<div class="content-slider__items" id="content-slider-@Model.Module.Id">
+			@foreach (dynamic item in Model.Items)
+			{
+				if (item.showdescription || item.includeimgtag || item.imgasbackground) {
+					<div class="content-slider__item">
+						<div class="content-slider__item--inner" data-orientation="@item.orientation" style="@(item.imgasbackground ? " background-image: url(" + @item.image +");": "" )">
+							@if (item.IsEditable)
+							{
+							<a class="ModuleEditLink flexi-item-edit content-slider__item-edit" href="@item.EditUrl"><span class="fa fa-edit"></span> Edit Slide</a>
+							}
+							@if (item.orientation.ToString() != "right" && item.includeimgtag) {
+							<div class="content-slider__img"><img src="@item.contentimage" alt="@item.title" /></div>
+							}
+							@if (item.showdescription)
+							{
+							<div class="content-slider__content">
+								<h2 class="decorated-title @((item.orientation == " center") ? "decoration-center" : "" )">@item.title</h2>
+								<span class="content-slider__content-innerwrap">@Html.Raw(@item.content)</span>
+							</div>
+							}
+							@if (item.orientation.ToString() == "right" && item.includeimgtag) {
+							<div class="content-slider__img"><img src="@item.contentimage" alt="@item.title" /></div>
+							}
+						</div>
+					</div>
+				}
+			}
+		</div>
+		<div class="content-slider__controls"></div>
+	</div>
+	@if (Model.Config.UseFooter && !string.IsNullOrWhiteSpace(Model.Config.FooterContent))
+	{
+	<div class="content-slider__footer">@Html.Raw(@Model.Config.HeaderContent)</div>
+	}
+</div>
+
+@Html.Partial("_DebugInfo")

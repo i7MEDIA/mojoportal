@@ -14,7 +14,7 @@
 	<div class="accordion__items panel-group" id="accordion-@(Model.Module.Id)" role="tablist" aria-multiselectable="true">
 		@foreach (dynamic item in Model.Items)
 		{
-		<div class="accordion__item panel panel-@(item.important ? " danger" : item.color)">
+		<div class="accordion__item panel panel-@(item.important ? "danger" : item.color)">
 			<div class="accordion__item-heading panel-heading" role="tab" id="heading-@item.Id">
 				<h4 class="accordion__item-title panel-title">
 					<a role="button" data-toggle="collapse" data-parent="#accordion-@Model.Module.Id" href="#collapse-@item.Id" aria-expanded="true" aria-controls="collapse-@item.Id">@item.title[0]</a>

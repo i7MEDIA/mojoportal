@@ -92,7 +92,7 @@
 		<!-- Everything in ItemMarkup will be rendered once for each item that the user creates -->
 		<ItemMarkup>
 			<![CDATA[
-				<div class="col-md-4 flex-children flex-stretch fb-wrap">
+				<div class="col-md-4 fb-stretch fb-wrap fb-column fb-child fb-parent fb-sm-33">
 					$_EditLink_$
 					<a href="$url$" class="icon-block__item icon-block__item--$color$">
 						<div class="icon-block__icon">

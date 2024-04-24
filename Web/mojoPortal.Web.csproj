@@ -2713,6 +2713,7 @@
     <Content Include="Views\Shared\Menu.cshtml" />
     <Content Include="Views\Common\_CustomMenu.cshtml" />
     <Content Include="Views\Controls\DropDownList.cshtml" />
+    <Content Include="Views\Shared\_DebugInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />

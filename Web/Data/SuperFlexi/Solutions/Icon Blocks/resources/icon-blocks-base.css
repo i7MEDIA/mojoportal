@@ -29,7 +29,7 @@
 .icon-block__item:hover,
 .icon-block__item:focus,
 .icon-block__item:active {
-  background-color: #337ab7;
+  background-color: var(--gray-darker);
   color: #fff;
   cursor: pointer;
   -webkit-transition: all 150ms linear;
@@ -61,35 +61,39 @@
 .icon-block__item--green:hover,
 .icon-block__item--green:focus,
 .icon-block__item--green:active {
-  background-color: #5cb85c;
+  background-color: var(--brand-success);
   -webkit-transition: background-color 300ms ease;
   transition: background-color 300ms ease;
 }
 .icon-block__item--red:hover,
 .icon-block__item--red:focus,
 .icon-block__item--red:active {
-  background-color: #d9534f;
+  background-color: var(--brand-danger);
   -webkit-transition: background-color 300ms ease;
   transition: background-color 300ms ease;
 }
 .icon-block__item--orange:hover,
 .icon-block__item--orange:focus,
 .icon-block__item--orange:active {
-  background-color: #f0ad4e;
+  background-color: var(--brand-warning);
   -webkit-transition: background-color 300ms ease;
   transition: background-color 300ms ease;
 }
-.icon-block__item--purple:hover,
-.icon-block__item--purple:focus,
-.icon-block__item--purple:active {
-  background-color: #965be8;
-  -webkit-transition: background-color 300ms ease;
-  transition: background-color 300ms ease;
+.icon-block__item--brand-primary:hover,
+.icon-block__item--brand-primary:focus,
+.icon-block__item--brand-primary:active {
+	background-color: var(--brand-primary);
+	-webkit-transition: background-color 300ms ease;
+	transition: background-color 300ms ease;
 }
 .icon-block__item--light-blue:hover,
 .icon-block__item--light-blue:focus,
 .icon-block__item--light-blue:active {
-  background-color: #5bc0de;
+  background-color: var(--brand-info);
   -webkit-transition: background-color 300ms ease;
   transition: background-color 300ms ease;
+}
+
+.icon-blocks__items .flexi-item-edit {
+  flex: 0 0 0%;
 }

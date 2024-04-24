@@ -41,10 +41,11 @@
         sortOrder="125">
         <Options>
             <Option name="none" value="default" />
-            <Option name="Light Blue" value="info" />
-            <Option name="Light Yellow" value="warning" />
-            <Option name="Light Red" value="danger" />
-            <Option name="Blue" value="primary" />
+            <Option name="Brand Info" value="info" />
+            <Option name="Brand Success" value="success" />
+            <Option name="Brand Warning" value="warning" />
+            <Option name="Brand Error" value="danger" />
+            <Option name="Brand Primary" value="primary" />
         </Options>
     </Field>
     <Field

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Definitions>
+	<MarkupDefinition
+		name="Slider"
+		moduleClass="content-slider"
+		editPageClass="content-slider-edit"
+		fieldDefinitionSrc="slider.sfFields"
+		fieldDefinitionGuid="322b5cf1-31f2-43c7-9e47-728ba69dbe5c"
+		editPageTitle="Slide Details"
+		editPageDeleteButtonText="Delete Slide"
+		useHeader="false"
+		useFooter="false"
+		hideOuterWrapperPanel="true"
+		hideInnerWrapperPanel="true"
+		hideOuterBodyPanel="true"
+		hideInnerBodyPanel="true"
+		viewName="slider.cshtml"
+	>
+
+		<!-- Calls in CSS files unique to this SuperFlexi Solution
+			Attributes:
+			name (required)				: An arbitrary name for your CSS file, ensures that the file is not called twice if the solution is used twice on one page
+			href (required) 			: The path to your CSS file, relative to the solution folder
+			RenderAboveSSC (optional) 	: Determines whether the CSS file is added to the DOM above mojoPortal's Style Sheet Cominer, or below it
+		 -->
+		<Styles>
+			<Style name="SlickCSS" href="resources/slick/slick.css"></Style>
+			<Style name="SliderBase" href="resources/slider-base.css"></Style>
+		</Styles>
+	
+		<!-- Calls in Script files unique to this SuperFlexi Solution
+			 Attributes:
+			 name (required)				: An arbitrary name for your script file, ensures that the file is not called twice if the solution is used twice on one page
+			 src (required)					: The path to your script file, relative to the solution folder
+			 position (optional)			: Determines where the file renders, based on the following options...
+				inHead
+				inBody (register script) (default)
+				aboveMarkupDefinition
+				belowMarkupDefinition
+				bottomStartup (register startup script)
+				
+			Note: Setting names to prevent multiple file loads only works for positions of inHead, inBody and bottomStartup.
+		-->
+		<Scripts>
+			<Script position="bottomStartup" name="SlickJS" src="resources/slick/slick.min.js"></Script>
+			<Script position="bottomStartup" name="SliderJS" src="resources/slider.js"></Script>
+		</Scripts>
+	</MarkupDefinition>
+
+    <SearchDefinition>
+        <Title>Slider Item</Title>
+        <Keywords></Keywords>
+        <Description>$content$</Description>
+        <Link>$_PageUrl_$</Link>
+    </SearchDefinition>
+    
+</Definitions>
