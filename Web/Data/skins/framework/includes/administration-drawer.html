@@ -2,8 +2,8 @@
 <span class="admin-drawer__open" data-admin-drawer=".admin-drawer"><span class="fa fa-cog"></span></span>
 <div class="admin-drawer" id="admin-drawer">
 	<div class="admin-drawer__user">
-		<portal:Avatar runat="server" CssClass="admin-drawer__avatar" AutoConfigure="true" DisableUseLinkWithAutoConfigure="false" LinkUrl="/Secure/UserProfile.aspx" LinkTitle="My Account" size="40" />
-		<portal:WelcomeMessage runat="server" CssClass="admin-drawer__name" RenderAsListItem="false" OverrideFormat="<a href='/Secure/UserProfile.aspx' title='My Account'>{0}</a>" />
+		<portal:Avatar runat="server" CssClass="admin-drawer__avatar" AutoConfigure="true" DisableUseLinkWithAutoConfigure="false" LinkUrl="/Secure/UserProfile.aspx" LinkTitle="<%$ Resources:Resource,ProfileLink %>" size="40" />
+		<portal:WelcomeMessage runat="server" CssClass="admin-drawer__name" RenderAsListItem="false" OverrideFormat="<a href='{1}' title='{2}'>{0}</a>" />
 	</div></LoggedInTemplate>
 </asp:LoginView>
 
