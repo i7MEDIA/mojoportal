@@ -100,7 +100,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 			literalHtml.Text = string.Empty;
 		}
 
-		fbLike.Visible = (config.ShowFacebookLikeButton && !RenderInWebPartMode);
+		fbLike.Visible = config.ShowFacebookLikeButton;
 		fbLike.ColorScheme = config.FacebookLikeButtonTheme;
 		fbLike.ShowFaces = config.FacebookLikeButtonShowFaces;
 		fbLike.HeightInPixels = config.FacebookLikeButtonHeight;
@@ -431,8 +431,6 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		Title1.EditUrl = $"{SiteRoot}/HtmlEdit.aspx";
 		Title1.EditText = Resource.EditImageAltText;
 		Title1.ToolTip = Resource.EditImageAltText;
-
-		Title1.Visible = !RenderInWebPartMode;
 
 		timeZone = SiteUtils.GetUserTimeZone();
 

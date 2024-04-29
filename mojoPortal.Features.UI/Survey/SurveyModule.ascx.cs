@@ -75,9 +75,8 @@ namespace SurveyFeature.UI
 
 		private void PopulateLabels()
 		{
-			TitleControl.EditUrl = SiteRoot + "/Survey/Surveys.aspx";
-			TitleControl.EditText = SurveyResources.SurveyModuleEditText;
-			TitleControl.Visible = !RenderInWebPartMode;
+			TitleControl.EditUrl = $"{SiteRoot}/Survey/Surveys.aspx";
+			TitleControl.EditText = SurveyResources.SurveyModuleEditText;			
 
 			if (ModuleConfiguration != null)
 			{

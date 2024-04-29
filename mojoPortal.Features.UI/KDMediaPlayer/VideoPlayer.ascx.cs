@@ -261,7 +261,7 @@ namespace mojoPortal.MediaPlayerUI
         /// </summary>
         private void PopulateControls()
         {
-            TitleControl.Visible = !this.RenderInWebPartMode;
+            
             if (this.ModuleConfiguration != null)
             {
                 this.Title = this.ModuleConfiguration.ModuleTitle;

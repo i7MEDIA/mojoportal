@@ -5,7 +5,6 @@ namespace mojoPortal.Web.UI;
 
 public partial class ChildPageSiteMapModule : SiteModuleControl
 {
-	#region OnInit
 
 	protected override void OnInit(EventArgs e)
 	{
@@ -13,7 +12,6 @@ public partial class ChildPageSiteMapModule : SiteModuleControl
 		Load += new EventHandler(Page_Load);
 	}
 
-	#endregion
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -21,16 +19,16 @@ public partial class ChildPageSiteMapModule : SiteModuleControl
 		PopulateControls();
 	}
 
+
 	private void PopulateControls()
 	{
-		Title1.Visible = !RenderInWebPartMode;
-
 		if (ModuleConfiguration != null)
 		{
 			Title = ModuleConfiguration.ModuleTitle;
 			Description = ModuleConfiguration.FeatureName;
 		}
 	}
+
 
 	private void LoadSettings()
 	{

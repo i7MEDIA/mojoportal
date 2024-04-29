@@ -33,7 +33,6 @@ namespace mojoPortal.Web.ContentUI
 
 		private void PopulateControls()
 		{
-			TitleControl.Visible = !RenderInWebPartMode;
 			if (ModuleConfiguration != null)
 			{
 				Title = ModuleConfiguration.ModuleTitle;

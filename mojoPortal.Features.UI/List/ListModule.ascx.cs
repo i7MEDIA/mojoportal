@@ -11,74 +11,69 @@
 /// You must not remove this notice, or any other, from this software.
 
 using System;
-using System.Configuration;
-using System.Data;
-using System.Web.UI.WebControls;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
 
 namespace mojoPortal.Web.LinksUI
 {
-	public partial  class LinksModule : SiteModuleControl
-    {
-        protected ListConfiguration config = new ListConfiguration();
+	public partial class LinksModule : SiteModuleControl
+	{
+		protected ListConfiguration config = new ListConfiguration();
 
-        
-        protected void Page_Load(object sender, EventArgs e)
+
+		protected void Page_Load(object sender, EventArgs e)
 		{
-            LoadSettings();
-           
+			LoadSettings();
+
 		}
 
-        private void LoadSettings()
-        {
-            config = new ListConfiguration(Settings);
+		private void LoadSettings()
+		{
+			config = new ListConfiguration(Settings);
 
-            //pnlContainer.ModuleId = ModuleId;
-            
-            Title1.EditUrl = SiteRoot + "/List/Edit.aspx";
-            Title1.EditText = LinkResources.EditLinksAddLinkLabel;
-            Title1.Visible = !this.RenderInWebPartMode;
-            if (this.ModuleConfiguration != null)
-            {
-                this.Title = this.ModuleConfiguration.ModuleTitle;
-                this.Description = this.ModuleConfiguration.FeatureName;
-            }
+			//pnlContainer.ModuleId = ModuleId;
 
-            if (IsEditable)
-            {
-                Title1.LiteralExtraMarkup =
-                    "&nbsp;<a href='"
-                    + SiteRoot
-                    + "/List/EditIntro.aspx?pageid=" + PageId.ToInvariantString()
-                    + "&amp;mid=" + ModuleId.ToInvariantString()
-                    + "' class='ModuleEditLink' title='" + LinkResources.EditIntro + "'>" + LinkResources.EditIntro + "</a>";
-            }
+			Title1.EditUrl = $"{SiteRoot}/List/Edit.aspx";
+			Title1.EditText = LinkResources.EditLinksAddLinkLabel;
 
-            if (config.InstanceCssClass.Length > 0) { pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass); }
+			if (this.ModuleConfiguration != null)
+			{
+				this.Title = this.ModuleConfiguration.ModuleTitle;
+				this.Description = this.ModuleConfiguration.FeatureName;
+			}
 
-            theList.Config = config;
-            theList.PageId = PageId;
-            theList.ModuleId = ModuleId;
-            theList.IsEditable = IsEditable;
-            theList.SiteRoot = SiteRoot;
-            theList.ImageSiteRoot = ImageSiteRoot;
-            
+			if (IsEditable)
+			{
+				Title1.LiteralExtraMarkup =
+					"&nbsp;<a href='"
+					+ SiteRoot
+					+ "/List/EditIntro.aspx?pageid=" + PageId.ToInvariantString()
+					+ "&amp;mid=" + ModuleId.ToInvariantString()
+					+ "' class='ModuleEditLink' title='" + LinkResources.EditIntro + "'>" + LinkResources.EditIntro + "</a>";
+			}
 
-        }
+			if (config.InstanceCssClass.Length > 0) { pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass); }
 
-        #region OnInit
+			theList.Config = config;
+			theList.PageId = PageId;
+			theList.ModuleId = ModuleId;
+			theList.IsEditable = IsEditable;
+			theList.SiteRoot = SiteRoot;
+			theList.ImageSiteRoot = ImageSiteRoot;
 
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            this.Load += new EventHandler(Page_Load);
 
-        }
+		}
 
-        #endregion
+		#region OnInit
 
-    }
+		protected override void OnInit(EventArgs e)
+		{
+			base.OnInit(e);
+			this.Load += new EventHandler(Page_Load);
+
+		}
+
+		#endregion
+
+	}
 }

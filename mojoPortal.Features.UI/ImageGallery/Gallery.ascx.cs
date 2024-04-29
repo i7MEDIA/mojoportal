@@ -460,16 +460,14 @@ $(document).ready(function() {{
 			//this method was introduced in .NET 3.5 SP1
 		}
 
-		Title1.EditUrl = SiteRoot + "/ImageGallery/EditImage.aspx";
+		Title1.EditUrl = $"{SiteRoot}/ImageGallery/EditImage.aspx";
 		Title1.EditText = GalleryResources.GalleryAddImageLabel;
-		Title1.Visible = !RenderInWebPartMode;
-
 
 		config = new GalleryConfiguration(Settings);
 
 		if (IsEditable)
 		{
-			Title1.LiteralExtraMarkup = $"&nbsp;<a href='{SiteRoot}/ImageGallery/BulkUpload.aspx?pageid={PageId.ToInvariantString()}&amp;mid={ModuleId.ToInvariantString()}' class='ModuleEditLink' title='{GalleryResources.BulkUploadLink}'>{GalleryResources.BulkUploadLink}</a>";
+			Title1.LiteralExtraMarkup = Invariant($"&nbsp;<a href='{SiteRoot}/ImageGallery/BulkUpload.aspx?pageid={PageId}&amp;mid={ModuleId}' class='ModuleEditLink' title='{GalleryResources.BulkUploadLink}'>{GalleryResources.BulkUploadLink}</a>");
 		}
 
 		if (ModuleConfiguration != null)
@@ -485,16 +483,16 @@ $(document).ready(function() {{
 
 		if (WebConfigSettings.ImageGalleryUseMediaFolder)
 		{
-			baseUrl = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/media/GalleryImages/{ModuleId.ToInvariantString()}/";
+			baseUrl = Invariant($"~/Data/Sites/{siteSettings.SiteId}/media/GalleryImages/{ModuleId}/");
 		}
 		else
 		{
 			baseUrl = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/GalleryImages/{ModuleId.ToInvariantString()}/";
 		}
 
-		thumnailBaseUrl = baseUrl + "Thumbnails/";
-		webSizeBaseUrl = baseUrl + "WebImages/";
-		fullSizeBaseUrl = baseUrl + "FullSizeImages/";
+		thumnailBaseUrl = $"{baseUrl}Thumbnails/";
+		webSizeBaseUrl = $"{baseUrl}WebImages/";
+		fullSizeBaseUrl = $"{baseUrl}FullSizeImages/";
 
 		imageFolderPath = HttpContext.Current.Server.MapPath(baseUrl);
 		thumbsPerPage = config.ThumbsPerPage;

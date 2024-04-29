@@ -39,8 +39,7 @@ public partial class XmlModule : SiteModuleControl
 	{
 		Title1.EditUrl = $"{SiteRoot}/XmlXsl/XmlEdit.aspx";
 		Title1.EditText = XmlResources.XmlEditButton;
-
-		Title1.Visible = !this.RenderInWebPartMode;
+		
 		if (this.ModuleConfiguration != null)
 		{
 			this.Title = this.ModuleConfiguration.ModuleTitle;

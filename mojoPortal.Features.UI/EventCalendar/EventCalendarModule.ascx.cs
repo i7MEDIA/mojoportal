@@ -10,20 +10,12 @@ using Resources;
 
 namespace mojoPortal.Web.EventCalendarUI;
 
-
 public partial class EventCalendar : SiteModuleControl
 {
 
 	private string editContentImage = ConfigurationManager.AppSettings["EditContentImage"];
 
-	protected string EditContentImage
-	{
-		get
-		{
-			return editContentImage;
-		}
-
-	}
+	protected string EditContentImage => editContentImage;
 
 	private string beginDate = String.Empty;
 	private string endDate = String.Empty;
@@ -36,9 +28,9 @@ public partial class EventCalendar : SiteModuleControl
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(Page_Load);
-		this.cal1.VisibleMonthChanged += new MonthChangedEventHandler(Cal1VisibleMonthChanged);
-		this.cal1.SelectionChanged += new EventHandler(Cal1SelectionChanged);
+		Load += new EventHandler(Page_Load);
+		cal1.VisibleMonthChanged += new MonthChangedEventHandler(Cal1VisibleMonthChanged);
+		cal1.SelectionChanged += new EventHandler(Cal1SelectionChanged);
 	}
 
 	protected void Page_Load(object sender, EventArgs e)
@@ -46,19 +38,15 @@ public partial class EventCalendar : SiteModuleControl
 		Title1.EditUrl = SiteRoot + "/EventCalendar/EditEvent.aspx";
 		Title1.EditText = EventCalResources.EventCalendarAddEventLabel;
 
-		Title1.Visible = !this.RenderInWebPartMode;
-		if (this.ModuleConfiguration != null)
+		if (ModuleConfiguration != null)
 		{
-			this.Title = this.ModuleConfiguration.ModuleTitle;
-			this.Description = this.ModuleConfiguration.FeatureName;
+			Title = ModuleConfiguration.ModuleTitle;
+			Description = ModuleConfiguration.FeatureName;
 		}
 
 		LoadParams();
 
-		if (
-			(!Page.IsPostBack)
-			|| (this.RenderInWebPartMode)
-			)
+		if (!Page.IsPostBack)
 		{
 			PopulateControls();
 		}
@@ -68,10 +56,10 @@ public partial class EventCalendar : SiteModuleControl
 	private void PopulateControls()
 	{
 
-		this.cal1.VisibleDate = visibleDate;
+		cal1.VisibleDate = visibleDate;
 		if (currentDate == visibleDate)
 		{
-			this.cal1.SelectedDate = visibleDate;
+			cal1.SelectedDate = visibleDate;
 		}
 		// add 7 days to begin and end date 
 		// this allows showing events from previous or future month
@@ -79,37 +67,19 @@ public partial class EventCalendar : SiteModuleControl
 		DateTime beginMonth = new DateTime(visibleDate.Year, visibleDate.Month, 1).AddDays(-7);
 		DateTime endMonth = beginMonth.AddDays(49);
 
-		DataTable dt = CalendarEvent.GetEventsTable(this.ModuleId, beginMonth, endMonth);
-		this.cal1.DataSource = dt;
+		DataTable dt = CalendarEvent.GetEventsTable(ModuleId, beginMonth, endMonth);
+		cal1.DataSource = dt;
 
 	}
 
 	private void Cal1VisibleMonthChanged(object sender, MonthChangedEventArgs e)
 	{
+		string baseUrl = SiteUtils.GetCurrentPageUrl();
+		baseUrl += "?";
+		
+		string redirectUrl =$"{baseUrl}{visibleDateParam}={Page.Server.UrlEncode(e.NewDate.ToString("s"))}";
 
-		if (!this.RenderInWebPartMode)
-		{
-
-			//string baseUrl = currentPage.ResolveUrl(siteSettings);
-			string baseUrl = SiteUtils.GetCurrentPageUrl();
-			//if (baseUrl.EndsWith(".aspx"))
-			//{
-			baseUrl += "?";
-			//}
-			//else
-			//{
-			//    baseUrl += "&";
-			//}
-
-			string redirectUrl =
-				baseUrl
-				+ visibleDateParam + "="
-				+ Page.Server.UrlEncode(e.NewDate.ToString("s"));
-
-			WebUtils.SetupRedirect(this, redirectUrl);
-		}
-
-
+		WebUtils.SetupRedirect(this, redirectUrl);
 	}
 
 	private void Cal1SelectionChanged(object sender, EventArgs e)
@@ -117,7 +87,7 @@ public partial class EventCalendar : SiteModuleControl
 
 		string redirectUrl =
 			   SiteRoot
-			   + "/EventCalendar/DayView.aspx?mid=" + this.ModuleId.ToString()
+			   + "/EventCalendar/DayView.aspx?mid=" + ModuleId.ToString()
 			   + "&date="
 			   + Page.Server.UrlEncode(cal1.SelectedDate.ToString("s"))
 			   + WebUtils.BuildQueryString("date");
@@ -129,7 +99,7 @@ public partial class EventCalendar : SiteModuleControl
 
 	private void LoadParams()
 	{
-		visibleDateParam = "visdate" + this.ModuleId.ToString();
+		visibleDateParam = "visdate" + ModuleId.ToString();
 		visibleDate = WebUtils.ParseDateFromQueryString(visibleDateParam, DateTime.Now);
 		currentDate = DateTime.Now;
 

@@ -29,7 +29,6 @@ public partial class NewsLetterSubscribeModuleModule : SiteModuleControl
 
 	private void PopulateControls()
 	{
-		TitleControl.Visible = !RenderInWebPartMode;
 		if (ModuleConfiguration != null)
 		{
 			Title = ModuleConfiguration.ModuleTitle;
