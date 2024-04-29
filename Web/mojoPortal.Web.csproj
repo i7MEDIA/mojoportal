@@ -942,6 +942,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PageManagerResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_MasterPages\BaseDisplaySettings.cs" />
     <Compile Include="App_MasterPages\CoreDisplaySettings.cs" />
     <Compile Include="App_MasterPages\LayoutDisplaySettings.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
