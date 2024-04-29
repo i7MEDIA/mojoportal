@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Web.ContentUI {
+namespace mojoPortal.Plugins.HtmlInclude {
     
     
-    public partial class HtmlFragmentInclude {
+    public partial class Edit {
         
         /// <summary>
         /// pnlOuterWrap control.
@@ -40,13 +40,13 @@ namespace mojoPortal.Web.ContentUI {
         protected global::mojoPortal.Web.UI.InnerWrapperPanel pnlInnerWrap;
         
         /// <summary>
-        /// Title1 control.
+        /// heading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::mojoPortal.Web.UI.ModuleTitleControl Title1;
+        protected global::mojoPortal.Web.UI.HeadingControl heading;
         
         /// <summary>
         /// pnlOuterBody control.
@@ -67,13 +67,76 @@ namespace mojoPortal.Web.ContentUI {
         protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
         
         /// <summary>
-        /// lblInclude control.
+        /// pnlEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal lblInclude;
+        protected global::System.Web.UI.WebControls.Panel pnlEdit;
+        
+        /// <summary>
+        /// lblIncludeFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel lblIncludeFile;
+        
+        /// <summary>
+        /// ddInclude control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddInclude;
+        
+        /// <summary>
+        /// SiteLabel35 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel35;
+        
+        /// <summary>
+        /// btnUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoButton btnUpdate;
+        
+        /// <summary>
+        /// btnCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoButton btnCancel;
+        
+        /// <summary>
+        /// MojoHelpLink1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink1;
+        
+        /// <summary>
+        /// hdnReturnUrl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnReturnUrl;
         
         /// <summary>
         /// divCleared control.

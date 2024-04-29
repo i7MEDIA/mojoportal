@@ -1,4 +1,4 @@
-<%@ Page language="c#" Codebehind="Edit.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.ContentUI.HtmlIncludeEdit" %>
+<%@ Page language="c#" Codebehind="Edit.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Plugins.HtmlInclude.Edit" %>
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">

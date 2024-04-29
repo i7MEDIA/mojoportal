@@ -312,11 +312,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GTranslateResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\HtmlIncludeResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HtmlIncludeResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="App_GlobalResources\IframeResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -932,20 +927,6 @@
     <Compile Include="GoogleTranslate\GoogleTranslateModule.ascx.designer.cs">
       <DependentUpon>GoogleTranslateModule.ascx</DependentUpon>
     </Compile>
-    <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.cs">
-      <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HtmlInclude\HtmlFragmentInclude.ascx.designer.cs">
-      <DependentUpon>HtmlFragmentInclude.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="HtmlInclude\Edit.aspx.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HtmlInclude\Edit.aspx.designer.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-    </Compile>
     <Compile Include="IFrame\IframeModule.ascx.cs">
       <DependentUpon>IframeModule.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1496,11 +1477,6 @@
       <LastGenOutput>XmlResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_GlobalResources\HtmlIncludeResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>HtmlIncludeResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\googlemap\FeatureDefinitions\50020_GoogleMapModule.config">
@@ -1509,13 +1485,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GoogleMap\GoogleMapModule.ascx" />
-    <Content Include="Setup\applications\htmlinclude\FeatureDefinitions\90200_HtmlFragmentInlcudeModule.config" />
     <Content Include="XmlXsl\XmlEdit.aspx" />
     <Content Include="XmlXsl\XmlModule.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HtmlInclude\HtmlFragmentInclude.ascx" />
-    <Content Include="HtmlInclude\Edit.aspx" />
     <Content Include="Setup\applications\xmlmodule\FeatureDefinitions\90300_XmlXslModule.config">
       <SubType>Designer</SubType>
     </Content>
