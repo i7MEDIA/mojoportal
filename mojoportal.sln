@@ -36,17 +36,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Features.Data.SQ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brettle.Web.NeatHtml", "Brettle.Web.NeatHtml\Brettle.Web.NeatHtml.csproj", "{D8A4D1E0-3827-4AF6-85B3-564D433495BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.MSSQL", "SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj", "{B77ED3C5-5720-4A13-925F-C580ECFA4B7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.MSSQL", "Plugins\SuperFlexi\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj", "{B77ED3C5-5720-4A13-925F-C580ECFA4B7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiBusiness", "SuperFlexiBusiness\SuperFlexiBusiness.csproj", "{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiBusiness", "Plugins\SuperFlexi\SuperFlexiBusiness\SuperFlexiBusiness.csproj", "{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiUI", "SuperFlexiUI\SuperFlexiUI.csproj", "{CF097537-8F40-4FE4-AF50-9D2F90BC7796}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiUI", "Plugins\SuperFlexi\SuperFlexiUI\SuperFlexiUI.csproj", "{CF097537-8F40-4FE4-AF50-9D2F90BC7796}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.MySql", "SuperFlexiData.MySql\SuperFlexiData.MySql.csproj", "{B7B278B1-E566-41DA-BC1B-D846078B87DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.MySql", "Plugins\SuperFlexi\SuperFlexiData.MySql\SuperFlexiData.MySql.csproj", "{B7B278B1-E566-41DA-BC1B-D846078B87DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.pgSQL", "SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj", "{6304E650-958B-43E3-AFAB-E034389D65E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.pgSQL", "Plugins\SuperFlexi\SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj", "{6304E650-958B-43E3-AFAB-E034389D65E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.SQLite", "SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj", "{87546876-48BC-42BB-B7C8-E02436C6ECBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperFlexiData.SQLite", "Plugins\SuperFlexi\SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj", "{87546876-48BC-42BB-B7C8-E02436C6ECBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Core", "mojoPortal.Core\mojoPortal.Core.csproj", "{FEA72210-0415-4133-BDF9-8877683BA832}"
 EndProject
@@ -59,6 +59,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{A762246F-7517-4FE0-8FC7-C58C0F9BEAB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mojoPortal.Plugins.HtmlInclude", "Plugins\mojoPortal.Plugins.HtmlInclude\mojoPortal.Plugins.HtmlInclude.csproj", "{F5EAD313-03D9-4B19-82D1-266738E8BD6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SuperFlexi", "SuperFlexi", "{A920F357-34A8-4E71-845A-760013161C9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Layers", "Data Layers", "{BA9B4C1E-5602-4489-82B1-B7DB80484018}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1785,7 +1789,15 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{B77ED3C5-5720-4A13-925F-C580ECFA4B7B} = {BA9B4C1E-5602-4489-82B1-B7DB80484018}
+		{FFBE2ED5-A3AE-46BA-815C-6C2E643B0AAA} = {A920F357-34A8-4E71-845A-760013161C9E}
+		{CF097537-8F40-4FE4-AF50-9D2F90BC7796} = {A920F357-34A8-4E71-845A-760013161C9E}
+		{B7B278B1-E566-41DA-BC1B-D846078B87DB} = {BA9B4C1E-5602-4489-82B1-B7DB80484018}
+		{6304E650-958B-43E3-AFAB-E034389D65E1} = {BA9B4C1E-5602-4489-82B1-B7DB80484018}
+		{87546876-48BC-42BB-B7C8-E02436C6ECBB} = {BA9B4C1E-5602-4489-82B1-B7DB80484018}
 		{F5EAD313-03D9-4B19-82D1-266738E8BD6F} = {A762246F-7517-4FE0-8FC7-C58C0F9BEAB3}
+		{A920F357-34A8-4E71-845A-760013161C9E} = {A762246F-7517-4FE0-8FC7-C58C0F9BEAB3}
+		{BA9B4C1E-5602-4489-82B1-B7DB80484018} = {A920F357-34A8-4E71-845A-760013161C9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {399C4C84-218A-4B88-B680-D99DFC508823}
