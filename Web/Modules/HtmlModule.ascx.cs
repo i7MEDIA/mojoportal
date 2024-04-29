@@ -6,7 +6,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
@@ -30,8 +29,6 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 	private ContentWorkflow workInProgress = null;
 
 
-	#region OnInit
-
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
@@ -39,7 +36,6 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		basePage = Page as mojoBasePage;
 	}
 
-	#endregion
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -47,9 +43,10 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		PopulateControls();
 	}
 
+
 	private void PopulateControls()
 	{
-		string htmlBody = String.Empty;
+		string htmlBody = string.Empty;
 		bool retrieveHtml = true;
 		HtmlContent html = null;
 
@@ -171,6 +168,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		userAvatar.SiteRoot = SiteRoot;
 	}
 
+
 	protected bool UseProfileLinkForAvatar()
 	{
 		if (!displaySettings.LinkAuthorAvatarToProfile)
@@ -190,6 +188,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		// if user is not authenticated we don't know if he will be allowed but he will be prompted to login first so its ok to show the link
 		return true;
 	}
+
 
 	private void ShowCreated(HtmlContent html, ContentWorkflow workInProgress)
 	{
@@ -273,6 +272,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		pnlCreatedBy.Visible = true;
 	}
 
+
 	private string GetCreatedByName(HtmlContent html)
 	{
 		if (displaySettings.UseAuthorFirstAndLastName)
@@ -292,6 +292,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		return html.LastModByName;
 	}
 
+
 	private string GetCreatedByName(ContentWorkflow workInProgress)
 	{
 		if (displaySettings.UseAuthorFirstAndLastName)
@@ -310,6 +311,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 		return workInProgress.LastModByUserName;
 	}
+
 
 	private void ShowModified(HtmlContent html, ContentWorkflow workInProgress)
 	{
@@ -398,6 +400,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		pnlModifiedBy.Visible = true;
 	}
 
+
 	private string GetModifiedByName(HtmlContent html)
 	{
 		if (displaySettings.UseAuthorFirstAndLastName)
@@ -412,6 +415,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		return html.LastModByName;
 	}
 
+
 	private string GetModifiedByName(ContentWorkflow workInProgress)
 	{
 		if (displaySettings.UseAuthorFirstAndLastName)
@@ -424,6 +428,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 		return workInProgress.LastModByUserName;
 	}
+
 
 
 	private void LoadSettings()
@@ -514,6 +519,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 			}
 		}
 	}
+
 
 	private void SetupCKEditorInline()
 	{
@@ -669,6 +675,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 			script.ToString(),
 			false);
 	}
+
 
 	private void SetupTinyMceInline()
 	{
@@ -835,11 +842,13 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 			false);
 	}
 
+
 	void html_ContentChanged(object sender, ContentChangedEventArgs e)
 	{
 		IndexBuilderProvider indexBuilder = IndexBuilderManager.Providers["HtmlContentIndexBuilderProvider"];
 		indexBuilder?.ContentChangedHandler(sender, e);
 	}
+
 
 	#region IWorkflow Members
 
@@ -882,6 +891,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 	}
 
+
 	public void CancelChanges()
 	{
 		SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
@@ -897,6 +907,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 	}
+
 
 	public void Approve()
 	{
@@ -919,6 +930,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 	}
+
 
 	private void Do3LevelApproval(HtmlContent html, SiteUser currentUser)
 	{
@@ -963,7 +975,8 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 	#endregion
 }
 
-public class HtmlDisplaySettings : WebControl
+
+public class HtmlDisplaySettings : BaseDisplaySettings
 {
 	public string EditorTogglePositionMy { get; set; } = "left bottom";
 
@@ -1029,31 +1042,4 @@ public class HtmlDisplaySettings : WebControl
 	public bool LinkAuthorAvatarToProfile { get; set; } = false;
 
 	public string AvatarUserNameTooltipFormat { get; set; } = "View User Profile for {0}";
-
-	//private bool showAuthorAvatar = false;
-
-	//public bool ShowAuthorAvatar
-	//{
-	//    get { return showAuthorAvatar; }
-	//    set { showAuthorAvatar = value; }
-	//}
-
-	//private bool showAuthorBio = false;
-
-	//public bool ShowAuthorBio
-	//{
-	//    get { return showAuthorBio; }
-	//    set { showAuthorBio = value; }
-	//}
-
-	protected override void Render(HtmlTextWriter writer)
-	{
-		if (HttpContext.Current == null)
-		{
-			writer.Write("[" + ID + "]");
-			return;
-		}
-
-		// nothing to render
-	}
 }
