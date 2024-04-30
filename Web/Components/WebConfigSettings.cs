@@ -8,65 +8,32 @@ namespace mojoPortal.Web;
 
 public static class WebConfigSettings
 {
-	public static bool UseSiteIdAppThemesInMediumTrust
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSiteIdAppThemesInMediumTrust", false); }
-	}
+	public static bool UseSiteIdAppThemesInMediumTrust => ConfigHelper.GetBoolProperty("UseSiteIdAppThemesInMediumTrust", false);
 
-	public static bool EnableOpenIdAuthentication
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableOpenIDAuthentication", false); }
-	}
+	public static bool EnableOpenIdAuthentication => ConfigHelper.GetBoolProperty("EnableOpenIDAuthentication", false);
 
-	public static bool DisableRpxAuthentication
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableRpxAuthentication", false); }
-	}
+	public static bool DisableRpxAuthentication => ConfigHelper.GetBoolProperty("DisableRpxAuthentication", false);
 
-	public static bool ShowLegacyOpenIDSelector
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowLegacyOpenIDSelector", false); }
-	}
+	public static bool ShowLegacyOpenIDSelector => ConfigHelper.GetBoolProperty("ShowLegacyOpenIDSelector", false);
 
-	public static bool XmlUseMediaFolder
-	{
-		get { return ConfigHelper.GetBoolProperty("XMLUseMediaFolder", false); }
-	}
+	public static bool XmlUseMediaFolder => ConfigHelper.GetBoolProperty("XMLUseMediaFolder", false);
 
-	public static bool SiteLogoUseMediaFolder
-	{
-		get { return ConfigHelper.GetBoolProperty("SiteLogoUseMediaFolder", false); }
-	}
+	public static bool SiteLogoUseMediaFolder => ConfigHelper.GetBoolProperty("SiteLogoUseMediaFolder", false);
 
-	public static bool HtmlFragmentUseMediaFolder
-	{
-		get { return ConfigHelper.GetBoolProperty("HtmlFragmentUseMediaFolder", false); }
-	}
+	public static bool HtmlFragmentUseMediaFolder => ConfigHelper.GetBoolProperty("HtmlFragmentUseMediaFolder", false);
 
-	public static bool DisableGoogleTranslate
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableGoogleTranslate", false); }
-	}
+	public static bool DisableGoogleTranslate => ConfigHelper.GetBoolProperty("DisableGoogleTranslate", false);
 
-	public static bool UseOpenIdRpxSettingsFromWebConfig
-	{
-		get { return ConfigHelper.GetBoolProperty("UseOpenIdRpxSettingsFromWebConfig", false); }
-	}
+	public static bool UseOpenIdRpxSettingsFromWebConfig => ConfigHelper.GetBoolProperty("UseOpenIdRpxSettingsFromWebConfig", false);
 
 	/// <summary>
 	/// If true then we will store our userGuid in the rpx server and allow multiple open id identifiers to be used
 	/// with a single mojoportal account
 	/// </summary>
-	public static bool OpenIdRpxUseMappings
-	{
-		get { return ConfigHelper.GetBoolProperty("OpenIdRpxUseMappings", true); }
-	}
+	public static bool OpenIdRpxUseMappings => ConfigHelper.GetBoolProperty("OpenIdRpxUseMappings", true);
 
 	// 2013-05-26 changed from true to false not sure why it was true
-	public static bool OpenIdRpxUseOldImplementation
-	{
-		get { return ConfigHelper.GetBoolProperty("OpenIdRpxUseOldImplementation", false); }
-	}
+	public static bool OpenIdRpxUseOldImplementation => ConfigHelper.GetBoolProperty("OpenIdRpxUseOldImplementation", false);
 
 	public static string OpenIdRpxApiKey
 	{
@@ -118,35 +85,17 @@ public static class WebConfigSettings
 	/// This setting is checked in WebHelper.IsSecureRequest();
 	/// </summary>
 	[Obsolete("Use mojoPortal.Core.Configuration.AppConfig")]
-	public static string SecureConnectionServerVariableForPresenceCheck
-	{
-		get
-		{
-			return AppConfig.SecureConnectionServerVariableForPresenceCheck;
-		}
-	}
+	public static string SecureConnectionServerVariableForPresenceCheck => AppConfig.SecureConnectionServerVariableForPresenceCheck;
 
 	/// <summary>
 	/// use this if you need to check a custom server variable for a specific value to determine a secure request
 	/// you must also set the value for SecureConnectionServerVariableSecureValue that corresponds to a secure request
 	/// </summary>
 	[Obsolete("Use mojoPortal.Core.Configuration.AppConfig")]
-	public static string SecureConnectionServerVariableForValueCheck
-	{
-		get
-		{
-			return AppConfig.SecureConnectionServerVariableForValueCheck;
-		}
-	}
+	public static string SecureConnectionServerVariableForValueCheck => AppConfig.SecureConnectionServerVariableForValueCheck;
 
 	[Obsolete("Use mojoPortal.Core.Configuration.AppConfig")]
-	public static string SecureConnectionServerVariableSecureValue
-	{
-		get
-		{
-			return AppConfig.SecureConnectionServerVariableSecureValue;
-		}
-	}
+	public static string SecureConnectionServerVariableSecureValue => AppConfig.SecureConnectionServerVariableSecureValue;
 
 	public static string OpenIdRpxApplicationName
 	{
@@ -160,467 +109,197 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool EnableWindowsLiveAuthentication
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableWindowsLiveAuthentication", false); }
-	}
+	public static bool EnableWindowsLiveAuthentication => ConfigHelper.GetBoolProperty("EnableWindowsLiveAuthentication", false);
 
-	public static bool HideDisableDbAuthenticationSetting
-	{
-		get { return ConfigHelper.GetBoolProperty("HideDisableDbAuthenticationSetting", false); }
-	}
+	public static bool HideDisableDbAuthenticationSetting => ConfigHelper.GetBoolProperty("HideDisableDbAuthenticationSetting", false);
 
 
-	public static bool GloballyDisableMemberUseOfWindowsLiveMessenger
-	{
-		get { return ConfigHelper.GetBoolProperty("GloballyDisableMemberUseOfWindowsLiveMessenger", true); }
-	}
+	public static bool GloballyDisableMemberUseOfWindowsLiveMessenger => ConfigHelper.GetBoolProperty("GloballyDisableMemberUseOfWindowsLiveMessenger", true);
 
-	public static bool TestLiveMessengerDelegation
-	{
-		get { return ConfigHelper.GetBoolProperty("TestLiveMessengerDelegation", false); }
-	}
+	public static bool TestLiveMessengerDelegation => ConfigHelper.GetBoolProperty("TestLiveMessengerDelegation", false);
 
-	public static bool EncodeLiveMessengerToken
-	{
-		get { return ConfigHelper.GetBoolProperty("EncodeLiveMessengerToken", false); }
-	}
+	public static bool EncodeLiveMessengerToken => ConfigHelper.GetBoolProperty("EncodeLiveMessengerToken", false);
 
-	public static bool DebugWindowsLive
-	{
-		get { return ConfigHelper.GetBoolProperty("DebugWindowsLive", false); }
-	}
+	public static bool DebugWindowsLive => ConfigHelper.GetBoolProperty("DebugWindowsLive", false);
 
-	public static bool DebugDotLess
-	{
-		get { return ConfigHelper.GetBoolProperty("DebugDotLess", false); }
-	}
+	public static bool DebugDotLess => ConfigHelper.GetBoolProperty("DebugDotLess", false);
 
-	public static bool DebugPayPal
-	{
-		get { return ConfigHelper.GetBoolProperty("DebugPayPal", false); }
-	}
+	public static bool DebugPayPal => ConfigHelper.GetBoolProperty("DebugPayPal", false);
 
-	public static bool DebugLoginRedirect
-	{
-		get { return ConfigHelper.GetBoolProperty("DebugLoginRedirect", false); }
-	}
+	public static bool DebugLoginRedirect => ConfigHelper.GetBoolProperty("DebugLoginRedirect", false);
 
-	public static bool DebugOpenID
-	{
-		get { return ConfigHelper.GetBoolProperty("DebugOpenID", false); }
-	}
+	public static bool DebugOpenID => ConfigHelper.GetBoolProperty("DebugOpenID", false);
 
-	public static bool EnableTaskQueueTestLinks
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableTaskQueueTestLinks", false); }
-	}
+	public static bool EnableTaskQueueTestLinks => ConfigHelper.GetBoolProperty("EnableTaskQueueTestLinks", false);
 
 
-	public static bool DisableSetup
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableSetup", false); }
-	}
+	public static bool DisableSetup => ConfigHelper.GetBoolProperty("DisableSetup", false);
 
-	public static string ContentPagesToSkip
-	{
-		get { return ConfigHelper.GetStringProperty("ContentPagesToSkip", string.Empty); }
-	}
+	public static string ContentPagesToSkip => ConfigHelper.GetStringProperty("ContentPagesToSkip", string.Empty);
 
 
-	public static string PaymentGatewayConfigFileName
-	{
-		get { return ConfigHelper.GetStringProperty("PaymentGatewayConfigFileName", "mojoPaymentGateway.config"); }
-	}
+	public static string PaymentGatewayConfigFileName => ConfigHelper.GetStringProperty("PaymentGatewayConfigFileName", "mojoPaymentGateway.config");
 
 	/// <summary>
 	/// for when you want to use the same sommerce settings in any child sites
 	/// </summary>
-	public static bool CommerceUseGlobalSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("CommerceUseGlobalSettings", false); }
-	}
+	public static bool CommerceUseGlobalSettings => ConfigHelper.GetBoolProperty("CommerceUseGlobalSettings", false);
 
-	public static bool CommerceGlobalIs503TaxExempt
-	{
-		get { return ConfigHelper.GetBoolProperty("CommerceGlobalIs503TaxExempt", false); }
-	}
+	public static bool CommerceGlobalIs503TaxExempt => ConfigHelper.GetBoolProperty("CommerceGlobalIs503TaxExempt", false);
 
-	public static bool CommerceGlobalUseTestMode
-	{
-		get { return ConfigHelper.GetBoolProperty("CommerceGlobalUseTestMode", false); }
-	}
+	public static bool CommerceGlobalUseTestMode => ConfigHelper.GetBoolProperty("CommerceGlobalUseTestMode", false);
 
-	public static string CommerceGlobalPrimaryGateway
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPrimaryGateway", string.Empty); }
-	}
+	public static string CommerceGlobalPrimaryGateway => ConfigHelper.GetStringProperty("CommerceGlobalPrimaryGateway", string.Empty);
 
-	public static string CommerceGlobalAuthorizeNetProductionAPILogin
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetProductionAPILogin", string.Empty); }
-	}
+	public static string CommerceGlobalAuthorizeNetProductionAPILogin => ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetProductionAPILogin", string.Empty);
 
-	public static string CommerceGlobalAuthorizeNetProductionAPITransactionKey
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetProductionAPITransactionKey", string.Empty); }
-	}
+	public static string CommerceGlobalAuthorizeNetProductionAPITransactionKey => ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetProductionAPITransactionKey", string.Empty);
 
-	public static string CommerceGlobalAuthorizeNetSandboxAPILogin
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetSandboxAPILogin", string.Empty); }
-	}
+	public static string CommerceGlobalAuthorizeNetSandboxAPILogin => ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetSandboxAPILogin", string.Empty);
 
-	public static string CommerceGlobalAuthorizeNetSandboxAPITransactionKey
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetSandboxAPITransactionKey", string.Empty); }
-	}
+	public static string CommerceGlobalAuthorizeNetSandboxAPITransactionKey => ConfigHelper.GetStringProperty("CommerceGlobalAuthorizeNetSandboxAPITransactionKey", string.Empty);
 
-	public static string CommerceGlobalPlugNPayProductionAPIPublisherName
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPlugNPayProductionAPIPublisherName", string.Empty); }
-	}
+	public static string CommerceGlobalPlugNPayProductionAPIPublisherName => ConfigHelper.GetStringProperty("CommerceGlobalPlugNPayProductionAPIPublisherName", string.Empty);
 
-	public static string CommerceGlobalPlugNPayProductionAPIPublisherPassword
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPlugNPayProductionAPIPublisherPassword", string.Empty); }
-	}
+	public static string CommerceGlobalPlugNPayProductionAPIPublisherPassword => ConfigHelper.GetStringProperty("CommerceGlobalPlugNPayProductionAPIPublisherPassword", string.Empty);
 
-	public static string CommerceGlobalPlugNPaySandboxAPIPublisherName
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPlugNPaySandboxAPIPublisherName", string.Empty); }
-	}
+	public static string CommerceGlobalPlugNPaySandboxAPIPublisherName => ConfigHelper.GetStringProperty("CommerceGlobalPlugNPaySandboxAPIPublisherName", string.Empty);
 
-	public static string CommerceGlobalPlugNPaySandboxAPIPublisherPassword
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPlugNPaySandboxAPIPublisherPassword", string.Empty); }
-	}
+	public static string CommerceGlobalPlugNPaySandboxAPIPublisherPassword => ConfigHelper.GetStringProperty("CommerceGlobalPlugNPaySandboxAPIPublisherPassword", string.Empty);
 
-	public static string CommerceGlobalPayPalAccountProductionEmailAddress
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountProductionEmailAddress", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalAccountProductionEmailAddress => ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountProductionEmailAddress", string.Empty);
 
-	public static string CommerceGlobalPayPalAccountProductionPDTId
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountProductionPDTId", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalAccountProductionPDTId => ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountProductionPDTId", string.Empty);
 
-	public static string CommerceGlobalPayPalAccountSandboxEmailAddress
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountSandboxEmailAddress", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalAccountSandboxEmailAddress => ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountSandboxEmailAddress", string.Empty);
 
-	public static string CommerceGlobalPayPalAccountSandboxPDTId
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountSandboxPDTId", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalAccountSandboxPDTId => ConfigHelper.GetStringProperty("CommerceGlobalPayPalAccountSandboxPDTId", string.Empty);
 
-	public static bool CommerceGlobalUsePayPalStandard
-	{
-		get { return ConfigHelper.GetBoolProperty("CommerceGlobalUsePayPalStandard", true); }
-	}
+	public static bool CommerceGlobalUsePayPalStandard => ConfigHelper.GetBoolProperty("CommerceGlobalUsePayPalStandard", true);
 
-	public static string CommerceGlobalPayPalStandardProductionUrl
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalStandardProductionUrl", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalStandardProductionUrl => ConfigHelper.GetStringProperty("CommerceGlobalPayPalStandardProductionUrl", string.Empty);
 
-	public static string CommerceGlobalPayPalStandardSandboxUrl
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalStandardSandboxUrl", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalStandardSandboxUrl => ConfigHelper.GetStringProperty("CommerceGlobalPayPalStandardSandboxUrl", string.Empty);
 
-	public static string CommerceGlobalPayPalProductionAPIUsername
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalProductionAPIUsername", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalProductionAPIUsername => ConfigHelper.GetStringProperty("CommerceGlobalPayPalProductionAPIUsername", string.Empty);
 
-	public static string CommerceGlobalPayPalProductionAPIPassword
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalProductionAPIPassword", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalProductionAPIPassword => ConfigHelper.GetStringProperty("CommerceGlobalPayPalProductionAPIPassword", string.Empty);
 
-	public static string CommerceGlobalPayPalProductionAPISignature
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalProductionAPISignature", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalProductionAPISignature => ConfigHelper.GetStringProperty("CommerceGlobalPayPalProductionAPISignature", string.Empty);
 
-	public static string CommerceGlobalPayPalSandboxAPIUsername
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalSandboxAPIUsername", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalSandboxAPIUsername => ConfigHelper.GetStringProperty("CommerceGlobalPayPalSandboxAPIUsername", string.Empty);
 
-	public static string CommerceGlobalPayPalSandboxAPIPassword
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalSandboxAPIPassword", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalSandboxAPIPassword => ConfigHelper.GetStringProperty("CommerceGlobalPayPalSandboxAPIPassword", string.Empty);
 
-	public static string CommerceGlobalPayPalSandboxAPISignature
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalPayPalSandboxAPISignature", string.Empty); }
-	}
+	public static string CommerceGlobalPayPalSandboxAPISignature => ConfigHelper.GetStringProperty("CommerceGlobalPayPalSandboxAPISignature", string.Empty);
 
-	public static string CommerceGlobalGoogleProductionMerchantID
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalGoogleProductionMerchantID", string.Empty); }
-	}
+	public static string CommerceGlobalGoogleProductionMerchantID => ConfigHelper.GetStringProperty("CommerceGlobalGoogleProductionMerchantID", string.Empty);
 
-	public static string CommerceGlobalGoogleProductionMerchantKey
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalGoogleProductionMerchantKey", string.Empty); }
-	}
+	public static string CommerceGlobalGoogleProductionMerchantKey => ConfigHelper.GetStringProperty("CommerceGlobalGoogleProductionMerchantKey", string.Empty);
 
-	public static string CommerceGlobalGoogleSandboxMerchantID
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalGoogleSandboxMerchantID", string.Empty); }
-	}
+	public static string CommerceGlobalGoogleSandboxMerchantID => ConfigHelper.GetStringProperty("CommerceGlobalGoogleSandboxMerchantID", string.Empty);
 
-	public static string CommerceGlobalGoogleSandboxMerchantKey
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalGoogleSandboxMerchantKey", string.Empty); }
-	}
+	public static string CommerceGlobalGoogleSandboxMerchantKey => ConfigHelper.GetStringProperty("CommerceGlobalGoogleSandboxMerchantKey", string.Empty);
 
-	public static string CommerceGlobalWorldPayInstallationId
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalWorldPayInstallationId", string.Empty); }
-	}
+	public static string CommerceGlobalWorldPayInstallationId => ConfigHelper.GetStringProperty("CommerceGlobalWorldPayInstallationId", string.Empty);
 
-	public static string CommerceGlobalWorldPayMerchantCode
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalWorldPayMerchantCode", string.Empty); }
-	}
+	public static string CommerceGlobalWorldPayMerchantCode => ConfigHelper.GetStringProperty("CommerceGlobalWorldPayMerchantCode", string.Empty);
 
-	public static string CommerceGlobalWorldPayMd5Secret
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalWorldPayMd5Secret", string.Empty); }
-	}
+	public static string CommerceGlobalWorldPayMd5Secret => ConfigHelper.GetStringProperty("CommerceGlobalWorldPayMd5Secret", string.Empty);
 
-	public static string CommerceGlobalWorldPayResponsePassword
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalWorldPayResponsePassword", string.Empty); }
-	}
+	public static string CommerceGlobalWorldPayResponsePassword => ConfigHelper.GetStringProperty("CommerceGlobalWorldPayResponsePassword", string.Empty);
 
-	public static string CommerceGlobalWorldPayShopperResponseTemplate
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalWorldPayShopperResponseTemplate", string.Empty); }
-	}
+	public static string CommerceGlobalWorldPayShopperResponseTemplate => ConfigHelper.GetStringProperty("CommerceGlobalWorldPayShopperResponseTemplate", string.Empty);
 
-	public static string CommerceGlobalWorldPayShopperCancellationResponseTemplate
-	{
-		get { return ConfigHelper.GetStringProperty("CommerceGlobalWorldPayShopperCancellationResponseTemplate", string.Empty); }
-	}
+	public static string CommerceGlobalWorldPayShopperCancellationResponseTemplate => ConfigHelper.GetStringProperty("CommerceGlobalWorldPayShopperCancellationResponseTemplate", string.Empty);
 
-	public static bool CommerceGlobalWorldPayProduceShopperResponse
-	{
-		get { return ConfigHelper.GetBoolProperty("CommerceGlobalWorldPayProduceShopperResponse", true); }
-	}
+	public static bool CommerceGlobalWorldPayProduceShopperResponse => ConfigHelper.GetBoolProperty("CommerceGlobalWorldPayProduceShopperResponse", true);
 
-	public static bool CommerceGlobalWorldPayProduceShopperCancellationResponse
-	{
-		get { return ConfigHelper.GetBoolProperty("CommerceGlobalWorldPayProduceShopperCancellationResponse", true); }
-	}
+	public static bool CommerceGlobalWorldPayProduceShopperCancellationResponse => ConfigHelper.GetBoolProperty("CommerceGlobalWorldPayProduceShopperCancellationResponse", true);
 
-	public static bool SetupTryAnywayIfFailedAlterSchemaTest
-	{
-		get { return ConfigHelper.GetBoolProperty("SetupTryAnywayIfFailedAlterSchemaTest", false); }
-	}
+	public static bool SetupTryAnywayIfFailedAlterSchemaTest => ConfigHelper.GetBoolProperty("SetupTryAnywayIfFailedAlterSchemaTest", false);
 
-	public static bool DisableDBAdminTool
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableDBAdminTool", true); }
-	}
+	public static bool DisableDBAdminTool => ConfigHelper.GetBoolProperty("DisableDBAdminTool", true);
 
-	public static bool MaskPasswordsInUserAdmin
-	{
-		get { return ConfigHelper.GetBoolProperty("MaskPasswordsInUserAdmin", true); }
-	}
+	public static bool MaskPasswordsInUserAdmin => ConfigHelper.GetBoolProperty("MaskPasswordsInUserAdmin", true);
 
-	public static bool ShowProviderListInDBAdminTool
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowProviderListInDBAdminTool", false); }
-	}
+	public static bool ShowProviderListInDBAdminTool => ConfigHelper.GetBoolProperty("ShowProviderListInDBAdminTool", false);
 
-	public static string MemberListUrl
-	{
-		get { return ConfigHelper.GetStringProperty("MemberListUrl", "/MemberList.aspx"); }
-	}
+	public static string MemberListUrl => ConfigHelper.GetStringProperty("MemberListUrl", "/MemberList.aspx");
 
-	public static string MemberListOverrideLinkText
-	{
-		get { return ConfigHelper.GetStringProperty("MemberListOverrideLinkText", string.Empty); }
-	}
+	public static string MemberListOverrideLinkText => ConfigHelper.GetStringProperty("MemberListOverrideLinkText", string.Empty);
 
-	public static bool ShowEmailInMemberList
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowEmailInMemberList", false); }
-	}
+	public static bool ShowEmailInMemberList => ConfigHelper.GetBoolProperty("ShowEmailInMemberList", false);
 
-	public static bool ShowPurgeUserLocationsInUserManagement
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowPurgeUserLocationsInUserManagement", true); }
-	}
+	public static bool ShowPurgeUserLocationsInUserManagement => ConfigHelper.GetBoolProperty("ShowPurgeUserLocationsInUserManagement", true);
 
-	public static bool ShowForumUnsubscribeLinkInUserManagement
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowForumUnsubscribeLinkInUserManagement", true); }
-	}
+	public static bool ShowForumUnsubscribeLinkInUserManagement => ConfigHelper.GetBoolProperty("ShowForumUnsubscribeLinkInUserManagement", true);
 
-	public static bool ShowRevenueInForums
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowRevenueInForums", false); }
-	}
+	public static bool ShowRevenueInForums => ConfigHelper.GetBoolProperty("ShowRevenueInForums", false);
 
-	public static bool GetAlphaPagerCharsFromResourceFile
-	{
-		get { return ConfigHelper.GetBoolProperty("GetAlphaPagerCharsFromResourceFile", false); }
-	}
+	public static bool GetAlphaPagerCharsFromResourceFile => ConfigHelper.GetBoolProperty("GetAlphaPagerCharsFromResourceFile", false);
 
-	public static string AlphaPagerChars
-	{
-		get { return ConfigHelper.GetStringProperty("AlphaPagerChars", "ABCDEFGHIJKLMNOPQRSTUVWXYZ"); }
-	}
+	public static string AlphaPagerChars => ConfigHelper.GetStringProperty("AlphaPagerChars", "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
-	public static bool AdaptHtmlDirectionToCulture
-	{
-		get { return ConfigHelper.GetBoolProperty("AdaptHtmlDirectionToCulture", false); }
-	}
+	public static bool AdaptHtmlDirectionToCulture => ConfigHelper.GetBoolProperty("AdaptHtmlDirectionToCulture", false);
 
-	public static bool AddLangToHtmlElement
-	{
-		get { return ConfigHelper.GetBoolProperty("AddLangToHtmlElement", true); }
-	}
+	public static bool AddLangToHtmlElement => ConfigHelper.GetBoolProperty("AddLangToHtmlElement", true);
 
 	/*
 	 * Menu hiding options. As of version 2.8, these are in the <portal:CoreDisplaySettings /> 
 	 * control used in the theme.skin.
 	 */
-	public static bool HideAllMenusOnSiteClosedPage
-	{
-		get { return ConfigHelper.GetBoolProperty("HideAllMenusOnSiteClosedPage", false); }
-	}
+	public static bool HideAllMenusOnSiteClosedPage => ConfigHelper.GetBoolProperty("HideAllMenusOnSiteClosedPage", false);
 
 	public static bool HideMenusOnLoginPage => ConfigHelper.GetBoolProperty("HideMenusOnLoginPage", false);
 
-	public static bool HideMenusOnSiteMap
-	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnSiteMap", false); }
-	}
+	public static bool HideMenusOnSiteMap => ConfigHelper.GetBoolProperty("HideMenusOnSiteMap", false);
 
-	public static bool HidePageMenusOnSiteMap
-	{
-		get { return ConfigHelper.GetBoolProperty("HidePageMenusOnSiteMap", true); }
-	}
+	public static bool HidePageMenusOnSiteMap => ConfigHelper.GetBoolProperty("HidePageMenusOnSiteMap", true);
 
-	public static bool HideMenusOnRegisterPage
-	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnRegisterPage", false); }
-	}
+	public static bool HideMenusOnRegisterPage => ConfigHelper.GetBoolProperty("HideMenusOnRegisterPage", false);
 
-	public static bool HideMenusOnPasswordRecoveryPage
-	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnPasswordRecoveryPage", false); }
-	}
+	public static bool HideMenusOnPasswordRecoveryPage => ConfigHelper.GetBoolProperty("HideMenusOnPasswordRecoveryPage", false);
 
-	public static bool HideMenusOnChangePasswordPage
-	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnChangePasswordPage", false); }
-	}
+	public static bool HideMenusOnChangePasswordPage => ConfigHelper.GetBoolProperty("HideMenusOnChangePasswordPage", false);
 
-	public static bool HideAllMenusOnProfilePage
-	{
-		get { return ConfigHelper.GetBoolProperty("HideAllMenusOnProfilePage", false); }
-	}
+	public static bool HideAllMenusOnProfilePage => ConfigHelper.GetBoolProperty("HideAllMenusOnProfilePage", false);
 
-	public static bool HidePageMenuOnProfilePage
-	{
-		get { return ConfigHelper.GetBoolProperty("HidePageMenuOnProfilePage", true); }
-	}
+	public static bool HidePageMenuOnProfilePage => ConfigHelper.GetBoolProperty("HidePageMenuOnProfilePage", true);
 
-	public static bool HidePageMenuOnMemberListPage
-	{
-		get { return ConfigHelper.GetBoolProperty("HidePageMenuOnMemberListPage", true); }
-	}
+	public static bool HidePageMenuOnMemberListPage => ConfigHelper.GetBoolProperty("HidePageMenuOnMemberListPage", true);
 
-	public static bool HidePageViewModeIfNoWorkflowItems
-	{
-		get { return ConfigHelper.GetBoolProperty("HidePageViewModeIfNoWorkflowItems", true); }
-	}
+	public static bool HidePageViewModeIfNoWorkflowItems => ConfigHelper.GetBoolProperty("HidePageViewModeIfNoWorkflowItems", true);
 
-	public static bool SuppressMenuOnBuiltIn404Page
-	{
-		get { return ConfigHelper.GetBoolProperty("SuppressMenuOnBuiltIn404Page", false); }
-	}
+	public static bool SuppressMenuOnBuiltIn404Page => ConfigHelper.GetBoolProperty("SuppressMenuOnBuiltIn404Page", false);
 
-	public static bool ShowForumPostsInMemberList
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowForumPostsInMemberList", true); }
-	}
+	public static bool ShowForumPostsInMemberList => ConfigHelper.GetBoolProperty("ShowForumPostsInMemberList", true);
 
-	public static bool DisableLoginInfo
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableLoginInfo", false); }
-	}
+	public static bool DisableLoginInfo => ConfigHelper.GetBoolProperty("DisableLoginInfo", false);
 
-	public static bool ShowLoginNameInMemberList
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowLoginNameInMemberList", false); }
-	}
+	public static bool ShowLoginNameInMemberList => ConfigHelper.GetBoolProperty("ShowLoginNameInMemberList", false);
 
-	public static bool ShowUserIDInMemberList
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowUserIDInMemberList", false); }
-	}
+	public static bool ShowUserIDInMemberList => ConfigHelper.GetBoolProperty("ShowUserIDInMemberList", false);
 
-	public static bool ShowLeftColumnOnSearchResults
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowLeftColumnOnSearchResults", false); }
-	}
+	public static bool ShowLeftColumnOnSearchResults => ConfigHelper.GetBoolProperty("ShowLeftColumnOnSearchResults", false);
 
-	public static bool ShowSkinSearchInputOnSearchResults
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowSkinSearchInputOnSearchResults", false); }
-	}
+	public static bool ShowSkinSearchInputOnSearchResults => ConfigHelper.GetBoolProperty("ShowSkinSearchInputOnSearchResults", false);
 
-	public static bool ShowSearchInputOnSiteSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowSearchInputOnSiteSettings", false); }
-	}
+	public static bool ShowSearchInputOnSiteSettings => ConfigHelper.GetBoolProperty("ShowSearchInputOnSiteSettings", false);
 
-	public static bool ShowRightColumnOnSearchResults
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowRightColumnOnSearchResults", false); }
-	}
+	public static bool ShowRightColumnOnSearchResults => ConfigHelper.GetBoolProperty("ShowRightColumnOnSearchResults", false);
 
-	public static bool ShowModuleTitlesByDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowModuleTitlesByDefault", true); }
-	}
+	public static bool ShowModuleTitlesByDefault => ConfigHelper.GetBoolProperty("ShowModuleTitlesByDefault", true);
 
-	public static bool EnableEditingModuleTitleElement
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableEditingModuleTitleElement", false); }
-	}
+	public static bool EnableEditingModuleTitleElement => ConfigHelper.GetBoolProperty("EnableEditingModuleTitleElement", false);
 
-	public static string ModuleTitleTag
-	{
-		get { return ConfigHelper.GetStringProperty("ModuleTitleTag", "h2"); }
-	}
+	public static string ModuleTitleTag => ConfigHelper.GetStringProperty("ModuleTitleTag", "h2");
 
-	public static bool EnableDeveloperMenuInAdminMenu
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableDeveloperMenuInAdminMenu", false); }
-	}
+	public static bool EnableDeveloperMenuInAdminMenu => ConfigHelper.GetBoolProperty("EnableDeveloperMenuInAdminMenu", false);
 
-	public static int UserAutoCompleteRowsToGet
-	{
-		get { return ConfigHelper.GetIntProperty("UserAutoCompleteRowsToGet", 10); }
-	}
+	public static int UserAutoCompleteRowsToGet => ConfigHelper.GetIntProperty("UserAutoCompleteRowsToGet", 10);
 
-	public static bool EnableQueryTool
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableQueryTool", false); }
-	}
+	public static bool EnableQueryTool => ConfigHelper.GetBoolProperty("EnableQueryTool", false);
 
 	public static string QueryToolOverrideConnectionString
 	{
@@ -635,15 +314,9 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool TryToCreateMsSqlDatabase
-	{
-		get { return ConfigHelper.GetBoolProperty("TryToCreateMsSqlDatabase", false); }
-	}
+	public static bool TryToCreateMsSqlDatabase => ConfigHelper.GetBoolProperty("TryToCreateMsSqlDatabase", false);
 
-	public static bool TryToCopySQLiteSeedDatabase
-	{
-		get { return ConfigHelper.GetBoolProperty("TryToCopySQLiteSeedDatabase", true); }
-	}
+	public static bool TryToCopySQLiteSeedDatabase => ConfigHelper.GetBoolProperty("TryToCopySQLiteSeedDatabase", true);
 
 	public static string QueryToolMsSqlTableSelectSql
 	{
@@ -738,109 +411,49 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool EnableLogViewer
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableLogViewer", true); }
-	}
+	public static bool EnableLogViewer => ConfigHelper.GetBoolProperty("EnableLogViewer", true);
 
-	public static bool UseCultureOverride
-	{
-		get { return ConfigHelper.GetBoolProperty("UseCultureOverride", false); }
-	}
+	public static bool UseCultureOverride => ConfigHelper.GetBoolProperty("UseCultureOverride", false);
 
-	public static bool SetUICultureWhenSettingCulture
-	{
-		get { return ConfigHelper.GetBoolProperty("SetUICultureWhenSettingCulture", true); }
-	}
+	public static bool SetUICultureWhenSettingCulture => ConfigHelper.GetBoolProperty("SetUICultureWhenSettingCulture", true);
 
-	public static bool UseCultureForUICulture
-	{
-		get { return ConfigHelper.GetBoolProperty("UseCultureForUICulture", true); }
-	}
+	public static bool UseCultureForUICulture => ConfigHelper.GetBoolProperty("UseCultureForUICulture", true);
 
-	public static bool UseCustomHandlingForPersianCulture
-	{
-		get { return ConfigHelper.GetBoolProperty("UseCustomHandlingForPersianCulture", false); }
-	}
+	public static bool UseCustomHandlingForPersianCulture => ConfigHelper.GetBoolProperty("UseCustomHandlingForPersianCulture", false);
 
 	//this fixes some ajax updatepanel issues in webkit
 	//http://forums.asp.net/p/1252014/2392110.aspx
-	public static bool UseSafariWebKitHack
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSafariWebKitHack", false); }
-	}
+	public static bool UseSafariWebKitHack => ConfigHelper.GetBoolProperty("UseSafariWebKitHack", false);
 
-	public static bool UseAjaxFormActionUpdateScript
-	{
-		get { return ConfigHelper.GetBoolProperty("UseAjaxFormActionUpdateScript", true); }
-	}
+	public static bool UseAjaxFormActionUpdateScript => ConfigHelper.GetBoolProperty("UseAjaxFormActionUpdateScript", true);
 
-	public static bool CombineJavaScript
-	{
-		get { return ConfigHelper.GetBoolProperty("CombineJavaScript", false); }
-	}
+	public static bool CombineJavaScript => ConfigHelper.GetBoolProperty("CombineJavaScript", false);
 
-	public static string CKEditorSkin
-	{
-		get { return ConfigHelper.GetStringProperty("CKEditor:Skin", "moono-lisa"); }
-	}
+	public static string CKEditorSkin => ConfigHelper.GetStringProperty("CKEditor:Skin", "moono-lisa");
 
 	//https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=12326~1#post51248
-	public static bool CKeditorSuppressTitle
-	{
-		get { return ConfigHelper.GetBoolProperty("CKEditor:SuppressTitle", true); }
-	}
+	public static bool CKeditorSuppressTitle => ConfigHelper.GetBoolProperty("CKEditor:SuppressTitle", true);
 
 
-	public static bool CKeditorEncodeBrackets
-	{
-		get { return ConfigHelper.GetBoolProperty("CKeditor:EncodeBrackets", false); }
-	}
+	public static bool CKeditorEncodeBrackets => ConfigHelper.GetBoolProperty("CKeditor:EncodeBrackets", false);
 
-	public static bool UseSkinCssInEditor
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSkinCssInEditor", true); }
-	}
+	public static bool UseSkinCssInEditor => ConfigHelper.GetBoolProperty("UseSkinCssInEditor", true);
 
-	public static string EditorCssUrlOverride
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("EditorCssUrlOverride", string.Empty);
-		}
-	}
+	public static string EditorCssUrlOverride => ConfigHelper.GetStringProperty("EditorCssUrlOverride", string.Empty);
 
 	/// <summary>
 	/// if you populate this setting it should start with a comma since it
 	/// will be appended to the skin url which is assigned by default
 	/// </summary>
-	public static string EditorExtraCssUrlCsv
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("EditorExtraCssUrlCsv", string.Empty);
-		}
-	}
+	public static string EditorExtraCssUrlCsv => ConfigHelper.GetStringProperty("EditorExtraCssUrlCsv", string.Empty);
 
-	public static bool DisableTinyMceInlineEditing
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableTinyMceInlineEditing", false); }
-	}
+	public static bool DisableTinyMceInlineEditing => ConfigHelper.GetBoolProperty("DisableTinyMceInlineEditing", false);
 
-	public static bool TinyMceInlineSaveOnBlur
-	{
-		get { return ConfigHelper.GetBoolProperty("TinyMceInlineSaveOnBlur", true); }
-	}
+	public static bool TinyMceInlineSaveOnBlur => ConfigHelper.GetBoolProperty("TinyMceInlineSaveOnBlur", true);
 
-	public static bool TinyMceInlineRemoveAutoSavePlugin
-	{
-		get { return ConfigHelper.GetBoolProperty("TinyMceInlineRemoveAutoSavePlugin", true); }
-	}
+	public static bool TinyMceInlineRemoveAutoSavePlugin => ConfigHelper.GetBoolProperty("TinyMceInlineRemoveAutoSavePlugin", true);
 
-	public static bool TinyMceInlineUseSavePlugin
-	{
-		get { return ConfigHelper.GetBoolProperty("TinyMceInlineUseSavePlugin", false); }
-	}
+	public static bool TinyMceInlineUseSavePlugin => ConfigHelper.GetBoolProperty("TinyMceInlineUseSavePlugin", false);
 
 	public static string TinyMceSchema
 	{
@@ -890,158 +503,68 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string UnobtrusiveValidationMode
-	{
-		get { return ConfigHelper.GetStringProperty("ValidationSettings:UnobtrusiveValidationMode", string.Empty); }
-	}
+	public static string UnobtrusiveValidationMode => ConfigHelper.GetStringProperty("ValidationSettings:UnobtrusiveValidationMode", string.Empty);
 
-	public static bool ForceEmptyJQueryScriptReference
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceEmptyJQueryScriptReference", true); }
-	}
+	public static bool ForceEmptyJQueryScriptReference => ConfigHelper.GetBoolProperty("ForceEmptyJQueryScriptReference", true);
 
-	public static string jQueryUIAvailableThemes
-	{
-		get { return ConfigHelper.GetStringProperty("jQueryUIAvailableThemes", string.Empty); }
-	}
+	public static string jQueryUIAvailableThemes => ConfigHelper.GetStringProperty("jQueryUIAvailableThemes", string.Empty);
 
-	public static bool UseHtml5
-	{
-		get { return ConfigHelper.GetBoolProperty("UseHtml5", false); }
-	}
+	public static bool UseHtml5 => ConfigHelper.GetBoolProperty("UseHtml5", false);
 
-	public static bool DisableViewStateOnSiteMapDataSource
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableViewStateOnSiteMapDataSource", true); }
-	}
+	public static bool DisableViewStateOnSiteMapDataSource => ConfigHelper.GetBoolProperty("DisableViewStateOnSiteMapDataSource", true);
 
-	public static bool CombineCSS
-	{
-		get { return ConfigHelper.GetBoolProperty("CombineCSS", true); }
-	}
+	public static bool CombineCSS => ConfigHelper.GetBoolProperty("CombineCSS", true);
 
-	public static bool CacheCssOnServer
-	{
-		get { return ConfigHelper.GetBoolProperty("CacheCssOnServer", true); }
-	}
+	public static bool CacheCssOnServer => ConfigHelper.GetBoolProperty("CacheCssOnServer", true);
 
-	public static bool CacheCssInBrowser
-	{
-		get { return ConfigHelper.GetBoolProperty("CacheCssInBrowser", true); }
-	}
+	public static bool CacheCssInBrowser => ConfigHelper.GetBoolProperty("CacheCssInBrowser", true);
 
 	/// <summary>
 	/// This can easily show the mojoPortal version to nefarious jerks that could then use it to exploit vulnerabilities in the advertised version
 	/// </summary>
-	public static bool IncludeVersionInCssUrl
-	{
-		get { return ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", false); }
-	}
+	public static bool IncludeVersionInCssUrl => ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", false);
 
-	public static int CssCacheInDays
-	{
-		get { return ConfigHelper.GetIntProperty("CssCacheInDays", 7); }
-	}
+	public static int CssCacheInDays => ConfigHelper.GetIntProperty("CssCacheInDays", 7);
 
-	public static int ChannelFileCacheInDays
-	{
-		get { return ConfigHelper.GetIntProperty("ChannelFileCacheInDays", 365); }
-	}
+	public static int ChannelFileCacheInDays => ConfigHelper.GetIntProperty("ChannelFileCacheInDays", 365);
 
-	public static bool MinifyCSS
-	{
-		get { return ConfigHelper.GetBoolProperty("MinifyCSS", false); }
-	}
+	public static bool MinifyCSS => ConfigHelper.GetBoolProperty("MinifyCSS", false);
 
-	public static bool CacheTimeZoneList
-	{
-		get { return ConfigHelper.GetBoolProperty("CacheTimeZoneList", true); }
-	}
+	public static bool CacheTimeZoneList => ConfigHelper.GetBoolProperty("CacheTimeZoneList", true);
 
-	public static bool DisableASPThemes
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableASPThemes", false); }
-	}
+	public static bool DisableASPThemes => ConfigHelper.GetBoolProperty("DisableASPThemes", false);
 
-	public static bool UsingOlderSkins
-	{
-		get { return ConfigHelper.GetBoolProperty("UsingOlderSkins", false); }
-	}
+	public static bool UsingOlderSkins => ConfigHelper.GetBoolProperty("UsingOlderSkins", false);
 
-	public static bool MenusAreResponsibleForAddingCss
-	{
-		get { return ConfigHelper.GetBoolProperty("MenusAreResponsibleForAddingCss", false); }
-	}
+	public static bool MenusAreResponsibleForAddingCss => ConfigHelper.GetBoolProperty("MenusAreResponsibleForAddingCss", false);
 
-	public static bool AllowChangingFriendlyUrlPattern
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowChangingFriendlyUrlPattern", true); }
-	}
+	public static bool AllowChangingFriendlyUrlPattern => ConfigHelper.GetBoolProperty("AllowChangingFriendlyUrlPattern", true);
 
-	public static string FriendlyUrlSuggestScript
-	{
-		get { return ConfigHelper.GetStringProperty("FriendlyUrlSuggestScript", "~/ClientScript/friendlyurlsuggest_v3.js"); }
-	}
+	public static string FriendlyUrlSuggestScript => ConfigHelper.GetStringProperty("FriendlyUrlSuggestScript", "~/ClientScript/friendlyurlsuggest_v3.js");
 
-	public static bool AllowDirectEntryOfUserIdForEditPermission
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowDirectEntryOfUserIdForEditPermission", false); }
-	}
+	public static bool AllowDirectEntryOfUserIdForEditPermission => ConfigHelper.GetBoolProperty("AllowDirectEntryOfUserIdForEditPermission", false);
 
-	public static bool AllowMultipleSites
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowMultipleSites", true); }
-	}
+	public static bool AllowMultipleSites => ConfigHelper.GetBoolProperty("AllowMultipleSites", true);
 
-	public static bool AppendDefaultPageToFolderRootUrl
-	{
-		get { return ConfigHelper.GetBoolProperty("AppendDefaultPageToFolderRootUrl", true); }
-	}
+	public static bool AppendDefaultPageToFolderRootUrl => ConfigHelper.GetBoolProperty("AppendDefaultPageToFolderRootUrl", true);
 
-	public static bool ShowSiteGuidInSiteSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowSiteGuidInSiteSettings", false); }
-	}
+	public static bool ShowSiteGuidInSiteSettings => ConfigHelper.GetBoolProperty("ShowSiteGuidInSiteSettings", false);
 
-	public static bool ShowSiteIdInSiteList
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowSiteIdInSiteList", true); }
-	}
+	public static bool ShowSiteIdInSiteList => ConfigHelper.GetBoolProperty("ShowSiteIdInSiteList", true);
 
-	public static int SiteListPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("SiteListPageSize", 30); }
-	}
+	public static int SiteListPageSize => ConfigHelper.GetIntProperty("SiteListPageSize", 30);
 
-	public static int RoleMemberPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("RoleMemberPageSize", 30); }
-	}
+	public static int RoleMemberPageSize => ConfigHelper.GetIntProperty("RoleMemberPageSize", 30);
 
-	public static bool EnableSiteSettingsSmtpSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableSiteSettingsSmtpSettings", true); }
-	}
+	public static bool EnableSiteSettingsSmtpSettings => ConfigHelper.GetBoolProperty("EnableSiteSettingsSmtpSettings", true);
 
-	public static bool EnforceContentVersioningGlobally
-	{
-		get { return ConfigHelper.GetBoolProperty("EnforceContentVersioningGlobally", false); }
-	}
+	public static bool EnforceContentVersioningGlobally => ConfigHelper.GetBoolProperty("EnforceContentVersioningGlobally", false);
 
-	public static bool MaskSmtpPasswordInSiteSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("MaskSmtpPasswordInSiteSettings", true); }
-	}
+	public static bool MaskSmtpPasswordInSiteSettings => ConfigHelper.GetBoolProperty("MaskSmtpPasswordInSiteSettings", true);
 
-	public static bool ShowSmtpEncodingOption
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowSmtpEncodingOption", false); }
-	}
+	public static bool ShowSmtpEncodingOption => ConfigHelper.GetBoolProperty("ShowSmtpEncodingOption", false);
 
-	public static bool HideGoogleAnalyticsInChildSites
-	{
-		get { return ConfigHelper.GetBoolProperty("HideGoogleAnalyticsInChildSites", false); }
-	}
+	public static bool HideGoogleAnalyticsInChildSites => ConfigHelper.GetBoolProperty("HideGoogleAnalyticsInChildSites", false);
 
 	public static string GravatarMaxAllowedRating
 	{
@@ -1056,154 +579,70 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool OnlyAdminsCanEditCheesyAvatars
-	{
-		get { return ConfigHelper.GetBoolProperty("OnlyAdminsCanEditCheesyAvatars", false); }
-	}
+	public static bool OnlyAdminsCanEditCheesyAvatars => ConfigHelper.GetBoolProperty("OnlyAdminsCanEditCheesyAvatars", false);
 
-	public static bool MyPageIsInstalled
-	{
-		get { return ConfigHelper.GetBoolProperty("MyPageIsInstalled", false); }
-	}
+	public static bool MyPageIsInstalled => ConfigHelper.GetBoolProperty("MyPageIsInstalled", false);
 
-	public static bool UseSslForMyPage
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSslForMyPage", false); }
-	}
+	public static bool UseSslForMyPage => ConfigHelper.GetBoolProperty("UseSslForMyPage", false);
 
-	public static bool UseSslForSiteMap
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSslForSiteMap", false); }
-	}
+	public static bool UseSslForSiteMap => ConfigHelper.GetBoolProperty("UseSslForSiteMap", false);
 
-	public static bool UseSslForSiteOffice
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSslForSiteOffice", false); }
-	}
+	public static bool UseSslForSiteOffice => ConfigHelper.GetBoolProperty("UseSslForSiteOffice", false);
 
-	public static bool UseSslForMemberList
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSslForMemberList", false); }
-	}
+	public static bool UseSslForMemberList => ConfigHelper.GetBoolProperty("UseSslForMemberList", false);
 
-	public static bool ProxyPreventsSSLDetection
-	{
-		get { return ConfigHelper.GetBoolProperty("ProxyPreventsSSLDetection", false); }
-	}
+	public static bool ProxyPreventsSSLDetection => ConfigHelper.GetBoolProperty("ProxyPreventsSSLDetection", false);
 
-	public static bool RedirectSslWith301Status
-	{
-		get { return ConfigHelper.GetBoolProperty("RedirectSslWith301Status", false); }
-	}
+	public static bool RedirectSslWith301Status => ConfigHelper.GetBoolProperty("RedirectSslWith301Status", false);
 
-	public static bool IsDemoSite
-	{
-		get { return ConfigHelper.GetBoolProperty("IsDemoSite", false); }
-	}
+	public static bool IsDemoSite => ConfigHelper.GetBoolProperty("IsDemoSite", false);
 	/// <summary>
 	/// I use this to track people using our demo site who try to DOS (denial of service) our demo site by deleting all the pages
 	/// I want to ban those ip addresses
 	/// </summary>
-	public static bool LogIpAddressForContentDeletions
-	{
-		get { return ConfigHelper.GetBoolProperty("LogIpAddressForContentDeletions", false); }
-	}
+	public static bool LogIpAddressForContentDeletions => ConfigHelper.GetBoolProperty("LogIpAddressForContentDeletions", false);
 
 	/// <summary>
 	/// I use this to track users who try to DOS our demo site by changing the admin password so other users cannnot use it
 	/// </summary>
-	public static bool LogIpAddressForPasswordChanges
-	{
-		get { return ConfigHelper.GetBoolProperty("LogIpAddressForPasswordChanges", false); }
-	}
+	public static bool LogIpAddressForPasswordChanges => ConfigHelper.GetBoolProperty("LogIpAddressForPasswordChanges", false);
 
 	/// <summary>
 	/// I use this to track users who try to DOS our demo site by changing the admin password so other users cannnot use it
 	/// </summary>
-	public static bool LogIpAddressForEmailChanges
-	{
-		get { return ConfigHelper.GetBoolProperty("LogIpAddressForEmailChanges", false); }
-	}
+	public static bool LogIpAddressForEmailChanges => ConfigHelper.GetBoolProperty("LogIpAddressForEmailChanges", false);
 
-	public static bool LogFailedLoginAttempts
-	{
-		get { return ConfigHelper.GetBoolProperty("LogFailedLoginAttempts", false); }
-	}
+	public static bool LogFailedLoginAttempts => ConfigHelper.GetBoolProperty("LogFailedLoginAttempts", false);
 
-	public static bool LogAllFileServiceRequests
-	{
-		get { return ConfigHelper.GetBoolProperty("LogAllFileServiceRequests", false); }
-	}
+	public static bool LogAllFileServiceRequests => ConfigHelper.GetBoolProperty("LogAllFileServiceRequests", false);
 
-	public static bool LogBlockedRequests
-	{
-		get { return ConfigHelper.GetBoolProperty("LogBlockedRequests", true); }
-	}
+	public static bool LogBlockedRequests => ConfigHelper.GetBoolProperty("LogBlockedRequests", true);
 
-	public static bool LogAllFileManagerActivity
-	{
-		get { return ConfigHelper.GetBoolProperty("LogAllFileManagerActivity", false); }
-	}
+	public static bool LogAllFileManagerActivity => ConfigHelper.GetBoolProperty("LogAllFileManagerActivity", false);
 
-	public static bool FileServiceRejectFishyPosts
-	{
-		get { return ConfigHelper.GetBoolProperty("FileServiceRejectFishyPosts", true); }
-	}
+	public static bool FileServiceRejectFishyPosts => ConfigHelper.GetBoolProperty("FileServiceRejectFishyPosts", true);
 
-	public static bool LogCacheActivity
-	{
-		get { return ConfigHelper.GetBoolProperty("LogCacheActivity", false); }
-	}
+	public static bool LogCacheActivity => ConfigHelper.GetBoolProperty("LogCacheActivity", false);
 
-	public static bool LogXmlRpcRequests
-	{
-		get { return ConfigHelper.GetBoolProperty("LogXmlRpcRequests", false); }
-	}
+	public static bool LogXmlRpcRequests => ConfigHelper.GetBoolProperty("LogXmlRpcRequests", false);
 
-	public static bool LogNewsletterSubscriptions
-	{
-		get { return ConfigHelper.GetBoolProperty("LogNewsletterSubscriptions", false); }
-	}
+	public static bool LogNewsletterSubscriptions => ConfigHelper.GetBoolProperty("LogNewsletterSubscriptions", false);
 
-	public static bool LogFullUrls
-	{
-		get { return ConfigHelper.GetBoolProperty("LogFullUrls", false); }
-	}
+	public static bool LogFullUrls => ConfigHelper.GetBoolProperty("LogFullUrls", false);
 
-	public static bool UseSystemLogInsteadOfFileLog
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSystemLogInsteadOfFileLog", false); }
-	}
+	public static bool UseSystemLogInsteadOfFileLog => ConfigHelper.GetBoolProperty("UseSystemLogInsteadOfFileLog", false);
 
-	public static bool ShowFileLogInAdditionToSystemLog
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowFileLogInAdditionToSystemLog", false); }
-	}
+	public static bool ShowFileLogInAdditionToSystemLog => ConfigHelper.GetBoolProperty("ShowFileLogInAdditionToSystemLog", false);
 
-	public static int SystemLogPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("SystemLogPageSize", 30); }
-	}
+	public static int SystemLogPageSize => ConfigHelper.GetIntProperty("SystemLogPageSize", 30);
 
-	public static bool SystemLogSortAscending
-	{
-		get { return ConfigHelper.GetBoolProperty("SystemLogSortAscending", false); }
-	}
+	public static bool SystemLogSortAscending => ConfigHelper.GetBoolProperty("SystemLogSortAscending", false);
 
-	public static string SystemLogDateTimeFormat
-	{
-		get { return ConfigHelper.GetStringProperty("SystemLogDateTimeFormat", "yyyy'-'MM'-'dd' 'HH':'mm':'ss'.'fff"); }
-	}
+	public static string SystemLogDateTimeFormat => ConfigHelper.GetStringProperty("SystemLogDateTimeFormat", "yyyy'-'MM'-'dd' 'HH':'mm':'ss'.'fff");
 
-	public static bool SystemLogDeleteOldEventsOnApplicationStart
-	{
-		get { return ConfigHelper.GetBoolProperty("SystemLogDeleteOldEventsOnApplicationStart", true); }
-	}
+	public static bool SystemLogDeleteOldEventsOnApplicationStart => ConfigHelper.GetBoolProperty("SystemLogDeleteOldEventsOnApplicationStart", true);
 
-	public static int SystemLogApplicationStartDeleteOlderThanDays
-	{
-		get { return ConfigHelper.GetIntProperty("SystemLogApplicationStartDeleteOlderThanDays", 10); }
-	}
+	public static int SystemLogApplicationStartDeleteOlderThanDays => ConfigHelper.GetIntProperty("SystemLogApplicationStartDeleteOlderThanDays", 10);
 
 
 
@@ -1213,49 +652,22 @@ public static class WebConfigSettings
 	//    get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("EnableSSLInChildSites", false); }
 	//}
 
-	public static bool AllowDeletingChildSites
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowDeletingChildSites", false); }
-	}
+	public static bool AllowDeletingChildSites => ConfigHelper.GetBoolProperty("AllowDeletingChildSites", false);
 
-	public static bool DeleteSiteFolderWhenDeletingSites
-	{
-		get { return ConfigHelper.GetBoolProperty("DeleteSiteFolderWhenDeletingSites", false); }
-	}
+	public static bool DeleteSiteFolderWhenDeletingSites => ConfigHelper.GetBoolProperty("DeleteSiteFolderWhenDeletingSites", false);
 
-	public static bool ShowSkinRestoreButtonInSiteSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowSkinRestoreButtonInSiteSettings", true); }
-	}
-	public static bool ShowCopyNewSkinsButtonInSiteSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowCopyNewSkinsButtonInSiteSettings", true); }
-	}
+	public static bool ShowSkinRestoreButtonInSiteSettings => ConfigHelper.GetBoolProperty("ShowSkinRestoreButtonInSiteSettings", true);
+	public static bool ShowCopyNewSkinsButtonInSiteSettings => ConfigHelper.GetBoolProperty("ShowCopyNewSkinsButtonInSiteSettings", true);
 
-	public static bool AllowFileManagerInChildSites
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowFileManagerInChildSites", false); }
-	}
+	public static bool AllowFileManagerInChildSites => ConfigHelper.GetBoolProperty("AllowFileManagerInChildSites", false);
 
-	public static bool AllowClosingSites
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowClosingSites", true); }
-	}
+	public static bool AllowClosingSites => ConfigHelper.GetBoolProperty("AllowClosingSites", true);
 
-	public static string RolesThatCanAccessClosedSites
-	{
-		get { return ConfigHelper.GetStringProperty("RolesThatCanAccessClosedSites", "Admins;Content Administrators;"); }
-	}
+	public static string RolesThatCanAccessClosedSites => ConfigHelper.GetStringProperty("RolesThatCanAccessClosedSites", "Admins;Content Administrators;");
 
-	public static string RolesThatAlwaysViewMobileContent
-	{
-		get { return ConfigHelper.GetStringProperty("RolesThatAlwaysViewMobileContent", string.Empty); }
-	}
+	public static string RolesThatAlwaysViewMobileContent => ConfigHelper.GetStringProperty("RolesThatAlwaysViewMobileContent", string.Empty);
 
-	public static string ClosedPageUrl
-	{
-		get { return ConfigHelper.GetStringProperty("ClosedPageUrl", "/closed.aspx"); }
-	}
+	public static string ClosedPageUrl => ConfigHelper.GetStringProperty("ClosedPageUrl", "/closed.aspx");
 
 
 	public static string UserNameValidationExpression
@@ -1314,53 +726,24 @@ public static class WebConfigSettings
 	/// for backward compatibility this is true but for new installations this is false in the user.config.sample file so it uses the newer method
 	/// main problem with the legacy solution is that it doe snot work in medium trust hosting
 	/// </summary>
-	public static bool UseLegacyCryptoHelper
-	{
-		get { return ConfigHelper.GetBoolProperty("UseLegacyCryptoHelper", true); }
-	}
+	public static bool UseLegacyCryptoHelper => ConfigHelper.GetBoolProperty("UseLegacyCryptoHelper", true);
 
-	public static bool AllowUserProfilePage
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowUserProfilePage", true); }
-	}
+	public static bool AllowUserProfilePage => ConfigHelper.GetBoolProperty("AllowUserProfilePage", true);
 
-	public static string PrivateProfileRelativeUrl
-	{
-		get { return ConfigHelper.GetStringProperty("PrivateProfileRelativeUrl", "/Secure/UserProfile.aspx"); }
+	public static string PrivateProfileRelativeUrl => ConfigHelper.GetStringProperty("PrivateProfileRelativeUrl", "/Secure/UserProfile.aspx");
+	public static string PublicProfileRelativeUrl => ConfigHelper.GetStringProperty("PublicProfileRelativeUrl", "/ProfileView.aspx");
+	public static bool AllowPasswordFormatChange => ConfigHelper.GetBoolProperty("AllowPasswordFormatChange", true);
 
-	}
-	public static string PublicProfileRelativeUrl
-	{
-		get { return ConfigHelper.GetStringProperty("PublicProfileRelativeUrl", "/ProfileView.aspx"); }
-
-	}
-	public static bool AllowPasswordFormatChange
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowPasswordFormatChange", true); }
-	}
-
-	public static bool AllowCaseInsensitivePasswordQuestionAnswer
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowCaseInsensitivePasswordQuestionAnswer", false); }
-	}
+	public static bool AllowCaseInsensitivePasswordQuestionAnswer => ConfigHelper.GetBoolProperty("AllowCaseInsensitivePasswordQuestionAnswer", false);
 
 	/// <summary>
 	/// this is mainly used so I can disable it on the demo site
 	/// </summary>
-	public static bool AllowRequiringPasswordChange
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowRequiringPasswordChange", true); }
-	}
+	public static bool AllowRequiringPasswordChange => ConfigHelper.GetBoolProperty("AllowRequiringPasswordChange", true);
 
-	public static bool LockAccountOnMaxPasswordAnswerTries
-	{
-		get { return ConfigHelper.GetBoolProperty("LockAccountOnMaxPasswordAnswerTries", false); }
-	}
+	public static bool LockAccountOnMaxPasswordAnswerTries => ConfigHelper.GetBoolProperty("LockAccountOnMaxPasswordAnswerTries", false);
 
-	public static bool DisableAutoCompleteOnLogin
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableAutoCompleteOnLogin", false); }
-	}
+	public static bool DisableAutoCompleteOnLogin => ConfigHelper.GetBoolProperty("DisableAutoCompleteOnLogin", false);
 
 
 	/// <summary>
@@ -1369,98 +752,54 @@ public static class WebConfigSettings
 	/// Numeric criteria is 15% of strength calculation, casing criteria is 15% of calculation, and symbol criteria is 20% of calculation. 
 	/// So the format is 'A;B;C;D' where A = length weighting, B = numeric weighting, C = casing weighting, D = symbol weighting.
 	/// </summary>
-	public static string PasswordStrengthCalculationWeightings
-	{
-		get { return ConfigHelper.GetStringProperty("PasswordStrengthCalculationWeightings", "25;25;25;25"); }
-	}
+	public static string PasswordStrengthCalculationWeightings => ConfigHelper.GetStringProperty("PasswordStrengthCalculationWeightings", "25;25;25;25");
 
 	/// <summary>
 	/// valid options are RightSide, LeftSide, AboveLeft, AboveRight, BelowLeft, BelowRight
 	/// </summary>
-	public static string PasswordStrengthDisplayPosition
-	{
-		get { return ConfigHelper.GetStringProperty("PasswordStrengthDisplayPosition", "RightSide"); }
-	}
+	public static string PasswordStrengthDisplayPosition => ConfigHelper.GetStringProperty("PasswordStrengthDisplayPosition", "RightSide");
 
 	/// <summary>
 	/// valid options are BarIndicator and Text
 	/// </summary>
-	public static string PasswordStrengthIndicatorType
-	{
-		get { return ConfigHelper.GetStringProperty("PasswordStrengthIndicatorType", "Text"); }
-	}
+	public static string PasswordStrengthIndicatorType => ConfigHelper.GetStringProperty("PasswordStrengthIndicatorType", "Text");
 
-	public static int PasswordStrengthMinimumLowerCaseCharacters
-	{
-		get { return ConfigHelper.GetIntProperty("PasswordStrengthMinimumLowerCaseCharacters", 1); }
-	}
+	public static int PasswordStrengthMinimumLowerCaseCharacters => ConfigHelper.GetIntProperty("PasswordStrengthMinimumLowerCaseCharacters", 1);
 
-	public static int PasswordStrengthMinimumUpperCaseCharacters
-	{
-		get { return ConfigHelper.GetIntProperty("PasswordStrengthMinimumUpperCaseCharacters", 1); }
-	}
+	public static int PasswordStrengthMinimumUpperCaseCharacters => ConfigHelper.GetIntProperty("PasswordStrengthMinimumUpperCaseCharacters", 1);
 
-	public static int MinUserNameLength
-	{
-		get { return ConfigHelper.GetIntProperty("MinUserNameLength", 6); }
-	}
+	public static int MinUserNameLength => ConfigHelper.GetIntProperty("MinUserNameLength", 6);
 
-	public static bool PreEncryptRolesForCookie
-	{
-		get { return ConfigHelper.GetBoolProperty("PreEncryptRolesForCookie", false); }
-	}
+	public static bool PreEncryptRolesForCookie => ConfigHelper.GetBoolProperty("PreEncryptRolesForCookie", false);
 
-	public static bool Return404StatusForCryptoError
-	{
-		get { return ConfigHelper.GetBoolProperty("Return404StatusForCryptoError", true); }
-	}
+	public static bool Return404StatusForCryptoError => ConfigHelper.GetBoolProperty("Return404StatusForCryptoError", true);
 
 	/// <summary>
 	/// 0 = clear, 1= hashed, 2= encrypted
 	/// </summary>
 	public static int InitialSitePasswordFormat
-	{
 		//changed default to hashed 2009-02-25
 		// changed default to encrypted 2009-05-08
 		//http://www.mojoportal.com/Forums/Thread.aspx?thread=2902&mid=34&pageid=5&ItemID=5&pagenumber=1
 		// changed back to clear text 2009-05-25 because of too many support requests where people end up
 		// getting the admin user locked out
-		get { return ConfigHelper.GetIntProperty("InitialSitePasswordFormat", 0); }
-	}
+		=> ConfigHelper.GetIntProperty("InitialSitePasswordFormat", 0);
 
-	public static bool AllowPasswordFormatChangeInChildSites
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowPasswordFormatChangeInChildSites", false); }
-	}
+	public static bool AllowPasswordFormatChangeInChildSites => ConfigHelper.GetBoolProperty("AllowPasswordFormatChangeInChildSites", false);
 
-	public static bool CheckMD5PasswordHashAsFallback
-	{
-		get { return ConfigHelper.GetBoolProperty("CheckMD5PasswordHashAsFallback", true); }
-	}
+	public static bool CheckMD5PasswordHashAsFallback => ConfigHelper.GetBoolProperty("CheckMD5PasswordHashAsFallback", true);
 
-	public static bool CheckAllPasswordFormatsOnAuthFailure
-	{
-		get { return ConfigHelper.GetBoolProperty("CheckAllPasswordFormatsOnAuthFailure", false); }
-	}
+	public static bool CheckAllPasswordFormatsOnAuthFailure => ConfigHelper.GetBoolProperty("CheckAllPasswordFormatsOnAuthFailure", false);
 
 	/// <summary>
 	/// we default this to false because we already handle locked users in SiteLogin.cs by cancellinng and showing a specific message indicating the account is locked
 	/// whereas if we just return fale from membership provider the message will be more generic authentication failed message
 	/// </summary>
-	public static bool ReturnFalseInValidateUserIfAccountLocked
-	{
-		get { return ConfigHelper.GetBoolProperty("MembershipProvider:ReturnFalseInValidateUserIfAccountLocked", false); }
-	}
+	public static bool ReturnFalseInValidateUserIfAccountLocked => ConfigHelper.GetBoolProperty("MembershipProvider:ReturnFalseInValidateUserIfAccountLocked", false);
 
-	public static bool ReturnFalseInValidateUserIfAccountDeleted
-	{
-		get { return ConfigHelper.GetBoolProperty("MembershipProvider:ReturnFalseInValidateUserIfAccountDeleted", true); }
-	}
+	public static bool ReturnFalseInValidateUserIfAccountDeleted => ConfigHelper.GetBoolProperty("MembershipProvider:ReturnFalseInValidateUserIfAccountDeleted", true);
 
-	public static bool AllowNewRegistrationToActivateDeletedAccountWithSameEmail
-	{
-		get { return ConfigHelper.GetBoolProperty("MembershipProvider:AllowNewRegistrationToActivateDeletedAccountWithSameEmail", true); }
-	}
+	public static bool AllowNewRegistrationToActivateDeletedAccountWithSameEmail => ConfigHelper.GetBoolProperty("MembershipProvider:AllowNewRegistrationToActivateDeletedAccountWithSameEmail", true);
 
 	public static string PasswordGeneratorChars
 	{
@@ -1475,25 +814,13 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool ShowSystemInformationInChildSiteAdminMenu
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowSystemInformationInChildSiteAdminMenu", true); }
-	}
+	public static bool ShowSystemInformationInChildSiteAdminMenu => ConfigHelper.GetBoolProperty("ShowSystemInformationInChildSiteAdminMenu", true);
 
-	public static bool ShowConnectionErrorOnSetup
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowConnectionErrorOnSetup", false); }
-	}
+	public static bool ShowConnectionErrorOnSetup => ConfigHelper.GetBoolProperty("ShowConnectionErrorOnSetup", false);
 
-	public static bool NotifyAdminsOnNewUserRegistration
-	{
-		get { return ConfigHelper.GetBoolProperty("NotifyAdminsOnNewUserRegistration", false); }
-	}
+	public static bool NotifyAdminsOnNewUserRegistration => ConfigHelper.GetBoolProperty("NotifyAdminsOnNewUserRegistration", false);
 
-	public static bool NotifyUsersOnAccountApproval
-	{
-		get { return ConfigHelper.GetBoolProperty("NotifyUsersOnAccountApproval", true); }
-	}
+	public static bool NotifyUsersOnAccountApproval => ConfigHelper.GetBoolProperty("NotifyUsersOnAccountApproval", true);
 
 	/// <summary>
 	/// a comma separated list of email addresses to exclude when sending
@@ -1516,51 +843,24 @@ public static class WebConfigSettings
 	/// <summary>
 	/// if a value is specified then these settings will be used instead of the standard site smtp settings
 	/// </summary>
-	public static string NewsletterSmtpServer
-	{
-		get { return ConfigHelper.GetStringProperty("Newsletter:SmtpServer", string.Empty); }
-	}
+	public static string NewsletterSmtpServer => ConfigHelper.GetStringProperty("Newsletter:SmtpServer", string.Empty);
 
-	public static int NewsletterSmtpServerPort
-	{
-		get { return ConfigHelper.GetIntProperty("Newsletter:SmtpServerPort", 25); }
-	}
+	public static int NewsletterSmtpServerPort => ConfigHelper.GetIntProperty("Newsletter:SmtpServerPort", 25);
 
-	public static string NewsletterSmtpUser
-	{
-		get { return ConfigHelper.GetStringProperty("Newsletter:SmtpUser", string.Empty); }
-	}
+	public static string NewsletterSmtpUser => ConfigHelper.GetStringProperty("Newsletter:SmtpUser", string.Empty);
 
-	public static string NewsletterSmtpUserPassword
-	{
-		get { return ConfigHelper.GetStringProperty("Newsletter:SmtpUserPassword", string.Empty); }
-	}
+	public static string NewsletterSmtpUserPassword => ConfigHelper.GetStringProperty("Newsletter:SmtpUserPassword", string.Empty);
 
-	public static bool NewsletterSmtpRequiresAuthentication
-	{
-		get { return ConfigHelper.GetBoolProperty("Newsletter:SmtpRequiresAuthentication", false); }
-	}
+	public static bool NewsletterSmtpRequiresAuthentication => ConfigHelper.GetBoolProperty("Newsletter:SmtpRequiresAuthentication", false);
 
-	public static bool NewsletterSmtpUseSsl
-	{
-		get { return ConfigHelper.GetBoolProperty("Newsletter:SmtpUseSsl", false); }
-	}
+	public static bool NewsletterSmtpUseSsl => ConfigHelper.GetBoolProperty("Newsletter:SmtpUseSsl", false);
 
-	public static string NewsletterSmtpPreferredEncoding
-	{
-		get { return ConfigHelper.GetStringProperty("Newsletter:SmtpPreferredEncoding", string.Empty); }
-	}
+	public static string NewsletterSmtpPreferredEncoding => ConfigHelper.GetStringProperty("Newsletter:SmtpPreferredEncoding", string.Empty);
 
-	public static bool NewsletterTestMode
-	{
-		get { return ConfigHelper.GetBoolProperty("NewsletterTestMode", false); }
-	}
+	public static bool NewsletterTestMode => ConfigHelper.GetBoolProperty("NewsletterTestMode", false);
 
 
-	public static bool GuessEmailForWindowsAuth
-	{
-		get { return ConfigHelper.GetBoolProperty("GuessEmailForWindowsAuth", false); }
-	}
+	public static bool GuessEmailForWindowsAuth => ConfigHelper.GetBoolProperty("GuessEmailForWindowsAuth", false);
 
 	public static string WindowsAuthDomainExtension
 	{
@@ -1580,70 +880,34 @@ public static class WebConfigSettings
 	//	get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableDotNetOpenMail", true); }
 	//}
 
-	public static bool ShowHistoryOnUpgradePage
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowHistoryOnUpgradePage", false); }
-	}
+	public static bool ShowHistoryOnUpgradePage => ConfigHelper.GetBoolProperty("ShowHistoryOnUpgradePage", false);
 
 	[Obsolete("Replaced by UseFolderBasedMultiTenants")]
-	public static bool UseFoldersInsteadOfHostnamesForMultipleSites
-	{
-		get { return UseFolderBasedMultiTenants; }
-	}
+	public static bool UseFoldersInsteadOfHostnamesForMultipleSites => UseFolderBasedMultiTenants;
 
-	public static bool UseFolderBasedMultiTenants
-	{
-		get
-		{
-			return ConfigurationManager.AppSettings["UseFoldersInsteadOfHostnamesForMultipleSites"] != null
+	public static bool UseFolderBasedMultiTenants => ConfigurationManager.AppSettings["UseFoldersInsteadOfHostnamesForMultipleSites"] != null
 				? ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false)
 				: ConfigHelper.GetBoolProperty("UseFolderBasedMultiTenants", false);
-		}
-	}
 
-	public static bool UseSiteNameForRootBreadcrumb
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSiteNameForRootBreadcrumb", false); }
-	}
+	public static bool UseSiteNameForRootBreadcrumb => ConfigHelper.GetBoolProperty("UseSiteNameForRootBreadcrumb", false);
 
-	public static bool UseRelatedSiteMode
-	{
-		get { return ConfigHelper.GetBoolProperty("UseRelatedSiteMode", false); }
-	}
+	public static bool UseRelatedSiteMode => ConfigHelper.GetBoolProperty("UseRelatedSiteMode", false);
 
-	public static bool UseSameContentFolderForRelatedSiteMode
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSameContentFolderForRelatedSiteMode", false); }
-	}
+	public static bool UseSameContentFolderForRelatedSiteMode => ConfigHelper.GetBoolProperty("UseSameContentFolderForRelatedSiteMode", false);
 
-	public static bool UseRpxNowForOpenId
-	{
-		get { return ConfigHelper.GetBoolProperty("UseRpxNowForOpenId", false); }
-	}
+	public static bool UseRpxNowForOpenId => ConfigHelper.GetBoolProperty("UseRpxNowForOpenId", false);
 
-	public static int RelatedSiteID
-	{
-		get { return ConfigHelper.GetIntProperty("RelatedSiteID", 1); }
-	}
+	public static int RelatedSiteID => ConfigHelper.GetIntProperty("RelatedSiteID", 1);
 
-	public static bool RelatedSiteModeHideRoleManagerInChildSites
-	{
-		get { return ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true); }
-	}
+	public static bool RelatedSiteModeHideRoleManagerInChildSites => ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true);
 
-	public static bool UseUrlReWriting
-	{
-		get { return ConfigHelper.GetBoolProperty("UseUrlReWriting", true); }
-	}
+	public static bool UseUrlReWriting => ConfigHelper.GetBoolProperty("UseUrlReWriting", true);
 
 	/// <summary>
 	/// setting this to true solves a problem where IIS logs were not showing the re-written/requested url
 	/// http://stackoverflow.com/questions/353541/iis7-rewritepath-and-iis-log-files
 	/// </summary>
-	public static bool UseTransferRequestForUrlReWriting
-	{
-		get { return ConfigHelper.GetBoolProperty("UseTransferRequestForUrlReWriting", true); }
-	}
+	public static bool UseTransferRequestForUrlReWriting => ConfigHelper.GetBoolProperty("UseTransferRequestForUrlReWriting", true);
 
 
 	// Commented out for issue #70
@@ -1654,134 +918,56 @@ public static class WebConfigSettings
 	//}
 
 
-	public static bool UseUrlReWritingForStaticFiles
-	{
-		get { return ConfigHelper.GetBoolProperty("UseUrlReWritingForStaticFiles", false); }
-	}
+	public static bool UseUrlReWritingForStaticFiles => ConfigHelper.GetBoolProperty("UseUrlReWritingForStaticFiles", false);
 
-	public static bool DisableUseOfPassedInDateForMetaWeblogApi
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableUseOfPassedInDateForMetaWeblogApi", false); }
-	}
+	public static bool DisableUseOfPassedInDateForMetaWeblogApi => ConfigHelper.GetBoolProperty("DisableUseOfPassedInDateForMetaWeblogApi", false);
 
-	public static string FacebookAppId
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("FacebookAppId", string.Empty);
-		}
-	}
+	public static string FacebookAppId => ConfigHelper.GetStringProperty("FacebookAppId", string.Empty);
 
-	public static bool DisableFacebookLikeButton
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableFacebookLikeButton", false); }
-	}
+	public static bool DisableFacebookLikeButton => ConfigHelper.GetBoolProperty("DisableFacebookLikeButton", false);
 
-	public static bool DisableHelpSystem
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableHelpSystem", false); }
-	}
+	public static bool DisableHelpSystem => ConfigHelper.GetBoolProperty("DisableHelpSystem", false);
 
-	public static bool DisableWorkflowNotification
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableWorkflowNotification", false); }
-	}
+	public static bool DisableWorkflowNotification => ConfigHelper.GetBoolProperty("DisableWorkflowNotification", false);
 
-	public static bool RenderModulePanel
-	{
-		get { return ConfigHelper.GetBoolProperty("RenderModulePanel", true); }
-	}
+	public static bool RenderModulePanel => ConfigHelper.GetBoolProperty("RenderModulePanel", true);
 
-	public static bool HideModuleSettingsGeneralAndSecurityTabsFromNonAdmins
-	{
-		get { return ConfigHelper.GetBoolProperty("HideModuleSettingsGeneralAndSecurityTabsFromNonAdmins", false); }
-	}
+	public static bool HideModuleSettingsGeneralAndSecurityTabsFromNonAdmins => ConfigHelper.GetBoolProperty("HideModuleSettingsGeneralAndSecurityTabsFromNonAdmins", false);
 
-	public static bool HideModuleSettingsDeleteButtonFromNonAdmins
-	{
-		get { return ConfigHelper.GetBoolProperty("HideModuleSettingsDeleteButtonFromNonAdmins", false); }
-	}
+	public static bool HideModuleSettingsDeleteButtonFromNonAdmins => ConfigHelper.GetBoolProperty("HideModuleSettingsDeleteButtonFromNonAdmins", false);
 
-	public static bool Disable301Redirector
-	{
-		get { return ConfigHelper.GetBoolProperty("Disable301Redirector", false); }
-	}
+	public static bool Disable301Redirector => ConfigHelper.GetBoolProperty("Disable301Redirector", false);
 
-	public static bool IncludeParametersIn301RedirectLookup
-	{
-		get { return ConfigHelper.GetBoolProperty("IncludeParametersIn301RedirectLookup", false); }
-	}
+	public static bool IncludeParametersIn301RedirectLookup => ConfigHelper.GetBoolProperty("IncludeParametersIn301RedirectLookup", false);
 
-	public static bool AllowExternal301Redirects
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowExternal301Redirects", false); }
-	}
+	public static bool AllowExternal301Redirects => ConfigHelper.GetBoolProperty("AllowExternal301Redirects", false);
 
-	public static bool EnableRouting
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableRouting", true); }
-	}
+	public static bool EnableRouting => ConfigHelper.GetBoolProperty("EnableRouting", true);
 
-	public static bool AddDefaultMvcRoute
-	{
-		get { return ConfigHelper.GetBoolProperty("AddDefaultMvcRoute", false); }
-	}
+	public static bool AddDefaultMvcRoute => ConfigHelper.GetBoolProperty("AddDefaultMvcRoute", false);
 
-	public static string RouteConfigPath
-	{
-		get { return ConfigHelper.GetStringProperty("RouteConfigPath", "~/Setup/RouteRegistrars/"); }
-	}
+	public static string RouteConfigPath => ConfigHelper.GetStringProperty("RouteConfigPath", "~/Setup/RouteRegistrars/");
 
-	public static bool EnableVirtualPathProviders
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableVirtualPathProviders", true); }
-	}
+	public static bool EnableVirtualPathProviders => ConfigHelper.GetBoolProperty("EnableVirtualPathProviders", true);
 
 
-	public static bool PassQueryStringFor301Redirects
-	{
-		get { return ConfigHelper.GetBoolProperty("PassQueryStringFor301Redirects", false); }
-	}
+	public static bool PassQueryStringFor301Redirects => ConfigHelper.GetBoolProperty("PassQueryStringFor301Redirects", false);
 
-	public static bool DisableCacheFor301Redirects
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableCacheFor301Redirects", false); }
-	}
+	public static bool DisableCacheFor301Redirects => ConfigHelper.GetBoolProperty("DisableCacheFor301Redirects", false);
 
-	public static bool SetExplicitCacheFor301Redirects
-	{
-		get { return ConfigHelper.GetBoolProperty("SetExplicitCacheFor301Redirects", true); }
-	}
+	public static bool SetExplicitCacheFor301Redirects => ConfigHelper.GetBoolProperty("SetExplicitCacheFor301Redirects", true);
 
-	public static int CacheDurationInDaysFor301Redirects
-	{
-		get { return ConfigHelper.GetIntProperty("CacheDurationInDaysFor301Redirects", 5); }
-	}
+	public static int CacheDurationInDaysFor301Redirects => ConfigHelper.GetIntProperty("CacheDurationInDaysFor301Redirects", 5);
 
-	public static bool DisableTaskQueue
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableTaskQueue", false); }
-	}
+	public static bool DisableTaskQueue => ConfigHelper.GetBoolProperty("DisableTaskQueue", false);
 
-	public static bool DisableBannedIpBlockingModule
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableBannedIpBlockingModule", false); }
-	}
+	public static bool DisableBannedIpBlockingModule => ConfigHelper.GetBoolProperty("DisableBannedIpBlockingModule", false);
 
-	public static bool AppDomainMonitoringEnabled
-	{
-		get { return ConfigHelper.GetBoolProperty("AppDomainMonitoringEnabled", false); }
-	}
+	public static bool AppDomainMonitoringEnabled => ConfigHelper.GetBoolProperty("AppDomainMonitoringEnabled", false);
 
-	public static bool FirstChanceExceptionMonitoringEnabled
-	{
-		get { return ConfigHelper.GetBoolProperty("FirstChanceExceptionMonitoringEnabled", false); }
-	}
+	public static bool FirstChanceExceptionMonitoringEnabled => ConfigHelper.GetBoolProperty("FirstChanceExceptionMonitoringEnabled", false);
 
-	public static bool UsePerSiteTaskQueue
-	{
-		get { return ConfigHelper.GetBoolProperty("UsePerSiteTaskQueue", false); }
-	}
+	public static bool UsePerSiteTaskQueue => ConfigHelper.GetBoolProperty("UsePerSiteTaskQueue", false);
 
 	public static string mojoCombinedScriptVersion
 	{
@@ -1809,18 +995,9 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string mojoCombinedScript
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("mojoCombinedScript", string.Empty);
-		}
-	}
+	public static string mojoCombinedScript => ConfigHelper.GetStringProperty("mojoCombinedScript", string.Empty);
 
-	public static bool DisableBingStaticMaps
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableBingStaticMaps", false); }
-	}
+	public static bool DisableBingStaticMaps => ConfigHelper.GetBoolProperty("DisableBingStaticMaps", false);
 
 	public static string BingMapsApiKey
 	{
@@ -1851,46 +1028,22 @@ public static class WebConfigSettings
 	// Firefox 4 broke bing map when plotting points like in In Site Analytics Pro
 	// found this workaround http://social.msdn.microsoft.com/Forums/en-CA/vemapcontroldev/thread/17efab17-d70c-40b3-9e50-75c65d59385e
 	// this setting allows backing it out if the problem is later resolved another way
-	public static bool UseBingMapWorkaroundForFirefox4
-	{
-		get { return ConfigHelper.GetBoolProperty("UseBingMapWorkaroundForFirefox4", true); }
-	}
+	public static bool UseBingMapWorkaroundForFirefox4 => ConfigHelper.GetBoolProperty("UseBingMapWorkaroundForFirefox4", true);
 
-	public static bool UseGoogleCDN
-	{
-		get { return ConfigHelper.GetBoolProperty("UseGoogleCDN", true); }
-	}
+	public static bool UseGoogleCDN => ConfigHelper.GetBoolProperty("UseGoogleCDN", true);
 
 
-	public static string GoogleCDNJQueryBaseUrl
-	{
-		get { return ConfigHelper.GetStringProperty("GoogleCDNJQueryBaseUrl", "//ajax.googleapis.com/ajax/libs/jquery/"); }
-	}
+	public static string GoogleCDNJQueryBaseUrl => ConfigHelper.GetStringProperty("GoogleCDNJQueryBaseUrl", "//ajax.googleapis.com/ajax/libs/jquery/");
 
-	public static string GoogleCDNJQueryUIBaseUrl
-	{
-		get { return ConfigHelper.GetStringProperty("GoogleCDNJQueryUIBaseUrl", "//ajax.googleapis.com/ajax/libs/jqueryui/"); }
-	}
+	public static string GoogleCDNJQueryUIBaseUrl => ConfigHelper.GetStringProperty("GoogleCDNJQueryUIBaseUrl", "//ajax.googleapis.com/ajax/libs/jqueryui/");
 
-	public static bool BundlesUseCdn
-	{
-		get { return ConfigHelper.GetBoolProperty("BundlesUseCdn", true); }
-	}
+	public static bool BundlesUseCdn => ConfigHelper.GetBoolProperty("BundlesUseCdn", true);
 
-	public static bool BundlesForceOptimization
-	{
-		get { return ConfigHelper.GetBoolProperty("BundlesForceOptimization", true); }
-	}
+	public static bool BundlesForceOptimization => ConfigHelper.GetBoolProperty("BundlesForceOptimization", true);
 
-	public static bool AjaxToolkitUseCdnForBundle
-	{
-		get { return ConfigHelper.GetBoolProperty("AjaxToolkitUseCdnForBundle", true); }
-	}
+	public static bool AjaxToolkitUseCdnForBundle => ConfigHelper.GetBoolProperty("AjaxToolkitUseCdnForBundle", true);
 
-	public static bool DisableAjaxToolkitBundlesAndScriptReferences
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableAjaxToolkitBundlesAndScriptReferences", true); }
-	}
+	public static bool DisableAjaxToolkitBundlesAndScriptReferences => ConfigHelper.GetBoolProperty("DisableAjaxToolkitBundlesAndScriptReferences", true);
 
 	public static string GoogleCDNjQueryVersion
 	{
@@ -1918,10 +1071,7 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool AssumejQueryIsLoaded
-	{
-		get { return ConfigHelper.GetBoolProperty("AssumejQueryIsLoaded", false); }
-	}
+	public static bool AssumejQueryIsLoaded => ConfigHelper.GetBoolProperty("AssumejQueryIsLoaded", false);
 
 	public static string jQueryBasePath
 	{
@@ -2026,10 +1176,7 @@ public static class WebConfigSettings
 	/// <summary>
 	/// If true the MeatContentControl will render the content type meta tag. Set to false if you would rather specify it in the layout.master
 	/// </summary>
-	public static bool AutoSetContentType
-	{
-		get { return ConfigHelper.GetBoolProperty("AutoSetContentType", true); }
-	}
+	public static bool AutoSetContentType => ConfigHelper.GetBoolProperty("AutoSetContentType", true);
 
 	public static string ContentMimeType
 	{
@@ -2058,20 +1205,11 @@ public static class WebConfigSettings
 	}
 
 
-	public static bool UseAppKeepAlive
-	{
-		get { return ConfigHelper.GetBoolProperty("UseAppKeepAlive", false); }
-	}
+	public static bool UseAppKeepAlive => ConfigHelper.GetBoolProperty("UseAppKeepAlive", false);
 
-	public static int AppKeepAliveSleepMinutes
-	{
-		get { return ConfigHelper.GetIntProperty("AppKeepAliveSleepMinutes", 10); }
-	}
+	public static int AppKeepAliveSleepMinutes => ConfigHelper.GetIntProperty("AppKeepAliveSleepMinutes", 10);
 
-	public static int AppKeepAliveMaxRunTimeMinutes
-	{
-		get { return ConfigHelper.GetIntProperty("AppKeepAliveMaxRunTimeMinutes", 720); }
-	}
+	public static int AppKeepAliveMaxRunTimeMinutes => ConfigHelper.GetIntProperty("AppKeepAliveMaxRunTimeMinutes", 720);
 
 
 	//public static bool AllowPersistentLoginCookie
@@ -2080,25 +1218,13 @@ public static class WebConfigSettings
 	//}
 
 
-	public static bool AssignNewPagesParentPageSkinByDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("AssignNewPagesParentPageSkinByDefault", true); }
-	}
+	public static bool AssignNewPagesParentPageSkinByDefault => ConfigHelper.GetBoolProperty("AssignNewPagesParentPageSkinByDefault", true);
 
-	public static bool AllowAnonymousUsersToViewMemberList
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowAnonymousUsersToViewMemberList", false); }
-	}
+	public static bool AllowAnonymousUsersToViewMemberList => ConfigHelper.GetBoolProperty("AllowAnonymousUsersToViewMemberList", false);
 
-	public static bool AutoGenerateAndHideUserNamesWhenUsingEmailForLogin
-	{
-		get { return ConfigHelper.GetBoolProperty("AutoGenerateAndHideUserNamesWhenUsingEmailForLogin", false); }
-	}
+	public static bool AutoGenerateAndHideUserNamesWhenUsingEmailForLogin => ConfigHelper.GetBoolProperty("AutoGenerateAndHideUserNamesWhenUsingEmailForLogin", false);
 
-	public static bool DisablePageViewStateByDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("DisablePageViewStateByDefault", false); }
-	}
+	public static bool DisablePageViewStateByDefault => ConfigHelper.GetBoolProperty("DisablePageViewStateByDefault", false);
 
 	//public static string AzureBlobStorageContainerName
 	//{
@@ -2107,326 +1233,149 @@ public static class WebConfigSettings
 
 
 
-	public static string CacheProviderType
-	{
-		get { return ConfigHelper.GetStringProperty("Cache:ProviderType", "mojoPortal.Web.Caching.MemoryCacheAdapter, mojoPortal.Web"); }
-	}
+	public static string CacheProviderType => ConfigHelper.GetStringProperty("Cache:ProviderType", "mojoPortal.Web.Caching.MemoryCacheAdapter, mojoPortal.Web");
 
-	public static string DistributedCacheName
-	{
-		get { return ConfigHelper.GetStringProperty("Cache:DistributedCacheName", "MyCache"); }
-	}
+	public static string DistributedCacheName => ConfigHelper.GetStringProperty("Cache:DistributedCacheName", "MyCache");
 
-	public static string DistributedCacheServers
-	{
-		get { return ConfigHelper.GetStringProperty("Cache:DistributedCacheServers", "localhost:22223"); }
-	}
+	public static string DistributedCacheServers => ConfigHelper.GetStringProperty("Cache:DistributedCacheServers", "localhost:22223");
 
-	public static string AzureCacheSecurityMode
-	{
-		get { return ConfigHelper.GetStringProperty("Cache:AzureCacheSecurityMode", "Message"); }
-	}
+	public static string AzureCacheSecurityMode => ConfigHelper.GetStringProperty("Cache:AzureCacheSecurityMode", "Message");
 
-	public static string AzureCacheAuthorizationInfo
-	{
-		get { return ConfigHelper.GetStringProperty("Cache:AzureCacheAuthorizationInfo", string.Empty); }
-	}
+	public static string AzureCacheAuthorizationInfo => ConfigHelper.GetStringProperty("Cache:AzureCacheAuthorizationInfo", string.Empty);
 
 
-	public static bool AzureCacheUseSsl
-	{
-		get { return ConfigHelper.GetBoolProperty("Cache:AzureCacheUseSsl", true); }
-	}
+	public static bool AzureCacheUseSsl => ConfigHelper.GetBoolProperty("Cache:AzureCacheUseSsl", true);
 
-	public static bool DisableGlobalContent
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableGlobalContent", false); }
-	}
+	public static bool DisableGlobalContent => ConfigHelper.GetBoolProperty("DisableGlobalContent", false);
 
-	public static bool RequireContentTitle
-	{
-		get { return ConfigHelper.GetBoolProperty("RequireContentTitle", true); }
-	}
+	public static bool RequireContentTitle => ConfigHelper.GetBoolProperty("RequireContentTitle", true);
 
-	public static bool RequireChangeDefaultContentTitle
-	{
-		get { return ConfigHelper.GetBoolProperty("RequireChangeDefaultContentTitle", true); }
-	}
+	public static bool RequireChangeDefaultContentTitle => ConfigHelper.GetBoolProperty("RequireChangeDefaultContentTitle", true);
 
-	public static bool PrePopulateDefaultContentTitle
-	{
-		get { return ConfigHelper.GetBoolProperty("PrePopulateDefaultContentTitle", true); }
-	}
+	public static bool PrePopulateDefaultContentTitle => ConfigHelper.GetBoolProperty("PrePopulateDefaultContentTitle", true);
 
-	public static bool UsePageContentWizard
-	{
-		get { return ConfigHelper.GetBoolProperty("UsePageContentWizard", true); }
-	}
+	public static bool UsePageContentWizard => ConfigHelper.GetBoolProperty("UsePageContentWizard", true);
 
-	public static bool DisableContentCache
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableContentCache", true); }
-	}
+	public static bool DisableContentCache => ConfigHelper.GetBoolProperty("DisableContentCache", true);
 
-	public static bool UseCacheDependencyFiles
-	{
-		get { return ConfigHelper.GetBoolProperty("UseCacheDependencyFiles", false); }
-	}
+	public static bool UseCacheDependencyFiles => ConfigHelper.GetBoolProperty("UseCacheDependencyFiles", false);
 
-	public static bool RedirectHomeFromSetupPagesWhenSystemIsUpToDate
-	{
-		get { return ConfigHelper.GetBoolProperty("RedirectHomeFromSetupPagesWhenSystemIsUpToDate", true); }
-	}
+	public static bool RedirectHomeFromSetupPagesWhenSystemIsUpToDate => ConfigHelper.GetBoolProperty("RedirectHomeFromSetupPagesWhenSystemIsUpToDate", true);
 
-	public static bool AutoSuggestFriendlyUrls
-	{
-		get { return ConfigHelper.GetBoolProperty("AutoSuggestFriendlyUrls", true); }
-	}
+	public static bool AutoSuggestFriendlyUrls => ConfigHelper.GetBoolProperty("AutoSuggestFriendlyUrls", true);
 
-	public static bool AutoSuggestFriendlyUrlsOnPageNameChanges
-	{
-		get { return ConfigHelper.GetBoolProperty("AutoSuggestFriendlyUrlsOnPageNameChanges", true); }
-	}
+	public static bool AutoSuggestFriendlyUrlsOnPageNameChanges => ConfigHelper.GetBoolProperty("AutoSuggestFriendlyUrlsOnPageNameChanges", true);
 
-	public static bool DisableMetaWeblogApi
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableMetaWeblogApi", false); }
-	}
+	public static bool DisableMetaWeblogApi => ConfigHelper.GetBoolProperty("DisableMetaWeblogApi", false);
 
-	public static bool DisableEditingPagesInMetaWeblogApi
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableEditingPagesInMetaWeblogApi", false); }
-	}
+	public static bool DisableEditingPagesInMetaWeblogApi => ConfigHelper.GetBoolProperty("DisableEditingPagesInMetaWeblogApi", false);
 
-	public static bool DisableDeletingPagesInMetaWeblogApi
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableDeletingPagesInMetaWeblogApi", false); }
-	}
+	public static bool DisableDeletingPagesInMetaWeblogApi => ConfigHelper.GetBoolProperty("DisableDeletingPagesInMetaWeblogApi", false);
 
-	public static bool AutoGeneratePageMetaDescriptionForMetaweblogNewPages
-	{
-		get { return ConfigHelper.GetBoolProperty("AutoGeneratePageMetaDescriptionForMetaweblogNewPages", true); }
-	}
+	public static bool AutoGeneratePageMetaDescriptionForMetaweblogNewPages => ConfigHelper.GetBoolProperty("AutoGeneratePageMetaDescriptionForMetaweblogNewPages", true);
 
-	public static int MetaweblogGeneratedMetaDescriptionMaxLength
-	{
-		get { return ConfigHelper.GetIntProperty("MetaweblogGeneratedMetaDescriptionMaxLength", 165); }
-	}
+	public static int MetaweblogGeneratedMetaDescriptionMaxLength => ConfigHelper.GetIntProperty("MetaweblogGeneratedMetaDescriptionMaxLength", 165);
 
 
-	public static bool AppendDateToBlogUrls
-	{
-		get { return ConfigHelper.GetBoolProperty("AppendDateToBlogUrls", false); }
-	}
+	public static bool AppendDateToBlogUrls => ConfigHelper.GetBoolProperty("AppendDateToBlogUrls", false);
 
-	public static bool AllowForcingPreferredHostName
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowForcingPreferredHostName", false); }
-	}
+	public static bool AllowForcingPreferredHostName => ConfigHelper.GetBoolProperty("AllowForcingPreferredHostName", false);
 
-	public static bool Use301RedirectWhenEnforcingPreferredHostName
-	{
-		get { return ConfigHelper.GetBoolProperty("Use301RedirectWhenEnforcingPreferredHostName", true); }
-	}
+	public static bool Use301RedirectWhenEnforcingPreferredHostName => ConfigHelper.GetBoolProperty("Use301RedirectWhenEnforcingPreferredHostName", true);
 
-	public static bool RedirectToRootWhenEnforcingPreferredHostName
-	{
-		get { return ConfigHelper.GetBoolProperty("RedirectToRootWhenEnforcingPreferredHostName", false); }
-	}
+	public static bool RedirectToRootWhenEnforcingPreferredHostName => ConfigHelper.GetBoolProperty("RedirectToRootWhenEnforcingPreferredHostName", false);
 
-	public static int SessionKeepAliveFrequencyOverrideMinutes
-	{
-		get { return ConfigHelper.GetIntProperty("SessionKeepAliveFrequencyOverrideMinutes", -1); }
-	}
+	public static int SessionKeepAliveFrequencyOverrideMinutes => ConfigHelper.GetIntProperty("SessionKeepAliveFrequencyOverrideMinutes", -1);
 
-	public static bool ForceSingleSessionPerUser
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceSingleSessionPerUser", false); }
-	}
+	public static bool ForceSingleSessionPerUser => ConfigHelper.GetBoolProperty("ForceSingleSessionPerUser", false);
 
-	public static bool EnforceRequirePasswordChanges
-	{
-		get { return ConfigHelper.GetBoolProperty("EnforcRequirePasswordChanges", true); }
-	}
+	public static bool EnforceRequirePasswordChanges => ConfigHelper.GetBoolProperty("EnforcRequirePasswordChanges", true);
 
 	/// <summary>
 	/// You should not call this directly, instead use SiteUtils.SslIsAvailable()
 	/// we now support separate ssl settings per site with Web.config like this:
 	/// Site1-SSLIsAvailable, Site2-SSLIsAvailable etc, and trhe siteutils method resolves this
 	/// </summary>
-	public static bool SslisAvailable
-	{
-		get { return ConfigHelper.GetBoolProperty("SSLIsAvailable", false); }
-	}
+	public static bool SslisAvailable => ConfigHelper.GetBoolProperty("SSLIsAvailable", false);
 
-	public static bool RequireSslForRoleCookie
-	{
-		get { return ConfigHelper.GetBoolProperty("RequireSslForRoleCookie", true); }
-	}
+	public static bool RequireSslForRoleCookie => ConfigHelper.GetBoolProperty("RequireSslForRoleCookie", true);
 
-	public static bool ForceHttpForCanonicalUrlsThatDontRequireSsl
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceHttpForCanonicalUrlsThatDontRequireSsl", false); }
-	}
+	public static bool ForceHttpForCanonicalUrlsThatDontRequireSsl => ConfigHelper.GetBoolProperty("ForceHttpForCanonicalUrlsThatDontRequireSsl", false);
 
-	public static bool ShowWarningWhenSslIsAvailableButNotUsedWithLoginModule
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowWarningWhenSslIsAvailableButNotUsedWithLoginModule", true); }
-	}
+	public static bool ShowWarningWhenSslIsAvailableButNotUsedWithLoginModule => ConfigHelper.GetBoolProperty("ShowWarningWhenSslIsAvailableButNotUsedWithLoginModule", true);
 
-	public static bool IsRunningInRootSite
-	{
-		get { return ConfigHelper.GetBoolProperty("IsRunningInRootSite", true); }
-	}
+	public static bool IsRunningInRootSite => ConfigHelper.GetBoolProperty("IsRunningInRootSite", true);
 
-	public static bool ForceRegexOnEmailValidator
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceRegexOnEmailValidator", false); }
-	}
+	public static bool ForceRegexOnEmailValidator => ConfigHelper.GetBoolProperty("ForceRegexOnEmailValidator", false);
 
 	/// <summary>
 	/// if IIS or apache is set to require ssl for all pages then set thsi to true.
 	/// </summary>
-	public static bool SslIsRequiredByWebServer
-	{
-		get { return ConfigHelper.GetBoolProperty("SSLIsRequiredByWebServer", false); }
-	}
+	public static bool SslIsRequiredByWebServer => ConfigHelper.GetBoolProperty("SSLIsRequiredByWebServer", false);
 
-	public static bool ForceSslInLoginModule
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceSslInLoginModule", true); }
-	}
+	public static bool ForceSslInLoginModule => ConfigHelper.GetBoolProperty("ForceSslInLoginModule", true);
 
-	public static bool ForceSslOnAllPages
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceSslOnAllPages", true); }
-	}
+	public static bool ForceSslOnAllPages => ConfigHelper.GetBoolProperty("ForceSslOnAllPages", true);
 
-	public static bool UseHSTSHeader
-	{
-		get { return ConfigHelper.GetBoolProperty("UseHSTSHeader", false); }
-	}
+	public static bool UseHSTSHeader => ConfigHelper.GetBoolProperty("UseHSTSHeader", false);
 
-	public static string HSTSHeaders
-	{
-		get { return ConfigHelper.GetStringProperty("HSTSHeaders", "max-age= 63072000;"); }
-	}
+	public static string HSTSHeaders => ConfigHelper.GetStringProperty("HSTSHeaders", "max-age= 63072000;");
 
-	public static bool ClearSslOnNonSecurePages
-	{
-		get { return ConfigHelper.GetBoolProperty("ClearSslOnNonSecurePages", false); }
-	}
+	public static bool ClearSslOnNonSecurePages => ConfigHelper.GetBoolProperty("ClearSslOnNonSecurePages", false);
 
 	/// <summary>
 	/// If the current reqest is using https, then a relative ulr for all menu items will resolve to https
 	/// This setting enables chaning to fully qualified urls in the menus to avoid this
 	/// which in turn avoids an unneeded redirect to enforce or clear ssl
 	/// </summary>
-	public static bool ResolveFullUrlsForMenuItemProtocolDifferences
-	{
-		get { return ConfigHelper.GetBoolProperty("ResolveFullUrlsForMenuItemProtocolDifferences", false); }
-	}
+	public static bool ResolveFullUrlsForMenuItemProtocolDifferences => ConfigHelper.GetBoolProperty("ResolveFullUrlsForMenuItemProtocolDifferences", false);
 
 
 
-	public static bool ForceSslOnProfileView
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceSslOnProfileView", false); }
-	}
+	public static bool ForceSslOnProfileView => ConfigHelper.GetBoolProperty("ForceSslOnProfileView", false);
 
 	/// <summary>
 	/// The title element of an html page should not exceed 65 chars.
 	/// Ideally you should set this to true
 	/// </summary>
-	public static bool AutoTruncatePageTitles
-	{
-		get { return ConfigHelper.GetBoolProperty("AutoTruncatePageTitles", false); }
-	}
+	public static bool AutoTruncatePageTitles => ConfigHelper.GetBoolProperty("AutoTruncatePageTitles", false);
 
-	public static bool AutomaticallyAddCanonicalUrlToCmsPages
-	{
-		get { return ConfigHelper.GetBoolProperty("AutomaticallyAddCanonicalUrlToCmsPages", true); }
-	}
+	public static bool AutomaticallyAddCanonicalUrlToCmsPages => ConfigHelper.GetBoolProperty("AutomaticallyAddCanonicalUrlToCmsPages", true);
 
-	public static bool ShowRebuildReportsButton
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowRebuildReportsButton", false); }
-	}
+	public static bool ShowRebuildReportsButton => ConfigHelper.GetBoolProperty("ShowRebuildReportsButton", false);
 
-	public static bool UseShortcutKeys
-	{
-		get { return ConfigHelper.GetBoolProperty("UseShortcutKeys", false); }
-	}
+	public static bool UseShortcutKeys => ConfigHelper.GetBoolProperty("UseShortcutKeys", false);
 
-	public static string AdminImage
-	{
-		get { return ConfigHelper.GetStringProperty("AdminImage", "key.png"); }
-	}
+	public static string AdminImage => ConfigHelper.GetStringProperty("AdminImage", "key.png");
 
-	public static string PageTreeImage
-	{
-		get { return ConfigHelper.GetStringProperty("PageTreeImage", "shelf_double_down.png"); }
-	}
+	public static string PageTreeImage => ConfigHelper.GetStringProperty("PageTreeImage", "shelf_double_down.png");
 
-	public static int ParentPageDialogExpansionDepth
-	{
-		get { return ConfigHelper.GetIntProperty("ParentPageDialogExpansionDepth", 0); }
-	}
+	public static int ParentPageDialogExpansionDepth => ConfigHelper.GetIntProperty("ParentPageDialogExpansionDepth", 0);
 
-	public static string EditContentImage
-	{
-		get { return ConfigHelper.GetStringProperty("EditContentImage", "edit.png"); }
-	}
+	public static string EditContentImage => ConfigHelper.GetStringProperty("EditContentImage", "edit.png");
 
-	public static string EditPageFeaturesImage
-	{
-		get { return ConfigHelper.GetStringProperty("EditPageFeaturesImage", "edit_cover.png"); }
-	}
+	public static string EditPageFeaturesImage => ConfigHelper.GetStringProperty("EditPageFeaturesImage", "edit_cover.png");
 
-	public static string EditPageSettingsImage
-	{
-		get { return ConfigHelper.GetStringProperty("EditPageSettingsImage", "page-settings-icon.png"); }
-	}
+	public static string EditPageSettingsImage => ConfigHelper.GetStringProperty("EditPageSettingsImage", "page-settings-icon.png");
 
-	public static string EditPropertiesImage
-	{
-		get { return ConfigHelper.GetStringProperty("EditPropertiesImage", "cog-icon.png"); }
-	}
+	public static string EditPropertiesImage => ConfigHelper.GetStringProperty("EditPropertiesImage", "cog-icon.png");
 
-	public static string DeleteLinkImage
-	{
-		get { return ConfigHelper.GetStringProperty("DeleteLinkImage", "delete.png"); }
-	}
+	public static string DeleteLinkImage => ConfigHelper.GetStringProperty("DeleteLinkImage", "delete.png");
 
-	public static string RSSImageFileName
-	{
-		get { return ConfigHelper.GetStringProperty("RSSImageFileName", "feed.png"); }
-	}
+	public static string RSSImageFileName => ConfigHelper.GetStringProperty("RSSImageFileName", "feed.png");
 
 
 
 
-	public static string NewThreadImage
-	{
-		get { return ConfigHelper.GetStringProperty("NewThreadImage", "messages_new.png"); }
-	}
+	public static string NewThreadImage => ConfigHelper.GetStringProperty("NewThreadImage", "messages_new.png");
 
-	public static string ForumThreadImage
-	{
-		get { return ConfigHelper.GetStringProperty("ForumThreadImage", "messages_chat.png"); }
-	}
+	public static string ForumThreadImage => ConfigHelper.GetStringProperty("ForumThreadImage", "messages_chat.png");
 
 
 
-	public static bool UseIconsForAdminLinks
-	{
-		get { return ConfigHelper.GetBoolProperty("UseIconsForAdminLinks", true); }
-	}
+	public static bool UseIconsForAdminLinks => ConfigHelper.GetBoolProperty("UseIconsForAdminLinks", true);
 
-	public static bool UsePageImagesInSiteMap
-	{
-		get { return ConfigHelper.GetBoolProperty("UsePageImagesInSiteMap", false); }
-	}
+	public static bool UsePageImagesInSiteMap => ConfigHelper.GetBoolProperty("UsePageImagesInSiteMap", false);
 
 	//public static bool UseMenuTooltipForCustomCss
 	//{
@@ -2434,21 +1383,12 @@ public static class WebConfigSettings
 	//}
 
 
-	public static bool TreatChildPageIndexAsSiteMap
-	{
-		get { return ConfigHelper.GetBoolProperty("TreatChildPageIndexAsSiteMap", false); }
-	}
+	public static bool TreatChildPageIndexAsSiteMap => ConfigHelper.GetBoolProperty("TreatChildPageIndexAsSiteMap", false);
 
 
-	public static bool UseTextLinksForFeatureSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("UseTextLinksForFeatureSettings", true); }
-	}
+	public static bool UseTextLinksForFeatureSettings => ConfigHelper.GetBoolProperty("UseTextLinksForFeatureSettings", true);
 
-	public static bool UseSiteMailFeature
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSiteMailFeature", false); }
-	}
+	public static bool UseSiteMailFeature => ConfigHelper.GetBoolProperty("UseSiteMailFeature", false);
 
 	public static bool Log404HandlerExceptions
 	{
@@ -2462,103 +1402,46 @@ public static class WebConfigSettings
 			return ConfigHelper.GetBoolProperty("LogErrorsFrom404Handler", false);
 		}
 	}
-	public static bool Log404Errors
-	{
-		get { return ConfigHelper.GetBoolProperty("Log404Errors", true); }
-	}
+	public static bool Log404Errors => ConfigHelper.GetBoolProperty("Log404Errors", true);
 
-	public static bool LogRedirectsToPreferredHostName
-	{
-		get { return ConfigHelper.GetBoolProperty("LogRedirectsToPreferredHostName", false); }
-	}
+	public static bool LogRedirectsToPreferredHostName => ConfigHelper.GetBoolProperty("LogRedirectsToPreferredHostName", false);
 
 
-	public static bool TrackAuthenticatedRequests
-	{
-		get { return ConfigHelper.GetBoolProperty("TrackAuthenticatedRequests", true); }
-	}
+	public static bool TrackAuthenticatedRequests => ConfigHelper.GetBoolProperty("TrackAuthenticatedRequests", true);
 
-	public static bool TrackIPForAuthenticatedRequests
-	{
-		get { return ConfigHelper.GetBoolProperty("TrackIPForAuthenticatedRequests", false); }
-	}
+	public static bool TrackIPForAuthenticatedRequests => ConfigHelper.GetBoolProperty("TrackIPForAuthenticatedRequests", false);
 
-	public static string GoogleAnalyticsScriptOverrideUrl
-	{
-		get { return ConfigHelper.GetStringProperty("GoogleAnalyticsScriptOverrideUrl", string.Empty); }
-	}
+	public static string GoogleAnalyticsScriptOverrideUrl => ConfigHelper.GetStringProperty("GoogleAnalyticsScriptOverrideUrl", string.Empty);
 
-	public static bool TrackPageLoadTimeInGoogleAnalytics
-	{
-		get { return ConfigHelper.GetBoolProperty("TrackPageLoadTimeInGoogleAnalytics", false); }
-	}
+	public static bool TrackPageLoadTimeInGoogleAnalytics => ConfigHelper.GetBoolProperty("TrackPageLoadTimeInGoogleAnalytics", false);
 
-	public static bool LogGoogleAnalyticsDataToLocalWebLog
-	{
-		get { return ConfigHelper.GetBoolProperty("LogGoogleAnalyticsDataToLocalWebLog", false); }
-	}
+	public static bool LogGoogleAnalyticsDataToLocalWebLog => ConfigHelper.GetBoolProperty("LogGoogleAnalyticsDataToLocalWebLog", false);
 
-	public static bool SiteStatisticsShowMemberStatisticsDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("SiteStatistics_ShowMemberStatistics_Default", true); }
-	}
+	public static bool SiteStatisticsShowMemberStatisticsDefault => ConfigHelper.GetBoolProperty("SiteStatistics_ShowMemberStatistics_Default", true);
 
-	public static bool SiteStatisticsShowOnlineStatisticsDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("SiteStatistics_ShowOnlineStatistics_Default", true); }
-	}
+	public static bool SiteStatisticsShowOnlineStatisticsDefault => ConfigHelper.GetBoolProperty("SiteStatistics_ShowOnlineStatistics_Default", true);
 
-	public static bool SiteStatisticsShowOnlineMembersDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("SiteStatistics_ShowOnlineMembers_Default", true); }
-	}
+	public static bool SiteStatisticsShowOnlineMembersDefault => ConfigHelper.GetBoolProperty("SiteStatistics_ShowOnlineMembers_Default", true);
 
-	public static bool DisableFileManager
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableFileManager", false); }
-	}
+	public static bool DisableFileManager => ConfigHelper.GetBoolProperty("DisableFileManager", false);
 
-	public static bool FileDialogEnableDragDrop
-	{
-		get { return ConfigHelper.GetBoolProperty("FileDialogEnableDragDrop", true); }
-	}
+	public static bool FileDialogEnableDragDrop => ConfigHelper.GetBoolProperty("FileDialogEnableDragDrop", true);
 
-	public static bool ShowFileManagerLink
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowFileManagerLink", true); }
-	}
+	public static bool ShowFileManagerLink => ConfigHelper.GetBoolProperty("ShowFileManagerLink", true);
 
-	public static bool ShowServerPathInFileManager
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowServerPathInFileManager", true); }
-	}
+	public static bool ShowServerPathInFileManager => ConfigHelper.GetBoolProperty("ShowServerPathInFileManager", true);
 
-	public static bool UseGreyBoxProgressForNeatUpload
-	{
-		get { return ConfigHelper.GetBoolProperty("UseGreyBoxProgressForNeatUpload", false); }
-	}
+	public static bool UseGreyBoxProgressForNeatUpload => ConfigHelper.GetBoolProperty("UseGreyBoxProgressForNeatUpload", false);
 
-	public static bool DisableSearchIndex
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableSearchIndex", false); }
-	}
+	public static bool DisableSearchIndex => ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
 
-	public static bool IndexPageKeywordsWithHtmlArticleContent
-	{
-		get { return ConfigHelper.GetBoolProperty("IndexPageKeywordsWithHtmlArticleContent", false); }
-	}
+	public static bool IndexPageKeywordsWithHtmlArticleContent => ConfigHelper.GetBoolProperty("IndexPageKeywordsWithHtmlArticleContent", false);
 
 
 
-	public static bool DisableOpenSearchAutoDiscovery
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableOpenSearchAutoDiscovery", false); }
-	}
+	public static bool DisableOpenSearchAutoDiscovery => ConfigHelper.GetBoolProperty("DisableOpenSearchAutoDiscovery", false);
 
-	public static bool ShowModuleTitleInSearchResultLink
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowModuleTitleInSearchResultLink", false); }
-	}
+	public static bool ShowModuleTitleInSearchResultLink => ConfigHelper.GetBoolProperty("ShowModuleTitleInSearchResultLink", false);
 
 	/// <summary>
 	/// As of version 2.3.0.5, we changed the way role filtering is done in search results.
@@ -2577,10 +1460,7 @@ public static class WebConfigSettings
 	/// one for each instance of html content on the page because they all use the same page meta from the parent page.
 	/// since page meta should reflect the content of the page it is sufficient to just index the content
 	/// </summary>
-	public static bool IndexPageMeta
-	{
-		get { return ConfigHelper.GetBoolProperty("IndexPageMeta", false); }
-	}
+	public static bool IndexPageMeta => ConfigHelper.GetBoolProperty("IndexPageMeta", false);
 
 
 
@@ -2591,30 +1471,21 @@ public static class WebConfigSettings
 	/// clusters are only supported if they share a common file system (as of 2009-09-25)
 	/// and in this configuration we should let just one node be responsible for indexing the content.
 	/// </summary>
-	public static bool IsSearchIndexingNode
-	{
-		get { return ConfigHelper.GetBoolProperty("IsSearchIndexingNode", true); }
-	}
+	public static bool IsSearchIndexingNode => ConfigHelper.GetBoolProperty("IsSearchIndexingNode", true);
 
 	/// <summary>
 	/// disabled by default for backawards compatibility with existing indexes.
 	/// if you set this to true in Web.config/user.config you should rebuild the index
 	/// http://www.mojoportal.com/rebuilding-the-search-index.aspx
 	/// </summary>
-	public static bool EnableSearchResultsHighlighting
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableSearchResultsHighlighting", false); }
-	}
+	public static bool EnableSearchResultsHighlighting => ConfigHelper.GetBoolProperty("EnableSearchResultsHighlighting", false);
 
 	/// <summary>
 	/// disabled by default for backawards compatibility with existing indexes.
 	/// if you set this to false in Web.config/user.config you should rebuild the index
 	/// http://www.mojoportal.com/rebuilding-the-search-index.aspx
 	/// </summary>
-	public static bool DisableSearchFeatureFilters
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableSearchFeatureFilters", true); }
-	}
+	public static bool DisableSearchFeatureFilters => ConfigHelper.GetBoolProperty("DisableSearchFeatureFilters", true);
 
 	/// <summary>
 	/// disabled by default for backawards compatibility with existing indexes.
@@ -2652,85 +1523,39 @@ public static class WebConfigSettings
 	/// whereas customers would typically add the css that ships with the feature to their skin and list it in style.config
 	///  example format ~/Data/gcss/
 	/// 
-	public static string GlobalAddOnStyleFolder
-	{
-		get { return ConfigHelper.GetStringProperty("GlobalAddOnStyleFolder", string.Empty); }
-	}
+	public static string GlobalAddOnStyleFolder => ConfigHelper.GetStringProperty("GlobalAddOnStyleFolder", string.Empty);
 
-	public static bool AllowMobileSkinForNonMobile
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowMobileSkinForNonMobile", false); }
-	}
+	public static bool AllowMobileSkinForNonMobile => ConfigHelper.GetBoolProperty("AllowMobileSkinForNonMobile", false);
 
-	public static string MobilePhoneSkin
-	{
-		get { return ConfigHelper.GetStringProperty("MobilePhoneSkin", string.Empty); }
-	}
+	public static string MobilePhoneSkin => ConfigHelper.GetStringProperty("MobilePhoneSkin", string.Empty);
 
-	public static string SkinsToExcludeFromSkinList
-	{
-		get { return ConfigHelper.GetStringProperty("SkinsToExcludeFromSkinList", "printerfriendly"); }
-	}
+	public static string SkinsToExcludeFromSkinList => ConfigHelper.GetStringProperty("SkinsToExcludeFromSkinList", "printerfriendly");
 
-	public static string MobileDetectionExcludeUrlsCsv
-	{
-		get { return ConfigHelper.GetStringProperty("MobileDetectionExcludeUrlsCsv", string.Empty); }
-	}
+	public static string MobileDetectionExcludeUrlsCsv => ConfigHelper.GetStringProperty("MobileDetectionExcludeUrlsCsv", string.Empty);
 
 	//http://googlewebmastercentral.blogspot.com/2012/11/giving-tablet-users-full-sized-web.html
 	//https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=11092~1#post46239
 	// Android phones can be differentiated by Android; Mobile;
 
-	public static string MobilePhoneUserAgents
-	{
-		get { return ConfigHelper.GetStringProperty("MobilePhoneUserAgents", "iphone,ipod,iemobile,android;blackberry"); }
-	}
+	public static string MobilePhoneUserAgents => ConfigHelper.GetStringProperty("MobilePhoneUserAgents", "iphone,ipod,iemobile,android;blackberry");
 
-	public static bool DisableYUI
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableYUI", false); }
-	}
+	public static bool DisableYUI => ConfigHelper.GetBoolProperty("DisableYUI", false);
 
-	public static bool DisableZedGraph
-	{
-		get { return false; }
-		//get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableZedGraph", false); }
-	}
+	public static bool DisableZedGraph => false;
 
-	public static bool IncludeFaqContentTemplate
-	{
-		get { return ConfigHelper.GetBoolProperty("IncludeFaqContentTemplate", true); }
-	}
+	public static bool IncludeFaqContentTemplate => ConfigHelper.GetBoolProperty("IncludeFaqContentTemplate", true);
 
-	public static bool IncludejQueryAccordionContentTemplate
-	{
-		get { return ConfigHelper.GetBoolProperty("IncludejQueryAccordionContentTemplate", true); }
-	}
+	public static bool IncludejQueryAccordionContentTemplate => ConfigHelper.GetBoolProperty("IncludejQueryAccordionContentTemplate", true);
 
-	public static bool IncludejQueryAccordionNoHeightContentTemplate
-	{
-		get { return ConfigHelper.GetBoolProperty("IncludejQueryAccordionNoHeightContentTemplate", true); }
-	}
+	public static bool IncludejQueryAccordionNoHeightContentTemplate => ConfigHelper.GetBoolProperty("IncludejQueryAccordionNoHeightContentTemplate", true);
 
-	public static bool IncludejQueryTabsContentTemplate
-	{
-		get { return ConfigHelper.GetBoolProperty("IncludejQueryTabsContentTemplate", true); }
-	}
+	public static bool IncludejQueryTabsContentTemplate => ConfigHelper.GetBoolProperty("IncludejQueryTabsContentTemplate", true);
 
-	public static bool Include2ColumnsOver1ColumnTemplate
-	{
-		get { return ConfigHelper.GetBoolProperty("Include2ColumnsOver1ColumnTemplate", true); }
-	}
+	public static bool Include2ColumnsOver1ColumnTemplate => ConfigHelper.GetBoolProperty("Include2ColumnsOver1ColumnTemplate", true);
 
-	public static bool Include3ColumnsOver1ColumnTemplate
-	{
-		get { return ConfigHelper.GetBoolProperty("Include3ColumnsOver1ColumnTemplate", true); }
-	}
+	public static bool Include3ColumnsOver1ColumnTemplate => ConfigHelper.GetBoolProperty("Include3ColumnsOver1ColumnTemplate", true);
 
-	public static bool Include4ColumnsOver1ColumnTemplate
-	{
-		get { return ConfigHelper.GetBoolProperty("Include4ColumnsOver1ColumnTemplate", true); }
-	}
+	public static bool Include4ColumnsOver1ColumnTemplate => ConfigHelper.GetBoolProperty("Include4ColumnsOver1ColumnTemplate", true);
 
 
 	//
@@ -2740,362 +1565,161 @@ public static class WebConfigSettings
 	//    get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("AlwaysLoadYuiTabs", false); }
 	//}
 
-	public static bool RedirectToNewPageOnCreationGlobalDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("RedirectToNewPageOnCreationGlobalDefault", true); }
-	}
+	public static bool RedirectToNewPageOnCreationGlobalDefault => ConfigHelper.GetBoolProperty("RedirectToNewPageOnCreationGlobalDefault", true);
 
-	public static bool EnableDragDropPageLayout
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableDragDropPageLayout", false); }
-	}
+	public static bool EnableDragDropPageLayout => ConfigHelper.GetBoolProperty("EnableDragDropPageLayout", false);
 
-	public static bool OpenSearchDownloadLinksInNewWindow
-	{
-		get { return ConfigHelper.GetBoolProperty("OpenSearchDownloadLinksInNewWindow", true); }
-	}
+	public static bool OpenSearchDownloadLinksInNewWindow => ConfigHelper.GetBoolProperty("OpenSearchDownloadLinksInNewWindow", true);
 
-	public static bool DisablejQuery
-	{
-		get { return ConfigHelper.GetBoolProperty("DisablejQuery", false); }
-	}
+	public static bool DisablejQuery => ConfigHelper.GetBoolProperty("DisablejQuery", false);
 
-	public static bool DisableEditArea
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableEditArea", false); }
-	}
+	public static bool DisableEditArea => ConfigHelper.GetBoolProperty("DisableEditArea", false);
 
-	public static bool DisableEditAreaForCssEditor
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableEditAreaForCssEditor", false); }
-	}
+	public static bool DisableEditAreaForCssEditor => ConfigHelper.GetBoolProperty("DisableEditAreaForCssEditor", false);
 
-	public static bool DisablejQueryUI
-	{
-		get { return ConfigHelper.GetBoolProperty("DisablejQueryUI", false); }
-	}
+	public static bool DisablejQueryUI => ConfigHelper.GetBoolProperty("DisablejQueryUI", false);
 
-	public static bool DisableExternalCommentSystems
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableExternalCommentSystems", false); }
-	}
+	public static bool DisableExternalCommentSystems => ConfigHelper.GetBoolProperty("DisableExternalCommentSystems", false);
 
-	public static bool DisableBlogRssMetaLink
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableBlogRssMetaLink", false); }
-	}
-	public static bool UseSSLForFeedLinks
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSSLForFeedLinks", true); }
-	}
+	public static bool DisableBlogRssMetaLink => ConfigHelper.GetBoolProperty("DisableBlogRssMetaLink", false);
+	public static bool UseSSLForFeedLinks => ConfigHelper.GetBoolProperty("UseSSLForFeedLinks", true);
 
 	/// <summary>
 	/// if true disables /Services/RecentContentRss.aspx
 	/// </summary>
-	public static bool DisableRecentContentFeed
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableRecentContentFeed", true); }
-	}
+	public static bool DisableRecentContentFeed => ConfigHelper.GetBoolProperty("DisableRecentContentFeed", true);
 
-	public static string RecentContentChannelDescription
-	{
-		get { return ConfigHelper.GetStringProperty("RecentContentChannelDescription", "Recent Content"); }
-	}
+	public static string RecentContentChannelDescription => ConfigHelper.GetStringProperty("RecentContentChannelDescription", "Recent Content");
 
-	public static string RecentContentChannelCopyright
-	{
-		get { return ConfigHelper.GetStringProperty("RecentContentChannelCopyright", string.Empty); }
-	}
+	public static string RecentContentChannelCopyright => ConfigHelper.GetStringProperty("RecentContentChannelCopyright", string.Empty);
 
-	public static string RecentContentChannelNotifyEmail
-	{
-		get { return ConfigHelper.GetStringProperty("RecentContentChannelNotifyEmail", string.Empty); }
-	}
+	public static string RecentContentChannelNotifyEmail => ConfigHelper.GetStringProperty("RecentContentChannelNotifyEmail", string.Empty);
 
-	public static int RecentContentFeedTimeToLive
-	{
-		get { return ConfigHelper.GetIntProperty("RecentContentFeedTimeToLive", 10); }
-	}
+	public static int RecentContentFeedTimeToLive => ConfigHelper.GetIntProperty("RecentContentFeedTimeToLive", 10);
 
 
-	public static int RecentContentFeedCacheTimeInMinutes
-	{
-		get { return ConfigHelper.GetIntProperty("RecentContentFeedCacheTimeInMinutes", 10); }
-	}
+	public static int RecentContentFeedCacheTimeInMinutes => ConfigHelper.GetIntProperty("RecentContentFeedCacheTimeInMinutes", 10);
 
 	/// <summary>
 	/// by defult 30 days which means the feed will show all searchable site content
 	/// with a modified date newer than 30 days ago
 	/// </summary>
-	public static int RecentContentFeedMaxDaysOld
-	{
-		get { return ConfigHelper.GetIntProperty("RecentContentFeedMaxDaysOld", 30); }
-	}
+	public static int RecentContentFeedMaxDaysOld => ConfigHelper.GetIntProperty("RecentContentFeedMaxDaysOld", 30);
 
 	/// <summary>
 	/// default of 10 items will be returned but the feed takes a param n=5 to get 5 etc
 	/// </summary>
-	public static int RecentContentDefaultItemsToRetrieve
-	{
-		get { return ConfigHelper.GetIntProperty("RecentContentDefaultItemsToRetrieve", 10); }
-	}
+	public static int RecentContentDefaultItemsToRetrieve => ConfigHelper.GetIntProperty("RecentContentDefaultItemsToRetrieve", 10);
 
 	/// <summary>
 	/// the upper limit of allowed results in the recent content feed to prevent heavy requests
 	/// </summary>
-	public static int RecentContentMaxItemsToRetrieve
-	{
-		get { return ConfigHelper.GetIntProperty("RecentContentMaxItemsToRetrieve", 60); }
-	}
+	public static int RecentContentMaxItemsToRetrieve => ConfigHelper.GetIntProperty("RecentContentMaxItemsToRetrieve", 60);
 
-	public static bool AllowLoginWithUsernameWhenSiteSettingIsUseEmailForLogin
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowLoginWithUsernameWhenSiteSettingIsUseEmailForLogin", false); }
-	}
+	public static bool AllowLoginWithUsernameWhenSiteSettingIsUseEmailForLogin => ConfigHelper.GetBoolProperty("AllowLoginWithUsernameWhenSiteSettingIsUseEmailForLogin", false);
 
-	public static bool EnableNewsletter
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableNewsletter", true); }
-	}
+	public static bool EnableNewsletter => ConfigHelper.GetBoolProperty("EnableNewsletter", true);
 
-	public static bool EnableContentWorkflow
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableContentWorkflow", true); }
-	}
+	public static bool EnableContentWorkflow => ConfigHelper.GetBoolProperty("EnableContentWorkflow", true);
 
-	public static bool EnableAjaxControlPasswordStrength
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableAjaxControlPasswordStrength", true); }
-	}
+	public static bool EnableAjaxControlPasswordStrength => ConfigHelper.GetBoolProperty("EnableAjaxControlPasswordStrength", true);
 
-	public static bool WorkflowShowPublishForUnSubmittedDraft
-	{
-		get { return ConfigHelper.GetBoolProperty("WorkflowShowPublishForUnSubmittedDraft", false); }
-	}
+	public static bool WorkflowShowPublishForUnSubmittedDraft => ConfigHelper.GetBoolProperty("WorkflowShowPublishForUnSubmittedDraft", false);
 
 
 
-	public static bool Use3LevelContentWorkflow
-	{
-		get { return ConfigHelper.GetBoolProperty("Use3LevelContentWorkflow", false); }
-	}
+	public static bool Use3LevelContentWorkflow => ConfigHelper.GetBoolProperty("Use3LevelContentWorkflow", false);
 
-	public static string RolesAllowedToUseWorkflowAdminPages
-	{
-		get { return ConfigHelper.GetStringProperty("RoleseAllowedToUseWorkflowAdminPages", string.Empty); }
-	}
+	public static string RolesAllowedToUseWorkflowAdminPages => ConfigHelper.GetStringProperty("RoleseAllowedToUseWorkflowAdminPages", string.Empty);
 
-	public static string RolesAllowedToUseTinyMCESpellChecker
-	{
-		get { return ConfigHelper.GetStringProperty("RolesAllowedToUseTinyMCESpellChecker", "Authenticated Users"); }
-	}
+	public static string RolesAllowedToUseTinyMCESpellChecker => ConfigHelper.GetStringProperty("RolesAllowedToUseTinyMCESpellChecker", "Authenticated Users");
 
-	public static bool PromptBeforeUnsubscribeNewsletter
-	{
-		get { return ConfigHelper.GetBoolProperty("PromptBeforeUnsubscribeNewsletter", false); }
-	}
+	public static bool PromptBeforeUnsubscribeNewsletter => ConfigHelper.GetBoolProperty("PromptBeforeUnsubscribeNewsletter", false);
 
-	public static bool EnableBlogSiteMap
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableBlogSiteMap", true); }
-	}
+	public static bool EnableBlogSiteMap => ConfigHelper.GetBoolProperty("EnableBlogSiteMap", true);
 
-	public static bool EnforcePageSettingsInChildPageSiteMapModule
-	{
-		get { return ConfigHelper.GetBoolProperty("EnforcePageSettingsInChildPageSiteMapModule", false); }
-	}
+	public static bool EnforcePageSettingsInChildPageSiteMapModule => ConfigHelper.GetBoolProperty("EnforcePageSettingsInChildPageSiteMapModule", false);
 
-	public static bool HideMasterPageChildSiteMapWhenUsingModule
-	{
-		get { return ConfigHelper.GetBoolProperty("HideMasterPageChildSiteMapWhenUsingModule", true); }
-	}
+	public static bool HideMasterPageChildSiteMapWhenUsingModule => ConfigHelper.GetBoolProperty("HideMasterPageChildSiteMapWhenUsingModule", true);
 
-	public static bool EnableWoopraGlobally
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableWoopraGlobally", false); }
-	}
+	public static bool EnableWoopraGlobally => ConfigHelper.GetBoolProperty("EnableWoopraGlobally", false);
 
-	public static bool DisableWoopraGlobally
-	{
-		get { return ConfigHelper.GetBoolProperty("DisableWoopraGlobally", false); }
-	}
+	public static bool DisableWoopraGlobally => ConfigHelper.GetBoolProperty("DisableWoopraGlobally", false);
 
-	public static bool UseOfficeFeature
-	{
-		get { return ConfigHelper.GetBoolProperty("UseOfficeFeature", false); }
-	}
+	public static bool UseOfficeFeature => ConfigHelper.GetBoolProperty("UseOfficeFeature", false);
 
-	public static bool UseSilverlightSiteOffice
-	{
-		get { return ConfigHelper.GetBoolProperty("UseSilverlightSiteOffice", false); }
-	}
+	public static bool UseSilverlightSiteOffice => ConfigHelper.GetBoolProperty("UseSilverlightSiteOffice", false);
 
 
-	public static bool AdaptEditorForMobile
-	{
-		get { return ConfigHelper.GetBoolProperty("AdaptEditorForMobile", false); }
-	}
+	public static bool AdaptEditorForMobile => ConfigHelper.GetBoolProperty("AdaptEditorForMobile", false);
 
-	public static bool ForceTextAreaEditorInMobile
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceTextAreaEditorInMobile", false); }
-	}
+	public static bool ForceTextAreaEditorInMobile => ConfigHelper.GetBoolProperty("ForceTextAreaEditorInMobile", false);
 
-	public static bool ForceTinyMCEInSafari
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceTinyMCEInSafari", false); }
-	}
+	public static bool ForceTinyMCEInSafari => ConfigHelper.GetBoolProperty("ForceTinyMCEInSafari", false);
 
-	public static bool ForceTinyMCEInOpera
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceTinyMCEInOpera", false); }
-	}
+	public static bool ForceTinyMCEInOpera => ConfigHelper.GetBoolProperty("ForceTinyMCEInOpera", false);
 
-	public static bool ForcePlainTextInIphone
-	{
-		get { return ConfigHelper.GetBoolProperty("ForcePlainTextInIphone", true); }
-	}
+	public static bool ForcePlainTextInIphone => ConfigHelper.GetBoolProperty("ForcePlainTextInIphone", true);
 
-	public static bool ForcePlainTextInIpad
-	{
-		get { return ConfigHelper.GetBoolProperty("ForcePlainTextInIpad", true); }
-	}
+	public static bool ForcePlainTextInIpad => ConfigHelper.GetBoolProperty("ForcePlainTextInIpad", true);
 
-	public static bool ForcePlainTextInAndroid
-	{
-		get { return ConfigHelper.GetBoolProperty("ForcePlainTextInAndroid", true); }
-	}
+	public static bool ForcePlainTextInAndroid => ConfigHelper.GetBoolProperty("ForcePlainTextInAndroid", true);
 
 
-	public static bool MapAlternatePort
-	{
-		get { return ConfigHelper.GetBoolProperty("MapAlternatePort", true); }
-	}
+	public static bool MapAlternatePort => ConfigHelper.GetBoolProperty("MapAlternatePort", true);
 
-	public static bool MapAlternateSSLPort
-	{
-		get { return ConfigHelper.GetBoolProperty("MapAlternateSSLPort", true); }
-	}
+	public static bool MapAlternateSSLPort => ConfigHelper.GetBoolProperty("MapAlternateSSLPort", true);
 
-	public static bool ShowAlternateSearchIfConfigured
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowAlternateSearchIfConfigured", false); }
-	}
+	public static bool ShowAlternateSearchIfConfigured => ConfigHelper.GetBoolProperty("ShowAlternateSearchIfConfigured", false);
 
-	public static int SearchResultsPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("SearchResultsPageSize", 30); }
-	}
+	public static int SearchResultsPageSize => ConfigHelper.GetIntProperty("SearchResultsPageSize", 30);
 
-	public static int SearchResultsFragmentSize
-	{
-		get { return ConfigHelper.GetIntProperty("SearchResultsFragmentSize", 500); }
-	}
+	public static int SearchResultsFragmentSize => ConfigHelper.GetIntProperty("SearchResultsFragmentSize", 500);
 
-	public static int SearchMaxClauseCount
-	{
-		get { return ConfigHelper.GetIntProperty("SearchMaxClauseCount", 1024); }
-	}
+	public static int SearchMaxClauseCount => ConfigHelper.GetIntProperty("SearchMaxClauseCount", 1024);
 
 
 
-	public static int ContentCatalogPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("ContentCatalogPageSize", 30); }
-	}
+	public static int ContentCatalogPageSize => ConfigHelper.GetIntProperty("ContentCatalogPageSize", 30);
 
-	public static int UrlManagerPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("UrlManagerPageSize", 30); }
-	}
+	public static int UrlManagerPageSize => ConfigHelper.GetIntProperty("UrlManagerPageSize", 30);
 
-	public static int RedirectManagerPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("RedirectManagerPageSize", 30); }
-	}
+	public static int RedirectManagerPageSize => ConfigHelper.GetIntProperty("RedirectManagerPageSize", 30);
 
-	public static int ContentStyleTemplatePageSize
-	{
-		get { return ConfigHelper.GetIntProperty("ContentStyleTemplatePageSize", 30); }
-	}
+	public static int ContentStyleTemplatePageSize => ConfigHelper.GetIntProperty("ContentStyleTemplatePageSize", 30);
 
-	public static int ContentTemplatePageSize
-	{
-		get { return ConfigHelper.GetIntProperty("ContentTemplatePageSize", 5); }
-	}
+	public static int ContentTemplatePageSize => ConfigHelper.GetIntProperty("ContentTemplatePageSize", 5);
 
-	public static bool ContentTemplateShowBodyInAdminList
-	{
-		get { return ConfigHelper.GetBoolProperty("ContentTemplateShowBodyInAdminList", true); }
-	}
+	public static bool ContentTemplateShowBodyInAdminList => ConfigHelper.GetBoolProperty("ContentTemplateShowBodyInAdminList", true);
 
 	[Obsolete("Will be removed when we add skin-based templates. 10/31/2018")]
-	public static bool AddSystemContentTemplatesAboveSiteTemplates
-	{
-		get { return ConfigHelper.GetBoolProperty("AddSystemContentTemplatesAboveSiteTemplates", false); }
-	}
+	public static bool AddSystemContentTemplatesAboveSiteTemplates => ConfigHelper.GetBoolProperty("AddSystemContentTemplatesAboveSiteTemplates", false);
 
 	[Obsolete("Will be removed when we add skin-based templates. 10/31/2018")]
-	public static bool AddSystemContentTemplatesBelowSiteTemplates
-	{
-		get { return ConfigHelper.GetBoolProperty("AddSystemContentTemplatesBelowSiteTemplates", false); }
-	}
+	public static bool AddSystemContentTemplatesBelowSiteTemplates => ConfigHelper.GetBoolProperty("AddSystemContentTemplatesBelowSiteTemplates", false);
 
-	public static bool AddSystemStyleTemplatesAboveSiteTemplates
-	{
-		get { return ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesAboveSiteTemplates", true); }
-	}
+	public static bool AddSystemStyleTemplatesAboveSiteTemplates => ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesAboveSiteTemplates", true);
 
-	public static bool AddSystemStyleTemplatesBelowSiteTemplates
-	{
-		get { return ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesBelowSiteTemplates", false); }
-	}
+	public static bool AddSystemStyleTemplatesBelowSiteTemplates => ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesBelowSiteTemplates", false);
 
-	public static int ContentRatingListPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("ContentRatingListPageSize", 30); }
-	}
+	public static int ContentRatingListPageSize => ConfigHelper.GetIntProperty("ContentRatingListPageSize", 30);
 
 
-	public static int MemberListPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("MemberListPageSize", 30); }
-	}
+	public static int MemberListPageSize => ConfigHelper.GetIntProperty("MemberListPageSize", 30);
 
-	public static int NewsletterArchivePageSize
-	{
-		get { return ConfigHelper.GetIntProperty("NewsletterArchivePageSize", 30); }
-	}
+	public static int NewsletterArchivePageSize => ConfigHelper.GetIntProperty("NewsletterArchivePageSize", 30);
 
-	public static int NewsletterMaxToSendPerMinute
-	{
-		get { return ConfigHelper.GetIntProperty("NewsletterMaxToSendPerMinute", 0); } //0 = unlimited no throttling
-	}
+	public static int NewsletterMaxToSendPerMinute => ConfigHelper.GetIntProperty("NewsletterMaxToSendPerMinute", 0);
 
-	public static bool NewsletterEnforceCanSpam
-	{
-		get { return ConfigHelper.GetBoolProperty("NewsletterEnforceCanSpam", true); }
-	}
+	public static bool NewsletterEnforceCanSpam => ConfigHelper.GetBoolProperty("NewsletterEnforceCanSpam", true);
 
-	public static bool NewsletterUseHtmlEmailConfirmation
-	{
-		get { return ConfigHelper.GetBoolProperty("NewsletterUseHtmlEmailConfirmation", false); }
-	}
+	public static bool NewsletterUseHtmlEmailConfirmation => ConfigHelper.GetBoolProperty("NewsletterUseHtmlEmailConfirmation", false);
 
-	public static bool NewsletterAutoSubscribeUsersCreatedByAdmin
-	{
-		get { return ConfigHelper.GetBoolProperty("NewsletterAutoSubscribeUsersCreatedByAdmin", true); }
-	}
+	public static bool NewsletterAutoSubscribeUsersCreatedByAdmin => ConfigHelper.GetBoolProperty("NewsletterAutoSubscribeUsersCreatedByAdmin", true);
 
-	public static bool NewsletterExcludeAllPreviousOptOutsWhenOptingInUsers
-	{
-		get { return ConfigHelper.GetBoolProperty("NewsletterExcludeAllPreviousOptOutsWhenOptingInUsers", true); }
-	}
+	public static bool NewsletterExcludeAllPreviousOptOutsWhenOptingInUsers => ConfigHelper.GetBoolProperty("NewsletterExcludeAllPreviousOptOutsWhenOptingInUsers", true);
 
-	public static bool NewsletterRequireVerification
-	{
-		get { return ConfigHelper.GetBoolProperty("NewsletterRequireVerification", true); }
-	}
+	public static bool NewsletterRequireVerification => ConfigHelper.GetBoolProperty("NewsletterRequireVerification", true);
 
 	//public static bool NewsletterShowImportPanel
 	//{
@@ -3110,31 +1734,16 @@ public static class WebConfigSettings
 	/// This way in case the user lost the original verification or his email was unavailable for some reason
 	/// he can get a new opportunity to confirm by submitting again.
 	/// </summary>
-	public static int NewsletterReVerifcationAfterDays
-	{
-		get { return ConfigHelper.GetIntProperty("NewsletterReVerifcationAfterDays", 5); }
-	}
+	public static int NewsletterReVerifcationAfterDays => ConfigHelper.GetIntProperty("NewsletterReVerifcationAfterDays", 5);
 
 
-	public static int MinutesBetweenAnonymousRatings
-	{
-		get { return ConfigHelper.GetIntProperty("MinutesBetweenAnonymousRatings", 5); }
-	}
+	public static int MinutesBetweenAnonymousRatings => ConfigHelper.GetIntProperty("MinutesBetweenAnonymousRatings", 5);
 
-	public static int NumberOfWebPartsToShowInMiniCatalog
-	{
-		get { return ConfigHelper.GetIntProperty("NumberOfWebPartsToShowInMiniCatalog", 15); }
-	}
+	public static int NumberOfWebPartsToShowInMiniCatalog => ConfigHelper.GetIntProperty("NumberOfWebPartsToShowInMiniCatalog", 15);
 
-	public static int WebPageInfoCacheMinutes
-	{
-		get { return ConfigHelper.GetIntProperty("WebPageInfoCacheMinutes", 20); }
-	}
+	public static int WebPageInfoCacheMinutes => ConfigHelper.GetIntProperty("WebPageInfoCacheMinutes", 20);
 
-	public static int SiteSettingsCacheDurationInSeconds
-	{
-		get { return ConfigHelper.GetIntProperty("SiteSettingsCacheDurationInSeconds", 120); }
-	}
+	public static int SiteSettingsCacheDurationInSeconds => ConfigHelper.GetIntProperty("SiteSettingsCacheDurationInSeconds", 120);
 
 	public static Guid InternalFeedSecurityBypassKey
 	{
@@ -3205,10 +1814,7 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string RolesThatCannotBeDeleted
-	{
-		get { return ConfigHelper.GetStringProperty("RolesThatCannotBeDeleted", string.Empty); }
-	}
+	public static string RolesThatCannotBeDeleted => ConfigHelper.GetStringProperty("RolesThatCannotBeDeleted", string.Empty);
 
 	public static string DefaultContentTemplateAllowedRoles
 	{
@@ -3263,310 +1869,121 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string ReCaptchaDefaultVerifyUrl
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("reCaptcha:DefaultVerifyUrl", "http://www.google.com/recaptcha/api/siteverify");
-		}
-	}
+	public static string ReCaptchaDefaultVerifyUrl => ConfigHelper.GetStringProperty("reCaptcha:DefaultVerifyUrl", "http://www.google.com/recaptcha/api/siteverify");
 
-	public static string HCaptchaDefaultVerifyUrl
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("hCaptcha:DefaultVerifyUrl", "https://hcaptcha.com/siteverify");
-		}
-	}
+	public static string HCaptchaDefaultVerifyUrl => ConfigHelper.GetStringProperty("hCaptcha:DefaultVerifyUrl", "https://hcaptcha.com/siteverify");
 
-	public static string ReCaptchaDefaultClientScriptUrl
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("reCaptcha:DefaultClientScriptUrl", "https://www.google.com/recaptcha/api.js");
-		}
-	}
+	public static string ReCaptchaDefaultClientScriptUrl => ConfigHelper.GetStringProperty("reCaptcha:DefaultClientScriptUrl", "https://www.google.com/recaptcha/api.js");
 
-	public static string HCaptchaDefaultClientScriptUrl
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("hCaptcha:DefaultClientScriptUrl", "https://hcaptcha.com/1/api.js");
-		}
-	}
+	public static string HCaptchaDefaultClientScriptUrl => ConfigHelper.GetStringProperty("hCaptcha:DefaultClientScriptUrl", "https://hcaptcha.com/1/api.js");
 
-	public static string ReCaptchaDefaultParam
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("reCaptcha:DefaultParam", "g-recaptcha");
-		}
-	}
+	public static string ReCaptchaDefaultParam => ConfigHelper.GetStringProperty("reCaptcha:DefaultParam", "g-recaptcha");
 
-	public static string HCaptchaDefaultParam
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("hCaptcha:DefaultParam", "h-captcha");
-		}
-	}
+	public static string HCaptchaDefaultParam => ConfigHelper.GetStringProperty("hCaptcha:DefaultParam", "h-captcha");
 
-	public static string ReCaptchaDefaultTheme
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("reCaptcha:DefaultTheme", "light");
-		}
-	}
+	public static string ReCaptchaDefaultTheme => ConfigHelper.GetStringProperty("reCaptcha:DefaultTheme", "light");
 
-	public static string HCaptchaDefaultTheme
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("hCaptcha:DefaultTheme", "light");
-		}
-	}
+	public static string HCaptchaDefaultTheme => ConfigHelper.GetStringProperty("hCaptcha:DefaultTheme", "light");
 
-	public static string ReCaptchaDefaultResponseField
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("reCaptcha:DefaultResponseField", "g-recaptcha-response");
-		}
-	}
+	public static string ReCaptchaDefaultResponseField => ConfigHelper.GetStringProperty("reCaptcha:DefaultResponseField", "g-recaptcha-response");
 
-	public static string HCaptchaDefaultResponseField
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("HCaptcha:DefaultResponseField", "h-captcha-response");
-		}
-	}
+	public static string HCaptchaDefaultResponseField => ConfigHelper.GetStringProperty("HCaptcha:DefaultResponseField", "h-captcha-response");
 
-	public static bool UseRawUrlForCmsPageLoginRedirects
-	{
-		get { return ConfigHelper.GetBoolProperty("UseRawUrlForCmsPageLoginRedirects", false); }
-	}
+	public static bool UseRawUrlForCmsPageLoginRedirects => ConfigHelper.GetBoolProperty("UseRawUrlForCmsPageLoginRedirects", false);
 
-	public static bool UseAlternateFileManagerAsDefault
-	{
-		get { return ConfigHelper.GetBoolProperty("UseAlternateFileManagerAsDefault", false); }
-	}
+	public static bool UseAlternateFileManagerAsDefault => ConfigHelper.GetBoolProperty("UseAlternateFileManagerAsDefault", false);
 
-	public static bool ForceLowerCaseForUploadedFiles
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceLowerCaseForUploadedFiles", true); }
-	}
+	public static bool ForceLowerCaseForUploadedFiles => ConfigHelper.GetBoolProperty("ForceLowerCaseForUploadedFiles", true);
 
-	public static bool ForceLegacyFileUpload
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceLegacyFileUpload", false); }
-	}
+	public static bool ForceLegacyFileUpload => ConfigHelper.GetBoolProperty("ForceLegacyFileUpload", false);
 
-	public static bool ForceLowerCaseForFolderCreation
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceLowerCaseForFolderCreation", true); }
-	}
+	public static bool ForceLowerCaseForFolderCreation => ConfigHelper.GetBoolProperty("ForceLowerCaseForFolderCreation", true);
 
-	public static bool ForceAdminsToUseMediaFolder
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceAdminsToUseMediaFolder", true); }
-	}
+	public static bool ForceAdminsToUseMediaFolder => ConfigHelper.GetBoolProperty("ForceAdminsToUseMediaFolder", true);
 
-	public static bool AllowAdminsToUseDataFolder
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowAdminsToUseDataFolder", false); }
-	}
+	public static bool AllowAdminsToUseDataFolder => ConfigHelper.GetBoolProperty("AllowAdminsToUseDataFolder", false);
 
-	public static bool AllowRoleAdminsToCreateContentManagers
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowRoleAdminsToCreateContentManagers", true); }
-	}
+	public static bool AllowRoleAdminsToCreateContentManagers => ConfigHelper.GetBoolProperty("AllowRoleAdminsToCreateContentManagers", true);
 
-	public static bool EnforceSiteIdInModuleWrapper
-	{
-		get { return ConfigHelper.GetBoolProperty("EnforceSiteIdInModuleWrapper", true); }
-	}
+	public static bool EnforceSiteIdInModuleWrapper => ConfigHelper.GetBoolProperty("EnforceSiteIdInModuleWrapper", true);
 
-	public static bool UseFullUrlsForSkins
-	{
-		get { return ConfigHelper.GetBoolProperty("UseFullUrlsForSkins", false); }
-	}
+	public static bool UseFullUrlsForSkins => ConfigHelper.GetBoolProperty("UseFullUrlsForSkins", false);
 
-	public static bool UseClosestAsciiCharsForUrls
-	{
-		get { return ConfigHelper.GetBoolProperty("UseClosestAsciiCharsForUrls", true); }
-	}
+	public static bool UseClosestAsciiCharsForUrls => ConfigHelper.GetBoolProperty("UseClosestAsciiCharsForUrls", true);
 
-	public static bool AlwaysUrlEncode
-	{
-		get { return ConfigHelper.GetBoolProperty("AlwaysUrlEncode", false); }
-	}
+	public static bool AlwaysUrlEncode => ConfigHelper.GetBoolProperty("AlwaysUrlEncode", false);
 
-	public static bool RetryUnencodedOnUrlNotFound
-	{
-		get { return ConfigHelper.GetBoolProperty("RetryUnencodedOnUrlNotFound", false); }
-	}
+	public static bool RetryUnencodedOnUrlNotFound => ConfigHelper.GetBoolProperty("RetryUnencodedOnUrlNotFound", false);
 
-	public static bool ForceFriendlyUrlsToLowerCase
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceFriendlyUrlsToLowerCase", true); }
-	}
+	public static bool ForceFriendlyUrlsToLowerCase => ConfigHelper.GetBoolProperty("ForceFriendlyUrlsToLowerCase", true);
 
-	public static bool SetMaintainScrollPositionOnPostBackTrueOnCmsPages
-	{
-		get { return ConfigHelper.GetBoolProperty("SetMaintainScrollPositionOnPostBackTrueOnCmsPages", false); }
-	}
+	public static bool SetMaintainScrollPositionOnPostBackTrueOnCmsPages => ConfigHelper.GetBoolProperty("SetMaintainScrollPositionOnPostBackTrueOnCmsPages", false);
 
 
 
-	public static bool FileSystemIsWritable
-	{
-		get { return ConfigHelper.GetBoolProperty("FileSystemIsWritable", true); }
-	}
+	public static bool FileSystemIsWritable => ConfigHelper.GetBoolProperty("FileSystemIsWritable", true);
 
-	public static bool FileManagerOverwriteFiles
-	{
-		get { return ConfigHelper.GetBoolProperty("FileManagerOverwriteFiles", true); }
-	}
+	public static bool FileManagerOverwriteFiles => ConfigHelper.GetBoolProperty("FileManagerOverwriteFiles", true);
 
 	/// <summary>
 	/// defaults to -1 which means not specified which means use the global default from the httpRuntime element
 	/// which defaults to 110 seconds
 	/// for large downloads you may need to set a number here higher than 110
 	/// </summary>
-	public static int DownloadScriptTimeout
-	{
-		get { return ConfigHelper.GetIntProperty("DownloadScriptTimeout", -1); }
-	}
+	public static int DownloadScriptTimeout => ConfigHelper.GetIntProperty("DownloadScriptTimeout", -1);
 
-	public static bool ImageGalleryUseMediaFolder
-	{
-		get { return ConfigHelper.GetBoolProperty("ImageGalleryUseMediaFolder", true); }
-	}
+	public static bool ImageGalleryUseMediaFolder => ConfigHelper.GetBoolProperty("ImageGalleryUseMediaFolder", true);
 
-	public static string ImageCropperWrapperDivStyle
-	{
-		get { return ConfigHelper.GetStringProperty("ImageCropperWrapperDivStyle", "width:100%;height:100%;overflow-x:scroll;overflow-y:visible;"); }
-	}
+	public static string ImageCropperWrapperDivStyle => ConfigHelper.GetStringProperty("ImageCropperWrapperDivStyle", "width:100%;height:100%;overflow-x:scroll;overflow-y:visible;");
 
-	public static long UserFolderDiskQuotaInMegaBytes
-	{
-		get { return ConfigHelper.GetLongProperty("UserFolderDiskQuotaInMegaBytes", 300); }
-	}
+	public static long UserFolderDiskQuotaInMegaBytes => ConfigHelper.GetLongProperty("UserFolderDiskQuotaInMegaBytes", 300);
 
-	public static long MediaFolderDiskQuotaInMegaBytes
-	{
-		get { return ConfigHelper.GetLongProperty("MediaFolderDiskQuotaInMegaBytes", 6000); }
-	}
+	public static long MediaFolderDiskQuotaInMegaBytes => ConfigHelper.GetLongProperty("MediaFolderDiskQuotaInMegaBytes", 6000);
 
-	public static long AdminDiskQuotaInMegaBytes
-	{
-		get { return ConfigHelper.GetLongProperty("AdminDiskQuotaInMegaBytes", 12000); }
-	}
+	public static long AdminDiskQuotaInMegaBytes => ConfigHelper.GetLongProperty("AdminDiskQuotaInMegaBytes", 12000);
 
-	public static long UserFolderMaxSizePerFileInMegaBytes
-	{
-		get { return ConfigHelper.GetLongProperty("UserFolderMaxSizePerFileInMegaBytes", 10); }
-	}
+	public static long UserFolderMaxSizePerFileInMegaBytes => ConfigHelper.GetLongProperty("UserFolderMaxSizePerFileInMegaBytes", 10);
 
-	public static long MediaFolderMaxSizePerFileInMegaBytes
-	{
-		get { return ConfigHelper.GetLongProperty("MediaFolderMaxSizePerFileInMegaBytes", 30); }
-	}
+	public static long MediaFolderMaxSizePerFileInMegaBytes => ConfigHelper.GetLongProperty("MediaFolderMaxSizePerFileInMegaBytes", 30);
 
-	public static long AdminMaxSizePerFileInMegaBytes
-	{
-		get { return ConfigHelper.GetLongProperty("AdminMaxSizePerFileInMegaBytes", 2048); }
-	}
+	public static long AdminMaxSizePerFileInMegaBytes => ConfigHelper.GetLongProperty("AdminMaxSizePerFileInMegaBytes", 2048);
 
-	public static int UserFolderMaxNumberOfFiles
-	{
-		get { return ConfigHelper.GetIntProperty("UserFolderMaxNumberOfFiles", 1000); }
-	}
+	public static int UserFolderMaxNumberOfFiles => ConfigHelper.GetIntProperty("UserFolderMaxNumberOfFiles", 1000);
 
-	public static int MediaFolderMaxNumberOfFiles
-	{
-		get { return ConfigHelper.GetIntProperty("MediaFolderMaxNumberOfFiles", 10000); }
-	}
+	public static int MediaFolderMaxNumberOfFiles => ConfigHelper.GetIntProperty("MediaFolderMaxNumberOfFiles", 10000);
 
-	public static int AdminMaxNumberOfFiles
-	{
-		get { return ConfigHelper.GetIntProperty("AdminMaxNumberOfFiles", 100000); }
-	}
+	public static int AdminMaxNumberOfFiles => ConfigHelper.GetIntProperty("AdminMaxNumberOfFiles", 100000);
 
-	public static int UserFolderMaxNumberOfFolders
-	{
-		get { return ConfigHelper.GetIntProperty("UserFolderMaxNumberOfFolders", 50); }
-	}
+	public static int UserFolderMaxNumberOfFolders => ConfigHelper.GetIntProperty("UserFolderMaxNumberOfFolders", 50);
 
-	public static int MediaFolderMaxNumberOfFolders
-	{
-		get { return ConfigHelper.GetIntProperty("MediaFolderMaxNumberOfFolders", 500); }
-	}
+	public static int MediaFolderMaxNumberOfFolders => ConfigHelper.GetIntProperty("MediaFolderMaxNumberOfFolders", 500);
 
-	public static int AdminMaxNumberOfFolders
-	{
-		get { return ConfigHelper.GetIntProperty("AdminMaxNumberOfFolders", 1000); }
-	}
+	public static int AdminMaxNumberOfFolders => ConfigHelper.GetIntProperty("AdminMaxNumberOfFolders", 1000);
 
-	public static int MaxSkinFilesToUploadAtOnce
-	{
-		get { return ConfigHelper.GetIntProperty("MaxSkinFilesToUploadAtOnce", 10); }
-	}
+	public static int MaxSkinFilesToUploadAtOnce => ConfigHelper.GetIntProperty("MaxSkinFilesToUploadAtOnce", 10);
 
-	public static int MaxFileManagerFilesToUploadAtOnce
-	{
-		get { return ConfigHelper.GetIntProperty("MaxFileManagerFilesToUploadAtOnce", 20); }
-	}
+	public static int MaxFileManagerFilesToUploadAtOnce => ConfigHelper.GetIntProperty("MaxFileManagerFilesToUploadAtOnce", 20);
 
-	public static bool RequireFileSystemServiceToken
-	{
-		get { return ConfigHelper.GetBoolProperty("RequireFileSystemServiceToken", true); }
-	}
+	public static bool RequireFileSystemServiceToken => ConfigHelper.GetBoolProperty("RequireFileSystemServiceToken", true);
 
-	public static bool AllowFileEditInFileManager
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowFileEditInFileManager", true); }
-	}
+	public static bool AllowFileEditInFileManager => ConfigHelper.GetBoolProperty("AllowFileEditInFileManager", true);
 
-	public static bool AllowEditingSkins
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowEditingSkins", true); }
-	}
+	public static bool AllowEditingSkins => ConfigHelper.GetBoolProperty("AllowEditingSkins", true);
 
-	public static bool UseFailSafeMasterPageOnError
-	{
-		get { return ConfigHelper.GetBoolProperty("UseFailSafeMasterPageOnError", true); }
-	}
+	public static bool UseFailSafeMasterPageOnError => ConfigHelper.GetBoolProperty("UseFailSafeMasterPageOnError", true);
 
-	public static bool AllowEditingSkinsInChildSites
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowEditingSkinsInChildSites", true); }
-	}
+	public static bool AllowEditingSkinsInChildSites => ConfigHelper.GetBoolProperty("AllowEditingSkinsInChildSites", true);
 
-	public static bool CheckFishyReferrer
-	{
-		get { return ConfigHelper.GetBoolProperty("CheckFishyReferer", true); }
-	}
+	public static bool CheckFishyReferrer => ConfigHelper.GetBoolProperty("CheckFishyReferer", true);
 
-	public static bool LogFishyReferrer
-	{
-		get { return ConfigHelper.GetBoolProperty("LogFishyReferer", true); }
-	}
+	public static bool LogFishyReferrer => ConfigHelper.GetBoolProperty("LogFishyReferer", true);
 
 	/// <summary>
 	/// this is mainly needed so I can prevent people from changing the mobile skin on the demo site
 	/// </summary>
-	public static bool AllowSettingMobileSkinInChildSites
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowSettingMobileSkinInChildSites", true); }
-	}
+	public static bool AllowSettingMobileSkinInChildSites => ConfigHelper.GetBoolProperty("AllowSettingMobileSkinInChildSites", true);
 
-	public static string DefaultInitialSkin
-	{
-		get { return ConfigHelper.GetStringProperty("DefaultInitialSkin", "framework"); }
-	}
+	public static string DefaultInitialSkin => ConfigHelper.GetStringProperty("DefaultInitialSkin", "framework");
 
 
 	public static string AllowedSkinFileExtensions
@@ -3582,15 +1999,9 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool DebugSkinImporter
-	{
-		get { return ConfigHelper.GetBoolProperty("DebugSkinImporter", false); }
-	}
+	public static bool DebugSkinImporter => ConfigHelper.GetBoolProperty("DebugSkinImporter", false);
 
-	public static bool IncludeContentStylesWithSkinExport
-	{
-		get { return ConfigHelper.GetBoolProperty("IncludeContentStylesWithSkinExport", false); } //JOE DAVIS
-	}
+	public static bool IncludeContentStylesWithSkinExport => ConfigHelper.GetBoolProperty("IncludeContentStylesWithSkinExport", false);
 
 	public static string ImageFileExtensions
 	{
@@ -3711,18 +2122,9 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string mojoFileSystemConfigFileName
-	{
-		get { return ConfigHelper.GetStringProperty("mojoFileSystemConfigFileName", "mojoFileSystem.config"); }
-	}
+	public static string mojoFileSystemConfigFileName => ConfigHelper.GetStringProperty("mojoFileSystemConfigFileName", "mojoFileSystem.config");
 
-	public static string FileSystemProvider
-	{
-		get
-		{
-			return ConfigHelper.GetStringProperty("FileSystemProvider", "DiskFileSystemProvider");
-		}
-	}
+	public static string FileSystemProvider => ConfigHelper.GetStringProperty("FileSystemProvider", "DiskFileSystemProvider");
 
 	public static System.Drawing.Color DefaultResizeBackgroundColor
 	{
@@ -3749,15 +2151,9 @@ public static class WebConfigSettings
 	/// in some cases you may want to allow users who can only upload to user specific folders to delete files from the editor file browser
 	/// without giving them access to the general File Manager, to do that you could set this to true
 	/// </summary>
-	public static bool AllowDeletingFilesFromUserFolderWithoutDeleteRole
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowDeletingFilesFromUserFolderWithoutDeleteRole", false); }
-	}
+	public static bool AllowDeletingFilesFromUserFolderWithoutDeleteRole => ConfigHelper.GetBoolProperty("AllowDeletingFilesFromUserFolderWithoutDeleteRole", false);
 
-	public static bool EnableInlineEditing
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableInlineEditing", true); }
-	}
+	public static bool EnableInlineEditing => ConfigHelper.GetBoolProperty("EnableInlineEditing", true);
 
 	public static string CKEditorBasePath
 	{
@@ -3781,95 +2177,44 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string CKEditorFullWithTemplatesToolbarDefinition
-	{
-		get { return ConfigHelper.GetStringProperty("CKEditor:FullWithTemplatesToolbarDefinition", "[['SelectAll', 'RemoveFormat', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print'],['Undo','Redo','-','Find','Replace','Bold','Italic','Underline','Strike'],'/',['Blockquote','Styles'],['NumberedList','BulletedList'],['Link','Unlink','Anchor'],['Templates','Image','oembed','Table','HorizontalRule','Smiley','SpecialChar'],];"); }
-	}
+	public static string CKEditorFullWithTemplatesToolbarDefinition => ConfigHelper.GetStringProperty("CKEditor:FullWithTemplatesToolbarDefinition", "[['SelectAll', 'RemoveFormat', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Print'],['Undo','Redo','-','Find','Replace','Bold','Italic','Underline','Strike'],'/',['Blockquote','Styles'],['NumberedList','BulletedList'],['Link','Unlink','Anchor'],['Templates','Image','oembed','Table','HorizontalRule','Smiley','SpecialChar'],];");
 
-	public static bool ResizeEditorUploadedImages
-	{
-		get { return ConfigHelper.GetBoolProperty("ResizeEditorUploadedImages", true); }
-	}
+	public static bool ResizeEditorUploadedImages => ConfigHelper.GetBoolProperty("ResizeEditorUploadedImages", true);
 
-	public static bool KeepFullSizeEditorUploadedImages
-	{
-		get { return ConfigHelper.GetBoolProperty("KeepFullSizeEditorUploadedImages", false); }
-	}
+	public static bool KeepFullSizeEditorUploadedImages => ConfigHelper.GetBoolProperty("KeepFullSizeEditorUploadedImages", false);
 
-	public static bool KeepFullSizeImagesDroppedInEditor
-	{
-		get { return ConfigHelper.GetBoolProperty("KeepFullSizeImagesDroppedInEditor", true); }
-	}
+	public static bool KeepFullSizeImagesDroppedInEditor => ConfigHelper.GetBoolProperty("KeepFullSizeImagesDroppedInEditor", true);
 
-	public static int ResizeImageDefaultMaxWidth
-	{
-		get { return ConfigHelper.GetIntProperty("ResizeImageDefaultMaxWidth", 550); }
-	}
+	public static int ResizeImageDefaultMaxWidth => ConfigHelper.GetIntProperty("ResizeImageDefaultMaxWidth", 550);
 
-	public static int ResizeImageDefaultMaxHeight
-	{
-		get { return ConfigHelper.GetIntProperty("ResizeImageDefaultMaxWidth", 550); }
-	}
+	public static int ResizeImageDefaultMaxHeight => ConfigHelper.GetIntProperty("ResizeImageDefaultMaxWidth", 550);
 
-	public static bool AvatarsCanOnlyBeUploadedByAdmin
-	{
-		get { return ConfigHelper.GetBoolProperty("AvatarsCanOnlyBeUploadedByAdmin", false); }
-	}
+	public static bool AvatarsCanOnlyBeUploadedByAdmin => ConfigHelper.GetBoolProperty("AvatarsCanOnlyBeUploadedByAdmin", false);
 
-	public static bool ForceSquareAvatars
-	{
-		get { return ConfigHelper.GetBoolProperty("ForceSquareAvatars", true); }
-	}
+	public static bool ForceSquareAvatars => ConfigHelper.GetBoolProperty("ForceSquareAvatars", true);
 
-	public static int AvatarMaxOriginalWidth
-	{
-		get { return ConfigHelper.GetIntProperty("AvatarMaxOriginalWidth", 800); }
-	}
+	public static int AvatarMaxOriginalWidth => ConfigHelper.GetIntProperty("AvatarMaxOriginalWidth", 800);
 
-	public static int AvatarMaxOriginalHeight
-	{
-		get { return ConfigHelper.GetIntProperty("AvatarMaxOriginalHeight", 800); }
-	}
+	public static int AvatarMaxOriginalHeight => ConfigHelper.GetIntProperty("AvatarMaxOriginalHeight", 800);
 
-	public static int AvatarMaxWidth
-	{
-		get { return ConfigHelper.GetIntProperty("AvatarMaxWidth", 90); }
-	}
+	public static int AvatarMaxWidth => ConfigHelper.GetIntProperty("AvatarMaxWidth", 90);
 
-	public static int AvatarMaxHeight
-	{
-		get { return ConfigHelper.GetIntProperty("AvatarMaxHeight", 90); }
-	}
+	public static int AvatarMaxHeight => ConfigHelper.GetIntProperty("AvatarMaxHeight", 90);
 
-	public static string DefaultBlankAvatarPath
-	{
-		get { return ConfigHelper.GetStringProperty("DefaultBlankAvatarPath", "~/Data/SiteImages/1x1.gif"); }
-	}
+	public static string DefaultBlankAvatarPath => ConfigHelper.GetStringProperty("DefaultBlankAvatarPath", "~/Data/SiteImages/1x1.gif");
 
-	public static string UrlRegex
-	{
-		get { return ConfigHelper.GetStringProperty("UrlRegex", @"\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))"); }
-	}
+	public static string UrlRegex => ConfigHelper.GetStringProperty("UrlRegex", @"\b(([\w-]+://?|www[.])[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/)))");
 
-	public static string CustomEmailRegex
-	{
-		get { return ConfigHelper.GetStringProperty("CustomEmailRegex", string.Empty); }
-	}
+	public static string CustomEmailRegex => ConfigHelper.GetStringProperty("CustomEmailRegex", string.Empty);
 
-	public static string CustomEmailRegexWarning
-	{
-		get { return ConfigHelper.GetStringProperty("CustomEmailRegexWarning", string.Empty); }
-	}
+	public static string CustomEmailRegexWarning => ConfigHelper.GetStringProperty("CustomEmailRegexWarning", string.Empty);
 
 	/// <summary>
 	/// not recommended to set true but it was requested to support this
 	/// if true the remember me checkbox will be hidden and forcibly checked
 	/// which results in a persistent auth cookie upon login
 	/// </summary>
-	public static bool ForcePersistentAuthCheckboxChecked
-	{
-		get { return ConfigHelper.GetBoolProperty("ForcePersistentAuthCheckboxChecked", false); }
-	}
+	public static bool ForcePersistentAuthCheckboxChecked => ConfigHelper.GetBoolProperty("ForcePersistentAuthCheckboxChecked", false);
 
 	public static string LoginPageRelativeUrl
 	{
@@ -3884,29 +2229,17 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string PageTreeRelativeUrl
-	{
-		get { return ConfigHelper.GetStringProperty("PageTreeRelativeUrl", $"{AdminDirectoryLocation}/PageManager.aspx"); }
-	}
+	public static string PageTreeRelativeUrl => ConfigHelper.GetStringProperty("PageTreeRelativeUrl", $"{AdminDirectoryLocation}/PageManager.aspx");
 
-	public static string ContentPublishPageRelativeUrl
-	{
-		get { return ConfigHelper.GetStringProperty("ContentPublishPageRelativeUrl", $"{AdminDirectoryLocation}/ContentManager.aspx"); }
-	}
+	public static string ContentPublishPageRelativeUrl => ConfigHelper.GetStringProperty("ContentPublishPageRelativeUrl", $"{AdminDirectoryLocation}/ContentManager.aspx");
 
-	public static string FileDialogRelativeUrl
-	{
-		get { return ConfigHelper.GetStringProperty("FileDialogRelativeUrl", "/FileManager"); }
-	}
+	public static string FileDialogRelativeUrl => ConfigHelper.GetStringProperty("FileDialogRelativeUrl", "/FileManager");
 
 	/// <summary>
 	/// The filesystem location of the Admin directory. This is not configurable yet but will be to allow renaming of the Admin directory
 	/// to obfuscate it.
 	/// </summary>
-	public static string AdminDirectoryLocation
-	{
-		get { return "/Admin"; }
-	}
+	public static string AdminDirectoryLocation => "/Admin";
 
 
 
@@ -3927,10 +2260,7 @@ public static class WebConfigSettings
 
 
 
-	public static bool RedirectRegistrationPageToCustomPage
-	{
-		get { return ConfigHelper.GetBoolProperty("RedirectRegistrationPageToCustomPage", false); }
-	}
+	public static bool RedirectRegistrationPageToCustomPage => ConfigHelper.GetBoolProperty("RedirectRegistrationPageToCustomPage", false);
 
 	public static string PageToRedirectToAfterSignIn
 	{
@@ -3945,10 +2275,7 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool UseRedirectInSignInModule
-	{
-		get { return ConfigHelper.GetBoolProperty("UseRedirectInSignInModule", true); }
-	}
+	public static bool UseRedirectInSignInModule => ConfigHelper.GetBoolProperty("UseRedirectInSignInModule", true);
 
 
 
@@ -3965,20 +2292,11 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static string CKEditorH1Mapping
-	{
-		get { return ConfigHelper.GetStringProperty("CKEditorH1Mapping", "h3"); }
-	}
+	public static string CKEditorH1Mapping => ConfigHelper.GetStringProperty("CKEditorH1Mapping", "h3");
 
-	public static string CKEditorH2Mapping
-	{
-		get { return ConfigHelper.GetStringProperty("CKEditorH2Mapping", "h4"); }
-	}
+	public static string CKEditorH2Mapping => ConfigHelper.GetStringProperty("CKEditorH2Mapping", "h4");
 
-	public static string CKEditorH3Mapping
-	{
-		get { return ConfigHelper.GetStringProperty("CKEditorH3Mapping", "h5"); }
-	}
+	public static string CKEditorH3Mapping => ConfigHelper.GetStringProperty("CKEditorH3Mapping", "h5");
 
 	public static string EditorTemplatesPath
 	{
@@ -4105,31 +2423,19 @@ public static class WebConfigSettings
 	}
 
 
-	public static bool ShowRebuildSearchIndexButtonToAdmins
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowRebuildSearchIndexButtonToAdmins", false); }
-	}
+	public static bool ShowRebuildSearchIndexButtonToAdmins => ConfigHelper.GetBoolProperty("ShowRebuildSearchIndexButtonToAdmins", false);
 
-	public static bool ShowCustomProfilePropertiesAboveManadotoryRegistrationFields
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowCustomProfilePropertiesAboveManadotoryRegistrationFields", false); }
-	}
+	public static bool ShowCustomProfilePropertiesAboveManadotoryRegistrationFields => ConfigHelper.GetBoolProperty("ShowCustomProfilePropertiesAboveManadotoryRegistrationFields", false);
 
 
-	public static bool AllowUserThreadBrowsing
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowUserThreadBrowsing", true); }
-	}
+	public static bool AllowUserThreadBrowsing => ConfigHelper.GetBoolProperty("AllowUserThreadBrowsing", true);
 
 	//public static bool ShowPageEncoding
 	//{
 	//	get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("ShowPageEncoding", false); }
 	//}
 
-	public static bool ShowUseUrlSettingInPageSettings
-	{
-		get { return ConfigHelper.GetBoolProperty("ShowUseUrlSettingInPageSettings", false); }
-	}
+	public static bool ShowUseUrlSettingInPageSettings => ConfigHelper.GetBoolProperty("ShowUseUrlSettingInPageSettings", false);
 
 
 	//public static bool ShowAdditionalMeta
@@ -4202,35 +2508,17 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool AlwaysShowAltPanesInPublishDialog
-	{
-		get { return ConfigHelper.GetBoolProperty("AlwaysShowAltPanesInPublishDialog", false); }
-	}
+	public static bool AlwaysShowAltPanesInPublishDialog => ConfigHelper.GetBoolProperty("AlwaysShowAltPanesInPublishDialog", false);
 
-	public static int TooManyPagesForDropdownList
-	{
-		get { return ConfigHelper.GetIntProperty("TooManyPagesForDropdownList", 150); }
-	}
+	public static int TooManyPagesForDropdownList => ConfigHelper.GetIntProperty("TooManyPagesForDropdownList", 150);
 
-	public static int TooManyRolesForPageSettings
-	{
-		get { return ConfigHelper.GetIntProperty("TooManyRolesForPageSettings", 20); }
-	}
+	public static int TooManyRolesForPageSettings => ConfigHelper.GetIntProperty("TooManyRolesForPageSettings", 20);
 
-	public static int TooManyRolesForModuleSettings
-	{
-		get { return ConfigHelper.GetIntProperty("TooManyRolesForModuleSettings", 20); }
-	}
+	public static int TooManyRolesForModuleSettings => ConfigHelper.GetIntProperty("TooManyRolesForModuleSettings", 20);
 
-	public static int TooManyRolesForManageUserPage
-	{
-		get { return ConfigHelper.GetIntProperty("TooManyRolesForManageUserPage", 20); }
-	}
+	public static int TooManyRolesForManageUserPage => ConfigHelper.GetIntProperty("TooManyRolesForManageUserPage", 20);
 
-	public static int TooManyPagesForGridEvents
-	{
-		get { return ConfigHelper.GetIntProperty("TooManyPagesForGridEvents", 150); }
-	}
+	public static int TooManyPagesForGridEvents => ConfigHelper.GetIntProperty("TooManyPagesForGridEvents", 150);
 
 	/// <summary>
 	/// valid options: TitleOnly, SitePlusTitle, TitlePlusSite
@@ -4269,10 +2557,7 @@ public static class WebConfigSettings
 	/// <summary>
 	/// if true will process the cms page override title with the same format as used for autogenerated titles based on the page name and site name and format settings
 	/// </summary>
-	public static bool FormatOverridePageTitle
-	{
-		get { return ConfigHelper.GetBoolProperty("FormatOverridePageTitle", true); }
-	}
+	public static bool FormatOverridePageTitle => ConfigHelper.GetBoolProperty("FormatOverridePageTitle", true);
 
 	public static string VertigoSlideShowOverrideXmlConfigFile
 	{
@@ -4356,10 +2641,7 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static int BingSearchPageSize
-	{
-		get { return ConfigHelper.GetIntProperty("BingSearchPageSize", 30); }
-	}
+	public static int BingSearchPageSize => ConfigHelper.GetIntProperty("BingSearchPageSize", 30);
 
 	public static string BingApiUrl
 	{
@@ -4387,10 +2669,7 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool EnableGoogle404Enhancement
-	{
-		get { return ConfigHelper.GetBoolProperty("EnableGoogle404Enhancement", true); }
-	}
+	public static bool EnableGoogle404Enhancement => ConfigHelper.GetBoolProperty("EnableGoogle404Enhancement", true);
 
 	public static string ExtensionsToSkipIn404Handler
 	{
@@ -4405,10 +2684,7 @@ public static class WebConfigSettings
 		}
 	}
 
-	public static bool GoogleAnalyticsForceUniversal
-	{
-		get { return ConfigHelper.GetBoolProperty("GoogleAnalyticsForceUniversal", false); }
-	}
+	public static bool GoogleAnalyticsForceUniversal => ConfigHelper.GetBoolProperty("GoogleAnalyticsForceUniversal", false);
 
 	public static string GoogleAnalyticsRolesToExclude
 	{
@@ -4549,32 +2825,17 @@ public static class WebConfigSettings
 	/// in web.config form setup page if it detects the default machine key
 	/// false to prevent it form happening on every developer machine in main Web.config
 	/// </summary>
-	public static bool TryEnsureCustomMachineKeyOnSetup
-	{
-		get { return ConfigHelper.GetBoolProperty("TryEnsureCustomMachineKeyOnSetup", false); }
-	}
+	public static bool TryEnsureCustomMachineKeyOnSetup => ConfigHelper.GetBoolProperty("TryEnsureCustomMachineKeyOnSetup", false);
 
-	public static bool AllowUpdateCheck
-	{
-		get { return ConfigHelper.GetBoolProperty("AllowUpdateCheck", true); }
-	}
+	public static bool AllowUpdateCheck => ConfigHelper.GetBoolProperty("AllowUpdateCheck", true);
 
-	public static bool SecurityAdvisorLogTLSCheckResponse
-	{
-		get { return ConfigHelper.GetBoolProperty("SecurityAdvisorLogTLSCheckResponse", false); }
-	}
+	public static bool SecurityAdvisorLogTLSCheckResponse => ConfigHelper.GetBoolProperty("SecurityAdvisorLogTLSCheckResponse", false);
 
 	// Supported values are: MD5, SHA1, HMACSHA256, HMACSHA385, HMACSHA512
-	public static string MachineKeyValidationAlgorithm
-	{
-		get { return ConfigHelper.GetStringProperty("MachineKeyValidationAlgorithm", "HMACSHA256"); }
-	}
+	public static string MachineKeyValidationAlgorithm => ConfigHelper.GetStringProperty("MachineKeyValidationAlgorithm", "HMACSHA256");
 
 	// Supported values are: AES, DES, 3DES
-	public static string MachineKeyDecryptionAlgorithm
-	{
-		get { return ConfigHelper.GetStringProperty("MachineKeyDecryptionAlgorithm", "3DES"); }
-	}
+	public static string MachineKeyDecryptionAlgorithm => ConfigHelper.GetStringProperty("MachineKeyDecryptionAlgorithm", "3DES");
 
 	/// <summary>
 	/// calls to this method should be made inside a try catch log
