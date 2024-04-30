@@ -128,7 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="log4net">
-      <Version>2.0.15</Version>
+      <Version>2.0.17</Version>
     </PackageReference>
     <PackageReference Include="Mono.Data.Sqlite">
       <Version>1.0.61</Version>
