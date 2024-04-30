@@ -497,17 +497,14 @@ public static class WebConfigSettings
 	 */
 	public static bool HideAllMenusOnSiteClosedPage
 	{
-		get { return ConfigHelper.GetBoolProperty("HideAllMenusOnSiteClosedPage", true); }
+		get { return ConfigHelper.GetBoolProperty("HideAllMenusOnSiteClosedPage", false); }
 	}
 
-	public static bool HideMenusOnLoginPage
-	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnLoginPage", true); }
-	}
+	public static bool HideMenusOnLoginPage => ConfigHelper.GetBoolProperty("HideMenusOnLoginPage", false);
 
 	public static bool HideMenusOnSiteMap
 	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnSiteMap", true); }
+		get { return ConfigHelper.GetBoolProperty("HideMenusOnSiteMap", false); }
 	}
 
 	public static bool HidePageMenusOnSiteMap
@@ -517,17 +514,17 @@ public static class WebConfigSettings
 
 	public static bool HideMenusOnRegisterPage
 	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnRegisterPage", true); }
+		get { return ConfigHelper.GetBoolProperty("HideMenusOnRegisterPage", false); }
 	}
 
 	public static bool HideMenusOnPasswordRecoveryPage
 	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnPasswordRecoveryPage", true); }
+		get { return ConfigHelper.GetBoolProperty("HideMenusOnPasswordRecoveryPage", false); }
 	}
 
 	public static bool HideMenusOnChangePasswordPage
 	{
-		get { return ConfigHelper.GetBoolProperty("HideMenusOnChangePasswordPage", true); }
+		get { return ConfigHelper.GetBoolProperty("HideMenusOnChangePasswordPage", false); }
 	}
 
 	public static bool HideAllMenusOnProfilePage
@@ -552,7 +549,7 @@ public static class WebConfigSettings
 
 	public static bool SuppressMenuOnBuiltIn404Page
 	{
-		get { return ConfigHelper.GetBoolProperty("SuppressMenuOnBuiltIn404Page", true); }
+		get { return ConfigHelper.GetBoolProperty("SuppressMenuOnBuiltIn404Page", false); }
 	}
 
 	public static bool ShowForumPostsInMemberList
