@@ -1201,7 +1201,7 @@
     <Compile Include="Controls\Google\GoogleTranslatePanel.cs" />
     <Compile Include="Controls\Google\GoogleCustomSearchControl.cs" />
     <Compile Include="Controls\Google\LocationMap.cs" />
-    <Compile Include="Controls\Google\QRCodeImage.cs" />
+    <Compile Include="Controls\QRCodeImage.cs" />
     <Compile Include="Controls\Gravatar\Avatar.cs" />
     <Compile Include="Controls\Panels\jPlayerPanel.cs" />
     <Compile Include="Controls\jQuery\bxSlider.cs" />
