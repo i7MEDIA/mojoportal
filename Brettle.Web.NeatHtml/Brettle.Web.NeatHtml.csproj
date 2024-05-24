@@ -52,7 +52,6 @@
     <Compile Include="Filter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UntrustedContent.cs" />
-    <Compile Include="XssFilter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NeatHtml\NeatHtml.js" />

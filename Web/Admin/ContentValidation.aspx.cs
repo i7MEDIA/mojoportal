@@ -55,16 +55,16 @@ namespace mojoPortal.Web.AdminUI
 		
 		private void ShowInvalidContent(string tableName, string contentFieldName, string linkFormat, params string[] fieldNames)
 		{
-			string schemaFolder = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/NeatHtml/schema" );
-			string schemaFile = Path.Combine(schemaFolder, "NeatHtml.xsd");
+			//string schemaFolder = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/NeatHtml/schema" );
+			//string schemaFile = Path.Combine(schemaFolder, "NeatHtml.xsd");
 			
             //XssFilter filter = XssFilter.GetForSchema(schemaFile);
             Filter filter = Filter.DefaultFilter;
 				
 			DataTable dataTable = DatabaseHelper.GetTable(
-				this.txtConnectionString.Text,
+				txtConnectionString.Text,
 				tableName,
-				String.Empty);
+				string.Empty);
 			tableResults.BorderWidth = Unit.Pixel(1);
 			tableResults.BorderColor = Color.Black;
 			tableResults.BorderStyle = BorderStyle.Solid;
@@ -97,7 +97,7 @@ namespace mojoPortal.Web.AdminUI
 					contentCell.Controls.Add(new LiteralControl(String.Format(@"<span style=""color: #ff0000;"">{0}</span>:<br>{1}",
 			                         HttpUtility.HtmlEncode(ex.Message), HttpUtility.HtmlEncode(htmlString))));
 					tableRow.Cells.Add(contentCell);
-					this.tableResults.Rows.Add(tableRow);
+					tableResults.Rows.Add(tableRow);
 				}
 			}
 		}

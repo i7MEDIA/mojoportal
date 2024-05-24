@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using Brettle.Web.NeatHtml;
 using log4net;
 
 namespace mojoPortal.Web.Framework;
@@ -154,8 +155,6 @@ public static class SecurityHelper
 		regex.Append(")$/i");
 
 		return regex.ToString();
-
-
 	}
 
 	//http://www.codeproject.com/KB/aspnet/LengthValidation.aspx
@@ -179,7 +178,7 @@ public static class SecurityHelper
 	{
 		try
 		{
-			XssFilter filter = GetXssFilter();
+			Filter filter = GetXssFilter();
 
 			if (filter == null)
 			{
@@ -187,7 +186,7 @@ public static class SecurityHelper
 				return html.Replace("script", "s cript");
 			}
 
-			return filter.FilterFragment(html);
+			return filter.FilterUntrusted(html);
 		}
 		catch (Exception ex)
 		{
@@ -208,16 +207,15 @@ public static class SecurityHelper
 	{
 		try
 		{
-			XssFilter filter = GetXssFilter();
+			Filter filter = GetXssFilter();
 
 			if (filter == null)
 			{
-				log.Info("XssFilter was null");
-				//return html.Replace("script", "s cript");
+				log.Info("Filter was null");
 				return RemoveMarkup(html);
 			}
 
-			return filter.FilterFragment(html);
+			return filter.FilterUntrusted(html);
 		}
 		catch (Exception)
 		{
@@ -225,7 +223,7 @@ public static class SecurityHelper
 		}
 	}
 
-	private static XssFilter GetXssFilter()
+	private static Filter GetXssFilter()
 	{
 		if (HttpContext.Current == null) return null;
 
@@ -233,15 +231,16 @@ public static class SecurityHelper
 
 		if (HttpContext.Current.Items[key] != null)
 		{
-			return (XssFilter)HttpContext.Current.Items[key];
+			//return (XssFilter)HttpContext.Current.Items[key];
+			return (Filter)HttpContext.Current.Items[key];
 		}
 		else
 		{
-			string schemaFolder = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/NeatHtml/schema");
-			string schemaFile = Path.Combine(schemaFolder, "NeatHtml.xsd");
+			//string schemaFolder = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/NeatHtml/schema");
+			//string schemaFile = Path.Combine(schemaFolder, "NeatHtml.xsd");
 
-			XssFilter filter = XssFilter.GetForSchema(schemaFile);
-
+			//XssFilter filter = XssFilter.GetForSchema(schemaFile);
+			Filter filter = Filter.DefaultFilter;
 			HttpContext.Current.Items[key] = filter;
 
 			return filter;
