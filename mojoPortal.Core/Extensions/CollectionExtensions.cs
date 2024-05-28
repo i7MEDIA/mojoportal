@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 
 namespace mojoPortal.Core.Extensions;
 
@@ -23,5 +26,15 @@ public static class CollectionExtensions
 		}
 
 		return dict;
+	}
+		
+	public static string ToDelimitedString<Tkey, Tvalue>(this Dictionary<Tkey, Tvalue> dict, string kvpDelimiter = "=", string itemDelimiter = "&")
+	{
+		if (dict == null)
+		{
+			return string.Empty;
+		}
+
+		return string.Join(itemDelimiter, dict.Select(x => x.Key.ToString() + kvpDelimiter + x.Value.ToString()));
 	}
 }

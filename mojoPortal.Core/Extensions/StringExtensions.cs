@@ -114,7 +114,7 @@ public static class StringExtensions
 
 
 	/// <summary>
-	/// Evaluates the string and the argument (alt), returns the first one that is not null.
+	/// Evaluates the string and the argument (alt), returns the first one that is not null or whitespace.
 	/// </summary>
 	/// <param name="s"></param>
 	/// <param name="alt"></param>
