@@ -1,14 +1,10 @@
-﻿using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿namespace mojoPortal.Web.FeedUI;
 
-namespace mojoPortal.Web.FeedUI;
 
-/// <summary>
-/// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
-/// </summary>
-public class FeedManagerDisplaySettings : WebControl
+public class FeedManagerDisplaySettings : BasePluginDisplaySettings
 {
+	public FeedManagerDisplaySettings() : base() { }
+
 	public string DateFormat { get; set; } = string.Empty;
 	public bool DisableUseFeedListAsFilter { get; set; } = false;
 	public bool DisableShowAggregateFeedLink { get; set; } = false;
@@ -27,14 +23,4 @@ public class FeedManagerDisplaySettings : WebControl
 	public int OverridePageSize { get; set; } = 0;
 	public bool UseBottomNavForRight { get; set; } = false;
 	public bool UseUlForSingleColumn { get; set; } = true;
-
-
-	protected override void Render(HtmlTextWriter writer)
-	{
-		if (HttpContext.Current == null)
-		{
-			writer.Write("[" + ID + "]");
-			return;
-		}
-	}
 }

@@ -122,8 +122,6 @@ public static class WebConfigSettings
 
 	public static bool DebugWindowsLive => ConfigHelper.GetBoolProperty("DebugWindowsLive", false);
 
-	public static bool DebugDotLess => ConfigHelper.GetBoolProperty("DebugDotLess", false);
-
 	public static bool DebugPayPal => ConfigHelper.GetBoolProperty("DebugPayPal", false);
 
 	public static bool DebugLoginRedirect => ConfigHelper.GetBoolProperty("DebugLoginRedirect", false);
@@ -246,7 +244,7 @@ public static class WebConfigSettings
 	public static bool AddLangToHtmlElement => ConfigHelper.GetBoolProperty("AddLangToHtmlElement", true);
 
 	/*
-	 * Menu hiding options. As of version 2.8, these are in the <portal:CoreDisplaySettings /> 
+	 * Menu hiding options. As of version 2.9.1, these are in the skin/config/config.json file
 	 * control used in the theme.skin.
 	 */
 	public static bool HideAllMenusOnSiteClosedPage => ConfigHelper.GetBoolProperty("HideAllMenusOnSiteClosedPage", false);
@@ -427,6 +425,7 @@ public static class WebConfigSettings
 
 	public static bool UseAjaxFormActionUpdateScript => ConfigHelper.GetBoolProperty("UseAjaxFormActionUpdateScript", true);
 
+	[Obsolete("Never really used, remove it from your code.", true)]
 	public static bool CombineJavaScript => ConfigHelper.GetBoolProperty("CombineJavaScript", false);
 
 	public static string CKEditorSkin => ConfigHelper.GetStringProperty("CKEditor:Skin", "moono-lisa");
@@ -438,8 +437,6 @@ public static class WebConfigSettings
 	public static bool CKeditorEncodeBrackets => ConfigHelper.GetBoolProperty("CKeditor:EncodeBrackets", false);
 
 	public static bool UseSkinCssInEditor => ConfigHelper.GetBoolProperty("UseSkinCssInEditor", true);
-
-	public static string EditorCssUrlOverride => ConfigHelper.GetStringProperty("EditorCssUrlOverride", string.Empty);
 
 	/// <summary>
 	/// if you populate this setting it should start with a comma since it
@@ -533,8 +530,6 @@ public static class WebConfigSettings
 	public static bool CacheTimeZoneList => ConfigHelper.GetBoolProperty("CacheTimeZoneList", true);
 
 	public static bool DisableASPThemes => ConfigHelper.GetBoolProperty("DisableASPThemes", false);
-
-	public static bool UsingOlderSkins => ConfigHelper.GetBoolProperty("UsingOlderSkins", false);
 
 	public static bool MenusAreResponsibleForAddingCss => ConfigHelper.GetBoolProperty("MenusAreResponsibleForAddingCss", false);
 
@@ -1626,13 +1621,9 @@ public static class WebConfigSettings
 
 	public static bool WorkflowShowPublishForUnSubmittedDraft => ConfigHelper.GetBoolProperty("WorkflowShowPublishForUnSubmittedDraft", false);
 
-
-
 	public static bool Use3LevelContentWorkflow => ConfigHelper.GetBoolProperty("Use3LevelContentWorkflow", false);
 
 	public static string RolesAllowedToUseWorkflowAdminPages => ConfigHelper.GetStringProperty("RoleseAllowedToUseWorkflowAdminPages", string.Empty);
-
-	public static string RolesAllowedToUseTinyMCESpellChecker => ConfigHelper.GetStringProperty("RolesAllowedToUseTinyMCESpellChecker", "Authenticated Users");
 
 	public static bool PromptBeforeUnsubscribeNewsletter => ConfigHelper.GetBoolProperty("PromptBeforeUnsubscribeNewsletter", false);
 
@@ -1646,26 +1637,6 @@ public static class WebConfigSettings
 
 	public static bool DisableWoopraGlobally => ConfigHelper.GetBoolProperty("DisableWoopraGlobally", false);
 
-	public static bool UseOfficeFeature => ConfigHelper.GetBoolProperty("UseOfficeFeature", false);
-
-	public static bool UseSilverlightSiteOffice => ConfigHelper.GetBoolProperty("UseSilverlightSiteOffice", false);
-
-
-	public static bool AdaptEditorForMobile => ConfigHelper.GetBoolProperty("AdaptEditorForMobile", false);
-
-	public static bool ForceTextAreaEditorInMobile => ConfigHelper.GetBoolProperty("ForceTextAreaEditorInMobile", false);
-
-	public static bool ForceTinyMCEInSafari => ConfigHelper.GetBoolProperty("ForceTinyMCEInSafari", false);
-
-	public static bool ForceTinyMCEInOpera => ConfigHelper.GetBoolProperty("ForceTinyMCEInOpera", false);
-
-	public static bool ForcePlainTextInIphone => ConfigHelper.GetBoolProperty("ForcePlainTextInIphone", true);
-
-	public static bool ForcePlainTextInIpad => ConfigHelper.GetBoolProperty("ForcePlainTextInIpad", true);
-
-	public static bool ForcePlainTextInAndroid => ConfigHelper.GetBoolProperty("ForcePlainTextInAndroid", true);
-
-
 	public static bool MapAlternatePort => ConfigHelper.GetBoolProperty("MapAlternatePort", true);
 
 	public static bool MapAlternateSSLPort => ConfigHelper.GetBoolProperty("MapAlternateSSLPort", true);
@@ -1677,8 +1648,6 @@ public static class WebConfigSettings
 	public static int SearchResultsFragmentSize => ConfigHelper.GetIntProperty("SearchResultsFragmentSize", 500);
 
 	public static int SearchMaxClauseCount => ConfigHelper.GetIntProperty("SearchMaxClauseCount", 1024);
-
-
 
 	public static int ContentCatalogPageSize => ConfigHelper.GetIntProperty("ContentCatalogPageSize", 30);
 
@@ -1703,7 +1672,6 @@ public static class WebConfigSettings
 	public static bool AddSystemStyleTemplatesBelowSiteTemplates => ConfigHelper.GetBoolProperty("AddSystemStyleTemplatesBelowSiteTemplates", false);
 
 	public static int ContentRatingListPageSize => ConfigHelper.GetIntProperty("ContentRatingListPageSize", 30);
-
 
 	public static int MemberListPageSize => ConfigHelper.GetIntProperty("MemberListPageSize", 30);
 

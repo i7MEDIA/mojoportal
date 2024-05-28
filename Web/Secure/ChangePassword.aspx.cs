@@ -21,7 +21,7 @@ public partial class ChangePassword : NonCmsBasePage
 		Load += new EventHandler(Page_Load);
 		ChangePassword1.ChangedPassword += new EventHandler(ChangePassword1_ChangedPassword);
 
-		if (WebConfigSettings.HideMenusOnChangePasswordPage)
+		if (Global.SkinConfig.MenuOptions.HideOnChangePassword)
 		{
 			SuppressAllMenus();
 		}

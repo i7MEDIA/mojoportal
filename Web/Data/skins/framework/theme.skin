@@ -243,17 +243,6 @@
 />
 --%>
 
-<%-- Base Layout --%>
-
-<portal:LayoutDisplaySettings runat="server"
-	LeftSideNoRightSideCss="left-center"
-	RightSideNoLeftSideCss="right-center"
-	CenterNoLeftSideCss="col-md-9 center-right"
-	CenterNoRightSideCss="col-md-9 center-left"
-	CenterNoLeftOrRightSideCss="col-md-12 nomargins"
-	CenterWithLeftAndRightSideCss="col-md-6 center-left-right"
-/>
-
 <%-- Main Content Layout Panels --%>
 <portal:LayoutPanel runat="server" SkinID="TopPane"
 	Element="div"

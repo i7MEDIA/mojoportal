@@ -40,7 +40,7 @@ public class mojoBasePage : Page
 	protected bool IsChangePasswordPage = false;
 
 	public string MasterPageName = "layout.Master";
-	public CoreDisplaySettings DisplaySettings = new CoreDisplaySettings();
+	public CoreDisplaySettings DisplaySettings = new();
 
 
 	public ScriptLoader ScriptConfig
@@ -1952,26 +1952,7 @@ Sys.Application.add_load(function() {
 			menu.Visible = false;
 		}
 
-		menu = Master.FindControl("PageMenu1");
-
-		if (menu is not null)
-		{
-			menu.Visible = false;
-		}
-
-		menu = Master.FindControl("PageMenu2");
-
-		if (menu is not null)
-		{
-			menu.Visible = false;
-		}
-
-		menu = Master.FindControl("PageMenu3");
-
-		if (menu is not null)
-		{
-			menu.Visible = false;
-		}
+		SuppressPageMenu();
 	}
 
 	public void SuppressMenuSelection()

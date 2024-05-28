@@ -9,25 +9,14 @@ using Resources;
 
 namespace mojoPortal.Web.Editor;
 
-/// <summary>
-/// re-write as of 2013-07-24 to implement the new version 4.x of TinyMce
-/// instead of breaking the old one revived this one that was not being used and
-/// re-implemented it against TinyMCE 4.0.2
-/// </summary>
 public class TinyMceEditor : TextBox, ITinyMceSettings
 {
 
 	#region Configuration Properties
 
-	private string basePath = "/ClientScript/tinymce/";
 
-	public string BasePath
-	{
-		get { return basePath; }
-		set { basePath = value; }
-	}
+	public string BasePath { get; set; } = "/ClientScript/tinymce/";
 
-	private bool autoFocus = false;
 	/// <summary>
 	/// This option enables you to auto focus an editor instance. The 
 	/// value of this option should be an editor instance id. Editor 
@@ -36,32 +25,16 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// instances on a page, they would have the following 
 	/// ids - mce_editor_0, mce_editor_1 and mce_editor_2.
 	/// </summary>
-	public bool AutoFocus
-	{
-		get { return autoFocus; }
-		set { autoFocus = value; }
-	}
+	public bool AutoFocus { get; set; } = false;
 
-	private bool enableBrowserSpellCheck = true;
+	public bool EnableBrowserSpellCheck { get; set; } = true;
 
-	public bool EnableBrowserSpellCheck
-	{
-		get { return enableBrowserSpellCheck; }
-		set { enableBrowserSpellCheck = value; }
-	}
-
-	private bool autoLocalize = true;
 	/// <summary>
 	/// true by default sets the language according the culture of the executing server thread
 	/// set to false if you are setting the language property
 	/// </summary>
-	public bool AutoLocalize
-	{
-		get { return autoLocalize; }
-		set { autoLocalize = value; }
-	}
+	public bool AutoLocalize { get; set; } = true;
 
-	private string language = "en";
 	/// <summary>
 	/// This option should contain a language code of the language pack to 
 	/// use with TinyMCE. These codes are in ISO-639-1 format to see if 
@@ -69,38 +42,23 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// "tinymce/jscripts/tiny_mce/langs". The default value of this 
 	/// option is 'en'
 	/// </summary>
-	public string Language
-	{
-		get { return language; }
-		set { language = value; }
-	}
+	public string Language { get; set; } = "en";
 
-	private string textDirection = "ltr";
 	/// <summary>
 	/// This option specifies the default writing direction, some languages 
 	/// (Like Hebrew, Arabic, Urdu...) write from right to left instead 
 	/// of left to right. The default value of this option is "ltr" but 
 	/// if you want to use from right to left mode specify "rtl" instead.
 	/// </summary>
-	public string TextDirection
-	{
-		get { return textDirection; }
-		set { textDirection = value; }
-	}
+	public string TextDirection { get; set; } = "ltr";
 
-	private bool enableObjectResizing = true;
 	/// <summary>
 	/// This true/false option gives you the ability to turn on/off the 
 	/// inline resizing controls of tables and images in Firefox/Mozilla. 
 	/// These are enabled by default.
 	/// </summary>
-	public bool EnableObjectResizing
-	{
-		get { return enableObjectResizing; }
-		set { enableObjectResizing = value; }
-	}
+	public bool EnableObjectResizing { get; set; } = true;
 
-	private string plugins = string.Empty;
 	/// <summary>
 	/// This option should contain a comma separated list of plugins. Plugins 
 	/// are loaded from the "tinymce/jscripts/tiny_mce/plugins" directory, 
@@ -120,33 +78,18 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// one of your own, please contribute it to this project by uploading 
 	/// it to SourceForge.
 	/// </summary>
-	public string Plugins
-	{
-		get { return plugins; }
-		set { plugins = value; }
-	}
+	public string Plugins { get; set; } = string.Empty;
 
-	private string theme = "modern";
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:theme
 	/// </summary>
-	public string Theme
-	{
-		get { return theme; }
-		set { theme = value; }
-	}
+	public string Theme { get; set; } = "modern";
 
-	private string skin = "lightgray";
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:skin
 	/// </summary>
-	public string Skin
-	{
-		get { return skin; }
-		set { skin = value; }
-	}
+	public string Skin { get; set; } = "lightgray";
 
-	private int unDoLevels = -1;
 	/// <summary>
 	/// This option should contain the number of undo levels to keep in 
 	/// memory. This is set to -1 by default and such a value tells 
@@ -155,44 +98,24 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// be better.
 	/// http://www.tinymce.com/wiki.php/Configuration:custom_undo_redo_levels
 	/// </summary>
-	public int UnDoLevels
-	{
-		get { return unDoLevels; }
-		set { unDoLevels = value; }
-	}
+	public int UnDoLevels { get; set; } = -1;
 
-	private string styleFormats = string.Empty;
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:style_formats
 	/// 
 	/// </summary>
-	public string StyleFormats
-	{
-		get { return styleFormats; }
-		set { styleFormats = value; }
-	}
+	public string StyleFormats { get; set; } = string.Empty;
 
-	private bool disableMenuBar = false;
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:menubar
 	/// </summary>
-	public bool DisableMenuBar
-	{
-		get { return disableMenuBar; }
-		set { disableMenuBar = value; }
-	}
+	public bool DisableMenuBar { get; set; } = false;
 
-	private string menubar = "file edit insert view format table tools";
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:menubar
 	/// </summary>
-	public string Menubar
-	{
-		get { return menubar; }
-		set { menubar = value; }
-	}
+	public string Menubar { get; set; } = "file edit insert view format table tools";
 
-	private string toolbar1Buttons = "bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,formatselect,styleselect";
 	/// <summary>
 	/// This option should contain a comma separated list of button/control 
 	/// names to insert into the toolbar.  
@@ -206,13 +129,8 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// A list of possible options can be found here:
 	/// http://www.tinymce.com/wiki.php/Controls
 	/// </summary>
-	public string Toolbar1Buttons
-	{
-		get { return toolbar1Buttons; }
-		set { toolbar1Buttons = value; }
-	}
+	public string Toolbar1Buttons { get; set; } = "bold,italic,underline,strikethrough,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,formatselect,styleselect";
 
-	private string toolbar2Buttons = "bullist,numlist,separator,outdent,indent,separator,undo,redo,separator,link,unlink,anchor,image,cleanup,help,code";
 	/// <summary>
 	/// This option should contain a comma separated list of button/control 
 	/// names to insert into the toolbar.  
@@ -226,13 +144,8 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// A list of possible options can be found here:
 	/// http://www.tinymce.com/wiki.php/Controls
 	/// </summary>
-	public string Toolbar2Buttons
-	{
-		get { return toolbar2Buttons; }
-		set { toolbar2Buttons = value; }
-	}
+	public string Toolbar2Buttons { get; set; } = "bullist,numlist,separator,outdent,indent,separator,undo,redo,separator,link,unlink,anchor,image,cleanup,help,code";
 
-	private string toolbar3Buttons = string.Empty;
 	/// <summary>
 	/// This option should contain a comma separated list of button/control 
 	/// names to insert into the toolbar.  
@@ -246,13 +159,8 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// A list of possible options can be found here:
 	/// http://www.tinymce.com/wiki.php/Controls
 	/// </summary>
-	public string Toolbar3Buttons
-	{
-		get { return toolbar3Buttons; }
-		set { toolbar3Buttons = value; }
-	}
+	public string Toolbar3Buttons { get; set; } = string.Empty;
 
-	private string editorAreaCSS = string.Empty;
 	/// <summary>
 	/// This option enables you to specify a custom CSS file that extends 
 	/// the theme content CSS. This CSS file is the one used within the 
@@ -260,188 +168,84 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 	/// is within the current theme. This option can also be a comma 
 	/// separated list of URLs.
 	/// </summary>
-	public string EditorAreaCSS
-	{
-		get { return editorAreaCSS; }
-		set { editorAreaCSS = value; }
-	}
+	public string EditorAreaCSS { get; set; } = string.Empty;
 
-	private string editorBodyCssClass = "wysiwygeditor modulecontent art-postcontent";
-
-	public string EditorBodyCssClass
-	{
-		get { return editorBodyCssClass; }
-		set { editorBodyCssClass = value; }
-	}
-
-
-	private string templatesUrl = string.Empty;
+	public string EditorBodyCssClass { get; set; } = "wysiwygeditor modulecontent";
 
 	/// <summary>
 	/// JavaScript file containing an array of template files.
 	/// </summary>
-	public string TemplatesUrl
-	{
-		get { return templatesUrl; }
-		set { templatesUrl = value; }
-	}
-
-	private string emotionsBaseUrl = string.Empty;
+	public string TemplatesUrl { get; set; } = string.Empty;
 
 	/// <summary>
 	/// JavaScript file containing an array of template files.
 	/// </summary>
-	public string EmotionsBaseUrl
-	{
-		get { return emotionsBaseUrl; }
-		set { emotionsBaseUrl = value; }
-	}
+	public string EmotionsBaseUrl { get; set; } = string.Empty;
 
-	private string fileManagerUrl = string.Empty;
-	public string FileManagerUrl
-	{
-		get { return fileManagerUrl; }
-		set { fileManagerUrl = value; }
-	}
+	public string FileManagerUrl { get; set; } = string.Empty;
 
 	public string ImagesUploadUrl { get; set; } = string.Empty;
 
-	private string extendedValidElements = string.Empty;
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:extended_valid_elements
 	/// </summary>
-	public string ExtendedValidElements
-	{
-		get { return extendedValidElements; }
-		set { extendedValidElements = value; }
-	}
+	public string ExtendedValidElements { get; set; } = string.Empty;
 
-	private bool forcePasteAsPlainText = false;
+	public bool ForcePasteAsPlainText { get; set; } = false;
 
-	public bool ForcePasteAsPlainText
-	{
-		get { return forcePasteAsPlainText; }
-		set { forcePasteAsPlainText = value; }
-	}
-
-	private bool convertUrls = false;
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:convert_urls
 	/// </summary>
-	public bool ConvertUrls
-	{
-		get { return convertUrls; }
-		set { convertUrls = value; }
-	}
+	public bool ConvertUrls { get; set; } = false;
 
-	private bool inline = false;
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:inline
 	/// </summary>
-	public bool Inline
-	{
-		get { return inline; }
-		set { inline = value; }
-	}
+	public bool Inline { get; set; } = false;
 
 	private bool noWrap = false;
+
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Configuration:nowrap
 	/// </summary>
 	public bool NoWrap
 	{
 		get { return noWrap; }
-		set { inline = noWrap; }
+		set { Inline = noWrap; }
 	}
 
-	private string removedMenuItems = "newdocument,print";
 	/// <summary>
 	/// http://www.tinymce.com/forum/viewtopic.php?id=30954
 	/// </summary>
-	public string RemovedMenuItems
-	{
-		get { return removedMenuItems; }
-		set { removedMenuItems = value; }
-	}
+	public string RemovedMenuItems { get; set; } = "newdocument,print";
 
-	private int fileDialogHeight = 700;
+	public int FileDialogHeight { get; set; } = 700;
 
-	public int FileDialogHeight
-	{
-		get { return fileDialogHeight; }
-		set { fileDialogHeight = value; }
-	}
+	public int FileDialogWidth { get; set; } = 860;
 
-	private int fileDialogWidth = 860;
-
-	public int FileDialogWidth
-	{
-		get { return fileDialogWidth; }
-		set { fileDialogWidth = value; }
-	}
-
-	private bool enableImageAdvancedTab = false;
 	/// <summary>
 	/// this tab encourages creation of hard coded inline styles
 	/// </summary>
-	public bool EnableImageAdvancedTab
-	{
-		get { return enableImageAdvancedTab; }
-		set { enableImageAdvancedTab = value; }
-	}
+	public bool EnableImageAdvancedTab { get; set; } = false;
 
-	private bool showStatusbar = true;
+	public bool ShowStatusbar { get; set; } = true;
 
-	public bool ShowStatusbar
-	{
-		get { return showStatusbar; }
-		set { showStatusbar = value; }
-	}
-
-	private string customToolbarElementClientId = string.Empty;
 	/// <summary>
 	/// maps to fixed_toolbar_container
 	/// http://www.tinymce.com/wiki.php/Configuration:fixed_toolbar_container
 	/// </summary>
-	public string CustomToolbarElementClientId
-	{
-		get { return customToolbarElementClientId; }
-		set { customToolbarElementClientId = value; }
-	}
+	public string CustomToolbarElementClientId { get; set; } = string.Empty;
 
-	private string globarVarToAssignEditor = string.Empty;
+	public string GlobarVarToAssignEditor { get; set; } = string.Empty;
 
-	public string GlobarVarToAssignEditor
-	{
-		get { return globarVarToAssignEditor; }
-		set { globarVarToAssignEditor = value; }
-	}
-
-	private string onSaveCallback = string.Empty;
 	/// <summary>
 	/// http://www.tinymce.com/wiki.php/Plugin:save
 	/// </summary>
-	public string OnSaveCallback
-	{
-		get { return onSaveCallback; }
-		set { onSaveCallback = value; }
-	}
+	public string OnSaveCallback { get; set; } = string.Empty;
 
-	private bool saveEnableWhenDirty = true;
+	public bool SaveEnableWhenDirty { get; set; } = true;
 
-	public bool SaveEnableWhenDirty
-	{
-		get { return saveEnableWhenDirty; }
-		set { saveEnableWhenDirty = value; }
-	}
-
-	private bool promptOnNavigationWithUnsavedChanges = true;
-
-	public bool PromptOnNavigationWithUnsavedChanges
-	{
-		get { return promptOnNavigationWithUnsavedChanges; }
-		set { promptOnNavigationWithUnsavedChanges = value; }
-	}
+	public bool PromptOnNavigationWithUnsavedChanges { get; set; } = true;
 
 	#endregion
 
@@ -451,7 +255,7 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 		//Page.EnableViewState = true;
 		//this.EnableViewState = true;
 		TextMode = TextBoxMode.MultiLine;
-		basePath = WebConfigSettings.TinyMceBasePath;
+		BasePath = WebConfigSettings.TinyMceBasePath;
 	}
 
 	protected override void OnPreRender(EventArgs e)
@@ -465,7 +269,7 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 		Page.ClientScript.RegisterClientScriptBlock(
 			GetType(),
 			"tinymcemain",
-			"<script data-loader=\"TinyMCE\" src=\"" + ResolveUrl(BasePath + "tinymce.min.js") + "\"></script>"
+			$"<script data-loader=\"TinyMCE\" src=\"{ResolveUrl(BasePath + "tinymce.min.js")}\"></script>"
 		);
 
 		StringBuilder script = new StringBuilder();
@@ -491,8 +295,10 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 
 	public static void BuildScript(StringBuilder script, ITinyMceSettings config, string targetClientId, Unit width, Unit height)
 	{
-		if (script == null) { return; }
-		if (config == null) { return; }
+		if (script == null || config == null)
+		{
+			return;
+		}
 
 		script.Append("tinymce.init({");
 
@@ -501,18 +307,18 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 			script.Append("inline:true,");
 		}
 
-		script.Append("selector:\"#" + targetClientId + "\"");
+		script.Append($"selector:\"#{targetClientId}\"");
 
 		//http://www.tinymce.com/wiki.php/Configuration
 
 		if (width != Unit.Empty)
 		{
-			script.Append(",width:\"" + width.ToString() + "\"");
+			script.Append($",width:\"{width}\"");
 		}
 
 		if (height != Unit.Empty)
 		{
-			script.Append(",height: \"" + height.ToString() + "\"");
+			script.Append($",height: \"{height}\"");
 		}
 
 		if (!config.ConvertUrls)
@@ -531,7 +337,7 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 		}
 		else
 		{
-			script.Append(",menubar:'" + config.Menubar + "'");
+			script.Append($",menubar:'{config.Menubar}'");
 		}
 
 		if ((!config.ShowStatusbar) || (config.Inline))
@@ -546,14 +352,14 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 
 		if (config.RemovedMenuItems.Length > 0)
 		{
-			script.Append(",removed_menuitems: '" + config.RemovedMenuItems + "'");
+			script.Append($",removed_menuitems: '{config.RemovedMenuItems}'");
 		}
 
 		script.Append(",schema:'html5'");
 
 		if (config.CustomToolbarElementClientId.Length > 0)
 		{
-			script.Append(",fixed_toolbar_container:'" + config.CustomToolbarElementClientId + "'");
+			script.Append($",fixed_toolbar_container:'{config.CustomToolbarElementClientId}'");
 		}
 
 		if (config.EnableBrowserSpellCheck)
@@ -718,7 +524,7 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 			if (!config.Plugins.Contains("autosave,"))
 			{
 				script.Append("editor.on('change', function(e) {");
-				script.Append("hookupGoodbyePrompt(\"" + Resource.UnSavedChangesPrompt.HtmlEscapeQuotes().RemoveLineBreaks() + "\"); ");
+				script.Append($"hookupGoodbyePrompt(\"{Resource.UnSavedChangesPrompt.HtmlEscapeQuotes().RemoveLineBreaks()}\"); ");
 				script.Append("});");
 			}
 		}
@@ -732,146 +538,22 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 		// a list of supported languages can be found here:
 		// http://jquery-ui.googlecode.com/svn/trunk/ui/i18n/
 
-		switch (cultureName)
+		return cultureName switch
 		{
-
-			case "bg-BG":
-			case "de-AT":
-			case "en-CA":
-			case "en-GB":
-			case "fr-FR":
-			case "he-IL":
-			case "hu-HU":
-			case "ka-GE":
-			case "ko-KR":
-			case "nb-NO":
-			case "pt-BR":
-			case "pt-PT":
-			case "sl-SL":
-			case "sv-SE":
-			case "ta-IN":
-			case "th-TH":
-			case "tr-TR":
-			case "uk-UA":
-			case "vi-VN":
-			case "zh-CN":
-			case "zh-TW":
-				return cultureName.Replace("-", "_");
-		}
-
-		switch (cultureCode)
-		{
-			case "fr":
-				return "fr_FR";
-
-			case "he":
-				return "he_IL";
-
-			case "hu":
-				return "hu_HU";
-
-			case "ka":
-				return "ka_GE";
-
-			case "ko":
-				return "ko_KR";
-
-			case "pt":
-				return "pt_PT";
-
-			case "tr":
-				return "tr_TR";
-
-			//case "af":
-			case "ar":
-			//case "az":
-			case "bg":
-			//case "bs":
-			case "ca":
-			case "cs":
-			case "cy":
-			case "da":
-			case "de":
-			case "el":
-			// case "eo":
-			case "es":
-			//case "et":
-			//case "eu":
-			case "fa":
-			case "fi":
-			case "fo":
-
-			case "hr":
-
-			case "hy":
-			case "id":
-			//case "is":
-			case "it":
-			case "ja":
-
-			//case "lt":
-			//case "lv":
-			//case "ms":
-			case "nl":
-			//case "no":
-			case "pl":
-
-			case "ro":
-			case "ru":
-			case "sk":
-			case "sl":
-			//case "sq":
-			case "sr":
-			case "sv":
-			case "ta":
-
-			case "uk":
-			case "vi":
-				return cultureCode;
-
-			default:
-				//return "en";
-				return cultureCode;
-		}
+			"bg-BG" or "de-AT" or "en-CA" or "en-GB" or "fr-FR" or "he-IL" or "hu-HU" or "ka-GE" or "ko-KR" or "nb-NO" or "pt-BR" or "pt-PT" or "sl-SL" or "sv-SE" or "ta-IN" or "th-TH" or "tr-TR" or "uk-UA" or "vi-VN" or "zh-CN" or "zh-TW" => cultureName.Replace("-", "_"),
+			_ => cultureCode switch
+			{
+				"fr" => "fr_FR",
+				"he" => "he_IL",
+				"hu" => "hu_HU",
+				"ka" => "ka_GE",
+				"ko" => "ko_KR",
+				"pt" => "pt_PT",
+				"tr" => "tr_TR",
+				//case "af":
+				"ar" or "bg" or "ca" or "cs" or "cy" or "da" or "de" or "el" or "es" or "fa" or "fi" or "fo" or "hr" or "hy" or "id" or "it" or "ja" or "nl" or "pl" or "ro" or "ru" or "sk" or "sl" or "sr" or "sv" or "ta" or "uk" or "vi" => cultureCode,
+				_ => cultureCode,//return "en";
+			},
+		};
 	}
-
-	//    private void SetupFileBrowserScript()
-	//    {
-	//        //http://www.tinymce.com/forum/viewtopic.php?pid=108477#p108477
-	//        //http://www.tinymce.com/wiki.php/Tutorials:Creating_custom_dialogs
-
-	//        StringBuilder script = new StringBuilder();
-	//        script.Append("\n<script type=\"text/javascript\">");
-
-	//        //string fileManagerUrl = SiteUtils.GetNavigationSiteRoot() + "/Dialog/MCEFileDialog.aspx";
-
-	//        script.Append("var serviceUrl = '" + fileManagerUrl + "'; ");
-	//        script.Append("function myFileBrowser (field_name, url, type, win) {");
-	//        //script.Append("alert(type);");
-	//        script.Append("tinyMCE.activeEditor.windowManager.open({");
-	//        //script.Append("file : serviceUrl + '?ed=tmc&type=' + type, ");
-	//        script.Append("file : serviceUrl + '?ed=tmc&type=' + type, ");
-	//        script.Append("title : '" + Resource.FileBrowser.HtmlEscapeQuotes() + "', ");
-	//        script.Append("width : 860,");
-	//        script.Append("height : 700,");
-	//        script.Append("resizable : 'yes',");
-	//        script.Append("inline : 'yes',");
-	//        script.Append(" close_previous : 'no'");
-	//        script.Append("}, {");
-	//        script.Append("window : win,");
-	//        script.Append("input : field_name");
-	//        script.Append(",oninsert: function(url) {win.document.getElementById(field_name).value = url;}");
-	//        script.Append("}); ");
-	//        script.Append("return false;");
-	//        script.Append("}");
-	//        script.Append("\n</script>");
-
-	//        ScriptManager.RegisterClientScriptBlock(
-	//            this,
-	//            typeof(Page),
-	//            "tmcfb",
-	//            script.ToString(),
-	//            false
-	//		);
-	//    }
 }

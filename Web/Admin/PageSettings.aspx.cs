@@ -1881,7 +1881,7 @@ namespace mojoPortal.Web.AdminUI
 			pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
 			startPageId = WebUtils.ParseInt32FromQueryString("start", -1);
 			currentUser = SiteUtils.GetCurrentSiteUser();
-			divIsClickable.Visible = Global.SkinConfig.Menu.UnclickableLinks || StyleCombiner.EnableNonClickablePageLinks;
+			divIsClickable.Visible = Global.SkinConfig.MenuOptions.UnclickableLinks || StyleCombiner.EnableNonClickablePageLinks;
 			ScriptConfig.IncludeColorBox = true;
 			timeZone = SiteUtils.GetUserTimeZone();
 			
@@ -1913,8 +1913,8 @@ namespace mojoPortal.Web.AdminUI
 			litLinkSpacer2.Text = displaySettings.AdminLinkSeparator;
 
 
-			divMenuDesc.Visible = Global.SkinConfig.Menu.UseDescriptions || displaySettings.ShowMenuDescription;
-			divMenuImage.Visible = Global.SkinConfig.Menu.UseImages || displaySettings.ShowMenuImage;
+			divMenuDesc.Visible = Global.SkinConfig.MenuOptions.UseDescriptions || displaySettings.ShowMenuDescription;
+			divMenuImage.Visible = Global.SkinConfig.MenuOptions.UseImages || displaySettings.ShowMenuImage;
 
 			SkinSetting.Enabled = WebUser.IsInRoles(siteSettings.RolesThatCanAssignSkinsToPages) || isSiteEditor || isAdminOrContentAdmin;
 

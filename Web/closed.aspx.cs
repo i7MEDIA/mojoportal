@@ -26,7 +26,7 @@ public partial class ClosedPage : NonCmsBasePage
 		base.OnInit(e);
 		this.Load += new EventHandler(this.Page_Load);
 
-		if (WebConfigSettings.HideAllMenusOnSiteClosedPage)
+		if (Global.SkinConfig.MenuOptions.HideOnSiteClosed)
 		{
 			SuppressAllMenus();
 		}

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -113,23 +114,41 @@ public class layout : MasterPage
 
 		if (!useArtisteer3)
 		{
-			Control l = FindControl("LayoutDisplaySettings1");
-
-			if (l is not null && l is LayoutDisplaySettings)
+			if (Global.SkinConfig.Panels.Count > 0)
 			{
-				LayoutDisplaySettings layoutSettings = l as LayoutDisplaySettings;
-				leftSideNoRightSideCss = layoutSettings.LeftSideNoRightSideCss;
-				rightSideNoLeftSideCss = layoutSettings.RightSideNoLeftSideCss;
-				leftAndRightNoCenterCss = layoutSettings.LeftAndRightNoCenterCss;
-				leftOnlyCss = layoutSettings.LeftOnlyCss;
-				rightOnlyCss = layoutSettings.RightOnlyCss;
-				centerNoLeftSideCss = layoutSettings.CenterNoLeftSideCss;
-				centerNoRightSideCss = layoutSettings.CenterNoRightSideCss;
-				centerNoLeftOrRightSideCss = layoutSettings.CenterNoLeftOrRightSideCss;
-				centerWithLeftAndRightSideCss = layoutSettings.CenterWithLeftAndRightSideCss;
-				emptyCenterCss = layoutSettings.EmptyCenterCss;
-				hideEmptyCenterIfOnlySidesHaveContent = layoutSettings.HideEmptyCenterIfOnlySidesHaveContent;
-			}
+				var panelOptions = Global.SkinConfig.Panels;
+				leftSideNoRightSideCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "leftsidenorightsidecss").Class;
+				rightSideNoLeftSideCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "rightsidenoleftsidecss").Class;
+				leftAndRightNoCenterCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "leftandrightnocentercss").Class;
+				leftOnlyCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "leftonlycss").Class;
+				rightOnlyCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "rightonlycss").Class;
+				centerNoLeftSideCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "centernoleftsidecss").Class;
+				centerNoRightSideCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "centernorightsidecss").Class;
+				centerNoLeftOrRightSideCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "centernoleftorrightsidecss").Class;
+				centerWithLeftAndRightSideCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "centerwithleftandrightsidecss").Class;
+				emptyCenterCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "emptycentercss").Class;
+				hideEmptyCenterIfOnlySidesHaveContent = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "hideemptycenterifonlysideshavecontent").Bool;
+			} 
+			else
+			{
+				Control l = FindControl("LayoutDisplaySettings1");
+
+				if (l is not null && l is LayoutDisplaySettings)
+				{
+					LayoutDisplaySettings layoutSettings = l as LayoutDisplaySettings;
+					leftSideNoRightSideCss = layoutSettings.LeftSideNoRightSideCss;
+					rightSideNoLeftSideCss = layoutSettings.RightSideNoLeftSideCss;
+					leftAndRightNoCenterCss = layoutSettings.LeftAndRightNoCenterCss;
+					leftOnlyCss = layoutSettings.LeftOnlyCss;
+					rightOnlyCss = layoutSettings.RightOnlyCss;
+					centerNoLeftSideCss = layoutSettings.CenterNoLeftSideCss;
+					centerNoRightSideCss = layoutSettings.CenterNoRightSideCss;
+					centerNoLeftOrRightSideCss = layoutSettings.CenterNoLeftOrRightSideCss;
+					centerWithLeftAndRightSideCss = layoutSettings.CenterWithLeftAndRightSideCss;
+					emptyCenterCss = layoutSettings.EmptyCenterCss;
+					hideEmptyCenterIfOnlySidesHaveContent = layoutSettings.HideEmptyCenterIfOnlySidesHaveContent;
+				}
+			}			
 		}
 
 		SetupLayout();

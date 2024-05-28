@@ -27,7 +27,7 @@ public partial class RecoverPassword : NonCmsBasePage
 		PasswordRecovery1.SendingMail += new MailMessageEventHandler(PasswordRecovery1_SendingMail);
 		PasswordRecovery1.SendMailError += new SendMailErrorEventHandler(PasswordRecovery1_SendMailError);
 
-		if (WebConfigSettings.HideMenusOnPasswordRecoveryPage)
+		if (Global.SkinConfig.MenuOptions.HideOnPasswordRecovery)
 		{
 			SuppressAllMenus();
 		}

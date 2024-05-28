@@ -506,7 +506,7 @@ TimeZone: {claim.TimeZone}<br />";
 		OpenIdLogin1.RequestBirthDate = DemandLevel.Request;
 		OpenIdLogin1.EnableRequestProfile = true;
 
-		if (WebConfigSettings.HideMenusOnRegisterPage)
+		if (Global.SkinConfig.MenuOptions.HideOnRegister)
 		{
 			SuppressAllMenus();
 		}

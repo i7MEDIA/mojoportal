@@ -4,24 +4,18 @@ using System.Web.UI.WebControls;
 namespace mojoPortal.Web.UI;
 
 /// <summary>
-/// This control can be added to your layout.master file just inside the body element
-/// <portal:LayoutDisplaySettings ID="LayoutDisplaySettings1" runat="server" />
-/// it must have the exact id shown above 
-/// then you can override the css classes used for column layout from theme.skin 
-/// 
-/// <portal:LayoutDisplaySettings runat="server"
-/// 	LeftSideNoRightSideCss="left-center"
-/// 	RightSideNoLeftSideCss="right-center"
-/// 	CenterNoLeftSideCss="col-md-9 center-right"
-/// 	CenterNoRightSideCss="col-md-9 center-left"
-/// 	CenterNoLeftOrRightSideCss="col-md-12 nomargins"
-/// 	CenterWithLeftAndRightSideCss="col-md-6 center-left-right"
-/// />
-/// 
+/// You can modify these settings from the /config/config.json file of your skin
 /// See the framework skin for an example skin using this
 /// </summary>
 public class LayoutDisplaySettings : WebControl
 {
+
+	//public override string FeatureName => "Core";
+	//private Type type => GetType();
+	//public override string SubFeatureName => GetType().Name.Replace("DisplaySettings", string.Empty);
+
+	//public LayoutDisplaySettings() : base() { }
+
 	/// <summary>
 	/// css class(es) assigned to divLeft when only left and center are used
 	/// replaces default classes on divLeft when only left and center are used
@@ -90,8 +84,9 @@ public class LayoutDisplaySettings : WebControl
 	/// </summary>
 	public bool HideEmptyCenterIfOnlySidesHaveContent { get; set; } = false;
 
+
 	protected override void Render(HtmlTextWriter writer)
-    {
-        // nothing to render this is just used as a property bag that can be configured from theme.skin
-    }
+	{
+		// nothing to render
+	}
 }

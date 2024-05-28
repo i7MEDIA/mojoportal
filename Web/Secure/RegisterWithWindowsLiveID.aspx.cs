@@ -40,7 +40,7 @@ public partial class RegisterWithWindowsLiveId : NonCmsBasePage
 		AppendQueryStringToAction = false;
 		btnCreateUser.Click += new EventHandler(btnCreateUser_Click);
 		//SuppressPageMenu();
-		if (WebConfigSettings.HideMenusOnRegisterPage) { SuppressAllMenus(); }
+		if (Global.SkinConfig.MenuOptions.HideOnRegister) { SuppressAllMenus(); }
 
 		HookupRegistrationEventHandlers();
 	}

@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -6,10 +7,12 @@ using System.Linq;
 using System.Web;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Configuration;
 using mojoPortal.Web.Controls.Editors;
+using mojoPortal.Web.Editor;
 using Newtonsoft.Json;
 
-namespace mojoPortal.Web.Components;
+namespace mojoPortal.Web;
 
 public class SkinConfig
 {
@@ -22,12 +25,27 @@ public class SkinConfig
 	public string ModalTemplatePath { get; set; } = "~/Content/Templates/mojoModal.html";
 	public string ModalScriptPath { get; set; } = "~/ClientScript/mojoModalScript.js";
 	public string CompatibleWith { get; set; } = "n/a";
-	public MenuOptions Menu { get; set; } = new MenuOptions();
-	public MenuOptions PageMenu { get; set; } = new MenuOptions();
+	public string RuntimeNotes { get; set; } = string.Empty;
+	public Display Display { get; set; } = new Display();
+	public MenuOptions MenuOptions { get; set; } = new MenuOptions();
+	public MenuOptions PageMenuOptions { get; set; } = new MenuOptions();
 	public List<SkinContentTemplate> Templates { get; set; } = [];
 	public List<EditorStyle> EditorStyles { get; set; } = [];
-	public List<PanelOption> PanelOptions { get; set; } = [];
+	public Dictionary<string, EditorConfig> EditorConfig { get; set; } = new(StringComparer.InvariantCultureIgnoreCase);
+	public List<PanelOption> Panels { get; set; } = [];
+	public ConcurrentDictionary<string, dynamic> DisplaySettings { get; set; } = [];
 }
+
+public class Display
+{
+	public bool ShowSkinSearchInputOnSearchResults { get; set; } = WebConfigSettings.ShowSkinSearchInputOnSearchResults;
+	public bool ShowSearchInputOnSiteSettings { get; set; } = WebConfigSettings.ShowSearchInputOnSiteSettings;
+	public bool ShowModuleTitlesByDefault { get; set; } = WebConfigSettings.ShowModuleTitlesByDefault;
+	public bool EnableEditingModuleTitleElement { get; set; } = WebConfigSettings.EnableEditingModuleTitleElement;
+	public string ModuleTitleTag { get; set; } = WebConfigSettings.ModuleTitleTag;
+
+}
+
 public class SkinContentTemplate
 {
 	public string SysName { get; set; }
@@ -47,6 +65,7 @@ public class PanelOption
 {
 	public string Name { get; set; }
 	public string @Class { get; set; }
+	public bool @Bool { get; set; }
 }
 
 public class MenuOptions
@@ -57,26 +76,28 @@ public class MenuOptions
 
 	public bool UnclickableLinks { get; set; }
 
-	//public bool HideOnSiteClosed { get; set; } = WebConfigSettings.HideAllMenusOnSiteClosedPage;
+	public bool HideOn404 { get; set; } = WebConfigSettings.SuppressMenuOnBuiltIn404Page;
 
-	//public bool HideOnLogin { get; set; } = WebConfigSettings.HideMenusOnLoginPage;
+	public bool HideOnSiteClosed { get; set; } = WebConfigSettings.HideAllMenusOnSiteClosedPage;
 
-	//public bool HideOnSiteMap { get; set; } = WebConfigSettings.HideMenusOnSiteMap;
+	public bool HideOnLogin { get; set; } = WebConfigSettings.HideMenusOnLoginPage;
 
-	//public bool HideOnRegister { get; set; } = WebConfigSettings.HideMenusOnRegisterPage;
+	public bool HideOnSiteMap { get; set; } = WebConfigSettings.HideMenusOnSiteMap;
 
-	//public bool HideOnPasswordRecovery { get; set; } = WebConfigSettings.HideMenusOnPasswordRecoveryPage;
+	public bool HideOnRegister { get; set; } = WebConfigSettings.HideMenusOnRegisterPage;
 
-	//public bool HideOnChangePassword { get; set; } = WebConfigSettings.HideMenusOnChangePasswordPage;
+	public bool HideOnPasswordRecovery { get; set; } = WebConfigSettings.HideMenusOnPasswordRecoveryPage;
 
-	//public bool HideOnProfile { get; set; } = WebConfigSettings.HideAllMenusOnProfilePage;
+	public bool HideOnChangePassword { get; set; } = WebConfigSettings.HideMenusOnChangePasswordPage;
 
-	//public bool HideOnMemberList { get; set; } = WebConfigSettings.HidePageMenuOnMemberListPage;
+	public bool HideOnProfile { get; set; } = WebConfigSettings.HideAllMenusOnProfilePage;
+
+	public bool HideOnMemberList { get; set; } = WebConfigSettings.HidePageMenuOnMemberListPage;
 }
 
 public class SkinConfigManager
 {
-	private ConcurrentDictionary<string, SkinConfig> configs = [];
+	private readonly ConcurrentDictionary<string, SkinConfig> configs = [];
 
 	/// <summary>
 	/// Called from global.asax. Should not be called from anywhere else
@@ -85,6 +106,8 @@ public class SkinConfigManager
 	{
 		ensureSkinConfig();
 	}
+
+
 	/// <summary>
 	/// Called from global.asax. Should not be called from anywhere else
 	/// </summary>
@@ -100,10 +123,57 @@ public class SkinConfigManager
 		return configs[skinName];
 	}
 
+
 	public void RefreshSkinConfig(string skinName)
 	{
 		configs.AddOrUpdate(skinName, getSkinConfig(skinName), (key, oldValue) => getSkinConfig(skinName));
 	}
+
+
+	public void ClearAll()
+	{
+		configs.Clear();
+		ensureSkinConfig();
+	}
+
+
+	public dynamic GetDisplaySettings(string skinName, string displaySettingsName)
+	{
+		var config = configs[skinName];
+
+		if (config == null)
+		{
+			getSkinConfig(skinName);
+		}
+
+		config = configs[skinName];
+
+		if (config != null)
+		{
+			if (config.DisplaySettings.ContainsKey(displaySettingsName))
+			{
+				return config.DisplaySettings[displaySettingsName];
+			}
+		}
+
+		return null;
+	}
+
+
+	public object SetDisplaySettings(string skinName, string displaySettingsName, object displaySettings)
+	{
+		var config = configs[skinName];
+
+		if (config == null)
+		{
+			getSkinConfig(skinName);
+		}
+
+		config = configs[skinName];
+
+		return config.DisplaySettings.AddOrUpdate(displaySettingsName, displaySettings, (key, oldvalue) => displaySettings);
+	}
+
 
 	private void ensureSkinConfig()
 	{
@@ -114,25 +184,19 @@ public class SkinConfigManager
 		}
 	}
 
-	public void ClearAll()
-	{
-		configs.Clear();
-		ensureSkinConfig();
-	}
-
 	private SkinConfig getSkinConfig(string skinName)
 	{
 		var siteSettings = CacheHelper.GetCurrentSiteSettings();
 		var skinConfig = new SkinConfig();
-
+		var defaultSkinConfig = new SkinConfig();
 		if (siteSettings is null)
 		{
 			return skinConfig;
 		}
 
-		string skinUrlPath = SiteUtils.DetermineSkinBaseUrl(skinName);
+		var skinUrlPath = SiteUtils.DetermineSkinBaseUrl(skinName);
 
-		string configFilePath = HttpContext.Current.Server.MapPath($"{skinUrlPath}/config/config.json");
+		var configFilePath = HttpContext.Current.Server.MapPath($"{skinUrlPath}/config/config.json");
 		var configFile = new FileInfo(configFilePath);
 
 		if (configFile.Exists)
@@ -140,9 +204,9 @@ public class SkinConfigManager
 			var content = File.ReadAllText(configFile.FullName);
 
 			skinConfig = JsonConvert.DeserializeObject<SkinConfig>(content);
-			skinConfig.HelpLinkScriptPath = resolveFilePath(skinConfig.HelpLinkScriptPath, skinUrlPath);
-			skinConfig.ModalScriptPath = resolveFilePath(skinConfig.ModalScriptPath, skinUrlPath);
-			skinConfig.ModalTemplatePath = resolveFilePath(skinConfig.ModalTemplatePath, skinUrlPath);
+			skinConfig.HelpLinkScriptPath = resolveFilePath(skinConfig, skinConfig.HelpLinkScriptPath, skinUrlPath, defaultSkinConfig.HelpLinkScriptPath);
+			skinConfig.ModalScriptPath = resolveFilePath(skinConfig, skinConfig.ModalScriptPath, skinUrlPath, defaultSkinConfig.ModalScriptPath);
+			skinConfig.ModalTemplatePath = resolveFilePath(skinConfig, skinConfig.ModalTemplatePath, skinUrlPath, defaultSkinConfig.ModalTemplatePath);
 		}
 		else
 		{
@@ -150,6 +214,16 @@ public class SkinConfigManager
 			skinConfig.ModalScriptPath = VirtualPathUtility.ToAbsolute(skinConfig.ModalScriptPath);
 			skinConfig.ModalTemplatePath = VirtualPathUtility.ToAbsolute(skinConfig.ModalTemplatePath);
 		}
+
+		#region Editor Config
+
+		foreach (var conf in skinConfig.EditorConfig.Values)
+		{
+			conf.ConfigPath = resolveFilePath(skinConfig, conf.ConfigPath, skinUrlPath);
+			conf.CssPath = resolveFilePath(skinConfig, conf.CssPath, skinUrlPath);
+		}
+
+		#endregion
 
 		#region Editor Styles
 		var editorStylesFile = new FileInfo(HttpContext.Current.Server.MapPath($"{skinUrlPath}/config/editorstyles.json"));
@@ -198,13 +272,25 @@ public class SkinConfigManager
 		return skinConfig;
 	}
 
-	private string resolveFilePath(string path, string skinUrlPath)
+	private string resolveFilePath(SkinConfig skinConfig, string path, string skinUrlPath, string defaultIfNotExists = "")
 	{
+		string returnVal = defaultIfNotExists;
+
 		if (!string.IsNullOrWhiteSpace(path))
 		{
-			return VirtualPathUtility.ToAbsolute(path.Replace("$SkinPath$/", skinUrlPath).Replace("$SkinPath$", skinUrlPath));
+			string relativePath = path.Replace("$SkinPath$/", skinUrlPath).Replace("$SkinPath$", skinUrlPath);
+			var filePath = HttpContext.Current.Server.MapPath(relativePath);
+			var file = new FileInfo(filePath);
+			if (file.Exists)
+			{
+				returnVal = VirtualPathUtility.ToAbsolute(relativePath);
+			}
+			else
+			{
+				skinConfig.RuntimeNotes += $"\r\nFile path \"{file.FullName}\" doesn't exist.";
+			}
 		}
 
-		return path;
+		return returnVal;
 	}
 }

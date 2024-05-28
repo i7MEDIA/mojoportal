@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -67,6 +68,7 @@ public partial class CacheToolPage : NonCmsBasePage
 		siteSettings.Save();
 		CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId);
 		CacheHelper.ResetThemeCache();
+		TinyMceConfiguration.ClearCache();
 		Global.SkinConfigManager.ClearAll();
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 	}

@@ -21,14 +21,14 @@ public partial class SiteMapPage : NonCmsBasePage
 		this.Load += new EventHandler(this.Page_Load);
 		//SiteMap1.MenuItemDataBound += new MenuEventHandler(SiteMap1_MenuItemDataBound);
 
-		if (WebConfigSettings.HideMenusOnSiteMap)
+		if (Global.SkinConfig.MenuOptions.HideOnSiteMap)
 		{
 			SuppressAllMenus();
 		}
 		else
 		{
 			SuppressMenuSelection();
-			if (WebConfigSettings.HidePageMenusOnSiteMap) { SuppressPageMenu(); }
+			if (Global.SkinConfig.MenuOptions.HideOnSiteMap) { SuppressPageMenu(); }
 		}
 
 		if (base.StyleCombiner != null)

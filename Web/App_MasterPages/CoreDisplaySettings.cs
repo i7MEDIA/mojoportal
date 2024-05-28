@@ -1,14 +1,10 @@
-﻿using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿namespace mojoPortal.Web.UI;
 
-namespace mojoPortal.Web.UI;
-
-public class CoreDisplaySettings : WebControl
+public class CoreDisplaySettings : BaseDisplaySettings
 {
-	/// <summary>
-	/// Use h1 only if your skin doesn't use an h1 around the site name.
-	/// </summary>
+    public CoreDisplaySettings() : base() { }
+	public override string FeatureName => "Core";
+
 	public string DefaultPageHeaderMarkup { get; set; } = "<h2>{0}</h2>";
 	public string AlertSuccessMarkup { get; set; } = "<div class='alert alert-success'>{0}</div>";
 	public string AlertNoticeMarkup { get; set; } = "<div class='alert alert-info'>{0}</div>";
@@ -24,15 +20,4 @@ public class CoreDisplaySettings : WebControl
 	public bool HideAllMenusOnProfilePage { get; set; } = WebConfigSettings.HideAllMenusOnProfilePage;
 	public bool HidePageMenuOnProfilePage { get; set; } = WebConfigSettings.HidePageMenuOnProfilePage;
 	public bool HidePageMenuOnMemberListPage { get; set; } = WebConfigSettings.HidePageMenuOnMemberListPage;
-
-	protected override void Render(HtmlTextWriter writer)
-	{
-		if (HttpContext.Current is null)
-		{
-			writer.Write("[" + this.ID + "]");
-			return;
-		}
-
-		// nothing to render
-	}
 }

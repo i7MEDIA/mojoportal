@@ -1,10 +1,117 @@
 {
-    "Name": "Framework",
-    "Version": "4.0",
-    "Author": "i7MEDIA",
-    "License": "EPL",
-    "SupportUrl": "https://i7media.com",
-    "HelpLinkScriptPath": "",
-    "ModalScriptPath": "$SkinPath$/js/GenericModalScript.js",
-    "ModalTemplatePath": "$SkinPath$/includes/modal.html"
+	"Name": "Framework",
+	"Version": "4.0",
+	"Author": "i7MEDIA",
+	"License": "EPL",
+	"SupportUrl": "https://i7media.com",
+	"HelpLinkScriptPath": "",
+	"ModalScriptPath": "$SkinPath$/config/GenericModalScript.js",
+	"ModalTemplatePath": "$SkinPath$/includes/modal.html",
+	"Display": {
+		"ShowSkinSearchInputOnSearchResults": false,
+		"ShowSearchInputOnSiteSettings": false,
+		"ShowModuleTitlesByDefault": true,
+		"EnableEditingModuleTitleElement": true,
+		"ModuleTitleTag": "h3"
+	},
+	"EditorConfig": {
+		"all": {
+			"CssPath": "$SkinPath$/css/editor.css",
+			"UseSkinCss": true,
+			"ContainerCssClass": "wysiwygeditor modulecontent bloop"
+		},
+		"CkEditor": {
+			"ConfigPath": "$SkinPath$/config/ckeditor.js",
+			"CssPath": "$SkinPath$/css/ckeditor.css",
+			"UseSkinCss": true,
+			"Theme": "moono-lisa"
+		},
+		"TinyMCE": {
+			"ConfigPath": "$SkinPath$/config/tinymce.json",
+			"CssPath": "$SkinPath$/css/tinymce.css",
+			"UseSkinCss": true
+		}
+	},
+	"MenuOptions": {
+		"UseDescriptions": false,
+		"UseImages": false,
+		"UnclickableLinks": false,
+		"HideOn404": false,
+		"HideOnSiteClosed": false,
+		"HideOnLogin": false,
+		"HideOnSiteMap": false,
+		"HideOnRegister": false,
+		"HideOnPasswordRecovery": false,
+		"HideOnChangePassword": false,
+		"HideOnProfile": false,
+		"HideOnMemberList": false
+	},
+	"PageMenuOptions": {
+		"UseDescriptions": false,
+		"UseImages": false,
+		"UnclickableLinks": false,
+		"HideOn404": false,
+		"HideOnSiteClosed": false,
+		"HideOnLogin": false,
+		"HideOnSiteMap": false,
+		"HideOnRegister": false,
+		"HideOnPasswordRecovery": false,
+		"HideOnChangePassword": false,
+		"HideOnProfile": false,
+		"HideOnMemberList": false
+	},
+	"Panels": [
+		{
+			"Name": "LeftSideNoRightSideCss",
+			"Class": "left-center foo"
+		},
+		{
+			"Name": "RightSideNoLeftSideCss",
+			"Class": "right-center foo"
+		},
+		{
+			"Name": "LeftAndRightNoCenterCss",
+			"Class": ""
+		},
+		{
+			"Name": "LeftOnlyCss",
+			"Class": ""
+		},
+		{
+			"Name": "RightOnlyCss",
+			"Class": ""
+		},
+		{
+			"Name": "CenterNoLeftSideCss",
+			"Class": "col-md-9 center-right foo"
+		},
+		{
+			"Name": "CenterNoRightSideCss",
+			"Class": "col-md-9 center-left"
+		},
+		{
+			"Name": "CenterNoLeftOrRightSideCss",
+			"Class": "col-md-12 nomargins"
+		},
+		{
+			"Name": "CenterWithLeftAndRightSideCss",
+			"Class": "col-md-6 center-left-right"
+		},
+		{
+			"Name": "EmptyCenterCss",
+			"Class": ""
+		},
+		{
+			"Name": "HideEmptyCenterIfOnlySidesHaveContent",
+			"Bool": false
+		},
+		{
+			"Name": "ShowLeftColumnOnSearchResults",
+			"Bool": false
+		},
+		{
+			"Name": "ShowRightColumnOnSearchResults",
+			"Bool": false
+		}
+	]
 }

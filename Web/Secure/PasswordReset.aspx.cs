@@ -167,7 +167,7 @@ public partial class PasswordResetPage : NonCmsBasePage
 		NewPasswordRulesValidator.ServerValidate += new ServerValidateEventHandler(NewPasswordRulesValidator_ServerValidate);
 		btnChangePassword.Click += new EventHandler(btnChangePassword_Click);
 
-		if (WebConfigSettings.HideMenusOnChangePasswordPage) 
+		if (Global.SkinConfig.MenuOptions.HideOnChangePassword) 
 		{ 
 			SuppressAllMenus(); 
 		}

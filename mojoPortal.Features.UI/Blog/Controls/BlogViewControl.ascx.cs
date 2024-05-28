@@ -204,7 +204,7 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 		if (displaySettings.ShowSubTitleOnDetailPage && (blogSubTitle.Length > 0))
 		{
 			litSubtitle.Text =
-				$"<{displaySettings.PostViewSubtitleElement} class='{displaySettings.PostViewSubtitleClass}'>{blogSubTitle}</{displaySettings.PostViewSubtitleElement}>";
+				$"<{displaySettings.PostDetailSubtitleElement} class='{displaySettings.PostDetailSubtitleClass}'>{blogSubTitle}</{displaySettings.PostDetailSubtitleElement}>";
 		}
 
 		if (CanEditPost(blog))

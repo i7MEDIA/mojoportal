@@ -38,7 +38,6 @@
 </head>
 <body class="pagebody" id="Body" runat="server">
 	<portal:FacebookSdk ID="fbsdk" runat="server" />
-	<portal:LayoutDisplaySettings ID="LayoutDisplaySettings1" runat="server" />
 	<form id="frmMain" runat="server" class="main-form">
 		<a href="#main-content" class="sr-only skiplink"><%= Resources.Resource.SkipLink %></a>
 		<asp:SiteMapDataSource ID="SiteMapData" runat="server" ShowStartingNode="false" />

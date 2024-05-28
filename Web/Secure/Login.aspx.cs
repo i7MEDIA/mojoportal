@@ -61,7 +61,7 @@ public partial class LoginPage : NonCmsBasePage
 			}
 		}
 
-		if (WebConfigSettings.HideMenusOnLoginPage)
+		if (Global.SkinConfig.MenuOptions.HideOnLogin)
 		{
 			SuppressAllMenus();
 		}

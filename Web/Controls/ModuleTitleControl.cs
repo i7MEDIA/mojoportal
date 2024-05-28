@@ -35,22 +35,10 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	#endregion
 
-	private string literalExtraMarkup = string.Empty;
-	private bool disabledModuleSettingsLink = false;
-	private Module module = null;
-
-	private string editUrl = string.Empty;
-	private string editText = string.Empty;
-	private bool canEdit = false;
 	private bool forbidModuleSettings = false;
-	private bool showEditLinkOverride = false;
 	private bool enableWorkflow = false;
 	private SiteModuleControl siteModule = null;
-	private ContentWorkflowStatus workflowStatus = ContentWorkflowStatus.None;
 	private string siteRoot = string.Empty;
-	private bool isAdminEditor = false;
-	private bool useHeading = true;
-
 	private string columnId = UIHelper.CenterColumnId;
 
 	#region deprecated properties
@@ -58,46 +46,16 @@ public class ModuleTitleControl : WebControl, INamingContainer
 	//private string artHeader = UIHelper.ArtisteerPostMetaHeader;
 	//private string artHeadingCss = UIHelper.ArtPostHeader;
 
-	private bool useJQueryUI = false;
 
-	public bool UseJQueryUI
-	{
-		get { return useJQueryUI; }
-		set { useJQueryUI = value; }
+	public bool UseJQueryUI { get; set; } = false;
 
-	}
+	public bool RenderArtisteer { get; set; } = false;
 
-	private bool renderArtisteer = false;
+	public bool UseLowerCaseArtisteerClasses { get; set; } = false;
 
-	public bool RenderArtisteer
-	{
-		get { return renderArtisteer; }
-		set { renderArtisteer = value; }
-	}
+	public bool UseH3ForSideHeader { get; set; } = false;
 
-	private bool useLowerCaseArtisteerClasses = false;
-
-	public bool UseLowerCaseArtisteerClasses
-	{
-		get { return useLowerCaseArtisteerClasses; }
-		set { useLowerCaseArtisteerClasses = value; }
-	}
-
-	private bool useH3ForSideHeader = false;
-
-	public bool UseH3ForSideHeader
-	{
-		get { return useH3ForSideHeader; }
-		set { useH3ForSideHeader = value; }
-	}
-
-	private bool useArtisteer3 = false;
-
-	public bool UseArtisteer3
-	{
-		get { return useArtisteer3; }
-		set { useArtisteer3 = value; }
-	}
+	public bool UseArtisteer3 { get; set; } = false;
 
 	#endregion
 
@@ -157,96 +115,34 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	#region Public Properties
 
-	public Module ModuleInstance
-	{
-		get { return module; }
-		set { module = value; }
-	}
+	public Module ModuleInstance { get; set; } = null;
 
-	public string LiteralExtraMarkup
-	{
-		get { return literalExtraMarkup; }
-		set { literalExtraMarkup = value; }
-	}
+	public string LiteralExtraMarkup { get; set; } = string.Empty;
 
-	public string EditUrl
-	{
-		get { return editUrl; }
-		set { editUrl = value; }
+	public string EditUrl { get; set; } = string.Empty;
 
+	public string EditText { get; set; } = string.Empty;
 
-	}
+	public bool UseHeading { get; set; } = true;
 
-	public string EditText
-	{
-		get { return editText; }
-		set { editText = value; }
+	public bool DisabledModuleSettingsLink { get; set; } = false;
 
-	}
+	public bool CanEdit { get; set; } = false;
 
-	public bool UseHeading
-	{
-		get { return useHeading; }
-		set { useHeading = value; }
+	public bool IsAdminEditor { get; set; } = false;
 
-	}
+	public bool ShowEditLinkOverride { get; set; } = false;
 
-	public bool DisabledModuleSettingsLink
-	{
-		get { return disabledModuleSettingsLink; }
-		set { disabledModuleSettingsLink = value; }
-	}
+	public ContentWorkflowStatus WorkflowStatus { get; set; } = ContentWorkflowStatus.None;
 
-	public bool CanEdit
-	{
-		get { return canEdit; }
-		set { canEdit = value; }
-
-	}
-
-	public bool IsAdminEditor
-	{
-		get { return isAdminEditor; }
-		set { isAdminEditor = value; }
-
-	}
-
-	public bool ShowEditLinkOverride
-	{
-		get { return showEditLinkOverride; }
-		set { showEditLinkOverride = value; }
-
-	}
-
-	public ContentWorkflowStatus WorkflowStatus
-	{
-		get { return workflowStatus; }
-		set { workflowStatus = value; }
-	}
-
-
-
-	private bool renderEditLinksInsideHeading = true;
-
-	public bool RenderEditLinksInsideHeading
-	{
-		get { return renderEditLinksInsideHeading; }
-		set { renderEditLinksInsideHeading = value; }
-	}
-
-
-	private bool forceShowExtraMarkup = false;
+	public bool RenderEditLinksInsideHeading { get; set; } = true;
 
 	/// <summary>
 	/// by default extra markup is only shown when IsEditable is true
 	/// setting this property to true will make it show the extra markup 
 	/// if there is any when the user does not have edit permission on the module
 	/// </summary>
-	public bool ForceShowExtraMarkup
-	{
-		get { return forceShowExtraMarkup; }
-		set { forceShowExtraMarkup = value; }
-	}
+	public bool ForceShowExtraMarkup { get; set; } = false;
 
 	#endregion
 
@@ -274,43 +170,43 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			return;
 		}
 
-		if (useHeading && topContent.Length > 0)
+		if (UseHeading && topContent.Length > 0)
 		{
 			writer.Write(topContent);
 		}
 
-		if ((!useHeading) && (module != null))
+		if ((!UseHeading) && (ModuleInstance != null))
 		{
 			// only need this when not rendering a heading element
-			writer.Write("<a id='module" + module.ModuleId.ToInvariantString() + "' class='moduleanchor'></a>");
+			writer.Write("<a id='module" + ModuleInstance.ModuleId.ToInvariantString() + "' class='moduleanchor'></a>");
 		}
 
-		if (useHeading && headingTag.Length > 0)
+		if (UseHeading && headingTag.Length > 0)
 		{
 			writer.WriteBeginTag(headingTag);
 
-			if (module != null)
+			if (ModuleInstance != null)
 			{
-				writer.WriteAttribute("id", "module" + module.ModuleId.ToInvariantString());
+				writer.WriteAttribute("id", "module" + ModuleInstance.ModuleId.ToInvariantString());
 			}
 
 			writer.WriteAttribute("class", cssClassToUse + " moduletitle");
 			writer.Write(HtmlTextWriter.TagRightChar);
 		}
 
-		if (useHeading && LiteralHeadingTopWrap.Length > 0)
+		if (UseHeading && LiteralHeadingTopWrap.Length > 0)
 		{
 			writer.Write(LiteralHeadingTopWrap);
 		}
 
 		litModuleTitle.RenderControl(writer);
 
-		if (useHeading && LiteralHeadingBottomWrap.Length > 0)
+		if (UseHeading && LiteralHeadingBottomWrap.Length > 0)
 		{
 			writer.Write(LiteralHeadingBottomWrap);
 		}
 
-		if (renderEditLinksInsideHeading)
+		if (RenderEditLinksInsideHeading)
 		{
 			if (CanEdit)
 			{
@@ -370,9 +266,9 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					lnkModuleEdit.RenderControl(writer);
 				}
 
-				if (literalExtraMarkup.Length > 0)
+				if (LiteralExtraMarkup.Length > 0)
 				{
-					writer.Write(literalExtraMarkup);
+					writer.Write(LiteralExtraMarkup);
 				}
 
 				if (WrapLinksInSpan)
@@ -383,27 +279,27 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			else
 			{
 				//can't edit
-				if (forceShowExtraMarkup)
+				if (ForceShowExtraMarkup)
 				{
-					if (literalExtraMarkup.Length > 0)
+					if (LiteralExtraMarkup.Length > 0)
 					{
-						writer.Write(literalExtraMarkup);
+						writer.Write(LiteralExtraMarkup);
 					}
 				}
 			}
 		}
 
-		if (useHeading && headingTag.Length > 0)
+		if (UseHeading && headingTag.Length > 0)
 		{
 			writer.WriteEndTag(headingTag);
 		}
 
-		if (useHeading && bottomContent.Length > 0)
+		if (UseHeading && bottomContent.Length > 0)
 		{
 			writer.Write(bottomContent);
 		}
 
-		if (!renderEditLinksInsideHeading)
+		if (!RenderEditLinksInsideHeading)
 		{
 			if (CanEdit)
 			{
@@ -465,9 +361,9 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 			} //can edit
 
-			if (literalExtraMarkup.Length > 0)
+			if (LiteralExtraMarkup.Length > 0)
 			{
-				writer.Write(literalExtraMarkup);
+				writer.Write(LiteralExtraMarkup);
 			}
 		}
 	}
@@ -581,27 +477,27 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 		if (siteModule != null)
 		{
-			module = siteModule.ModuleConfiguration;
+			ModuleInstance = siteModule.ModuleConfiguration;
 			CanEdit = siteModule.IsEditable;
 			enableWorkflow = siteModule.EnableWorkflow;
 			forbidModuleSettings = siteModule.ForbidModuleSettings;
 		}
 
-		if (module != null)
+		if (ModuleInstance != null)
 		{
-			headingTag = module.HeadElement;
-			if (module.ShowTitle)
+			headingTag = ModuleInstance.HeadElement;
+			if (ModuleInstance.ShowTitle)
 			{
-				litModuleTitle.Text = Page.Server.HtmlEncode(module.ModuleTitle);
+				litModuleTitle.Text = Page.Server.HtmlEncode(ModuleInstance.ModuleTitle);
 			}
 			else
 			{
-				useHeading = false;
+				UseHeading = false;
 			}
 
 			if (CanEdit)
 			{
-				if (!disabledModuleSettingsLink)
+				if (!DisabledModuleSettingsLink)
 				{
 					lnkModuleSettings.Visible = true;
 					lnkModuleSettings.Text = Resource.SettingsLink;
@@ -620,8 +516,8 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					siteRoot = SiteUtils.GetNavigationSiteRoot();
 
 					lnkModuleSettings.NavigateUrl = siteRoot
-						+ "/Admin/ModuleSettings.aspx?mid=" + module.ModuleId.ToInvariantString()
-						+ "&pageid=" + module.PageId.ToInvariantString();
+						+ "/Admin/ModuleSettings.aspx?mid=" + ModuleInstance.ModuleId.ToInvariantString()
+						+ "&pageid=" + ModuleInstance.PageId.ToInvariantString();
 
 					if ((enableWorkflow) && (siteModule != null) && (siteModule is IWorkflow))
 					{
@@ -632,7 +528,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 			if (
 				(CanEdit || ShowEditLinkOverride)
-				&& EditText != null && editUrl.Length > 0)
+				&& EditText != null && EditUrl.Length > 0)
 			{
 				lnkModuleEdit.Text = EditText;
 				if (this.ToolTip.Length > 0)
@@ -643,29 +539,30 @@ public class ModuleTitleControl : WebControl, INamingContainer
 				{
 					lnkModuleEdit.ToolTip = EditText;
 				}
-				lnkModuleEdit.NavigateUrl = EditUrl
-					 + (EditUrl.Contains("?") ? "&" : "?")
-					 + "mid=" + module.ModuleId.ToInvariantString()
-					 + "&pageid=" + module.PageId.ToInvariantString();
+				lnkModuleEdit.NavigateUrl = EditUrl.ToQueryBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
+				//+ (EditUrl.Contains("?") ? "&" : "?")
+				//+ "mid=" + ModuleInstance.ModuleId.ToInvariantString()
+				//+ "&pageid=" + ModuleInstance.PageId.ToInvariantString();
 
 				if (!useTextLinksForFeatureSettings)
 				{
-					lnkModuleEdit.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/" + WebConfigSettings.EditContentImage);
+					lnkModuleEdit.ImageUrl = Page.ResolveUrl($"~/Data/SiteImages/{WebConfigSettings.EditContentImage}");
 				}
 			}
 		}
 	}
 
+
 	private void SetupWorkflowControls()
 	{
-		if (HttpContext.Current == null) { return; }
-
-		if (siteModule == null) { return; }
-		if (module == null) { return; }
+		if (HttpContext.Current == null || siteModule == null || ModuleInstance == null)
+		{
+			return;
+		}
 
 		if ((this.Page is CmsPage cmsPage) && (cmsPage.ViewMode == PageViewMode.WorkInProgress))
 		{
-			switch (workflowStatus)
+			switch (WorkflowStatus)
 			{
 				case ContentWorkflowStatus.Draft:
 
@@ -679,8 +576,8 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					{
 						if (
 						(cmsPage.CurrentPage != null)
-						&& (isAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.module.AuthorizedEditRoles)
-						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(this.module.DraftApprovalRoles)))
+						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.ModuleInstance.AuthorizedEditRoles)
+						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(this.ModuleInstance.DraftApprovalRoles)))
 						)
 						)
 						{
@@ -701,8 +598,8 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 					if (
 						(cmsPage.CurrentPage != null)
-						&& (isAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.module.AuthorizedEditRoles)
-						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(this.module.DraftApprovalRoles)))
+						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.ModuleInstance.AuthorizedEditRoles)
+						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(this.ModuleInstance.DraftApprovalRoles)))
 						)
 						)
 					{
@@ -717,11 +614,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 						ibApproveContent.Visible = true;
 						ibApproveContent.ToolTip = Resource.ApproveContentToolTip;
 
-						lnkRejectContent.NavigateUrl =
-							siteRoot
-							+ "/Admin/RejectContent.aspx?mid=" + module.ModuleId.ToInvariantString()
-							+ "&pageid=" + module.PageId.ToInvariantString();
-
+						lnkRejectContent.NavigateUrl = "Admin/RejectContent.aspx".ToQueryBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
 						lnkRejectContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.RejectContentImage);
 						lnkRejectContent.ToolTip = Resource.RejectContentToolTip;
 						lnkRejectContent.Visible = true;
@@ -733,18 +626,14 @@ public class ModuleTitleControl : WebControl, INamingContainer
 				case ContentWorkflowStatus.AwaitingPublishing:
 					if (
 						(cmsPage.CurrentPage != null)
-						&& (isAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.module.AuthorizedEditRoles))
+						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.ModuleInstance.AuthorizedEditRoles))
 						)
 					{
 						ibPublishContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.PublishContentImage);
 						ibPublishContent.Visible = true;
 						ibPublishContent.ToolTip = Resource.PublishContentToolTip;
 
-						lnkRejectContent.NavigateUrl =
-							siteRoot
-							+ "/Admin/RejectContent.aspx?mid=" + module.ModuleId.ToInvariantString()
-							+ "&pageid=" + module.PageId.ToInvariantString();
-
+						lnkRejectContent.NavigateUrl = "/Admin/RejectContent.aspx".ToQueryBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
 						lnkRejectContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.RejectContentImage);
 						lnkRejectContent.ToolTip = Resource.RejectContentToolTip;
 						lnkRejectContent.Visible = true;
@@ -760,12 +649,12 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			}
 
 			if (
-				workflowStatus != ContentWorkflowStatus.Cancelled
-				&& workflowStatus != ContentWorkflowStatus.Approved
-				&& workflowStatus != ContentWorkflowStatus.None
+				WorkflowStatus != ContentWorkflowStatus.Cancelled
+				&& WorkflowStatus != ContentWorkflowStatus.Approved
+				&& WorkflowStatus != ContentWorkflowStatus.None
 				)
 			{
-				//allow changes to be cancelled:                                            
+				//allow changes to be cancelled:
 				ibCancelChanges.ImageUrl = Page.ResolveUrl(WebConfigSettings.CancelContentChangesImage);
 				ibCancelChanges.ToolTip = Resource.CancelChangesToolTip;
 				ibCancelChanges.Visible = true;

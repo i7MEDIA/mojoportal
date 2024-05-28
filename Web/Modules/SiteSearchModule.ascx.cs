@@ -3,12 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
-using mojoPortal.Core.Extensions;
 using mojoPortal.SearchIndex;
-using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
 
@@ -129,17 +126,19 @@ namespace mojoPortal.Web.SearchUI
 			return userRoles;
 		}
 
+
 		public string BuildUrl(IndexItem indexItem)
 		{
 			if (indexItem.UseQueryStringParams)
 			{
-				return $"{SiteRoot}/{indexItem.ViewPage}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
+				return Invariant($"{SiteRoot}/{indexItem.ViewPage}?pageid={indexItem.PageId}&mid={indexItem.ModuleId}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}");
 			}
 			else
 			{
 				return $"{SiteRoot}/{indexItem.ViewPage}";
 			}
 		}
+
 
 		public string FormatCreatedDate(IndexItem indexItem)
 		{
@@ -166,6 +165,7 @@ namespace mojoPortal.Web.SearchUI
 					Resource.SearchCreatedHtmlFormat,
 					TimeZoneInfo.ConvertTimeFromUtc(indexItem.CreatedUtc, timeZone).ToShortDateString());
 		}
+
 
 		public string FormatModifiedDate(IndexItem indexItem)
 		{
@@ -279,8 +279,7 @@ namespace mojoPortal.Web.UI
 	/// </summary>
 	public class SearchModuleConfiguration
 	{
-		public SearchModuleConfiguration()
-		{ }
+		public SearchModuleConfiguration() { }
 
 		public SearchModuleConfiguration(Hashtable settings)
 		{
@@ -318,12 +317,15 @@ namespace mojoPortal.Web.UI
 
 		private void LoadSettings(Hashtable settings)
 		{
-			if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
+			if (settings == null)
+			{
+				throw new ArgumentException("must pass in a hashtable of settings");
+			}
 
-			ShowResultsInsteadOfRedirect = WebUtils.ParseBoolFromHashtable(settings, "ShowSearchResultsInsteadOfRedirect", ShowResultsInsteadOfRedirect);
-			PageSize = WebUtils.ParseInt32FromHashtable(settings, "PageSize", PageSize);
-			ShowExcerpt = WebUtils.ParseBoolFromHashtable(settings, "ShowExcerpt", ShowExcerpt);
-			searchableFeature = WebUtils.ParseStringFromHashtable(settings, "SearchableFeature", searchableFeature);
+			ShowResultsInsteadOfRedirect = settings.ParseBool("ShowSearchResultsInsteadOfRedirect", ShowResultsInsteadOfRedirect);
+			PageSize = settings.ParseInt32("PageSize", PageSize);
+			ShowExcerpt = settings.ParseBool("ShowExcerpt", ShowExcerpt);
+			searchableFeature = settings.ParseString("SearchableFeature", searchableFeature);
 		}
 
 		private string searchableFeature = "881e4e00-93e4-444c-b7b0-6672fb55de10,026cbead-2b80-4491-906d-b83e37179ccf,38aa5a84-9f5c-42eb-8f4c-105983d419fb,74bdbcc2-0e79-47ff-bcd4-a159270bf36e,dc873d76-5bf2-4ac5-bff7-434a87a3fc8e,d572f6b4-d0ed-465d-ad60-60433893b401,5a343d88-bce1-43d1-98ae-b42d77893e7b,0cefbf18-56de-11dc-8f36-bac755d89593"; // a csv of featureguids
@@ -333,46 +335,5 @@ namespace mojoPortal.Web.UI
 		public int PageSize { get; private set; } = 10;
 
 		public bool ShowExcerpt { get; private set; } = true;
-	}
-}
-
-namespace mojoPortal.Web.UI
-{
-	public class SearchModuleDisplaySettings : WebControl
-	{
-		public int OverridePageSize { get; set; } = 0;
-
-		public string OverrideButtonText { get; set; } = string.Empty;
-
-		public string OverrideWatermarkText { get; set; } = string.Empty;
-
-		public bool UseWatermark { get; set; } = true;
-
-		public string ItemHeadingElement { get; set; } = "h3";
-
-		public bool ShowExcerpt { get; } = true;
-
-		public bool ShowAuthor { get; set; } = false;
-
-		public string AuthorFormat { get; set; } = string.Empty;
-
-		public bool ShowCreatedDate { get; set; } = false;
-
-		public string CreatedFormat { get; set; } = string.Empty;
-
-		public bool ShowLastModDate { get; set; } = false;
-
-		public string ModifiedFormat { get; set; } = string.Empty;
-
-		protected override void OnLoad(EventArgs e)
-		{
-			base.OnLoad(e);
-			EnableViewState = false;
-		}
-
-		protected override void Render(HtmlTextWriter writer)
-		{
-			//base.Render(writer);
-		}
 	}
 }

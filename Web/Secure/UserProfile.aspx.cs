@@ -46,11 +46,11 @@ public partial class UserProfile : NonCmsBasePage
 		btnUpdate.Click += new EventHandler(btnUpdate_Click);
 		btnUpdateAvartar.Click += new System.Web.UI.ImageClickEventHandler(btnUpdateAvartar_Click);
 
-		if (WebConfigSettings.HideAllMenusOnProfilePage)
+		if (Global.SkinConfig.MenuOptions.HideOnProfile)
 		{
 			SuppressAllMenus();
 		}
-		else if (WebConfigSettings.HidePageMenuOnProfilePage)
+		else if (Global.SkinConfig.PageMenuOptions.HideOnProfile)
 		{
 			SuppressPageMenu();
 		}

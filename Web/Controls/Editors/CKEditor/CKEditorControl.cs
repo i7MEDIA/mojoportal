@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -98,63 +99,64 @@ public class CKEditorControl : TextBox
 
 	private string GetLanguageCode(CultureInfo culture)
 	{
-		switch (culture.Name)
+		return culture.Name switch
 		{
-			case "en-AU":
-				return "en-au";
-
-			case "en-CA":
-				return "en-ca";
-
-			case "en-GB":
-				return "en-gb";
-
-			case "fr-CA":
-				return "fr-ca";
-
-			case "pt-BR":
-				return "pr-br";
-
-			case "zh-CN":
-				return "zh-cn";
-		}
-
-		return culture.TwoLetterISOLanguageName;
+			"en-AU" => "en-au",
+			"en-CA" => "en-ca",
+			"en-GB" => "en-gb",
+			"fr-CA" => "fr-ca",
+			"pt-BR" => "pr-br",
+			"zh-CN" => "zh-cn",
+			_ => culture.TwoLetterISOLanguageName,
+		};
 	}
 
 	private void SetupScripts()
 	{
 		ScriptManager.RegisterClientScriptBlock(
 			this,
-			this.GetType(),
+			GetType(),
 			"ckeditormain",
-			"\n<script data-loader=\"ckeditorcontrol\" src=\"" + ResolveUrl(this.BasePath + "ckeditor.js") + "\"></script>",
+			"\n<script data-loader=\"ckeditorcontrol\" src=\"" + ResolveUrl(BasePath + "ckeditor.js") + "\"></script>",
 			false
 		);
 
-		StringBuilder script = new StringBuilder();
+		if (Global.SkinConfig.EditorConfig.TryGetValue("CkEditor", out var editorConfig))
+		{
+			CustomConfigPath = editorConfig.ConfigPath.Coalesce(CustomConfigPath).Replace("$SkinPath$", SiteUtils.DetermineSkinBaseUrl(true, Page));
+			Skin = editorConfig.Theme.Coalesce(Skin);
+			EditorBodyCssClass = editorConfig.ContainerCssClass;
+		}
+
+		if (Global.SkinConfig.EditorConfig.TryGetValue("all", out var allEditorConfig))
+		{
+			EditorBodyCssClass = allEditorConfig.ContainerCssClass;
+		}
+
+
+		var script = new StringBuilder();
 		script.Append("\n<script data-loader=\"ckeditorcontrol\">");
-		script.Append("var editor" + this.ClientID + " = CKEDITOR.replace('" + this.ClientID + "'");
+		script.Append($"var editor{ClientID} = CKEDITOR.replace('{ClientID}'");
 		script.Append(", { ");
-		script.Append("customConfig : '" + ResolveUrl(CustomConfigPath) + "' ");
-		script.Append(", baseHref : '" + SiteRoot + "'");
+		script.Append($"customConfig: '{ResolveUrl(CustomConfigPath)}' ");
+		script.Append($", baseHref: '{SiteRoot}'");
 
 		if (Height != Unit.Empty)
 		{
-			script.Append(", height : " + this.Height.ToString().Replace("px", string.Empty));
+			script.Append($", height: {Height.ToString().Replace("px", string.Empty)}");
 		}
 		else
 		{
-			script.Append(", height : 350");
+			script.Append(", height: 350");
 		}
 
 		if (AutoFocus)
 		{
-			script.Append(",startupFocus : true");
+			script.Append(",startupFocus: true");
 		}
 
-		script.Append(",skin:'" + Skin + "'");
-		script.Append(",editorId:'" + ClientID + "'");
+		script.Append($",skin:'{Skin}'");
+		script.Append($",editorId:'{ClientID}'");
 
 		CultureInfo culture;
 		if (WebConfigSettings.UseCultureOverride)
@@ -171,33 +173,33 @@ public class CKEditorControl : TextBox
 			script.Append(",title:false");
 		}
 
-		script.Append(",language:'" + GetLanguageCode(culture) + "'");
+		script.Append($",language:'{GetLanguageCode(culture)}'");
 
 		if ((TextDirection == Direction.RightToLeft) || (culture.TextInfo.IsRightToLeft))
 		{
-			script.Append(", contentsLangDirection : 'rtl'");
+			script.Append(", contentsLangDirection: 'rtl'");
 		}
 
 		if (EditorCSSUrl.Length > 0)
 		{
-			script.Append(", contentsCss : '" + EditorCSSUrl + "'");
+			script.Append($", contentsCss : '{EditorCSSUrl}'");
 		}
 
-		script.Append(",bodyClass:'" + EditorBodyCssClass + "' ");
+		script.Append($",bodyClass:'{EditorBodyCssClass}' ");
 
 		if ((EnableFileBrowser) && (FileManagerUrl.Length > 0))
 		{
 			script.Append(",filebrowserWindowWidth : ~~((80 / 100) * screen.width)"); // 80% of window width
 			script.Append(",filebrowserWindowHeight : ~~((80 / 100) * screen.height)"); // 80% of window height
-			script.Append(",filebrowserBrowseUrl:'" + FileManagerUrl + "?editor=ckeditor&type=file'");
-			script.Append(",filebrowserImageBrowseUrl:'" + FileManagerUrl + "?editor=ckeditor&type=image'");
+			script.Append($",filebrowserBrowseUrl:'{FileManagerUrl}?editor=ckeditor&type=file'");
+			script.Append($",filebrowserImageBrowseUrl:'{FileManagerUrl}?editor=ckeditor&type=image'");
 			//script.Append(",filebrowserFlashBrowseUrl:'" + FileManagerUrl + "?editor=ckeditorck&type=media'");
-			script.Append(",filebrowserImageBrowseLinkUrl:'" + FileManagerUrl + "?editor=ckeditor&type=file'");
+			script.Append($",filebrowserImageBrowseLinkUrl:'{FileManagerUrl}?editor=ckeditor&type=file'");
 			script.Append(",filebrowserWindowFeatures:'location=no,menubar=no,toolbar=no,dependent=yes,minimizable=no,modal=yes,alwaysRaised=yes,resizable=yes,scrollbars=yes'");
 
 			if (DropFileUploadUrl.Length > 0)
 			{
-				script.Append(",dropFileUploadUrl:'" + Page.ResolveUrl(DropFileUploadUrl) + "'");
+				script.Append($",dropFileUploadUrl:'{Page.ResolveUrl(DropFileUploadUrl)}'");
 			}
 		}
 
@@ -227,11 +229,11 @@ public class CKEditorControl : TextBox
 
 		script.Append("}");
 		script.Append("); ");
-		script.Append("function SetupEditor" + this.ClientID + "( editorObj){");
+		script.Append($"function SetupEditor{ClientID}( editorObj){{");
 
 		if (!string.IsNullOrWhiteSpace(StylesJsonUrl))
 		{
-			script.Append("editorObj.config.stylesCombo_stylesSet = 'mojo:" + StylesJsonUrl + "';");
+			script.Append($"editorObj.config.stylesCombo_stylesSet = 'mojo:{StylesJsonUrl}';");
 		}
 
 		if (!string.IsNullOrWhiteSpace(TemplatesJsonUrl) || !string.IsNullOrWhiteSpace(SkinTemplatesUrl))
@@ -269,21 +271,21 @@ public class CKEditorControl : TextBox
 		}
 
 		script.Append("}");
-		script.Append("SetupEditor" + this.ClientID + "(editor" + this.ClientID + ");");
+		script.Append($"SetupEditor{ClientID}(editor{ClientID});");
 		script.Append($"var mojoSkinPath='{MojoSkinPath}';");
 
 		script.Append("</script>");
 
 		ScriptManager.RegisterStartupScript(
 			this,
-			this.GetType(),
-			this.UniqueID,
+			GetType(),
+			UniqueID,
 			script.ToString(),
 			false
 		);
 
 		//this will help the editor work in updatepanel
-		ScriptManager.RegisterOnSubmitStatement(this, this.GetType(), "updateditor" + this.ClientID, "CKEDITOR.instances['" + this.ClientID + "'].updateElement();");
+		ScriptManager.RegisterOnSubmitStatement(this, GetType(), $"updateditor{ClientID}", "CKEDITOR.instances['" + ClientID + "'].updateElement();");
 	}
 
 	private void SetupToolBar(StringBuilder script)

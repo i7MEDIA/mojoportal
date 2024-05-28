@@ -878,6 +878,7 @@
     <Compile Include="Admin\ModulePermissions.aspx.designer.cs">
       <DependentUpon>ModulePermissions.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\PageLayoutDisplaySettings.cs" />
     <Compile Include="Admin\PageManager.aspx.cs">
       <DependentUpon>PageManager.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -913,6 +914,7 @@
     <Compile Include="Admin\PermissionsMenu.aspx.designer.cs">
       <DependentUpon>PermissionsMenu.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\ProfileDisplaySettings.cs" />
     <Compile Include="Admin\SecurityAdvisor.aspx.cs">
       <DependentUpon>SecurityAdvisor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1131,6 +1133,7 @@
     <Compile Include="Controls\AdminMenuLink.cs" />
     <Compile Include="Controls\Artisteer\MenuAdapterArtisteerVertical.cs" />
     <Compile Include="Controls\Artisteer\mojoMenuArtisteerVertical.cs" />
+    <Compile Include="Controls\Editors\EditorConfig.cs" />
     <Compile Include="Controls\EmbedSVGSprite.cs" />
     <Compile Include="Controls\Panels\AutoHidePanel.cs" />
     <Compile Include="Controls\Captcha\CaptchaVerificationResponse.cs" />
@@ -1729,6 +1732,11 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Helpers\CustomHtmlHelper.cs" />
+    <Compile Include="MemberListDisplaySettings.cs" />
+    <Compile Include="Modules\HtmlDisplaySettings.cs" />
+    <Compile Include="Modules\LoginModuleDisplaySettings.cs" />
+    <Compile Include="Modules\RecentContentDisplaySettings.cs" />
+    <Compile Include="Modules\SearchModuleDisplaySettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2502,6 +2510,7 @@
     <Compile Include="SearchResults.aspx.designer.cs">
       <DependentUpon>SearchResults.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SearchResultsDisplaySettings.cs" />
     <Compile Include="Secure\ChangePassword.aspx.cs">
       <DependentUpon>ChangePassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2557,6 +2566,7 @@
     <Compile Include="Secure\RegisterWithWindowsLiveID.aspx.designer.cs">
       <DependentUpon>RegisterWithWindowsLiveID.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Secure\RegistrationPageDisplaySettings.cs" />
     <Compile Include="Secure\UpdateOpenID.aspx.cs">
       <DependentUpon>UpdateOpenID.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -1,8 +1,3 @@
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using Resources;
 using System;
 using System.Collections;
 using System.Collections.ObjectModel;
@@ -12,7 +7,11 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using mojoPortal.Core.Extensions;
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
+using Resources;
 
 namespace mojoPortal.Web.AdminUI
 {
@@ -270,7 +269,7 @@ namespace mojoPortal.Web.AdminUI
 
 				}
 			}
-			
+
 			return paneModules;
 		}
 
@@ -957,7 +956,8 @@ namespace mojoPortal.Web.AdminUI
 			pnlRightItemButtons.CssClass = displaySettings.PageLayoutButtonGroupCssClass;
 			pnlAlt2ItemButtons.CssClass = displaySettings.PageLayoutButtonGroupCssClass;
 
-			if (!string.IsNullOrEmpty(displaySettings.PageLayoutButtonGroupSeparatorMarkup)) {
+			if (!string.IsNullOrEmpty(displaySettings.PageLayoutButtonGroupSeparatorMarkup))
+			{
 				litButtonSeparator1.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
 				litButtonSeparator2.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
 				litButtonSeparator3.Text = displaySettings.PageLayoutButtonGroupSeparatorMarkup;
@@ -1101,7 +1101,7 @@ namespace mojoPortal.Web.AdminUI
 
 				ScriptController.RegisterAsyncPostBackControl(ContentUpToNextButton);
 				ScriptController.RegisterAsyncPostBackControl(ContentDownToNextButton);
-				
+
 				ScriptController.RegisterAsyncPostBackControl(LeftDeleteBtn);
 				ScriptController.RegisterAsyncPostBackControl(ContentDeleteBtn);
 				ScriptController.RegisterAsyncPostBackControl(RightDeleteBtn);
@@ -1115,278 +1115,6 @@ namespace mojoPortal.Web.AdminUI
 				ScriptController.RegisterAsyncPostBackControl(btnMoveAlt2ToCenter);
 				//ScriptController.RegisterAsyncPostBackControl(btnMoveAlt2ToAlt1);
 			}
-		}
-	}
-}
-
-namespace mojoPortal.Web.UI
-{
-	using System.Web;
-	using System.Web.UI;
-	using System.Web.UI.WebControls;
-
-	/// <summary>
-	/// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
-	/// </summary>
-	public class PageLayoutDisplaySettings : WebControl
-	{
-		private string adminLinksContainerDivCssClass = "breadcrumbs pageditlinks";
-
-		public string AdminLinksContainerDivCssClass
-		{
-			get { return adminLinksContainerDivCssClass; }
-			set { adminLinksContainerDivCssClass = value; }
-		}
-
-		private string adminLinkSeparator = "&nbsp;";
-
-		public string AdminLinkSeparator
-		{
-			get { return adminLinkSeparator; }
-			set { adminLinkSeparator = value; }
-		}
-
-		private string adminLinkCssClass = string.Empty;
-
-		public string AdminLinkCssClass
-		{
-			get { return adminLinkCssClass; }
-			set { adminLinkCssClass = value; }
-		}
-
-		/// <summary>
-		/// most skins don't use menu descriptions so by default it is not shown in pagesettings.aspx
-		/// set this to true if you want to show this field and populate it for use in the menu
-		/// </summary>
-		public bool ShowMenuDescription { get; set; } = false;
-
-		/// <summary>
-		/// most skins don't use menu images so by default it is not shown in pagesettings.aspx
-		/// set this to true if you want to show this field and populate it for use in the menu
-		/// </summary>
-		public bool ShowMenuImage { get; set; } = false;
-
-		private string pageLayoutUpButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--up btn btn-sm btn-default";
-		public string PageLayoutUpButtonCssClass
-		{
-			get { return pageLayoutUpButtonCssClass; }
-			set { pageLayoutUpButtonCssClass = value; }
-		}
-
-		private string pageLayoutDownButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--down btn btn-sm btn-default";
-		public string PageLayoutDownButtonCssClass
-		{
-			get { return pageLayoutDownButtonCssClass; }
-			set { pageLayoutDownButtonCssClass = value; }
-		}
-
-		private string pageLayoutAlt1ToCenterButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--alt1-center btn btn-sm btn-default";
-		public string PageLayoutAlt1ToCenterButtonCssClass
-		{
-			get { return pageLayoutAlt1ToCenterButtonCssClass; }
-			set { pageLayoutAlt1ToCenterButtonCssClass = value; }
-		}
-
-		private string pageLayoutAlt2ToCenterButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--alt2-center btn btn-sm btn-default";
-		public string PageLayoutAlt2ToCenterButtonCssClass
-		{
-			get { return pageLayoutAlt2ToCenterButtonCssClass; }
-			set { pageLayoutAlt2ToCenterButtonCssClass = value; }
-		}
-
-		private string pageLayoutCenterToAlt1ButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--center-alt1 btn btn-sm btn-default";
-		public string PageLayoutCenterToAlt1ButtonCssClass
-		{
-			get { return pageLayoutCenterToAlt1ButtonCssClass; }
-			set { pageLayoutCenterToAlt1ButtonCssClass = value; }
-		}
-
-		private string pageLayoutCenterToAlt2ButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--center-alt2 btn btn-sm btn-default";
-		public string PageLayoutCenterToAlt2ButtonCssClass
-		{
-			get { return pageLayoutCenterToAlt2ButtonCssClass; }
-			set { pageLayoutCenterToAlt2ButtonCssClass = value; }
-		}
-
-		private string pageLayoutLeftToRightButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--left-right btn btn-sm btn-default";
-		public string PageLayoutLeftToRightButtonCssClass
-		{
-			get { return pageLayoutLeftToRightButtonCssClass; }
-			set { pageLayoutLeftToRightButtonCssClass = value; }
-		}
-
-		private string pageLayoutRightToLeftButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--right-left btn btn-sm btn-default";
-		public string PageLayoutRightToLeftButtonCssClass
-		{
-			get { return pageLayoutRightToLeftButtonCssClass; }
-			set { pageLayoutRightToLeftButtonCssClass = value; }
-		}
-
-		private string pageLayoutEditButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--edit btn btn-sm btn-default";
-		public string PageLayoutEditButtonCssClass
-		{
-			get { return pageLayoutEditButtonCssClass; }
-			set { pageLayoutEditButtonCssClass = value; }
-		}
-
-		private string pageLayoutDeleteButtonCssClass = "pagelayout__item-btn pagelayout__item-btn--delete btn btn-sm btn-default";
-		public string PageLayoutDeleteButtonCssClass
-		{
-			get { return pageLayoutDeleteButtonCssClass; }
-			set { pageLayoutDeleteButtonCssClass = value; }
-		}
-
-		private string pageLayoutUpButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-up'></use></svg>";
-		public string PageLayoutUpButtonInnerHtml
-		{
-			get { return pageLayoutUpButtonInnerHtml; }
-			set { pageLayoutUpButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutDownButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-down'></use></svg>";
-		public string PageLayoutDownButtonInnerHtml
-		{
-			get { return pageLayoutDownButtonInnerHtml; }
-			set { pageLayoutDownButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutAlt1ToCenterButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-down'></use></svg>";
-		public string PageLayoutAlt1ToCenterButtonInnerHtml
-		{
-			get { return pageLayoutAlt1ToCenterButtonInnerHtml; }
-			set { pageLayoutAlt1ToCenterButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutAlt2ToCenterButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-up'></use></svg>";
-		public string PageLayoutAlt2ToCenterButtonInnerHtml
-		{
-			get { return pageLayoutAlt2ToCenterButtonInnerHtml; }
-			set { pageLayoutAlt2ToCenterButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutCenterToAlt1ButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-up'></use></svg>";
-		public string PageLayoutCenterToAlt1ButtonInnerHtml
-		{
-			get { return pageLayoutCenterToAlt1ButtonInnerHtml; }
-			set { pageLayoutCenterToAlt1ButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutCenterToAlt2ButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-down'></use></svg>";
-		public string PageLayoutCenterToAlt2ButtonInnerHtml
-		{
-			get { return pageLayoutCenterToAlt2ButtonInnerHtml; }
-			set { pageLayoutCenterToAlt2ButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutLeftToRightButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-right'></use></svg>";
-		public string PageLayoutLeftToRightButtonInnerHtml
-		{
-			get { return pageLayoutLeftToRightButtonInnerHtml; }
-			set { pageLayoutLeftToRightButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutRightToLeftButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-angle-double-left'></use></svg>";
-		public string PageLayoutRightToLeftButtonInnerHtml
-		{
-			get { return pageLayoutRightToLeftButtonInnerHtml; }
-			set { pageLayoutRightToLeftButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutEditButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-cog'></use></svg>";
-		public string PageLayoutEditButtonInnerHtml
-		{
-			get { return pageLayoutEditButtonInnerHtml; }
-			set { pageLayoutEditButtonInnerHtml = value; }
-		}
-
-		private string pageLayoutDeleteButtonInnerHtml = "<svg class='mp-svg-icon'><use href='#mp-trash-alt'></use></svg>";
-		public string PageLayoutDeleteButtonInnerHtml
-		{
-			get { return pageLayoutDeleteButtonInnerHtml; }
-			set { pageLayoutDeleteButtonInnerHtml = value; }
-		}
-
-		private string alt1PaneCssClass = "pane layoutalt1";
-
-		public string Alt1PaneCssClass
-		{
-			get { return alt1PaneCssClass; }
-			set { alt1PaneCssClass = value; }
-		}
-
-		private string regularLayoutPanesWrapCssClass = "regularpanes";
-
-		public string RegularLayoutPanesWrapCssClass
-		{
-			get { return regularLayoutPanesWrapCssClass; }
-			set { regularLayoutPanesWrapCssClass = value; }
-		}
-
-		private string regularLayoutPaneLeftCssClass = "pane layoutleft";
-
-		public string RegularLayoutPaneLeftCssClass
-		{
-			get { return regularLayoutPaneLeftCssClass; }
-			set { regularLayoutPaneLeftCssClass = value; }
-		}
-
-		private string regularLayoutPaneCenterCssClass = "pane layoutcenter";
-
-		public string RegularLayoutPaneCenterCssClass
-		{
-			get { return regularLayoutPaneCenterCssClass; }
-			set { regularLayoutPaneCenterCssClass = value; }
-		}
-
-		private string regularLayoutPaneRightCssClass = "pane layoutright";
-
-		public string RegularLayoutPaneRightCssClass
-		{
-			get { return regularLayoutPaneRightCssClass; }
-			set { regularLayoutPaneRightCssClass = value; }
-		}
-
-		private string alt2PaneCssClass = "pane layoutalt2";
-
-		public string Alt2PaneCssClass
-		{
-			get { return alt2PaneCssClass; }
-			set { alt2PaneCssClass = value; }
-		}
-
-		private string paneListBoxCssClass = "panelistbox";
-
-		public string PaneListBoxCssClass
-		{
-			get { return paneListBoxCssClass; }
-			set { paneListBoxCssClass = value; }
-		}
-
-		private string pageLayoutButtonGroupCssClass = "pagelayout-item-btns btn-group-vertical";
-
-		public string PageLayoutButtonGroupCssClass
-		{
-			get => pageLayoutButtonGroupCssClass;
-			set => pageLayoutButtonGroupCssClass = value;
-		}
-
-		private string pageLayoutButtonGroupSeparatorMarkup = "";
-
-		public string PageLayoutButtonGroupSeparatorMarkup
-		{
-			get => pageLayoutButtonGroupSeparatorMarkup;
-			set => pageLayoutButtonGroupSeparatorMarkup = value;
-		}
-
-		protected override void Render(HtmlTextWriter writer)
-		{
-			if (HttpContext.Current == null)
-			{
-				writer.Write("[" + this.ID + "]");
-				return;
-			}
-
-			// nothing to render
 		}
 	}
 }

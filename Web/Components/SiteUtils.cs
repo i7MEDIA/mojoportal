@@ -1549,82 +1549,42 @@ namespace mojoPortal.Web
 			return skinFolder + currentSkin;
 		}
 
-		public static string GetEditorStyleSheetUrl(bool allowPageOverride, bool fullUrl, Page page)
+		public static string GetEditorStyleSheetUrl(bool allowPageOverride, bool fullUrl, Page page, string editorProvider = "ckeditorprovider")
 		{
-			if (!string.IsNullOrWhiteSpace(WebConfigSettings.EditorCssUrlOverride))
+			if (string.IsNullOrWhiteSpace(editorProvider))
 			{
-				return WebConfigSettings.EditorCssUrlOverride;
+				editorProvider = GetEditorProviderName();
 			}
 
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			if (siteSettings is null)
-			{
-				return string.Empty;
-			}
+			var editorName = editorProvider.ToLower().Replace("provider", string.Empty);
+			var cssPaths = new List<string>();
+			cssPaths.AddRange(WebConfigSettings.EditorExtraCssUrlCsv.SplitOnCharAndTrim(','));
 
-			if (page is not null)
+			var useSkinCss = true;
+
+			getEditorConfig("all");
+			getEditorConfig(editorName);
+
+			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings
+				&& useSkinCss
+				&& page is not null)
 			{
 				var root = fullUrl ? GetNavigationSiteRoot() : GetRelativeNavigationSiteRoot();
-				return Invariant($"{root}/csshandler.ashx?skin={GetSkinName(allowPageOverride, page)}&amp;s={siteSettings.SiteId}&amp;sv={siteSettings.SkinVersion}{WebConfigSettings.EditorExtraCssUrlCsv}");
-			}
-
-			string editorCss = "csshandler.ashx";
-			if (WebConfigSettings.UsingOlderSkins)
-			{
-				editorCss = "style.css";
-			}
-
-			string skinName;
-
-			string basePath = Invariant($"{WebUtils.GetSiteRoot()}/Data/Sites/{siteSettings.SiteId}/skins/");
-
-			PageSettings currentPage = CacheHelper.GetCurrentPage();
-
-			if (siteSettings is not null)
-			{
-				// very old skins were .ascx
-				skinName = siteSettings.Skin.Replace(".ascx", string.Empty);
-
-				if (siteSettings.AllowUserSkins)
-				{
-					string skinCookieName = Invariant($"mojoUserSkin{siteSettings.SiteId}");
-
-					if (CookieHelper.CookieExists(skinCookieName))
-					{
-						string cookieValue = CookieHelper.GetCookieValue(skinCookieName);
-
-						if (cookieValue.Length > 0)
-						{
-							skinName = cookieValue.Replace(".ascx", string.Empty);
+				cssPaths.Insert(0, Invariant($"{root}/csshandler.ashx?skin={GetSkinName(allowPageOverride, page)}&amp;s={siteSettings.SiteId}&amp;sv={siteSettings.SkinVersion}"));
 						}
-					}
-				}
 
-				if (currentPage is not null && siteSettings.AllowPageSkins)
+			return string.Join(",", cssPaths);
+
+			void getEditorConfig(string editorName)
 				{
-					if (currentPage.Skin.Length > 0)
-					{
-						skinName = currentPage.Skin.Replace(".ascx", string.Empty);
-					}
-				}
-
-				if (HttpContext.Current.Request.Params.Get("skin") is not null)
+				if (Global.SkinConfig.EditorConfig.ContainsKey(editorName))
 				{
-					skinName = HttpContext.Current.Request.Params.Get("skin");
+					var editorConfig = Global.SkinConfig.EditorConfig[editorName];
+					useSkinCss = editorConfig.UseSkinCss;
+					cssPaths.AddRange(editorConfig.CssPath.SplitOnCharAndTrim(','));
+					cssPaths = cssPaths.Select(x => x.Replace("$SkinPath$", DetermineSkinBaseUrl(allowPageOverride, page))).ToList();
 				}
-
-				if (editorCss == "csshandler.ashx")
-				{
-					//return basePath + skinName + "/" + editorCss + "?skin=" + skinName;
-
-					var root = fullUrl ? GetNavigationSiteRoot() : GetRelativeNavigationSiteRoot();
-					return $"{root}/csshandler.ashx?skin={skinName}{WebConfigSettings.EditorExtraCssUrlCsv}";
-				}
-
-				return $"{basePath}{skinName}/{editorCss}{WebConfigSettings.EditorExtraCssUrlCsv}";
 			}
-
-			return $"/Data/Sites/1/skins/{WebConfigSettings.DefaultInitialSkin}/style.css{WebConfigSettings.EditorExtraCssUrlCsv}";
 		}
 
 		public static void SetupEditor(EditorControl editor) => SetupEditor(editor, WebConfigSettings.UseSkinCssInEditor);
@@ -1646,17 +1606,7 @@ namespace mojoPortal.Web
 		/// <param name="editor"></param>
 		public static void SetupEditor(EditorControl editor, bool useSkinCss, string preferredProvider, bool allowPageOverride, bool fullUrl, Page page)
 		{
-			if (HttpContext.Current is null)
-			{
-				return;
-			}
-
-			if (HttpContext.Current.Request is null)
-			{
-				return;
-			}
-
-			if (editor is null)
+			if (HttpContext.Current is null || HttpContext.Current.Request is null || editor is null)
 			{
 				return;
 			}
@@ -1667,74 +1617,24 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			string providerName = siteSettings.EditorProviderName;
-			if (siteSettings.AllowUserEditorPreference)
-			{
-				SiteUser siteUser = GetCurrentSiteUser();
-				if ((siteUser is not null) && (siteUser.EditorPreference.Length > 0))
-				{
-					providerName = siteUser.EditorPreference;
-				}
-
-			}
-
-
-			string loweredBrowser = string.Empty;
-
-			if (HttpContext.Current.Request.UserAgent is not null)
-			{
-				loweredBrowser = HttpContext.Current.Request.UserAgent.ToLower();
-			}
-
-
-			if (
-				(loweredBrowser.Contains("safari"))
-				&& (WebConfigSettings.ForceTinyMCEInSafari)
-				)
-			{
-				providerName = "TinyMCEProvider";
-			}
-
-			if (
-				(loweredBrowser.Contains("opera"))
-				&& (WebConfigSettings.ForceTinyMCEInOpera)
-				)
-			{
-				providerName = "TinyMCEProvider";
-			}
-
-
-			//if (WebConfigSettings.AdaptEditorForMobile)
-			//{
-			//	if (
-			//		(IsMobileDevice() || BrowserHelper.IsIpad())
-			//		&& (
-			//			(!BrowserHelper.MobileDeviceSupportsWYSIWYG()) || (WebConfigSettings.ForceTextAreaEditorInMobile)
-			//			)
-			//		)
-			//	{
-			//		providerName = "TextAreaProvider";
-			//		if ((page is not null) && (page is mojoBasePage))
-			//		{
-			//			mojoBasePage basePage = page as mojoBasePage;
-			//			basePage.ScriptConfig.IncludeMarkitUpHtml = true;
-			//		}
-
-			//	}
-			//}
+			string providerName = GetEditorProviderName();
 
 			string siteRoot = GetNavigationSiteRoot();
 
-			if (!string.IsNullOrEmpty(preferredProvider)) { providerName = preferredProvider; }
+			if (!string.IsNullOrEmpty(preferredProvider))
+			{
+				providerName = preferredProvider;
+			}
 
 			editor.ProviderName = providerName;
+
 			if (editor.WebEditor is not null)
 			{
 				editor.WebEditor.SiteRoot = siteRoot;
 
 				if (useSkinCss)
 				{
-					editor.WebEditor.EditorCSSUrl = GetEditorStyleSheetUrl(allowPageOverride, fullUrl, page);
+					editor.WebEditor.EditorCSSUrl = GetEditorStyleSheetUrl(allowPageOverride, fullUrl, page, providerName);
 				}
 
 				CultureInfo defaultCulture = GetDefaultCulture();
@@ -1802,7 +1702,10 @@ namespace mojoPortal.Web
 				}
 
 				if (siteSettings.AllowUserSkins
-					|| (WebConfigSettings.AllowEditingSkins && WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins)))
+					|| (WebConfigSettings.AllowEditingSkins
+						&& WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins)
+						)
+					)
 				{
 					var skinCookieName = Invariant($"mojoUserSkin{siteSettings.SiteId}");
 
@@ -2390,22 +2293,16 @@ namespace mojoPortal.Web
 
 			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
 			{
-				providerName = siteSettings.EditorProviderName;
-			}
-
-			if (HttpContext.Current is not null)
+				if (siteSettings.AllowUserEditorPreference)
 			{
-				string loweredBrowser = HttpContext.Current.Request.Browser.Browser.ToLower();
-				// FCKeditor doesn't work in safari or opera
-				// so just force TinyMCE
-				if (loweredBrowser.Contains("safari") && WebConfigSettings.ForceTinyMCEInSafari)
+					if (GetCurrentSiteUser() is SiteUser siteUser && !string.IsNullOrWhiteSpace(siteUser.EditorPreference))
 				{
-					providerName = "TinyMCEProvider";
+						providerName = siteUser.EditorPreference;
+					}
 				}
-
-				if (loweredBrowser.Contains("opera") && WebConfigSettings.ForceTinyMCEInOpera)
+				else
 				{
-					providerName = "TinyMCEProvider";
+					providerName = siteSettings.EditorProviderName;
 				}
 			}
 

@@ -1,14 +1,14 @@
-﻿using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using mojoPortal.Web;
 
 namespace SuperFlexiUI;
 
-/// <summary>
-/// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
-/// </summary>
-public class SuperFlexiDisplaySettings : WebControl
+public class SuperFlexiDisplaySettings : BasePluginDisplaySettings
 {
+
+	//public override string FeatureName => "Core";
+	//public override string SubFeatureName => GetType().Name.Replace("DisplaySettings", string.Empty);
+	public SuperFlexiDisplaySettings() : base() { }
+
 	public bool HideOuterWrapperPanel { get; set; } = false;
 
 	public bool HideInnerWrapperPanel { get; set; } = false;
@@ -70,15 +70,4 @@ public class SuperFlexiDisplaySettings : WebControl
 	public string GlobalViewMarkup { get; set; } = string.Empty;
 
 	public string GlobalViewItemMarkup { get; set; } = string.Empty;
-
-	protected override void Render(HtmlTextWriter writer)
-	{
-		if (HttpContext.Current == null)
-		{
-			writer.Write("[" + this.ID + "]");
-			return;
-		}
-
-		// nothing to render
-	}
 }
