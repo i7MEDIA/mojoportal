@@ -11,6 +11,7 @@ public class QueryBuilder
 
 	public QueryBuilder(string url, bool includeSiteRoot = true)
 	{
+		this.url = url;
 		if (url.Contains("?"))
 		{
 			var query = HttpUtility.ParseQueryString(url);
@@ -18,9 +19,9 @@ public class QueryBuilder
 			{
 				queries[item.Key] = item.Value;
 			}
+			this.url = url.Substring(0, url.IndexOf('?'));
 		}
 
-		this.url = url.Substring(0, url.IndexOf('?'));
 		this.includeSiteRoot = includeSiteRoot;
 	}
 	public QueryBuilder PageId(int id)
@@ -61,7 +62,7 @@ public class QueryBuilder
 
 		string qmark = queries.Count > 0 ? "?" : string.Empty;
 		//return string.Format(CultureInfo.InvariantCulture, $"{siteRoot}/{url.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/'));
-		return $"{siteRoot}/{url.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/');
+		return $"{siteRoot}/{url?.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/');
 	}
 }
 

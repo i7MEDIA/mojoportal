@@ -515,9 +515,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 					siteRoot = SiteUtils.GetNavigationSiteRoot();
 
-					lnkModuleSettings.NavigateUrl = siteRoot
-						+ "/Admin/ModuleSettings.aspx?mid=" + ModuleInstance.ModuleId.ToInvariantString()
-						+ "&pageid=" + ModuleInstance.PageId.ToInvariantString();
+					lnkModuleSettings.NavigateUrl = "Admin/ModuleSettings.aspx".ToQueryBuilder().PageId(ModuleInstance.PageId).ModuleId(ModuleInstance.ModuleId).ToString();
 
 					if ((enableWorkflow) && (siteModule != null) && (siteModule is IWorkflow))
 					{
