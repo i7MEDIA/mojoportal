@@ -2,14 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Globalization;
 using System.IO;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
 using log4net;
 using mojoPortal.Business.Statistics;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web;
 using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
@@ -31,55 +29,42 @@ namespace mojoPortal.Business.WebHelpers;
 public static class CacheHelper
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(CacheHelper));
-	private static bool debugLog = log.IsDebugEnabled;
-
+	private static readonly bool debugLog = log.IsDebugEnabled;
 
 	public static void SetClientCaching(HttpContext context, DateTime lastModified)
 	{
-		if (context == null) return;
-
-		context.Response.Cache.SetETag(lastModified.Ticks.ToString());
-		context.Response.Cache.SetLastModified(lastModified);
-		context.Response.Cache.SetCacheability(HttpCacheability.Public);
-		context.Response.Cache.SetMaxAge(new TimeSpan(7, 0, 0, 0));
-		context.Response.Cache.SetSlidingExpiration(true);
+		if (context is not null)
+		{
+			context.Response.Cache.SetETag(lastModified.Ticks.ToString());
+			context.Response.Cache.SetLastModified(lastModified);
+			context.Response.Cache.SetCacheability(HttpCacheability.Public);
+			context.Response.Cache.SetMaxAge(new TimeSpan(7, 0, 0, 0));
+			context.Response.Cache.SetSlidingExpiration(true);
+		}
 	}
 
 
 	public static void SetFileCaching(HttpContext context, string fileName)
 	{
-		if (fileName == null) return;
-		if (context == null) return;
-		if (fileName.Length == 0) return;
-
-		context.Response.AddFileDependency(fileName);
-		context.Response.Cache.SetETagFromFileDependencies();
-		context.Response.Cache.SetLastModifiedFromFileDependencies();
-		context.Response.Cache.SetCacheability(HttpCacheability.Public);
-		context.Response.Cache.SetMaxAge(new TimeSpan(7, 0, 0, 0));
-		context.Response.Cache.SetSlidingExpiration(true);
+		if (fileName is not null && !string.IsNullOrWhiteSpace(fileName) && context is not null)
+		{
+			context.Response.AddFileDependency(fileName);
+			context.Response.Cache.SetETagFromFileDependencies();
+			context.Response.Cache.SetLastModifiedFromFileDependencies();
+			context.Response.Cache.SetCacheability(HttpCacheability.Public);
+			context.Response.Cache.SetMaxAge(new TimeSpan(7, 0, 0, 0));
+			context.Response.Cache.SetSlidingExpiration(true);
+		}
 	}
 
 	#region cache dependency files
 
 	public static string GetPathToCacheDependencyFile(string cacheKey)
 	{
-		EnsureDirectory(HostingEnvironment.MapPath("~/Data/systemfiles/"));
-
-		return HostingEnvironment.MapPath(
-			"~/Data/systemfiles/" + cacheKey + "_cachedependency.config");
+		var sysFilesPath = "~/Data/systemfiles";
+		Directory.CreateDirectory(sysFilesPath); //will create directory if it doesn't exist
+		return HostingEnvironment.MapPath($"{sysFilesPath}/{cacheKey}_cachedependency.config");
 	}
-
-	private static void EnsureDirectory(string directoryPath)
-	{
-		if (string.IsNullOrEmpty(directoryPath)) return;
-
-		if (!Directory.Exists(directoryPath))
-		{
-			Directory.CreateDirectory(directoryPath);
-		}
-	}
-
 
 	public static CacheDependency GetSiteMapCacheDependency()
 	{
@@ -89,11 +74,11 @@ public static class CacheHelper
 
 		if (WebConfigSettings.UseCacheDependencyFiles)
 		{
-			string pathToDependencyFile = GetPathToSiteMapCacheDependencyFile();
-			if (pathToDependencyFile.Length > 0)
+			var pathToDependencyFile = GetPathToSiteMapCacheDependencyFile();
+			if (!string.IsNullOrWhiteSpace(pathToDependencyFile))
 			{
 				EnsureCacheFile(pathToDependencyFile);
-				CacheDependency c = new CacheDependency(pathToDependencyFile);
+				var c = new CacheDependency(pathToDependencyFile);
 				return c;
 			}
 		}
@@ -101,26 +86,13 @@ public static class CacheHelper
 		return null;
 	}
 
-	//[Obsolete("This method is obsolete we no longer use cache dependency files call CacheHelper.ClearModuleCache(moduleId); instead.")]
-	//public static void TouchCacheDependencyFile(string cacheDependencyKey)
-	//{
-	//    if (HttpContext.Current == null) return;
-
-	//    SiteSettings siteSettings = GetCurrentSiteSettings();
-	//    if (siteSettings == null) return;
-
-	//    string pathToCacheDependencyFile = HttpContext.Current.Server.MapPath(
-	//            "~/Data/Sites/"
-	//            + siteSettings.SiteId.ToInvariantString()
-	//            + "/systemfiles/" + cacheDependencyKey + "cachedependecy.config");
-
-	//    TouchCacheFile(pathToCacheDependencyFile);
-	//}
-
 
 	public static void EnsureCacheFile(string pathToCacheFile)
 	{
-		if (pathToCacheFile == null) return;
+		if (pathToCacheFile is null)
+		{
+			return;
+		}
 
 		if (!File.Exists(pathToCacheFile))
 		{
@@ -129,14 +101,13 @@ public static class CacheHelper
 	}
 
 
-
 	public static void ResetThemeCache()
 	{
 		if (!WebConfigSettings.FileSystemIsWritable) { return; }
 		if (WebConfigSettings.UseCacheDependencyFiles)
 		{
 			string pathToFile = GetPathToThemeCacheDependencyFile();
-			if (pathToFile != null)
+			if (pathToFile is not null)
 			{
 				TouchCacheFile(pathToFile);
 			}
@@ -146,26 +117,27 @@ public static class CacheHelper
 
 	public static string GetPathToThemeCacheDependencyFile()
 	{
-		if (HttpContext.Current == null) return null;
+		if (HttpContext.Current is not null && GetCurrentSiteSettings() is SiteSettings siteSettings)
+		{
+			var cacheKey = Invariant($"theme_{siteSettings.SiteId}");
+			var path = GetPathToCacheDependencyFile(cacheKey);
 
-		SiteSettings siteSettings = GetCurrentSiteSettings();
-		if (siteSettings == null) { return null; }
+			if (!File.Exists(path))
+			{
+				TouchCacheFile(path);
+			}
+			return path;
+		}
 
-		string cacheKey = "theme_" + siteSettings.SiteId.ToInvariantString();
-
-		//string path = HttpContext.Current.Server.MapPath(
-		//    "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString()
-		//    + "/systemfiles/themecachedependecy.config");
-		string path = GetPathToCacheDependencyFile(cacheKey);
-
-		if (!File.Exists(path)) { TouchCacheFile(path); }
-
-		return path;
+		return null;
 	}
 
-	public static void TouchCacheFile(String pathToCacheFile)
+	public static void TouchCacheFile(string pathToCacheFile)
 	{
-		if (pathToCacheFile == null) return;
+		if (pathToCacheFile is null)
+		{
+			return;
+		}
 
 		try
 		{
@@ -186,22 +158,9 @@ public static class CacheHelper
 
 	private static string GetPathToSiteMapCacheDependencyFile()
 	{
-
-		//SiteSettings siteSettings = GetCurrentSiteSettings();
-		//if (siteSettings == null) { return string.Empty; }
-
 		string cacheKey = GetSiteMapCacheKey();
-
 		return GetPathToCacheDependencyFile(cacheKey);
 	}
-
-	//private static string GetPathToSiteMapCacheDependencyFile(int siteId)
-	//{
-	//    return System.Web.Hosting.HostingEnvironment.MapPath(
-	//        "~/Data/Sites/" + siteId.ToInvariantString()
-	//        + "/systemfiles/sitemapcachedependecy.config");
-	//}
-
 
 	#endregion
 
@@ -209,33 +168,30 @@ public static class CacheHelper
 
 	public static void ClearRelatedSiteCache(int relatedSiteId)
 	{
-		DataTable siteIds = SiteSettings.GetSiteIdList();
+		var siteIds = SiteSettings.GetSiteIdList();
 
 		foreach (DataRow row in siteIds.Rows)
 		{
 			int siteId = Convert.ToInt32(row["SiteID"]);
 
-			if (siteId != relatedSiteId) { ClearSiteSettingsCache(siteId); }
-
+			if (siteId != relatedSiteId)
+			{
+				ClearSiteSettingsCache(siteId);
+			}
 		}
-
 	}
 
 	public static void ClearSiteSettingsCache()
 	{
-		//if (HttpContext.Current == null) return;
-
-		SiteSettings siteSettings = GetCurrentSiteSettings();
-		if (siteSettings == null) return;
-
-		ClearSiteSettingsCache(siteSettings.SiteId);
+		if (GetCurrentSiteSettings() is SiteSettings siteSettings)
+		{
+			ClearSiteSettingsCache(siteSettings.SiteId);
+		}
 	}
 
 	public static void ClearSiteSettingsCache(int siteId)
 	{
-		//if (HttpContext.Current == null) return;
-
-		string cachekey = "SiteSettings_" + siteId.ToInvariantString();
+		var cachekey = Invariant($"SiteSettings_{siteId}");
 
 		try
 		{
@@ -248,67 +204,74 @@ public static class CacheHelper
 		}
 		catch (Exception ex)
 		{
-			log.Error("failed to clear cache for key " + cachekey, ex);
+			log.Error($"failed to clear cache for key {cachekey}", ex);
 		}
 	}
 
 	public static void ResetSiteMapCache()
 	{
-		string cacheKey = GetSiteMapCacheKey();
+		var cacheKey = GetSiteMapCacheKey();
 
 		if (WebConfigSettings.UseCacheDependencyFiles)
 		{
 			TouchCacheFile(GetPathToCacheDependencyFile(cacheKey));
 		}
 
-		if (HttpRuntime.Cache[cacheKey] != null) { HttpRuntime.Cache.Remove(cacheKey); }
+		if (HttpRuntime.Cache[cacheKey] is not null)
+		{
+			HttpRuntime.Cache.Remove(cacheKey);
+		}
 	}
 
 	public static void ResetSiteMapCache(int siteId)
 	{
 		// this only clears the cache of the current node if using a web farm
-		string cacheKey = "SiteMap" + siteId.ToInvariantString();
+		var cacheKey = Invariant($"SiteMap{siteId}");
 
 		if (WebConfigSettings.UseCacheDependencyFiles)
 		{
 			TouchCacheFile(GetPathToCacheDependencyFile(cacheKey));
 		}
 
-		if (HttpRuntime.Cache[cacheKey] != null) { HttpRuntime.Cache.Remove(cacheKey); }
+		if (HttpRuntime.Cache[cacheKey] is not null)
+		{
+			HttpRuntime.Cache.Remove(cacheKey);
+		}
 	}
 
 	public static string GetSiteMapCacheKey()
 	{
-		if (HttpContext.Current == null) return null;
+		if (HttpContext.Current is not null && GetCurrentSiteSettings() is SiteSettings siteSettings)
+		{
+			return Invariant($"SiteMap{siteSettings.SiteId}");
+		}
 
-		SiteSettings siteSettings = GetCurrentSiteSettings();
-		if (siteSettings == null) return null;
-
-		return "SiteMap" + siteSettings.SiteId.ToInvariantString();
+		return null;
 	}
 
 	public static void ClearModuleCache(int moduleId)
 	{
-		// clear the version for userds who can edit
-		string cacheKey = "Module-" + moduleId.ToInvariantString() + true.ToString(CultureInfo.InvariantCulture);
-		//if (HttpRuntime.Cache[cacheKey] != null) { HttpRuntime.Cache.Remove(cacheKey); }
+		// clear the version for users who can edit
+		var cacheKey = Invariant($"Module-{moduleId}{true}");
+
 		try
 		{
 			if (WebConfigSettings.UseCacheDependencyFiles)
 			{
 				TouchCacheFile(GetPathToCacheDependencyFile(cacheKey));
 			}
+
 			CacheManager.Cache.InvalidateCacheItem(cacheKey);
 		}
 		catch (Exception ex)
 		{
-			log.Error("failed to clear cahce for key " + cacheKey, ex);
+			log.Error($"failed to clear cahce for key {cacheKey}", ex);
 
 		}
 
 		// clear the version for users who cannot edit
-		cacheKey = "Module-" + moduleId.ToInvariantString() + false.ToString(CultureInfo.InvariantCulture);
-		//if (HttpRuntime.Cache[cacheKey] != null) { HttpRuntime.Cache.Remove(cacheKey); }
+		cacheKey = Invariant($"Module-{moduleId}{false}");
+
 		try
 		{
 			if (WebConfigSettings.UseCacheDependencyFiles)
@@ -319,14 +282,15 @@ public static class CacheHelper
 		}
 		catch (Exception ex)
 		{
-			log.Error("failed to clear cahce for key " + cacheKey, ex);
+			log.Error($"failed to clear cahce for key {cacheKey}", ex);
 
 		}
 	}
 
+
 	public static void ClearMembershipStatisticsCache()
 	{
-		string cachekey = GetMembershipStatisticsCacheKey();
+		var cachekey = GetMembershipStatisticsCacheKey();
 		try
 		{
 			if (WebConfigSettings.UseCacheDependencyFiles)
@@ -338,27 +302,23 @@ public static class CacheHelper
 		}
 		catch (Exception ex)
 		{
-			log.Error("failed to clear cache for key " + cachekey, ex);
-
+			log.Error($"failed to clear cache for key {cachekey}", ex);
 		}
 	}
-
-
 	#endregion
-
 
 	public static List<TimeZoneInfo> GetTimeZones()
 	{
-		string cacheKey = "tzlist";
-		DateTime absoluteExpiration = DateTime.Now.AddHours(1);
+		var cacheKey = "tzlist";
+		var absoluteExpiration = DateTime.Now.AddHours(1);
 
 		try
 		{
-			List<TimeZoneInfo> timeZones = CacheManager.Cache.Get<List<TimeZoneInfo>>(cacheKey, absoluteExpiration, () =>
+			var timeZones = CacheManager.Cache.Get(cacheKey, absoluteExpiration, () =>
 			{
 				// This is the anonymous function which gets called if the data is not in the cache.
 				// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
-				List<TimeZoneInfo> tz = DateTimeHelper.GetTimeZoneList();
+				var tz = DateTimeHelper.GetTimeZoneList();
 				return tz;
 			});
 
@@ -369,9 +329,7 @@ public static class CacheHelper
 			log.Error("failed to get timeZones from cache so loading it directly", ex);
 			return DateTimeHelper.GetTimeZoneList();
 		}
-
 	}
-
 
 	#region SiteSettings
 
@@ -392,14 +350,20 @@ public static class CacheHelper
 
 	private static SiteSettings GetSiteSettingsFromContext()
 	{
-		if (HttpContext.Current == null) return null;
+		if (HttpContext.Current is null)
+		{
+			return null;
+		}
 
 		if (HttpContext.Current.Items["SiteSettings"] is not SiteSettings siteSettings)
 		{
 			siteSettings = GetSiteSettingsFromCache();
-			if (siteSettings != null)
+			if (siteSettings is not null)
+			{
 				HttpContext.Current.Items["SiteSettings"] = siteSettings;
+			}
 		}
+
 		return siteSettings;
 	}
 
@@ -412,7 +376,10 @@ public static class CacheHelper
 		if (useFolderForSiteDetection)
 		{
 			string siteFolderName = VirtualFolderEvaluator.VirtualFolderName();
-			if (siteFolderName.Length == 0) siteFolderName = "root";
+			if (siteFolderName.Length == 0)
+			{
+				siteFolderName = "root";
+			}
 
 			if (!Global.SiteHostMap.TryGetValue(siteFolderName, out siteId))
 			{
@@ -422,7 +389,7 @@ public static class CacheHelper
 		}
 		else
 		{
-			string hostName = WebUtils.GetHostName();
+			var hostName = WebUtils.GetHostName();
 
 			if (!Global.SiteHostMap.TryGetValue(hostName, out siteId))
 			{
@@ -433,13 +400,14 @@ public static class CacheHelper
 				}
 			}
 		}
+
 		cachekey = Invariant($"SiteSettings_{siteId}");
 
 		var expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
 
 		try
 		{
-			var siteSettings = CacheManager.Cache.Get<SiteSettings>(cachekey, expiration, () =>
+			var siteSettings = CacheManager.Cache.Get(cachekey, expiration, () =>
 			{
 				// This is the anonymous function which gets called if the data is not in the cache.
 				// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
@@ -451,36 +419,24 @@ public static class CacheHelper
 		}
 		catch (Exception ex)
 		{
-			log.Error("failed to get siteSettings from cache so loading it directly", ex);
+			log.Error("failed to get siteSettings from cache, loading directly", ex);
+
 			return LoadSiteSettings();
 		}
 	}
 
 	private static SiteSettings LoadSiteSettings()
 	{
-		if (debugLog)
-		{
-			log.Debug("CacheHelper.cs LoadSiteSettings");
-		}
-
 		SiteSettings siteSettings = null;
 
 		try
 		{
 			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
-			string siteFolderName;
+			string siteFolderName = string.Empty;
 			if (useFolderForSiteDetection)
 			{
 				siteFolderName = VirtualFolderEvaluator.VirtualFolderName();
-			}
-			else
-			{
-				siteFolderName = string.Empty;
-			}
-
-			if (useFolderForSiteDetection)
-			{
 				Guid siteGuid = SiteFolder.GetSiteGuid(siteFolderName);
 				siteSettings = new SiteSettings(siteGuid);
 			}
@@ -489,7 +445,7 @@ public static class CacheHelper
 				siteSettings = new SiteSettings(WebUtils.GetHostName());
 			}
 
-			if (siteSettings.SiteId > -1)
+			if (siteSettings.SiteId > 0)
 			{
 				siteSettings.ReloadExpandoProperties();
 				siteSettings.SiteRoot = WebUtils.GetSiteRoot();
@@ -528,55 +484,48 @@ public static class CacheHelper
 	/// </summary>
 	/// <param name="siteId"></param>
 	/// <returns></returns>
-	public static SiteSettings GetSiteSettings(int siteId)
-	{
-		bool useHttpContext = true;
-		return GetSiteSettings(siteId, useHttpContext);
-	}
+	public static SiteSettings GetSiteSettings(int siteId) => GetSiteSettings(siteId, true);
 
-	public static SiteSettings GetSiteSettings(int siteId, bool useHttpContext)
-	{
-		if (useHttpContext)
-		{
-			return GetSiteSettingsFromContext(siteId);
-		}
-		else
-		{
-			return GetSiteSettingsFromCache(siteId);
-		}
-	}
+	public static SiteSettings GetSiteSettings(int siteId, bool useHttpContext) => useHttpContext ? GetSiteSettingsFromContext(siteId) : GetSiteSettingsFromCache(siteId);
 
 	private static SiteSettings GetSiteSettingsFromContext(int siteId)
 	{
-		if (HttpContext.Current == null) return GetSiteSettingsFromCache(siteId);
+		if (HttpContext.Current is null)
+		{
+			return GetSiteSettingsFromCache(siteId);
+		}
 
-		string contextKey = "SiteSettings" + siteId.ToInvariantString();
+		var contextKey = Invariant($"SiteSettings{siteId}");
 
-		SiteSettings siteSettings = HttpContext.Current.Items[contextKey] as SiteSettings;
-		if (siteSettings == null)
+		if (HttpContext.Current.Items[contextKey] is not SiteSettings siteSettings)
 		{
 			siteSettings = GetSiteSettingsFromCache(siteId);
-			if (siteSettings != null)
+			if (siteSettings is not null)
+			{
 				HttpContext.Current.Items[contextKey] = siteSettings;
+			}
 		}
 		return siteSettings;
 	}
 
 	private static SiteSettings GetSiteSettingsFromCache(int siteId)
 	{
-		if (siteId == -1) { return null; }
+		if (siteId == -1)
+		{
+			return null;
+		}
 
-		string cachekey = "SiteSettings_" + siteId.ToInvariantString();
+		string cachekey = Invariant($"SiteSettings_{siteId}");
 
-		DateTime expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
+		var expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
 
 		try
 		{
-			SiteSettings siteSettings = CacheManager.Cache.Get<SiteSettings>(cachekey, expiration, () =>
+			var siteSettings = CacheManager.Cache.Get(cachekey, expiration, () =>
 			{
 				// This is the anonymous function which gets called if the data is not in the cache.
 				// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
-				SiteSettings site = new SiteSettings(siteId);
+				var site = new SiteSettings(siteId);
 				return site;
 			});
 
@@ -587,34 +536,23 @@ public static class CacheHelper
 			log.Error("failed to get siteSettings from cache so loading it directly", ex);
 			return new SiteSettings(siteId);
 		}
-
 	}
-
-
-
 
 	#endregion
 
 	#region MembershipStatistics
 
-	public static MembershipStatistics GetCurrentMembershipStatistics()
-	{
-		return GetMembershipStatisticsFromCache();
-	}
+	public static MembershipStatistics GetCurrentMembershipStatistics() => GetMembershipStatisticsFromCache();
 
 
-	private static string GetMembershipStatisticsCacheKey()
-	{
-		String hostName = WebUtils.GetHostName();
-		return "MembershipStatistics_" + hostName;
-	}
+	private static string GetMembershipStatisticsCacheKey() => $"MembershipStatistics_{WebUtils.GetHostName()}";
+
 
 	private static MembershipStatistics GetMembershipStatisticsFromCache()
 	{
+		var cachekey = GetMembershipStatisticsCacheKey();
 
-		string cachekey = GetMembershipStatisticsCacheKey();
-
-		DateTime expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
+		var expiration = DateTime.Now.AddSeconds(WebConfigSettings.SiteSettingsCacheDurationInSeconds);
 
 		try
 		{
@@ -633,26 +571,19 @@ public static class CacheHelper
 			log.Error("failed to get memberStats from cache so loading it directly ", ex);
 			return LoadMembershipStatistics();
 		}
-
 	}
 
 
 	private static MembershipStatistics LoadMembershipStatistics()
 	{
-		if (debugLog) log.Debug("CacheHelper.cs LoadMembershipStatistics");
-
-		SiteSettings siteSettings = GetCurrentSiteSettings();
-		if (siteSettings == null) { return null; }
-
-		return new MembershipStatistics(
-			siteSettings,
-			DateTime.Today.ToUniversalTime().AddHours(DateTimeHelper.GetPreferredGmtOffset()));
+		if (GetCurrentSiteSettings() is SiteSettings siteSettings)
+		{
+			return new MembershipStatistics(
+				siteSettings,
+				DateTime.Today.ToUniversalTime().AddHours(DateTimeHelper.GetPreferredGmtOffset()));
+		}
+		return null;
 	}
-
-
-
-
-
 
 	#endregion
 
@@ -661,90 +592,99 @@ public static class CacheHelper
 
 	public static PageSettings GetCurrentPage()
 	{
-		if (HttpContext.Current == null) return null;
+		if (HttpContext.Current is null)
+		{
+			return null;
+		}
 
-		PageSettings currentPage = HttpContext.Current.Items["CurrentPage"] as PageSettings;
-		if (currentPage == null)
+		if (HttpContext.Current.Items["CurrentPage"] is not PageSettings currentPage)
 		{
 			currentPage = LoadCurrentPage();
-			if (currentPage != null)
+			if (currentPage is not null)
+			{
 				HttpContext.Current.Items["CurrentPage"] = currentPage;
+			}
 		}
+
 		return currentPage;
 	}
 
+
 	public static PageSettings GetPage(int pageId)
 	{
-		if (HttpContext.Current == null) return null;
+		if (HttpContext.Current is null)
+		{
+			return null;
+		}
 
-		string key = "page_" + pageId.ToInvariantString();
+		string key = Invariant($"page_{pageId}");
 
-		PageSettings p = HttpContext.Current.Items[key] as PageSettings;
-		if (p == null)
+		if (HttpContext.Current.Items[key] is not PageSettings p)
 		{
 			p = LoadPage(pageId);
-			if (p != null)
+			if (p is not null)
+			{
 				HttpContext.Current.Items[key] = p;
+			}
 		}
+
 		return p;
 	}
 
-
-	private static PageSettings LoadCurrentPage()
-	{
-		if (debugLog) log.Debug("CacheHelper.cs LoadCurrentPage");
-
-		int pageID = WebUtils.ParseInt32FromQueryString("pageid", -1);
-
-		return LoadPage(pageID);
-
-
-	}
 
 	public static PageSettings GetPage(Guid pageGuid)
 	{
-		if (HttpContext.Current == null) return null;
+		if (HttpContext.Current is null)
+		{
+			return null;
+		}
 
-		string key = "page_" + pageGuid.ToString();
+		string key = $"page_{pageGuid}";
 
-		if (!(HttpContext.Current.Items[key] is PageSettings p))
+		if (HttpContext.Current.Items[key] is not PageSettings p)
 		{
 			p = LoadPage(pageGuid);
-			if (p != null)
+
+			if (p is not null)
+			{
 				HttpContext.Current.Items[key] = p;
+			}
 		}
 		return p;
 	}
 
+
+	private static PageSettings LoadCurrentPage() => LoadPage(WebUtils.ParseInt32FromQueryString("pageid", -1));
+
+
 	private static PageSettings LoadPage(int pageID)
 	{
-		if (debugLog) log.Debug("CacheHelper.cs LoadPage(pageID)");
-
-		SiteSettings siteSettings = GetCurrentSiteSettings();
-
-		if (siteSettings == null) return null;
-
-		if (pageID == -1)
+		if (debugLog)
 		{
-			pageID = siteSettings.HomePageOverride;
+			log.Debug("CacheHelper.cs LoadPage(pageID)");
 		}
 
-		PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
-		return LoadPage(currentPage);
+		if (GetCurrentSiteSettings() is SiteSettings siteSettings)
+		{
+			if (pageID == -1)
+			{
+				pageID = siteSettings.HomePageOverride;
+			}
+
+			return LoadPage(new PageSettings(siteSettings.SiteId, pageID));
+		}
+
+		return null;
 	}
 
-	private static PageSettings LoadPage(Guid pageGuid)
-	{
-		if (debugLog) log.Debug("CacheHelper.cs LoadPage(pageGuid)");
+	private static PageSettings LoadPage(Guid pageGuid) => LoadPage(new PageSettings(pageGuid));
 
-		PageSettings currentPage = new PageSettings(pageGuid);
-		return LoadPage(currentPage);
-	}
-
-	private static PageSettings LoadPage(PageSettings page)
+	private static PageSettings LoadPage(PageSettings pageSettings)
 	{
-		SiteSettings siteSettings = GetCurrentSiteSettings();
-		if (siteSettings == null) return null;
+		if (GetCurrentSiteSettings() is not SiteSettings siteSettings)
+		{
+			return null;
+		}
 
 		bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 		string virtualFolder;
@@ -758,9 +698,7 @@ public static class CacheHelper
 			virtualFolder = string.Empty;
 		}
 
-
-		//PageSettings currentPage = new PageSettings(siteSettings.SiteId, pageID);
-		PageSettings currentPage = page;
+		var currentPage = pageSettings;
 
 		if (currentPage.SiteId != siteSettings.SiteId)
 		{   // probably url manipulation trying to use a pageid that
@@ -768,24 +706,20 @@ public static class CacheHelper
 			currentPage = new PageSettings(siteSettings.SiteId, siteSettings.HomePageOverride);
 		}
 
-		if (
-			(useFolderForSiteDetection)
-			&& (virtualFolder.Length > 0)
-			&& (currentPage.Url.StartsWith("~/"))
-			)
+		if (useFolderForSiteDetection
+			&& !string.IsNullOrWhiteSpace(virtualFolder)
+			&& currentPage.Url.StartsWith("~/"))
 		{
-			currentPage.Url = currentPage.Url.Replace("~/", "~/" + virtualFolder + "/");
-
+			currentPage.Url = currentPage.Url.Replace("~/", $"~/{virtualFolder}/");
 			currentPage.UrlHasBeenAdjustedForFolderSites = true;
 		}
 
-		if (
-			(useFolderForSiteDetection)
-			&& (virtualFolder.Length > 0)
-			&& (!currentPage.UseUrl)
+		if (useFolderForSiteDetection
+			&& !string.IsNullOrWhiteSpace(virtualFolder)
+			&& !currentPage.UseUrl
 			)
 		{
-			currentPage.Url = "~/" + virtualFolder + "/Default.aspx?pageid=" + currentPage.PageId.ToString();
+			currentPage.Url = Invariant($"~/{virtualFolder}/Default.aspx?pageid={currentPage.PageId}");
 			currentPage.UseUrl = true;
 			currentPage.UrlHasBeenAdjustedForFolderSites = true;
 		}
@@ -797,249 +731,197 @@ public static class CacheHelper
 
 	private static void LoadPageModule(PageSettings pageSettings)
 	{
-
-		using (IDataReader reader = Module.GetPageModules(pageSettings.PageId))
+		using IDataReader reader = Module.GetPageModules(pageSettings.PageId);
+		while (reader.Read())
 		{
-			while (reader.Read())
+			var m = new Module
 			{
-				Module m = new Module();
-				m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
-				m.SiteId = Convert.ToInt32(reader["SiteID"]);
-				m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
-				m.ModuleTitle = reader["ModuleTitle"].ToString();
-				m.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
-				m.CacheTime = Convert.ToInt32(reader["CacheTime"]);
-				string showTitle = reader["ShowTitle"].ToString();
-				m.ShowTitle = (showTitle == "True" || showTitle == "1");
-				if (reader["EditUserID"] != DBNull.Value)
-				{
-					m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
-				}
-				//m.AvailableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
-				//m.AllowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
-				//m.Icon = reader["Icon"].ToString();
-				m.CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]);
-				if (reader["CreatedDate"] != DBNull.Value)
-				{
-					m.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
-				}
-				//m.CountOfUseOnMyPage
-				m.ModuleGuid = new Guid(reader["Guid"].ToString());
-				m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
-				m.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-				if (reader["EditUserGuid"] != DBNull.Value)
-				{
-					m.EditUserGuid = new Guid(reader["EditUserGuid"].ToString());
-				}
-				m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
-				m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
-				m.ViewRoles = reader["ViewRoles"].ToString();
-				m.DraftEditRoles = reader["DraftEditRoles"].ToString();
-				m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
-				m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
-				m.HeadElement = reader["HeadElement"].ToString();
-				m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
-				m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
+				ModuleId = Convert.ToInt32(reader["ModuleID"]),
+				SiteId = Convert.ToInt32(reader["SiteID"]),
+				ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]),
+				ModuleTitle = reader["ModuleTitle"].ToString(),
+				AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString(),
+				CacheTime = Convert.ToInt32(reader["CacheTime"]),
+				//ShowTitle = reader["ShowTitle"].ToString() == "True" || reader["ShowTitle"].ToString() == "1",
+				ShowTitle = reader["ShowTitle"].ToString() is "True" or "1",
+				CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]),
+				ModuleGuid = new Guid(reader["Guid"].ToString()),
+				FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+				SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+				HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]),
+				HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]),
+				ViewRoles = reader["ViewRoles"].ToString(),
+				DraftEditRoles = reader["DraftEditRoles"].ToString(),
+				IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]),
+				IsGlobal = Convert.ToBoolean(reader["IsGlobal"]),
+				HeadElement = reader["HeadElement"].ToString(),
+				PublishMode = Convert.ToInt32(reader["PublishMode"]),
+				DraftApprovalRoles = reader["DraftApprovalRoles"].ToString(),
+				PageId = Convert.ToInt32(reader["PageID"]),
+				PaneName = reader["PaneName"].ToString(),
+				ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]),
+				ControlSource = reader["ControlSrc"].ToString()
+			};
 
-				m.PageId = Convert.ToInt32(reader["PageID"]);
-				m.PaneName = reader["PaneName"].ToString();
-				m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
-				m.ControlSource = reader["ControlSrc"].ToString();
-
-				pageSettings.Modules.Add(m);
+			if (reader["EditUserID"] != DBNull.Value)
+			{
+				m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
 			}
+
+			if (reader["CreatedDate"] != DBNull.Value)
+			{
+				m.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
+			}
+
+			if (reader["EditUserGuid"] != DBNull.Value)
+			{
+				m.EditUserGuid = new Guid(reader["EditUserGuid"].ToString());
+			}
+
+			pageSettings.Modules.Add(m);
 		}
-
-
 	}
-
 
 	//called by sitemapprovider
 	//called by IndexHelper
-	public static Collection<PageSettings> GetMenuPages()
-	{
-		return GetMenuPagesFromContext();
-	}
+	public static Collection<PageSettings> GetMenuPages() => GetMenuPagesFromContext();
 
 	private static Collection<PageSettings> GetMenuPagesFromContext()
 	{
-		if (HttpContext.Current == null) { return null; }
+		if (HttpContext.Current is null)
+		{
+			return null;
+		}
 
-		Collection<PageSettings> menuPages = HttpContext.Current.Items["MenuPages"] as Collection<PageSettings>;
-		if (menuPages == null)
+		if (HttpContext.Current.Items["MenuPages"] is not Collection<PageSettings> menuPages)
 		{
 			menuPages = LoadMenuPages();
-			if (menuPages != null)
+			if (menuPages is not null)
+			{
 				HttpContext.Current.Items["MenuPages"] = menuPages;
+			}
 		}
 		return menuPages;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 	private static Collection<PageSettings> LoadMenuPages()
 	{
-		Collection<PageSettings> menuPages = new Collection<PageSettings>();
+		var menuPages = new Collection<PageSettings>();
 
-		SiteSettings siteSettings = GetCurrentSiteSettings();
-		if (siteSettings == null) return menuPages;
+		if (GetCurrentSiteSettings() is not SiteSettings siteSettings)
+		{
+			return menuPages;
+		}
 
 		bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
-		string virtualFolder;
+		string virtualFolder = string.Empty;
+
 		if (useFolderForSiteDetection)
 		{
 			virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
 		}
-		else
-		{
-			virtualFolder = string.Empty;
-		}
-
 
 		using (IDataReader reader = PageSettings.GetPageList(siteSettings.SiteId))
 		{
-
 			int i = 0;
 			while (reader.Read())
 			{
-				PageSettings pageDetails = new PageSettings();
-				pageDetails.SiteId = siteSettings.SiteId;
-				pageDetails.PageId = Convert.ToInt32(reader["PageID"]);
-				pageDetails.ParentId = Convert.ToInt32(reader["ParentID"]);
-				pageDetails.PageName = reader["PageName"].ToString();
-				pageDetails.PageMetaDescription = reader["PageDescription"].ToString();
-				pageDetails.MenuDescription = reader["MenuDesc"].ToString();
-				pageDetails.MenuImage = reader["MenuImage"].ToString();
-				pageDetails.PageOrder = Convert.ToInt32(reader["PageOrder"]);
-				pageDetails.AuthorizedRoles = reader["AuthorizedRoles"].ToString();
-				pageDetails.EditRoles = reader["EditRoles"].ToString();
-				pageDetails.DraftEditOnlyRoles = reader["DraftEditRoles"].ToString();
-				pageDetails.CreateChildPageRoles = reader["CreateChildPageRoles"].ToString();
+				var pageDetails = new PageSettings
+				{
+					SiteId = siteSettings.SiteId,
+					PageId = Convert.ToInt32(reader["PageID"]),
+					ParentId = Convert.ToInt32(reader["ParentID"]),
+					PageName = reader["PageName"].ToString(),
+					PageMetaDescription = reader["PageDescription"].ToString(),
+					MenuDescription = reader["MenuDesc"].ToString(),
+					MenuImage = reader["MenuImage"].ToString(),
+					PageOrder = Convert.ToInt32(reader["PageOrder"]),
+					AuthorizedRoles = reader["AuthorizedRoles"].ToString(),
+					EditRoles = reader["EditRoles"].ToString(),
+					DraftEditOnlyRoles = reader["DraftEditRoles"].ToString(),
+					CreateChildPageRoles = reader["CreateChildPageRoles"].ToString(),
+					UseUrl = Convert.ToBoolean(reader["UseUrl"]),
+					Url = reader["Url"].ToString(),
+					UnmodifiedUrl = reader["Url"].ToString(),
+					LinkRel = reader["LinkRel"].ToString(),
+					IncludeInMenu = Convert.ToBoolean(reader["IncludeInMenu"]),
+					IncludeInSiteMap = Convert.ToBoolean(reader["IncludeInSiteMap"]),
+					ExpandOnSiteMap = Convert.ToBoolean(reader["ExpandOnSiteMap"]),
+					IncludeInSearchMap = Convert.ToBoolean(reader["IncludeInSearchMap"]),
+					IsClickable = Convert.ToBoolean(reader["IsClickable"]),
+					ShowHomeCrumb = Convert.ToBoolean(reader["ShowHomeCrumb"]),
+					RequireSsl = Convert.ToBoolean(reader["RequireSSL"]),
+					OpenInNewWindow = Convert.ToBoolean(reader["OpenInNewWindow"]),
+					ShowChildPageMenu = Convert.ToBoolean(reader["ShowChildPageMenu"]),
+					ShowChildPageBreadcrumbs = Convert.ToBoolean(reader["ShowChildBreadCrumbs"]),
+					PageIndex = i,
+					ChangeFrequency = reader["ChangeFrequency"].ToString() switch
+					{
+						"Always" => PageChangeFrequency.Always,
+						"Hourly" => PageChangeFrequency.Hourly,
+						"Daily" => PageChangeFrequency.Daily,
+						"Monthly" => PageChangeFrequency.Monthly,
+						"Yearly" => PageChangeFrequency.Yearly,
+						"Never" => PageChangeFrequency.Never,
+						_ => PageChangeFrequency.Weekly,
+					},
+					PageGuid = new Guid(reader["PageGuid"].ToString()),
+					ParentGuid = new Guid(reader["ParentGuid"].ToString()),
+					HideAfterLogin = Convert.ToBoolean(reader["HideAfterLogin"]),
+					SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+					CompiledMeta = reader["CompiledMeta"].ToString(),
+					IsPending = Convert.ToBoolean(reader["IsPending"]),
 
+					PubTeamId = new Guid(reader["PubTeamId"].ToString()),
+					IncludeInChildSiteMap = Convert.ToBoolean(reader["IncludeInChildSiteMap"]),
 
-				pageDetails.UseUrl = Convert.ToBoolean(reader["UseUrl"]);
-				pageDetails.Url = reader["Url"].ToString();
-				pageDetails.UnmodifiedUrl = reader["Url"].ToString();
-				pageDetails.LinkRel = reader["LinkRel"].ToString();
-				pageDetails.IncludeInMenu = Convert.ToBoolean(reader["IncludeInMenu"]);
-				pageDetails.IncludeInSiteMap = Convert.ToBoolean(reader["IncludeInSiteMap"]);
-				pageDetails.ExpandOnSiteMap = Convert.ToBoolean(reader["ExpandOnSiteMap"]);
-				pageDetails.IncludeInSearchMap = Convert.ToBoolean(reader["IncludeInSearchMap"]);
-				pageDetails.IsClickable = Convert.ToBoolean(reader["IsClickable"]);
-				pageDetails.ShowHomeCrumb = Convert.ToBoolean(reader["ShowHomeCrumb"]);
-				pageDetails.RequireSsl = Convert.ToBoolean(reader["RequireSSL"]);
+					BodyCssClass = reader["BodyCssClass"].ToString(),
+					MenuCssClass = reader["MenuCssClass"].ToString(),
+
+					PublishMode = Convert.ToInt32(reader["PublishMode"])
+				};
+
 				if (reader["PubDateUtc"] != DBNull.Value)
 				{
 					pageDetails.PubDateUtc = Convert.ToDateTime(reader["PubDateUtc"]);
 				}
 
-				if (
-					(useFolderForSiteDetection)
-					&& (virtualFolder.Length > 0)
-					&& (pageDetails.Url.StartsWith("~/"))
+				if (useFolderForSiteDetection
+					&& !string.IsNullOrWhiteSpace(virtualFolder)
+					&& pageDetails.Url.StartsWith("~/")
 					)
 				{
-					pageDetails.Url
-						= pageDetails.Url.Replace("~/", "~/" + virtualFolder + "/");
+					pageDetails.Url = pageDetails.Url.Replace("~/", $"~/{virtualFolder}/");
 					pageDetails.UrlHasBeenAdjustedForFolderSites = true;
 				}
 
-				if (
-					(useFolderForSiteDetection)
-					&& (virtualFolder.Length > 0)
-					&& (!pageDetails.UseUrl)
+				if (useFolderForSiteDetection
+					&& !string.IsNullOrWhiteSpace(virtualFolder)
+					&& !pageDetails.UseUrl
 					)
 				{
-					pageDetails.UnmodifiedUrl = "~/Default.aspx?pageid="
-						+ pageDetails.PageId.ToString(CultureInfo.InvariantCulture);
+					pageDetails.UnmodifiedUrl = Invariant($"~/Default.aspx?pageid={pageDetails.PageId}");
 
-					pageDetails.Url
-						= "~/" + virtualFolder + "/Default.aspx?pageid="
-						+ pageDetails.PageId.ToString(CultureInfo.InvariantCulture);
+					pageDetails.Url = Invariant($"~/{virtualFolder}/Default.aspx?pageid={pageDetails.PageId}");
 					pageDetails.UseUrl = true;
 					pageDetails.UrlHasBeenAdjustedForFolderSites = true;
 				}
 
-
-				pageDetails.OpenInNewWindow = Convert.ToBoolean(reader["OpenInNewWindow"]);
-				pageDetails.ShowChildPageMenu = Convert.ToBoolean(reader["ShowChildPageMenu"]);
-				pageDetails.ShowChildPageBreadcrumbs = Convert.ToBoolean(reader["ShowChildBreadCrumbs"]);
-				pageDetails.PageIndex = i;
-
-				string cf = reader["ChangeFrequency"].ToString();
-				switch (cf)
+				var smp = reader["SiteMapPriority"].ToString().Trim();
+				if (smp.Length > 0)
 				{
-					case "Always":
-						pageDetails.ChangeFrequency = PageChangeFrequency.Always;
-						break;
-
-					case "Hourly":
-						pageDetails.ChangeFrequency = PageChangeFrequency.Hourly;
-						break;
-
-					case "Daily":
-						pageDetails.ChangeFrequency = PageChangeFrequency.Daily;
-						break;
-
-					case "Monthly":
-						pageDetails.ChangeFrequency = PageChangeFrequency.Monthly;
-						break;
-
-					case "Yearly":
-						pageDetails.ChangeFrequency = PageChangeFrequency.Yearly;
-						break;
-
-					case "Never":
-						pageDetails.ChangeFrequency = PageChangeFrequency.Never;
-						break;
-
-					case "Weekly":
-					default:
-						pageDetails.ChangeFrequency = PageChangeFrequency.Weekly;
-						break;
-
-
+					pageDetails.SiteMapPriority = smp;
 				}
-
-				string smp = reader["SiteMapPriority"].ToString().Trim();
-				if (smp.Length > 0) pageDetails.SiteMapPriority = smp;
 
 				if (reader["LastModifiedUTC"] != DBNull.Value)
 				{
 					pageDetails.LastModifiedUtc = Convert.ToDateTime(reader["LastModifiedUTC"]);
 				}
 
-				pageDetails.PageGuid = new Guid(reader["PageGuid"].ToString());
-				pageDetails.ParentGuid = new Guid(reader["ParentGuid"].ToString());
-
-
-				pageDetails.HideAfterLogin = Convert.ToBoolean(reader["HideAfterLogin"]);
-
-				pageDetails.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-				pageDetails.CompiledMeta = reader["CompiledMeta"].ToString();
 				if (reader["CompiledMetaUtc"] != DBNull.Value)
 				{
 					pageDetails.CompiledMetaUtc = Convert.ToDateTime(reader["CompiledMetaUtc"]);
 				}
-
-				pageDetails.IsPending = Convert.ToBoolean(reader["IsPending"]);
-
-				pageDetails.PubTeamId = new Guid(reader["PubTeamId"].ToString());
-				pageDetails.IncludeInChildSiteMap = Convert.ToBoolean(reader["IncludeInChildSiteMap"]);
-
-				pageDetails.BodyCssClass = reader["BodyCssClass"].ToString();
-				pageDetails.MenuCssClass = reader["MenuCssClass"].ToString();
-
-				pageDetails.PublishMode = Convert.ToInt32(reader["PublishMode"]);
 
 				menuPages.Add(pageDetails);
 				i++;
@@ -1049,176 +931,7 @@ public static class CacheHelper
 		return menuPages;
 	}
 
-
-
 	#endregion
 
-
-
-
-
-
-
-
-
-	public static string GetPathToWebConfigFile()
-	{
-		return HostingEnvironment.MapPath("~/Web.config");
-	}
-
-
-
-	//public static void ClearSiteMap(Page page, int siteId)
-	//{
-	//    SiteMapDataSource siteMapDataSource = (SiteMapDataSource)page.Master.FindControl("SiteMapData");
-	//    if (siteMapDataSource != null)
-	//    {
-	//        siteMapDataSource.SiteMapProvider = "mojosite" + siteId.ToInvariantString();
-	//        mojoSiteMapProvider mojoSiteMap = siteMapDataSource.Provider as mojoSiteMapProvider;
-	//        if (mojoSiteMap != null) { mojoSiteMap.ClearSiteMap(); }
-	//    }
-	//}
-
-
-
-
-
-
-
-	//private static string GetPathToMembershipStatisticsCacheDependencyFile()
-	//{
-	//    if (HttpContext.Current == null) return null;
-
-	//    SiteSettings siteSettings = GetCurrentSiteSettings();
-	//    if (siteSettings == null) return null;
-
-	//    return HttpContext.Current.Server.MapPath(
-	//        "~/Data/Sites/"
-	//        + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture)
-	//        + "/systemfiles/membershipstatisticscachedependecy.config");
-	//}
-
-	//public static int GetDefaultModuleCacheTime()
-	//{
-	//    int cacheTime;
-	//    if (!int.TryParse(ConfigurationManager.AppSettings["DefaultModuleCacheDurationInSeconds"], out cacheTime))
-	//        cacheTime = 360;
-	//    return cacheTime;
-	//}
-
-	//public static String GetPathToCacheDependencyFile(String cacheDependencyKey)
-	//{
-	//    if (HttpContext.Current == null) return null;
-
-	//    SiteSettings siteSettings = GetCurrentSiteSettings();
-	//    if (siteSettings == null) return null;
-
-	//    return HttpContext.Current.Server.MapPath(
-	//        "~/Data/Sites/"
-	//        + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture)
-	//        + "/systemfiles/" + cacheDependencyKey + "cachedependecy.config");
-	//}
-
-	//private static void RefreshMembershipStatisticsCache(String cacheKey, int cacheTimeout)
-	//{
-	//    if (HttpContext.Current == null) return;
-
-	//    MembershipStatistics membershipStatistics = LoadMembershipStatistics();
-	//    if (membershipStatistics == null) return;
-
-	//    //String pathToCacheDependencyFile 
-	//    //    = GetPathToMembershipStatisticsCacheDependencyFile();
-
-	//    //if (pathToCacheDependencyFile != null)
-	//    //{
-	//    //    EnsureCacheFile(pathToCacheDependencyFile);
-	//    //}
-
-	//    //CacheDependency cacheDependency = new CacheDependency(pathToCacheDependencyFile);
-	//    CacheDependency cacheDependency = null;
-	//    DateTime absoluteExpiration = DateTime.Now.AddSeconds(cacheTimeout);
-	//    //TimeSpan slidingExpiration = TimeSpan.Zero;
-	//    //CacheItemPriority priority = CacheItemPriority.Default;
-	//    CacheItemRemovedCallback callback = null;
-
-	//    HttpRuntime.Cache.Insert(
-	//        cacheKey,
-	//        membershipStatistics,
-	//        cacheDependency,
-	//        absoluteExpiration,
-	//        Cache.NoSlidingExpiration,
-	//        CacheItemPriority.Default,
-	//        callback);
-	//}
-
-
-
-	//private static void RefreshSiteSettingsCache(String cacheKey, int cacheTimeout)
-	//{
-	//    if (HttpContext.Current == null) return;
-
-	//    SiteSettings siteSettings = LoadSiteSettings();
-	//    if (siteSettings == null) return;
-
-	//    //string pathToCacheDependencyDirectory = HttpContext.Current.Server.MapPath(
-	//    //    "~/Data/Sites/"
-	//    //    + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture)
-	//    //    + "/systemfiles/");
-
-	//    //EnsureDirectory(pathToCacheDependencyDirectory);
-	//    //EnsureCacheFile(pathToCacheDependencyDirectory + "sitesettingscachedependecy.config");
-
-	//    //CacheDependency cacheDependency = new CacheDependency(pathToCacheDependencyDirectory + "sitesettingscachedependecy.config");
-	//    CacheDependency cacheDependency = null;
-
-	//    DateTime absoluteExpiration = DateTime.Now.AddSeconds(cacheTimeout);
-	//    //TimeSpan slidingExpiration = TimeSpan.Zero;
-	//    //CacheItemPriority priority = CacheItemPriority.Default;
-	//    CacheItemRemovedCallback callback = null;
-
-	//    HttpRuntime.Cache.Insert(
-	//        cacheKey,
-	//        siteSettings,
-	//        cacheDependency,
-	//        absoluteExpiration,
-	//        Cache.NoSlidingExpiration,
-	//        CacheItemPriority.Default,
-	//        callback);
-	//}
-
-	//private static void RefreshSiteSettingsCache(int siteId, String cacheKey, int cacheTimeout)
-	//{
-	//    if (HttpContext.Current == null) return;
-
-	//    SiteSettings siteSettings = new SiteSettings(siteId);
-
-
-	//    //string pathToCacheDependencyDirectory = HttpContext.Current.Server.MapPath(
-	//    //    "~/Data/Sites/"
-	//    //    + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture)
-	//    //    + "/systemfiles/");
-
-	//    //EnsureDirectory(pathToCacheDependencyDirectory);
-	//    //EnsureCacheFile(pathToCacheDependencyDirectory + "sitesettingscachedependecy.config");
-
-	//    //CacheDependency cacheDependency = new CacheDependency(pathToCacheDependencyDirectory + "sitesettingscachedependecy.config");
-	//    CacheDependency cacheDependency = null;
-
-
-
-	//    DateTime absoluteExpiration = DateTime.Now.AddSeconds(cacheTimeout);
-	//    //TimeSpan slidingExpiration = TimeSpan.Zero;
-	//    //CacheItemPriority priority = CacheItemPriority.Default;
-	//    CacheItemRemovedCallback callback = null;
-
-	//    HttpRuntime.Cache.Insert(
-	//        cacheKey,
-	//        siteSettings,
-	//        cacheDependency,
-	//        absoluteExpiration,
-	//        Cache.NoSlidingExpiration,
-	//        CacheItemPriority.Default,
-	//        callback);
-	//}
-
+	public static string GetPathToWebConfigFile() => HostingEnvironment.MapPath("~/web.config");
 }
