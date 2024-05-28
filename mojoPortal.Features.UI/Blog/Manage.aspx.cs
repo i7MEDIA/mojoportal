@@ -67,7 +67,7 @@ public partial class ManagePage : NonCmsBasePage
 		{
 			BreadcrumbsControl crumbs = (BreadcrumbsControl)c;
 			crumbs.ForceShowBreadcrumbs = true;
-			crumbs.AddedCrumbs = $"{crumbs.ItemWrapperTop}<a href=\"{SiteUtils.GetUrlWithQueryParams("Blog/Manage.aspx", -1, pageId, moduleId)}\" class=\"selectedcrumb\">{BlogResources.Administration}</a>{crumbs.ItemWrapperBottom}";
+			crumbs.AddedCrumbs = $"{crumbs.ItemWrapperTop}<a href=\"{"Blog/Manage.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId)}\" class=\"selectedcrumb\">{BlogResources.Administration}</a>{crumbs.ItemWrapperBottom}";
 		}
 
 		lnkCategories.Text = BlogResources.ManageCategories;
@@ -81,16 +81,16 @@ public partial class ManagePage : NonCmsBasePage
 		currentUser = SiteUtils.GetCurrentSiteUser();
 		config = new BlogConfiguration(ModuleSettings.GetModuleSettings(moduleId));
 
-		lnkCategories.NavigateUrl = SiteUtils.GetUrlWithQueryParams("Blog/EditCategory.aspx", -1, pageId, moduleId);
+		lnkCategories.NavigateUrl = "Blog/EditCategory.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId).ToString();
 		//$"{SiteRoot}/Blog/EditCategory.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
 
-		lnkNewPost.NavigateUrl = SiteUtils.GetUrlWithQueryParams("Blog/EditPost.aspx", -1, pageId, moduleId);
+		lnkNewPost.NavigateUrl = "Blog/EditPost.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId).ToString();
 		//$"{SiteRoot}/Blog/EditPost.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
 
-		lnkDrafts.NavigateUrl = SiteUtils.GetUrlWithQueryParams("Blog/Drafts.aspx", -1, pageId, moduleId);
+		lnkDrafts.NavigateUrl = "Blog/Drafts.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId).ToString();
 		//$"{SiteRoot}/Blog/Drafts.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
 
-		lnkClosedPosts.NavigateUrl = SiteUtils.GetUrlWithQueryParams("Blog/ClosedPosts.aspx", -1, pageId, moduleId);
+		lnkClosedPosts.NavigateUrl = "Blog/ClosedPosts.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId).ToString();
 		//$"{SiteRoot}/Blog/ClosedPosts.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}";
 
 		if (currentUser is null) { return; }

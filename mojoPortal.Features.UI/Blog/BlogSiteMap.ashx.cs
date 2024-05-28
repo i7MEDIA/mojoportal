@@ -120,7 +120,7 @@ public class BlogSiteMap : IHttpHandler
 			return SiteUtils.GetNavigationSiteRoot() + itemUrl.Replace("~", string.Empty);
 		}
 
-		return SiteUtils.GetUrlWithQueryParams("Blog/ViewPost.aspx", -1, pageId, moduleId, itemId); 
+		return "Blog/ViewPost.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId).ItemId(itemId).ToString(); 
 			//$"{baseUrl}/Blog/ViewPost.aspx?pageid={pageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}&ItemID={itemId.ToInvariantString()}";
 	}
 

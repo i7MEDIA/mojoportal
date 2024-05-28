@@ -190,7 +190,7 @@ public partial class FeedEditPage : NonCmsBasePage
 					SiteId = siteSettings.SiteId,
 					SiteGuid = siteSettings.SiteGuid,
 					Url = rssFriendlyUrl,
-					RealUrl = SiteUtils.GetUrlWithQueryParams("FeedManager/FeedAggregate.aspx", pageId: PageId, moduleId: ModuleId, includeSiteRoot: false)
+					RealUrl = "FeedManager/FeedAggregate.aspx".ToQueryBuilder(false).PageId(PageId).ModuleId(ModuleId).ToString()
 						//Invariant($"~/FeedManager/FeedAggregate.aspx?pageid={PageId}&mid={ModuleId}")
 				};
 
@@ -270,7 +270,7 @@ public partial class FeedEditPage : NonCmsBasePage
 		UIHelper.AddConfirmationDialog(btnClearCache, FeedResources.ClearCacheWarning);
 
 		lnkNewFeed.Text = FeedResources.AddNewFeedLink;
-		lnkNewFeed.NavigateUrl = SiteUtils.GetUrlWithQueryParams("FeedManager/FeedEdit.aspx", pageId: PageId, moduleId: ModuleId, itemId: -1);
+		lnkNewFeed.NavigateUrl = "FeedManager/FeedEdit.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(-1).ToString();
 		//Invariant($"{SiteRoot}/FeedManager/FeedEdit.aspx?pageid={PageId}&mid={ModuleId}&ItemID=-1");
 
 		lnkNewFeed.Visible = ItemId != -1;

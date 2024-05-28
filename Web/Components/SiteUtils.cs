@@ -17,7 +17,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Configuration;
 using mojoPortal.FileSystem;
 using mojoPortal.Net;
 using mojoPortal.SearchIndex;
@@ -257,7 +256,7 @@ namespace mojoPortal.Web
 				{
 					returnUrlParam = SecurityHelper.RemoveMarkup(returnUrlParam);
 					string returnUrl = page.ResolveUrl(SecurityHelper.RemoveMarkup(page.Server.UrlDecode(returnUrlParam)));
-					if ((returnUrl.StartsWith("/")) && (!(returnUrl.StartsWith("//"))))
+					if (returnUrl.StartsWith("/") && !returnUrl.StartsWith("//"))
 					{
 						return returnUrl;
 					}
@@ -272,37 +271,39 @@ namespace mojoPortal.Web
 			return string.Empty;
 		}
 
-		public static string GetUrlWithQueryParams(string pageUrl, int siteId = -1, int pageId = -1, int moduleId = -1, int itemId = -1, bool includeSiteRoot = true)
-		{
-			var queryParams = new StringBuilder("?");
-			if (siteId != -1)
-			{
-				queryParams.Append(Invariant($"siteId={siteId}&"));
-			}
+		//public static string GetUrlWithQueryParams(string pageUrl, int siteId = -1, int pageId = -1, int moduleId = -1, int itemId = -1, bool includeSiteRoot = true)
+		//{
+		//	var queryParams = new StringBuilder("?");
+		//	if (siteId != -1)
+		//	{
+		//		queryParams.Append(Invariant($"siteId={siteId}&"));
+		//	}
 
-			if (pageId != -1)
-			{
-				queryParams.Append(Invariant($"pageId={pageId}&"));
-			}
+		//	if (pageId != -1)
+		//	{
+		//		queryParams.Append(Invariant($"pageId={pageId}&"));
+		//	}
 
-			if (moduleId != -1)
-			{
-				queryParams.Append(Invariant($"mid={moduleId}&"));
-			}
+		//	if (moduleId != -1)
+		//	{
+		//		queryParams.Append(Invariant($"mid={moduleId}&"));
+		//	}
 
-			if (itemId != -1)
-			{
-				queryParams.Append(Invariant($"itemId={itemId}&"));
-			}
+		//	if (itemId != -1)
+		//	{
+		//		queryParams.Append(Invariant($"itemId={itemId}&"));
+		//	}
 
-			string siteRoot = string.Empty;
-			if (includeSiteRoot)
-			{
-				siteRoot = GetNavigationSiteRoot();
-			}
 
-			return $"{siteRoot}/{pageUrl.TrimStart('~','/')}{queryParams.ToString().TrimEnd('&')}".TrimStart('/');
-		}
+
+		//	string siteRoot = string.Empty;
+		//	if (includeSiteRoot)
+		//	{
+		//		siteRoot = GetNavigationSiteRoot();
+		//	}
+
+		//	return $"{siteRoot}/{pageUrl.TrimStart('~', '/')}{queryParams.ToString().TrimEnd('&')}".TrimStart('/');
+		//}
 
 		/// <summary>
 		/// You should pass your editor to this method during pre-init or init
@@ -1282,11 +1283,11 @@ namespace mojoPortal.Web
 			}
 
 			var systemFilesPath = HttpContext.Current.Server.MapPath(Invariant($"~/Data/Sites/{siteSettings.SiteId}/systemfiles/"));
-			
+
 			//ensure the directory exists
 			Directory.CreateDirectory(systemFilesPath);
 
-			return systemFilesPath;			
+			return systemFilesPath;
 		}
 
 		public static string GetSiteSkinFolderPath()
@@ -1437,7 +1438,7 @@ namespace mojoPortal.Web
 		[Obsolete("Use DetermineSkinBaseUrl", true)]
 		public static string GetSkinBaseUrl(Page page) => DetermineSkinBaseUrl(page);
 
-		[Obsolete("Use DetermineSkinBaseUrl", true)] 
+		[Obsolete("Use DetermineSkinBaseUrl", true)]
 		public static string GetSkinBaseUrl(bool allowPageOverride, Page page) => DetermineSkinBaseUrl(allowPageOverride, page);
 
 		public static string DetermineSkinBaseUrl(string skinName)
@@ -1571,12 +1572,12 @@ namespace mojoPortal.Web
 			{
 				var root = fullUrl ? GetNavigationSiteRoot() : GetRelativeNavigationSiteRoot();
 				cssPaths.Insert(0, Invariant($"{root}/csshandler.ashx?skin={GetSkinName(allowPageOverride, page)}&amp;s={siteSettings.SiteId}&amp;sv={siteSettings.SkinVersion}"));
-						}
+			}
 
 			return string.Join(",", cssPaths);
 
 			void getEditorConfig(string editorName)
-				{
+			{
 				if (Global.SkinConfig.EditorConfig.ContainsKey(editorName))
 				{
 					var editorConfig = Global.SkinConfig.EditorConfig[editorName];
@@ -2294,9 +2295,9 @@ namespace mojoPortal.Web
 			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
 			{
 				if (siteSettings.AllowUserEditorPreference)
-			{
-					if (GetCurrentSiteUser() is SiteUser siteUser && !string.IsNullOrWhiteSpace(siteUser.EditorPreference))
 				{
+					if (GetCurrentSiteUser() is SiteUser siteUser && !string.IsNullOrWhiteSpace(siteUser.EditorPreference))
+					{
 						providerName = siteUser.EditorPreference;
 					}
 				}

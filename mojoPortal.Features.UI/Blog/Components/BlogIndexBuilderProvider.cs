@@ -76,7 +76,7 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 			string viewPage = row["ItemUrl"].ToString().Replace("~/", string.Empty);
 			if ((!WebConfigSettings.UseUrlReWriting) || (!BlogConfiguration.UseFriendlyUrls(moduleId)))
 			{
-				viewPage = SiteUtils.GetUrlWithQueryParams("Blog/ViewPost.aspx", -1, pageSettings.PageId, moduleId, itemId, false);
+				viewPage = "Blog/ViewPost.aspx".ToQueryBuilder(false).SiteId(-1).PageId(pageSettings.PageId).ModuleId(moduleId).ItemId(itemId).ToString();
 				//viewPage = $"Blog/ViewPost.aspx?pageid={pageSettings.PageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}&ItemID={itemId.ToInvariantString()}";
 			}
 
@@ -291,7 +291,7 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 
 			if ((!WebConfigSettings.UseUrlReWriting) || (!BlogConfiguration.UseFriendlyUrls(indexItem.ModuleId)))
 			{
-				indexItem.ViewPage = SiteUtils.GetUrlWithQueryParams("Blog/ViewPost.aspx", -1, pageSettings.PageId, indexItem.ModuleId, indexItem.ItemId, false);
+				indexItem.ViewPage = "Blog/ViewPost.aspx".ToQueryBuilder(false).SiteId(-1).PageId(pageSettings.PageId).ModuleId(indexItem.ModuleId).ItemId(indexItem.ItemId).ToString();
 				//indexItem.ViewPage = $"Blog/ViewPost.aspx?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}";
 			}
 			else

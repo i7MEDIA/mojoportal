@@ -100,7 +100,7 @@ namespace mojoPortal.Web.ForumUI
                 }
 			}
 
-            AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
+            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsForumSection", "forums");
 
 		}
 

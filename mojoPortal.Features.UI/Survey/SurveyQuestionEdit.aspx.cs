@@ -137,14 +137,14 @@ public partial class QuestionEditPage : NonCmsBasePage
 		lnkPageCrumb.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
 		lnkSurveys.Text = SurveyResources.ChooseActiveSurveyLink;
-		lnkSurveys.NavigateUrl = SiteUtils.GetUrlWithQueryParams("Survey/Surveys.aspx", pageId: PageId, moduleId: ModuleId);
+		lnkSurveys.NavigateUrl = "Survey/Surveys.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).ToString();
 		//$"{SiteRoot}/Survey/Surveys.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
 
 		lnkPages.Text = SurveyResources.SurveyPagesBreadCrumbText;
-		lnkPages.NavigateUrl = $"{SiteUtils.GetUrlWithQueryParams("Survey/SurveyPages.aspx", pageId: PageId, moduleId: ModuleId)}&SurveyGuid={surveyGuid}";
+		lnkPages.NavigateUrl = "Survey/SurveyPages.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("SurveyGuid", surveyGuid).ToString();
 		//$"{SiteRoot}/Survey/SurveyPages.aspx?SurveyGuid={surveyGuid}&pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
 
-		lnkQuestions.NavigateUrl = $"{SiteUtils.GetUrlWithQueryParams("Survey/SurveyQuestions.aspx", pageId: PageId, moduleId: ModuleId)}&SurveyGuid={surveyGuid}&SurveyPageGuid={surveyPageGuid}";
+		lnkQuestions.NavigateUrl = "Survey/SurveyQuestions.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("SurveyGuid", surveyGuid).AddParam("SurveyPageGuid", surveyPageGuid).ToString();
 		//$"{SiteRoot}/Survey/SurveyQuestions.aspx?SurveyGuid={surveyGuid}&SurveyPageGuid={surveyPageGuid}&PageId={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
 
 		if (questionGuid != Guid.Empty)

@@ -84,7 +84,7 @@ public partial class SurveysPage : NonCmsBasePage
 		heading.Text = SurveyResources.SurveysLabel;
 		lnkAddNew.Text = SurveyResources.SurveyAddButton;
 
-		lnkAddNew.NavigateUrl = SiteUtils.GetUrlWithQueryParams("Survey/SurveyEdit.aspx", pageId: PageId, moduleId: ModuleId);
+		lnkAddNew.NavigateUrl = "Survey/SurveyEdit.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).ToString();
 			//$"{SiteRoot}/Survey/SurveyEdit.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
 
 		grdSurveys.Columns[0].HeaderText = SurveyResources.SurveysGridEditDeleteHeader;

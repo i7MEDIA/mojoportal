@@ -87,7 +87,7 @@ public partial class BlogCompare : mojoDialogBasePage
 	void btnRestore_Click(object sender, EventArgs e)
 	{
 		// this should only fire if javascript is disabled because we put a client side on click
-		string redirectUrl = $"{SiteUtils.GetUrlWithQueryParams("/Blog/EditPost.aspx", -1, pageId, moduleId, itemId)}&r={historyGuid}";
+		string redirectUrl = "/Blog/EditPost.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId).ItemId(itemId).AddParam("r", historyGuid).ToString();
 
 		Response.Redirect(redirectUrl);
 	}

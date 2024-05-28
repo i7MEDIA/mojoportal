@@ -971,6 +971,7 @@
     <Compile Include="Components\ICustomField.cs" />
     <Compile Include="Components\MenuItem.cs" />
     <Compile Include="Components\mojoViewEngine.cs" />
+    <Compile Include="Components\QueryBuilder.cs" />
     <Compile Include="Components\Routing\RoutesConfig.cs" />
     <Compile Include="Components\Routing\IRegisterRoutes.cs" />
     <Compile Include="Components\BaseContentUploadHandler.cs" />

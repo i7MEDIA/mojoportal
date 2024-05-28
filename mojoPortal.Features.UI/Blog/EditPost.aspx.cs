@@ -759,7 +759,7 @@ public partial class BlogEdit : NonCmsBasePage
 					SiteGuid = siteSettings.SiteGuid,
 					PageGuid = blog.BlogGuid,
 					Url = friendlyUrlString,
-					RealUrl = SiteUtils.GetUrlWithQueryParams("Blog/ViewPost.aspx", -1, pageId, blog.ModuleId, blog.ItemId, false)
+					RealUrl = "Blog/ViewPost.aspx".ToQueryBuilder(false).SiteId(-1).PageId(pageId).ModuleId(blog.ModuleId).ItemId(blog.ItemId).ToString()
 					//$"~/Blog/ViewPost.aspx?pageid={pageId.ToInvariantString()}&mid={blog.ModuleId.ToInvariantString()}&ItemID={blog.ItemId.ToInvariantString()}"
 				};
 
