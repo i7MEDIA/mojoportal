@@ -4,7 +4,7 @@
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper htmlmodule">
-		<portal:ModuleTitleControl ID="Title1" runat="server" EditUrl="/Modules/HtmlEdit.aspx" EnableViewState="false" />
+		<portal:ModuleTitleControl ID="Title1" runat="server" EditUrl="HtmlEdit.aspx" EnableViewState="false" />
 		<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 			<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 				<portal:SlidePanel ID="divContent" runat="server" EnableViewState="false" EnableSlideShow="false" class="slidecontainer" />

@@ -63,8 +63,8 @@ namespace mojoPortal.Web.AdminUI
 				PageHeading = Resource.AdminMenuContentWorkflowLabel
 			};
 
-			model.Links.AddRange(new List<ContentAdminLink>
-			{
+			model.Links.AddRange(
+			[
 				new ContentAdminLink
 				{
 					ResourceFile = "Resource",
@@ -92,7 +92,7 @@ namespace mojoPortal.Web.AdminUI
 					IconCssClass = "fa fa-file-text-o",
 					SortOrder = 20
 				}
-			});
+			]);
 
 			if (WebConfigSettings.Use3LevelContentWorkflow)
 			{

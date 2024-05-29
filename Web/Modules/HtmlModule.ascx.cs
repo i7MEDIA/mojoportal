@@ -434,7 +434,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 	private void LoadSettings()
 	{
-		Title1.EditUrl = $"{SiteRoot}/HtmlEdit.aspx";
+		Title1.EditUrl = "HtmlEdit.aspx";
 		Title1.EditText = Resource.EditImageAltText;
 		Title1.ToolTip = Resource.EditImageAltText;
 
@@ -448,7 +448,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 		if (IsEditable)
 		{
-			TitleUrl = $"{SiteRoot}/HtmlEdit.aspx?mid={ModuleId.ToInvariantString()}&pageid={currentPage.PageId.ToInvariantString()}";
+			TitleUrl = "HtmlEdit.aspx".ToQueryBuilder().PageId(currentPage.PageId).ModuleId(ModuleId).ToString();
 		}
 
 		config = new HtmlConfiguration(Settings);
@@ -473,7 +473,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 			divContent.TransitionInterval = config.SlideDuration;
 			divContent.Speed = config.TransitionSpeed;
 
-			if (config.SlideContainerHeight > 0) { divContent.ContainerHeight = config.SlideContainerHeight.ToInvariantString() + "px"; }
+			if (config.SlideContainerHeight > 0) { divContent.ContainerHeight = Invariant($"{config.SlideContainerHeight}px"); }
 
 			if (config.EnableSlideShowPager)
 			{

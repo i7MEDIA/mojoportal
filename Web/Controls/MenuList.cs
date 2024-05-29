@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.UI;
@@ -53,7 +52,7 @@ public class MenuList : List<mojoMenuItem>
 
 		siteMapDataSource = new SiteMapDataSource
 		{
-			SiteMapProvider = $"mojosite{siteSettings.SiteId.ToInvariantString()}"
+			SiteMapProvider = Invariant($"mojosite{siteSettings.SiteId}")
 		};
 
 		rootNode = siteMapDataSource.Provider.RootNode;

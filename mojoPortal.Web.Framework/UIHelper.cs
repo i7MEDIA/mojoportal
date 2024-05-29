@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,8 +8,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using mojoPortal.Core.Extensions;
-using mojoPortal.Core.Helpers;
 
 namespace mojoPortal.Web.Framework;
 
@@ -45,6 +42,8 @@ public static class UIHelper
 	private const string ClearPageExitCodeWithReturn = "unHookGoodbyePrompt(); return true;";
 	private const string ClearPageExitCode = "unHookGoodbyePrompt();";
 	private const string DisableAfterClick = "this.value=dataset.disableAfterClick;this.disabled = true;";
+
+
 	public static string GetColumnId(this Control c)
 	{
 		Control parent = c.Parent;
@@ -59,7 +58,6 @@ public static class UIHelper
 		}
 
 		return CenterColumnId;
-
 	}
 
 	public static void SetOrAppendCss(this WebControl c, string cssClass)
@@ -103,9 +101,11 @@ public static class UIHelper
 		Type enumerationType = typeof(TEnum);
 
 		if (!enumerationType.IsEnum)
+		{
 			throw new ArgumentException("Enumeration type is expected.");
+		}
 
-		Dictionary<int, string> dictionary = new Dictionary<int, string>();
+		var dictionary = new Dictionary<int, string>();
 
 		foreach (int value in Enum.GetValues(enumerationType))
 		{
@@ -133,9 +133,11 @@ public static class UIHelper
 		}
 		return dictionary;
 	}
+
+
 	public static string SelectedItemsToSemiColonSeparatedString(this ListItemCollection list)
 	{
-		StringBuilder result = new StringBuilder();
+		var result = new StringBuilder();
 		foreach (ListItem item in list)
 		{
 			if (item.Selected)

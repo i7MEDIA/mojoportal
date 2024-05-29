@@ -1,31 +1,18 @@
-﻿/// Author:					
-/// Created:				2008-06-14
-/// Last Modified:			2018-11-12
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-using System;
-using mojoPortal.Web.Framework;
-using mojoPortal.Business.WebHelpers;
-using Resources;
-using log4net;
-using System.Collections.Generic;
-using mojoPortal.Web.Components;
+﻿using System;
 using System.Linq;
+using log4net;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Components;
+using mojoPortal.Web.Framework;
+using Resources;
 
 namespace mojoPortal.Web.AdminUI
 {
-    public partial class AdvnacedToolsPage : NonCmsBasePage
-    {
-        private bool isContentAdmin = false;
-        private bool isAdmin = false;
-        private bool isSiteEditor = false;
+	public partial class AdvnacedToolsPage : NonCmsBasePage
+	{
+		private bool isContentAdmin = false;
+		private bool isAdmin = false;
+		private bool isSiteEditor = false;
 		private static readonly ILog log = LogManager.GetLogger(typeof(AdvnacedToolsPage));
 
 		private Models.AdminMenuPage model;
@@ -41,19 +28,19 @@ namespace mojoPortal.Web.AdminUI
 
 			LoadSettings();
 
-            if ((!isAdmin)&&(!isContentAdmin)&&(!isSiteEditor))
-            {
-                WebUtils.SetupRedirect(this, SiteRoot + "/AccessDenied.aspx");
-                return;
-            }
+			if ((!isAdmin) && (!isContentAdmin) && (!isSiteEditor))
+			{
+				WebUtils.SetupRedirect(this, SiteRoot + "/AccessDenied.aspx");
+				return;
+			}
 
-            
-            PopulateLabels();
+
+			PopulateLabels();
 			supplementalLinks = ContentAdminLinksConfiguration.GetConfig(siteSettings.SiteId);
 			PopulateModel();
 			PopulateControls();
 
-        }
+		}
 
 		private void PopulateModel()
 		{
@@ -65,8 +52,8 @@ namespace mojoPortal.Web.AdminUI
 
 			if (isAdmin || isContentAdmin || isSiteEditor)
 			{
-				model.Links.AddRange(new List<ContentAdminLink>
-				{
+				model.Links.AddRange(
+				[
 					new ContentAdminLink
 					{
 						ResourceFile = "Resource",
@@ -94,13 +81,13 @@ namespace mojoPortal.Web.AdminUI
 						IconCssClass = "fa fa-search",
 						SortOrder = 18
 					},
-				});
+				]);
 			}
 
 			if (isAdmin && siteSettings.IsServerAdminSite)
 			{
-				model.Links.AddRange(new List<ContentAdminLink>
-				{
+				model.Links.AddRange(
+				[
 					new ContentAdminLink
 					{
 						ResourceFile = "Resource",
@@ -119,7 +106,7 @@ namespace mojoPortal.Web.AdminUI
 						IconCssClass = "fa fa-star",
 						SortOrder = 25
 					},
-				});
+				]);
 
 				if ((!WebConfigSettings.DisableTaskQueue) && (isAdmin || WebUser.IsNewsletterAdmin))
 				{
@@ -183,7 +170,7 @@ namespace mojoPortal.Web.AdminUI
 		}
 
 		private void PopulateControls()
-        {
+		{
 			try
 			{
 				litMenu.Text = RazorBridge.RenderPartialToString(partialName, model, "Admin");
@@ -195,43 +182,34 @@ namespace mojoPortal.Web.AdminUI
 		}
 
 
-        private void PopulateLabels()
-        {
-            Title = SiteUtils.FormatPageTitle(siteSettings,Resource.AdvancedToolsHeading);
+		private void PopulateLabels()
+		{
+			Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdvancedToolsHeading);
+		}
 
-            //lnkAdminMenu.Text = Resource.AdminMenuLink;
-            //lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
+		private void LoadSettings()
+		{
+			isAdmin = WebUser.IsAdmin;
+			isContentAdmin = WebUser.IsContentAdmin;
+			isSiteEditor = SiteUtils.UserIsSiteEditor();
 
-            //lnkCurrentPage.Text = Resource.AdvancedToolsLink;
-            //lnkCurrentPage.NavigateUrl = SiteRoot + "/Admin/AdvancedTools.aspx";
-
-            //heading.Text = Resource.AdvancedToolsHeading;
-
-        }
-
-        private void LoadSettings()
-        {
-            isAdmin = WebUser.IsAdmin;
-            isContentAdmin = WebUser.IsContentAdmin;
-            isSiteEditor = SiteUtils.UserIsSiteEditor();
-
-            AddClassToBody("administration admin-menu-advanced admin-advanced");
-        }
+			AddClassToBody("administration admin-menu-advanced admin-advanced");
+		}
 
 
-        #region OnInit
+		#region OnInit
 
-        override protected void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-            this.Load += new EventHandler(this.Page_Load);
+		override protected void OnInit(EventArgs e)
+		{
+			base.OnInit(e);
+			this.Load += new EventHandler(this.Page_Load);
 
-            SuppressMenuSelection();
-            SuppressPageMenu();
+			SuppressMenuSelection();
+			SuppressPageMenu();
 
 
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

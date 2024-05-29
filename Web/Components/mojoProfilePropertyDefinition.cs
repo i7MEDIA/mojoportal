@@ -1014,7 +1014,7 @@ public class mojoProfilePropertyDefinition
 								{
 									siteUser.SetProperty(
 										propertyDefinition.Name,
-										cbl.Items.SelectedItemsToCommaSeparatedString(),
+										cbl.Items.ToDelimitedString(addTrailingDelimiter: true),
 										propertyDefinition.SerializeAs,
 										propertyDefinition.LazyLoad
 									);
@@ -1129,7 +1129,7 @@ public class mojoProfilePropertyDefinition
 						{
 							if (control is CheckBoxList cbl)
 							{
-								propertyDefinition.StateValue = cbl.Items.SelectedItemsToCommaSeparatedString();
+								propertyDefinition.StateValue = cbl.Items.ToDelimitedString(addTrailingDelimiter: true);
 							}
 						}
 					}

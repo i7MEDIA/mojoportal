@@ -7,7 +7,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
@@ -31,7 +30,6 @@ public partial class PagePermissionPage : NonCmsBasePage
 	private bool isAdmin = false;
 	private bool isContentAdmin = false;
 	private bool isSiteEditor = false;
-
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -77,17 +75,18 @@ public partial class PagePermissionPage : NonCmsBasePage
 		{
 			PopulateControls();
 		}
-
 	}
 
 	private void PopulateControls()
 	{
 		chkAllowedRoles.Items.Clear();
 
-		ListItem allItem = new ListItem();
-		// localize display
-		allItem.Text = Resource.RolesAllUsersRole;
-		allItem.Value = "All Users";
+		var allItem = new ListItem
+		{
+			// localize display
+			Text = Resource.RolesAllUsersRole,
+			Value = "All Users"
+		};
 
 		switch (currentPermission)
 		{
@@ -102,133 +101,117 @@ public partial class PagePermissionPage : NonCmsBasePage
 
 			case draftEditPermission:
 			case draftApprovalPermission:
-
 				divRadioButtons.Visible = false;
-
 				break;
-
 
 			default:
-
-
 				break;
 
 		}
 
-		using (IDataReader reader = Role.GetSiteRoles(siteSettings.SiteId))
+		using IDataReader reader = Role.GetSiteRoles(siteSettings.SiteId);
+		while (reader.Read())
 		{
-			while (reader.Read())
+			string roleName = reader["RoleName"].ToString();
+
+			// no need or benefit to checking content admins role
+			// since they are not limited by roles except the special case of Admins only role
+			if (roleName == Role.ContentAdministratorsRole)
 			{
-				string roleName = reader["RoleName"].ToString();
-
-				// no need or benefit to checking content admins role
-				// since they are not limited by roles except the special case of Admins only role
-				if (roleName == Role.ContentAdministratorsRole) { continue; }
-				// administrators role doensn't need permission, the only reason to show it is so that
-				// an admin can lock the content down to only admins
-				if (roleName == Role.AdministratorsRole) { continue; }
-
-
-
-				ListItem listItem = new ListItem();
-
-				listItem.Text = reader["DisplayName"].ToString();
-				listItem.Value = reader["RoleName"].ToString();
-
-
-				switch (currentPermission)
-				{
-					case viewPermission:
-						if (CurrentPage.AuthorizedRoles == "Admins;")
-						{
-							rbAdminsOnly.Checked = true;
-							rbUseRoles.Checked = false;
-						}
-						else
-						{
-							rbAdminsOnly.Checked = false;
-							rbUseRoles.Checked = true;
-							if (CurrentPage.AuthorizedRoles.LastIndexOf(listItem.Value + ";") > -1)
-							{
-								listItem.Selected = true;
-							}
-						}
-						break;
-
-					case editPermission:
-						if (CurrentPage.EditRoles == "Admins;")
-						{
-							rbAdminsOnly.Checked = true;
-							rbUseRoles.Checked = false;
-						}
-						else
-						{
-							rbAdminsOnly.Checked = false;
-							rbUseRoles.Checked = true;
-							if (CurrentPage.EditRoles.LastIndexOf(listItem.Value + ";") > -1)
-							{
-								listItem.Selected = true;
-							}
-						}
-
-						break;
-					case draftEditPermission:
-						//if (CurrentPage.DraftEditOnlyRoles == "Admins;")
-						//{
-						//    rbAdminsOnly.Checked = true;
-						//    rbUseRoles.Checked = false;
-						//}
-						//else
-						//{
-						//    rbAdminsOnly.Checked = false;
-						//    rbUseRoles.Checked = true;
-						if (CurrentPage.DraftEditOnlyRoles.LastIndexOf(listItem.Value + ";") > -1)
-						{
-							listItem.Selected = true;
-						}
-						//}
-						break;
-					//joe davis
-					case draftApprovalPermission:
-						if (CurrentPage.DraftApprovalRoles.LastIndexOf(listItem.Value + ";") > -1)
-						{
-							listItem.Selected = true;
-						}
-						break;
-
-					case childEditPermission:
-						if (CurrentPage.CreateChildPageRoles == "Admins;")
-						{
-							rbAdminsOnly.Checked = true;
-							rbUseRoles.Checked = false;
-						}
-						else
-						{
-							rbAdminsOnly.Checked = false;
-							rbUseRoles.Checked = true;
-							if (CurrentPage.CreateChildPageRoles.LastIndexOf(listItem.Value + ";") > -1)
-							{
-								listItem.Selected = true;
-							}
-						}
-						break;
-
-				}
-
-				chkAllowedRoles.Items.Add(listItem);
-
+				continue;
 			}
-		}
+			// administrators role doensn't need permission, the only reason to show it is so that
+			// an admin can lock the content down to only admins
+			if (roleName == Role.AdministratorsRole)
+			{
+				continue;
+			}
 
+			var listItem = new ListItem
+			{
+				Text = reader["DisplayName"].ToString(),
+				Value = reader["RoleName"].ToString()
+			};
+
+			switch (currentPermission)
+			{
+				case viewPermission:
+					if (CurrentPage.AuthorizedRoles == "Admins;")
+					{
+						rbAdminsOnly.Checked = true;
+						rbUseRoles.Checked = false;
+					}
+					else
+					{
+						rbAdminsOnly.Checked = false;
+						rbUseRoles.Checked = true;
+						if (CurrentPage.AuthorizedRoles.LastIndexOf(listItem.Value + ";") > -1)
+						{
+							listItem.Selected = true;
+						}
+					}
+					break;
+
+				case editPermission:
+					if (CurrentPage.EditRoles == "Admins;")
+					{
+						rbAdminsOnly.Checked = true;
+						rbUseRoles.Checked = false;
+					}
+					else
+					{
+						rbAdminsOnly.Checked = false;
+						rbUseRoles.Checked = true;
+						if (CurrentPage.EditRoles.LastIndexOf(listItem.Value + ";") > -1)
+						{
+							listItem.Selected = true;
+						}
+					}
+
+					break;
+				case draftEditPermission:
+					if (CurrentPage.DraftEditOnlyRoles.LastIndexOf(listItem.Value + ";") > -1)
+					{
+						listItem.Selected = true;
+					}
+					break;
+				case draftApprovalPermission:
+					if (CurrentPage.DraftApprovalRoles.LastIndexOf(listItem.Value + ";") > -1)
+					{
+						listItem.Selected = true;
+					}
+					break;
+
+				case childEditPermission:
+					if (CurrentPage.CreateChildPageRoles == "Admins;")
+					{
+						rbAdminsOnly.Checked = true;
+						rbUseRoles.Checked = false;
+					}
+					else
+					{
+						rbAdminsOnly.Checked = false;
+						rbUseRoles.Checked = true;
+						if (CurrentPage.CreateChildPageRoles.LastIndexOf(listItem.Value + ";") > -1)
+						{
+							listItem.Selected = true;
+						}
+					}
+
+					break;
+			}
+
+			chkAllowedRoles.Items.Add(listItem);
+		}
 	}
+
 
 	void btnSave_Click(object sender, EventArgs e)
 	{
 		bool reIndexPage = false;
 
-		SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-		string userName = string.Empty;
-		if (currentUser != null)
+		var userName = string.Empty;
+		if (SiteUtils.GetCurrentSiteUser() is SiteUser currentUser)
 		{
 			userName = currentUser.Name;
 		}
@@ -240,9 +223,7 @@ public partial class PagePermissionPage : NonCmsBasePage
 				case viewPermission:
 					if (CurrentPage.AuthorizedRoles != "Admins;")
 					{
-						log.Info("user " + userName + " changed page View roles for " + CurrentPage.PageName
-							+ " to Admins "
-							+ " from ip address " + SiteUtils.GetIP4Address());
+						log.Info($"user {userName} changed page View roles for {CurrentPage.PageName} to Admins  from ip address {SiteUtils.GetIP4Address()}");
 
 						CurrentPage.AuthorizedRoles = "Admins;";
 						reIndexPage = true;
@@ -252,27 +233,16 @@ public partial class PagePermissionPage : NonCmsBasePage
 				case editPermission:
 					if (CurrentPage.EditRoles != "Admins;")
 					{
-						log.Info("user " + userName + " changed page Edit roles for " + CurrentPage.PageName
-							+ " to Admins "
-							+ " from ip address " + SiteUtils.GetIP4Address());
+						log.Info($"user {userName} changed page Edit roles for {CurrentPage.PageName} to Admins  from ip address {SiteUtils.GetIP4Address()}");
 
 						CurrentPage.EditRoles = "Admins;";
 					}
 					break;
 
-				//case draftEditPermission:
-				//    if (CurrentPage.DraftEditOnlyRoles != "Admins;")
-				//    {
-				//        CurrentPage.DraftEditOnlyRoles = "Admins;";
-				//    }
-				//    break;
-
 				case childEditPermission:
 					if (CurrentPage.CreateChildPageRoles != "Admins;")
 					{
-						log.Info("user " + userName + " changed page Child Edit Roles roles for " + CurrentPage.PageName
-							+ " to Admins "
-							+ " from ip address " + SiteUtils.GetIP4Address());
+						log.Info($"user {userName} changed page Child Edit Roles roles for {CurrentPage.PageName} to Admins  from ip address {SiteUtils.GetIP4Address()}");
 
 						CurrentPage.CreateChildPageRoles = "Admins;";
 					}
@@ -281,16 +251,14 @@ public partial class PagePermissionPage : NonCmsBasePage
 		}
 		else
 		{
-			string authorizedRoles = chkAllowedRoles.Items.SelectedItemsToSemiColonSeparatedString();
+			string authorizedRoles = chkAllowedRoles.Items.ToDelimitedString(";", true);
 
 			switch (currentPermission)
 			{
 				case viewPermission:
 					if (CurrentPage.AuthorizedRoles != authorizedRoles)
 					{
-						log.Info("user " + userName + " changed page View roles for " + CurrentPage.PageName
-							+ " to " + authorizedRoles
-							+ " from ip address " + SiteUtils.GetIP4Address());
+						log.Info($"user {userName} changed page View roles for {CurrentPage.PageName} to {authorizedRoles} from ip address {SiteUtils.GetIP4Address()}");
 
 						CurrentPage.AuthorizedRoles = authorizedRoles;
 						reIndexPage = true;
@@ -299,30 +267,22 @@ public partial class PagePermissionPage : NonCmsBasePage
 
 				case editPermission:
 					CurrentPage.EditRoles = authorizedRoles;
-					log.Info("user " + userName + " changed page Edit roles for " + CurrentPage.PageName
-							+ " to " + authorizedRoles
-							+ " from ip address " + SiteUtils.GetIP4Address());
+					log.Info($"user {userName} changed page Edit roles for {CurrentPage.PageName} to {authorizedRoles} from ip address {SiteUtils.GetIP4Address()}");
 					break;
 
 				case draftEditPermission:
 					CurrentPage.DraftEditOnlyRoles = authorizedRoles;
-					log.Info("user " + userName + " changed page Draft Edit roles for " + CurrentPage.PageName
-							+ " to " + authorizedRoles
-							+ " from ip address " + SiteUtils.GetIP4Address());
+					log.Info($"user {userName} changed page Draft Edit roles for {CurrentPage.PageName} to {authorizedRoles} from ip address {SiteUtils.GetIP4Address()}");
 					break;
 				//joe davis
 				case draftApprovalPermission:
 					CurrentPage.DraftApprovalRoles = authorizedRoles;
-					log.Info("user " + userName + " changed page Draft Approval roles for " + CurrentPage.PageName
-							+ " to " + authorizedRoles
-							+ " from ip address " + SiteUtils.GetIP4Address());
+					log.Info($"user {userName} changed page Draft Approval roles for {CurrentPage.PageName} to {authorizedRoles} from ip address {SiteUtils.GetIP4Address()}");
 					break;
 
 				case childEditPermission:
 					CurrentPage.CreateChildPageRoles = authorizedRoles;
-					log.Info("user " + userName + " changed page Child Page Edit Roles for " + CurrentPage.PageName
-							+ " to " + authorizedRoles
-							+ " from ip address " + SiteUtils.GetIP4Address());
+					log.Info($"user {userName} changed page Child Page Edit Roles for {CurrentPage.PageName} to {authorizedRoles} from ip address {SiteUtils.GetIP4Address()}");
 					break;
 
 			}
@@ -349,15 +309,28 @@ public partial class PagePermissionPage : NonCmsBasePage
 		{
 			BreadcrumbsControl crumbs = (BreadcrumbsControl)c;
 			crumbs.ForceShowBreadcrumbs = true;
+			//crumbs.AdditionalCrumbs.AddRange([
+			//		new BreadCrumb
+			//		{
+			//			Text = Resource.PageSettingsPageTitle,
+			//			Url = "Admin/PageSettings.aspx".ToQueryBuilder().PageId(pageId).ToString(),
+			//			CssClass = crumbs.CssClass,
+			//			SortOrder = -1,
+			//			SystemName = "PageSettings",
+			//			Parent = "root",
+			//		},
+			//		new BreadCrumb
+			//		{
+			//			Text = Resource.PagePermissionsLink,
+			//			Url = "Admin/PagePermissionsMenu.aspx".ToQueryBuilder().PageId(pageId).ToString(),
+			//			SortOrder = 0,
+			//			SystemName = "PagePermissions",
+			//			Parent = "PageSettings"
+			//		}
+			//	]);
 			crumbs.AddedCrumbs
-				= crumbs.ItemWrapperTop + "<a href='" + SiteRoot + "/Admin/PageSettings.aspx?pageid="
-				+ pageId.ToInvariantString()
-				+ "' class='unselectedcrumb'>" + Resource.PageSettingsPageTitle
-				+ "</a>" + crumbs.ItemWrapperBottom + crumbs.Separator + crumbs.ItemWrapperTop
-				+ "<a href='" + SiteRoot + "/Admin/PagePermissionsMenu.aspx?pageid="
-				+ pageId.ToInvariantString()
-				+ "' class='unselectedcrumb'>" + Resource.PagePermissionsLink
-				+ "</a>" + crumbs.ItemWrapperBottom;
+				= $"{crumbs.ItemWrapperTop}<a href=\"{"Admin/PageSettings.aspx".ToQueryBuilder().PageId(pageId)}\" class=\"{crumbs.CssClass}\">{Resource.PageSettingsPageTitle}</a>{crumbs.ItemWrapperBottom}{crumbs.Separator}" +
+				$"{crumbs.ItemWrapperTop}<a href=\"{"Admin/PagePermissionsMenu.aspx".ToQueryBuilder().PageId(pageId)}\" class=\"{crumbs.CssClass}\">{Resource.PagePermissionsLink}</a>{crumbs.ItemWrapperBottom}";
 		}
 
 		rbAdminsOnly.Text = Resource.AdminsOnly;
