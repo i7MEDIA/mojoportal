@@ -55,7 +55,6 @@
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\HashtableExtensions.cs" />
     <Compile Include="Extensions\IndexedStringBuilder.cs" />
-    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
