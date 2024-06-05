@@ -220,7 +220,6 @@
     <Compile Include="ContentTemplate.cs" />
     <Compile Include="ContentWorkflow.cs" />
     <Compile Include="ContentWorkflowStatus.cs" />
-    <Compile Include="CRMCore\Customer.cs" />
     <Compile Include="Currency.cs" />
     <Compile Include="ELetter\Letter.cs" />
     <Compile Include="ELetter\LetterHtmlTemplate.cs" />
