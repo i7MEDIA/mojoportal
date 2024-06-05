@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Web;
 
 namespace mojoPortal.Web;
@@ -12,14 +13,19 @@ public class QueryBuilder
 	public QueryBuilder(string url, bool includeSiteRoot = true)
 	{
 		this.url = url;
-		if (url.Contains("?"))
+		if (this.url.Contains("?"))
 		{
-			var query = HttpUtility.ParseQueryString(url);
+			var query = HttpUtility.ParseQueryString(this.url);
 			foreach (KeyValuePair<string, string> item in query)
 			{
 				queries[item.Key] = item.Value;
 			}
-			this.url = url.Substring(0, url.IndexOf('?'));
+			this.url = this.url.Substring(0, this.url.IndexOf('?'));
+		}
+
+		if (includeSiteRoot && this.url.Contains(SiteUtils.GetNavigationSiteRoot()))
+		{
+			includeSiteRoot = false;
 		}
 
 		this.includeSiteRoot = includeSiteRoot;
@@ -48,6 +54,15 @@ public class QueryBuilder
 	public QueryBuilder AddParam(string key, object value)
 	{
 		queries.Add(key, value);
+		return this;
+	}
+
+	public QueryBuilder AddParams(Dictionary<string, object> @params)
+	{
+		foreach (var @param in @params)
+		{
+			queries.Add(@param.Key, @param.Value);
+		}
 		return this;
 	}
 
