@@ -219,7 +219,6 @@
     <Compile Include="DBUserLocation.cs" />
     <Compile Include="DBUserLogins.cs" />
     <Compile Include="dbUserPage.cs" />
-    <Compile Include="dbWebPartContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

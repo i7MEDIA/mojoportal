@@ -120,7 +120,6 @@
     <Compile Include="DBUserLocation.cs" />
     <Compile Include="DBUserLogins.cs" />
     <Compile Include="dbUserPage.cs" />
-    <Compile Include="dbWebPartContent.cs" />
     <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="SqliteHelper.cs">
       <SubType>Code</SubType>

@@ -133,7 +133,6 @@
     <Compile Include="DBTaxRate.cs" />
     <Compile Include="DBUserLocation.cs" />
     <Compile Include="dbUserPage.cs" />
-    <Compile Include="dbWebPartContent.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="SQLParameterHelper.cs" />
   </ItemGroup>

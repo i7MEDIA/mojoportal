@@ -138,7 +138,6 @@
     <Compile Include="DBUserLocation.cs" />
     <Compile Include="DBUserLogins.cs" />
     <Compile Include="dbUserPage.cs" />
-    <Compile Include="dbWebPartContent.cs" />
     <Compile Include="NpgsqlHelper.cs">
       <SubType>Code</SubType>
     </Compile>
