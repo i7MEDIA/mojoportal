@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -441,4 +440,13 @@ public static class StringExtensions
 
 		return list;
 	}
+
+	/// <summary>
+	/// Combines two delimited strings avoiding duplicates
+	/// </summary>
+	/// <param name="s1"></param>
+	/// <param name="s2"></param>
+	/// <param name="delimiter"></param>
+	/// <returns></returns>
+	public static string Union(this string s1, string s2, char delimiter) => string.Join(delimiter.ToString(), s1.SplitOnChar(delimiter).Union(s2.SplitOnChar(delimiter)).ToList());
 }
