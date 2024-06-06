@@ -12,31 +12,7 @@
 <blog:BlogNavPanel ID="divNav" runat="server">
 	<blog:SearchBox ID="searchBox" runat="server" />
 
-	<asp:Calendar runat="server"
-		CaptionAlign="Top"
-		CssClass="aspcalendarmain"
-		DayHeaderStyle-CssClass="aspcalendardayheader"
-		DayNameFormat="FirstLetter"
-		DayStyle-CssClass="aspcalendarday"
-		FirstDayOfWeek="sunday"
-		ID="calBlogNav"
-		NextMonthText="+"
-		NextPrevFormat="CustomText"
-		NextPrevStyle-CssClass="aspcalendarnextprevious"
-		OtherMonthDayStyle-CssClass="aspcalendarothermonth"
-		PrevMonthText="-"
-		SelectedDayStyle-CssClass="aspcalendarselectedday"
-		SelectorStyle-CssClass="aspcalendarselector"
-		ShowDayHeader="true"
-		ShowGridLines="false"
-		ShowNextPrevMonth="true"
-		ShowTitle="true"
-		SkinID="Blog"
-		TitleFormat="MonthYear"
-		TitleStyle-CssClass="aspcalendartitle"
-		TodayDayStyle-CssClass="aspcalendartoday"
-		WeekendDayStyle-CssClass="aspcalendarweekendday"
-	></asp:Calendar>
+	<asp:Calendar runat="server" ID="calBlogNav" SkinID="Blog" />
 
 	<%-- jQuery Date Picker --%>
 	<asp:Panel ID="pnlDatePicker" runat="server" EnableViewState="false" CssClass="blogcal" />

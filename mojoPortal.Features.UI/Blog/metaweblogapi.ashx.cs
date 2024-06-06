@@ -2206,7 +2206,7 @@ public class metaweblogapi : IHttpHandler
 		{
 			//url = siteSettings.SiteRoot + String.Format(CultureInfo.InvariantCulture, "/Blog/ViewPost.aspx?ItemID={0}&mid={1}", itemId, moduleId);
 			//url = navigationSiteRoot + string.Format(CultureInfo.InvariantCulture, "/Blog/ViewPost.aspx?ItemID={0}&mid={1}", itemId, moduleId);
-			url = "Blog/ViewPost.aspx".ToQueryBuilder().ItemId(itemId).ModuleId(moduleId).ToString();
+			url = "Blog/ViewPost.aspx".ToQueryBuilder().ModuleId(moduleId).ItemId(itemId).ToString();
 		}
 
 		return url;
@@ -2216,7 +2216,7 @@ public class metaweblogapi : IHttpHandler
 	{
 		string url = pageUrl.Replace("~", string.Empty);
 
-		if ((url.Length > 0) && (useUrl))
+		if (url.Length > 0 && useUrl)
 		{
 			url = navigationSiteRoot + url;
 		}

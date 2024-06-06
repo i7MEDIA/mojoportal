@@ -1,163 +1,91 @@
-// Author:
-// Created:       2009-05-02
-// Last Modified: 2017-06-20
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using mojoPortal.Business;
-using mojoPortal.Web.Framework;
-using Resources;
 using System;
 using System.Data;
 using System.Web.UI;
+using mojoPortal.Business;
+using Resources;
 
-namespace mojoPortal.Web.BlogUI
+namespace mojoPortal.Web.BlogUI;
+
+public partial class BlogCategories : UserControl
 {
-	public partial class BlogCategories : UserControl
+	public int PageId { get; set; } = -1;
+	public int ModuleId { get; set; } = -1;
+	public string SiteRoot { get; set; } = string.Empty;
+	public bool RenderAsTagCloud { get; set; } = true;
+	public bool CanEdit { get; set; } = false;
+	public string HeadingElement { get; set; } = "h3";
+
+
+	protected void Page_Load(object sender, EventArgs e)
 	{
-		private int pageId = -1;
-
-		public int PageId
+		if (!string.IsNullOrWhiteSpace(displaySettings.OverrideCategoryLabel))
 		{
-			get { return pageId; }
-			set { pageId = value; }
+			litHeading.Text = displaySettings.OverrideCategoryLabel;
+		}
+		else
+		{
+			litHeading.Text = BlogResources.BlogCategoriesLabel;
 		}
 
-		private int moduleId = -1;
+		HeadingElement = displaySettings.CategoryListHeadingElement;
+	}
 
-		public int ModuleId
+
+	protected override void OnPreRender(EventArgs e)
+	{
+		if (Visible)
 		{
-			get { return moduleId; }
-			set { moduleId = value; }
+			BindList();
 		}
 
-		private string siteRoot = string.Empty;
+		base.OnPreRender(e);
+	}
 
-		public string SiteRoot
+
+	private void BindList()
+	{
+		if (PageId == -1 || ModuleId == -1)
 		{
-			get { return siteRoot; }
-			set { siteRoot = value; }
+			return;
 		}
 
-		private bool renderAsTagCloud = true;
-
-		public bool RenderAsTagCloud
+		var catListCssClass = string.Empty;
+		if (!string.IsNullOrWhiteSpace(displaySettings.CategoryListHeadingClass))
 		{
-			get { return renderAsTagCloud; }
-			set { renderAsTagCloud = value; }
+			catListCssClass = $" class=\"{displaySettings.CategoryListHeadingClass}\"";
 		}
 
-		private bool canEdit = false;
+		litHeadingOpenTag.Text = $"<{HeadingElement}{catListCssClass}>";
+		litHeadingCloseTag.Text = $"</{HeadingElement}>";
 
-		public bool CanEdit
+		using IDataReader reader = Blog.GetCategories(ModuleId);
+		if (RenderAsTagCloud)
 		{
-			get { return canEdit; }
-			set { canEdit = value; }
-		}
+			dlCategories.Visible = false;
+			cloud.DataHrefFormatString = "/Blog/ViewCategory.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", "{0}").ToString();
+			cloud.UseWeightInTextFormat = true;
+			cloud.DataHrefField = "CategoryID";
+			cloud.DataTextField = "Category";
+			cloud.DataWeightField = "PostCount";
+			cloud.DataSource = reader;
+			cloud.DataBind();
 
-		private string headingElement = "h3";
-
-		public string HeadingElement
-		{
-			get { return headingElement; }
-			set { headingElement = value; }
-		}
-
-
-		protected void Page_Load(object sender, EventArgs e)
-		{
-			if (displaySettings.OverrideCategoryLabel.Length > 0)
+			if (cloud.Items.Count == 0)
 			{
-				litHeading.Text = displaySettings.OverrideCategoryLabel;
-			}
-			else
-			{
-				litHeading.Text = BlogResources.BlogCategoriesLabel;
-			}
-
-			HeadingElement = displaySettings.CategoryListHeadingElement;
-		}
-
-
-		protected override void OnPreRender(EventArgs e)
-		{
-			if (this.Visible)
-			{
-				BindList();
-			}
-
-			base.OnPreRender(e);
-		}
-
-
-		private void BindList()
-		{
-			if (pageId == -1)
-			{
-				return;
-			}
-
-			if (moduleId == -1)
-			{
-				return;
-			}
-
-			litHeadingOpenTag.Text = "<";
-			litHeadingOpenTag.Text += headingElement;
-			litHeadingOpenTag.Text += !string.IsNullOrWhiteSpace(displaySettings.CategoryListHeadingClass) ? " class=\"" + displaySettings.CategoryListHeadingClass + "\"" : string.Empty;
-			litHeadingOpenTag.Text += ">";
-
-			litHeadingCloseTag.Text = "</" + headingElement + ">";
-
-			using (IDataReader reader = Blog.GetCategories(ModuleId))
-			{
-				if (renderAsTagCloud)
-				{
-					dlCategories.Visible = false;
-					cloud.DataHrefFormatString =
-						SiteRoot +
-						"/Blog/ViewCategory.aspx?cat={0}&amp;mid=" +
-						ModuleId.ToInvariantString() +
-						"&amp;pageid=" + PageId.ToInvariantString()
-					;
-
-					cloud.UseWeightInTextFormat = true;
-					cloud.DataHrefField = "CategoryID";
-					cloud.DataTextField = "Category";
-					cloud.DataWeightField = "PostCount";
-					cloud.DataSource = reader;
-					cloud.DataBind();
-
-					if (cloud.Items.Count == 0)
-					{
-						Visible = false;
-					}
-				}
-				else
-				{
-					cloud.Visible = false;
-					dlCategories.DataSource = reader;
-					dlCategories.DataBind();
-					dlCategories.Visible = (dlCategories.Items.Count > 0);
-
-					if (dlCategories.Items.Count == 0)
-					{
-						Visible = false;
-					}
-				}
+				Visible = false;
 			}
 		}
-
-
-		protected string GetCssClass(double catagoryCount)
+		else
 		{
-			return string.Empty;
+			cloud.Visible = false;
+			dlCategories.DataSource = reader;
+			dlCategories.DataBind();
+			dlCategories.Visible = (dlCategories.Items.Count > 0);
+
+			if (dlCategories.Items.Count == 0)
+			{
+				Visible = false;
+			}
 		}
 	}
 }

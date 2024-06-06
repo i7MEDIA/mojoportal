@@ -15,7 +15,11 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	public ModuleTitleControl()
 	{
-		if (HttpContext.Current == null) { return; }
+		if (HttpContext.Current is null)
+		{
+			return;
+		}
+
 		EnsureChildControls();
 	}
 
@@ -113,8 +117,6 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	public bool WrapLinksInSpan { get; set; } = true;
 
-	#region Public Properties
-
 	public Module ModuleInstance { get; set; } = null;
 
 	public string LiteralExtraMarkup { get; set; } = string.Empty;
@@ -144,11 +146,10 @@ public class ModuleTitleControl : WebControl, INamingContainer
 	/// </summary>
 	public bool ForceShowExtraMarkup { get; set; } = false;
 
-	#endregion
 
 	private SiteModuleControl GetParentAsSiteModelControl(Control child)
 	{
-		if (HttpContext.Current == null || child.Parent == null)
+		if (HttpContext.Current is null || child.Parent is null)
 		{
 			return null;
 		}
@@ -164,44 +165,44 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	protected override void Render(HtmlTextWriter writer)
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
-			writer.Write($"[{this.ID}]");
+			writer.Write($"[{ID}]");
 			return;
 		}
 
-		if (UseHeading && topContent.Length > 0)
+		if (UseHeading && !string.IsNullOrWhiteSpace(topContent))
 		{
 			writer.Write(topContent);
 		}
 
-		if ((!UseHeading) && (ModuleInstance != null))
+		if (!UseHeading && ModuleInstance is not null)
 		{
 			// only need this when not rendering a heading element
-			writer.Write("<a id='module" + ModuleInstance.ModuleId.ToInvariantString() + "' class='moduleanchor'></a>");
+			writer.Write(Invariant($"<a id=\"module{ModuleInstance.ModuleId}\" class=\"moduleanchor\"></a>"));
 		}
 
-		if (UseHeading && headingTag.Length > 0)
+		if (UseHeading && !string.IsNullOrWhiteSpace(headingTag))
 		{
 			writer.WriteBeginTag(headingTag);
 
-			if (ModuleInstance != null)
+			if (ModuleInstance is not null)
 			{
-				writer.WriteAttribute("id", "module" + ModuleInstance.ModuleId.ToInvariantString());
+				writer.WriteAttribute("id", Invariant($"module{ModuleInstance.ModuleId}"));
 			}
 
-			writer.WriteAttribute("class", cssClassToUse + " moduletitle");
+			writer.WriteAttribute("class", $"{cssClassToUse} moduletitle");
 			writer.Write(HtmlTextWriter.TagRightChar);
 		}
 
-		if (UseHeading && LiteralHeadingTopWrap.Length > 0)
+		if (UseHeading && !string.IsNullOrWhiteSpace(LiteralHeadingTopWrap))
 		{
 			writer.Write(LiteralHeadingTopWrap);
 		}
 
 		litModuleTitle.RenderControl(writer);
 
-		if (UseHeading && LiteralHeadingBottomWrap.Length > 0)
+		if (UseHeading && !string.IsNullOrWhiteSpace(LiteralHeadingBottomWrap))
 		{
 			writer.Write(LiteralHeadingBottomWrap);
 		}
@@ -212,7 +213,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			{
 				if (WrapLinksInSpan)
 				{
-					writer.Write("<span class='modulelinks'>");
+					writer.Write("<span class=\"modulelinks\">");
 				}
 				if (!forbidModuleSettings)
 				{
@@ -220,44 +221,44 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					lnkModuleSettings.RenderControl(writer);
 				}
 
-				if (ibCancelChanges != null && ibCancelChanges.Visible)
+				if (ibCancelChanges is not null && ibCancelChanges.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibCancelChanges.RenderControl(writer);
 				}
 
-				if (ibPostDraftContentForApproval != null && ibPostDraftContentForApproval.Visible)
+				if (ibPostDraftContentForApproval is not null && ibPostDraftContentForApproval.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibPostDraftContentForApproval.RenderControl(writer);
 				}
 
-				if (lnkRejectContent != null && lnkRejectContent.Visible)
+				if (lnkRejectContent is not null && lnkRejectContent.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					lnkRejectContent.RenderControl(writer);
 				}
 
-				if (ibApproveContent != null && ibApproveContent.Visible)
+				if (ibApproveContent is not null && ibApproveContent.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibApproveContent.RenderControl(writer);
 				}
 
-				if (ibPublishContent != null && ibPublishContent.Visible)
+				if (ibPublishContent is not null && ibPublishContent.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibPublishContent.RenderControl(writer);
 				}
 
-				if (statusIcon.ToolTip.Length > 0)
+				if (!string.IsNullOrWhiteSpace(statusIcon.ToolTip))
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					statusIcon.RenderControl(writer);
 				}
 
 				if (
-					lnkModuleEdit != null
+					lnkModuleEdit is not null
 					&& !string.IsNullOrWhiteSpace(EditUrl)
 					&& !string.IsNullOrWhiteSpace(EditText)
 				)
@@ -266,7 +267,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					lnkModuleEdit.RenderControl(writer);
 				}
 
-				if (LiteralExtraMarkup.Length > 0)
+				if (!string.IsNullOrWhiteSpace(LiteralExtraMarkup))
 				{
 					writer.Write(LiteralExtraMarkup);
 				}
@@ -281,7 +282,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 				//can't edit
 				if (ForceShowExtraMarkup)
 				{
-					if (LiteralExtraMarkup.Length > 0)
+					if (!string.IsNullOrWhiteSpace(LiteralExtraMarkup))
 					{
 						writer.Write(LiteralExtraMarkup);
 					}
@@ -289,12 +290,12 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			}
 		}
 
-		if (UseHeading && headingTag.Length > 0)
+		if (UseHeading && !string.IsNullOrWhiteSpace(headingTag))
 		{
 			writer.WriteEndTag(headingTag);
 		}
 
-		if (UseHeading && bottomContent.Length > 0)
+		if (UseHeading && !string.IsNullOrWhiteSpace(bottomContent))
 		{
 			writer.Write(bottomContent);
 		}
@@ -311,46 +312,45 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					lnkModuleSettings.RenderControl(writer);
 				}
 
-				if (ibCancelChanges != null && ibCancelChanges.Visible)
+				if (ibCancelChanges is not null && ibCancelChanges.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibCancelChanges.RenderControl(writer);
 				}
 
-				if (ibPostDraftContentForApproval != null && ibPostDraftContentForApproval.Visible)
+				if (ibPostDraftContentForApproval is not null && ibPostDraftContentForApproval.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibPostDraftContentForApproval.RenderControl(writer);
 				}
 
-				if (lnkRejectContent != null && lnkRejectContent.Visible)
+				if (lnkRejectContent is not null && lnkRejectContent.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					lnkRejectContent.RenderControl(writer);
 				}
 
-				if (ibApproveContent != null && ibApproveContent.Visible)
+				if (ibApproveContent is not null && ibApproveContent.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibApproveContent.RenderControl(writer);
 				}
 
-				if (ibPublishContent != null && ibPublishContent.Visible)
+				if (ibPublishContent is not null && ibPublishContent.Visible)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					ibPublishContent.RenderControl(writer);
 				}
 
-				if (statusIcon.ToolTip.Length > 0)
+				if (!string.IsNullOrWhiteSpace(statusIcon.ToolTip))
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
 					statusIcon.RenderControl(writer);
 				}
 
-				if (
-				(lnkModuleEdit != null)
-				&& (!string.IsNullOrEmpty(EditUrl))
-				&& (!string.IsNullOrEmpty(EditText))
+				if (lnkModuleEdit is not null
+					&& !string.IsNullOrEmpty(EditUrl)
+					&& !string.IsNullOrEmpty(EditText)
 				)
 				{
 					writer.Write(HtmlTextWriter.SpaceChar);
@@ -361,50 +361,46 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 			} //can edit
 
-			if (LiteralExtraMarkup.Length > 0)
+			if (!string.IsNullOrWhiteSpace(LiteralExtraMarkup))
 			{
 				writer.Write(LiteralExtraMarkup);
 			}
 		}
 	}
 
+
 	void ibApproveContent_Click(object sender, ImageClickEventArgs e)
 	{
-		var siteModule = GetParentAsSiteModelControl(this);
-		if (siteModule == null) { return; }
-		if (!(siteModule is IWorkflow)) { return; }
-
-		IWorkflow workflow = siteModule as IWorkflow;
-		workflow.Approve();
+		if (GetParentAsSiteModelControl(this) is IWorkflow workflow)
+		{
+			workflow.Approve();
+		}
 	}
+
 
 	protected void ibPostDraftContentForApproval_Click(object sender, ImageClickEventArgs e)
 	{
-		var siteModule = GetParentAsSiteModelControl(this);
-		if (siteModule == null) { return; }
-		if (!(siteModule is IWorkflow)) { return; }
-
-		IWorkflow workflow = siteModule as IWorkflow;
-		workflow.SubmitForApproval();
+		if (GetParentAsSiteModelControl(this) is IWorkflow workflow)
+		{
+			workflow.SubmitForApproval();
+		}
 	}
+
 
 	protected void ibCancelChanges_Click(object sender, ImageClickEventArgs e)
 	{
-		var siteModule = GetParentAsSiteModelControl(this);
-		if (siteModule == null) { return; }
-		if (!(siteModule is IWorkflow)) { return; }
-
-		IWorkflow workflow = siteModule as IWorkflow;
-		workflow.CancelChanges();
+		if (GetParentAsSiteModelControl(this) is IWorkflow workflow)
+		{
+			workflow.CancelChanges();
+		}
 	}
-
 
 
 	protected override void OnPreRender(EventArgs e)
 	{
 
 		base.OnPreRender(e);
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			return;
 		}
@@ -462,7 +458,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	private void Initialize()
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			return;
 		}
@@ -475,7 +471,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			useTextLinksForFeatureSettings = basePage.UseTextLinksForFeatureSettings;
 		}
 
-		if (siteModule != null)
+		if (siteModule is not null)
 		{
 			ModuleInstance = siteModule.ModuleConfiguration;
 			CanEdit = siteModule.IsEditable;
@@ -483,7 +479,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			forbidModuleSettings = siteModule.ForbidModuleSettings;
 		}
 
-		if (ModuleInstance != null)
+		if (ModuleInstance is not null)
 		{
 			headingTag = ModuleInstance.HeadElement;
 			if (ModuleInstance.ShowTitle)
@@ -517,7 +513,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 					lnkModuleSettings.NavigateUrl = "Admin/ModuleSettings.aspx".ToQueryBuilder().PageId(ModuleInstance.PageId).ModuleId(ModuleInstance.ModuleId).ToString();
 
-					if ((enableWorkflow) && (siteModule != null) && (siteModule is IWorkflow))
+					if ((enableWorkflow) && (siteModule is not null) && (siteModule is IWorkflow))
 					{
 						SetupWorkflowControls();
 					}
@@ -526,21 +522,18 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 			if (
 				(CanEdit || ShowEditLinkOverride)
-				&& EditText != null && EditUrl.Length > 0)
+				&& EditText is not null && !string.IsNullOrWhiteSpace(EditUrl))
 			{
 				lnkModuleEdit.Text = EditText;
-				if (this.ToolTip.Length > 0)
+				if (!string.IsNullOrWhiteSpace(ToolTip))
 				{
-					lnkModuleEdit.ToolTip = this.ToolTip;
+					lnkModuleEdit.ToolTip = ToolTip;
 				}
 				else
 				{
 					lnkModuleEdit.ToolTip = EditText;
 				}
-				lnkModuleEdit.NavigateUrl = EditUrl.ToQueryBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
-				//+ (EditUrl.Contains("?") ? "&" : "?")
-				//+ "mid=" + ModuleInstance.ModuleId.ToInvariantString()
-				//+ "&pageid=" + ModuleInstance.PageId.ToInvariantString();
+				lnkModuleEdit.NavigateUrl = EditUrl.ToQueryBuilder().PageId(ModuleInstance.PageId).ModuleId(ModuleInstance.ModuleId).ToString();
 
 				if (!useTextLinksForFeatureSettings)
 				{
@@ -553,12 +546,12 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	private void SetupWorkflowControls()
 	{
-		if (HttpContext.Current == null || siteModule == null || ModuleInstance == null)
+		if (HttpContext.Current is null || siteModule == null || ModuleInstance == null)
 		{
 			return;
 		}
 
-		if ((this.Page is CmsPage cmsPage) && (cmsPage.ViewMode == PageViewMode.WorkInProgress))
+		if ((Page is CmsPage cmsPage) && (cmsPage.ViewMode == PageViewMode.WorkInProgress))
 		{
 			switch (WorkflowStatus)
 			{
@@ -573,9 +566,9 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					if (WebConfigSettings.WorkflowShowPublishForUnSubmittedDraft)
 					{
 						if (
-						(cmsPage.CurrentPage != null)
-						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.ModuleInstance.AuthorizedEditRoles)
-						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(this.ModuleInstance.DraftApprovalRoles)))
+						(cmsPage.CurrentPage is not null)
+						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(ModuleInstance.AuthorizedEditRoles)
+						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(ModuleInstance.DraftApprovalRoles)))
 						)
 						)
 						{
@@ -595,9 +588,9 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					}
 
 					if (
-						(cmsPage.CurrentPage != null)
-						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.ModuleInstance.AuthorizedEditRoles)
-						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(this.ModuleInstance.DraftApprovalRoles)))
+						(cmsPage.CurrentPage is not null)
+						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(ModuleInstance.AuthorizedEditRoles)
+						|| (WebConfigSettings.Use3LevelContentWorkflow && (WebUser.IsInRoles(cmsPage.CurrentPage.DraftApprovalRoles) || WebUser.IsInRoles(ModuleInstance.DraftApprovalRoles)))
 						)
 						)
 					{
@@ -623,8 +616,8 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 				case ContentWorkflowStatus.AwaitingPublishing:
 					if (
-						(cmsPage.CurrentPage != null)
-						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(this.ModuleInstance.AuthorizedEditRoles))
+						(cmsPage.CurrentPage is not null)
+						&& (IsAdminEditor || WebUser.IsInRoles(cmsPage.CurrentPage.EditRoles) || WebUser.IsInRoles(ModuleInstance.AuthorizedEditRoles))
 						)
 					{
 						ibPublishContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.PublishContentImage);
@@ -663,7 +656,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	protected override void CreateChildControls()
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			return;
 		}
@@ -689,7 +682,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			Visible = false
 		};
 		ibPostDraftContentForApproval.Click += new ImageClickEventHandler(ibPostDraftContentForApproval_Click);
-		this.Controls.Add(ibPostDraftContentForApproval);
+		Controls.Add(ibPostDraftContentForApproval);
 
 		ibApproveContent = new ImageButton
 		{
@@ -699,7 +692,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			Visible = false
 		};
 		ibApproveContent.Click += new ImageClickEventHandler(ibApproveContent_Click);
-		this.Controls.Add(ibApproveContent);
+		Controls.Add(ibApproveContent);
 
 		if (WebConfigSettings.Use3LevelContentWorkflow)
 		{
@@ -711,7 +704,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 				Visible = false
 			};
 			ibPublishContent.Click += new ImageClickEventHandler(ibApproveContent_Click); //approve and publish are the same at this point so we have only one method
-			this.Controls.Add(ibPublishContent);
+			Controls.Add(ibPublishContent);
 		}
 
 		lnkRejectContent = new HyperLink
@@ -731,9 +724,9 @@ public class ModuleTitleControl : WebControl, INamingContainer
 		};
 		UIHelper.AddConfirmationDialog(ibCancelChanges, Resource.CancelContentChangesButtonWarning);
 		ibCancelChanges.Click += new ImageClickEventHandler(ibCancelChanges_Click);
-		this.Controls.Add(ibCancelChanges);
+		Controls.Add(ibCancelChanges);
 
 		statusIcon = new WorkflowStatusIcon();
-		this.Controls.Add(statusIcon);
+		Controls.Add(statusIcon);
 	}
 }

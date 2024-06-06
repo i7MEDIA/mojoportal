@@ -19,32 +19,20 @@
 							CssClass="blogitemtitle"
 							Text='<%# Eval("Heading") %>'
 							Visible='<%# Config.UseLinkForHeading %>'
-							NavigateUrl='<%# FormatBlogTitleUrl(Eval("ItemUrl").ToString(), Convert.ToInt32(Eval("ItemID")))  %>'
-						></asp:HyperLink>
-
+							NavigateUrl='<%# FormatBlogTitleUrl(Eval("ItemUrl").ToString(), Convert.ToInt32(Eval("ItemID")))  %>'>
+						</asp:HyperLink>
 						<asp:Literal ID="litTitle" runat="server" Text='<%# Eval("Heading") %>' Visible='<%#(!Config.UseLinkForHeading) %>' />
-
 						<asp:HyperLink runat="server"
 							ID="editLink"
 							EnableViewState="false"
 							Text="<%# EditLinkText %>"
 							ToolTip="<%# EditLinkTooltip %>"
 							ImageUrl='<%# EditLinkImageUrl %>'
-							NavigateUrl='<%# this.SiteRoot +
-								"/Blog/EditPost.aspx?pageid=" +
-								PageId.ToString() +
-								"&amp;ItemID=" +
-								DataBinder.Eval(Container.DataItem,"ItemID") + 
-								"&amp;mid=" +
-								ModuleId.ToString()
-							%>'
+							NavigateUrl='<%# "/Blog/EditPost.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID"))) %>'
 							Visible='<%# CanEditPost(Convert.ToInt32(Eval("UserID"))) %>'
-							CssClass="ModuleEditLink"
-						/>
+							CssClass="ModuleEditLink" />
 					</<%# itemHeadingElement %>>
-
 					<asp:Literal ID="litSubtitle" runat="server" EnableViewState="false" Text='<%# FormatSubtitle(Eval("SubTitle").ToString()) %>' />
-
 					<portal:BasePanel runat="server" ID="pnlTopDate">
 						<span class="blogauthor">
 							<%# FormatPostAuthor(Convert.ToBoolean(Eval("ShowAuthorName")), Eval("Name").ToString(),Eval("FirstName").ToString(),Eval("LastName").ToString())%>
@@ -52,7 +40,6 @@
 						<span class="bdate" id="spnTopDate" runat="server" enableviewstate="false" visible='<%# !displaySettings.PostListHideDate %>'>
 							<%# FormatBlogDate(Convert.ToDateTime(Eval("StartDate"))) %>
 						</span>
-
 						<asp:Repeater ID="rptTopCategories" runat="server" Visible='<%# displaySettings.ShowTagsOnPostList %>'>
 							<HeaderTemplate>
 								<span class="blogtags tagslabel">
@@ -65,14 +52,8 @@
 									ID="Hyperlink6"
 									EnableViewState="false"
 									Text='<%# Eval("Category").ToString() %>' data-category='<%# Eval("Category").ToString() %>'
-									NavigateUrl='<%# this.SiteRoot +
-										"/Blog/ViewCategory.aspx?cat=" +
-										DataBinder.Eval(Container.DataItem,"CategoryID") +
-										"&amp;pageid=" +
-										PageId.ToString() +
-										"&amp;mid=" +
-										ModuleId.ToString()
-									%>'></asp:HyperLink>
+									NavigateUrl='<%# "/Blog/ViewCategory.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>'>
+								</asp:HyperLink>
 							</ItemTemplate>
 							<FooterTemplate>
 								</span>
@@ -132,8 +113,7 @@
 							EnableViewState="false"
 							Visible='<%# !disableAvatars && !displaySettings.HideAvatarInPostList && ( (Convert.ToBoolean(Eval("ShowAuthorAvatar"))) || ((Convert.ToBoolean(Eval("ShowAuthorBio")))) ) %>'
 							CssClass="avatarwrap authorinfo"
-							RenderId="false"
-						>
+							RenderId="false">
 							<portal:Avatar runat="server" ID="av1" />
 							<%--<portal:Avatar runat="server"
 								ID="av1"
@@ -184,14 +164,7 @@
 										ID="Hyperlink5"
 										EnableViewState="false"
 										Text='<%# Eval("Category").ToString() %>'
-										NavigateUrl='<%# this.SiteRoot +
-											"/Blog/ViewCategory.aspx?cat=" +
-											DataBinder.Eval(Container.DataItem,"CategoryID") +
-											"&amp;pageid=" +
-											PageId.ToString() +
-											"&amp;mid=" +
-											ModuleId.ToString()
-										%>'>
+										NavigateUrl='<%# "/Blog/ViewCategory.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>'>
 									</asp:HyperLink>
 								</ItemTemplate>
 

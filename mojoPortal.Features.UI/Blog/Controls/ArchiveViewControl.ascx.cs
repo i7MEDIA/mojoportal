@@ -191,14 +191,12 @@ namespace mojoPortal.Web.BlogUI
             navTop.IsEditable = IsEditable;
             navTop.Config = Config;
             navTop.SiteRoot = SiteRoot;
-            navTop.ImageSiteRoot = ImageSiteRoot;
 
             navBottom.ModuleId = ModuleId;
             navBottom.PageId = PageId;
             navBottom.IsEditable = IsEditable;
             navBottom.Config = Config;
             navBottom.SiteRoot = SiteRoot;
-            navBottom.ImageSiteRoot = ImageSiteRoot;
 
             navTop.Visible = false;
 

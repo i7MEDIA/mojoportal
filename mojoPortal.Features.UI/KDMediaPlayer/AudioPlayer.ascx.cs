@@ -298,7 +298,7 @@ public partial class AudioPlayer : SiteModuleControl
 	/// </summary>
 	private void PopulateLabels()
 	{
-		TitleControl.EditUrl = SiteRoot + "/KDMediaPlayer/Edit.aspx";
+		TitleControl.EditUrl = "KDMediaPlayer/Edit.aspx";
 		TitleControl.EditText = MediaPlayerResources.EditAudioPlayerLinkText;
 
 		PreviousLink.InnerText = MediaPlayerResources.PreviousText;
