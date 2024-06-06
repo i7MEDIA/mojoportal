@@ -149,16 +149,16 @@ internal class ScriptJail
 
 	private static readonly string Format = @"
 <div class='NeatHtml' data-nhContainerId='{6}' style='overflow: hidden; position: relative; border: none; padding: 0; margin: 0;'>
-	<script type='text/javascript' data-nhScriptId='{6}'>
-		try {{ {0}.BeginUntrusted('{6}'); }} catch (ex) {{ document.writeln('NeatHtml not found\\074!-' + '-'); }}
+	<script data-loader='NeatHtml' data-nhScriptId='{6}'>
+		try {{ {0}.BeginUntrusted('{6}'); }} catch (ex) {{ //document.writeln('NeatHtml not found\\074!-' + '-'); }}
 	</script>
 	<div>{1}</div>
 	<input name='NeatHtmlEndUntrusted' type='hidden' />
 	<!-- > -->
 	<!-- <xmp></xmp><xml></xml><! -->
-	<script type='text/javascript'>{0}.ProcessUntrusted({4}, {5});</script>
+	<script data-loader='NeatHtml'>{0}.ProcessUntrusted({4}, {5});</script>
 </div>
-<script type='text/javascript'>{0}.ResizeContainer(undefined,'{6}');</script>";
+<script data-loader='NeatHtml'>{0}.ResizeContainer(undefined,'{6}');</script>";
 
 	private static readonly string[] TagsAllowedWhenNoScript
 		= [ "a", "abbr", "acronym", "address", "b", "basefont", "bdo", "big", "blockquote", "br",
