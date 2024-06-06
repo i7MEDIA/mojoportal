@@ -10,14 +10,9 @@ namespace mojoPortal.Web;
 
 public abstract class SiteModuleControl : mojoUserControl
 {
-	private Module moduleConfiguration;
-	private bool isEditable = false;
-	private bool forbidModuleSettings = false;
-	private int siteID = -1;
 	private Hashtable settings;
 	private string imageSiteRoot = null;
 	private bool isSiteEditor = false;
-	private bool enableWorkflow = false;
 	private bool use3LevelWorkflow = false; //joe davis
 	private bool IsOnInitExecuted = false;
 
@@ -44,10 +39,10 @@ public abstract class SiteModuleControl : mojoUserControl
 
 		if (siteSettings != null)
 		{
-			this.siteID = siteSettings.SiteId;
+			this.SiteId = siteSettings.SiteId;
 			if (!WebUser.IsAdminOrContentAdmin)
 			{
-				forbidModuleSettings = WebUser.IsInRoles(siteSettings.RolesNotAllowedToEditModuleSettings);
+				ForbidModuleSettings = WebUser.IsInRoles(siteSettings.RolesNotAllowedToEditModuleSettings);
 			}
 		}
 
@@ -64,25 +59,25 @@ public abstract class SiteModuleControl : mojoUserControl
 			//    isEditable = true;
 			//}
 
-			isEditable = ShouldAllowEdit();
+			IsEditable = ShouldAllowEdit();
 
-			if ((moduleConfiguration != null) && (!moduleConfiguration.IsGlobal))
+			if ((ModuleConfiguration != null) && (!ModuleConfiguration.IsGlobal))
 			{
 				if (WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow && (this is IWorkflow))
 				{
-					enableWorkflow = true;
+					EnableWorkflow = true;
 
 					use3LevelWorkflow = WebConfigSettings.Use3LevelContentWorkflow; //joe davis
 
-					if (!isEditable)
+					if (!IsEditable)
 					{
 						if (
 							(WebUser.IsInRoles(currentPage.DraftEditOnlyRoles))
-							|| (WebUser.IsInRoles(moduleConfiguration.DraftEditRoles))
-							|| (use3LevelWorkflow && WebUser.IsInRoles(moduleConfiguration.DraftApprovalRoles))
+							|| (WebUser.IsInRoles(ModuleConfiguration.DraftEditRoles))
+							|| (use3LevelWorkflow && WebUser.IsInRoles(ModuleConfiguration.DraftApprovalRoles))
 							)
 						{
-							isEditable = true;
+							IsEditable = true;
 
 						}
 
@@ -90,23 +85,23 @@ public abstract class SiteModuleControl : mojoUserControl
 				}
 			}
 
-			if (!isEditable && (moduleConfiguration != null) && (moduleConfiguration.EditUserId > 0))
+			if (!IsEditable && (ModuleConfiguration != null) && (ModuleConfiguration.EditUserId > 0))
 			{
 				SiteUser siteUser = SiteUtils.GetCurrentSiteUser();
 				if (
 					(siteUser != null)
-					&& (moduleConfiguration.EditUserId == siteUser.UserId)
+					&& (ModuleConfiguration.EditUserId == siteUser.UserId)
 					)
 				{
-					isEditable = true;
+					IsEditable = true;
 				}
 			}
 		}
 
-		if (moduleConfiguration != null)
+		if (ModuleConfiguration != null)
 		{
-			this.m_title = moduleConfiguration.ModuleTitle;
-			this.m_description = moduleConfiguration.FeatureName;
+			this.Title = ModuleConfiguration.ModuleTitle;
+			this.Description = ModuleConfiguration.FeatureName;
 		}
 	}
 
@@ -117,66 +112,54 @@ public abstract class SiteModuleControl : mojoUserControl
 			return true;
 		}
 
-		if (moduleConfiguration != null)
+		if (ModuleConfiguration != null)
 		{
-			if (moduleConfiguration.AuthorizedEditRoles == "Admins;") { return false; }
+			if (ModuleConfiguration.AuthorizedEditRoles == "Admins;") { return false; }
 			if (currentPage.EditRoles == "Admins;") { return false; }
 
 			if (WebUser.IsContentAdmin) { return true; }
 
 			if (isSiteEditor) { return true; }
 
-			if (WebUser.IsInRoles(moduleConfiguration.AuthorizedEditRoles)) { return true; }
+			if (WebUser.IsInRoles(ModuleConfiguration.AuthorizedEditRoles)) { return true; }
 
-			if ((!moduleConfiguration.IsGlobal) && WebUser.IsInRoles(currentPage.EditRoles)) { return true; }
+			if ((!ModuleConfiguration.IsGlobal) && WebUser.IsInRoles(currentPage.EditRoles)) { return true; }
 
 		}
 
 		return false;
 	}
 
+	public string Title { get; set; } = string.Empty;
+	public string Description { get; set; } = string.Empty;
+	public string TitleUrl { get; set; } = string.Empty;
 
 	public int ModuleId
 	{
-		get { return moduleConfiguration == null ? 0 : moduleConfiguration.ModuleId; }
+		get { return ModuleConfiguration == null ? 0 : ModuleConfiguration.ModuleId; }
 		set
 		{
-			if (moduleConfiguration == null) moduleConfiguration = new Module(value);
-			moduleConfiguration.ModuleId = value;
+			ModuleConfiguration ??= new Module(value);
+			ModuleConfiguration.ModuleId = value;
 		}
 	}
 
 	public Guid ModuleGuid
 	{
-		get { return moduleConfiguration == null ? Guid.Empty : moduleConfiguration.ModuleGuid; }
+		get { return ModuleConfiguration == null ? Guid.Empty : ModuleConfiguration.ModuleGuid; }
 		set
 		{
-			if (moduleConfiguration == null) moduleConfiguration = new Module(value);
-			moduleConfiguration.ModuleGuid = value;
+			ModuleConfiguration ??= new Module(value);
+			ModuleConfiguration.ModuleGuid = value;
 		}
 	}
 
 
 	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-	public int PageId
-	{
-		get { return moduleConfiguration == null ? 0 : moduleConfiguration.PageId; }
-	}
+	public int PageId => ModuleConfiguration == null ? 0 : ModuleConfiguration.PageId;
 
 
-	public string SiteRoot
-	{
-		get
-		{
-			//if ((siteSettings != null)
-			//    &&(siteSettings.SiteFolderName.Length > 0))
-			//{
-			//    return siteSettings.SiteRoot;
-			//}
-			//return WebUtils.GetSiteRoot(); 
-			return SiteUtils.GetNavigationSiteRoot();
-		}
-	}
+	public string SiteRoot => SiteUtils.GetNavigationSiteRoot();
 
 	public string ImageSiteRoot
 	{
@@ -190,37 +173,19 @@ public abstract class SiteModuleControl : mojoUserControl
 
 
 	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-	public int SiteId
-	{
-		get { return siteID; }
-		set { siteID = value; }
-	}
+	public int SiteId { get; set; } = -1;
+
+	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public bool IsEditable { get; private set; } = false;
+
+	public bool ForbidModuleSettings { get; private set; } = false;
+
+	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+	public bool EnableWorkflow { get; private set; } = false;
 
 
 	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-	public bool IsEditable
-	{
-		get { return isEditable; }
-	}
-
-	public bool ForbidModuleSettings
-	{
-		get { return forbidModuleSettings; }
-	}
-
-	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-	public bool EnableWorkflow
-	{
-		get { return enableWorkflow; }
-	}
-
-
-	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-	public Module ModuleConfiguration
-	{
-		get { return moduleConfiguration; }
-		set { moduleConfiguration = value; }
-	}
+	public Module ModuleConfiguration { get; set; }
 
 
 	[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -228,98 +193,8 @@ public abstract class SiteModuleControl : mojoUserControl
 	{
 		get
 		{
-			if (settings == null) settings = ModuleSettings.GetModuleSettings(ModuleId);
+			settings ??= ModuleSettings.GetModuleSettings(ModuleId);
 			return settings;
 		}
 	}
-
-
-	#region IWebPart Members
-
-	private string m_title = String.Empty;
-	private string m_subTitle = String.Empty;
-	private string m_description = String.Empty;
-	private string m_titleUrl = String.Empty;
-	private string m_titleIconImageUrl = String.Empty;
-	private string m_catalogIconImageUrl = String.Empty;
-
-
-	// Title
-	public string Title
-	{
-		get
-		{
-			return m_title;
-		}
-		set
-		{
-			m_title = value;
-		}
-	}
-	//  Subtitle
-	public string Subtitle
-	{
-		get
-		{
-			return m_subTitle;
-		}
-		set
-		{
-			m_subTitle = value;
-		}
-	}
-	//  Description
-	public string Description
-	{
-		get
-		{
-			return m_description;
-		}
-		set
-		{
-			m_description = value;
-		}
-	}
-	//  TitleUrl
-	public string TitleUrl
-	{
-		get
-		{
-			return m_titleUrl;
-		}
-		set
-		{
-			m_titleUrl = value;
-		}
-	}
-	//  TitleIconImageUrl
-	public string TitleIconImageUrl
-	{
-		get
-		{
-			return m_titleIconImageUrl;
-		}
-		set
-		{
-			m_titleIconImageUrl = value;
-		}
-	}
-	//  CatalogIconImageUrl
-	public string CatalogIconImageUrl
-	{
-		get
-		{
-			return m_catalogIconImageUrl;
-		}
-		set
-		{
-			m_catalogIconImageUrl = value;
-		}
-	}
-
-
-	#endregion
-
 }
-
-

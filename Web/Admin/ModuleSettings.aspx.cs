@@ -11,7 +11,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
@@ -131,24 +130,22 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 			litFeatureSpecificSettingsTab.Text = string.Format(CultureInfo.InvariantCulture, Resource.FeatureSettingsTabFormat, lblFeatureName.Text);
 
-			divCacheTimeout.Visible = (!WebConfigSettings.DisableContentCache && moduleDefinition.IsCacheable);
+			divCacheTimeout.Visible = !WebConfigSettings.DisableContentCache && moduleDefinition.IsCacheable;
 
-			divIsGlobal.Visible = (moduleDefinition.SupportsPageReuse && (!WebConfigSettings.DisableGlobalContent));
+			divIsGlobal.Visible = moduleDefinition.SupportsPageReuse && !WebConfigSettings.DisableGlobalContent;
 
 			PopulatePageList();
-			lblModuleId.Text = module.ModuleId.ToInvariantString();
-			lblModuleGuid.Text = " {" + module.ModuleGuid.ToString() + "}";
+			lblModuleId.Text = module.ModuleId.ToString(CultureInfo.InvariantCulture);
+			lblModuleGuid.Text = $" {{{module.ModuleGuid}}}";
 			moduleTitle.Text = module.ModuleTitle;
 			cacheTime.Text = module.CacheTime.ToString();
 			chkShowTitle.Checked = module.ShowTitle;
 			txtTitleElement.Text = module.HeadElement;
-			publishType.SetValue(module.PublishMode.ToInvariantString());
+			publishType.SetValue(module.PublishMode.ToString(CultureInfo.InvariantCulture));
 			chkIncludeInSearch.Checked = module.IncludeInSearch;
 			chkHideFromAuth.Checked = module.HideFromAuthenticated;
 			chkIsGlobal.Checked = module.IsGlobal;
 			chkHideFromUnauth.Checked = module.HideFromUnauthenticated;
-			chkAvailableForMyPage.Checked = module.AvailableForMyPage;
-			chkAllowMultipleInstancesOnMyPage.Checked = module.AllowMultipleInstancesOnMyPage;
 
 			if (isAdmin || isContentAdmin || isSiteEditor)
 			{
@@ -156,15 +153,15 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 				if (module.EditUserId > 0)
 				{
-					SiteUser siteUser = new SiteUser(siteSettings, module.EditUserId);
+					var siteUser = new SiteUser(siteSettings, module.EditUserId);
 					acUser.Text = siteUser.Name;
-					txtEditUserId.Text = siteUser.UserId.ToInvariantString();
+					txtEditUserId.Text = siteUser.UserId.ToString(CultureInfo.InvariantCulture);
 				}
 			}
 
 			if (divParentPage.Visible)
 			{
-				ListItem listItem = ddPages.Items.FindByValue(module.PageId.ToString());
+				var listItem = ddPages.Items.FindByValue(module.PageId.ToString(CultureInfo.InvariantCulture));
 
 				if (listItem != null)
 				{
@@ -172,16 +169,6 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					listItem.Selected = true;
 				}
 			}
-
-			//if (module.Icon.Length > 0)
-			//{
-			//	ddIcons.SelectedValue = module.Icon;
-			//	imgIcon.Src = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/" + module.Icon;
-			//}
-			//else
-			//{
-			//	imgIcon.Src = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/blank.gif";
-			//}
 
 			if (!useSeparatePagesForRoles)
 			{
@@ -197,7 +184,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 					foreach (ListItem item in cblViewRoles.Items)
 					{
-						if ((module.ViewRoles.LastIndexOf(item.Value + ";")) > -1)
+						if (module.ViewRoles.LastIndexOf($"{item.Value};") > -1)
 						{
 							item.Selected = true;
 						}
@@ -216,7 +203,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 					foreach (ListItem item in authEditRoles.Items)
 					{
-						if ((module.AuthorizedEditRoles.LastIndexOf(item.Value + ";")) > -1)
+						if (module.AuthorizedEditRoles.LastIndexOf($"{item.Value};") > -1)
 						{
 							item.Selected = true;
 						}
@@ -225,7 +212,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 				foreach (ListItem item in draftEditRoles.Items)
 				{
-					if ((module.DraftEditRoles.LastIndexOf(item.Value + ";")) > -1)
+					if (module.DraftEditRoles.LastIndexOf($"{item.Value};") > -1)
 					{
 						item.Selected = true;
 					}
@@ -235,7 +222,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				{
 					foreach (ListItem item in draftApprovalRoles.Items)
 					{
-						if ((module.DraftApprovalRoles.LastIndexOf(item.Value + ";")) > -1)
+						if (module.DraftApprovalRoles.LastIndexOf($"{item.Value};") > -1)
 						{
 							item.Selected = true;
 						}
@@ -261,13 +248,17 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		authEditRoles.Items.Clear();
 		cblViewRoles.Items.Clear();
 
-		ListItem vAllItem = new ListItem();
-		vAllItem.Text = Resource.RolesAllUsersRole;
-		vAllItem.Value = "All Users";
+		var vAllItem = new ListItem
+		{
+			Text = Resource.RolesAllUsersRole,
+			Value = "All Users"
+		};
 
-		ListItem allItem = new ListItem();
-		allItem.Text = Resource.RolesAllUsersRole;
-		allItem.Value = "All Users";
+		var allItem = new ListItem
+		{
+			Text = Resource.RolesAllUsersRole,
+			Value = "All Users"
+		};
 
 		cblViewRoles.Items.Add(vAllItem);
 
@@ -282,82 +273,42 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				continue;
 			}
 
-			ListItem vItem = new ListItem();
-			vItem.Text = role.DisplayName;
-			vItem.Value = role.RoleName;
+			var vItem = new ListItem
+			{
+				Text = role.DisplayName,
+				Value = role.RoleName
+			};
 			cblViewRoles.Items.Add(vItem);
 
-			ListItem item = new ListItem();
-			item.Text = role.DisplayName;
-			item.Value = role.RoleName;
+			var item = new ListItem
+			{
+				Text = role.DisplayName,
+				Value = role.RoleName
+			};
 			authEditRoles.Items.Add(item);
 
-			ListItem draftItem = new ListItem();
-			draftItem.Text = role.DisplayName;
-			draftItem.Value = role.RoleName;
+			var draftItem = new ListItem
+			{
+				Text = role.DisplayName,
+				Value = role.RoleName
+			};
 			draftEditRoles.Items.Add(draftItem);
 
 			if (use3LevelWorkFlow)
 			{
-				ListItem draftApprovalItem = new ListItem();
-				draftApprovalItem.Text = role.DisplayName;
-				draftApprovalItem.Value = role.RoleName;
+				var draftApprovalItem = new ListItem
+				{
+					Text = role.DisplayName,
+					Value = role.RoleName
+				};
 				draftApprovalRoles.Items.Add(draftApprovalItem);
 			}
 		}
-
-		//using (IDataReader roles = Role.GetSiteRoles(siteSettings.SiteId))
-		//{
-		//	while (roles.Read())
-		//	{
-		//		string roleName = roles["RoleName"].ToString();
-
-		//		// no need or benefit to checking content admins role
-		//		// since they are not limited by roles except the special case of Admins only role
-		//		if (roleName == Role.ContentAdministratorsRole)
-		//		{
-		//			continue;
-		//		}
-
-		//		// administrators role doesn't need permission, the only reason to show it is so that
-		//		// an admin can lock the content down to only admins
-		//		if (roleName == Role.AdministratorsRole)
-		//		{
-		//			continue;
-		//		}
-
-		//		ListItem vItem = new ListItem();
-		//		vItem.Text = roles["DisplayName"].ToString();
-		//		vItem.Value = roles["RoleName"].ToString();
-		//		cblViewRoles.Items.Add(vItem);
-
-		//		ListItem item = new ListItem();
-		//		item.Text = roles["DisplayName"].ToString();
-		//		item.Value = roles["RoleName"].ToString();
-		//		authEditRoles.Items.Add(item);
-
-		//		ListItem draftItem = new ListItem();
-		//		draftItem.Text = roles["DisplayName"].ToString();
-		//		draftItem.Value = roles["RoleName"].ToString();
-		//		draftEditRoles.Items.Add(draftItem);
-
-		//		if (use3LevelWorkFlow)
-		//		{
-		//			ListItem draftApprovalItem = new ListItem();
-		//			draftApprovalItem.Text = roles["DisplayName"].ToString();
-		//			draftApprovalItem.Value = roles["RoleName"].ToString();
-		//			draftApprovalRoles.Items.Add(draftApprovalItem);
-		//		}
-		//	}
-		//}
 
 		cblViewRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;
 		authEditRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;
 		draftEditRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;
 		draftApprovalRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;
-
-		divMyPage.Visible = (WebConfigSettings.MyPageIsInstalled && (isAdmin || isContentAdmin || isSiteEditor) && siteSettings.EnableMyPageFeature);
-		divMyPageMulti.Visible = divMyPage.Visible;
 	}
 
 
@@ -405,7 +356,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					string localizedGroup = ResourceHelper.GetResourceString(s.ResourceFile, s.GroupName);
 					Literal groupHeader = new()
 					{
-						Text = "<h3><a href=\"#\">" + localizedGroup + "</a></h3>"
+						Text = $"<h3><a href=\"#\">{localizedGroup}</a></h3>"
 					};
 					pnlcustomSettings.Controls.Add(groupHeader);
 				}
@@ -460,18 +411,20 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 			return;
 		}
 
-		String resourceFile = "Resource";
+		string resourceFile = "Resource";
 
 		if (s.ResourceFile.Length > 0)
 		{
 			resourceFile = s.ResourceFile;
 		}
 
-		String settingLabel = GetResourceString(resourceFile, s.SettingName);
+		string settingLabel = GetResourceString(resourceFile, s.SettingName);
 
 
-		BasePanel panel = new BasePanel();
-		panel.Element = displaySettings.ModuleSettingsSettingPanelElement;
+		var panel = new BasePanel
+		{
+			Element = displaySettings.ModuleSettingsSettingPanelElement
+		};
 
 		var controlMin = string.Empty;
 		var controlMax = string.Empty;
@@ -511,7 +464,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 			attribsMarkup.Append($" {attrib.Key}=\"{attribValue}\"");
 		}
 
-		string controlID = s.SettingName + moduleId.ToInvariantString();
+		string controlID = Invariant($"{s.SettingName}{moduleId.ToInvariantString()}");
 
 		Literal label = new()
 		{
@@ -595,7 +548,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 								sc.SetValue(s.SettingValue);
 							}
 
-							control.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
+							control.ID = controlID;
 						}
 						else if (control is ICustomField)
 						{
@@ -609,7 +562,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 							sc.Attributes(attribs);
 
-							control.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
+							control.ID = controlID;
 							panel.Controls.Add(control);
 						}
 					}
@@ -624,7 +577,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 								if (control is ISettingControl)
 								{
 									ISettingControl sc = control as ISettingControl;
-									control.ID = "uc" + moduleId.ToInvariantString() + s.SettingName;
+									control.ID = controlID;
 									panel.Controls.Add(control);
 
 									if (!IsPostBack)
@@ -683,7 +636,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 		siteMapDataSource = (SiteMapDataSource)Page.Master.FindControl("SiteMapData");
 
-		siteMapDataSource.SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString();
+		siteMapDataSource.SiteMapProvider = Invariant($"mojosite{siteSettings.SiteId}");
 
 		SiteMapNode siteMapNode = siteMapDataSource.Provider.RootNode;
 
@@ -700,8 +653,8 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		if (!mojoNode.IsRootNode)
 		{
 			if (
-				(isAdmin || isContentAdmin || isSiteEditor)
-				|| (WebUser.IsInRoles(mojoNode.EditRoles))
+				isAdmin || isContentAdmin || isSiteEditor
+				|| WebUser.IsInRoles(mojoNode.EditRoles)
 				|| (mojoNode.PageId == module.PageId)
 				)
 			{
@@ -710,9 +663,11 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					pagePrefix += "-";
 				}
 
-				ListItem listItem = new ListItem();
-				listItem.Text = pagePrefix + Server.HtmlDecode(mojoNode.Title);
-				listItem.Value = mojoNode.PageId.ToInvariantString();
+				var listItem = new ListItem
+				{
+					Text = pagePrefix + Server.HtmlDecode(mojoNode.Title),
+					Value = mojoNode.PageId.ToInvariantString()
+				};
 
 				listBox.Items.Add(listItem);
 			}
@@ -725,14 +680,14 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		}
 	}
 
-	private void btnSave_Click(Object sender, EventArgs e)
+	private void btnSave_Click(object sender, EventArgs e)
 	{
 		if (debugLog)
 		{
 			log.Debug("ModuleSettingsPage about to call Page.Validate()");
 		}
 
-		SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
+		var currentUser = SiteUtils.GetCurrentSiteUser();
 		string userName = string.Empty;
 
 		if (currentUser != null)
@@ -749,11 +704,10 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				log.Debug("ModuleSettingsPage about to call Page IsValid = true");
 			}
 
-			bool ok = true;
-			bool allSetingsAreValid = true;
-			bool needToReIndex = false;
-			int currentPageId = module.PageId;
-			int newPageId = module.PageId;
+			var allSetingsAreValid = true;
+			var needToReIndex = false;
+			var currentPageId = module.PageId;
+			var newPageId = module.PageId;
 
 			if (module.ModuleId > -1)
 			{
@@ -766,10 +720,9 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 						if (rbViewAdminOnly.Checked)
 						{
 							viewRoles = "Admins;";
-
-							log.Info("user " + userName + " changed Module view roles for " + module.ModuleTitle
-							   + " to Admins "
-							   + " from ip address " + SiteUtils.GetIP4Address());
+							//log.Info("user " + userName + " changed Module view roles for " + module.ModuleTitle
+							//   + " to Admins "
+							//   + " from ip address " + SiteUtils.GetIP4Address());
 						}
 						else
 						{
@@ -787,19 +740,17 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 							}
 						}
 
-						string previousViewRoles = module.ViewRoles;
-						module.ViewRoles = viewRoles;
-
-						if (previousViewRoles != viewRoles)
+						if (module.ViewRoles != viewRoles)
 						{
 							needToReIndex = true;
 
-							log.Info("user " + userName + " changed Module view roles for " + module.ModuleTitle
-								+ " to " + viewRoles
-								+ " from ip address " + SiteUtils.GetIP4Address());
+							log.Info($"user {userName} changed Module view roles for {module.ModuleTitle} from ip address {SiteUtils.GetIP4Address()}\r\n" +
+								$"previous value: {module.ViewRoles}\r\n" +
+								$"new value: {viewRoles}");
+							module.ViewRoles = viewRoles;
 						}
 
-						string editRoles = string.Empty;
+						var editRoles = string.Empty;
 
 						if (debugLog)
 						{
@@ -809,9 +760,9 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 						if (rbEditAdminsOnly.Checked)
 						{
 							editRoles = "Admins;";
-							log.Info("user " + userName + " changed Module Edit roles for " + module.ModuleTitle
-							   + " to Admins "
-							   + " from ip address " + SiteUtils.GetIP4Address());
+							//log.Info($"user {userName} changed Module Edit roles for {module.ModuleTitle} from ip address {SiteUtils.GetIP4Address()}\r\n" +
+							//	$"previous value: {module.AuthorizedEditRoles}\r\n" +
+							//	$"new value: Admins;");
 						}
 						else
 						{
@@ -829,10 +780,13 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 							}
 						}
 
-						module.AuthorizedEditRoles = editRoles;
-						log.Info("user " + userName + " changed Module Edit roles for " + module.ModuleTitle
-								+ " to " + editRoles
-								+ " from ip address " + SiteUtils.GetIP4Address());
+						if (module.AuthorizedEditRoles != editRoles)
+						{
+							log.Info($"user {userName} changed Module Edit roles for {module.ModuleTitle} from ip address {SiteUtils.GetIP4Address()}\r\n" +
+								$"previous value: {module.AuthorizedEditRoles}\r\n" +
+								$"new value: {editRoles}");
+							module.AuthorizedEditRoles = editRoles;
+						}
 
 						string draftEdits = string.Empty;
 
@@ -844,11 +798,13 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 							}
 						}
 
-						module.DraftEditRoles = draftEdits;
-
-						log.Info("user " + userName + " changed Module Draft Edit roles for " + module.ModuleTitle
-								+ " to " + draftEdits
-								+ " from ip address " + SiteUtils.GetIP4Address());
+						if (module.DraftEditRoles != draftEdits)
+						{
+							log.Info($"user {userName} changed Module Draft Edit roles for {module.ModuleTitle} from ip address {SiteUtils.GetIP4Address()}\r\n" +
+								$"previous value: {module.DraftEditRoles}\r\n" +
+								$"new value: {draftEdits}");
+							module.DraftEditRoles = draftEdits;
+						}
 
 						if (use3LevelWorkFlow)
 						{
@@ -861,11 +817,13 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 								}
 							}
 
-							module.DraftApprovalRoles = draftApprovers;
-
-							log.Info("user " + userName + " changed Module Draft Approval roles for " + module.ModuleTitle
-									+ " to " + draftApprovers
-									+ " from ip address " + SiteUtils.GetIP4Address());
+							if (module.DraftApprovalRoles != draftApprovers)
+							{
+								log.Info($"user {userName} changed Module Draft Approval roles for {module.ModuleTitle} from ip address {SiteUtils.GetIP4Address()}\r\n" +
+									$"previous value: {module.DraftApprovalRoles}\r\n" +
+									$"new value: {draftApprovers}");
+								module.DraftApprovalRoles = draftApprovers;
+							}
 						}
 					}
 				}
@@ -882,8 +840,6 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 					module.ShowTitle = chkShowTitle.Checked;
 					module.PublishMode = Convert.ToInt32(publishType.GetValue(), CultureInfo.InvariantCulture);
-					module.AvailableForMyPage = chkAvailableForMyPage.Checked;
-					module.AllowMultipleInstancesOnMyPage = chkAllowMultipleInstancesOnMyPage.Checked;
 					//module.Icon = ddIcons.SelectedValue;
 					module.HideFromAuthenticated = chkHideFromAuth.Checked;
 					module.HideFromUnauthenticated = chkHideFromUnauth.Checked;
@@ -947,8 +903,10 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 					SearchIndex.IndexHelper.RebuildPageIndexAsync(CurrentPage);
 
-					PageSettings newPage = new PageSettings(siteSettings.SiteId, newPageId);
-					newPage.PageIndex = 0;
+					var newPage = new PageSettings(siteSettings.SiteId, newPageId)
+					{
+						PageIndex = 0
+					};
 					SearchIndex.IndexHelper.RebuildPageIndexAsync(newPage);
 				}
 
@@ -961,11 +919,9 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 						continue;
 					}
 
-					ok = true;
+					bool ok = true;
 
-					//Object oSettingLabel = GetGlobalResourceObject("Resource", s.SettingName + "RegexWarning");
-
-					Object oSettingLabel = null;
+					object oSettingLabel = null;
 
 					try
 					{
@@ -974,7 +930,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					catch (NullReferenceException) { }
 					catch (System.Resources.MissingManifestResourceException) { }
 
-					string settingLabel = String.Empty;
+					string settingLabel = string.Empty;
 
 					if (oSettingLabel == null)
 					{
@@ -987,76 +943,68 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 					string settingValue = string.Empty;
 
-					if (s.SettingName == "WebPartModuleWebPartSetting")
+					if (s.SettingControlType == "ISettingControl" || s.SettingControlType == "CustomField")
 					{
-						ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, s.SettingName, ddWebParts.SelectedValue);
-					}
-					else
-					{
-						if (s.SettingControlType == "ISettingControl" || s.SettingControlType == "CustomField")
-						{
-							string controlID = "uc" + moduleId.ToInvariantString() + s.SettingName;
-							//Control c = PlaceHolderAdvancedSettings.FindControl(controlID);
-							Control c = pnlcustomSettings.FindControl(controlID);
+						string controlID = Invariant($"{s.SettingName}{moduleId}");
+						//Control c = PlaceHolderAdvancedSettings.FindControl(controlID);
+						Control c = pnlcustomSettings.FindControl(controlID);
 
-							if (c != null)
+						if (c != null)
+						{
+							if (c is ISettingControl)
 							{
-								if (c is ISettingControl)
-								{
-									ISettingControl isc = c as ISettingControl;
-									settingValue = isc.GetValue();
-								}
-								else if (c is ICustomField)
-								{
-									ICustomField icf = c as ICustomField;
-									settingValue = icf.GetValue();
-								}
-								else
-								{
-									ok = false;
-								}
+								ISettingControl isc = c as ISettingControl;
+								settingValue = isc.GetValue();
+							}
+							else if (c is ICustomField)
+							{
+								ICustomField icf = c as ICustomField;
+								settingValue = icf.GetValue();
 							}
 							else
 							{
-								log.Error("could not find control for " + s.SettingName);
 								ok = false;
 							}
 						}
 						else
 						{
+							log.Error($"could not find control for {s.SettingName}");
+							ok = false;
+						}
+					}
+					else
+					{
 
-							settingValue = Request.Params.Get(s.SettingName + moduleId.ToInvariantString());
+						settingValue = Request.Params.Get(Invariant($"{s.SettingName}{moduleId}"));
 
-							if (s.SettingControlType == "CheckBox")
+						if (s.SettingControlType == "CheckBox")
+						{
+							if (settingValue == "on")
 							{
-								if (settingValue == "on")
-								{
-									settingValue = "true";
-								}
-								else
-								{
-									settingValue = "false";
-								}
+								settingValue = "true";
 							}
 							else
 							{
-								if (s.SettingValidationRegex.Length > 0)
+								settingValue = "false";
+							}
+						}
+						else
+						{
+							if (s.SettingValidationRegex.Length > 0)
+							{
+								if (!Regex.IsMatch(settingValue, s.SettingValidationRegex))
 								{
-									if (!Regex.IsMatch(settingValue, s.SettingValidationRegex))
-									{
-										ok = false;
-										allSetingsAreValid = false;
-										lblValidationSummary.Text += "<br />"
-											+ settingLabel;
-									}
+									ok = false;
+									allSetingsAreValid = false;
+									lblValidationSummary.Text += $"<br />{settingLabel}";
 								}
 							}
 						}
+					}
 
-						if (ok)
-						{
-							ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, s.SettingName, settingValue);
-						}
+					if (ok)
+					{
+						ModuleSettings.UpdateModuleSetting(module.ModuleGuid, moduleId, s.SettingName, settingValue);
 					}
 				}
 			}
@@ -1085,7 +1033,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				SearchIndex.IndexHelper.RebuildPageIndexAsync(new PageSettings(siteSettings.SiteId, pageId));
 			}
 
-			ModuleDefinition feature = new ModuleDefinition(module.ModuleDefId);
+			var feature = new ModuleDefinition(module.ModuleDefId);
 
 			if (feature.DeleteProvider.Length > 0)
 			{
@@ -1100,7 +1048,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				}
 				catch (Exception ex)
 				{
-					log.Error("Failed to invoke content delete handler " + feature.DeleteProvider, ex);
+					log.Error($"Failed to invoke content delete handler {feature.DeleteProvider}", ex);
 				}
 			}
 
@@ -1114,7 +1062,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					userName = currentUser.Name;
 				}
 
-				log.Info("user " + userName + " deleted module " + module.ModuleTitle + " from ip address " + SiteUtils.GetIP4Address());
+				log.Info($"user {userName} deleted {module.FeatureName} module {module.ModuleTitle} (Id={module.ModuleId}) from ip address {SiteUtils.GetIP4Address()}");
 
 			}
 
@@ -1130,13 +1078,10 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 	{
 		SiteMapDataSource siteMapDataSource = (SiteMapDataSource)Page.Master.FindControl("SiteMapData");
 
-		siteMapDataSource.SiteMapProvider
-				= "mojosite" + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture);
+		siteMapDataSource.SiteMapProvider = Invariant($"mojosite{siteSettings.SiteId}");
 
 		SiteMapNode siteMapNode = siteMapDataSource.Provider.RootNode;
 		mojoSiteMapProvider.PopulateArrayList(sitePages, siteMapNode);
-
-
 	}
 
 
@@ -1156,25 +1101,14 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 		lnkCancel.Text = Resource.ModuleSettingsCancelButton;
 
-		//if (!Page.IsPostBack)
-		//{
-		//	FileInfo[] fileInfo = SiteUtils.GetFeatureIconList();
-		//	ddIcons.DataSource = fileInfo;
-		//	ddIcons.DataBind();
-
-		//	ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
-		//	ddIcons.Attributes.Add("onChange", "javascript:showIcon(this);");
-		//	ddIcons.Attributes.Add("size", "6");
-		//}
-
-		acUser.DataUrl = SiteRoot + "/Services/UserLookup.asmx/AutoComplete";
+		acUser.DataUrl = "Services/UserLookup.asmx/AutoComplete".ToLinkBuilder().ToString();
 
 		reqCacheTime.ErrorMessage = Resource.ModuleSettingsCacheRequiredMessage;
 		regexCacheTime.ErrorMessage = Resource.ModuleSettingsCacheRegexWarning;
 
-		litGeneralSettingsTabLink.Text = "<a href='#" + tabGeneralSettings.ClientID + "'>" + Resource.ModuleSettingsGeneralTab + "</a>";
+		litGeneralSettingsTabLink.Text = $"<a href='#{tabGeneralSettings.ClientID}'>{Resource.ModuleSettingsGeneralTab}</a>";
 
-		litSecurityLink.Text = "<a href='#" + tabSecurity.ClientID + "'>" + Resource.ModuleSettingsSecurityTab + "</a>";
+		litSecurityLink.Text = $"<a href='#{tabSecurity.ClientID}'>{Resource.ModuleSettingsSecurityTab}</a>";
 
 		rbViewAdminOnly.Text = Resource.AdminsOnly;
 		rbViewUseRoles.Text = Resource.RolesAllowed;
@@ -1183,20 +1117,16 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		rbEditUseRoles.Text = Resource.RolesAllowed;
 
 		lnkPageViewRoles.Text = Resource.ModuleSettingsViewRolesLabel;
-		lnkPageViewRoles.NavigateUrl = SiteRoot + "/Admin/ModulePermissions.aspx?pageid=" + pageId.ToInvariantString()
-			+ "&mid=" + moduleId.ToInvariantString() + "&p=v";
+		lnkPageViewRoles.NavigateUrl = "Admin/ModulePermissions.aspx".ToLinkBuilder().PageId(pageId).ModuleId(moduleId).AddParam("p", "v").ToString();
 
 		lnkPageEditRoles.Text = Resource.ModuleSettingsEditRolesLabel;
-		lnkPageEditRoles.NavigateUrl = SiteRoot + "/Admin/ModulePermissions.aspx?pageid=" + pageId.ToInvariantString()
-			+ "&mid=" + moduleId.ToInvariantString() + "&p=e";
+		lnkPageEditRoles.NavigateUrl = "Admin/ModulePermissions.aspx".ToLinkBuilder().PageId(pageId).ModuleId(moduleId).AddParam("p", "e").ToString();
 
 		lnkPageDraftRoles.Text = Resource.ModuleSettingsDraftEditRolesLabel;
-		lnkPageDraftRoles.NavigateUrl = SiteRoot + "/Admin/ModulePermissions.aspx?pageid=" + pageId.ToInvariantString()
-			+ "&mid=" + moduleId.ToInvariantString() + "&p=d";
+		lnkPageDraftRoles.NavigateUrl = "Admin/ModulePermissions.aspx".ToLinkBuilder().PageId(pageId).ModuleId(moduleId).AddParam("p", "d").ToString();
 
 		lnkPageApprovalRoles.Text = Resource.DraftApprovalRoles;
-		lnkPageApprovalRoles.NavigateUrl = SiteRoot + "/Admin/ModulePermissions.aspx?pageid=" + pageId.ToInvariantString()
-			+ "&mid=" + moduleId.ToInvariantString() + "&p=a";
+		lnkPageApprovalRoles.NavigateUrl = "Admin/ModulePermissions.aspx".ToLinkBuilder().PageId(pageId).ModuleId(moduleId).AddParam("p", "a").ToString();
 
 		AddClassToBody("administration");
 		AddClassToBody("featuresettings");
@@ -1205,24 +1135,10 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 	}
 
 
-	//private void SetupIconScript()
-	//{
-	//	string logoScript = "<script type=\"text/javascript\">"
-	//		+ "function showIcon(listBox) { if(!document.images) return; "
-	//		+ "var iconPath = '" + iconPath + "'; "
-	//		+ "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
-	//		+ "}</script>";
-
-	//	Page.ClientScript.RegisterClientScriptBlock(GetType(), "showIcon", logoScript);
-
-	//}
-
-
 	private void LoadSettings()
 	{
 		moduleId = WebUtils.ParseInt32FromQueryString("mid", -1);
-		iconPath = ImageSiteRoot + "/Data/SiteImages/FeatureIcons/";
-		//skinBaseUrl = SiteUtils.GetSkinBaseUrl(this);
+		iconPath = "Data/SiteImages/FeatureIcons/".ToLinkBuilder().ToString();
 		lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
 		acUser.BlockTargetFocus = !WebConfigSettings.AllowDirectEntryOfUserIdForEditPermission;
@@ -1241,13 +1157,11 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 			lnkEditContent.Visible = true;
 			lnkEditContent.Text = Resource.ContentManagerViewEditContentLabel;
-			lnkEditContent.NavigateUrl = SiteRoot
-				+ "/Admin/ContentManagerPreview.aspx?mid=" + moduleId.ToInvariantString();
+			lnkEditContent.NavigateUrl = "Admin/ContentManagerPreview.aspx".ToLinkBuilder().ModuleId(moduleId).ToString();
 
 			lnkPublishing.Visible = true;
 			lnkPublishing.Text = Resource.ContentManagerPublishingContentLink;
-			lnkPublishing.NavigateUrl = SiteRoot
-				+ WebConfigSettings.ContentPublishPageRelativeUrl + "?mid=" + moduleId.ToInvariantString();
+			lnkPublishing.NavigateUrl = WebConfigSettings.ContentPublishPageRelativeUrl.ToLinkBuilder().ModuleId(moduleId).ToString();
 		}
 		else
 		{
@@ -1270,7 +1184,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		use3LevelWorkFlow = WebConfigSettings.EnableContentWorkflow && WebConfigSettings.Use3LevelContentWorkflow && siteSettings.EnableContentWorkflow;
 
 		divCacheTimeout.Visible = !WebConfigSettings.DisableContentCache;
-		h2DraftEditRoles.Visible = (WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow);
+		h2DraftEditRoles.Visible = WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow;
 		divDraftEditRoles.Visible = h2DraftEditRoles.Visible;
 
 		h2DraftApprovalRoles.Visible = use3LevelWorkFlow;
@@ -1308,9 +1222,9 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		{
 			if (
 				WebUser.IsInRoles(module.AuthorizedEditRoles) ||
-				((WebUser.IsInRoles(module.DraftEditRoles)) && (!module.IsGlobal)) ||
-				((WebUser.IsInRoles(CurrentPage.EditRoles)) && (!module.IsGlobal)) ||
-				((WebUser.IsInRoles(CurrentPage.DraftEditOnlyRoles)) && (!module.IsGlobal))
+				(WebUser.IsInRoles(module.DraftEditRoles) && (!module.IsGlobal)) ||
+				(WebUser.IsInRoles(CurrentPage.EditRoles) && (!module.IsGlobal)) ||
+				(WebUser.IsInRoles(CurrentPage.DraftEditOnlyRoles) && (!module.IsGlobal))
 				)
 			{
 				canEdit = true;
@@ -1340,16 +1254,16 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 			canEdit = false;
 		}
 
-		if (canEdit && (!isAdmin) && (WebUser.IsInRoles(siteSettings.RolesNotAllowedToEditModuleSettings)))
+		if (canEdit && (!isAdmin) && WebUser.IsInRoles(siteSettings.RolesNotAllowedToEditModuleSettings))
 		{
 			canEdit = false;
 		}
 
-		divIncludeInSearch.Visible = (module.FeatureGuid == HtmlContent.FeatureGuid);
+		divIncludeInSearch.Visible = module.FeatureGuid == HtmlContent.FeatureGuid;
 
 		divTitleElement.Visible = WebConfigSettings.EnableEditingModuleTitleElement && WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins);
 
-		useSeparatePagesForRoles = (Role.CountOfRoles(siteSettings.SiteId) >= WebConfigSettings.TooManyRolesForModuleSettings);
+		useSeparatePagesForRoles = Role.CountOfRoles(siteSettings.SiteId) >= WebConfigSettings.TooManyRolesForModuleSettings;
 		divRoles.Visible = !useSeparatePagesForRoles;
 		divRoleLinks.Visible = useSeparatePagesForRoles;
 
@@ -1377,7 +1291,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 		StringBuilder script = new StringBuilder();
 
-		script.Append("\n<script type='text/javascript'>");
+		script.Append("\n<script data-loader='ModuleSettings' data-role='roleToggle'>");
 
 		script.Append("function DeSelectRoles(chkBoxContainer) {");
 
@@ -1387,17 +1301,17 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 		script.Append("$(document).ready(function() {");
 
-		script.Append("$('#" + rbViewAdminOnly.ClientID + "').change(function(){");
-		script.Append("var selectedVal = $('#" + rbViewAdminOnly.ClientID + "').attr('checked'); ");
+		script.Append($"$('#{rbViewAdminOnly.ClientID}').change(function(){{");
+		script.Append($"var selectedVal = $('#{rbViewAdminOnly.ClientID}').attr('checked'); ");
 		script.Append("if(selectedVal === 'checked'){");
-		script.Append("DeSelectRoles('#" + cblViewRoles.ClientID + "');}");
+		script.Append($"DeSelectRoles('#{cblViewRoles.ClientID}');}}");
 		script.Append("});");
 
 
-		script.Append("$('#" + rbEditAdminsOnly.ClientID + "').change(function(){");
-		script.Append("var selectedVal = $('#" + rbEditAdminsOnly.ClientID + "').attr('checked'); ");
+		script.Append($"$('#{rbEditAdminsOnly.ClientID}').change(function(){{");
+		script.Append($"var selectedVal = $('#{rbEditAdminsOnly.ClientID}').attr('checked'); ");
 		script.Append("if(selectedVal === 'checked'){");
-		script.Append("DeSelectRoles('#" + authEditRoles.ClientID + "');}");
+		script.Append($"DeSelectRoles('#{authEditRoles.ClientID}');}}");
 		script.Append("});");
 
 		script.Append("}); ");

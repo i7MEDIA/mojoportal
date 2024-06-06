@@ -200,7 +200,7 @@ public sealed class mojoSetup
 				Server = string.Empty
 			},
 			UseSecureRegistration = false,
-			UseSslOnAllPages = WebConfigSettings.SslIsRequiredByWebServer,
+			UseSslOnAllPages = WebConfigSettings.SslisAvailable,
 			AllowPasswordReset = true,
 			AllowPasswordRetrieval = true,
 			PasswordFormat = WebConfigSettings.InitialSitePasswordFormat, //0 = clear, 1= hashed, 2= encrypted
@@ -241,9 +241,9 @@ public sealed class mojoSetup
 		bool overridRelatedSiteMode = true;
 		var adminUser = new SiteUser(site, overridRelatedSiteMode)
 		{
-			Email = string.Format(Core.Configuration.AppConfig.DefaultAdminUserEmailFormat, siteDifferentiator),
+			Email = string.Format(AppConfig.DefaultAdminUserEmailFormat, siteDifferentiator),
 			Name = "Admin",
-			LoginName = string.Format(Core.Configuration.AppConfig.DefaultAdminUsernameFormat, siteDifferentiator)
+			LoginName = string.Format(AppConfig.DefaultAdminUsernameFormat, siteDifferentiator)
 		};
 
 		bool userExists;
@@ -259,15 +259,15 @@ public sealed class mojoSetup
 
 		if (!userExists)
 		{
-			adminUser.Password = Core.Configuration.AppConfig.DefaultAdminPassword;
+			adminUser.Password = AppConfig.DefaultAdminPassword;
 
 			if (Membership.Provider is mojoMembershipProvider membership)
 			{
-				adminUser.Password = membership.EncodePassword(site, adminUser, Core.Configuration.AppConfig.DefaultAdminPassword);
+				adminUser.Password = membership.EncodePassword(site, adminUser, AppConfig.DefaultAdminPassword);
 			}
 
-			adminUser.PasswordQuestion = Core.Configuration.AppConfig.DefaultAdminSecurityQuestion;
-			adminUser.PasswordAnswer = Core.Configuration.AppConfig.DefaultAdminSecurityAnswer;
+			adminUser.PasswordQuestion = AppConfig.DefaultAdminSecurityQuestion;
+			adminUser.PasswordAnswer = AppConfig.DefaultAdminSecurityAnswer;
 			adminUser.Save();
 		}
 		else

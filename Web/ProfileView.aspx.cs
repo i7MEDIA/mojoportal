@@ -52,11 +52,7 @@ public partial class ProfileView : NonCmsBasePage
 				return;
 			}
 		}
-
-		if (SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnProfileView)
-		{
-			SiteUtils.ForceSsl();
-		}
+		SiteUtils.ForceSsl();
 
 		PopulateControls();
 	}

@@ -85,36 +85,13 @@ public partial class QueryTool : UserControl
 	{
 		string tableSelectSql = string.Empty;
 
-		switch (dbPlatform)
+		tableSelectSql = dbPlatform switch
 		{
-			case "MSSQL":
-				tableSelectSql = WebConfigSettings.QueryToolMsSqlTableSelectSql;
-				break;
-
-			case "MySQL":
-				tableSelectSql = WebConfigSettings.QueryToolMySqlTableSelectSql;
-				break;
-
-			case "pgsql":
-				tableSelectSql = WebConfigSettings.QueryToolPgSqlTableSelectSql;
-				break;
-
-			case "SQLite":
-				tableSelectSql = WebConfigSettings.QueryToolSqliteTableSelectSql;
-				break;
-
-			case "FirebirdSql":
-				tableSelectSql = WebConfigSettings.QueryToolFirebirdSqlTableSelectSql;
-				break;
-
-			case "SqlAzure":
-				tableSelectSql = WebConfigSettings.QueryToolSqAzureTableSelectSql;
-				break;
-
-			case "SqlCe":
-				tableSelectSql = WebConfigSettings.QueryToolSqlCeTableSelectSql;
-				break;
-		}
+			"MySQL" => WebConfigSettings.QueryToolMySqlTableSelectSql,
+			"pgsql" => WebConfigSettings.QueryToolPgSqlTableSelectSql,
+			"SQLite" => WebConfigSettings.QueryToolSqliteTableSelectSql,
+			_ => WebConfigSettings.QueryToolMsSqlTableSelectSql,
+		};
 
 		if (tableSelectSql.Length == 0)
 		{

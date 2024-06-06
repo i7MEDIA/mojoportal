@@ -72,17 +72,7 @@ public partial class MemberList : NonCmsBasePage
 
 	private void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable())
-		{
-			if ((WebConfigSettings.UseSslForMemberList) || (siteSettings.UseSslOnAllPages))
-			{
-				SiteUtils.ForceSsl();
-			}
-			else
-			{
-				SiteUtils.ClearSsl();
-			}
-		}
+		SiteUtils.ForceSsl();
 
 		LoadSettings();
 		PopulateLabels();

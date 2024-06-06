@@ -779,7 +779,7 @@ public partial class SetupHome : Page
 
 			WritePageContent($"<div>{dbError}</div>", false);
 
-			showConnectionError = Core.Configuration.ConfigHelper.GetBoolProperty("ShowConnectionErrorOnSetup", false);
+			showConnectionError = WebConfigSettings.ShowConnectionErrorOnSetup;
 
 
 			if (showConnectionError)

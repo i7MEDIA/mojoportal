@@ -3176,8 +3176,7 @@ namespace mojoPortal.Web
 
 		public static string GetGmapApiKey()
 		{
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			if (!string.IsNullOrWhiteSpace(siteSettings?.GmapApiKey))
+			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && !string.IsNullOrWhiteSpace(siteSettings.GmapApiKey))
 			{
 				return siteSettings.GmapApiKey;
 			}

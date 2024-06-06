@@ -69,14 +69,7 @@ public partial class SiteMapPage : NonCmsBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if ((SiteUtils.SslIsAvailable()) && ((WebConfigSettings.UseSslForSiteMap) || (siteSettings.UseSslOnAllPages)))
-		{
-			SiteUtils.ForceSsl();
-		}
-		else
-		{
-			SiteUtils.ClearSsl();
-		}
+		SiteUtils.ForceSsl();
 
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.SiteMapLink);
 		heading.Text = Resource.SiteMapLink;

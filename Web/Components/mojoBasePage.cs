@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -244,10 +245,7 @@ public class mojoBasePage : Page
 	{
 		if (Master.FindControl("Body") is HtmlGenericControl body)
 		{
-			if (!body.Attributes["class"].Contains(cssClass))
-			{
-				body.Attributes["class"] += " " + cssClass;
-			}
+			body.Attributes["class"] = body.Attributes["class"].Union(cssClass, ' ');
 		}
 	}
 

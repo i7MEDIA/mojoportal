@@ -11,7 +11,7 @@ public partial class LoginModule : SiteModuleControl
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(Page_Load);
+		Load += new EventHandler(Page_Load);
 	}
 
 	#endregion
@@ -21,15 +21,12 @@ public partial class LoginModule : SiteModuleControl
 	{
 		if ((Request.IsAuthenticated) && (displaySettings.HideWhenAuthenticated))
 		{
-			this.Visible = false;
+			Visible = false;
 
 			return;
 		}
 
-		if (WebConfigSettings.ForceSslInLoginModule)
-		{
-			if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
-		}
+		SiteUtils.ForceSsl();
 
 		LoadSettings();
 		PopulateControls();
@@ -38,10 +35,10 @@ public partial class LoginModule : SiteModuleControl
 
 	private void PopulateControls()
 	{
-		if (this.ModuleConfiguration != null)
+		if (ModuleConfiguration != null)
 		{
-			this.Title = this.ModuleConfiguration.ModuleTitle;
-			this.Description = this.ModuleConfiguration.FeatureName;
+			Title = ModuleConfiguration.ModuleTitle;
+			Description = ModuleConfiguration.FeatureName;
 		}
 
 		if (displaySettings.DisableModuleChrome)
@@ -56,7 +53,7 @@ public partial class LoginModule : SiteModuleControl
 
 	private void LoadSettings()
 	{
-		if (!Core.Helpers.WebHelper.IsSecureRequest())
+		if (!WebHelper.IsSecureRequest())
 		{
 			if (WebConfigSettings.ShowWarningWhenSslIsAvailableButNotUsedWithLoginModule)
 			{
@@ -92,7 +89,7 @@ public partial class LoginModule : SiteModuleControl
 			login1.Visible = false;
 		}
 
-		if ((WebConfigSettings.PageToRedirectToAfterSignIn.Length > 0) && (WebConfigSettings.UseRedirectInSignInModule))
+		if ((WebConfigSettings.PageToRedirectToAfterSignIn.Length > 0) && WebConfigSettings.UseRedirectInSignInModule)
 		{
 			login1.SetRedirectUrl = true;
 			UpdatePanel1.ChildrenAsTriggers = false;

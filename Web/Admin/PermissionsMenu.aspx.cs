@@ -2,7 +2,6 @@
 using System.Globalization;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -12,7 +11,6 @@ public partial class PermissionsMenuPage : NonCmsBasePage
 {
 	private SiteSettings selectedSite = null;
 	private int siteId = -1;
-	private string siteParam = string.Empty;
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -37,15 +35,7 @@ public partial class PermissionsMenuPage : NonCmsBasePage
 
 		LoadSettings();
 		PopulateLabels();
-		//PopulateControls();
-
 	}
-
-	//private void PopulateControls()
-	//{
-
-
-	//}
 
 
 	private void PopulateLabels()
@@ -62,94 +52,80 @@ public partial class PermissionsMenuPage : NonCmsBasePage
 			heading.Text = Resource.SiteSettingsPermissionsTab;
 		}
 
-
-
 		liSiteEditorRoles.Visible = WebConfigSettings.UseRelatedSiteMode && (selectedSite.SiteId != siteSettings.SiteId);
 		lnkSiteEditorRoles.Text = Resource.SiteEditRolesLabel;
-		lnkSiteEditorRoles.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.SiteEditor + siteParam;
+		lnkSiteEditorRoles.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.SiteEditor).ToString();
 
 		lnkRolesThatCanViewCommerceReports.Text = Resource.RolesThatCanViewCommerceReportsLabel;
-		lnkRolesThatCanViewCommerceReports.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.ViewCommerceReports + siteParam;
+		lnkRolesThatCanViewCommerceReports.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.ViewCommerceReports).ToString();
 
 		lnkRolesThatCanBrowseFileSystem.Text = Resource.GeneralBrowseRoles;
-		lnkRolesThatCanBrowseFileSystem.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.GeneralBrowse + siteParam;
+		lnkRolesThatCanBrowseFileSystem.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.GeneralBrowse).ToString();
 
 		lnkRolesThatCanUploadAndBrowse.Text = Resource.GeneralBrowseAndUploadRoles;
-		lnkRolesThatCanUploadAndBrowse.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.GeneralBrowseAndUpload + siteParam;
+		lnkRolesThatCanUploadAndBrowse.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.GeneralBrowseAndUpload).ToString();
 
 		lnkRolesThatCanUploadAndBrowseUserOnly.Text = Resource.UserFilesBrowseAndUploadRoles;
-		lnkRolesThatCanUploadAndBrowseUserOnly.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.UserBrowseAndUpload + siteParam;
+		lnkRolesThatCanUploadAndBrowseUserOnly.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.UserBrowseAndUpload).ToString();
 
 		lnkRolesThatCanDeleteFiles.Text = Resource.RolesThatCanDeleteFilesInEditor;
-		lnkRolesThatCanDeleteFiles.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.DeleteFiles + siteParam;
+		lnkRolesThatCanDeleteFiles.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.DeleteFiles).ToString();
 
 		lnkRolesThatCanManageSkins.Text = Resource.RolesThatCanManageSkins;
-		lnkRolesThatCanManageSkins.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.ManageSkins + siteParam;
+		lnkRolesThatCanManageSkins.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.ManageSkins).ToString();
 
 		lnkRolesThatCanAssignSkinsToPages.Text = Resource.RolesThatCanAssignSkinsToPages;
-		lnkRolesThatCanAssignSkinsToPages.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.AssignPageSkins + siteParam;
+		lnkRolesThatCanAssignSkinsToPages.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.AssignPageSkins).ToString();
 
 		lnkRolesThatCanEditContentTemplates.Text = Resource.RolesThatCanEditContentTemplates;
-		lnkRolesThatCanEditContentTemplates.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.EditContentTemplates + siteParam;
+		lnkRolesThatCanEditContentTemplates.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.EditContentTemplates).ToString();
 
 		lnkRolesNOTAllowedInstanceSettings.Text = Resource.RolesNotAllowedToEditModuleSettings;
-		lnkRolesNOTAllowedInstanceSettings.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.NoInstanceSettings + siteParam;
+		lnkRolesNOTAllowedInstanceSettings.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.NoInstanceSettings).ToString();
 
 		lnkRolesThatCanLookupUsers.Text = Resource.RolesThatCanLookupUsers;
-		lnkRolesThatCanLookupUsers.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.LookupUsers + siteParam;
+		lnkRolesThatCanLookupUsers.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.LookupUsers).ToString();
 
 		lnkRolesThatCanCreateUsers.Text = Resource.RolesThatCanCreateUsers;
-		lnkRolesThatCanCreateUsers.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.CreateUsers + siteParam;
+		lnkRolesThatCanCreateUsers.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.CreateUsers).ToString();
 
 		lnkRolesThatCanManageUsers.Text = Resource.RolesThatCanManageUsers;
-		lnkRolesThatCanManageUsers.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.ManageUsers + siteParam;
+		lnkRolesThatCanManageUsers.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.ManageUsers).ToString();
 
 		lnkRolesThatCanViewMemberList.Text = Resource.RolesThatCanViewMemberList;
-		lnkRolesThatCanViewMemberList.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.ViewMemberList + siteParam;
-
-		liRolesThatCanUseMyPage.Visible = WebConfigSettings.MyPageIsInstalled;
-		lnkRolesThatCanUseMyPage.Text = Resource.RolesThatCanViewMyPage;
-		lnkRolesThatCanUseMyPage.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.UseMyPage + siteParam;
+		lnkRolesThatCanViewMemberList.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.ViewMemberList).ToString();
 
 		lnkRolesThatCanCreateRootLevelPages.Text = Resource.RolesThatCanCreateRootPages;
-		lnkRolesThatCanCreateRootLevelPages.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.CreateRootPages + siteParam;
+		lnkRolesThatCanCreateRootLevelPages.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.CreateRootPages).ToString();
 
 		lnkDefaultRootLevelViewRoles.Text = Resource.DefaultRootPageViewRoles;
-		lnkDefaultRootLevelViewRoles.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.ViewRootPages + siteParam;
+		lnkDefaultRootLevelViewRoles.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.ViewRootPages).ToString();
 
 		lnkDefaultRootLevelEditRoles.Text = Resource.DefaultRootPageEditRoles;
-		lnkDefaultRootLevelEditRoles.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.EditRootPages + siteParam;
+		lnkDefaultRootLevelEditRoles.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.EditRootPages).ToString();
 
 		lnkDefaultRootLevelCreateChildPageRoles.Text = Resource.DefaultRootPageCreateChildPageRoles;
-		lnkDefaultRootLevelCreateChildPageRoles.NavigateUrl = SiteRoot + "/Admin/PermissionEdit.aspx?p=" + CorePermission.CreateChildBelowRootPages + siteParam;
+		lnkDefaultRootLevelCreateChildPageRoles.NavigateUrl = "Admin/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId).AddParam("p", CorePermission.CreateChildBelowRootPages).ToString();
 
 
 		lnkAdminMenu.Text = Resource.AdminMenuLink;
 		lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
-		lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
+		lnkAdminMenu.NavigateUrl = "Admin/AdminMenu.aspx".ToLinkBuilder().ToString();
 
-		lnkSiteList.Visible = ((WebConfigSettings.AllowMultipleSites) && (siteSettings.IsServerAdminSite));
+		lnkSiteList.Visible = WebConfigSettings.AllowMultipleSites && (siteSettings.IsServerAdminSite);
 		lnkSiteList.Text = Resource.SiteList;
-		lnkSiteList.NavigateUrl = SiteRoot + "/Admin/SiteList.aspx";
+		lnkSiteList.NavigateUrl = "Admin/SiteList.aspx".ToLinkBuilder().ToString();
 		litSiteListLinkSeparator.Visible = lnkSiteList.Visible;
 
 		lnkPermissionsMenu.Text = Resource.SiteSettingsPermissionsTab;
 		lnkPermissionsMenu.ToolTip = Resource.SiteSettingsPermissionsTab;
-		lnkPermissionsMenu.NavigateUrl = SiteRoot + "/Admin/PermissionsMenu.aspx";
-
-		if (siteId > -1)
-		{
-			lnkPermissionsMenu.NavigateUrl = SiteRoot + "/Admin/PermissionsMenu.aspx?SiteID=" + siteId.ToInvariantString();
-		}
-
+		lnkPermissionsMenu.NavigateUrl = "Admin/PermissionsMenu.aspx".ToLinkBuilder().SiteId(siteId).ToString();
 	}
 
 	private void LoadSettings()
 	{
-		if ((siteId > -1) && (siteSettings.IsServerAdminSite))
+		if (siteId > -1 && siteSettings.IsServerAdminSite)
 		{
-			siteParam = "&SiteID=" + siteId.ToInvariantString();
-
 			selectedSite = new SiteSettings(siteId);
 			if (selectedSite.SiteId == -1)
 			{
@@ -162,14 +138,11 @@ public partial class PermissionsMenuPage : NonCmsBasePage
 		}
 
 		AddClassToBody("administration");
-
 	}
 
 	private void LoadParams()
 	{
 		siteId = WebUtils.ParseInt32FromQueryString("SiteID", siteId);
-		//moduleId = WebUtils.ParseInt32FromQueryString("mid", moduleId);
-
 	}
 
 
