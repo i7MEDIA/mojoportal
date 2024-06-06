@@ -310,7 +310,6 @@
     <Compile Include="TaskFramework\TaskQueue.cs" />
     <Compile Include="TaskFramework\ThreadSleepTask.cs" />
     <Compile Include="UserLocation.cs" />
-    <Compile Include="UserPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">

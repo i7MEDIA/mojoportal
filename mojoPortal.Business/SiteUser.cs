@@ -1222,7 +1222,6 @@ namespace mojoPortal.Business
 				}
 
 				UserLocation.DeleteByUser(userGuid);
-				UserPage.DeleteByUser(userGuid);
 				DBSiteUser.DeletePropertiesByUser(userGuid);
 
 				var result = DBSiteUser.DeleteUser(userID);
