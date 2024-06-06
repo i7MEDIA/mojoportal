@@ -15,7 +15,7 @@ public partial class AudioPlayer : SiteModuleControl
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(AudioPlayer));
 	private MediaPlayer thePlayer = null;
-	private AudioPlayerConfiguration config = new AudioPlayerConfiguration();
+	private AudioPlayerConfiguration config = new();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -49,7 +49,7 @@ public partial class AudioPlayer : SiteModuleControl
 	/// </summary>
 	private void SetupScripts()
 	{
-		if (!(Page is mojoBasePage)) { return; }
+		if (Page is not mojoBasePage) { return; }
 
 		// include the main scripts
 		mojoBasePage basePage = Page as mojoBasePage;
@@ -57,11 +57,10 @@ public partial class AudioPlayer : SiteModuleControl
 		basePage.ScriptConfig.IncludejPlayerPlaylist = true;
 
 		// setup the instance script
-		StringBuilder script = new StringBuilder();
-		script.Append("\n<script type=\"text/javascript\">\n");
-
+		var script = new StringBuilder();
+		script.Append("\n<script data-loader=\"AudioPlayer\">\n");
 		script.Append("(function() {");
-		script.Append("var pl_" + this.ClientID + " = new jPlayerPlaylist({");
+		script.Append("var pl_" + ClientID + " = new jPlayerPlaylist({");
 		script.Append("jPlayer: \"#" + PlayerInstance.ClientID + "\",");
 		script.Append("cssSelectorAncestor: \"#" + PlayerContainer.ClientID + "\"");
 		script.Append("}");
@@ -71,7 +70,7 @@ public partial class AudioPlayer : SiteModuleControl
 		bool isFirstTrack = true;
 		//Keep a list of the file types that were added for the track to use to create the 
 		//"supplied" jPlayer constructor option
-		List<string> suppliedTypes = new List<string>();
+		var suppliedTypes = new List<string>();
 		foreach (MediaTrack track in thePlayer.MediaTracks)
 		{
 			//Gets the URL to the folder where the Media Files for the track exist (removing the ~ fromt the begining of
@@ -223,9 +222,9 @@ public partial class AudioPlayer : SiteModuleControl
 
 		script.Append("\n</script>");
 
-		this.Page.ClientScript.RegisterStartupScript(
-			this.GetType(),
-			this.UniqueID,
+		Page.ClientScript.RegisterStartupScript(
+			GetType(),
+			UniqueID,
 			script.ToString());
 	}
 
@@ -234,24 +233,22 @@ public partial class AudioPlayer : SiteModuleControl
 	/// </summary>
 	private void PopulateControls()
 	{
-
-		if (this.ModuleConfiguration != null)
+		if (ModuleConfiguration != null)
 		{
-			this.Title = this.ModuleConfiguration.ModuleTitle;
-			this.Description = this.ModuleConfiguration.FeatureName;
+			Title = ModuleConfiguration.ModuleTitle;
+			Description = ModuleConfiguration.FeatureName;
 		}
 
 		if (config.HeaderContent.Length > 0)
 		{
-			litUpperContent.Text = "<div class='mpltop'>" + config.HeaderContent + "</div>";
+			litUpperContent.Text = $"<div class='mpltop'>{config.HeaderContent}</div>";
 		}
 
 		if (config.FooterContent.Length > 0)
 		{
-			litLowerContent.Text = "<div class='mplbottom'>" + config.FooterContent + "</div>";
+			litLowerContent.Text = $"<div class='mplbottom'>{config.FooterContent}</div>";
 		}
 	}
-
 
 
 	/// <summary>
@@ -261,16 +258,17 @@ public partial class AudioPlayer : SiteModuleControl
 	{
 		//Load the player.
 		thePlayer = MediaPlayer.GetForModule(ModuleId);
-		if (thePlayer == null)
+		if (thePlayer is null)
 		{
-			thePlayer = new MediaPlayer();
-			thePlayer.ModuleGuid = ModuleGuid;
-			thePlayer.ModuleId = ModuleId;
-			thePlayer.PlayerType = MediaType.Audio;
+			thePlayer = new MediaPlayer
+			{
+				ModuleGuid = ModuleGuid,
+				ModuleId = ModuleId,
+				PlayerType = MediaType.Audio
+			};
 			if (IsEditable)
 			{
-				SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-				if (currentUser != null)
+				if (SiteUtils.GetCurrentSiteUser() is SiteUser currentUser)
 				{
 					thePlayer.UserGuid = currentUser.UserGuid;
 					MediaPlayer.Add(thePlayer);
@@ -328,16 +326,12 @@ public partial class AudioPlayer : SiteModuleControl
 	}
 
 
-
-
-
-
 	#region OnInit
 
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(Page_Load);
+		Load += new EventHandler(Page_Load);
 	}
 
 	#endregion
