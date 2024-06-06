@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using mojoPortal.Core.Helpers;
 
 namespace mojoPortal.Core.Extensions;
@@ -120,6 +121,27 @@ public static class StringExtensions
 	/// <param name="alt"></param>
 	/// <returns></returns>
 	public static string Coalesce(this string s, string alt) => string.IsNullOrWhiteSpace(s) ? alt : s;
+
+
+	public static string ToHtmlLineEndings(this string text)
+	{
+		text = HttpUtility.HtmlEncode(text);
+		text = Regex.Replace(text, "\n\n", "<p />");
+		text = Regex.Replace(text, "\n", "<br />");
+
+		return text;
+	}
+
+
+	public static string ToTextLineEndings(this string text)
+	{
+		text = Regex.Replace(text, "<p>", "\n\n");
+		text = Regex.Replace(text, "<br />", "\n");
+
+		return text;
+	}
+
+
 
 	/// <summary>
 	/// Converts a unicode string into its closest ascii equivalent
@@ -258,6 +280,21 @@ public static class StringExtensions
 		}
 		return sb.ToString();
 	}
+
+	public static string RemoveMarkup(this string s)
+	{
+		if (string.IsNullOrEmpty(s))
+		{
+			return s;
+		}
+
+		s = s.Replace("javascript", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty);
+		s = Regex.Replace(s, @"&nbsp;", " ", RegexOptions.IgnoreCase);
+		return Regex.Replace(s.Replace("  ", " "), @"<.+?>", "", RegexOptions.Singleline);
+	}
+
+	public static string RemoveQuotes(this string input) => input.Remove(["\"", "'"]);
+
 
 	public static string EscapeXml(this string s)
 	{

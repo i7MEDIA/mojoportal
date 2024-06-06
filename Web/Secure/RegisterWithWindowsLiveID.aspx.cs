@@ -133,7 +133,7 @@ public partial class RegisterWithWindowsLiveId : NonCmsBasePage
 	private void CreateUser(string windowsLiveId)
 	{
 		mojoMembershipProvider mojoMembership = (mojoMembershipProvider)Membership.Provider;
-		var name = SecurityHelper.RemoveMarkup(txtUserName.Text);
+		var name = txtUserName.Text.RemoveMarkup();
 		var newUser = new SiteUser(siteSettings)
 		{
 			WindowsLiveId = windowsLiveId,

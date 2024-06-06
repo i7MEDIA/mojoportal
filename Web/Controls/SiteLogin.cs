@@ -112,8 +112,8 @@ namespace mojoPortal.Web.UI
                 string returnUrlParam = Page.Request.Params.Get("returnurl");
                 if (!String.IsNullOrEmpty(returnUrlParam))
                 {
-                    returnUrlParam = SecurityHelper.RemoveMarkup(returnUrlParam);
-                    string redirectUrl = Page.ResolveUrl(SecurityHelper.RemoveMarkup(Page.Server.UrlDecode(returnUrlParam)));
+                    returnUrlParam = returnUrlParam.RemoveMarkup();
+                    string redirectUrl = Page.ResolveUrl(Page.Server.UrlDecode(returnUrlParam).RemoveMarkup());
                     if (
                         ((redirectUrl.StartsWith("/")) && (!(redirectUrl.StartsWith("//")))) 
                         || (redirectUrl.StartsWith(siteRoot)) 

@@ -72,157 +72,155 @@ public class SearchResultsHandler : IHttpHandler
 		Encoding encoding = new UTF8Encoding();
 		context.Response.ContentEncoding = encoding;
 
-		string sanitizedQuery = SecurityHelper.RemoveMarkup(query);
+		string sanitizedQuery = query.RemoveMarkup();
 
-		using (XmlTextWriter xmlTextWriter = new XmlTextWriter(context.Response.OutputStream, encoding))
+		using var xmlTextWriter = new XmlTextWriter(context.Response.OutputStream, encoding);
+		xmlTextWriter.Formatting = Formatting.Indented;
+
+		xmlTextWriter.WriteStartDocument();
+
+		xmlTextWriter.WriteStartElement("feed");
+		xmlTextWriter.WriteAttributeString("xmlns", "http://www.w3.org/2005/Atom");
+		xmlTextWriter.WriteAttributeString("xmlns:opensearch", "http://a9.com/-/spec/opensearch/1.1/");
+
+		xmlTextWriter.WriteStartElement("title");
+		xmlTextWriter.WriteValue(string.Format(CultureInfo.InvariantCulture, Resource.SearchTitleFormat, siteSettings.SiteName, sanitizedQuery));
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("link");
+		xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q=" + context.Server.UrlEncode(sanitizedQuery));
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("updated");
+		xmlTextWriter.WriteValue(DateTime.UtcNow.ToString("u", CultureInfo.InvariantCulture).Replace(" ", "T"));
+		xmlTextWriter.WriteEndElement();
+
+
+		xmlTextWriter.WriteStartElement("author");
+
+		xmlTextWriter.WriteStartElement("name");
+		xmlTextWriter.WriteValue(siteSettings.CompanyName);
+		xmlTextWriter.WriteEndElement();
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("id");
+		xmlTextWriter.WriteValue("urn:uuid:" + siteSettings.SiteGuid.ToString());
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("opensearch:totalResults");
+		xmlTextWriter.WriteValue(totalHits.ToString(CultureInfo.InvariantCulture));
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("opensearch:startIndex");
+		xmlTextWriter.WriteValue(start.ToString(CultureInfo.InvariantCulture));
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("opensearch:itemsPerPage");
+		xmlTextWriter.WriteValue(pageSize.ToString(CultureInfo.InvariantCulture));
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("opensearch:Query");
+		xmlTextWriter.WriteAttributeString("role", "request");
+		xmlTextWriter.WriteAttributeString("searchTerms", sanitizedQuery);
+		xmlTextWriter.WriteAttributeString("startPage", "1");
+		xmlTextWriter.WriteEndElement();
+
+		//this is a link to the xhtml search page
+		xmlTextWriter.WriteStartElement("link");
+		xmlTextWriter.WriteAttributeString("rel", "alternate");
+		xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.aspx?q="
+			+ context.Server.UrlEncode(sanitizedQuery)
+			+ "&p=" + pageNumber.ToString(CultureInfo.InvariantCulture));
+		xmlTextWriter.WriteAttributeString("type", "text/html");
+		xmlTextWriter.WriteEndElement();
+
+		xmlTextWriter.WriteStartElement("link");
+		xmlTextWriter.WriteAttributeString("rel", "self");
+		xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q="
+			+ context.Server.UrlEncode(sanitizedQuery)
+			+ "&p=" + pageNumber.ToString(CultureInfo.InvariantCulture));
+		xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
+		xmlTextWriter.WriteEndElement();
+
+		if (totalPages > 1)
 		{
-			xmlTextWriter.Formatting = Formatting.Indented;
-
-			xmlTextWriter.WriteStartDocument();
-
-			xmlTextWriter.WriteStartElement("feed");
-			xmlTextWriter.WriteAttributeString("xmlns", "http://www.w3.org/2005/Atom");
-			xmlTextWriter.WriteAttributeString("xmlns:opensearch", "http://a9.com/-/spec/opensearch/1.1/");
-
-			xmlTextWriter.WriteStartElement("title");
-			xmlTextWriter.WriteValue(string.Format(CultureInfo.InvariantCulture, Resource.SearchTitleFormat, siteSettings.SiteName, sanitizedQuery));
-			xmlTextWriter.WriteEndElement();
-
 			xmlTextWriter.WriteStartElement("link");
-			xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q=" + context.Server.UrlEncode(sanitizedQuery));
-			xmlTextWriter.WriteEndElement();
-
-			xmlTextWriter.WriteStartElement("updated");
-			xmlTextWriter.WriteValue(DateTime.UtcNow.ToString("u", CultureInfo.InvariantCulture).Replace(" ", "T"));
-			xmlTextWriter.WriteEndElement();
-
-
-			xmlTextWriter.WriteStartElement("author");
-
-			xmlTextWriter.WriteStartElement("name");
-			xmlTextWriter.WriteValue(siteSettings.CompanyName);
-			xmlTextWriter.WriteEndElement();
-			xmlTextWriter.WriteEndElement();
-
-			xmlTextWriter.WriteStartElement("id");
-			xmlTextWriter.WriteValue("urn:uuid:" + siteSettings.SiteGuid.ToString());
-			xmlTextWriter.WriteEndElement();
-
-			xmlTextWriter.WriteStartElement("opensearch:totalResults");
-			xmlTextWriter.WriteValue(totalHits.ToString(CultureInfo.InvariantCulture));
-			xmlTextWriter.WriteEndElement();
-
-			xmlTextWriter.WriteStartElement("opensearch:startIndex");
-			xmlTextWriter.WriteValue(start.ToString(CultureInfo.InvariantCulture));
-			xmlTextWriter.WriteEndElement();
-
-			xmlTextWriter.WriteStartElement("opensearch:itemsPerPage");
-			xmlTextWriter.WriteValue(pageSize.ToString(CultureInfo.InvariantCulture));
-			xmlTextWriter.WriteEndElement();
-
-			xmlTextWriter.WriteStartElement("opensearch:Query");
-			xmlTextWriter.WriteAttributeString("role", "request");
-			xmlTextWriter.WriteAttributeString("searchTerms", sanitizedQuery);
-			xmlTextWriter.WriteAttributeString("startPage", "1");
-			xmlTextWriter.WriteEndElement();
-
-			//this is a link to the xhtml search page
-			xmlTextWriter.WriteStartElement("link");
-			xmlTextWriter.WriteAttributeString("rel", "alternate");
-			xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.aspx?q="
-				+ context.Server.UrlEncode(sanitizedQuery)
-				+ "&p=" + pageNumber.ToString(CultureInfo.InvariantCulture));
-			xmlTextWriter.WriteAttributeString("type", "text/html");
-			xmlTextWriter.WriteEndElement();
-
-			xmlTextWriter.WriteStartElement("link");
-			xmlTextWriter.WriteAttributeString("rel", "self");
+			xmlTextWriter.WriteAttributeString("rel", "first");
 			xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q="
 				+ context.Server.UrlEncode(sanitizedQuery)
-				+ "&p=" + pageNumber.ToString(CultureInfo.InvariantCulture));
+				+ "&p=1");
 			xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
 			xmlTextWriter.WriteEndElement();
 
-			if (totalPages > 1)
+			if (pageNumber > 1)
 			{
 				xmlTextWriter.WriteStartElement("link");
-				xmlTextWriter.WriteAttributeString("rel", "first");
+				xmlTextWriter.WriteAttributeString("rel", "previous");
 				xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q="
 					+ context.Server.UrlEncode(sanitizedQuery)
-					+ "&p=1");
+					+ "&p=" + (pageNumber - 1).ToString(CultureInfo.InvariantCulture));
 				xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
 				xmlTextWriter.WriteEndElement();
 
-				if (pageNumber > 1)
-				{
-					xmlTextWriter.WriteStartElement("link");
-					xmlTextWriter.WriteAttributeString("rel", "previous");
-					xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q="
-						+ context.Server.UrlEncode(sanitizedQuery)
-						+ "&p=" + (pageNumber - 1).ToString(CultureInfo.InvariantCulture));
-					xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
-					xmlTextWriter.WriteEndElement();
+			}
 
-				}
-
-				if (pageNumber < totalPages)
-				{
-					xmlTextWriter.WriteStartElement("link");
-					xmlTextWriter.WriteAttributeString("rel", "next");
-					xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q="
-						+ context.Server.UrlEncode(sanitizedQuery)
-						+ "&p=" + (pageNumber + 1).ToString(CultureInfo.InvariantCulture));
-					xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
-					xmlTextWriter.WriteEndElement();
-
-
-				}
-
+			if (pageNumber < totalPages)
+			{
 				xmlTextWriter.WriteStartElement("link");
-				xmlTextWriter.WriteAttributeString("rel", "last");
+				xmlTextWriter.WriteAttributeString("rel", "next");
 				xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q="
 					+ context.Server.UrlEncode(sanitizedQuery)
-					+ "&p=" + totalPages.ToString(CultureInfo.InvariantCulture));
+					+ "&p=" + (pageNumber + 1).ToString(CultureInfo.InvariantCulture));
 				xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
 				xmlTextWriter.WriteEndElement();
 
 
 			}
 
-			////this is a  link to the description
 			xmlTextWriter.WriteStartElement("link");
-			xmlTextWriter.WriteAttributeString("rel", "search");
-			xmlTextWriter.WriteAttributeString("type", "application/opensearchdescription+xml");
-			xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchEngineInfo.ashx");
+			xmlTextWriter.WriteAttributeString("rel", "last");
+			xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchResults.ashx?q="
+				+ context.Server.UrlEncode(sanitizedQuery)
+				+ "&p=" + totalPages.ToString(CultureInfo.InvariantCulture));
+			xmlTextWriter.WriteAttributeString("type", "application/atom+xml");
 			xmlTextWriter.WriteEndElement();
 
 
-			foreach (mojoPortal.SearchIndex.IndexItem item in searchResults)
-			{
-				xmlTextWriter.WriteStartElement("entry");
+		}
 
-				xmlTextWriter.WriteStartElement("link");
-				xmlTextWriter.WriteValue(BuildUrl(item));
-				xmlTextWriter.WriteEndElement();
-
-				xmlTextWriter.WriteStartElement("id");
-				xmlTextWriter.WriteValue(BuildUrl(item));
-				xmlTextWriter.WriteEndElement();
+		////this is a  link to the description
+		xmlTextWriter.WriteStartElement("link");
+		xmlTextWriter.WriteAttributeString("rel", "search");
+		xmlTextWriter.WriteAttributeString("type", "application/opensearchdescription+xml");
+		xmlTextWriter.WriteAttributeString("href", SiteRoot + "/SearchEngineInfo.ashx");
+		xmlTextWriter.WriteEndElement();
 
 
-				//xmlTextWriter.WriteRaw("<updated>2003-12-13T18:30:02Z</updated>");
+		foreach (mojoPortal.SearchIndex.IndexItem item in searchResults)
+		{
+			xmlTextWriter.WriteStartElement("entry");
 
-				xmlTextWriter.WriteStartElement("content");
-				xmlTextWriter.WriteAttributeString("type", "text");
-				xmlTextWriter.WriteCData(item.Intro);
-				xmlTextWriter.WriteEndElement();
+			xmlTextWriter.WriteStartElement("link");
+			xmlTextWriter.WriteValue(BuildUrl(item));
+			xmlTextWriter.WriteEndElement();
+
+			xmlTextWriter.WriteStartElement("id");
+			xmlTextWriter.WriteValue(BuildUrl(item));
+			xmlTextWriter.WriteEndElement();
 
 
-				xmlTextWriter.WriteEndElement();
-			}
+			//xmlTextWriter.WriteRaw("<updated>2003-12-13T18:30:02Z</updated>");
+
+			xmlTextWriter.WriteStartElement("content");
+			xmlTextWriter.WriteAttributeString("type", "text");
+			xmlTextWriter.WriteCData(item.Intro);
+			xmlTextWriter.WriteEndElement();
+
 
 			xmlTextWriter.WriteEndElement();
 		}
+
+		xmlTextWriter.WriteEndElement();
 
 
 

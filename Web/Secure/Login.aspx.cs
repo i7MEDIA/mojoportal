@@ -82,7 +82,7 @@ public partial class LoginPage : NonCmsBasePage
 
 			if (!string.IsNullOrWhiteSpace(returnUrlParam) && !returnUrlParam.ToLower().Contains("/accessdenied.aspx"))
 			{
-				returnUrlParam = SecurityHelper.RemoveMarkup(Page.Server.UrlDecode(returnUrlParam));
+				returnUrlParam = Page.Server.UrlDecode(returnUrlParam).RemoveMarkup();
 
 				string redirectUrl = Page.ResolveUrl(returnUrlParam);
 				if ((redirectUrl.StartsWith("/") && (!redirectUrl.StartsWith("//")))
@@ -143,7 +143,7 @@ public partial class LoginPage : NonCmsBasePage
 
 		if (!string.IsNullOrWhiteSpace(returnUrlParam))
 		{
-			returnUrlParam = SecurityHelper.RemoveMarkup(Page.Server.UrlDecode(returnUrlParam));
+			returnUrlParam = Page.Server.UrlDecode(returnUrlParam).RemoveMarkup();
 			string redirectUrl = Page.ResolveUrl(returnUrlParam);
 			if (redirectUrl.StartsWith(SiteRoot) || redirectUrl.StartsWith(SiteRoot.Replace("https://", "http://")))
 			{

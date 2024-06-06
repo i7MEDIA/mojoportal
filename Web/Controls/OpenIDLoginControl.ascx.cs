@@ -79,22 +79,13 @@ namespace mojoPortal.Web
                 string returnUrlParam = Page.Request.Params.Get("returnurl");
                 if (!String.IsNullOrEmpty(returnUrlParam))
                 {
-                    returnUrlParam = SecurityHelper.RemoveMarkup(returnUrlParam);
-                    string redirectUrl = Page.ResolveUrl(SecurityHelper.RemoveMarkup(Page.Server.UrlDecode(returnUrlParam)));
+                    returnUrlParam = returnUrlParam.RemoveMarkup();
+                    string redirectUrl = Page.ResolveUrl(Page.Server.UrlDecode(returnUrlParam).RemoveMarkup());
                     if ((redirectUrl.StartsWith(siteRoot)) || (redirectUrl.StartsWith(siteRoot.Replace("https://", "http://"))))
                     {
                         returnUrl = redirectUrl;
                     }
                 }
-
-                //string returnUrlParam = Page.Request.Params.Get("returnurl");
-                //if (!String.IsNullOrEmpty(returnUrlParam))
-                //{
-
-
-
-                //    returnUrl = Page.ResolveUrl(Page.Server.UrlDecode(returnUrlParam));
-                //}
 
                 if (returnUrl.Length > 0)
                 {

@@ -30,7 +30,7 @@ public partial class Help : Page
 			{
 				if (helpKey != string.Empty)
 				{
-					litEditLink.Text = $"<a href=\"{SiteUtils.GetNavigationSiteRoot()}/HelpEdit.aspx?helpkey={SecurityHelper.RemoveMarkup(helpKey)}\">{Resource.HelpEditLink}</a>";
+					litEditLink.Text = $"<a href=\"{SiteUtils.GetNavigationSiteRoot()}/HelpEdit.aspx?helpkey={helpKey.RemoveMarkup()}\">{Resource.HelpEditLink}</a>";
 				}
 			}
 		}
@@ -49,7 +49,7 @@ public partial class Help : Page
 		{
 			if (WebUser.IsAdminOrContentAdmin)
 			{
-				helpText = string.Format(Resource.HelpNoHelpAvailableAdminUser, HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(helpKey)));
+				helpText = string.Format(Resource.HelpNoHelpAvailableAdminUser, HttpUtility.HtmlDecode(helpKey.RemoveMarkup()));
 			}
 			else
 			{

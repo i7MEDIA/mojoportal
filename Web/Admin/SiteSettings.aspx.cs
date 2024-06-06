@@ -115,7 +115,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		}
 		else
 		{
-			heading.Text = string.Format(CultureInfo.InvariantCulture, Resource.SiteSettingsFormat, SecurityHelper.RemoveMarkup(selectedSite.SiteName));
+			heading.Text = string.Format(CultureInfo.InvariantCulture, Resource.SiteSettingsFormat, selectedSite.SiteName.RemoveMarkup());
 			txtSiteName.Text = selectedSite.SiteName;
 
 			if (!siteSettings.IsServerAdminSite && WebConfigSettings.HideGoogleAnalyticsInChildSites)

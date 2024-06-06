@@ -876,7 +876,7 @@ public partial class BlogEdit : NonCmsBasePage
 
 						// Remove markup and whitespace characters
 						string cleanedOfMarkup = Regex.Replace(
-							HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(uncleanMarkup)),
+							HttpUtility.HtmlDecode(uncleanMarkup.RemoveMarkup()),
 							@"\s+",
 							" "
 						);
@@ -887,7 +887,7 @@ public partial class BlogEdit : NonCmsBasePage
 							cleanedOfMarkup.Substring(0, truncateLength).Trim()
 						;
 
-						tag.MetaContent = HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(cleanedOfMarkup));
+						tag.MetaContent = HttpUtility.HtmlDecode(cleanedOfMarkup.RemoveMarkup());
 						break;
 
 					case "{{image}}":

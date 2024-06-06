@@ -215,10 +215,10 @@ public partial class ManageUsers : NonCmsBasePage
 
 			//spnTitle.InnerText = Resource.ManageUsersTitleLabel + " " + siteUser.Name;
 
-			txtName.Text = SecurityHelper.RemoveMarkup(siteUser.Name);
-			txtLoginName.Text = SecurityHelper.RemoveMarkup(siteUser.LoginName);
-			txtFirstName.Text = SecurityHelper.RemoveMarkup(siteUser.FirstName);
-			txtLastName.Text = SecurityHelper.RemoveMarkup(siteUser.LastName);
+			txtName.Text = siteUser.Name.RemoveMarkup();
+			txtLoginName.Text = siteUser.LoginName.RemoveMarkup();
+			txtFirstName.Text = siteUser.FirstName.RemoveMarkup();
+			txtLastName.Text = siteUser.LastName.RemoveMarkup();
 			// lnkAvatarUpload.ClientClick = "return GB_showPage('" + Page.Server.HtmlEncode(string.Format(CultureInfo.InvariantCulture, Resource.UploadAvatarForUserFormat, siteUser.Name)) + "', this.href, GBCallback)";
 			txtEmail.Text = siteUser.Email;
 			txtOpenIDURI.Text = siteUser.OpenIdUri;

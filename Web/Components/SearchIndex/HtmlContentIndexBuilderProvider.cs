@@ -129,7 +129,7 @@ namespace mojoPortal.SearchIndex
                     indexItem.ModuleTitle = row["ModuleTitle"].ToString();
                     indexItem.Title = row["Title"].ToString();
                     // added the remove markup 2010-01-30 because some javascript strings like ]]> were apearing in search results if the content conatined jacvascript
-                    indexItem.Content = SecurityHelper.RemoveMarkup(row["Body"].ToString());
+                    indexItem.Content = row["Body"].ToString().RemoveMarkup();
 
                     indexItem.CreatedUtc = Convert.ToDateTime(row["CreatedDate"]);
                     indexItem.LastModUtc = Convert.ToDateTime(row["LastModUtc"]);
@@ -276,7 +276,7 @@ namespace mojoPortal.SearchIndex
                 indexItem.ModuleId = content.ModuleId;
                 indexItem.ModuleTitle = module.ModuleTitle;
                 indexItem.Title = content.Title;
-                indexItem.Content = SecurityHelper.RemoveMarkup(content.Body);
+                indexItem.Content = content.Body.RemoveMarkup();
                 indexItem.PublishBeginDate = pageModule.PublishBeginDate;
                 indexItem.PublishEndDate = pageModule.PublishEndDate;
 

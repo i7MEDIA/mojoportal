@@ -107,7 +107,7 @@ namespace mojoPortal.Web.AdminUI
 
         private void LoadSettings()
         {
-            CurrentSiteName = string.Format(CultureInfo.InvariantCulture, Resource.ThisSiteFormat, SecurityHelper.RemoveMarkup(siteSettings.SiteName));
+            CurrentSiteName = string.Format(CultureInfo.InvariantCulture, Resource.ThisSiteFormat, siteSettings.SiteName.RemoveMarkup());
             pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
             showSiteIDInSiteList = WebConfigSettings.ShowSiteIdInSiteList;
             pageSize = WebConfigSettings.SiteListPageSize;

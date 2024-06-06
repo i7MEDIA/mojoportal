@@ -135,8 +135,8 @@ public partial class PasswordResetPage : NonCmsBasePage
 		string returnUrlParam = Page.Request.Params.Get("returnurl");
 		if (!string.IsNullOrWhiteSpace(returnUrlParam))
 		{
-			returnUrlParam = SecurityHelper.RemoveMarkup(returnUrlParam);
-			string requestedRedirectUrl = Page.ResolveUrl(SecurityHelper.RemoveMarkup(Page.Server.UrlDecode(returnUrlParam)));
+			returnUrlParam = returnUrlParam.RemoveMarkup();
+			string requestedRedirectUrl = Page.ResolveUrl(Page.Server.UrlDecode(returnUrlParam).RemoveMarkup());
 			if (requestedRedirectUrl.StartsWith("/"))
 			{
 				redirectUrl = requestedRedirectUrl;

@@ -110,13 +110,13 @@ public partial class RegisterWithOpenId : NonCmsBasePage
 			{
 				// create user automagically since we have all 
 				// the needed data
-				string loginName = SecurityHelper.RemoveMarkup(e.ClaimedIdentifier.ToString().Replace("http://", string.Empty).Replace("https://", string.Empty).Replace("/", string.Empty));
+				string loginName = e.ClaimedIdentifier.ToString().Replace("http://", string.Empty).Replace("https://", string.Empty).Replace("/", string.Empty).RemoveMarkup();
 
 				CreateUser(
 					e.ClaimedIdentifier.ToString(),
 					claim.Email,
 					loginName,
-					SecurityHelper.RemoveMarkup(claim.FullName));
+					claim.FullName.RemoveMarkup());
 
 				return;
 			}
@@ -149,7 +149,7 @@ public partial class RegisterWithOpenId : NonCmsBasePage
 				&& claim.FullName.Length > 0
 				)
 			{
-				CookieHelper.SetSecureCookie(openIdFullNameCookieName, SecurityHelper.RemoveMarkup(claim.FullName));
+				CookieHelper.SetSecureCookie(openIdFullNameCookieName, claim.FullName.RemoveMarkup());
 			}
 
 			pnlNeededProfileProperties.Visible = true;
@@ -198,7 +198,7 @@ public partial class RegisterWithOpenId : NonCmsBasePage
 			}
 			else
 			{
-				CreateUser(openID, email, SecurityHelper.RemoveMarkup(loginName), SecurityHelper.RemoveMarkup(name));
+				CreateUser(openID, email, loginName.RemoveMarkup(), name.RemoveMarkup());
 			}
 		}
 	}

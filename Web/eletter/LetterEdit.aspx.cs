@@ -360,7 +360,7 @@ public partial class LetterEditPage : NonCmsBasePage
 			return;
 		}
 
-		txtPlainText.Text = SecurityHelper.RemoveMarkup(UIHelper.ConvertHtmlBreaksToTextBreaks(edContent.Text));
+		txtPlainText.Text = UIHelper.ConvertHtmlBreaksToTextBreaks(edContent.Text).RemoveMarkup();
 		SaveLetter();
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 	}

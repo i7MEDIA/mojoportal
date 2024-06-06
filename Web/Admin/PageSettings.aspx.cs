@@ -931,7 +931,7 @@ namespace mojoPortal.Web.AdminUI
 				pageSettings.CreatedFromIp = SiteUtils.GetIP4Address();
 			}
 
-			pageSettings.PageName = SecurityHelper.RemoveMarkup(txtPageName.Text);
+			pageSettings.PageName = txtPageName.Text.RemoveMarkup();
 			pageSettings.PageTitle = txtPageTitle.Text;
 			pageSettings.PublishMode = Convert.ToInt32(publishType.GetValue(), CultureInfo.InvariantCulture);
 

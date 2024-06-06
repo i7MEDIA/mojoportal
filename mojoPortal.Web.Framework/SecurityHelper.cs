@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.UI;
 using Brettle.Web.NeatHtml;
 using log4net;
+using mojoPortal.Core.Configuration;
 
 namespace mojoPortal.Web.Framework;
 
@@ -15,11 +15,8 @@ public static class SecurityHelper
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(SecurityHelper));
 
-	//^[/.].*$
-	//public const string RegexRelativeImageUrlPatern = @"^[/.].*$";
-	public const string RegexRelativeImageUrlPatern = @"^/.*[_a-zA-Z0-9]+\.(png|jpg|jpeg|gif|PNG|JPG|JPEG|GIF)$";
-	public const string RegexAnyImageUrlPatern = @"^.*[_a-zA-Z0-9]+\.(png|jpg|jpeg|gif|PNG|JPG|JPEG|GIF)$";
-
+	public const string RegexRelativeImageUrlPatern = @"^(?i)/.*[_a-zA-Z0-9]+\.(png|jpg|jpeg|gif|PNG|JPG|JPEG|GIF)$";
+	public const string RegexAnyImageUrlPatern = @"^(?i).*[_a-zA-Z0-9]+\.(png|jpg|jpeg|gif|PNG|JPG|JPEG|GIF)$";
 
 	public const string RegexAnyHttpOrHttpsUrl = @"^(http|https)://([^\s]+)/?";
 
@@ -27,8 +24,7 @@ public static class SecurityHelper
 	/// <summary>
 	/// a regular expression for validating email addresses, efficient but not completely RFC 822 compliant
 	/// </summary>
-	public const string RegexEmailValidationPattern
-		= @"^([0-9a-zA-Z](['-.\w]*[_0-9a-zA-Z])*@(([0-9a-zA-Z])+([-\w']*[0-9a-zA-Z])*\.)+[a-zA-Z]{2,9})$|^$";
+	public const string RegexEmailValidationPattern = @"^(?i)([0-9A-Z](['-.\w]*[_0-9A-Z])*@(([0-9A-Z])+([-\w']*[0-9A-Z])*\.)+[A-Z]{2,9})$|^$";
 
 	// 2014-03-18 this expression hangs with patriciarichards5395@yahoo.comgetgoing
 	// but is still the best one I've found because the others fail to accept foo+test@foo.com
@@ -49,9 +45,11 @@ public static class SecurityHelper
 	/// <returns></returns>
 	public static string GetEmailRegexExpression()
 	{
-		string overrideRegex = Core.Configuration.ConfigHelper.GetStringProperty("CustomEmailRegex", string.Empty);
-		if (overrideRegex.Length > 0) { return overrideRegex; }
-
+		string overrideRegex = ConfigHelper.GetStringProperty("CustomEmailRegex", string.Empty);
+		if (!string.IsNullOrWhiteSpace(overrideRegex))
+		{
+			return overrideRegex;
+		}
 
 		return RegexEmailValidationPattern;
 	}
@@ -59,11 +57,16 @@ public static class SecurityHelper
 
 	public static bool IsValidEmailAddress(string email)
 	{
-		if (string.IsNullOrEmpty(email)) { return false; }
+		if (string.IsNullOrWhiteSpace(email) || email.Length < 3)
+		{
+			//email addresses must be at least 3 characters
+			//a@b would be a valid email address for an account named 'a' on a local email server for the 'b' domain
+			return false;
+		}
 
 		try
 		{
-			MailAddress m = new MailAddress(email);
+			var m = new MailAddress(email);
 
 			return true;
 		}
@@ -93,11 +96,11 @@ public static class SecurityHelper
 
 	public static string GetRegexValidationForAllowedExtensions(string pipeSeparatedExtensions)
 	{
-		StringBuilder regex = new StringBuilder();
+		var regex = new StringBuilder();
 
 		// (([^.;]*[.])+(jpg|gif|png|JPG|GIF|PNG); *)*(([^.;]*[.])+(jpg|gif|png|JPG|GIF|PNG))?$
 
-		regex.Append("(([^.;]*[.])+(");
+		regex.Append("(?i)(([^.;]*[.])+(");
 
 		List<string> allowedExtensions = pipeSeparatedExtensions.SplitOnPipes();
 		string pipe = string.Empty;
@@ -105,7 +108,6 @@ public static class SecurityHelper
 		{
 			regex.Append(pipe + ext.Replace(".", string.Empty));
 			pipe = "|";
-			regex.Append(pipe + ext.Replace(".", string.Empty).ToUpper());
 		}
 
 		regex.Append("); *)*(([^.;]*[.])+(");
@@ -115,23 +117,21 @@ public static class SecurityHelper
 		{
 			regex.Append(pipe + ext.Replace(".", string.Empty));
 			pipe = "|";
-			regex.Append(pipe + ext.Replace(".", string.Empty).ToUpper());
 		}
 
 		regex.Append("))?$");
 
 		return regex.ToString();
-
-
 	}
+
 
 	public static string GetRegexValidationForAllowedExtensionsJqueryFileUploader(string pipeSeparatedExtensions)
 	{
-		StringBuilder regex = new StringBuilder();
+		var regex = new StringBuilder();
 
 		// @"/(\.|\/)(gif|jpe?g|png)$/i"
 
-		regex.Append(@"/(\.|\/)(");
+		regex.Append(@"(?i)/(\.|\/)(");
 
 		List<string> allowedExtensions = pipeSeparatedExtensions.SplitOnPipes();
 		string pipe = string.Empty;
@@ -139,42 +139,35 @@ public static class SecurityHelper
 		{
 			regex.Append(pipe + ext.Replace(".", string.Empty));
 			pipe = "|";
-			regex.Append(pipe + ext.Replace(".", string.Empty).ToUpper());
 		}
-
-		//regex.Append("); *)*(([^.;]*[.])+(");
-
-		//pipe = string.Empty;
-		//foreach (string ext in allowedExtensions)
-		//{
-		//    regex.Append(pipe + ext.Replace(".", string.Empty));
-		//    pipe = "|";
-		//    regex.Append(pipe + ext.Replace(".", string.Empty).ToUpper());
-		//}
 
 		regex.Append(")$/i");
 
 		return regex.ToString();
 	}
 
+
 	//http://www.codeproject.com/KB/aspnet/LengthValidation.aspx
 	public static string GetMaxLengthRegexValidationExpression(int length)
 	{
-		return "[\\s\\S]{0," + length.ToInvariantString() + "}";
+		return Invariant($"[\\s\\S]{{0,{length}}}");
 	}
 
-	public static string PreventCrossSiteScripting(String html)
+
+	public static string PreventCrossSiteScripting(string html)
 	{
-		String errorHeader = ResourceHelper.GetMessageTemplate("NeatHtmlValidationErrorHeader.config");
+		string errorHeader = ResourceHelper.GetMessageTemplate("NeatHtmlValidationErrorHeader.config");
 		return PreventCrossSiteScripting(html, errorHeader);
 	}
 
-	public static string PreventCrossSiteScripting(String html, String errorHeader)
+
+	public static string PreventCrossSiteScripting(string html, string errorHeader)
 	{
 		return PreventCrossSiteScripting(html, errorHeader, false);
 	}
 
-	public static string PreventCrossSiteScripting(String html, String errorHeader, bool removeMarkupOnFailure)
+
+	public static string PreventCrossSiteScripting(string html, string errorHeader, bool removeMarkupOnFailure)
 	{
 		try
 		{
@@ -192,40 +185,53 @@ public static class SecurityHelper
 		{
 			if (removeMarkupOnFailure)
 			{
-				return String.Format(@"<span style=""color: #ff0000;"">{0}</span><br />{1}", errorHeader,
-									 HttpUtility.HtmlEncode(RemoveMarkup(html)));
+				return $"<span style=\"color: #ff0000;\">{errorHeader}</span><br />{HttpUtility.HtmlEncode(html.RemoveMarkup())}";
 			}
 			else
 			{
-				return String.Format(@"<span style=""color: #ff0000;"">{0}{1}</span>:<br />{2}", errorHeader,
-									 HttpUtility.HtmlEncode(ex.Message), HttpUtility.HtmlEncode(html));
+				return $"<span style=\"color: #ff0000;\">{errorHeader} {HttpUtility.HtmlEncode(ex.Message)}</span><br />{HttpUtility.HtmlEncode(html)}";
 			}
 		}
 	}
 
-	public static string SanitizeHtml(String html)
+
+	public static string SanitizeHtml(string html)
 	{
+		var neathHtmlScript = ConfigHelper.GetStringProperty("NeatHtmlScriptUrl", "~/NeatHtml/NeatHtml.js");
+
 		try
 		{
+			if (HttpContext.Current?.Handler is Page page)
+			{
+				if (!page.ClientScript.IsClientScriptBlockRegistered("NeatHtmlJs"))
+				{
+					page.ClientScript.RegisterClientScriptBlock(typeof(Page), "NeatHtmlJs", $"<script data-loader=\"SecurityHelper\" src=\"{Helpers.ApplyAppPathModifier(neathHtmlScript)}?guid={Guid.NewGuid()}\"></script>");
+				}
+			}
+
 			Filter filter = GetXssFilter();
 
 			if (filter == null)
 			{
 				log.Info("Filter was null");
-				return RemoveMarkup(html);
+				return html.RemoveMarkup();
 			}
 
 			return filter.FilterUntrusted(html);
 		}
 		catch (Exception)
 		{
-			return RemoveMarkup(html);
+			return html.RemoveMarkup();
 		}
 	}
 
+
 	private static Filter GetXssFilter()
 	{
-		if (HttpContext.Current == null) return null;
+		if (HttpContext.Current == null)
+		{
+			return null;
+		}
 
 		string key = "xssfilter";
 
@@ -247,26 +253,6 @@ public static class SecurityHelper
 		}
 	}
 
-	public static string RemoveMarkup(string text)
-	{
-		if (string.IsNullOrEmpty(text)) { return text; }
-		text = text.Replace("javascript", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty);
-		text = Regex.Replace(text, @"&nbsp;", " ", RegexOptions.IgnoreCase);
-		//text = Regex.Replace(text, @"javascript", " ", RegexOptions.IgnoreCase);
-		//text = Regex.Replace(text, @"{", "", RegexOptions.IgnoreCase);
-		//text = Regex.Replace(text, @"}", "", RegexOptions.IgnoreCase);
-		return Regex.Replace(text.Replace("  ", " "), @"<.+?>", "", RegexOptions.Singleline);
-	}
-
-	public static string RemoveAngleBrackets(string text)
-	{
-		if (string.IsNullOrEmpty(text))
-		{
-			return text;
-		}
-
-		return text.Replace("<", string.Empty).Replace(">", string.Empty);
-	}
 
 	/// <summary>
 	/// Checks string for possible XSS content.
@@ -275,12 +261,12 @@ public static class SecurityHelper
 	/// <returns>True if string is possibly XSS attemp. False if string is clean.</returns>
 	public static bool IsPossibleXss(string text)
 	{
-		if (RemoveMarkup(text) != text)
+		if (text.RemoveMarkup() != text)
 		{
 			return true;
 		}
 
-		if (RemoveAngleBrackets(text) != text)
+		if (text.RemoveAngleBrackets() != text)
 		{
 			return true;
 		}
@@ -288,12 +274,13 @@ public static class SecurityHelper
 		return false;
 	}
 
+
 	public static string GetRandomKey(int bytelength)
 	{
 		byte[] buff = new byte[bytelength];
-		RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+		var rng = new RNGCryptoServiceProvider();
 		rng.GetBytes(buff);
-		StringBuilder sb = new(bytelength * 2);
+		var sb = new StringBuilder(bytelength * 2);
 		for (int i = 0; i < buff.Length; i++)
 		{
 			sb.Append(string.Format("{0:X2}", buff[i]));
@@ -301,6 +288,8 @@ public static class SecurityHelper
 		return sb.ToString();
 	}
 
+
+	//todo: modernize, ensure methods work across chromium, firefox, webkit
 	public static void DisableBrowserCache()
 	{
 		if (HttpContext.Current != null)
@@ -313,6 +302,8 @@ public static class SecurityHelper
 		}
 	}
 
+
+	//todo: modernize, ensure methods work across chromium, firefox, webkit
 	public static void DisableDownloadCache()
 	{
 		HttpContext.Current.Response.Cache.SetExpires(DateTime.UtcNow.AddYears(-1));
@@ -320,8 +311,7 @@ public static class SecurityHelper
 		// no-store makes firefox reload page
 		// no-cache makes firefox reload page only over SSL
 		// IE will fail when downloading a file over SSL if no-store or no-cache is set
-		HttpBrowserCapabilities oBrowser
-			= HttpContext.Current.Request.Browser;
+		HttpBrowserCapabilities oBrowser = HttpContext.Current.Request.Browser;
 
 		if (!oBrowser.Browser.ToLower().Contains("ie"))
 		{
@@ -334,6 +324,5 @@ public static class SecurityHelper
 		HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
 		HttpContext.Current.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 		HttpContext.Current.Response.Cache.AppendCacheExtension("post-check=0,pre-check=0");
-
 	}
 }

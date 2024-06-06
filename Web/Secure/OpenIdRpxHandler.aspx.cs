@@ -403,7 +403,7 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 
 		if ((authInfo.PreferredUsername.Length > 0) && (!SiteUser.LoginExistsInDB(siteSettings.SiteId, authInfo.PreferredUsername)))
 		{
-			loginName = SecurityHelper.RemoveMarkup(authInfo.PreferredUsername);
+			loginName = authInfo.PreferredUsername.RemoveMarkup();
 		}
 
 		if (loginName.Length == 0) { loginName = SiteUtils.SuggestLoginNameFromEmail(siteSettings.SiteId, authInfo.Email); }
@@ -412,12 +412,12 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 
 		if (authInfo.DisplayName.Length > 0)
 		{
-			name = SecurityHelper.RemoveMarkup(authInfo.DisplayName);
+			name = authInfo.DisplayName.RemoveMarkup();
 		}
 
 		bool emailIsVerified = (authInfo.VerifiedEmail == authInfo.Email);
 
-		SiteUser newUser = CreateUser(
+		var newUser = CreateUser(
 				authInfo.Identifier,
 				authInfo.Email,
 				loginName,

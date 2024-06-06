@@ -150,21 +150,21 @@ namespace mojoPortal.Web.UI
 
             string returnUrlParam = string.Empty;
 
-            if ((autoDetectReturnUrl)&&(!(Page is mojoPortal.Web.UI.Pages.Register)))
+            if ((autoDetectReturnUrl)&&(Page is not Pages.Register))
             {
                 returnUrlParam = Page.Server.UrlEncode(Page.Request.RawUrl);
             }
             else
             {
                 returnUrlParam = Page.Request.Params.Get("returnurl");
-                returnUrlParam = SecurityHelper.RemoveMarkup(Page.Server.UrlDecode(returnUrlParam));
-                if((Page is mojoPortal.Web.UI.Pages.Register))
+                returnUrlParam = Page.Server.UrlDecode(returnUrlParam).RemoveMarkup();
+                if((Page is Pages.Register))
                 {
                     // no need to render it on register page
                     returnUrlParam = string.Empty;
                 }
 
-                if ((Page is mojoPortal.Web.UI.Pages.ConfirmRegistration))
+                if ((Page is Pages.ConfirmRegistration))
                 {
                     // no need to render it on register page
                     returnUrlParam = string.Empty;

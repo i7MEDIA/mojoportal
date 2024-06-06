@@ -322,7 +322,7 @@ namespace mojoPortal.Web.UI
 
 			if (IncludeCommentBodyInNotification)
 			{
-				message.Replace("{CommentBody}", HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(edComment.Text)));
+				message.Replace("{CommentBody}", HttpUtility.HtmlDecode(edComment.Text.RemoveMarkup()));
 			}
 			else
 			{

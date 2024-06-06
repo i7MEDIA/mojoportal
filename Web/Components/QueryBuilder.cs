@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http.Headers;
 using System.Web;
 
 namespace mojoPortal.Web;
@@ -48,6 +47,11 @@ public class QueryBuilder
 	public QueryBuilder ItemId(int id)
 	{
 		queries.Add("itemid", id);
+		return this;
+	}
+	public QueryBuilder ReturnUrl(string returnUrl)
+	{
+		queries.Add("returnurl", returnUrl);
 		return this;
 	}
 

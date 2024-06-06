@@ -682,7 +682,7 @@ public static class UIHelper
 	{
 		if (content == null) { return content; }
 
-		string result = SecurityHelper.RemoveMarkup(content);
+		string result = content.RemoveMarkup();
 		if (result.Length <= excerptLength) { return result; }
 		result = result.Substring(0, excerptLength);
 		if (!result.EndsWith(" "))

@@ -221,8 +221,6 @@ namespace mojoPortal.Web
 
 		public static string RemoveInvalidUrlChars(string input) => input.Remove([":", "?", "#"]).Replace("&", "-");
 
-		public static string RemoveQuotes(string input) => input.Remove(["\"", "'"]);
-
 		public static string CleanStringForUrl(string input, bool removeForwardSlash = true)
 		{
 			string outputString = input.RemovePunctuation().Remove(["\"", "'", "#", "~", "`", "@", "$", "*", "^", "(", ")", "+", "=", "%", ">", "<"]).Replace("&", "-").Replace("\\", "-").Replace(" - ", "-").Replace(" ", "-").Replace("--", "-");
@@ -254,8 +252,8 @@ namespace mojoPortal.Web
 				}
 				if (!string.IsNullOrEmpty(returnUrlParam))
 				{
-					returnUrlParam = SecurityHelper.RemoveMarkup(returnUrlParam);
-					string returnUrl = page.ResolveUrl(SecurityHelper.RemoveMarkup(page.Server.UrlDecode(returnUrlParam)));
+					returnUrlParam = returnUrlParam.RemoveMarkup();
+					string returnUrl = page.ResolveUrl(page.Server.UrlDecode(returnUrlParam).RemoveMarkup());
 					if (returnUrl.StartsWith("/") && !returnUrl.StartsWith("//"))
 					{
 						return returnUrl;
@@ -590,7 +588,7 @@ namespace mojoPortal.Web
 					continue; //this should prevent duplicates
 				}
 
-				urls.Add(SecurityHelper.RemoveAngleBrackets(RemoveQuotes(m.Value)));
+				urls.Add(m.Value.RemoveQuotes().RemoveAngleBrackets());
 			}
 
 			return urls;

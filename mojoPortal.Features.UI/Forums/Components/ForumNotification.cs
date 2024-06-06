@@ -234,7 +234,7 @@ namespace mojoPortal.Web.ForumUI
 
                 List<string> urls = SiteUtils.ExtractUrls(bodyWithFullLinks);
 
-                notificationInfo.MessageBody = System.Web.HttpUtility.HtmlDecode(SecurityHelper.RemoveMarkup(thread.PostMessage));
+                notificationInfo.MessageBody = System.Web.HttpUtility.HtmlDecode(thread.PostMessage.RemoveMarkup());
 
                 if (urls.Count > 0)
                 {
@@ -267,7 +267,7 @@ namespace mojoPortal.Web.ForumUI
             notificationInfo.SiteName = siteSettings.SiteName;
             notificationInfo.ModuleName = module.ModuleTitle;
             notificationInfo.ForumName = forum.Title;
-            notificationInfo.Subject = SecurityHelper.RemoveMarkup(thread.PostSubject);
+            notificationInfo.Subject = thread.PostSubject.RemoveMarkup();
 
             notificationInfo.MessageLink = threadViewUrl;
 

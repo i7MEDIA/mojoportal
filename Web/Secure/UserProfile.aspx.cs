@@ -134,9 +134,9 @@ public partial class UserProfile : NonCmsBasePage
 				setting.SetValue(siteUser.TimeZoneId);
 			}
 
-			txtName.Text = SecurityHelper.RemoveMarkup(siteUser.Name);
+			txtName.Text = siteUser.Name.RemoveMarkup();
 			txtName.Enabled = siteSettings.AllowUserFullNameChange;
-			lblLoginName.Text = SecurityHelper.RemoveMarkup(siteUser.LoginName);
+			lblLoginName.Text = siteUser.LoginName.RemoveMarkup();
 			txtEmail.Text = siteUser.Email;
 			lblOpenID.Text = siteUser.OpenIdUri;
 			txtPasswordQuestion.Text = siteUser.PasswordQuestion;

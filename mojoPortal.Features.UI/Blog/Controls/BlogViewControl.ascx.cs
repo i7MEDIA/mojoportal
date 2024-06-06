@@ -179,8 +179,8 @@ public partial class BlogViewControl : UserControl, IRefreshAfterPostback, IUpda
 			return;
 		}
 
-		blogTitle = SecurityHelper.RemoveMarkup(blog.Title);
-		blogSubTitle = SecurityHelper.RemoveMarkup(blog.SubTitle);
+		blogTitle = blog.Title.RemoveMarkup();
+		blogSubTitle = blog.SubTitle.RemoveMarkup();
 		heading.Text = blogTitle;
 		if (CacheHelper.GetCurrentPage().ShowPageHeading && config.UsePostTitleAsPageHeading)
 		{
@@ -812,7 +812,6 @@ HTTP_REFERER: {Page.Request.ServerVariables["HTTP_REFERER"]}
 		nav.IsEditable = IsEditable;
 		nav.Config = config;
 		nav.SiteRoot = SiteRoot;
-		nav.ImageSiteRoot = ImageSiteRoot;
 		nav.OverrideDate = blog.StartDate;
 		nav.ShowCalendar = config.ShowCalendarOnPostDetail;
 		nav.ShowCommentCount = showCommentCountInNav;
