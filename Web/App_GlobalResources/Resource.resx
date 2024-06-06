@@ -814,7 +814,7 @@
     <value>View Profile</value>
   </data>
   <data name="ModuleAdminEditLink" xml:space="preserve">
-    <value>Edit</value>
+    <value>Edit Definition</value>
   </data>
   <data name="ModuleAdminSettingsLink" xml:space="preserve">
     <value>Module Settings</value>

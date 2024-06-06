@@ -8512,7 +8512,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to Edit Definition.
         /// </summary>
         internal static string ModuleAdminEditLink {
             get {

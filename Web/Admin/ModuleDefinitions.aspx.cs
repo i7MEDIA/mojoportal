@@ -18,10 +18,10 @@ public partial class ModuleDefinitions : NonCmsBasePage
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(this.Page_Load);
-		this.updateButton.Click += new EventHandler(this.UpdateBtn_Click);
-		this.cancelButton.Click += new EventHandler(this.CancelBtn_Click);
-		this.deleteButton.Click += new EventHandler(this.DeleteBtn_Click);
+		Load += new EventHandler(Page_Load);
+		updateButton.Click += new EventHandler(UpdateBtn_Click);
+		cancelButton.Click += new EventHandler(CancelBtn_Click);
+		deleteButton.Click += new EventHandler(DeleteBtn_Click);
 
 		SuppressMenuSelection();
 		SuppressPageMenu();
@@ -36,6 +36,7 @@ public partial class ModuleDefinitions : NonCmsBasePage
 			SiteUtils.RedirectToLoginPage(this);
 			return;
 		}
+
 		if (!WebUser.IsAdmin)
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
@@ -46,7 +47,7 @@ public partial class ModuleDefinitions : NonCmsBasePage
 
 		if (!siteSettings.IsServerAdminSite)
 		{
-			WebUtils.SetupRedirect(this, SiteRoot + "/Admin/AdminMenu.aspx");
+			WebUtils.SetupRedirect(this, "/Admin/AdminMenu.aspx".ToLinkBuilder().ToString());
 			return;
 		}
 
@@ -55,8 +56,6 @@ public partial class ModuleDefinitions : NonCmsBasePage
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;
 		}
-
-
 
 		LoadParams();
 		PopulateLabels();
@@ -74,30 +73,17 @@ public partial class ModuleDefinitions : NonCmsBasePage
 
 		if (moduleDefinitionId > -1)
 		{
-			ModuleDefinition moduleDefinition = new ModuleDefinition(this.moduleDefinitionId);
+			var moduleDefinition = new ModuleDefinition(moduleDefinitionId);
 			txtFeatureName.Text = moduleDefinition.FeatureName;
 			txtResourceFile.Text = moduleDefinition.ResourceFile;
 			txtFeatureGuid.Text = moduleDefinition.FeatureGuid.ToString();
-			this.txtControlSource.Text = moduleDefinition.ControlSrc;
-			this.txtSortOrder.Text = moduleDefinition.SortOrder.ToString(CultureInfo.InvariantCulture);
-			this.txtDefaultCacheDuration.Text = moduleDefinition.DefaultCacheTime.ToString(CultureInfo.InvariantCulture);
-			this.chkIsAdmin.Checked = moduleDefinition.IsAdmin;
-			//if (moduleDefinition.Icon.Length > 0)
-			//{
-			//    ddIcons.SelectedValue = moduleDefinition.Icon;
-			//    imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/" + moduleDefinition.Icon);
-
-			//}
-			//else
-			//{
-			//    imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/blank.gif");
-			//}
-
+			txtControlSource.Text = moduleDefinition.ControlSrc;
+			txtSortOrder.Text = moduleDefinition.SortOrder.ToString(CultureInfo.InvariantCulture);
+			txtDefaultCacheDuration.Text = moduleDefinition.DefaultCacheTime.ToString(CultureInfo.InvariantCulture);
+			chkIsAdmin.Checked = moduleDefinition.IsAdmin;
 			chkIsCacheable.Checked = moduleDefinition.IsCacheable;
 			chkIsSearchable.Checked = moduleDefinition.IsSearchable;
 			txtSearchListName.Text = moduleDefinition.SearchListName;
-
-
 		}
 		else
 		{
@@ -105,51 +91,47 @@ public partial class ModuleDefinitions : NonCmsBasePage
 			txtControlSource.Text = Resource.ModuleDefinitionsDefaultControlSource;
 			txtFeatureGuid.Text = Guid.NewGuid().ToString();
 			txtSortOrder.Text = "500";
-			this.txtDefaultCacheDuration.Text = "0";
-			this.lnkConfigureSettings.Visible = false;
-			//imgIcon.Src = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/blank.gif");
-			this.deleteButton.Visible = false;
-
+			txtDefaultCacheDuration.Text = "0";
+			lnkConfigureSettings.Visible = false;
+			deleteButton.Visible = false;
 		}
-
 	}
 
 
-	private void UpdateBtn_Click(Object sender, EventArgs e)
+	private void UpdateBtn_Click(object sender, EventArgs e)
 	{
 		if (Page.IsValid)
 		{
-			ModuleDefinition moduleDefinition = new ModuleDefinition(this.moduleDefinitionId);
+			var moduleDefinition = new ModuleDefinition(moduleDefinitionId)
+			{
+				SiteId = siteSettings.SiteId,
+				FeatureName = txtFeatureName.Text,
+				ResourceFile = txtResourceFile.Text,
+				ControlSrc = txtControlSource.Text,
+				SortOrder = int.Parse(txtSortOrder.Text, CultureInfo.InvariantCulture),
+				DefaultCacheTime = int.Parse(txtDefaultCacheDuration.Text, CultureInfo.InvariantCulture),
+				IsAdmin = chkIsAdmin.Checked,
+				IsCacheable = chkIsCacheable.Checked,
+				IsSearchable = chkIsSearchable.Checked,
+				SearchListName = txtSearchListName.Text
+			};
+
 			if (txtFeatureGuid.Text.Length == 36)
 			{
 				moduleDefinition.FeatureGuid = new Guid(txtFeatureGuid.Text);
 			}
-			moduleDefinition.SiteId = siteSettings.SiteId;
-			moduleDefinition.FeatureName = this.txtFeatureName.Text;
-			moduleDefinition.ResourceFile = txtResourceFile.Text;
-			moduleDefinition.ControlSrc = this.txtControlSource.Text;
-			moduleDefinition.SortOrder = int.Parse(this.txtSortOrder.Text, CultureInfo.InvariantCulture);
-			moduleDefinition.DefaultCacheTime = int.Parse(this.txtDefaultCacheDuration.Text, CultureInfo.InvariantCulture);
-			moduleDefinition.IsAdmin = this.chkIsAdmin.Checked;
-			//moduleDefinition.Icon = this.ddIcons.SelectedValue;
-			moduleDefinition.IsCacheable = chkIsCacheable.Checked;
-			moduleDefinition.IsSearchable = chkIsSearchable.Checked;
-			moduleDefinition.SearchListName = txtSearchListName.Text;
-
 			moduleDefinition.Save();
 
-			string redirectUrl = SiteRoot
-				+ "/Admin/ModuleDefinitions.aspx?defid="
-				+ moduleDefinition.ModuleDefId.ToString(CultureInfo.InvariantCulture);
+			string redirectUrl = "/Admin/ModuleDefinitions.aspx".ToLinkBuilder().AddParam("defid", moduleDefinition.ModuleDefId).ToString();
 
 			WebUtils.SetupRedirect(this, redirectUrl);
 		}
 	}
 
 
-	private void DeleteBtn_Click(Object sender, EventArgs e)
+	private void DeleteBtn_Click(object sender, EventArgs e)
 	{
-		lblErrorMessage.Text = String.Empty;
+		lblErrorMessage.Text = string.Empty;
 
 		int countOfUse = Module.GetCountByFeature(moduleDefinitionId);
 		if (countOfUse > 0)
@@ -159,58 +141,37 @@ public partial class ModuleDefinitions : NonCmsBasePage
 		}
 		try
 		{
-
 			ModuleDefinition.DeleteModuleDefinition(moduleDefinitionId);
 			ModuleDefinition.DeleteSettingsByFeature(moduleDefinitionId);
 
-			string redirectUrl;
-			if (pageId > -1)
-			{
-				redirectUrl = SiteRoot + "/Default.aspx?pageid=" + pageId.ToInvariantString();
-			}
-			else
-			{
-				redirectUrl = SiteRoot + "/Admin/ModuleAdmin.aspx";
-			}
-			WebUtils.SetupRedirect(this, redirectUrl);
-
+			DoRedirect();
 		}
 		catch (DbException)
 		{
 			lblErrorMessage.Text = Resource.ModuleDefinitionsDeleteInstancesBeforeModuleDefinitionMessage;
 		}
-
 	}
 
 
+	private void CancelBtn_Click(object sender, EventArgs e) => DoRedirect();
 
-	private void CancelBtn_Click(Object sender, EventArgs e)
+
+	private void DoRedirect()
 	{
 		string redirectUrl;
 		if (pageId > -1)
 		{
-			redirectUrl = SiteRoot + "/Default.aspx?pageid=" + pageId.ToString(CultureInfo.InvariantCulture);
+			redirectUrl = "Default.aspx".ToLinkBuilder().PageId(pageId).ToString();
 		}
 		else
 		{
-			redirectUrl = SiteRoot + "/Admin/ModuleAdmin.aspx";
+			redirectUrl = "Admin/ModuleAdmin.aspx".ToLinkBuilder().ToString();
 		}
 
-
 		WebUtils.SetupRedirect(this, redirectUrl);
+		return;
 	}
 
-	//private void SetupIconScript()
-	//{
-	//    string logoScript = "<script type=\"text/javascript\">"
-	//        + "function showIcon(listBox) { if(!document.images) return; "
-	//        + "var iconPath = '" + iconPath + "'; "
-	//        + "document.images." + imgIcon.ClientID + ".src = iconPath + listBox.value;"
-	//        + "}</script>";
-
-	//    this.Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "showIcon", logoScript);
-
-	//}
 
 	private void PopulateLabels()
 	{
@@ -220,10 +181,14 @@ public partial class ModuleDefinitions : NonCmsBasePage
 
 		lnkAdminMenu.Text = Resource.AdminMenuLink;
 		lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
-		lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
+		lnkAdminMenu.NavigateUrl = "/Admin/AdminMenu.aspx".ToLinkBuilder().ToString();
+
+		lnkAdvancedTools.Text = Resource.AdvancedToolsLink;
+		lnkAdvancedTools.NavigateUrl = "/Admin/AdvancedTools.aspx".ToLinkBuilder().ToString();
+
 		lnkModuleAdmin.Text = Resource.AdminMenuFeatureModulesLink;
 		lnkModuleAdmin.ToolTip = Resource.AdminMenuFeatureModulesLink;
-		lnkModuleAdmin.NavigateUrl = SiteRoot + "/Admin/ModuleAdmin.aspx";
+		lnkModuleAdmin.NavigateUrl = "/Admin/ModuleAdmin.aspx".ToLinkBuilder().ToString();
 
 		reqFeatureName.ErrorMessage = Resource.ModuleDefinitionsFeatureNameRequiredHelp;
 		reqControlSource.ErrorMessage = Resource.ModuleDefinitionsControlSourceRequiredHelp;
@@ -244,23 +209,7 @@ public partial class ModuleDefinitions : NonCmsBasePage
 		UIHelper.AddConfirmationDialog(deleteButton, Resource.ModuleDefinitionsDeleteWarning);
 
 		lnkConfigureSettings.Text = Resource.ModuleDefinitionsConfigureLink;
-		lnkConfigureSettings.NavigateUrl = SiteRoot
-			+ "/Admin/ModuleDefinitionSettings.aspx?defid="
-			+ this.moduleDefinitionId.ToString(CultureInfo.InvariantCulture);
-
-		//if (!Page.IsPostBack)
-		//{
-		//    FileInfo[] fileInfo = SiteUtils.GetFeatureIconList();
-		//    this.ddIcons.DataSource = fileInfo;
-		//    this.ddIcons.DataBind();
-
-		//    ddIcons.Items.Insert(0, new ListItem(Resource.ModuleSettingsNoIconLabel, "blank.gif"));
-		//    ddIcons.Attributes.Add("onChange", "javascript:showIcon(this);");
-		//    ddIcons.Attributes.Add("size", "6");
-		//}
-
-
-
+		lnkConfigureSettings.NavigateUrl = "/Admin/ModuleDefinitionSettings.aspx".ToLinkBuilder().AddParam("defid", moduleDefinitionId).ToString();
 	}
 
 
@@ -268,10 +217,8 @@ public partial class ModuleDefinitions : NonCmsBasePage
 	{
 		pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
 		moduleDefinitionId = WebUtils.ParseInt32FromQueryString("defid", -1);
-		//iconPath = Page.ResolveUrl("~/Data/SiteImages/FeatureIcons/");
 
 		AddClassToBody("administration");
 		AddClassToBody("featureadmin");
 	}
-
 }

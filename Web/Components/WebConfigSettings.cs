@@ -1325,8 +1325,6 @@ public static class WebConfigSettings
 	/// </summary>
 	public static bool ResolveFullUrlsForMenuItemProtocolDifferences => ConfigHelper.GetBoolProperty("ResolveFullUrlsForMenuItemProtocolDifferences", false);
 
-
-
 	public static bool ForceSslOnProfileView => ConfigHelper.GetBoolProperty("ForceSslOnProfileView", false);
 
 	/// <summary>
@@ -1359,31 +1357,17 @@ public static class WebConfigSettings
 
 	public static string RSSImageFileName => ConfigHelper.GetStringProperty("RSSImageFileName", "feed.png");
 
-
-
-
 	public static string NewThreadImage => ConfigHelper.GetStringProperty("NewThreadImage", "messages_new.png");
 
 	public static string ForumThreadImage => ConfigHelper.GetStringProperty("ForumThreadImage", "messages_chat.png");
-
-
 
 	public static bool UseIconsForAdminLinks => ConfigHelper.GetBoolProperty("UseIconsForAdminLinks", true);
 
 	public static bool UsePageImagesInSiteMap => ConfigHelper.GetBoolProperty("UsePageImagesInSiteMap", false);
 
-	//public static bool UseMenuTooltipForCustomCss
-	//{
-	//    get { return mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("UseMenuTooltipForCustomCss", true); }
-	//}
-
-
 	public static bool TreatChildPageIndexAsSiteMap => ConfigHelper.GetBoolProperty("TreatChildPageIndexAsSiteMap", false);
 
-
 	public static bool UseTextLinksForFeatureSettings => ConfigHelper.GetBoolProperty("UseTextLinksForFeatureSettings", true);
-
-	public static bool UseSiteMailFeature => ConfigHelper.GetBoolProperty("UseSiteMailFeature", false);
 
 	public static bool Log404HandlerExceptions
 	{
@@ -1400,7 +1384,6 @@ public static class WebConfigSettings
 	public static bool Log404Errors => ConfigHelper.GetBoolProperty("Log404Errors", true);
 
 	public static bool LogRedirectsToPreferredHostName => ConfigHelper.GetBoolProperty("LogRedirectsToPreferredHostName", false);
-
 
 	public static bool TrackAuthenticatedRequests => ConfigHelper.GetBoolProperty("TrackAuthenticatedRequests", true);
 
