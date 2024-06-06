@@ -182,11 +182,8 @@ public abstract class SiteModuleControl : mojoUserControl
 	{
 		get
 		{
-			if (imageSiteRoot == null)
-			{
-				//imageSiteRoot = WebUtils.GetSiteRoot();
-				imageSiteRoot = SiteUtils.GetImageSiteRoot(Page);
-			}
+			//imageSiteRoot = WebUtils.GetSiteRoot();
+			imageSiteRoot ??= SiteUtils.GetImageSiteRoot(Page);
 			return imageSiteRoot;
 		}
 	}
