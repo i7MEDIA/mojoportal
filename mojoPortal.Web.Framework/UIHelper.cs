@@ -149,6 +149,7 @@ public static class UIHelper
 		return result.ToString();
 	}
 
+	[Obsolete("Use mojoPortal.Core.Extensions.CollectionExtensions.ToDelimitedString", true)]
 	public static string SelectedItemsToCommaSeparatedString(this ListItemCollection list)
 	{
 		StringBuilder result = new StringBuilder();
@@ -605,27 +606,6 @@ public static class UIHelper
 
 	}
 
-	//button.OnClientClick = "this.value='"
-	//    + disabledText
-	//    + "';this.disabled = true;"
-	//    + postbackEventReference;
-
-	//public static void DisableButtonAfterClick(
-	//    Button button,
-	//    string disabledText)
-	//{
-	//    if (button == null) return;
-	//    button.OnClientClick = "this.value='"
-	//        + disabledText
-	//        + "';this.disabled = true;";
-
-	//    //button.Attributes.Add("onclick", "this.value='"
-	//    //    + disabledText
-	//    //    + "';this.disabled = true;"
-	//    //    + postbackEventReference);
-	//}
-
-
 
 	public static Control GetPostBackControl(Page page)
 	{
@@ -675,6 +655,7 @@ public static class UIHelper
 		return CreateExcerpt(content, excerptLength, string.Empty);
 	}
 
+
 	/// <summary>
 	/// creates a plain text excerpt of the passed in html content without any markup and with a length less than or equal to the passed in length.
 	/// </summary>
@@ -708,6 +689,7 @@ public static class UIHelper
 		return text;
 	}
 
+
 	public static string ConvertHtmlBreaksToTextBreaks(string text)
 	{
 		text = Regex.Replace(text, "<p>", "\n\n");
@@ -716,41 +698,9 @@ public static class UIHelper
 		return text;
 	}
 
-	/// <summary>
-	/// removes white space from css to reduce network bandwidth usage and therefore improve performance
-	/// 2008-11-01 found this method breaks some presentation.
-	/// use CssMinify.cs instead.
-	/// </summary>
-	/// <param name="css"></param>
-	/// <returns></returns>
-	public static string CompressCss(string css)
-	{
-
-		css = Regex.Replace(css, "/\\*.+?\\*/", "", RegexOptions.Singleline);
-		css = css.Replace("  ", string.Empty);
-		css = css.Replace(Environment.NewLine + Environment.NewLine + Environment.NewLine, string.Empty);
-		css = css.Replace(Environment.NewLine + Environment.NewLine, Environment.NewLine);
-		css = css.Replace(Environment.NewLine, string.Empty);
-		css = css.Replace("\\t", string.Empty);
-		css = css.Replace(" {", "{");
-		css = css.Replace(" :", ":");
-		css = css.Replace(": ", ":");
-		css = css.Replace(", ", ",");
-		css = css.Replace("; ", ";");
-		css = css.Replace(";}", "}");
-		css = Regex.Replace(css, "/\\*[^\\*]*\\*+([^/\\*]*\\*+)*/", "$1");
-		css = Regex.Replace(css, "(?<=[>])\\s{2,}(?=[<])|(?<=[>])\\s{2,}(?=&nbsp;)|(?<=&ndsp;)\\s{2,}(?=[<])", string.Empty);
-
-		return css;
-
-	}
 
 	public static int CompareFileNames(FileInfo f1, FileInfo f2)
 	{
 		return f1.FullName.CompareTo(f2.FullName);
 	}
-
-
-
-
 }
