@@ -19,7 +19,7 @@ public partial class HtmlIncludeModule : SiteModuleControl
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		Title1.EditUrl = "HtmlInclude/Edit.aspx".ToQueryBuilder().ToString();
+		Title1.EditUrl = "HtmlInclude/Edit.aspx".ToLinkBuilder().ToString();
 		Title1.EditText = HtmlIncludeResources.HtmlFragmentIncludeEditLink;
 
 		if (ModuleConfiguration != null)

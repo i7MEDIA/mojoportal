@@ -75,7 +75,7 @@ public class mojoBasePage : Page
 
 	public void EnsureDefaultModal()
 	{
-		ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"\r\n<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath.ToQueryBuilder()}\"></script>", false);
+		ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"\r\n<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath.ToLinkBuilder()}\"></script>", false);
 		var phSiteFooter = Master.FindControl("phSiteFooter");
 		if (phSiteFooter is not null && phSiteFooter.FindControlRecursive("mojoModalTemplate") is null)
 		{

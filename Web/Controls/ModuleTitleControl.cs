@@ -511,7 +511,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 					siteRoot = SiteUtils.GetNavigationSiteRoot();
 
-					lnkModuleSettings.NavigateUrl = "Admin/ModuleSettings.aspx".ToQueryBuilder().PageId(ModuleInstance.PageId).ModuleId(ModuleInstance.ModuleId).ToString();
+					lnkModuleSettings.NavigateUrl = "Admin/ModuleSettings.aspx".ToLinkBuilder().PageId(ModuleInstance.PageId).ModuleId(ModuleInstance.ModuleId).ToString();
 
 					if ((enableWorkflow) && (siteModule is not null) && (siteModule is IWorkflow))
 					{
@@ -533,7 +533,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 				{
 					lnkModuleEdit.ToolTip = EditText;
 				}
-				lnkModuleEdit.NavigateUrl = EditUrl.ToQueryBuilder().PageId(ModuleInstance.PageId).ModuleId(ModuleInstance.ModuleId).ToString();
+				lnkModuleEdit.NavigateUrl = EditUrl.ToLinkBuilder().PageId(ModuleInstance.PageId).ModuleId(ModuleInstance.ModuleId).ToString();
 
 				if (!useTextLinksForFeatureSettings)
 				{
@@ -605,7 +605,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 						ibApproveContent.Visible = true;
 						ibApproveContent.ToolTip = Resource.ApproveContentToolTip;
 
-						lnkRejectContent.NavigateUrl = "Admin/RejectContent.aspx".ToQueryBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
+						lnkRejectContent.NavigateUrl = "Admin/RejectContent.aspx".ToLinkBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
 						lnkRejectContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.RejectContentImage);
 						lnkRejectContent.ToolTip = Resource.RejectContentToolTip;
 						lnkRejectContent.Visible = true;
@@ -624,7 +624,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 						ibPublishContent.Visible = true;
 						ibPublishContent.ToolTip = Resource.PublishContentToolTip;
 
-						lnkRejectContent.NavigateUrl = "/Admin/RejectContent.aspx".ToQueryBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
+						lnkRejectContent.NavigateUrl = "Admin/RejectContent.aspx".ToLinkBuilder().ModuleId(ModuleInstance.ModuleId).PageId(ModuleInstance.PageId).ToString();
 						lnkRejectContent.ImageUrl = Page.ResolveUrl(WebConfigSettings.RejectContentImage);
 						lnkRejectContent.ToolTip = Resource.RejectContentToolTip;
 						lnkRejectContent.Visible = true;

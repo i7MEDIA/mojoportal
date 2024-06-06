@@ -3,13 +3,13 @@ using System.Web;
 
 namespace mojoPortal.Web;
 
-public class QueryBuilder
+public class LinkBuilder
 {
-	private string url;
-	private Dictionary<string, object> queries = [];
-	private bool includeSiteRoot;
+	private readonly string url;
+	private readonly Dictionary<string, object> queries = [];
+	private readonly bool includeSiteRoot;
 
-	public QueryBuilder(string url, bool includeSiteRoot = true)
+	public LinkBuilder(string url, bool includeSiteRoot = true)
 	{
 		this.url = url;
 		if (this.url.Contains("?"))
@@ -29,39 +29,39 @@ public class QueryBuilder
 
 		this.includeSiteRoot = includeSiteRoot;
 	}
-	public QueryBuilder PageId(int id)
+	public LinkBuilder PageId(int id)
 	{
 		queries.Add("pageid", id);
 		return this;
 	}
-	public QueryBuilder ModuleId(int id)
+	public LinkBuilder ModuleId(int id)
 	{
 		queries.Add("mid", id);
 		return this;
 	}
-	public QueryBuilder SiteId(int id)
+	public LinkBuilder SiteId(int id)
 	{
 		queries.Add("siteid", id);
 		return this;
 	}
-	public QueryBuilder ItemId(int id)
+	public LinkBuilder ItemId(int id)
 	{
 		queries.Add("itemid", id);
 		return this;
 	}
-	public QueryBuilder ReturnUrl(string returnUrl)
+	public LinkBuilder ReturnUrl(string returnUrl)
 	{
 		queries.Add("returnurl", returnUrl);
 		return this;
 	}
 
-	public QueryBuilder AddParam(string key, object value)
+	public LinkBuilder AddParam(string key, object value)
 	{
 		queries.Add(key, value);
 		return this;
 	}
 
-	public QueryBuilder AddParams(Dictionary<string, object> @params)
+	public LinkBuilder AddParams(Dictionary<string, object> @params)
 	{
 		foreach (var @param in @params)
 		{
@@ -85,10 +85,10 @@ public class QueryBuilder
 	}
 }
 
-public static class QueryBuilderExtensions
+public static class LinkBuilderExtensions
 {
-	public static QueryBuilder ToQueryBuilder(this string str, bool includeSiteRoot = true)
+	public static LinkBuilder ToLinkBuilder(this string str, bool includeSiteRoot = true)
 	{
-		return new QueryBuilder(str, includeSiteRoot);
+		return new LinkBuilder(str, includeSiteRoot);
 	}
 }

@@ -329,8 +329,8 @@ public partial class PagePermissionPage : NonCmsBasePage
 			//		}
 			//	]);
 			crumbs.AddedCrumbs
-				= $"{crumbs.ItemWrapperTop}<a href=\"{"Admin/PageSettings.aspx".ToQueryBuilder().PageId(pageId)}\" class=\"{crumbs.CssClass}\">{Resource.PageSettingsPageTitle}</a>{crumbs.ItemWrapperBottom}{crumbs.Separator}" +
-				$"{crumbs.ItemWrapperTop}<a href=\"{"Admin/PagePermissionsMenu.aspx".ToQueryBuilder().PageId(pageId)}\" class=\"{crumbs.CssClass}\">{Resource.PagePermissionsLink}</a>{crumbs.ItemWrapperBottom}";
+				= $"{crumbs.ItemWrapperTop}<a href=\"{"Admin/PageSettings.aspx".ToLinkBuilder().PageId(pageId)}\" class=\"{crumbs.CssClass}\">{Resource.PageSettingsPageTitle}</a>{crumbs.ItemWrapperBottom}{crumbs.Separator}" +
+				$"{crumbs.ItemWrapperTop}<a href=\"{"Admin/PagePermissionsMenu.aspx".ToLinkBuilder().PageId(pageId)}\" class=\"{crumbs.CssClass}\">{Resource.PagePermissionsLink}</a>{crumbs.ItemWrapperBottom}";
 		}
 
 		rbAdminsOnly.Text = Resource.AdminsOnly;

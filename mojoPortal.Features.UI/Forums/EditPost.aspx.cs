@@ -283,11 +283,11 @@ namespace mojoPortal.Web.ForumUI
 
 			if (ForumConfiguration.CombineUrlParams)
 			{
-				lnkForum.HRef = "/Forums/ForumView.aspx".ToQueryBuilder().PageId(pageId).AddParam("f", forum.ItemId).ToString() + "~1";
+				lnkForum.HRef = "Forums/ForumView.aspx".ToLinkBuilder().PageId(pageId).AddParam("f", forum.ItemId).ToString() + "~1";
 			}
 			else
 			{
-				lnkForum.HRef = "/Forums/ForumView.aspx".ToQueryBuilder().PageId(pageId).ModuleId(moduleId).ItemId(forum.ItemId).ToString();
+				lnkForum.HRef = "Forums/ForumView.aspx".ToLinkBuilder().PageId(pageId).ModuleId(moduleId).ItemId(forum.ItemId).ToString();
 			}
 
 			lnkForum.InnerHtml = forum.Title;

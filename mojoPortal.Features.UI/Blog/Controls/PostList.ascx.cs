@@ -133,7 +133,7 @@ public partial class PostList : UserControl
 					out totalPages
 				);
 
-				pageUrl = "/Blog/ViewCategory.aspx".ToQueryBuilder().AddParams(commonUrlParams).ToString();
+				pageUrl = "Blog/ViewCategory.aspx".ToLinkBuilder().AddParams(commonUrlParams).ToString();
 				break;
 
 			case "ByMonth":
@@ -147,7 +147,7 @@ public partial class PostList : UserControl
 					out totalPages
 				);
 
-				pageUrl = "/Blog/ViewArchive.aspx".ToQueryBuilder().AddParams(commonUrlParams).AddParam("month", Month).AddParam("year", Year).ToString();
+				pageUrl = "Blog/ViewArchive.aspx".ToLinkBuilder().AddParams(commonUrlParams).AddParam("month", Month).AddParam("year", Year).ToString();
 				break;
 
 			case "DescendingByDate":
@@ -160,7 +160,7 @@ public partial class PostList : UserControl
 					out totalPages
 				);
 
-				pageUrl = "/Blog/ViewList.aspx".ToQueryBuilder().AddParams(commonUrlParams).ToString();
+				pageUrl = "Blog/ViewList.aspx".ToLinkBuilder().AddParams(commonUrlParams).ToString();
 				break;
 
 		}
@@ -689,10 +689,10 @@ public partial class PostList : UserControl
 	{
 		if (useFriendlyUrls && !string.IsNullOrWhiteSpace(itemUrl))
 		{
-			return itemUrl.ToQueryBuilder().ToString() + disqusFlag;
+			return itemUrl.ToLinkBuilder().ToString() + disqusFlag;
 		}
 
-		return "Blog/ViewPost.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(itemId).ToString() + disqusFlag;
+		return "Blog/ViewPost.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(itemId).ToString() + disqusFlag;
 	}
 
 
@@ -700,16 +700,16 @@ public partial class PostList : UserControl
 	{
 		if (useFriendlyUrls && !string.IsNullOrWhiteSpace(itemUrl))
 		{
-			return itemUrl.ToQueryBuilder().ToString();
+			return itemUrl.ToLinkBuilder().ToString();
 		}
 
-		return "Blog/ViewPost.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(itemId).ToString();
+		return "Blog/ViewPost.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(itemId).ToString();
 	}
 
 
 	private string GetRssUrl()
 	{
-		return "/Blog/RSS.aspx".ToQueryBuilder()
+		return "Blog/RSS.aspx".ToLinkBuilder()
 						  .AddParam("p", Invariant($"{PageId}~{ModuleId}~{categoryId}"))
 						  .AddParam("r", Global.FeedRedirectBypassToken)
 						  .ToString();

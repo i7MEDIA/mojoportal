@@ -163,14 +163,14 @@ public partial class BlogNav : UserControl
 
 	private void RedirectFromCalendar()
 	{
-		string pageUrl = "/Blog/ViewList.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("blogdate", CalendarDate.Date.ToString("s")).ToString();
+		string pageUrl = "/Blog/ViewList.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("blogdate", CalendarDate.Date.ToString("s")).ToString();
 		WebUtils.SetupRedirect(this, pageUrl);
 	}
 
 	private void SetupJQueryCalendar()
 	{
 		var script = Invariant($@"
-var blogBaseUrl{ModuleId} = '{"/Blog/ViewList.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("blogdate", string.Empty)}'; 
+var blogBaseUrl{ModuleId} = '{"/Blog/ViewList.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("blogdate", string.Empty)}'; 
 
 function getLastDay(iMonth, iYear) {{
 	return new Date(iYear, iMonth, 0).getDate();

@@ -346,7 +346,7 @@ public class metaweblogapi : IHttpHandler
 				SiteGuid = siteSettings.SiteGuid,
 				PageGuid = post.BlogGuid,
 				Url = newUrl,
-				RealUrl = "Blog/ViewPost.aspx".ToQueryBuilder(false).PageId(pageId).ModuleId(post.ModuleId).ItemId(post.ItemId).ToString()
+				RealUrl = "Blog/ViewPost.aspx".ToLinkBuilder(false).PageId(pageId).ModuleId(post.ModuleId).ItemId(post.ItemId).ToString()
 				//$"~/Blog/ViewPost.aspx?pageid={pageId.ToInvariantString()}&mid={post.ModuleId.ToInvariantString()}&ItemID={post.ItemId.ToInvariantString()}"
 			};
 
@@ -2206,7 +2206,7 @@ public class metaweblogapi : IHttpHandler
 		{
 			//url = siteSettings.SiteRoot + String.Format(CultureInfo.InvariantCulture, "/Blog/ViewPost.aspx?ItemID={0}&mid={1}", itemId, moduleId);
 			//url = navigationSiteRoot + string.Format(CultureInfo.InvariantCulture, "/Blog/ViewPost.aspx?ItemID={0}&mid={1}", itemId, moduleId);
-			url = "Blog/ViewPost.aspx".ToQueryBuilder().ModuleId(moduleId).ItemId(itemId).ToString();
+			url = "Blog/ViewPost.aspx".ToLinkBuilder().ModuleId(moduleId).ItemId(itemId).ToString();
 		}
 
 		return url;
@@ -2223,7 +2223,7 @@ public class metaweblogapi : IHttpHandler
 		else
 		{
 			//url = navigationSiteRoot + String.Format(CultureInfo.InvariantCulture, "/Default.aspx?pageid={0}", pageId);
-			url = "Default.aspx".ToQueryBuilder().PageId(pageId).ToString();
+			url = "Default.aspx".ToLinkBuilder().PageId(pageId).ToString();
 		}
 
 		return url;

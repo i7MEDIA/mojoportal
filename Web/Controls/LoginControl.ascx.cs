@@ -119,7 +119,7 @@ namespace mojoPortal.Web.UI
             if (siteSettings.AllowNewRegistration)
             {
                 pnlRegister.Visible = true;
-				lnkRegister.NavigateUrl = "/Secure/Register.aspx".ToQueryBuilder().ToString();
+				lnkRegister.NavigateUrl = "Secure/Register.aspx".ToLinkBuilder().ToString();
 				lnkRegister.Text = Resource.RegisterLink;
 				lnkRegister.Visible = siteSettings.AllowNewRegistration;
 				lblRegisterPrompt.ConfigKey = "SignInRegisterPrompt";
@@ -128,7 +128,7 @@ namespace mojoPortal.Web.UI
 				string returnUrlParam = Page.Request.Params.Get("returnurl");
 				if (!string.IsNullOrWhiteSpace(returnUrlParam))
 				{
-					lnkRegister.NavigateUrl = lnkRegister.NavigateUrl.ToQueryBuilder().ReturnUrl(returnUrlParam.RemoveMarkup()).ToString();
+					lnkRegister.NavigateUrl = lnkRegister.NavigateUrl.ToLinkBuilder().ReturnUrl(returnUrlParam.RemoveMarkup()).ToString();
 				}
 			}
             else

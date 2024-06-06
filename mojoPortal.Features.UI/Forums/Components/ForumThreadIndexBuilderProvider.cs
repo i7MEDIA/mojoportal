@@ -297,7 +297,7 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 
 				if (ForumConfiguration.CombineUrlParams)
 				{
-					indexItem.ViewPage = Invariant($"{"Forums/Thread.aspx".ToQueryBuilder(false).PageId(pageModule.PageId).AddParam("t", forumThread.ThreadId)}~1");
+					indexItem.ViewPage = Invariant($"{"Forums/Thread.aspx".ToLinkBuilder(false).PageId(pageModule.PageId).AddParam("t", forumThread.ThreadId)}~1");
 					//$"Forums/Thread.aspx?pageid={pageModule.PageId.ToInvariantString()}&t={forumThread.ThreadId.ToInvariantString()}~1";
 					indexItem.UseQueryStringParams = false;
 				}

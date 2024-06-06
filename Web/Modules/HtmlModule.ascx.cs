@@ -448,7 +448,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 		if (IsEditable)
 		{
-			TitleUrl = "HtmlEdit.aspx".ToQueryBuilder().PageId(currentPage.PageId).ModuleId(ModuleId).ToString();
+			TitleUrl = "HtmlEdit.aspx".ToLinkBuilder().PageId(currentPage.PageId).ModuleId(ModuleId).ToString();
 		}
 
 		config = new HtmlConfiguration(Settings);

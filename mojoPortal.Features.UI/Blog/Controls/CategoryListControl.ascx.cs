@@ -62,7 +62,7 @@ public partial class BlogCategories : UserControl
 		if (RenderAsTagCloud)
 		{
 			dlCategories.Visible = false;
-			cloud.DataHrefFormatString = "/Blog/ViewCategory.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", "{0}").ToString();
+			cloud.DataHrefFormatString = "Blog/ViewCategory.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", "{0}").ToString();
 			cloud.UseWeightInTextFormat = true;
 			cloud.DataHrefField = "CategoryID";
 			cloud.DataTextField = "Category";

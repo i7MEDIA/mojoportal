@@ -78,7 +78,7 @@ namespace mojoPortal.Web.AdminUI
 			heading.Text = string.Format(CultureInfo.InvariantCulture, Resource.PermissionsFormat, lnkModuleDefinition.Text);
 
 			lnkModuleDefinition.ToolTip = lnkModuleDefinition.Text;
-			lnkModuleDefinition.NavigateUrl = "Admin/ModuleDefinitions.aspx".ToQueryBuilder().AddParam("defid", moduleDefId).ToString();
+			lnkModuleDefinition.NavigateUrl = "Admin/ModuleDefinitions.aspx".ToLinkBuilder().AddParam("defid", moduleDefId).ToString();
 
 			if (!IsPostBack) { BindRoles(); }
 

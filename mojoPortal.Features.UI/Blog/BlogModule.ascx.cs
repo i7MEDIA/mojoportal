@@ -61,7 +61,7 @@ public partial class BlogModule : SiteModuleControl
 		if (IsEditable)
 		{
 			Title1.LiteralExtraMarkup =
-				Invariant($"&nbsp;<a href=\"{"Blog/Manage.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId)}\" class=\"ModuleEditLink\" title=\"{BlogResources.Administration}\">{BlogResources.Administration}</a>");
+				Invariant($"&nbsp;<a href=\"{"Blog/Manage.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId)}\" class=\"ModuleEditLink\" title=\"{BlogResources.Administration}\">{BlogResources.Administration}</a>");
 		}
 	}
 
