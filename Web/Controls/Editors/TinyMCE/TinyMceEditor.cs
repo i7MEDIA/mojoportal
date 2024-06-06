@@ -255,7 +255,7 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 		//Page.EnableViewState = true;
 		//this.EnableViewState = true;
 		TextMode = TextBoxMode.MultiLine;
-		BasePath = WebConfigSettings.TinyMceBasePath;
+		BasePath = ConfigHelper.GetStringProperty("TinyMCE:BasePath", "/ClientScript/tinymce641/");
 	}
 
 	protected override void OnPreRender(EventArgs e)
@@ -269,7 +269,7 @@ public class TinyMceEditor : TextBox, ITinyMceSettings
 		Page.ClientScript.RegisterClientScriptBlock(
 			GetType(),
 			"tinymcemain",
-			$"<script data-loader=\"TinyMCE\" src=\"{ResolveUrl(BasePath + "tinymce.min.js")}\"></script>"
+			$"<script data-loader=\"TinyMCE\" src=\"{ResolveUrl($"{BasePath}tinymce.min.js")}\"></script>"
 		);
 
 		StringBuilder script = new StringBuilder();

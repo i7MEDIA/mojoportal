@@ -1135,6 +1135,8 @@
     <Compile Include="Controls\Artisteer\MenuAdapterArtisteerVertical.cs" />
     <Compile Include="Controls\Artisteer\mojoMenuArtisteerVertical.cs" />
     <Compile Include="Controls\Editors\EditorConfig.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\ITinyMceSettings.cs" />
+    <Compile Include="Controls\Editors\TinyMCE\TinyMceSettings.cs" />
     <Compile Include="Controls\EmbedSVGSprite.cs" />
     <Compile Include="Controls\Panels\AutoHidePanel.cs" />
     <Compile Include="Controls\Captcha\CaptchaVerificationResponse.cs" />

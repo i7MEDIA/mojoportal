@@ -539,11 +539,11 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 		writer.Write(
 			"<textarea id=\"{0}\" name=\"{1}\"  rows=\"4\" cols=\"40\" style=\"width: {2}; height: {3}\" >{4}</textarea>",
-				this.ClientID,
-				this.UniqueID,
-				this.Width,
-				this.Height,
-				System.Web.HttpUtility.HtmlEncode(this.Text));
+				ClientID,
+				UniqueID,
+				Width,
+				Height,
+				System.Web.HttpUtility.HtmlEncode(Text));
 
 
 	}
@@ -558,23 +558,23 @@ public class TinyMCE : Control, IPostBackDataHandler
 	{
 		if (BasePath.Contains("tiny_mce"))
 		{
-			this.Page.ClientScript.RegisterClientScriptBlock(
-				this.GetType(),
+			Page.ClientScript.RegisterClientScriptBlock(
+				GetType(),
 				"tinymcemain",
 				"<script data-loader=\"TinyMCE\" src=\""
-				+ ResolveUrl(this.BasePath + "tiny_mce.js") + "\"></script>");
+				+ ResolveUrl(BasePath + "tiny_mce.js") + "\"></script>");
 		}
 		else
 		{
-			this.Page.ClientScript.RegisterClientScriptBlock(
-				this.GetType(),
+			Page.ClientScript.RegisterClientScriptBlock(
+				GetType(),
 				"tinymcemain",
 				"<script data-loader=\"TinyMCE\" src=\""
-				+ ResolveUrl(this.BasePath + "tinymce.min.js") + "\"></script>");
+				+ ResolveUrl(BasePath + "tinymce.min.js") + "\"></script>");
 
 		}
 
-		StringBuilder setupScript = new StringBuilder();
+		var setupScript = new StringBuilder();
 
 		setupScript.Append("function mojoTinyMCEOnChangeHandler(inst) {");
 		//setupScript.Append("hookupGoodbyePrompt(\"" + Page.Server.HtmlEncode(Resource.UnSavedChangesPrompt) + "\"); ");
@@ -597,7 +597,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 		//if (BasePath.Contains("tiny_mce"))
 		//{
 
-		setupScript.Append(" var ed" + this.ClientID + " = new tinymce.Editor('" + this.ClientID + "', { ");
+		setupScript.Append($" var ed{ClientID} = new tinymce.Editor('{ClientID}', {{ ");
 		//}
 		//else
 		//{
@@ -612,7 +612,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 		//waiting for the 3.5 branch of TinyMCE to comeout of beta
 		// it has more support for html 5
 
-		setupScript.Append(", schema :'" + WebConfigSettings.TinyMceSchema + "' ");
+		setupScript.Append($", schema :'{WebConfigSettings.TinyMceSchema}' ");
 		//http://www.tinymce.com/tryit/html5_formats.php
 		// setupScript.Append(",style_formats :[{title : 'section', block : 'section', wrapper: true, merge_siblings: false},");
 		// setupScript.Append("{title : 'article', block : 'article', wrapper: true, merge_siblings: false},");
@@ -630,7 +630,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 			setupScript.Append(", accessibility_warnings : false ");
 		}
 
-		setupScript.Append(", browsers : \"" + this.Browsers + "\"");
+		setupScript.Append(", browsers : \"" + Browsers + "\"");
 
 		setupScript.Append(",forced_root_block:'" + ForcedRootBlock + "'");
 
@@ -649,7 +649,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 		//setupScript.Append(",encoding :'xml'");
 
-		setupScript.Append(", dialog_type : \"" + this.DialogType + "\"");
+		setupScript.Append(", dialog_type : \"" + DialogType + "\"");
 
 		CultureInfo culture;
 		if (WebConfigSettings.UseCultureOverride)
@@ -674,9 +674,9 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 		//extended_valid_elements
 
-		setupScript.Append(",directionality:\"" + this.TextDirection + "\"");
+		setupScript.Append(",directionality:\"" + TextDirection + "\"");
 
-		setupScript.Append(",editor_deselector:\"" + this.DeSelectorCSSClass + "\"");
+		setupScript.Append(",editor_deselector:\"" + DeSelectorCSSClass + "\"");
 
 
 
@@ -697,7 +697,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 		if (Plugins.Length > 0)
 		{
-			setupScript.Append(", plugins : \"" + this.Plugins + "\"");
+			setupScript.Append(", plugins : \"" + Plugins + "\"");
 			if (Plugins.Contains("preview"))
 			{
 				setupScript.Append(",plugin_preview_width:'850'");
@@ -713,7 +713,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 		//    setupScript.Append(", strict_loading_mode : true ");
 		//}
 
-		setupScript.Append(", theme : \"" + this.Theme + "\"");
+		setupScript.Append(", theme : \"" + Theme + "\"");
 
 		if (!EnableUndoRedo)
 		{
@@ -722,20 +722,20 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 		if (EnableUndoRedo)
 		{
-			setupScript.Append(", custom_undo_redo_levels : " + this.UnDoLevels.ToString());
+			setupScript.Append(", custom_undo_redo_levels : " + UnDoLevels.ToString());
 		}
 
 		if (Theme == "advanced")
 		{
-			setupScript.Append(", layout_manager : \"" + this.AdvancedLayoutManager + "\"");
-			setupScript.Append(", theme_advanced_blockformats : \"" + this.AdvancedBlockFormats + "\"");
+			setupScript.Append(", layout_manager : \"" + AdvancedLayoutManager + "\"");
+			setupScript.Append(", theme_advanced_blockformats : \"" + AdvancedBlockFormats + "\"");
 			if (AdvancedStyles.Length > 0)
 			{
-				setupScript.Append(", theme_advanced_styles : \"" + this.AdvancedStyles + "\"");
+				setupScript.Append(", theme_advanced_styles : \"" + AdvancedStyles + "\"");
 			}
 
-			setupScript.Append(", theme_advanced_source_editor_width : \"" + this.AdvancedSourceEditorWidth + "\"");
-			setupScript.Append(", theme_advanced_source_editor_height : \"" + this.AdvancedSourceEditorHeight + "\"");
+			setupScript.Append(", theme_advanced_source_editor_width : \"" + AdvancedSourceEditorWidth + "\"");
+			setupScript.Append(", theme_advanced_source_editor_height : \"" + AdvancedSourceEditorHeight + "\"");
 			if (!AdvancedSourceEditorWrap)
 			{
 				setupScript.Append(", theme_advanced_source_editor_wrap : false ");
@@ -743,13 +743,13 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 			if (AdvancedLayoutManager == "SimpleLayout")
 			{
-				setupScript.Append(", theme_advanced_toolbar_location : \"" + this.AdvancedToolbarLocation + "\"");
-				setupScript.Append(", theme_advanced_toolbar_align : \"" + this.AdvancedToolbarAlign + "\"");
-				setupScript.Append(", theme_advanced_statusbar_location : \"" + this.AdvancedStatusBarLocation + "\"");
+				setupScript.Append(", theme_advanced_toolbar_location : \"" + AdvancedToolbarLocation + "\"");
+				setupScript.Append(", theme_advanced_toolbar_align : \"" + AdvancedToolbarAlign + "\"");
+				setupScript.Append(", theme_advanced_statusbar_location : \"" + AdvancedStatusBarLocation + "\"");
 
-				setupScript.Append(", theme_advanced_buttons1 : \"" + this.AdvancedRow1Buttons + "\"");
-				setupScript.Append(", theme_advanced_buttons2 : \"" + this.AdvancedRow2Buttons + "\"");
-				setupScript.Append(", theme_advanced_buttons3 : \"" + this.AdvancedRow3Buttons + "\"");
+				setupScript.Append(", theme_advanced_buttons1 : \"" + AdvancedRow1Buttons + "\"");
+				setupScript.Append(", theme_advanced_buttons2 : \"" + AdvancedRow2Buttons + "\"");
+				setupScript.Append(", theme_advanced_buttons3 : \"" + AdvancedRow3Buttons + "\"");
 
 				//setupScript.Append(", theme_advanced_buttons1_add : \"pastetext,pasteword,selectall\"");
 
@@ -790,7 +790,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 			if (TemplatesUrl.Length > 0)
 			{
-				setupScript.Append(",template_external_list_url: \"" + this.TemplatesUrl + "\"");
+				setupScript.Append(",template_external_list_url: \"" + TemplatesUrl + "\"");
 			}
 
 			if (!Cleanup)
@@ -812,7 +812,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 			if (EditorAreaCSS.Length > 0)
 			{
-				setupScript.Append(", content_css : \"" + this.EditorAreaCSS + "\"");
+				setupScript.Append(", content_css : \"" + EditorAreaCSS + "\"");
 			}
 
 			if (EmotionsBaseUrl.Length > 0)
@@ -822,7 +822,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 			if (AutoFocus)
 			{
-				setupScript.Append(", auto_focus : \"" + this.ClientID + "\" ");
+				setupScript.Append(", auto_focus : \"" + ClientID + "\" ");
 			}
 
 			if ((EnableFileBrowser) && (FileManagerUrl.Length > 0))
@@ -876,22 +876,22 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 			supScript.Append("</script>");
 
-			this.Page.ClientScript.RegisterClientScriptBlock(
+			Page.ClientScript.RegisterClientScriptBlock(
 			typeof(Page),
 			"tmcfpfix",
 			supScript.ToString());
 
-			setupScript.Append("ed" + this.ClientID + ".onBeforeSetContent.add(function(ed, o) {");
+			setupScript.Append("ed" + ClientID + ".onBeforeSetContent.add(function(ed, o) {");
 			setupScript.Append("o.content = editorContentFilter.setContent(o.content);");
 			setupScript.Append(" });");
 
-			setupScript.Append("ed" + this.ClientID + ".onGetContent.add(function(ed, o) {");
+			setupScript.Append("ed" + ClientID + ".onGetContent.add(function(ed, o) {");
 			setupScript.Append("o.content = editorContentFilter.getContent(o.content);");
 			setupScript.Append(" });");
 
 		}
 
-		setupScript.Append("ed" + this.ClientID + ".render(); ");
+		setupScript.Append("ed" + ClientID + ".render(); ");
 
 		//if (forcePasteAsPlainText)
 		//{
@@ -907,9 +907,9 @@ public class TinyMCE : Control, IPostBackDataHandler
 
 		setupScript.Append("</script>");
 
-		this.Page.ClientScript.RegisterStartupScript(
-			this.GetType(),
-			this.UniqueID,
+		Page.ClientScript.RegisterStartupScript(
+			GetType(),
+			UniqueID,
 			setupScript.ToString());
 
 
@@ -954,7 +954,7 @@ public class TinyMCE : Control, IPostBackDataHandler
 		script.Append("}");
 		script.Append("\n</script>");
 
-		this.Page.ClientScript.RegisterClientScriptBlock(
+		Page.ClientScript.RegisterClientScriptBlock(
 			typeof(Page),
 			"tmcfb",
 			script.ToString());
@@ -969,9 +969,9 @@ public class TinyMCE : Control, IPostBackDataHandler
 		if (postCollection[postDataKey] == null) { return false; }
 
 		string newContent = postCollection[postDataKey];
-		if (newContent != this.Text)
+		if (newContent != Text)
 		{
-			this.Text = newContent;
+			Text = newContent;
 			return true;
 		}
 

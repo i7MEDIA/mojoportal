@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -36,7 +35,6 @@ public class TinyMceEditorAdapter : IWebEditor
 	private Direction textDirection = Direction.LeftToRight;
 	private ToolBar toolBar = ToolBar.AnonymousUser;
 	private bool setFocusOnStart = false;
-	private bool useFullyQualifiedUrlsForResources = false;
 	private TinyMceConfiguration config = null;
 	private TinyMceSettings editorSettings = null;
 
@@ -73,20 +71,11 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public string ScriptBaseUrl
 	{
-		get
-		{
-			return scriptBaseUrl;
-		}
+		get => scriptBaseUrl;
 		set
 		{
 			scriptBaseUrl = value;
-			Editor.BasePath = $"{scriptBaseUrl}/tiny_mce/";
-			if (ConfigurationManager.AppSettings["TinyMCE:BasePath"] != null)
-			{
-				Editor.BasePath = ConfigurationManager.AppSettings["TinyMCE:BasePath"];
-			}
-
-			//Editor.SkinPath = virtualRoot + "/FCKeditor/editor/skins/normal/";
+			Editor.BasePath = ConfigHelper.GetStringProperty("TinyMCE:BasePath", $"{scriptBaseUrl}/tiny_mce/");
 		}
 	}
 
@@ -96,10 +85,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public string EditorCSSUrl
 	{
-		get
-		{
-			return editorCSSUrl;
-		}
+		get => editorCSSUrl;
 		set
 		{
 			editorCSSUrl = value;
@@ -112,10 +98,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public Unit Width
 	{
-		get
-		{
-			return editorWidth;
-		}
+		get => editorWidth;
 		set
 		{
 			editorWidth = value;
@@ -125,10 +108,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public Unit Height
 	{
-		get
-		{
-			return editorHeight;
-		}
+		get => editorHeight;
 		set
 		{
 			editorHeight = value;
@@ -139,10 +119,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public Direction TextDirection
 	{
-		get
-		{
-			return textDirection;
-		}
+		get => textDirection;
 		set
 		{
 			textDirection = value;
@@ -156,10 +133,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public ToolBar ToolBar
 	{
-		get
-		{
-			return toolBar;
-		}
+		get => toolBar;
 		set
 		{
 			toolBar = value;
@@ -169,7 +143,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public bool SetFocusOnStart
 	{
-		get { return setFocusOnStart; }
+		get => setFocusOnStart;
 		set
 		{
 			setFocusOnStart = value;
@@ -179,15 +153,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 	public bool FullPageMode { get; set; } = false;
 
-	public bool UseFullyQualifiedUrlsForResources
-	{
-		get { return useFullyQualifiedUrlsForResources; }
-		set
-		{
-			useFullyQualifiedUrlsForResources = value;
-
-		}
-	}
+	public bool UseFullyQualifiedUrlsForResources { get; set; } = false;
 
 	#endregion
 
@@ -210,28 +176,30 @@ public class TinyMceEditorAdapter : IWebEditor
 			Editor.AutoFocus = true;
 		}
 
-		Editor.BasePath = WebConfigSettings.TinyMceBasePath;
-		//Editor.Skin = WebConfigSettings.TinyMceSkin;
+		Editor.BasePath = ConfigHelper.GetStringProperty("TinyMCE:BasePath", Editor.BasePath);
 
 		SetToolBar();
 	}
 
 	private void SetToolBar()
 	{
-		/*
-             http://wiki.moxiecode.com/index.php/TinyMCE:Control_reference
-             */
+		var fileManagerUrl = WebConfigSettings.FileDialogRelativeUrl.ToLinkBuilder().ToString();
+
+		var imageUploadUrl = "Services/FileService.ashx".ToLinkBuilder().AddParams(
+			new Dictionary<string, object> {
+				{ "cmd", "uploadfromeditor" },
+				{ "rz", "true" },
+				{ "ko", WebConfigSettings.KeepFullSizeImagesDroppedInEditor },
+				{ "t", Global.FileSystemToken }
+			}).ToString();
 
 		switch (toolBar)
 		{
 			case ToolBar.Full:
 
 				editorSettings = config.GetEditorSettings("Full");
-
-				string siteRoot = SiteUtils.GetNavigationSiteRoot();
-				Editor.FileManagerUrl = siteRoot + WebConfigSettings.FileDialogRelativeUrl;
-				Editor.ImagesUploadUrl = Editor.ResolveUrl($"{siteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
-				//Editor.EnableFileBrowser = true;          
+				Editor.FileManagerUrl = fileManagerUrl;
+				Editor.ImagesUploadUrl = imageUploadUrl;
 				Editor.StyleFormats = BuildTinyMceStyleJson();
 
 				break;
@@ -239,14 +207,10 @@ public class TinyMceEditorAdapter : IWebEditor
 			case ToolBar.FullWithTemplates:
 
 				editorSettings = config.GetEditorSettings("FullWithTemplates");
-
-				string sRoot = SiteUtils.GetNavigationSiteRoot();
-				Editor.FileManagerUrl = sRoot + WebConfigSettings.FileDialogRelativeUrl;
-				Editor.ImagesUploadUrl = Editor.ResolveUrl($"{sRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
-
-				//Editor.EnableFileBrowser = true;
+				Editor.FileManagerUrl = fileManagerUrl;
+				Editor.ImagesUploadUrl = imageUploadUrl;
 				Editor.StyleFormats = BuildTinyMceStyleJson();
-				Editor.TemplatesUrl = $"{SiteUtils.GetNavigationSiteRoot()}/Services/TinyMceTemplates.ashx?cb={Guid.NewGuid()}"; //cache busting guid
+				Editor.TemplatesUrl = "Services/TinyMceTemplates.ashx".ToLinkBuilder().AddParam("cb", Guid.NewGuid()).ToString(); //cache busting guid
 
 				break;
 
@@ -256,7 +220,7 @@ public class TinyMceEditorAdapter : IWebEditor
 
 				string snRoot = SiteUtils.GetNavigationSiteRoot();
 				Editor.FileManagerUrl = snRoot + WebConfigSettings.FileDialogRelativeUrl;
-				//Editor.EnableFileBrowser = true;
+
 
 				break;
 
