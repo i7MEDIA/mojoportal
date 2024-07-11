@@ -195,7 +195,8 @@ window.airDatepickerExt = {{
 			DateTime thisDateTime = DateTime.Now;
 			if (!string.IsNullOrWhiteSpace(Text))
 			{
-				thisDateTime = DateTime.Parse(Text);
+				//thisDateTime = DateTime.Parse(Text);
+				DateTime.TryParse(Text, out thisDateTime);
 			}
 
 			if (View != MinView)
