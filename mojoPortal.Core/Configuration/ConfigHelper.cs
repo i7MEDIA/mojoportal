@@ -4,32 +4,33 @@ using System.Globalization;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI.WebControls;
-using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Core.Configuration;
 
 public static class ConfigHelper
 {
-	public static bool GetBoolProperty(string key, bool defaultValue)
-	{
-		return GetBoolSettingFromContext(key, defaultValue);
-	}
+	public static bool GetBoolProperty(string key, bool defaultValue) => GetBoolSettingFromContext(key, defaultValue);
 
 	public static bool GetBoolProperty(string key, bool defaultValue, bool bypassContext)
 	{
-		return bypassContext ? GetBoolPropertyFromConfig(key, defaultValue) : GetBoolSettingFromContext(key, defaultValue);
+		if (bypassContext)
+		{
+			return GetBoolPropertyFromConfig(key, defaultValue);
+		}
+
+		return GetBoolSettingFromContext(key, defaultValue);
 	}
 
 	private static bool GetBoolSettingFromContext(string key, bool defaultValue)
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			return GetBoolPropertyFromConfig(key, defaultValue);
 		}
 
 		bool setting;
 
-		if (HttpContext.Current.Items[key] == null)
+		if (HttpContext.Current.Items[key] is null)
 		{
 			setting = GetBoolPropertyFromConfig(key, defaultValue);
 
@@ -63,14 +64,16 @@ public static class ConfigHelper
 		return defaultValue;
 	}
 
-	public static string GetStringProperty(string key, string defaultValue)
-	{
-		return GetStringSettingFromContext(key, defaultValue);
-	}
+	public static string GetStringProperty(string key, string defaultValue) => GetStringSettingFromContext(key, defaultValue);
 
 	public static string GetStringProperty(string key, string defaultValue, bool bypassContext)
 	{
-		return bypassContext ? GetStringPropertyFromConfig(key, defaultValue) : GetStringSettingFromContext(key, defaultValue);
+		if (bypassContext)
+		{
+			return GetStringPropertyFromConfig(key, defaultValue);
+		}
+
+		return GetStringSettingFromContext(key, defaultValue);
 	}
 
 	private static string GetStringPropertyFromConfig(string key, string defaultValue) => ConfigurationManager.AppSettings[key] ?? defaultValue;
@@ -125,7 +128,7 @@ public static class ConfigHelper
 			return webConfigSetting;
 		}
 
-		return GetBoolProperty($"Site{siteId.ToInvariantString()}-{key}", webConfigSetting);
+		return GetBoolProperty(Invariant($"Site{siteId}-{key}"), webConfigSetting);
 	}
 
 	public static string GetSiteConfigSetting(int siteId, string key, string webConfigSetting)
@@ -135,7 +138,7 @@ public static class ConfigHelper
 			return webConfigSetting;
 		}
 
-		return GetStringProperty($"Site{siteId.ToInvariantString()}-{key}", webConfigSetting);
+		return GetStringProperty(Invariant($"Site{siteId}-{key}"), webConfigSetting);
 	}
 
 	public static int GetSiteConfigSetting(int siteId, string key, int webConfigSetting)
@@ -145,7 +148,7 @@ public static class ConfigHelper
 			return webConfigSetting;
 		}
 
-		return GetIntProperty($"Site{siteId.ToInvariantString()}-{key}", webConfigSetting);
+		return GetIntProperty(Invariant($"Site{siteId}-{key}"), webConfigSetting);
 	}
 
 	public static long GetSiteConfigSetting(int siteId, string key, long webConfigSetting)
@@ -155,7 +158,7 @@ public static class ConfigHelper
 			return webConfigSetting;
 		}
 
-		return GetLongProperty($"Site{siteId.ToInvariantString()}-{key}", webConfigSetting);
+		return GetLongProperty(Invariant($"Site{siteId}-{key}"), webConfigSetting);
 	}
 
 	public static Unit GetSiteConfigSetting(int siteId, string key, Unit webConfigSetting)
@@ -165,7 +168,7 @@ public static class ConfigHelper
 			return webConfigSetting;
 		}
 
-		return GetUnitProperty($"Site{siteId.ToInvariantString()}-{key}", webConfigSetting);
+		return GetUnitProperty(Invariant($"Site{siteId}-{key}"), webConfigSetting);
 	}
 
 	public static MachineKeySection GetMachineKeySection()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using System.Web;
 using mojoPortal.Core.Helpers;
@@ -11,76 +12,37 @@ namespace mojoPortal.Core.Extensions;
 
 public static class StringExtensions
 {
-	public static string ToInvariantString(this int i, string format = null)
-	{
-		if (format is null)
-		{
-			return i.ToString(CultureInfo.InvariantCulture);
-		}
-		return i.ToString(format, CultureInfo.InvariantCulture);
-	}
+	public static string ToInvariantString(this int i, string format = null) => format is null ? i.ToString(CultureInfo.InvariantCulture) : i.ToString(format, CultureInfo.InvariantCulture);
 
-	public static string ToInvariantString(this float i, string format = null)
-	{
-		if (format is null)
-		{
-			return i.ToString(CultureInfo.InvariantCulture);
-		}
-		return i.ToString(format, CultureInfo.InvariantCulture);
-	}
+	public static string ToInvariantString(this float i, string format = null) => format is null ? i.ToString(CultureInfo.InvariantCulture) : i.ToString(format, CultureInfo.InvariantCulture);
 
-	public static string ToInvariantString(this decimal i, string format = null)
-	{
-		if (format is null)
-		{
-			return i.ToString(CultureInfo.InvariantCulture);
-		}
-		return i.ToString(format, CultureInfo.InvariantCulture);
-	}
-
+	public static string ToInvariantString(this decimal i, string format = null) => format is null ? i.ToString(CultureInfo.InvariantCulture) : i.ToString(format, CultureInfo.InvariantCulture);
+	
 	public static bool ContainsCaseInsensitive(this string source, string value)
 	{
 		int results = source.IndexOf(value, StringComparison.CurrentCultureIgnoreCase);
 		return results != -1;
 	}
 
-	public static bool IsCaseInsensitiveMatch(this string str1, string str2)
-	{
-		return string.Equals(str1, str2, StringComparison.InvariantCultureIgnoreCase);
-	}
+	public static bool IsCaseInsensitiveMatch(this string str1, string str2) => string.Equals(str1, str2, StringComparison.InvariantCultureIgnoreCase);
 
 	public static string ToSerialDate(this string s)
 	{
-		if (s.Length == 8)
-		{
-			return s.Substring(0, 4) + "-" + s.Substring(4, 2) + "-" + s.Substring(6, 2);
-		}
-		return s;
-	}
-
-	public static string HtmlEscapeQuotes(this string s)
-	{
-		if (string.IsNullOrWhiteSpace(s)) { return s; }
-
-		return s.Replace("'", "&#39;").Replace("\"", "&#34;");
-	}
-
-	public static string RemoveCDataTags(this string s)
-	{
-		if (string.IsNullOrWhiteSpace(s)) { return s; }
-
-		return s.Replace("<![CDATA[", string.Empty).Replace("]]>", string.Empty);
-	}
-
-	public static string CsvEscapeQuotes(this string s)
-	{
-		if (string.IsNullOrWhiteSpace(s))
+		if (s.Length != 8)
 		{
 			return s;
 		}
 
-		return s.Replace("\"", "\"\"");
+		return s.Substring(0, 4) + "-" + s.Substring(4, 2) + "-" + s.Substring(6, 2);
 	}
+
+	public static string EncodeHtml(this string s) => s?.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
+
+	public static string HtmlEscapeQuotes(this string s) => s?.Replace("'", "&#39;").Replace("\"", "&#34;");
+
+	public static string RemoveCDataTags(this string s) => s.Replace("<![CDATA[", string.Empty).Replace("]]>", string.Empty);
+
+	public static string CsvEscapeQuotes(this string s) => s.Replace("\"", "\"\"");
 
 	public static string RemoveAngleBrackets(this string s) => s.Remove(["<", ">"]);
 
@@ -434,7 +396,7 @@ public static class StringExtensions
 		{
 			if (!string.IsNullOrWhiteSpace(item))
 			{
-				list.Add(item);
+				list.Add(item.Trim());
 			}
 		}
 
@@ -449,4 +411,9 @@ public static class StringExtensions
 	/// <param name="delimiter"></param>
 	/// <returns></returns>
 	public static string Union(this string s1, string s2, char delimiter) => string.Join(delimiter.ToString(), s1.SplitOnChar(delimiter).Union(s2.SplitOnChar(delimiter)).ToList());
+
+	public static string RelativePath(this HttpServerUtility srv, string path)
+	{
+		return path.Replace(HttpContext.Current.Server.MapPath("~/"), "~/").Replace(@"\", "/");
+	}
 }

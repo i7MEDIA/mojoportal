@@ -1,7 +1,19 @@
-﻿namespace mojoPortal.Core.Configuration;
+﻿using System.Configuration;
+using System.Web.Configuration;
+
+namespace mojoPortal.Core.Configuration;
 
 public static class AppConfig
 {
+	public static bool Debug
+	{
+		get
+		{
+			var compilationSection = ConfigurationManager.GetSection("system.web/compilation") as CompilationSection;
+			return compilationSection is not null && compilationSection.Debug;
+		}
+	}
+
 	/// <summary>
 	/// this can be used to detect a secure request in a proxied environment when the mere presence of a specific server variable indicates a secure connection
 	/// for example this can be used with IIS AAR (Application Request Routing Module) where the presence of a server variable named HTTP_X_ARR_SSL indicates a secure request
@@ -44,4 +56,14 @@ public static class AppConfig
 	public static string DefaultAdminSecurityQuestion => ConfigHelper.GetStringProperty("DefaultAdminSecurityQuestion", "What is your username?");
 
 	public static string DefaultAdminSecurityAnswer => ConfigHelper.GetStringProperty("DefaultAdminSecurityPassword", "admin");
+
+	public static bool RelatedSiteModeEnabled => ConfigHelper.GetBoolProperty("UseRelatedSiteMode", false);
+
+	public static bool RelatedSiteModeShareContentFolder => ConfigHelper.GetBoolProperty("UseSameContentFolderForRelatedSiteMode", false);
+
+	public static int RelatedSiteID => ConfigHelper.GetIntProperty("RelatedSiteID", 1);
+
+	public static bool RelatedSiteModeHideRoleManagerInChildSites => ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true);
+
+	public static bool SanitizeQueryStrings => ConfigHelper.GetBoolProperty("SanitizeQueryStrings", true);
 }
