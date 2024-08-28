@@ -244,6 +244,8 @@ public partial class RoleManagerPage : NonCmsBasePage
 		txtNewDisplayName.Attributes.Add("placeholder", Resource.RoleDisplayName);
 		txtRoleDescription.Attributes.Add("placeholder", Resource.RoleDescription);
 
+		revNewRoleName.ErrorMessage = Resource.RoleNameInvalid;
+
 	}
 
 	private void LoadSettings()

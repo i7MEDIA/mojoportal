@@ -57,7 +57,7 @@
 	<div class="form-group">
 		<asp:TextBox ID="txtNewRoleName" runat="server" MaxLength="50" ValidationGroup="create" />
 		<asp:RequiredFieldValidator ID="rfvNewRoleName" runat="server" ValidationGroup="create" ControlToValidate="txtNewRoleName" Display="Dynamic" CssClass="text-danger" ErrorMessage='*'/>
-		<asp:RegularExpressionValidator ID="revNewRoleName" runat="server" ValidationGroup="create" ControlToValidate="txtNewRoleName" Display="Dynamic" CssClass="text-danger" ErrorMessage="*" ValidationExpression="^[a-zA-Z0-9^;]+$" />
+		<asp:RegularExpressionValidator ID="revNewRoleName" runat="server" ValidationGroup="create" ControlToValidate="txtNewRoleName" Display="Dynamic" CssClass="text-danger" ValidationExpression="^[a-zA-Z0-9^;]+$" />
 		<%--<p id="roleNameHelp" class="help-block"><%# Resources.Resource.RoleSystemNameCantChange %></p>--%>
 	</div>
 	<div class="form-group">
