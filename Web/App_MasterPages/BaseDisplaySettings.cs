@@ -48,14 +48,14 @@ public class BaseDisplaySettings : WebControl
 			if (!populateFromCache(false))
 			{
 				getDefaultConfig();
-				Global.SkinConfigManager.SetDisplaySettings(skinName, FeatureName + SubFeatureName, this);
+				Global.SkinConfigManager?.SetDisplaySettings(skinName, FeatureName + SubFeatureName, this);
 			}
 		}
 	}
 
 	private bool populateFromCache(bool useSkinId)
 	{
-		var cachedDisplaySettings = Global.SkinConfigManager.GetDisplaySettings(skinName, FeatureName + SubFeatureName + (useSkinId ? SkinID : string.Empty));
+		var cachedDisplaySettings = Global.SkinConfigManager?.GetDisplaySettings(skinName, FeatureName + SubFeatureName + (useSkinId ? SkinID : string.Empty));
 		if (cachedDisplaySettings != null)
 		{
 			var props = GetType().GetProperties();

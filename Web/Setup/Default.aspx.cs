@@ -1,8 +1,11 @@
-using System;
+﻿using System;
+using System.CodeDom;
 using System.Globalization;
 using System.IO;
 using System.Web;
 using System.Web.UI;
+using Google.GData.Extensions.Apps;
+using Ionic.Zip;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -31,9 +34,15 @@ public partial class SetupHome : Page
 	private int scriptTimeout;
 	private DateTime startTime;
 	private string dbPlatform = string.Empty;
-	private Version dbCodeVersion;
+	private Version appCodeVersion;
 	private Version dbSchemaVersion;
-
+	private const string successFormat = "<div class=\"ms-3 text-success\"><i class=\"bi bi-check2-circle\"></i> {0}</div>";
+	private const string infoFormat = "<div class=\"ms-3 text-info\"><i class=\"bi bi-info-circle\"></i> {0}</div>";
+	private const string warnFormat = "<div class=\"ms-3 text-warning\"><i class=\"bi bi-exclamation-triangle\"></i> {0}</div>";
+	private const string errorFormat = "<div class=\"ms-3 text-danger\"><i class=\"bi bi-exclamation-octagon\"></i> {0}</div>";
+	private const string noFormat = "<div class=\"ms-3\">{0}</div>";
+	private const string sqlFormat = "<div class=\"ms-3\"><i class=\"bi bi-filetype-sql\"></i> {0}</div>";
+	private bool machineKeyGenerated = false;
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -44,6 +53,8 @@ public partial class SetupHome : Page
 
 		Server.ScriptTimeout = int.MaxValue;
 		startTime = DateTime.UtcNow;
+
+		//we won't have an admin on initial install
 		bool isAdmin = false;
 		try
 		{
@@ -55,13 +66,13 @@ public partial class SetupHome : Page
 
 		if (setupIsDisabled && !isAdmin)
 		{
-			WritePageContent(SetupResource.SetupDisabledMessage);
+			WritePageContentCard(SetupStatus.Info, SetupResource.SetupDisabledMessage);
 		}
 		else
 		{
 			if (setupIsDisabled && isAdmin)
 			{
-				WritePageContent(SetupResource.RunningSetupForAdminUser);
+				WritePageContent(SetupStatus.Info, SetupResource.RunningSetupForAdminUser);
 			}
 
 			if (LockForSetup())
@@ -69,12 +80,8 @@ public partial class SetupHome : Page
 				try
 				{
 					ProbeSystem();
-					RunSetup();
 
-					if (CoreSystemIsReady())
-					{
-						ShowSetupSuccess();
-					}
+					ShowStatusMessage(RunSetup());
 				}
 				finally
 				{
@@ -83,10 +90,10 @@ public partial class SetupHome : Page
 			}
 			else
 			{
-				WritePageContent("Setup already in progress.");
+				WritePageContentCard(SetupStatus.Info, SetupResource.SetupInProgressMessage, SetupResource.SetupInProgressTitle);
 			}
 
-			WritePageContent(SetupResource.SetupEnabledMessage);
+			WritePageContent(SetupStatus.Warning, SetupResource.SetupEnabledMessage);
 		}
 
 		WritePageFooter();
@@ -95,7 +102,7 @@ public partial class SetupHome : Page
 		Server.ScriptTimeout = scriptTimeout;
 	}
 
-	private void RunSetup()
+	private (SetupStatus status, string msg) RunSetup()
 	{
 		#region setup mojoportal-core
 
@@ -103,7 +110,7 @@ public partial class SetupHome : Page
 		{
 			if (canAlterSchema)
 			{
-
+				WritePageContent(SetupStatus.none, "<h3>Installing Core Schema</h3>");
 				CreateInitialSchema("mojoportal-core");
 				schemaHasBeenCreated = DatabaseHelper.SchemaHasBeenCreated();
 				if (schemaHasBeenCreated)
@@ -114,17 +121,16 @@ public partial class SetupHome : Page
 			}
 		}
 
-		if (schemaHasBeenCreated
-			&& needSchemaUpgrade
-			&& canAlterSchema
-			)
+		if (schemaHasBeenCreated && needSchemaUpgrade && canAlterSchema)
 		{
 			needSchemaUpgrade = UpgradeSchema("mojoportal-core");
 		}
 
-		if (!CoreSystemIsReady())
+		var (status, msg) = CoreSystemIsReady();
+
+		if (status != SetupStatus.Success)
 		{
-			return;
+			return (status, msg);
 		}
 
 		SiteSettings siteSettings;
@@ -156,6 +162,13 @@ public partial class SetupHome : Page
 
 
 		// look for new features or settings to install
+
+		var featureConfigMarkup = $"<h3>{SetupResource.ConfigureFeaturesMessage}</h3>";
+/*<ul class=""list-group"" style=""max-width: 75%;"">"; */
+//<ul class=""list-group"" style=""max-width: 75%; width: 600px; white-space:nowrap; max-height: 400px; overflow: auto; border: 1px solid;"">";
+
+		WritePageContent(SetupStatus.none, featureConfigMarkup);
+
 		SetupFeatures("mojoportal-core");
 
 		#endregion
@@ -168,8 +181,8 @@ public partial class SetupHome : Page
 
 		if (!Directory.Exists(pathToApplicationsFolder))
 		{
-			WritePageContent($"{pathToApplicationsFolder} {SetupResource.ScriptFolderNotFoundAddendum}", false);
-			return;
+			WritePageContent(SetupStatus.Error, $"{pathToApplicationsFolder} {SetupResource.ScriptFolderNotFoundAddendum}", false);
+			return (SetupStatus.Error, "Setup/applications folder not found");
 		}
 
 		DirectoryInfo appRootFolder = new(pathToApplicationsFolder);
@@ -186,15 +199,17 @@ public partial class SetupHome : Page
 		}
 
 		#endregion
+		var featureConfigMarkupEnd = "</ul>";
+		WritePageContent(SetupStatus.none, featureConfigMarkupEnd);
 
-		WritePageContent(SetupResource.EnsuringFeaturesInAdminSites, true);
+		WritePageContent(SetupStatus.Info, SetupResource.EnsuringFeaturesInAdminSites);
 		ModuleDefinition.EnsureInstallationInAdminSites();
 
 		if (siteSettings is not null)
 		{
 			if (PageSettings.GetCountOfPages(siteSettings.SiteId) == 0)
 			{
-				WritePageContent(SetupResource.CreatingDefaultContent);
+				WritePageContent(SetupStatus.Info, SetupResource.CreatingDefaultContent);
 				mojoSetup.SetupDefaultContentPages(siteSettings);
 			}
 
@@ -218,26 +233,25 @@ public partial class SetupHome : Page
 		//ThreadPool.QueueUserWorkItem(new WaitCallback(SyncDefinitions), null);
 		//ModuleDefinition.SyncDefinitions();
 		SiteSettings.EnsureExpandoSettings();
-		//mojoSetup.EnsureAdditionalSiteFolders();
 
-		// added 2013-10-18 
 		if (WebConfigSettings.TryEnsureCustomMachineKeyOnSetup)
 		{
 			try
 			{
 				WebConfigSettings.EnsureCustomMachineKey();
+				WritePageContent(SetupStatus.Success, SetupResource.CustomMachineKeyCreated);
+				machineKeyGenerated = true;
 			}
 			catch (Exception ex)
 			{
 				log.Error("tried to ensure a custom machinekey in Web.config but an error occurred.", ex);
+				WritePageContent(SetupStatus.Warning, SetupResource.CustomMachineKeyNotCreated);
 			}
 		}
+
+		return (SetupStatus.Success, "setup complete");
 	}
 
-	//private static void SyncDefinitions(object o)
-	//{
-	//    ModuleDefinition.SyncDefinitions();
-	//}
 
 	private bool CreateInitialSchema(string applicationName)
 	{
@@ -251,7 +265,7 @@ public partial class SetupHome : Page
 		var mojoAppGuid = new Guid("077e4857-f583-488e-836e-34a4b04be855");
 		if (appID == mojoAppGuid)
 		{
-			versionToStopAt = DatabaseHelper.DBCodeVersion(); ;
+			versionToStopAt = DatabaseHelper.AppCodeVersion(); ;
 		}
 
 		var pathToScriptFolder = HttpContext.Current.Server.MapPath($"~/Setup/applications/{applicationName}/SchemaInstallScripts/{DatabaseHelper.DBPlatform().ToLowerInvariant()}/");
@@ -275,7 +289,7 @@ public partial class SetupHome : Page
 
 		if (!Directory.Exists(pathToScriptFolder))
 		{
-			WritePageContent($"{pathToScriptFolder} {SetupResource.ScriptFolderNotFoundMessage}", false);
+			WritePageContent(SetupStatus.Error, $"{pathToScriptFolder} {SetupResource.ScriptFolderNotFoundMessage}");
 
 			return false;
 		}
@@ -288,7 +302,7 @@ public partial class SetupHome : Page
 
 		if (scriptFiles.Length == 0)
 		{
-			WritePageContent($"{SetupResource.NoScriptsFilesFoundMessage} {pathToScriptFolder}", false);
+			WritePageContent(SetupStatus.Error, $"{SetupResource.NoScriptsFilesFoundMessage} {pathToScriptFolder}");
 
 			return false;
 
@@ -309,9 +323,9 @@ public partial class SetupHome : Page
 			&& (versionToStopAt is null || scriptVersion <= versionToStopAt)
 			)
 		{
-			var message = string.Format(SetupResource.RunningScriptMessage, applicationName, scriptFile.Name.Replace(".config", string.Empty));
+			var message = string.Format(SetupResource.InstallingFeature, applicationName, scriptFile.Name.Replace(".config", string.Empty));
 
-			WritePageContent(message, true);
+			WritePageContent(SetupStatus.Info, message);
 
 			string overrideConnectionString = GetOverrideConnectionString(applicationName);
 
@@ -319,7 +333,8 @@ public partial class SetupHome : Page
 
 			if (!string.IsNullOrWhiteSpace(errorMessage))
 			{
-				WritePageContent(errorMessage, true);
+				WritePageContent(SetupStatus.Error, errorMessage, true);
+				WritePageFooter();
 				return false;
 			}
 
@@ -329,7 +344,8 @@ public partial class SetupHome : Page
 				if (scriptVersion >= Version.Parse("2.7.0.3"))
 				{
 					SiteSettings.UpdateSkinVersionGuidForAllSites();
-					log.Info("Skin Version updated on all sites by Setup.");
+					WritePageContent(SetupStatus.Success, SetupResource.SkinVersionGuidUpdated);
+					log.Debug("Skin Version updated on all sites by Setup.");
 				}
 			}
 
@@ -365,7 +381,7 @@ public partial class SetupHome : Page
 
 	private string GetOverrideConnectionString(string applicationName)
 	{
-		string overrideConnectionString = Core.Configuration.ConfigHelper.GetStringProperty(applicationName + "_ConnectionString", string.Empty);
+		string overrideConnectionString = ConfigHelper.GetStringProperty($"{applicationName}_ConnectionString", string.Empty);
 
 		if (string.IsNullOrWhiteSpace(overrideConnectionString))
 		{
@@ -385,7 +401,7 @@ public partial class SetupHome : Page
 
 		if (appID == mojoAppGuid)
 		{
-			versionToStopAt = DatabaseHelper.DBCodeVersion(); ;
+			versionToStopAt = DatabaseHelper.AppCodeVersion(); ;
 		}
 
 		var pathToScriptFolder = HttpContext.Current.Server.MapPath($"~/Setup/applications/{applicationName}/SchemaUpgradeScripts/{DatabaseHelper.DBPlatform().ToLowerInvariant()}/");
@@ -421,17 +437,13 @@ public partial class SetupHome : Page
 		return result;
 	}
 
-	private bool RunUpgradeScripts(
-		Guid applicationId,
-		string applicationName,
-		string pathToScriptFolder,
-		Version versionToStopAt)
+	private bool RunUpgradeScripts(Guid applicationId, string applicationName, string pathToScriptFolder, Version versionToStopAt)
 	{
 		bool result = true;
 
 		if (!Directory.Exists(pathToScriptFolder))
 		{
-			WritePageContent($"{pathToScriptFolder} {SetupResource.ScriptFolderNotFoundMessage}", false);
+			WritePageContent(SetupStatus.Error, $"{pathToScriptFolder} {SetupResource.ScriptFolderNotFoundMessage}");
 
 			return false;
 		}
@@ -453,6 +465,9 @@ public partial class SetupHome : Page
 
 		var currentSchemaVersion = DatabaseHelper.GetSchemaVersion(applicationId);
 
+		bool upgradeHeaderWritten = false;
+
+
 		foreach (FileInfo scriptFile in scriptFiles)
 		{
 			var scriptVersion = DatabaseHelper.ParseVersionFromFileName(scriptFile.Name);
@@ -462,12 +477,20 @@ public partial class SetupHome : Page
 				&& (versionToStopAt is null || scriptVersion <= versionToStopAt)
 				)
 			{
-				string message = string.Format(
-					SetupResource.RunningScriptMessage,
-					applicationName,
-					scriptFile.Name.Replace(".config", string.Empty));
+				if (!upgradeHeaderWritten)
+				{
+					WritePageContent(SetupStatus.Info, string.Format(SetupResource.UpgradingFeature, applicationName));
+				}
+				upgradeHeaderWritten = true;
 
-				WritePageContent(message, true);
+				//string message = string.Format(
+				//	SetupResource.RunningScriptMessage,
+				//	applicationName,
+				//	scriptFile.Name.Replace(".config", string.Empty));
+
+				string message = scriptFile.Name.Replace(".config", string.Empty);
+
+				WritePageContent(SetupStatus.SqlInfo, message);
 
 				string overrideConnectionString = GetOverrideConnectionString(applicationName);
 
@@ -475,7 +498,7 @@ public partial class SetupHome : Page
 
 				if (errorMessage.Length > 0)
 				{
-					WritePageContent(errorMessage, true);
+					WritePageContent(SetupStatus.Error, errorMessage);
 					return false;
 				}
 
@@ -548,19 +571,23 @@ public partial class SetupHome : Page
 		return result;
 	}
 
+
 	private SiteSettings CreateSite()
 	{
-		WritePageContent(SetupResource.CreatingSiteMessage, true);
+		WritePageContent(SetupStatus.Info, SetupResource.CreatingSiteMessage);
 		SiteSettings newSite = mojoSetup.CreateNewSite();
 		mojoSetup.CreateDefaultSiteFolders(newSite.SiteId);
 		mojoSetup.EnsureSkins(newSite.SiteId);
 		return newSite;
 	}
+
+
 	private void CreateAdminUser(SiteSettings newSite)
 	{
-		WritePageContent(SetupResource.CreatingRolesAndAdminUserMessage, true);
+		WritePageContent(SetupStatus.Info, SetupResource.CreatingRolesAndAdminUserMessage);
 		mojoSetup.EnsureRolesAndAdminUser(newSite);
 	}
+
 
 	private void SetupFeatures(string applicationName)
 	{
@@ -575,14 +602,15 @@ public partial class SetupHome : Page
 		}
 	}
 
+
 	private void SetupFeature(ContentFeature feature)
 	{
-		WritePageContent(
-				string.Format(SetupResource.ConfigureFeatureMessage,
-				ResourceHelper.GetResourceString(
-				feature.ResourceFile,
-				feature.FeatureNameReasourceKey))
-				, true);
+//		var html = @$"
+//<li class=""list-group-item d-flex justify-content-between align-items-top"">
+//{string.Format(successFormat, ResourceHelper.GetResourceString(feature.ResourceFile, feature.FeatureNameReasourceKey))} 
+//</li>
+//";
+		WritePageContent(SetupStatus.Success, string.Format(SetupResource.ConfigureFeatureMessage, ResourceHelper.GetResourceString(feature.ResourceFile, feature.FeatureNameReasourceKey)));
 
 		var moduleDefinition = new ModuleDefinition(feature.FeatureGuid)
 		{
@@ -621,65 +649,147 @@ public partial class SetupHome : Page
 		}
 	}
 
-	private void ShowSetupSuccess()
+	private void ShowStatusMessage((SetupStatus status, string msg) setup)
 	{
+		if (setup.status != SetupStatus.Success)
+		{
+			WritePageContentCard(setup.status, setup.msg);
+			return;
+		}
 
 		var schemaInfo = string.Empty;
 		if (schemaHasBeenCreated)
 		{
-			dbCodeVersion = DatabaseHelper.DBCodeVersion();
-			dbSchemaVersion = DatabaseHelper.DBSchemaVersion();
-			var installationStatus = string.Empty;
+			appCodeVersion = DatabaseHelper.AppCodeVersion();
+			dbSchemaVersion = DatabaseHelper.SchemaVersion();
+			var statusMessage = string.Empty;
+			var status = SetupStatus.Success;
 
-			if (dbCodeVersion > dbSchemaVersion)
+			if (appCodeVersion > dbSchemaVersion)
 			{
-				installationStatus = SetupResource.SchemaUpgradeNeededMessage;
+				statusMessage = SetupResource.SchemaUpgradeNeededMessage;
+				status = SetupStatus.Warning;
 			}
 
-			if (dbCodeVersion < dbSchemaVersion)
+			if (appCodeVersion < dbSchemaVersion)
 			{
-				installationStatus = SetupResource.CodeUpgradeNeededMessage;
+				statusMessage = SetupResource.CodeUpgradeNeededMessage;
+				status = SetupStatus.Warning;
 			}
 
-			if (dbCodeVersion == dbSchemaVersion)
+			if (appCodeVersion == dbSchemaVersion)
 			{
-				installationStatus = SetupResource.InstallationUpToDateMessage;
-
+				statusMessage = SetupResource.InstallationUpToDateMessage;
 			}
 
-			schemaInfo = @$"
-<div class=""settingrow""><span class=""settinglabel"">{SetupResource.VersionLabel}</span>{dbCodeVersion}</div>
-<div class=""settingrow""><span class=""settinglabel"">{SetupResource.DatabaseStatusLabel}</span> {installationStatus}</div>";
+			WritePageContentCard(status, statusMessage);
 		}
-
-		var successMessage = @$"
-<hr /><div>{SetupResource.SetupSuccessMessage}</div>
-<a href=""{Page.ResolveUrl("~/")}"" title=""{SetupResource.HomeLink}"">{SetupResource.HomeLink}</a>
-<br /><br />
-<div class=""settingrow""><span class=""settinglabel"">{SetupResource.DatabasePlatformLabel}</span> {DatabaseHelper.DBPlatform()}</div>
-{schemaInfo}";
-
-		WritePageContent(successMessage, false);
 	}
 
-	private void WritePageContent(string message)
+
+	private void WritePageContentCard(SetupStatus setupStatus, string message, string title = "")
 	{
-		WritePageContent(message, false);
+		var cssClass = string.Empty;
+		//if (string.IsNullOrWhiteSpace(title))
+		//{
+		//	title = string.Empty;
+		//}
+		var msg = $"\r\n<p>{message}</p>";
+		switch (setupStatus)
+		{
+			case SetupStatus.Success:
+				cssClass = "success";
+				title.Coalesce(SetupResource.SetupSuccessTitle);
+				msg = $"\r\n<p>{string.Format(SetupResource.SetupSuccessMessage, Page.ResolveUrl("~/"))}</p>";
+
+				if (machineKeyGenerated)
+				{
+					var key = ConfigHelper.GetMachineKeySection();
+					var keyXml = @$"<machineKey 
+	validationKey=""{key.ValidationKey}"" 
+	decryptionKey=""{key.DecryptionKey}"" 
+	validation=""{key.Validation}"" 
+	decryption=""{key.Decryption}"" 
+/>";
+					msg += @$"
+<div class=""alert alert-info""><p class=""lead""><strong>{SetupResource.CustomMachineKeyCreated}</strong> {SetupResource.CustomMachineKeyCreatedDetails}</p>
+<pre><code>{Server.HtmlEncode(keyXml)}</code></pre></div>
+";
+				}
+				else
+				{
+					var securityAdvisor = new SecurityAdvisor();
+					if (!securityAdvisor.UsingCustomMachineKey())
+					{
+						msg += @$"
+<div class=""alert alert-danger""><p class=""lead""><strong>{SetupResource.CustomMachineKeyNotCreated}</strong> {Resource.SecurityAdvisorMachineKeyWrong}</p>
+<pre><code>{Server.HtmlEncode(SiteUtils.GenerateRandomMachineKeyXml())}</code></pre></div>";
+					}
+				}
+
+				break;
+
+			case SetupStatus.Info:
+			default:
+				cssClass = "info";
+				title.Coalesce(SetupResource.InfoTitle);
+				break;
+
+			case SetupStatus.Warning:
+				cssClass = "warning";
+				title.Coalesce(SetupResource.WarningTitle);
+				break;
+
+			case SetupStatus.Error:
+				cssClass = "danger";
+				title.Coalesce(SetupResource.ErrorLabel);
+				break;
+		}
+
+		var html = @$"
+<hr />
+<div class=""card border-{cssClass}"">
+	<h3 class=""card-header text-bg-{cssClass}"">{title}</h3>
+	<div class=""card-body"">{msg}
+		<dl class=""row mb-0"">
+			<dt class=""col-sm-3"">{SetupResource.DatabasePlatformLabel}</dt><dd class=""col-sm-9"">{DatabaseHelper.DBPlatform()}</dd>
+			<dt class=""col-sm-3"">{SetupResource.SchemaVersionLabel}</dt><dd class=""col-sm-9"">{DatabaseHelper.SchemaVersion()}</dd>
+			<dt class=""col-sm-3"">{SetupResource.AppCodeVersionLabel}</dt><dd class=""col-sm-9"">{DatabaseHelper.AppCodeVersion()}</dd>
+			<dt class=""col-sm-3"">{SetupResource.MessageLabel}</dt><dd class=""col-sm-9"">{message}</dd>
+		</dl>
+	</div>
+</div>";
+
+		WritePageContent(SetupStatus.none, html);
 	}
 
-	private void WritePageContent(string message, bool showTime)
+
+	private void WritePageContent(SetupStatus setupStatus, string message, bool showTime = false)
 	{
-		if (showTime)
+
+		string format = setupStatus switch
 		{
-			HttpContext.Current.Response.Write($"{message} - {DateTime.UtcNow.Subtract(startTime)}");
-		}
-		else
-		{
-			HttpContext.Current.Response.Write(message);
-		}
-		HttpContext.Current.Response.Write("<br/>");
+			SetupStatus.Success => successFormat,
+			SetupStatus.Warning => warnFormat,
+			SetupStatus.Error => errorFormat,
+			SetupStatus.SqlInfo => sqlFormat,
+			SetupStatus.none => "{0}",
+			_ => infoFormat,
+		};
+
+		string time = string.Empty;
+
+		//we don't really need this, never had a need for it, maybe someone will complain so we'll leave it here 
+		//if (showTime)
+		//{
+		//	time = $" - {DateTime.UtcNow.Subtract(startTime)}";
+		//}
+
+		HttpContext.Current.Response.Write(string.Format(format, message + time));
+
 		HttpContext.Current.Response.Flush();
 	}
+
 
 	private void WritePageHeader()
 	{
@@ -710,6 +820,7 @@ public partial class SetupHome : Page
 	private void WritePageFooter()
 	{
 		string setupFooterTemplatePath = WebConfigSettings.SetupFooterConfigPath;
+
 		if (CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
 		{
 			setupFooterTemplatePath = WebConfigSettings.SetupFooterConfigPathRtl;
@@ -726,8 +837,9 @@ public partial class SetupHome : Page
 		}
 		else
 		{
-			Response.Write("</body>");
-			Response.Write("</html>");
+			Response.Write(@"
+	</body>
+</html>");
 		}
 
 		Response.Flush();
@@ -736,20 +848,21 @@ public partial class SetupHome : Page
 
 	private void ProbeSystem()
 	{
-		WritePageContent(SetupResource.ProbingSystemMessage, false);
+		WritePageContent(SetupStatus.none, $"<h3>{SetupResource.ProbingSystemMessage}</h3>");
 
 		dbPlatform = DatabaseHelper.DBPlatform();
 		dataFolderIsWritable = mojoSetup.DataFolderIsWritable();
 
 		if (dataFolderIsWritable)
 		{
-			WritePageContent(SetupResource.FileSystemPermissionsOKMesage, false);
+			WritePageContent(SetupStatus.Success, SetupResource.FileSystemPermissionsOKMesage);
 		}
 		else
 		{
-			WritePageContent(SetupResource.FileSystemPermissionProblemsMessage, false);
+			WritePageContentCard(SetupStatus.Error, SetupResource.DataFolderNotWritableMessage);
+			//WritePageContent(SetupResource.FileSystemPermissionProblemsMessage, false);
 
-			WritePageContent($"<div>{SetupResource.DataFolderNotWritableMessage.Replace("\r\n", " <br />")}</div>", false);
+			//WritePageContent(@$"<div>{SetupResource.DataFolderNotWritableMessage.Replace("\r\n", " <br />")}</div>", false);
 		}
 
 		canAccessDatabase = DatabaseHelper.CanAccessDatabase();
@@ -760,41 +873,24 @@ public partial class SetupHome : Page
 	*/
 		if (!canAccessDatabase && dbPlatform == "MSSQL" && WebConfigSettings.TryToCreateMsSqlDatabase)
 		{
-			WritePageContent($"{dbPlatform} {SetupResource.TryingToCreateDatabase}", false);
+			WritePageContent(SetupStatus.Info, $"{dbPlatform} {SetupResource.TryingToCreateDatabase}");
 			DatabaseHelper.EnsureDatabase();
 			canAccessDatabase = DatabaseHelper.CanAccessDatabase();
 			if (canAccessDatabase)
 			{
-				WritePageContent($"{dbPlatform} {SetupResource.DatabaseCreationSucceeded}", false);
+				WritePageContent(SetupStatus.Success, $"{dbPlatform} {SetupResource.DatabaseCreationSucceeded}");
 			}
 		}
 
 		if (canAccessDatabase)
 		{
-			WritePageContent($"{dbPlatform} {SetupResource.DatabaseConnectionOKMessage}", false);
-		}
-		else
-		{
-			string dbError = string.Format(SetupResource.FailedToConnectToDatabase, dbPlatform);
+			WritePageContent(SetupStatus.Success, $"{dbPlatform} {SetupResource.DatabaseConnectionOKMessage}");
 
-			WritePageContent($"<div>{dbError}</div>", false);
-
-			showConnectionError = WebConfigSettings.ShowConnectionErrorOnSetup;
-
-
-			if (showConnectionError)
-			{
-				WritePageContent($"<div>{DatabaseHelper.GetConnectionError(null)}</div>", false);
-			}
-		}
-
-		if (canAccessDatabase)
-		{
 			canAlterSchema = DatabaseHelper.CanAlterSchema(null);
 
 			if (canAlterSchema)
 			{
-				WritePageContent(SetupResource.DatabaseCanAlterSchemaMessage, false);
+				WritePageContent(SetupStatus.Success, SetupResource.DatabaseCanAlterSchemaMessage);
 			}
 			else
 			{
@@ -805,7 +901,7 @@ public partial class SetupHome : Page
 				}
 				else
 				{
-					WritePageContent($"<div>{SetupResource.CantAlterSchemaWarning}</div>", false);
+					WritePageContentCard(SetupStatus.Error, SetupResource.CantAlterSchemaWarning);
 				}
 			}
 
@@ -813,50 +909,62 @@ public partial class SetupHome : Page
 
 			if (schemaHasBeenCreated)
 			{
-				WritePageContent(SetupResource.DatabaseSchemaAlreadyExistsMessage, false);
+				WritePageContent(SetupStatus.Success, SetupResource.DatabaseSchemaAlreadyExistsMessage);
 
 				needSchemaUpgrade = mojoSetup.UpgradeIsNeeded();
 
 				if (needSchemaUpgrade)
 				{
-					WritePageContent(SetupResource.DatabaseSchemaNeedsUpgradeMessage, false);
+					WritePageContent(SetupStatus.Warning, SetupResource.DatabaseSchemaNeedsUpgradeMessage);
 				}
 				else
 				{
-					WritePageContent(SetupResource.DatabaseSchemaUpToDateMessage, false);
+					WritePageContent(SetupStatus.Success, SetupResource.DatabaseSchemaUpToDateMessage);
 				}
 
 				existingSiteCount = DatabaseHelper.ExistingSiteCount();
 
-				WritePageContent(string.Format(SetupResource.ExistingSiteCountMessageMessage, existingSiteCount.ToString()), false);
+				WritePageContent(SetupStatus.Info, string.Format(SetupResource.ExistingSiteCountMessage, existingSiteCount.ToString()));
 			}
 			else
 			{
-				WritePageContent(SetupResource.DatabaseSchemaNotCreatedYetMessage, false);
+				WritePageContent(SetupStatus.Warning, SetupResource.DatabaseSchemaNotCreatedYetMessage);
 			}
 		}
+		else
+		{
+			string dbError = string.Format(SetupResource.FailedToConnectToDatabase, dbPlatform);
+
+			if (WebConfigSettings.ShowConnectionErrorOnSetup)
+			{
+				dbError += $"<div>{DatabaseHelper.GetConnectionError(null)}</div>";
+			}
+
+			WritePageContentCard(SetupStatus.Error, dbError);
+		}
+
 	}
 
-	private bool CoreSystemIsReady()
+	private (SetupStatus status, string msg) CoreSystemIsReady()
 	{
 		bool result = true;
 
 		if (!canAccessDatabase)
 		{
-			return false;
+			return (SetupStatus.Error, "cannotAccessDatabase");
 		}
 
 		if (!DatabaseHelper.SchemaHasBeenCreated())
 		{
-			return false;
+			return (SetupStatus.Error, "schemaNotCreated");
 		}
 
 		if (mojoSetup.UpgradeIsNeeded())
 		{
-			return false;
+			return (SetupStatus.Info, "upgradeNeeded");
 		}
 
-		return result;
+		return (SetupStatus.Success, "ready");
 	}
 
 	private bool LockForSetup()
@@ -972,4 +1080,14 @@ public partial class SetupHome : Page
 		this.Load += new EventHandler(Page_Load);
 		this.Error += new EventHandler(SetupHome_Error);
 	}
+}
+
+public enum SetupStatus
+{
+	Success = 0,
+	Info = 1,
+	Warning = 2,
+	Error = 3,
+	SqlInfo = 4,
+	none = 99
 }

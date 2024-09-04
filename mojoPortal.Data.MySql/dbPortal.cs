@@ -630,7 +630,7 @@ namespace mojoPortal.Data
 			return DatabaseHelperCanAccessDatabase(null);
 		}
 
-		public static bool DatabaseHelperCanAlterSchema(string engine, string overrideConnectionInfo)
+		public static bool DatabaseHelperCanAlterSchema(string overrideConnectionInfo)
 		{
 
 			bool result = true;
@@ -640,7 +640,7 @@ namespace mojoPortal.Data
                   `FooID` int(11) NOT NULL auto_increment,
                   `Foo` varchar(255) NOT NULL default '',
                   PRIMARY KEY  (`FooID`)
-                ) ENGINE={engine};";
+                ) ENGINE=MyISAM;";
 
 			try
 			{

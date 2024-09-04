@@ -428,7 +428,7 @@ namespace mojoPortal.Data
             return DatabaseHelperCanAccessDatabase(null);
         }
 
-        public static bool DatabaseHelperCanAlterSchema(string engine, string overrideConnectionInfo)
+        public static bool DatabaseHelperCanAlterSchema(string overrideConnectionInfo)
         {
 
             bool result = true;

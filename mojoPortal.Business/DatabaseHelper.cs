@@ -21,9 +21,9 @@ public static class DatabaseHelper
 	/// Maintained/updated in code to make Setup run the new version upgrade script
 	/// </summary>
 	/// <returns>Version</returns>
-	public static Version DBCodeVersion() => new(2, 9, 0, 3);
+	public static Version AppCodeVersion() => new(2, 9, 0, 3);
 
-	public static Version DBSchemaVersion()
+	public static Version SchemaVersion()
 	{
 		// this should never change
 		// its the last version before auto upgrades
@@ -194,7 +194,7 @@ public static class DatabaseHelper
 	{
 		try
 		{
-			return DBPortal.DatabaseHelperCanAlterSchema("MyISAM", overrideConnectionInfo);
+			return DBPortal.DatabaseHelperCanAlterSchema(overrideConnectionInfo);
 		}
 		catch (DbException ex)
 		{

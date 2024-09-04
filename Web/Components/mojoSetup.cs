@@ -113,8 +113,8 @@ public sealed class mojoSetup
 	{
 		bool result = false;
 
-		Version dbCodeVersion = DatabaseHelper.DBCodeVersion();
-		Version dbSchemaVersion = DatabaseHelper.DBSchemaVersion();
+		Version dbCodeVersion = DatabaseHelper.AppCodeVersion();
+		Version dbSchemaVersion = DatabaseHelper.SchemaVersion();
 		if (dbCodeVersion > dbSchemaVersion) result = true;
 
 		return result;
@@ -126,12 +126,12 @@ public sealed class mojoSetup
 
 	public static void DoSchemaUpgrade(string overrideConnectionInfo)
 	{
-		log.Debug("mojoSetup entered DoSchemaUpgrade");
+		log.Info("mojoSetup entered DoSchemaUpgrade");
 		bool canAlterSchema = DatabaseHelper.CanAlterSchema(overrideConnectionInfo);
 
 		if (HttpContext.Current is not null && canAlterSchema)
 		{
-			Version currentSchemaVersion = DatabaseHelper.DBSchemaVersion();
+			Version currentSchemaVersion = DatabaseHelper.SchemaVersion();
 
 			Guid appID = DatabaseHelper.GetApplicationId();
 			var pathToScriptFolder = HttpContext.Current.Server.MapPath(Invariant($"~/Setup/SchemaUpgradeScripts/{DatabaseHelper.DBPlatform()}/{DatabaseHelper.GetApplicationName()}/"));
