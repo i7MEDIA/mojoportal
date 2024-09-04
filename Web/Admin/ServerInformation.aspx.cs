@@ -40,7 +40,7 @@ namespace mojoPortal.Web.AdminUI
 		{
 
 			litPlatform.Text = DatabaseHelper.DBPlatform();
-			litCodeVersion.Text = DatabaseHelper.DBCodeVersion().ToString();
+			litCodeVersion.Text = DatabaseHelper.AppCodeVersion().ToString();
 
 			GetUpdateInfo();
 
@@ -138,7 +138,7 @@ namespace mojoPortal.Web.AdminUI
 				response.Close();
 
 				JObject jObject = JObject.Parse(responseFromServer);
-				string strSiteVersion = DatabaseHelper.DBCodeVersion().ToString();
+				string strSiteVersion = DatabaseHelper.AppCodeVersion().ToString();
 				string strCurrentVersion = (string)jObject["version"];
 				string strCurrentVersionUrl = (string)jObject["url"];
 

@@ -185,7 +185,7 @@ public partial class StyleSheetCombiner : UserControl
 
 		if (WebConfigSettings.IncludeVersionInCssUrl && siteSettings != null)
 		{
-			siteParam = $"&amp;s={siteSettings.SiteId.ToInvariantString()}&amp;v={Server.UrlEncode(DatabaseHelper.DBCodeVersion().ToString())}&amp;sv={siteSettings.SkinVersion}";
+			siteParam = $"&amp;s={siteSettings.SiteId.ToInvariantString()}&amp;v={Server.UrlEncode(DatabaseHelper.AppCodeVersion().ToString())}&amp;sv={siteSettings.SkinVersion}";
 		}
 		else if (siteSettings != null)
 		{

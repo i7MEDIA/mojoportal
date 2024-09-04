@@ -244,7 +244,7 @@ namespace mojoPortal.Web
 				query.Add("apiKey", tokenOrApiKey);
 			}
 
-			query.Add("demographics", "mojoportal " + DatabaseHelper.DBCodeVersion().ToString());
+			query.Add("demographics", "mojoportal " + DatabaseHelper.AppCodeVersion().ToString());
 
 			StringBuilder sb = new StringBuilder();
 			foreach (KeyValuePair<string, string> e in query)
