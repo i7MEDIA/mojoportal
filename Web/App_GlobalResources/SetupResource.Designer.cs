@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application Code Version.
+        /// </summary>
+        internal static string AppCodeVersionLabel {
+            get {
+                return ResourceManager.GetString("AppCodeVersionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to mojoSetup has detected that the database user does not have permission to alter the database schema. You need to correct this or provide a connection string with sufficient permission..
         /// </summary>
         internal static string CantAlterSchemaWarning {
@@ -97,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuring feature {0}.
+        ///   Looks up a localized string similar to Configuring {0}.
         /// </summary>
         internal static string ConfigureFeatureMessage {
             get {
@@ -106,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuring {0}....
+        ///   Looks up a localized string similar to Configuring Features.
         /// </summary>
         internal static string ConfigureFeaturesMessage {
             get {
@@ -187,6 +196,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom MachineKey generated.
+        /// </summary>
+        internal static string CustomMachineKeyCreated {
+            get {
+                return ResourceManager.GetString("CustomMachineKeyCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please make note of this MachineKey and keep it somewhere safe..
+        /// </summary>
+        internal static string CustomMachineKeyCreatedDetails {
+            get {
+                return ResourceManager.GetString("CustomMachineKeyCreatedDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom MachineKey not created.
+        /// </summary>
+        internal static string CustomMachineKeyNotCreated {
+            get {
+                return ResourceManager.GetString("CustomMachineKeyNotCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to database permissions are sufficient to alter schema..
         /// </summary>
         internal static string DatabaseCanAlterSchemaMessage {
@@ -201,15 +237,6 @@ namespace Resources {
         internal static string DatabaseCanCreateTempTablesMessage {
             get {
                 return ResourceManager.GetString("DatabaseCanCreateTempTablesMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Database Code Version.
-        /// </summary>
-        internal static string DatabaseCodeVersionLabel {
-            get {
-                return ResourceManager.GetString("DatabaseCodeVersionLabel", resourceCulture);
             }
         }
         
@@ -362,7 +389,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ensuring all features are installed in server admin sites....
+        ///   Looks up a localized string similar to Features enabled in admin sites..
         /// </summary>
         internal static string EnsuringFeaturesInAdminSites {
             get {
@@ -371,29 +398,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error Message.
-        /// </summary>
-        internal static string ErrorMessageLabel {
-            get {
-                return ResourceManager.GetString("ErrorMessageLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Error Occurred.
         /// </summary>
-        internal static string ErrorOccurredLabel {
+        internal static string ErrorLabel {
             get {
-                return ResourceManager.GetString("ErrorOccurredLabel", resourceCulture);
+                return ResourceManager.GetString("ErrorLabel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to {0} site(s) found..
         /// </summary>
-        internal static string ExistingSiteCountMessageMessage {
+        internal static string ExistingSiteCountMessage {
             get {
-                return ResourceManager.GetString("ExistingSiteCountMessageMessage", resourceCulture);
+                return ResourceManager.GetString("ExistingSiteCountMessage", resourceCulture);
             }
         }
         
@@ -470,11 +488,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        internal static string InfoTitle {
+            get {
+                return ResourceManager.GetString("InfoTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your installation is up to date..
         /// </summary>
         internal static string InstallationUpToDateMessage {
             get {
                 return ResourceManager.GetString("InstallationUpToDateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Installing {0} - v{1}.
+        /// </summary>
+        internal static string InstallingFeature {
+            get {
+                return ResourceManager.GetString("InstallingFeature", resourceCulture);
             }
         }
         
@@ -565,6 +601,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        internal static string MessageLabel {
+            get {
+                return ResourceManager.GetString("MessageLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No scripts found in folder.
         /// </summary>
         internal static string NoScriptsFilesFoundMessage {
@@ -601,7 +646,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Probing system....
+        ///   Looks up a localized string similar to Checking Filesystem and Database.
         /// </summary>
         internal static string ProbingSystemMessage {
             get {
@@ -709,6 +754,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database Schema Version.
+        /// </summary>
+        internal static string SchemaVersionLabel {
+            get {
+                return ResourceManager.GetString("SchemaVersionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Script File.
         /// </summary>
         internal static string ScriptFileLabel {
@@ -754,11 +808,38 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setup is complete, click the link below to go to the home page..
+        ///   Looks up a localized string similar to Setup is already in progress. Please wait a few minutes and then refresh this page..
+        /// </summary>
+        internal static string SetupInProgressMessage {
+            get {
+                return ResourceManager.GetString("SetupInProgressMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup Already Running.
+        /// </summary>
+        internal static string SetupInProgressTitle {
+            get {
+                return ResourceManager.GetString("SetupInProgressTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup has finished successfully. You can now &lt;a href=&quot;{0}&quot; class=&quot;&quot;&gt;use your site&lt;/a&gt;. Happy mojo-ing!.
         /// </summary>
         internal static string SetupSuccessMessage {
             get {
                 return ResourceManager.GetString("SetupSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setup Complete.
+        /// </summary>
+        internal static string SetupSuccessTitle {
+            get {
+                return ResourceManager.GetString("SetupSuccessTitle", resourceCulture);
             }
         }
         
@@ -777,6 +858,15 @@ namespace Resources {
         internal static string SetupWelcomeMessage {
             get {
                 return ResourceManager.GetString("SetupWelcomeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skin Cache refreshed on all sites..
+        /// </summary>
+        internal static string SkinVersionGuidUpdated {
+            get {
+                return ResourceManager.GetString("SkinVersionGuidUpdated", resourceCulture);
             }
         }
         
@@ -826,11 +916,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Version.
+        ///   Looks up a localized string similar to Upgrading {0}.
         /// </summary>
-        internal static string VersionLabel {
+        internal static string UpgradingFeature {
             get {
-                return ResourceManager.GetString("VersionLabel", resourceCulture);
+                return ResourceManager.GetString("UpgradingFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string WarningTitle {
+            get {
+                return ResourceManager.GetString("WarningTitle", resourceCulture);
             }
         }
     }

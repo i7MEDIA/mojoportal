@@ -130,10 +130,10 @@
     <value>You need to upgrade the Web Site and Database Code to the same version as the Database Schema.</value>
   </data>
   <data name="ConfigureFeatureMessage" xml:space="preserve">
-    <value>Configuring feature {0}</value>
+    <value>Configuring {0}</value>
   </data>
   <data name="ConfigureFeaturesMessage" xml:space="preserve">
-    <value>Configuring {0}...</value>
+    <value>Configuring Features</value>
   </data>
   <data name="ConnectionStringFailedMessage" xml:space="preserve">
     <value>The Connection String you entered is not correct or does not have sufficient permission to alter the database</value>
@@ -165,8 +165,8 @@
   <data name="DatabaseCanCreateTempTablesMessage" xml:space="preserve">
     <value>database permissions are sufficient to create temporary tables.</value>
   </data>
-  <data name="DatabaseCodeVersionLabel" xml:space="preserve">
-    <value>Database Code Version</value>
+  <data name="AppCodeVersionLabel" xml:space="preserve">
+    <value>Application Code Version</value>
   </data>
   <data name="DatabaseConnectionOKMessage" xml:space="preserve">
     <value>database connection ok.</value>
@@ -211,15 +211,15 @@
     <value>The Data/Sites/1/systemfiles/ folder is not writable</value>
   </data>
   <data name="EnsuringFeaturesInAdminSites" xml:space="preserve">
-    <value>Ensuring all features are installed in server admin sites...</value>
+    <value>Features enabled in admin sites.</value>
   </data>
-  <data name="ErrorMessageLabel" xml:space="preserve">
-    <value>Error Message</value>
+  <data name="MessageLabel" xml:space="preserve">
+    <value>Message</value>
   </data>
-  <data name="ErrorOccurredLabel" xml:space="preserve">
+  <data name="ErrorLabel" xml:space="preserve">
     <value>Error Occurred</value>
   </data>
-  <data name="ExistingSiteCountMessageMessage" xml:space="preserve">
+  <data name="ExistingSiteCountMessage" xml:space="preserve">
     <value>{0} site(s) found.</value>
   </data>
   <data name="FailedToConnectToDatabase" xml:space="preserve">
@@ -294,7 +294,7 @@ You can get more information or download npgsql from here: http://npgsql.project
     <value>Connection String:</value>
   </data>
   <data name="ProbingSystemMessage" xml:space="preserve">
-    <value>Probing system...</value>
+    <value>Checking Filesystem and Database</value>
   </data>
   <data name="RunningScriptMessage" xml:space="preserve">
     <value>Running script {0} - {1}</value>
@@ -327,7 +327,7 @@ You can get more information or download npgsql from here: http://npgsql.project
     <value>Note: This page shows some information that is helpful during setup and upgrades but for security it would be best not to show any information when the system is up to date. You can disable setup and suppress all information on this page by setting DisableSetup=true in Web.config. When you need to upgrade, you can set this back to false. If you are logged in as Administrator setup will run and you will be able to see this page even if it is disabled in Web.config so you can easily leave it disabled and just login before upgrading. But if you are not logged in you will need to enable setup in Web.config.</value>
   </data>
   <data name="SetupSuccessMessage" xml:space="preserve">
-    <value>Setup is complete, click the link below to go to the home page.</value>
+    <value>Setup has finished successfully. You can now &lt;a href="{0}" class=""&gt;use your site&lt;/a&gt;. Happy mojo-ing!</value>
   </data>
   <data name="SetupTitle" xml:space="preserve">
     <value>mojoPortal Setup</value>
@@ -347,8 +347,8 @@ You can get more information or download npgsql from here: http://npgsql.project
   <data name="UpgradeTitle" xml:space="preserve">
     <value>mojoPortal Upgrade</value>
   </data>
-  <data name="VersionLabel" xml:space="preserve">
-    <value>Version</value>
+  <data name="SchemaVersionLabel" xml:space="preserve">
+    <value>Database Schema Version</value>
   </data>
   <data name="DatabaseCreationSucceeded" xml:space="preserve">
     <value>Database Creation Succeeded</value>
@@ -383,5 +383,38 @@ Right Click the Data folder in Windows File Explorer, choose properties and go t
 
 Obviously, instructions will be different across hosting environments but the same principle is true, the Data folder and all its child objects must be writable.
 </value>
+  </data>
+  <data name="SetupSuccessTitle" xml:space="preserve">
+    <value>Setup Complete</value>
+  </data>
+  <data name="SkinVersionGuidUpdated" xml:space="preserve">
+    <value>Skin Cache refreshed on all sites.</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="CustomMachineKeyCreated" xml:space="preserve">
+    <value>Custom MachineKey generated</value>
+  </data>
+  <data name="CustomMachineKeyNotCreated" xml:space="preserve">
+    <value>Custom MachineKey not created</value>
+  </data>
+  <data name="InfoTitle" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="CustomMachineKeyCreatedDetails" xml:space="preserve">
+    <value>Please make note of this MachineKey and keep it somewhere safe.</value>
+  </data>
+  <data name="SetupInProgressMessage" xml:space="preserve">
+    <value>Setup is already in progress. Please wait a few minutes and then refresh this page.</value>
+  </data>
+  <data name="SetupInProgressTitle" xml:space="preserve">
+    <value>Setup Already Running</value>
+  </data>
+  <data name="UpgradingFeature" xml:space="preserve">
+    <value>Upgrading {0}</value>
+  </data>
+  <data name="InstallingFeature" xml:space="preserve">
+    <value>Installing {0} - v{1}</value>
   </data>
 </root>
