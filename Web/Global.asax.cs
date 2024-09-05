@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.Net;
 using System.Security.Cryptography;
@@ -17,7 +18,6 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.App_Start;
 using mojoPortal.Web.Caching;
-using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
@@ -288,6 +288,33 @@ public class Global : HttpApplication
 		{
 			//this can happen if we're upgrading from an old version of mojoPortal which doesn't have some Page attributes
 			log.Error($"Cannot get skin config because of missing page attributes,\r\n{ex}");
+		}
+
+		if (AppConfig.SanitizeQueryStrings)
+		{
+			var originalQueryStrings = new Dictionary<string, string>();
+			var sanitizedQueryStrings = new Dictionary<string, string>();
+
+			foreach (string key in Request.QueryString.Keys)
+			{
+				if (key is not null)
+				{
+					originalQueryStrings.Add(key, Request.QueryString[key]);
+					sanitizedQueryStrings.Add(key, UrlEncode(Request.QueryString[key]));
+				}
+			}
+
+			//we added the original query strings this way to ensure both strings were handled the same way so there is less of a chance of 
+			//inconsequential differences causing our check below to true when it doesn't need to be true
+			//someone could do a bit more research/testing on this in the future to see if it's actually necessary.
+			var originalQueryString = originalQueryStrings.ToDelimitedString();
+			var sanitizedQueryString = sanitizedQueryStrings.ToDelimitedString();
+
+			//we don't want to rewrite anything if there weren't any changes
+			if (sanitizedQueryStrings.Count > 0 && originalQueryString != sanitizedQueryString)
+			{
+				Context.RewritePath(Request.Path, Request.PathInfo, sanitizedQueryStrings.ToDelimitedString());
+			}
 		}
 
 		#region FileSystem Init

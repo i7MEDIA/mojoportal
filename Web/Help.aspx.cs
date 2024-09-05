@@ -19,6 +19,9 @@ public partial class Help : Page
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
+
+		helpKey = WebUtils.ParseStringFromQueryString("helpkey", helpKey);
+
 		if (Request.Params.Get("helpkey") != null)
 		{
 			helpKey = Request.Params.Get("helpkey");
@@ -30,7 +33,7 @@ public partial class Help : Page
 			{
 				if (helpKey != string.Empty)
 				{
-					litEditLink.Text = $"<a href=\"{SiteUtils.GetNavigationSiteRoot()}/HelpEdit.aspx?helpkey={helpKey.RemoveMarkup()}\">{Resource.HelpEditLink}</a>";
+					litEditLink.Text = $"<a href=\"{"HelpEdit.aspx".ToLinkBuilder(false).AddParam("helpkey", helpKey)}\">{Resource.HelpEditLink}</a>";
 				}
 			}
 		}

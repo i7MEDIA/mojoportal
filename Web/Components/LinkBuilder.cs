@@ -51,13 +51,13 @@ public class LinkBuilder
 	}
 	public LinkBuilder ReturnUrl(string returnUrl)
 	{
-		queries.Add("returnurl", returnUrl);
+		queries.Add("returnurl", UrlEncode(returnUrl)); //UrlEncode prevents querystring from being used as vector for XSS
 		return this;
 	}
 
 	public LinkBuilder AddParam(string key, object value)
 	{
-		queries.Add(key, value);
+		queries.Add(key, UrlEncode(value.ToString())); //UrlEncode prevents querystring from being used as vector for XSS
 		return this;
 	}
 
@@ -65,7 +65,7 @@ public class LinkBuilder
 	{
 		foreach (var @param in @params)
 		{
-			queries.Add(@param.Key, @param.Value);
+			queries.Add(@param.Key, UrlEncode(@param.Value.ToString())); //UrlEncode prevents querystring from being used as vector for XSS
 		}
 		return this;
 	}

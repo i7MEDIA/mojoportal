@@ -33,8 +33,7 @@ public static class WebUtils
 			return string.Empty;
 		}
 
-		string applicationRoot = HttpContext.Current.Items["applicationRoot"] as string;
-		if (applicationRoot is null)
+		if (HttpContext.Current.Items["applicationRoot"] is not string applicationRoot)
 		{
 			applicationRoot = CalculateApplicationRoot();
 			if (applicationRoot is not null)
@@ -744,7 +743,8 @@ public static class WebUtils
 		{
 			return defaultIfNotFoundOrInvalid;
 		}
-		return val;
+
+		return val.RemoveMarkup();
 	}
 
 	public static bool ParseBoolFromQueryString(string paramName, bool defaultIfNotFoundOrInvalid)
@@ -809,7 +809,7 @@ public static class WebUtils
 		}
 		if (HttpContext.Current is null)
 		{
-			paramValue = default(int);
+			paramValue = default;
 			return false;
 		}
 
