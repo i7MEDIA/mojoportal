@@ -313,7 +313,7 @@ public partial class PagePermissionPage : NonCmsBasePage
 			//		new BreadCrumb
 			//		{
 			//			Text = Resource.PageSettingsPageTitle,
-			//			Url = "Admin/PageSettings.aspx".ToQueryBuilder().PageId(pageId).ToString(),
+			//			Url = "Admin/PageSettings.aspx".ToLinkBuilder().PageId(pageId).ToString(),
 			//			CssClass = crumbs.CssClass,
 			//			SortOrder = -1,
 			//			SystemName = "PageSettings",
@@ -322,7 +322,7 @@ public partial class PagePermissionPage : NonCmsBasePage
 			//		new BreadCrumb
 			//		{
 			//			Text = Resource.PagePermissionsLink,
-			//			Url = "Admin/PagePermissionsMenu.aspx".ToQueryBuilder().PageId(pageId).ToString(),
+			//			Url = "Admin/PagePermissionsMenu.aspx".ToLinkBuilder().PageId(pageId).ToString(),
 			//			SortOrder = 0,
 			//			SystemName = "PagePermissions",
 			//			Parent = "PageSettings"

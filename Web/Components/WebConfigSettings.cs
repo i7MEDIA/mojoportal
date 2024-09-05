@@ -9,7 +9,7 @@ public static class WebConfigSettings
 {
 	public static bool UseSiteIdAppThemesInMediumTrust => ConfigHelper.GetBoolProperty("UseSiteIdAppThemesInMediumTrust", false);
 
-	public static bool EnableOpenIdAuthentication => ConfigHelper.GetBoolProperty("EnableOpenIDAuthentication", false);
+	public static bool EnableOpenIdAuthentication => ConfigHelper.GetBoolProperty("EnableOpenIDAuthentication", true);
 
 	public static bool DisableRpxAuthentication => ConfigHelper.GetBoolProperty("DisableRpxAuthentication", false);
 
@@ -538,13 +538,13 @@ public static class WebConfigSettings
 
 	public static bool UseSiteNameForRootBreadcrumb => ConfigHelper.GetBoolProperty("UseSiteNameForRootBreadcrumb", false);
 
-	public static bool UseRelatedSiteMode => ConfigHelper.GetBoolProperty("UseRelatedSiteMode", false);
+	public static bool UseRelatedSiteMode => AppConfig.RelatedSiteModeEnabled;
 
-	public static bool UseSameContentFolderForRelatedSiteMode => ConfigHelper.GetBoolProperty("UseSameContentFolderForRelatedSiteMode", false);
+	public static bool UseSameContentFolderForRelatedSiteMode => AppConfig.RelatedSiteModeShareContentFolder;
 
-	public static int RelatedSiteID => ConfigHelper.GetIntProperty("RelatedSiteID", 1);
+	public static int RelatedSiteID => AppConfig.RelatedSiteID;
 
-	public static bool RelatedSiteModeHideRoleManagerInChildSites => ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true);
+	public static bool RelatedSiteModeHideRoleManagerInChildSites => AppConfig.RelatedSiteModeHideRoleManagerInChildSites;
 
 	public static bool UseUrlReWriting => ConfigHelper.GetBoolProperty("UseUrlReWriting", true);
 

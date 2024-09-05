@@ -1,83 +1,74 @@
-﻿using AutoMapper;
-using AutoMapper.Configuration;
-using log4net;
-using mojoPortal.Web.App_Start;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.CodeDom.Compiler;
+﻿using System;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using log4net;
+using Newtonsoft.Json.Serialization;
 
-namespace mojoPortal.Web.Routing
+namespace mojoPortal.Web.Routing;
+
+public class WebApiConfig
 {
-	public class WebApiConfig
+	private static readonly ILog log = LogManager.GetLogger(typeof(WebApiConfig));
+
+	public static void Register(HttpConfiguration config)
 	{
-		private static readonly ILog log = LogManager.GetLogger(typeof(WebApiConfig));
+		// enable attribute routing
+		config.MapHttpAttributeRoutes();
 
-		public static void Register(HttpConfiguration config)
+		try
 		{
+			var routesConfig = RoutesConfig.GetConfig();
 
-			// enable attribute routing
-			config.MapHttpAttributeRoutes();
-
-			try
+			foreach (var registrar in routesConfig.RouteRegistrars)
 			{
-				RoutesConfig registrarConfig = RoutesConfig.GetConfig();
-
-				foreach (IRegisterRoutes registrar in registrarConfig.RouteRegistrars)
+				try
 				{
-					try
-					{
-						registrar.Register(config);
-					}
-					catch (Exception ex)
-					{
-						log.Error(ex);
-					}
-
+					registrar.Register(config);
 				}
-
+				catch (Exception ex)
+				{
+					log.Error(ex);
+				}
 			}
-			catch (Exception ex)
-			{
-				log.Error(ex);
-			}
-
-			//Mapper.Initialize(c => c.AddProfile<MappingProfile>());
-
-			//var mapperConfig = new MapperConfiguration(cfg =>
-			//{
-			//	cfg.AddProfile<MappingProfile>();
-			//});
-
-			//var mapper = mapperConfig.CreateMapper();
-
-			var settings = config.Formatters.JsonFormatter.SerializerSettings;
-			settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-			// Comment out line below for production
-			settings.Formatting = Newtonsoft.Json.Formatting.Indented;
-			// The setting below is to make the Angular File Manager work
-			settings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-
-			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
-			config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("multipart/form-data"));
-			config.Routes.MapHttpRoute(
-				name: "DefaultApi",
-				routeTemplate: "api/{controller}/{id}",
-				defaults: new { id = RouteParameter.Optional }
-			);
-
-			config.Routes.MapHttpRoute(
-				name: "FileService",
-				routeTemplate: "FileService/{controller}/{id}",
-				defaults: new { controller = "FileService", id = RouteParameter.Optional, action = RouteParameter.Optional }
-			);
-
-			//config.Routes.MapHttpRoute(
-			//	name: "BadWord",
-			//	routeTemplate: "BadWord/{action}/{id}",
-			//	defaults: new {controller = "BadWord", action = "CheckString", id = RouteParameter.Optional }
-			//);
 		}
+		catch (Exception ex)
+		{
+			log.Error(ex);
+		}
+
+		config.Formatters.Clear();
+		config.Formatters.Add(new JsonMediaTypeFormatter());
+
+		var settings = config.Formatters.JsonFormatter.SerializerSettings;
+		settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+		if (AppConfig.Debug)
+		{
+			settings.Formatting = Newtonsoft.Json.Formatting.Indented;
+		}
+
+		settings.DateFormatString = "yyyy-MM-dd HH:mm:ss"; //"Angular" File Manager wants dates in this format
+
+		config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
+		config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("multipart/form-data"));
+
+		config.Routes.MapHttpRoute(
+			name: "DefaultApi",
+			routeTemplate: "api/{controller}/{id}",
+			defaults: new { id = RouteParameter.Optional }
+		);
+
+		config.Routes.MapHttpRoute(
+			name: "FileService",
+			routeTemplate: "FileService/{controller}/{id}",
+			defaults: new { controller = "FileService", id = RouteParameter.Optional, action = RouteParameter.Optional }
+		);
+
+		//config.Routes.MapHttpRoute(
+		//	name: "BadWord",
+		//	routeTemplate: "BadWord/{action}/{id}",
+		//	defaults: new {controller = "BadWord", action = "CheckString", id = RouteParameter.Optional }
+		//);
 	}
 }

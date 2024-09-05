@@ -2040,6 +2040,7 @@ namespace mojoPortal.Web
 			return resolvedUrl;
 		}
 
+		private const string FileAttachmentPathFormat = "~/Data/Sites/{0}/Attachments/";
 		public static string GetFileAttachmentUploadPath()
 		{
 			if (HttpContext.Current is null) { return string.Empty; }
@@ -2048,15 +2049,17 @@ namespace mojoPortal.Web
 
 			if (siteSettings is null) { return string.Empty; }
 
-			return $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/Attachments/";
+			return string.Format(FileAttachmentPathFormat, Invariant($"{siteSettings.SiteId}"));
 		}
 
 		public static void EnsureFileAttachmentFolder(SiteSettings siteSettings)
 		{
-			if (siteSettings is null) { return; }
-			if (HttpContext.Current is null) { return; }
+			if (siteSettings is null || HttpContext.Current is null)
+			{
+				return;
+			}
 
-			string filePath = HttpContext.Current.Server.MapPath($"{WebUtils.GetApplicationRoot()}/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/Attachments/");
+			string filePath = HttpContext.Current.Server.MapPath(Invariant($"{WebUtils.GetApplicationRoot()}/Data/Sites/{siteSettings.SiteId}/Attachments/"));
 
 			if (!Directory.Exists(filePath))
 			{
@@ -2069,7 +2072,6 @@ namespace mojoPortal.Web
 					log.Error($"failed to create path for file attachments {filePath} ", ex);
 				}
 			}
-
 		}
 
 		///// <summary>
@@ -2283,7 +2285,12 @@ namespace mojoPortal.Web
 		{
 			var (validationKey, decryptionKey, validationAlgorithm, decryptionAlgorithm) = GenerateRandomMachineKey();
 
-			return $"<machineKey validationKey=\"{validationKey}\" decryptionKey=\"{decryptionKey}\" validation=\"{validationAlgorithm}\" decryption=\"{decryptionAlgorithm}\" />";
+			return $@"<machineKey 
+	validationKey=""{validationKey}"" 
+	decryptionKey=""{decryptionKey}"" 
+	validation=""{validationAlgorithm}"" 
+	decryption=""{decryptionAlgorithm}"" 
+/>";
 		}
 
 		public static string GetEditorProviderName()
@@ -2310,9 +2317,10 @@ namespace mojoPortal.Web
 
 		public static bool IsMobileDevice()
 		{
-			if (HttpContext.Current is null) { return false; }
-			if (HttpContext.Current.Request is null) { return false; }
-			if (HttpContext.Current.Request.UserAgent is null) { return false; }
+			if (HttpContext.Current is null || HttpContext.Current.Request is null || HttpContext.Current.Request.UserAgent is null)
+			{
+				return false;
+			}
 
 			if (!string.IsNullOrWhiteSpace(WebConfigSettings.MobileDetectionExcludeUrlsCsv))
 			{
@@ -2577,7 +2585,7 @@ namespace mojoPortal.Web
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (siteSettings is not null)
 			{
-				return (WebConfigSettings.UseRelatedSiteMode) && (WebUser.IsInRoles(siteSettings.SiteRootEditRoles));
+				return WebConfigSettings.UseRelatedSiteMode && WebUser.IsInRoles(siteSettings.SiteRootEditRoles);
 			}
 
 			return false;

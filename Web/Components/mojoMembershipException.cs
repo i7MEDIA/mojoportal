@@ -1,17 +1,12 @@
 using System;
 
+namespace mojoPortal.Web;
 
-
-namespace mojoPortal.Web
+[Serializable]
+public class MojoMembershipException : ApplicationException
 {
-    [Serializable]
-    public class MojoMembershipException : ApplicationException
-    {
-        public MojoMembershipException(string message)
-        {
-            
+	public MojoMembershipException(string message)
+	{
 
-        }
-        
-    }
+	}
 }

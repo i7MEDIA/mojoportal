@@ -37,7 +37,7 @@ public partial class LoginPage : NonCmsBasePage
 			}
 		}
 
-		returnUrlCookieName = "returnurl" + siteSettings.SiteId.ToInvariantString();
+		returnUrlCookieName = Invariant($"returnurl{siteSettings.SiteId}");
 
 		if (WebConfigSettings.EnableOpenIdAuthentication && siteSettings.AllowOpenIdAuth)
 		{

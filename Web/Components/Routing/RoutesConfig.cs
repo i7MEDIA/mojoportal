@@ -5,102 +5,74 @@ using System.Web;
 using System.Web.Caching;
 using System.Xml;
 
-namespace mojoPortal.Web.Routing
+namespace mojoPortal.Web.Routing;
+
+public class RoutesConfig
 {
-    public class RoutesConfig
-    {
-        private List<IRegisterRoutes> routeRegistrars
-            = new List<IRegisterRoutes>();
+	public List<IRegisterRoutes> RouteRegistrars { get; } = [];
 
-        public List<IRegisterRoutes> RouteRegistrars
-        {
-            get
-            {
-                return routeRegistrars;
-            }
-        }
+	public static RoutesConfig GetConfig()
+	{
+		var routesConfig = new RoutesConfig();
 
+		if (HttpRuntime.Cache["RoutesConfig"] is RoutesConfig cachedConfig)
+		{
+			return cachedConfig;
+		}
 
-        public static RoutesConfig GetConfig()
-        {
-            RoutesConfig config = new RoutesConfig();
+		var configFolderName = WebConfigSettings.RouteConfigPath; //"~/Setup/RouteRegistrars/";
 
+		var pathToConfigFolder = System.Web.Hosting.HostingEnvironment.MapPath(configFolderName);
 
-            if (
-                (HttpRuntime.Cache["RoutesConfig"] != null)
-                && (HttpRuntime.Cache["RoutesConfig"] is RoutesConfig)
-            )
-            {
-                return (RoutesConfig)HttpRuntime.Cache["RoutesConfig"];
-            }
+		if (!Directory.Exists(pathToConfigFolder))
+		{
+			return routesConfig;
+		}
 
+		var directoryInfo = new DirectoryInfo(pathToConfigFolder);
+		var routeFiles = directoryInfo.GetFiles("*.config");
 
-            String configFolderName = WebConfigSettings.RouteConfigPath; //"~/Setup/RouteRegistrars/";
+		foreach (var fileInfo in routeFiles)
+		{
+			var routeConfigFile = XmlHelper.GetXmlDocument(fileInfo.FullName);
+			LoadRoutes(routesConfig, routeConfigFile.DocumentElement);
+		}
 
-            string pathToConfigFolder = System.Web.Hosting.HostingEnvironment.MapPath(configFolderName);
+		//cache can be cleared by touching Web.config
+		var cacheDependency = new CacheDependency(HttpContext.Current.Server.MapPath("~/Web.config"));
 
-            if (!Directory.Exists(pathToConfigFolder)) return config;
+		HttpRuntime.Cache.Insert(
+			"RoutesConfig",
+			routesConfig,
+			cacheDependency,
+			DateTime.Now.AddMinutes(5),
+			TimeSpan.Zero,
+			CacheItemPriority.Default,
+			null);
 
-            DirectoryInfo directoryInfo
-                = new DirectoryInfo(pathToConfigFolder);
-
-            FileInfo[] routeFiles = directoryInfo.GetFiles("*.config");
-
-            foreach (FileInfo fileInfo in routeFiles)
-            {
-				var routeConfigFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
-				LoadRoutes(config, routeConfigFile.DocumentElement);
-
-            }
+		return routesConfig;
+	}
 
 
-             //cache can be cleared by touching Web.config
-            CacheDependency cacheDependency
-                = new CacheDependency(HttpContext.Current.Server.MapPath("~/Web.config"));
+	private static void LoadRoutes(RoutesConfig config, XmlNode documentElement)
+	{
+		if (documentElement.Name != "Routes")
+		{
+			return;
+		}
 
+		foreach (XmlNode node in documentElement.ChildNodes)
+		{
+			if (node.Name == "IRegisterRoutes")
+			{
+				var attributeCollection = node.Attributes;
 
-            HttpRuntime.Cache.Insert(
-                "RoutesConfig",
-                config,
-                cacheDependency,
-                DateTime.Now.AddMinutes(5),
-                TimeSpan.Zero,
-                CacheItemPriority.Default,
-                null);
-
-            return config;
-
-            
-
-        }
-
-        private static void LoadRoutes(
-            RoutesConfig config,
-            XmlNode documentElement
-            )
-        {
-
-            if (documentElement.Name != "Routes") return;
-
-            foreach (XmlNode node in documentElement.ChildNodes)
-            {
-                if (node.Name == "IRegisterRoutes")
-                {
-
-                    XmlAttributeCollection attributeCollection
-                        = node.Attributes;
-
-                    if (attributeCollection["type"] != null 
-                        && typeof(IRegisterRoutes).IsAssignableFrom(Type.GetType(attributeCollection["type"].Value)))
-                    {
-                        IRegisterRoutes registrar = Activator.CreateInstance(Type.GetType(attributeCollection["type"].Value)) as IRegisterRoutes;
-                        config.RouteRegistrars.Add(registrar);
-                    }
-
-                }
-            }
-
-        }
-
-    }
+				if (attributeCollection["type"] != null && typeof(IRegisterRoutes).IsAssignableFrom(Type.GetType(attributeCollection["type"].Value)))
+				{
+					IRegisterRoutes registrar = Activator.CreateInstance(Type.GetType(attributeCollection["type"].Value)) as IRegisterRoutes;
+					config.RouteRegistrars.Add(registrar);
+				}
+			}
+		}
+	}
 }

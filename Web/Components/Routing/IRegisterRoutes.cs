@@ -1,15 +1,12 @@
 ﻿using System.Web.Http;
-using System.Web.Routing;
 using System.Web.Mvc;
+using System.Web.Routing;
 
-namespace mojoPortal.Web.Routing
+namespace mojoPortal.Web.Routing;
+
+public interface IRegisterRoutes
 {
-    public interface IRegisterRoutes
-    {
-       void Register(HttpConfiguration config);
-       void RegisterRoutes(RouteCollection routes);
-       void RegisterGlobalFilters(GlobalFilterCollection filters);
-    }
-
-    
+	void Register(HttpConfiguration config);
+	void RegisterRoutes(RouteCollection routes);
+	void RegisterGlobalFilters(GlobalFilterCollection filters);
 }

@@ -272,7 +272,7 @@ public class ModuleConfiguration
 			ImportPageTitle = attrCollection.ParseStringFromAttribute("importPageTitle", ImportPageTitle);
 			ExportPageTitle = attrCollection.ParseStringFromAttribute("exportPageTitle", ExportPageTitle);
 			ImportPageCancelLinkText = attrCollection.ParseStringFromAttribute("importPageCancelLinkText", ImportPageCancelLinkText);
-			FieldDefinitionSrc = attrCollection.ParseStringFromAttribute("fieldDefinitionSrc", FieldDefinitionSrc).Replace("$_SitePath_$", $"/Data/Sites/{siteId.ToInvariantString()}");
+			FieldDefinitionSrc = attrCollection.ParseStringFromAttribute("fieldDefinitionSrc", FieldDefinitionSrc).Replace("$_SitePath_$", Invariant($"/Data/Sites/{siteId}"));
 			FieldDefinitionGuid = attrCollection.ParseGuidFromAttribute("fieldDefinitionGuid", FieldDefinitionGuid);
 			JsonRenderLocation = attrCollection.ParseStringFromAttribute("jsonRenderLocation", JsonRenderLocation);
 			JsonLabelObjects = attrCollection.ParseBoolFromAttribute("jsonLabelObjects", JsonLabelObjects);

@@ -28,7 +28,7 @@ public class SecurityAdvisor
 
 	public bool UsingCustomMachineKey()
 	{
-		var configSection = mojoPortal.Core.Configuration.ConfigHelper.GetMachineKeySection();
+		var configSection = ConfigHelper.GetMachineKeySection();
 		var oldValidationKey = "55BA53B475CCAE0992D6BF9FE463A5E97F00C6C16DA3D7DF9202E560078AB501643C15514785FEE30FEF26FC27F5CE594B42FFCA55452EF90E8A056B4DAE9F39";
 		var oldDecryptionKey = "939232D527AC4CD3E449441FE887DA110A16C1A36924C424CBAAE3F00282436C";
 		var currentValidationKey = "BC4BACC8639CA465C9EEB8ED7C1718B9DD8D29C26CD4D3600DD6AFB5443C436A";
