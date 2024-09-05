@@ -323,6 +323,7 @@
     <Compile Include="Models\SiteModel.cs" />
     <Compile Include="Models\SuperFlexiObject.cs" />
     <Compile Include="Models\WidgetModel.cs" />
+    <Compile Include="Setup\SuperDuperNewConfigStuff.cs" />
     <Compile Include="SuperFlexi\Controls\FieldControls\TextBox.cs" />
     <Compile Include="SuperFlexi\Controls\FileBrowserTextBoxExtender.cs" />
     <Compile Include="SuperFlexi\Controls\InterfaceControl.cs" />

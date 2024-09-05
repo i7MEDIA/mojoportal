@@ -64,6 +64,8 @@
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Helpers\XmlSanitizer.cs" />
     <Compile Include="Mappers\AutoMapperAdapter.cs" />
+    <Compile Include="Models\SettingFieldGroup.cs" />
+    <Compile Include="Models\SettingField.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializers\Newtonsoft.cs" />
   </ItemGroup>

@@ -391,6 +391,7 @@
     <Compile Include="Blog\BlogCompare.aspx.designer.cs">
       <DependentUpon>BlogCompare.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Blog\Components\BlogSuperDuperNewConfigStuff.cs" />
     <Compile Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx.cs">
       <DependentUpon>BlogInstanceCategoriesSetting.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
