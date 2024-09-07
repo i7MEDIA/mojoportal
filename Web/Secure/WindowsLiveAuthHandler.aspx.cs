@@ -390,14 +390,18 @@ public partial class WindowsLiveAuthHandler : Page
 		{
 			redirectPath = CookieHelper.GetCookieValue(returnUrlCookieName);
 		}
-		if (string.IsNullOrWhiteSpace(redirectPath)
-			|| redirectPath.ContainsCaseInsensitive("AccessDenied")
-			|| redirectPath.ContainsCaseInsensitive("Login")
-			|| redirectPath.ContainsCaseInsensitive("SignIn")
-			|| redirectPath.ContainsCaseInsensitive("ConfirmRegistration.aspx")
-			|| redirectPath.ContainsCaseInsensitive("Register")
-			)
+
+		if (
+			string.IsNullOrWhiteSpace(redirectPath) ||
+			redirectPath.Contains("AccessDenied", StringComparison.OrdinalIgnoreCase) ||
+			redirectPath.Contains("Login", StringComparison.OrdinalIgnoreCase) ||
+			redirectPath.Contains("SignIn", StringComparison.OrdinalIgnoreCase) ||
+			redirectPath.Contains("ConfirmRegistration.aspx", StringComparison.OrdinalIgnoreCase) ||
+			redirectPath.Contains("Register", StringComparison.OrdinalIgnoreCase)
+		)
+		{
 			return SiteUtils.GetNavigationSiteRoot();
+		}
 
 		return redirectPath;
 	}

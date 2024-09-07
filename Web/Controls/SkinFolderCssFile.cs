@@ -71,13 +71,13 @@ public class SkinFolderCssFile : WebControl
 				//Page.AppRelativeVirtualPath will match for things like blog posts where the friendly url is something like /my-cool-post which
 				//is then mapped to the /Blog/ViewPost.aspx page. So, one could use /Blog/ViewPost.aspx in the AllowedUrls property to render
 				//a css file on blog post pages.
-				if (Page.AppRelativeVirtualPath.ContainsCaseInsensitive(u))
+				if (base.Page.AppRelativeVirtualPath.Contains(u, StringComparison.OrdinalIgnoreCase))
 				{
 					match = true;
 				}
 
 				//Page.Request.RawUrl is the url used for the request, as in the example above '/my-cool-post'
-				if (Page.Request.RawUrl.ContainsCaseInsensitive(u))
+				if (base.Page.Request.RawUrl.Contains(u, StringComparison.OrdinalIgnoreCase))
 				{
 					match = true;
 				}

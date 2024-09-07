@@ -347,22 +347,27 @@ public class Global : HttpApplication
 		log4net.ThreadContext.Properties["culture"] = null;
 		log4net.ThreadContext.Properties["url"] = null;
 
-		if (HttpContext.Current == null) { return; }
-		if (HttpContext.Current.Request == null) { return; }
-		if (HttpContext.Current.Items == null) { return; }
-		if (!HttpContext.Current.Request.IsAuthenticated) { return; }
-		if (!WebConfigSettings.TrackAuthenticatedRequests) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".png")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".gif")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".jpg")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".jpeg")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".svg")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".css")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".axd")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".js")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".ico")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive(".ashx")) { return; }
-		if (HttpContext.Current.Request.Path.ContainsCaseInsensitive("setup/default.aspx")) { return; }
+		if (
+			HttpContext.Current == null ||
+			HttpContext.Current.Request == null ||
+			HttpContext.Current.Items == null ||
+			!HttpContext.Current.Request.IsAuthenticated ||
+			!WebConfigSettings.TrackAuthenticatedRequests ||
+			HttpContext.Current.Request.Path.Contains(".png", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".gif", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".jpg", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".jpeg", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".svg", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".css", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".axd", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".js", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".ico", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".ashx", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains("setup/default.aspx", StringComparison.OrdinalIgnoreCase)
+		)
+		{
+			return;
+		}
 
 		// update user activity at the end of each request
 		// but only if the siteUser is already in the HttpContext

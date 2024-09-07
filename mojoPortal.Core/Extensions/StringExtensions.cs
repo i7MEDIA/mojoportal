@@ -1,11 +1,11 @@
-﻿using System;
+﻿using mojoPortal.Core.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using mojoPortal.Core.Helpers;
 
 namespace mojoPortal.Core.Extensions;
 
@@ -16,11 +16,11 @@ public static class StringExtensions
 	public static string ToInvariantString(this float i, string format = null) => format is null ? i.ToString(CultureInfo.InvariantCulture) : i.ToString(format, CultureInfo.InvariantCulture);
 
 	public static string ToInvariantString(this decimal i, string format = null) => format is null ? i.ToString(CultureInfo.InvariantCulture) : i.ToString(format, CultureInfo.InvariantCulture);
-	
-	public static bool ContainsCaseInsensitive(this string source, string value)
+
+	// Reworked this to follow the .NET Core override method
+	public static bool Contains(this string source, string value, StringComparison comparison)
 	{
-		int results = source.IndexOf(value, StringComparison.CurrentCultureIgnoreCase);
-		return results != -1;
+		return source.IndexOf(value, comparison) >= 0;
 	}
 
 	public static bool IsCaseInsensitiveMatch(this string str1, string str2) => string.Equals(str1, str2, StringComparison.InvariantCultureIgnoreCase);
