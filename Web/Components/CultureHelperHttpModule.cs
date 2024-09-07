@@ -26,10 +26,15 @@ public class CultureHelperHttpModule : IHttpModule
 
 		HttpApplication app = (HttpApplication)sender;
 
-		if (WebUtils.IsRequestForStaticFile(app.Request.Path)) { return; }
-		if (app.Request.Path.ContainsCaseInsensitive("csshandler.ashx")) { return; }
-		if (app.Request.Path.ContainsCaseInsensitive("thumbnailservice.ashx")) { return; }
-		if (app.Request.Path.ContainsCaseInsensitive("GCheckoutNotificationHandler.ashx")) { return; }
+		if (
+			WebUtils.IsRequestForStaticFile(app.Request.Path) ||
+			app.Request.Path.Contains("csshandler.ashx", StringComparison.OrdinalIgnoreCase) ||
+			app.Request.Path.Contains("thumbnailservice.ashx", StringComparison.OrdinalIgnoreCase) ||
+			app.Request.Path.Contains("GCheckoutNotificationHandler.ashx", StringComparison.OrdinalIgnoreCase)
+		)
+		{
+			return;
+		}
 
 
 		// 2006-12-29 
