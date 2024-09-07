@@ -1,19 +1,20 @@
-﻿using System;
+﻿using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
+using mojoPortal.Business.WebHelpers.UserSignInHandlers;
+using mojoPortal.Net;
+using mojoPortal.Web.Components;
+using mojoPortal.Web.Configuration;
+using mojoPortal.Web.Framework;
+using Resources;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
-using mojoPortal.Business.WebHelpers.UserSignInHandlers;
-using mojoPortal.Net;
-using mojoPortal.Web.Configuration;
-using mojoPortal.Web.Framework;
-using Resources;
 
 namespace mojoPortal.Web.UI;
 
@@ -61,7 +62,7 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			if (!IsPostBack)
 			{
 				log.DebugFormat("openid-debug: not postback, need to login ");
-				Response.Redirect(SiteRoot + "/Secure/Login.aspx");
+				Response.Redirect(PageUrlService.GetLoginLink());
 			}
 		}
 		else
@@ -75,9 +76,10 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 
 	private void BindNewsletterList()
 	{
-		if (!displaySettings.ShowNewsLetters) { return; }
-
-		if (clNewsletters.Items.Count > 0) { return; }
+		if (!displaySettings.ShowNewsLetters || clNewsletters.Items.Count > 0)
+		{
+			return;
+		}
 
 		clNewsletters.DataSource = siteAvailableSubscriptions;
 		clNewsletters.DataBind();
@@ -93,21 +95,27 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			if (l.ProfileOptIn)
 			{
 				ListItem item = clNewsletters.Items.FindByValue(l.LetterInfoGuid.ToString());
-				if (item != null) { item.Selected = true; }
+
+				if (item != null)
+				{
+					item.Selected = true;
+				}
 			}
 		}
 	}
 
+
 	private void ProcessToken()
 	{
-		OpenIdRpxHelper rpxHelper = new OpenIdRpxHelper(rpxApiKey, rpxBaseUrl);
-		OpenIdRpxAuthInfo authInfo = rpxHelper.AuthInfo(authToken, tokenUrl);
+		var rpxHelper = new OpenIdRpxHelper(rpxApiKey, rpxBaseUrl);
+		var authInfo = rpxHelper.AuthInfo(authToken, tokenUrl);
 
-		if ((authInfo == null) || (!authInfo.IsValid))
+		if (authInfo == null || !authInfo.IsValid)
 		{
 			log.Debug($"openid-debug: authInfo is null or authInfo.IsValid='false' ");
 
-			Response.Redirect(SiteRoot + "/Secure/Login.aspx");
+			Response.Redirect(PageUrlService.GetLoginLink());
+
 			return;
 		}
 
@@ -115,10 +123,11 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 		{
 			log.Debug($"openid-debug: authInfo is valid and user exists, authenticated ");
 			HandleAuthenticatedUser(rpxHelper, authInfo);
+
 			return;
 		}
 
-		Guid userGuid = Guid.Empty;
+		var userGuid = Guid.Empty;
 		SiteUser user = null;
 
 		//first find a site user by email
@@ -128,7 +137,6 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			log.Debug($"openid-debug: found user by email ");
 
 			user = SiteUser.GetByEmail(siteSettings, authInfo.Email);
-
 		}
 
 		if (authInfo.PrimaryKey.Length == 36)
@@ -141,16 +149,18 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			catch (OverflowException) { }
 		}
 
-		if ((user == null) && (userGuid == Guid.Empty))
+		if (user == null && userGuid == Guid.Empty)
 		{
 			userGuid = SiteUser.GetUserGuidFromOpenId(
 				siteSettings.SiteId,
-				authInfo.Identifier);
+				authInfo.Identifier
+			);
 		}
 
-		if ((user == null) && (userGuid != Guid.Empty))
+		if (user == null && userGuid != Guid.Empty)
 		{
 			user = new SiteUser(siteSettings, userGuid);
+
 			if (WebConfigSettings.UseRelatedSiteMode)
 			{
 				if (user.UserId == -1)
@@ -162,9 +172,8 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			else if (user.SiteGuid != siteSettings.SiteGuid)
 			{
 				user = null;
-				log.Debug($"openid-debug: user not connected to this site ({siteSettings.SiteId.ToString()}) ");
+				log.Debug($"openid-debug: user not connected to this site ({siteSettings.SiteId}) ");
 			}
-
 		}
 
 		if (user == null)
@@ -178,25 +187,24 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			{
 				log.Debug($"openid-debug: user not found, AllowNewRegistrations='false' ");
 				WebUtils.SetupRedirect(this, SiteRoot);
-				return;
 
+				return;
 			}
 		}
 		else
 		{
-			log.Debug($"openid-debug: user found ({user.LoweredEmail}, {user.UserId.ToString()}) ");
+			log.Debug($"openid-debug: user found ({user.LoweredEmail}, {user.UserId}) ");
 
-			bool needToSave = false;
-			if ((siteSettings.UseSecureRegistration) && (user.RegisterConfirmGuid != Guid.Empty))
+			var needToSave = false;
+
+			if (siteSettings.UseSecureRegistration && user.RegisterConfirmGuid != Guid.Empty)
 			{
 				if (authInfo.VerifiedEmail.Length > 0)
 				{
 					user.SetRegistrationConfirmationGuid(Guid.Empty);
 					user.Email = authInfo.VerifiedEmail;
 					needToSave = true;
-
 				}
-
 			}
 
 			if (user.OpenIdUri.Length == 0)
@@ -205,43 +213,40 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 				needToSave = true;
 			}
 
-			if (needToSave) { user.Save(); }
+			if (needToSave)
+			{
+				user.Save();
+			}
 
 			if (WebConfigSettings.OpenIdRpxUseMappings)
 			{
-				if ((authInfo.PrimaryKey.Length == 0) || (authInfo.PrimaryKey != user.UserGuid.ToString()))
+				if (authInfo.PrimaryKey.Length == 0 || authInfo.PrimaryKey != user.UserGuid.ToString())
 				{
 					rpxHelper.Map(authInfo.Identifier, user.UserGuid.ToString());
 				}
 			}
 
-
 			SignInUser(user, false);
-
 		}
-
 	}
+
 
 	private void SignInUser(SiteUser user, bool isNewUser)
 	{
-		if (
-			(siteSettings.UseSecureRegistration)
-			&& (user.RegisterConfirmGuid != Guid.Empty)
-			)
+		if (siteSettings.UseSecureRegistration && user.RegisterConfirmGuid != Guid.Empty)
 		{
-
 			Notification.SendRegistrationConfirmationLink(
-				SiteUtils.GetSmtpSettings(),
-				ResourceHelper.GetMessageTemplate("RegisterConfirmEmailMessage.config"),
-				siteSettings.DefaultEmailFromAddress,
-				siteSettings.DefaultFromEmailAlias,
-				user.Email,
-				siteSettings.SiteName,
-				SiteRoot + "/ConfirmRegistration.aspx?ticket=" +
-				user.RegisterConfirmGuid.ToString());
+				smtpSettings: SiteUtils.GetSmtpSettings(),
+				messageTemplate: ResourceHelper.GetMessageTemplate("RegisterConfirmEmailMessage.config"),
+				fromEmail: siteSettings.DefaultEmailFromAddress,
+				fromAlias: siteSettings.DefaultFromEmailAlias,
+				userEmail: user.Email,
+				siteName: siteSettings.SiteName,
+				confirmationLink: $"{SiteRoot}/ConfirmRegistration.aspx?ticket={user.RegisterConfirmGuid}"
+			);
 
 
-			log.Info("User " + user.Name + " tried to login but email address is not confirmed.");
+			log.Info($"User {user.Name} tried to login but email address is not confirmed.");
 
 			lblError.Text = Resource.RegistrationRequiresEmailConfirmationMessage;
 			litInfoNeededMessage.Visible = false;
@@ -249,29 +254,25 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			btnCreateUser.Visible = false;
 
 			return;
-
 		}
 
 		if (user.IsLockedOut)
 		{
-
-			log.Info("User " + user.Name + " tried to login but account is locked.");
+			log.Info($"User {user.Name} tried to login but account is locked.");
 
 			lblError.Text = Resource.LoginAccountLockedMessage;
 
 			return;
 		}
 
-		if ((siteSettings.RequireApprovalBeforeLogin) && (!user.ApprovedForLogin))
+		if (siteSettings.RequireApprovalBeforeLogin && !user.ApprovedForLogin)
 		{
-
-			log.Info("User " + user.Name + " tried to login but account is not approved yet.");
+			log.Info($"User {user.Name} tried to login but account is not approved yet.");
 
 			lblError.Text = Resource.LoginNotApprovedMessage;
 
 			return;
 		}
-
 
 		if (siteSettings.UseEmailForLogin)
 		{
@@ -296,9 +297,12 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 		user.UpdateLastLoginTime();
 
 		// track user ip address
-		UserLocation userLocation = new UserLocation(user.UserGuid, SiteUtils.GetIP4Address());
-		userLocation.SiteGuid = siteSettings.SiteGuid;
-		userLocation.Hostname = Request.UserHostName;
+		var userLocation = new UserLocation(user.UserGuid, SiteUtils.GetIP4Address())
+		{
+			SiteGuid = siteSettings.SiteGuid,
+			Hostname = Request.UserHostName
+		};
+
 		userLocation.Save();
 
 		UserSignInEventArgs u = new UserSignInEventArgs(user);
@@ -309,59 +313,53 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			returnUrl = CookieHelper.GetCookieValue(returnUrlCookieName);
 			CookieHelper.ExpireCookie(returnUrlCookieName);
 		}
-		string requestedReturnUrl = SiteUtils.GetReturnUrlParam(Page, SiteRoot);
-		returnUrl = requestedReturnUrl;
+
+		returnUrl = SiteUtils.GetReturnUrlParam(Page, SiteRoot);
 
 		if (isNewUser)
 		{
-
 			if (WebConfigSettings.PageToRedirectToAfterRegistration.Length > 0)
 			{
 				returnUrl = SiteRoot + WebConfigSettings.PageToRedirectToAfterRegistration;
 			}
 		}
 
-		if (String.IsNullOrEmpty(returnUrl) ||
+		if (
+			string.IsNullOrEmpty(returnUrl) ||
 			returnUrl.Contains("AccessDenied") ||
-			returnUrl.Contains("Login") ||
-			returnUrl.Contains("SignIn") ||
 			returnUrl.Contains("ConfirmRegistration.aspx") ||
 			returnUrl.Contains("OpenIdRpxHandler.aspx") ||
-			returnUrl.Contains("RecoverPassword.aspx") ||
-			returnUrl.Contains("Register")
-			)
+			// TODO: IDK if this is the best way to handle this.
+			returnUrl.Contains(PageUrlService.GetLoginLink()) ||
+			returnUrl.Contains(PageUrlService.GetRegisterLink()) ||
+			returnUrl.Contains(PageUrlService.GetRecoverPasswordLink())
+		)
 		{
 			returnUrl = SiteRoot;
 		}
 
 		if (returnUrl.Length > 0)
 		{
-			if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
+			if (WebHelper.IsSecureRequest() && returnUrl.StartsWith("http:"))
 			{
-				if (returnUrl.StartsWith("http:"))
-				{
-					returnUrl = returnUrl.Replace("http:", "https:");
-				}
+				returnUrl = returnUrl.Replace("http:", "https:");
 			}
 
 			WebUtils.SetupRedirect(this, returnUrl);
+
 			return;
-
 		}
 
-		if (mojoPortal.Core.Helpers.WebHelper.IsSecureRequest())
+		if (WebHelper.IsSecureRequest() && SiteRoot.StartsWith("http:"))
 		{
-			if (SiteRoot.StartsWith("http:"))
-			{
-				WebUtils.SetupRedirect(this, SiteRoot.Replace("http:", "https:"));
-				return;
-			}
-		}
+			WebUtils.SetupRedirect(this, SiteRoot.Replace("http:", "https:"));
 
+			return;
+		}
 
 		WebUtils.SetupRedirect(this, SiteRoot);
-		return;
 
+		return;
 	}
 
 	private void HandleAuthenticatedUser(OpenIdRpxHelper rpxHelper, OpenIdRpxAuthInfo authInfo)
@@ -376,7 +374,7 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 			return;
 		}
 
-		log.Debug($"openid-debug: user already authenticated, updating openID in profile ({currentUser.LoweredEmail}, {currentUser.UserId.ToString()}) ");
+		log.Debug($"openid-debug: user already authenticated, updating openID in profile ({currentUser.LoweredEmail}, {currentUser.UserId}) ");
 
 		rpxHelper.Map(authInfo.Identifier, currentUser.UserGuid.ToString());
 
@@ -418,17 +416,18 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 		bool emailIsVerified = (authInfo.VerifiedEmail == authInfo.Email);
 
 		var newUser = CreateUser(
-				authInfo.Identifier,
-				authInfo.Email,
-				loginName,
-				name,
-				emailIsVerified);
+			authInfo.Identifier,
+			authInfo.Email,
+			loginName,
+			name,
+			emailIsVerified
+		);
 
-		log.Debug($"openid-debug: user created ({newUser.LoweredEmail}, {newUser.UserId.ToString()}) ");
+		log.Debug($"openid-debug: user created ({newUser.LoweredEmail}, {newUser.UserId}) ");
 
 		SignInUser(newUser, true);
-
 	}
+
 
 	private void PromptForNeededInfo(OpenIdRpxHelper rpxHelper, OpenIdRpxAuthInfo authInfo)
 	{
@@ -498,9 +497,8 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 		{
 			chkAgree.Visible = false;
 		}
-
-
 	}
+
 
 	void MustAgree_ServerValidate(object source, ServerValidateEventArgs args)
 	{
@@ -512,8 +510,8 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 		{
 			args.IsValid = false;
 		}
-
 	}
+
 
 	private void SetupScript()
 	{
@@ -579,8 +577,9 @@ public partial class OpenIdRpxHandlerPage : NonCmsBasePage
 		if (!Page.IsValid) { return; }
 
 		if (hdnIdentifier.Value.Length == 0)
-		{   // form manipulation if this is missing
-			Response.Redirect(SiteRoot + "/Secure/Register.aspx");
+		{
+			// form manipulation if this is missing
+			Response.Redirect(PageUrlService.GetRegisterLink());
 			return;
 		}
 

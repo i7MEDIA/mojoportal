@@ -1,14 +1,14 @@
-using System;
-using System.Globalization;
-using System.Web.Security;
-using System.Web.UI;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserSignInHandlers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Net;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
+using System;
+using System.Globalization;
+using System.Web.Security;
+using System.Web.UI;
 using ConsentToken = mojoPortal.Web.WindowsLiveLogin.ConsentToken;
 
 namespace mojoPortal.Web;
@@ -18,7 +18,7 @@ public partial class WindowsLiveAuthHandler : Page
 	private static readonly ILog log = LogManager.GetLogger(typeof(WindowsLiveAuthHandler));
 
 	const string WindowsLiveSecurityAlgorithm = "wsignin1.0";
-	const string LoginPage = "Login.aspx";
+	private readonly string LoginPage = PageUrlService.GetLoginLink();
 	private string winliveCookieName;
 	static WindowsLiveLogin windowsLive = null;
 	private WindowsLiveLogin.User user = null;
@@ -385,7 +385,8 @@ public partial class WindowsLiveAuthHandler : Page
 
 	private string GetRedirectPath()
 	{
-		string redirectPath = string.Empty;
+		var redirectPath = string.Empty;
+
 		if (CookieHelper.CookieExists(returnUrlCookieName))
 		{
 			redirectPath = CookieHelper.GetCookieValue(returnUrlCookieName);

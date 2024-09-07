@@ -11,6 +11,7 @@ using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Framework;
 using mojoPortal.Net;
 using Resources;
+using mojoPortal.Web.Components;
 
 namespace mojoPortal.Web.UI.Pages;
 
@@ -124,7 +125,7 @@ public partial class RegisterWithWindowsLiveId : NonCmsBasePage
 			else
 			{
 				// shouldn't get here but if we do
-				WebUtils.SetupRedirect(this, SiteRoot + "/Secure/Login.aspx");
+				WebUtils.SetupRedirect(this, PageUrlService.GetLoginLink());
 				return;
 			}
 		}

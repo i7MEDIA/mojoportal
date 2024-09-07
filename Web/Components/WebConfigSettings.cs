@@ -1345,8 +1345,6 @@ public static class WebConfigSettings
 	/// </summary>
 	public static bool ForcePersistentAuthCheckboxChecked => ConfigHelper.GetBoolProperty("ForcePersistentAuthCheckboxChecked", false);
 
-	public static string LoginPageRelativeUrl => ConfigHelper.GetStringProperty("LoginPageRelativeUrl", string.Empty);
-
 	public static string PageTreeRelativeUrl => ConfigHelper.GetStringProperty("PageTreeRelativeUrl", $"{AdminDirectoryLocation}/PageManager.aspx");
 
 	public static string ContentPublishPageRelativeUrl => ConfigHelper.GetStringProperty("ContentPublishPageRelativeUrl", $"{AdminDirectoryLocation}/ContentManager.aspx");
@@ -1359,11 +1357,7 @@ public static class WebConfigSettings
 	/// </summary>
 	public static string AdminDirectoryLocation => "/Admin";
 
-	public static string CustomRegistrationPage => ConfigHelper.GetStringProperty("CustomRegistrationPage", string.Empty);
-
 	public static bool RedirectRegistrationPageToCustomPage => ConfigHelper.GetBoolProperty("RedirectRegistrationPageToCustomPage", false);
-
-	public static string PageToRedirectToAfterSignIn => ConfigHelper.GetStringProperty("PageToRedirectToAfterSignIn", string.Empty);
 
 	public static bool UseRedirectInSignInModule => ConfigHelper.GetBoolProperty("UseRedirectInSignInModule", true);
 
