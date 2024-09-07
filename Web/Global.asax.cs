@@ -1,7 +1,15 @@
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.App_Start;
+using mojoPortal.Web.Caching;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.Optimization;
+using mojoPortal.Web.Routing;
+using Resources;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Globalization;
 using System.Net;
 using System.Security.Cryptography;
@@ -13,15 +21,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.UI;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.App_Start;
-using mojoPortal.Web.Caching;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.Optimization;
-using mojoPortal.Web.Routing;
-using Resources;
 
 //using mojoPortal.Web.ModelBinders;
 
@@ -32,79 +31,45 @@ namespace mojoPortal.Web;
 //http://haacked.com/archive/2010/05/16/three-hidden-extensibility-gems-in-asp-net-4.aspx/
 //public class WebInitializer
 //{
-//    public static void Initialize()
-//    {
-//        // Whatever can we do here?
-//    }
-
+//	public static void Initialize()
+//	{
+//		// Whatever can we do here?
+//	}
 //}
 
 public class Global : HttpApplication
 {
+	#region Private Fields
+
 	private static readonly ILog log = LogManager.GetLogger(typeof(Global));
 	private static bool debugLog = log.IsDebugEnabled;
+	private const string RequestExceptionKey = "__RequestExceptionKey";
+
+	#endregion
+
+
+	#region Public Methods
+
 	public static bool RegisteredVirtualThemes { get; private set; } = false;
 	public static SkinConfigManager SkinConfigManager { get; private set; }
 	public static SkinConfig SkinConfig { get; private set; }
 	public static ConcurrentDictionary<string, int> SiteHostMap { get; } = [];
-	//public static IFileSystem FileSystem { get; private set; }
-
-	// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
-	// to help mitigate against xsrf attacks
-	public static Guid FileSystemToken
-	{
-		get
-		{
-			//2012-04-25 changed from application variable to cached item
-			// since application variable won't work well in a web farm
-			// return fileSystemToken; 
-			// still this will be a problem in a small cluster if not using a distributed cache shared by the nodes
-			return GetFileSystemToken();
-		}
-	}
-
-	private static Guid GetFileSystemToken()
-	{
-		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-		var siteGuid = Guid.NewGuid();
-
-		if (siteSettings is not null)
-		{
-			siteGuid = siteSettings.SiteGuid;
-		}
-
-		string cacheKey = $"fileSystemToken{siteGuid}";
-
-		var absoluteExpiration = DateTime.Now.AddHours(1);
-
-		try
-		{
-			string g = CacheManager.Cache.Get<string>(cacheKey, absoluteExpiration, () =>
-			{
-				// This is the anonymous function which gets called if the data is not in the cache.
-				// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
-
-				return Guid.NewGuid().ToString();
-			});
-
-			return new Guid(g);
-		}
-		catch (Exception ex)
-		{
-			log.Error("failed to get fileSystemToken from cache", ex);
-			return Guid.NewGuid();
-		}
-	}
-
 	// this changes everytime the app starts and is used for rss feed autodiscovery links so it will notredirect to feedburner
 	// after each app restart the variable will change so that after the user is subscribed it will begin redirecting to feedburner if using feedburner
 	public static Guid FeedRedirectBypassToken { get; } = Guid.NewGuid();
-
-	private const string RequestExceptionKey = "__RequestExceptionKey";
-
 	public static bool AppDomainMonitoringEnabled { get; } = false;
-
 	public static bool FirstChanceExceptionMonitoringEnabled { get; } = false;
+	// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
+	// to help mitigate against xsrf attacks
+	public static Guid FileSystemToken =>
+		//2012-04-25 changed from application variable to cached item
+		// since application variable won't work well in a web farm
+		// return fileSystemToken; 
+		// still this will be a problem in a small cluster if not using a distributed cache shared by the nodes
+		GetFileSystemToken();
+
+	#endregion
+
 
 	protected void Application_Start(object sender, EventArgs e)
 	{
@@ -153,116 +118,50 @@ public class Global : HttpApplication
 		}
 	}
 
-	private void PurgeOldLogEvents()
-	{
-		if (!WebConfigSettings.UseSystemLogInsteadOfFileLog) { return; }
-		if (!WebConfigSettings.SystemLogDeleteOldEventsOnApplicationStart) { return; }
-
-		try
-		{
-			DateTime cutoffDate = DateTime.UtcNow.AddDays(-WebConfigSettings.SystemLogApplicationStartDeleteOlderThanDays);
-
-			SystemLog.DeleteOlderThan(cutoffDate);
-		}
-		catch (Exception ex)
-		{
-			log.Error(ex);
-		}
-	}
-
-	private void StartOrResumeTasks()
-	{
-		// NOTE: In IIS 7 using integrated mode, HttpContext.Current will always be null in Application_Start
-		// http://weblogs.asp.net/jgaylord/archive/2008/09/04/iis7-integrated-mode-and-global-asax.aspx
-		if (WebConfigSettings.UseAppKeepAlive)
-		{
-			AppKeepAliveTask keepAlive;
-			try
-			{
-				try
-				{
-					if ((HttpContext.Current is not null) && (HttpContext.Current.Request is not null))
-					{
-						keepAlive = new AppKeepAliveTask
-						{
-							UrlToRequest = WebUtils.GetSiteRoot(),
-							MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes,
-							MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes
-						};
-						keepAlive.QueueTask();
-					}
-				}
-				catch (HttpException)
-				{
-					//this error will be thrown when using IIS 7 Integrated pipeline mode
-					//since we have no context.Request to get the site root, in IIS 7 Integrated pipeline mode
-					//we need to use an additional config setting to get the url to request for keep alive 
-					if (WebConfigSettings.AppKeepAliveUrl.Length > 0)
-					{
-						keepAlive = new AppKeepAliveTask
-						{
-							UrlToRequest = WebConfigSettings.AppKeepAliveUrl,
-							MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes,
-							MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes
-						};
-						keepAlive.QueueTask();
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				// if a new installation the table will not exist yet so just log and swallow
-				log.Error(ex);
-			}
-		}
-
-		WebTaskManager.StartOrResumeTasks(true);
-	}
-
-	private void RegisterVirtualPathProvider()
-	{
-		// had to move this into its own method
-		// in less than full trust it blows up even with a try catch if present in 
-		// Application_Start, moving into a separate method works with a try catch
-		HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
-		RegisteredVirtualThemes = true;
-	}
 
 	protected void Application_End(object sender, EventArgs e)
 	{
 		if (log.IsInfoEnabled) log.Info("------Application Stopped------");
 	}
 
+
 	protected void Application_BeginRequest(object sender, EventArgs e)
 	{
 		var siteCount = SiteSettings.SiteCount();
 
 		//http://stackoverflow.com/questions/1340643/how-to-enable-ip-address-logging-with-log4net
-		log4net.ThreadContext.Properties["ip"] = SiteUtils.GetIP4Address();
-		log4net.ThreadContext.Properties["culture"] = CultureInfo.CurrentCulture.ToString();
-		if ((HttpContext.Current != null) && (HttpContext.Current.Request != null))
+		ThreadContext.Properties["ip"] = SiteUtils.GetIP4Address();
+		ThreadContext.Properties["culture"] = CultureInfo.CurrentCulture.ToString();
+
+		if (HttpContext.Current?.Request != null)
 		{
 			if (WebConfigSettings.LogFullUrls)
 			{
-				log4net.ThreadContext.Properties["url"] = HttpContext.Current.Request.Url.ToString();
+				ThreadContext.Properties["url"] = HttpContext.Current.Request.Url.ToString();
 			}
 			else
 			{
-				log4net.ThreadContext.Properties["url"] = HttpContext.Current.Request.RawUrl;
+				ThreadContext.Properties["url"] = HttpContext.Current.Request.RawUrl;
 			}
 		}
 
 		//http://www.troyhunt.com/2011/11/owasp-top-10-for-net-developers-part-9.html
-
-		if ((siteCount > 0 && SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages) || (siteCount == 0 && WebConfigSettings.SslisAvailable))
+		if (
+			siteCount > 0 && SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages ||
+			siteCount == 0 && WebConfigSettings.SslisAvailable
+		)
 		{
-			//if we have sites (not a new install) and SSL is avail and forced, we want to force all pages to SSL
-			//OR if we don't have any sites (is a new install) and SSL is avail, we want to force to SSL, which would really 
-			//    only force it for default.aspx which then redirects to setup/default.aspx because there are no sites (see EnsurePageAndSite() in default.aspx)
+			// if we have sites (not a new install) and SSL is avail and forced, we want to force all pages to SSL
+			// OR if we don't have any sites (is a new install) and SSL is avail, we want to force to SSL, which would really 
+			// only force it for default.aspx which then redirects to setup/default.aspx because there are no sites (see EnsurePageAndSite() in default.aspx)
 			switch (Request.Url.Scheme)
 			{
 				case "https":
-					if (WebConfigSettings.UseHSTSHeader) Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
+					if (WebConfigSettings.UseHSTSHeader)
+					{
+						Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
+					}
+
 					break;
 
 				case "http":
@@ -271,11 +170,14 @@ public class Global : HttpApplication
 					Response.Cache.SetNoStore();
 					Response.Cache.SetCacheability(HttpCacheability.NoCache);
 					Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+
 					break;
 			}
 		}
+
 		//moved RegisterBundles here so it can properly check the request for SSL. Can't do that when called from Application_Start
 		BundleConfig.RegisterBundles(BundleTable.Bundles);
+
 		try
 		{
 			if (siteCount > 0)
@@ -304,9 +206,9 @@ public class Global : HttpApplication
 				}
 			}
 
-			//we added the original query strings this way to ensure both strings were handled the same way so there is less of a chance of 
-			//inconsequential differences causing our check below to true when it doesn't need to be true
-			//someone could do a bit more research/testing on this in the future to see if it's actually necessary.
+			// we added the original query strings this way to ensure both strings were handled the same way so there is less of a chance of 
+			// inconsequential differences causing our check below to true when it doesn't need to be true
+			// someone could do a bit more research/testing on this in the future to see if it's actually necessary.
 			var originalQueryString = originalQueryStrings.ToDelimitedString();
 			var sanitizedQueryString = sanitizedQueryStrings.ToDelimitedString();
 
@@ -316,36 +218,16 @@ public class Global : HttpApplication
 				Context.RewritePath(Request.Path, Request.PathInfo, sanitizedQueryStrings.ToDelimitedString());
 			}
 		}
-
-		#region FileSystem Init
-		//not used right now because of how the permissions are loaded and we need those loaded per "transaction" basically
-
-		//if (FileSystem is null)
-		//{
-		//	FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-
-		//	if (p == null)
-		//	{
-		//		log.Fatal(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
-		//	}
-
-		//	FileSystem = p.GetFileSystem();
-
-		//	if (FileSystem == null)
-		//	{
-		//		log.Fatal(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
-		//	}
-		//}
-		#endregion
 	}
+
 
 	protected void Application_EndRequest(object sender, EventArgs e)
 	{
 		// this is needed otherwise tasks queued on a background thread report these values as they were on the last request handled by the thread
 		// so this eliminates the carry over of these settings when a thread is re-used for something other than a web request.
-		log4net.ThreadContext.Properties["ip"] = null;
-		log4net.ThreadContext.Properties["culture"] = null;
-		log4net.ThreadContext.Properties["url"] = null;
+		ThreadContext.Properties["ip"] = null;
+		ThreadContext.Properties["culture"] = null;
+		ThreadContext.Properties["url"] = null;
 
 		if (
 			HttpContext.Current == null ||
@@ -379,14 +261,6 @@ public class Global : HttpApplication
 		}
 	}
 
-	//protected void Application_AuthenticateRequest(Object sender, EventArgs e)
-	//{
-	//	//2009-05-30, moved this functionality to /Components/AuthHandlerHttpModule.cs
-	//}
-	//protected void Application_AuthorizeRequest(Object sender, EventArgs e)
-	//{
-	//	//if (log.IsDebugEnabled) log.Debug("Global.asax.cs Application_AuthorizeRequest" );
-	//}
 
 	protected void Application_Error(object sender, EventArgs e)
 	{
@@ -503,11 +377,13 @@ public class Global : HttpApplication
 		}
 	}
 
+
 	protected void Session_Start(object sender, EventArgs e)
 	{
 		if (debugLog) log.Debug("------ Session Started ------");
 		IncrementUserCount();
 	}
+
 
 	protected void Session_End(object sender, EventArgs e)
 	{
@@ -515,37 +391,163 @@ public class Global : HttpApplication
 		DecrementUserCount();
 	}
 
+
+	#region Private Methods
+
+	private void PurgeOldLogEvents()
+	{
+		if (!WebConfigSettings.UseSystemLogInsteadOfFileLog) { return; }
+		if (!WebConfigSettings.SystemLogDeleteOldEventsOnApplicationStart) { return; }
+
+		try
+		{
+			DateTime cutoffDate = DateTime.UtcNow.AddDays(-WebConfigSettings.SystemLogApplicationStartDeleteOlderThanDays);
+
+			SystemLog.DeleteOlderThan(cutoffDate);
+		}
+		catch (Exception ex)
+		{
+			log.Error(ex);
+		}
+	}
+
+
+	private void StartOrResumeTasks()
+	{
+		// NOTE: In IIS 7 using integrated mode, HttpContext.Current will always be null in Application_Start
+		// http://weblogs.asp.net/jgaylord/archive/2008/09/04/iis7-integrated-mode-and-global-asax.aspx
+		if (WebConfigSettings.UseAppKeepAlive)
+		{
+			AppKeepAliveTask keepAlive;
+			try
+			{
+				try
+				{
+					if ((HttpContext.Current is not null) && (HttpContext.Current.Request is not null))
+					{
+						keepAlive = new AppKeepAliveTask
+						{
+							UrlToRequest = WebUtils.GetSiteRoot(),
+							MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes,
+							MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes
+						};
+						keepAlive.QueueTask();
+					}
+				}
+				catch (HttpException)
+				{
+					//this error will be thrown when using IIS 7 Integrated pipeline mode
+					//since we have no context.Request to get the site root, in IIS 7 Integrated pipeline mode
+					//we need to use an additional config setting to get the url to request for keep alive 
+					if (WebConfigSettings.AppKeepAliveUrl.Length > 0)
+					{
+						keepAlive = new AppKeepAliveTask
+						{
+							UrlToRequest = WebConfigSettings.AppKeepAliveUrl,
+							MaxRunTimeMinutes = WebConfigSettings.AppKeepAliveMaxRunTimeMinutes,
+							MinutesToSleep = WebConfigSettings.AppKeepAliveSleepMinutes
+						};
+						keepAlive.QueueTask();
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				// if a new installation the table will not exist yet so just log and swallow
+				log.Error(ex);
+			}
+		}
+
+		WebTaskManager.StartOrResumeTasks(true);
+	}
+
+
+	private void RegisterVirtualPathProvider()
+	{
+		// had to move this into its own method
+		// in less than full trust it blows up even with a try catch if present in 
+		// Application_Start, moving into a separate method works with a try catch
+		HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
+		RegisteredVirtualThemes = true;
+	}
+
+
+	private static Guid GetFileSystemToken()
+	{
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		var siteGuid = Guid.NewGuid();
+
+		if (siteSettings is not null)
+		{
+			siteGuid = siteSettings.SiteGuid;
+		}
+
+		var cacheKey = "fileSystemToken" + siteGuid;
+		var absoluteExpiration = DateTime.Now.AddHours(1);
+
+		try
+		{
+			var g = CacheManager.Cache.Get(cacheKey, absoluteExpiration, () =>
+			{
+				// This is the anonymous function which gets called if the data is not in the cache.
+				// This method is executed and whatever is returned, is added to the cache with the passed in expiry time.
+
+				return Guid.NewGuid().ToString();
+			});
+
+			return new Guid(g);
+		}
+		catch (Exception ex)
+		{
+			log.Error("failed to get fileSystemToken from cache", ex);
+
+			return Guid.NewGuid();
+		}
+	}
+
+
 	private void IncrementUserCount()
 	{
-		string key = WebUtils.GetHostName() + "_onlineCount";
+		var key = WebUtils.GetHostName() + "_onlineCount";
+
 		if (Session != null)
 		{
 			Session["onlinecountkey"] = key;
 		}
-		if (debugLog) log.Debug($"IncrementUserCount key was {key}");
+
+		if (debugLog)
+		{
+			log.Debug($"IncrementUserCount key was {key}");
+		}
 
 		Application.Lock();
 		Application[key] = Application[key] == null ? 1 : (int)Application[key] + 1;
 		Application.UnLock();
 	}
 
+
 	private void DecrementUserCount()
 	{
-		if (Session != null)
+		if (Session != null && Session["onlinecountkey"] != null)
 		{
-			if (Session["onlinecountkey"] != null)
-			{
-				string key = Session["onlinecountkey"].ToString();
-				if (key.Length > 0)
-				{
-					if (log.IsDebugEnabled) log.Debug("DecrementUserCount key was " + key);
+			var key = Session["onlinecountkey"].ToString();
 
-					Application.Lock();
-					int newCount = Application[key] == null ? 0 : (int)Application[key] - 1;
-					Application[key] = newCount > 0 ? newCount : 0;
-					Application.UnLock();
+			if (key.Length > 0)
+			{
+				if (log.IsDebugEnabled)
+				{
+					log.Debug("DecrementUserCount key was " + key);
 				}
+
+				Application.Lock();
+
+				var newCount = Application[key] == null ? 0 : (int)Application[key] - 1;
+
+				Application[key] = newCount > 0 ? newCount : 0;
+				Application.UnLock();
 			}
 		}
 	}
+
+	#endregion
 }
