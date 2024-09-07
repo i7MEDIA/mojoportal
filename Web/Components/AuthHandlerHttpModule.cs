@@ -19,27 +19,32 @@ public class AuthHandlerHttpModule : IHttpModule
 	public void Init(HttpApplication application)
 	{
 
-		application.AuthenticateRequest += new EventHandler(application_AuthenticateRequest);
+		application.AuthenticateRequest += new EventHandler(Application_AuthenticateRequest);
 	}
 
-	void application_AuthenticateRequest(object sender, EventArgs e)
+	private void Application_AuthenticateRequest(object sender, EventArgs e)
 	{
-		//if (debugLog) log.Debug("AuthHandlerHttpModule Application_AuthenticateRequest");
+		if (sender == null)
+		{
+			return;
+		}
 
-		if (sender == null) return;
+		var app = (HttpApplication)sender;
 
-		HttpApplication app = (HttpApplication)sender;
-		if (app.Request == null) { return; }
-		if (!app.Request.IsAuthenticated) { return; }
+		if (
+			app.Request == null ||
+			!app.Request.IsAuthenticated ||
+			WebUtils.IsRequestForStaticFile(app.Request.Path) ||
+			app.Request.Path.Contains(".ashx", StringComparison.OrdinalIgnoreCase) ||
+			app.Request.Path.Contains(".axd", StringComparison.OrdinalIgnoreCase) ||
+			app.Request.Path.Contains("setup/default.aspx", StringComparison.OrdinalIgnoreCase)
+		)
+		{
+			return;
+		}
 
-		if (WebUtils.IsRequestForStaticFile(app.Request.Path)) { return; }
-		if (app.Request.Path.ContainsCaseInsensitive(".ashx")) { return; }
-		if (app.Request.Path.ContainsCaseInsensitive(".axd")) { return; }
-		if (app.Request.Path.ContainsCaseInsensitive("setup/default.aspx")) { return; }
-
-
-		//if (debugLog) log.Debug("IsAuthenticated == true");
 		SiteSettings siteSettings;
+
 		try
 		{
 			siteSettings = CacheHelper.GetCurrentSiteSettings();

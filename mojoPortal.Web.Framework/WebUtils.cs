@@ -46,11 +46,15 @@ public static class WebUtils
 
 	public static bool IsRequestForStaticFile(string requestPath)
 	{
-		if (string.IsNullOrWhiteSpace(requestPath.Replace("/", ""))) { return false; }
-
-		if (requestPath.ContainsCaseInsensitive(".aspx")) { return false; }
-		if (requestPath.ContainsCaseInsensitive(".ashx")) { return false; }
-		if (requestPath.ContainsCaseInsensitive(".svc")) { return false; }
+		if (
+			string.IsNullOrWhiteSpace(requestPath.Replace("/", "")) ||
+			requestPath.Contains(".aspx", StringComparison.OrdinalIgnoreCase) ||
+			requestPath.Contains(".ashx", StringComparison.OrdinalIgnoreCase) ||
+			requestPath.Contains(".svc", StringComparison.OrdinalIgnoreCase)
+		)
+		{
+			return false;
+		}
 
 		var staticExtensions = AppConfig.StaticFileExtensions;
 
