@@ -727,12 +727,14 @@ public class SiteSettings
 		set { wordpressAPIKey = value; }
 	}
 
+	[Obsolete]
 	public string WindowsLiveAppId
 	{
 		get { return windowsLiveAppID; }
 		set { windowsLiveAppID = value; }
 	}
 
+	[Obsolete]
 	public string WindowsLiveKey
 	{
 		get { return windowsLiveKey; }
@@ -745,6 +747,7 @@ public class SiteSettings
 		set { allowOpenIDAuth = value; }
 	}
 
+	[Obsolete]
 	public bool AllowWindowsLiveAuth
 	{
 		get { return allowWindowsLiveAuth; }
