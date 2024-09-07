@@ -7,144 +7,119 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Web.UI {
-    
-    
-    public partial class SignInOrRegisterPrompt {
-        
-        /// <summary>
-        /// litLoginInstructions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litLoginInstructions;
-        
-        /// <summary>
-        /// litLoginPrompt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litLoginPrompt;
-        
-        /// <summary>
-        /// lnkLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLogin;
-        
-        /// <summary>
-        /// litRegisterPrompt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litRegisterPrompt;
-        
-        /// <summary>
-        /// lnkRegister control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRegister;
-        
-        /// <summary>
-        /// divAdditionalRegisterOptions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAdditionalRegisterOptions;
-        
-        /// <summary>
-        /// litAdditionalRegisterOptions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litAdditionalRegisterOptions;
-        
-        /// <summary>
-        /// divOpenId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOpenId;
-        
-        /// <summary>
-        /// litRegisterWithOpenId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litRegisterWithOpenId;
-        
-        /// <summary>
-        /// lnkRegisterWithOpenId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRegisterWithOpenId;
-        
-        /// <summary>
-        /// divWindowsLive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWindowsLive;
-        
-        /// <summary>
-        /// litRegisterWithWindowsLive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litRegisterWithWindowsLive;
-        
-        /// <summary>
-        /// lnkRegisterWithWindowsLive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRegisterWithWindowsLive;
-        
-        /// <summary>
-        /// pnlJanrain control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlJanrain;
-        
-        /// <summary>
-        /// janrainWidet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.OpenIdRpxNowLink janrainWidet;
-    }
+namespace mojoPortal.Web.UI
+{
+
+
+	public partial class SignInOrRegisterPrompt
+	{
+
+		/// <summary>
+		/// litLoginInstructions control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litLoginInstructions;
+
+		/// <summary>
+		/// litLoginPrompt control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litLoginPrompt;
+
+		/// <summary>
+		/// lnkLogin control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HyperLink lnkLogin;
+
+		/// <summary>
+		/// litRegisterPrompt control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litRegisterPrompt;
+
+		/// <summary>
+		/// lnkRegister control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HyperLink lnkRegister;
+
+		/// <summary>
+		/// divAdditionalRegisterOptions control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAdditionalRegisterOptions;
+
+		/// <summary>
+		/// litAdditionalRegisterOptions control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litAdditionalRegisterOptions;
+
+		/// <summary>
+		/// divOpenId control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divOpenId;
+
+		/// <summary>
+		/// litRegisterWithOpenId control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litRegisterWithOpenId;
+
+		/// <summary>
+		/// lnkRegisterWithOpenId control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HyperLink lnkRegisterWithOpenId;
+
+		/// <summary>
+		/// pnlJanrain control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Panel pnlJanrain;
+
+		/// <summary>
+		/// janrainWidet control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.OpenIdRpxNowLink janrainWidet;
+	}
 }
