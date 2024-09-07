@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Web.Configuration;
 
 namespace mojoPortal.Core.Configuration;
@@ -81,4 +82,52 @@ public static class AppConfig
 	public static bool IncludeVersionInCssUrl => ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", false);
 
 	public static int CssCacheInDays => ConfigHelper.GetIntProperty("CssCacheInDays", 7);
+}
+
+	public static string LoginLink
+	{
+		get
+		{
+			var oldConfigValue = ConfigHelper.GetStringProperty("LoginPageRelativeUrl", null);
+
+			if (!string.IsNullOrEmpty(oldConfigValue))
+			{
+				return oldConfigValue;
+			}
+
+			return ConfigHelper.GetStringProperty("LoginLink", null);
+		}
+	}
+
+
+	public static string RegistrationLink
+	{
+		get
+		{
+			var oldConfigValue = ConfigHelper.GetStringProperty("CustomRegistrationPage", null);
+
+			if (!string.IsNullOrEmpty(oldConfigValue))
+			{
+				return oldConfigValue;
+			}
+
+			return ConfigHelper.GetStringProperty("RegistrationLink", null);
+		}
+	}
+
+
+	public static string LoginRedirectLink
+	{
+		get
+		{
+			var oldConfigValue = ConfigHelper.GetStringProperty("PageToRedirectToAfterSignIn", null);
+
+			if (!string.IsNullOrEmpty(oldConfigValue))
+			{
+				return oldConfigValue;
+			}
+
+			return ConfigHelper.GetStringProperty("LoginRedirectLink", null);
+		}
+	}
 }

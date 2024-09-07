@@ -96,7 +96,7 @@ public partial class LoginModule : SiteModuleControl
 			login1.Visible = false;
 		}
 
-		if (WebConfigSettings.PageToRedirectToAfterSignIn.Length > 0 && WebConfigSettings.UseRedirectInSignInModule)
+		if (AppConfig.LoginRedirectLink.Length > 0 && WebConfigSettings.UseRedirectInSignInModule)
 		{
 			login1.SetRedirectUrl = true;
 			UpdatePanel1.ChildrenAsTriggers = false;

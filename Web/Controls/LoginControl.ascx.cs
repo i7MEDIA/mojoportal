@@ -3,6 +3,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
 using Resources;
@@ -119,7 +120,7 @@ namespace mojoPortal.Web.UI
             if (siteSettings.AllowNewRegistration)
             {
                 pnlRegister.Visible = true;
-				lnkRegister.NavigateUrl = "Secure/Register.aspx".ToLinkBuilder().ToString();
+				lnkRegister.NavigateUrl = PageUrlService.GetRegisterLink();
 				lnkRegister.Text = Resource.RegisterLink;
 				lnkRegister.Visible = siteSettings.AllowNewRegistration;
 				lblRegisterPrompt.ConfigKey = "SignInRegisterPrompt";

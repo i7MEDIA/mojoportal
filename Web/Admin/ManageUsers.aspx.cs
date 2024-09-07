@@ -11,6 +11,7 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers;
 using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Net;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
@@ -859,7 +860,7 @@ public partial class ManageUsers : NonCmsBasePage
 			if (WebConfigSettings.NotifyUsersOnAccountApproval)
 			{
 				CultureInfo defaultCulture = SiteUtils.GetDefaultUICulture();
-				string signInLink = SiteUtils.GetNavigationSiteRoot() + "/Secure/Login.aspx";
+				var signInLink = PageUrlService.GetLoginLink();
 				SmtpSettings smtpSettings = SiteUtils.GetSmtpSettings();
 
 				//EmailMessageTask messageTask = new EmailMessageTask(smtpSettings);

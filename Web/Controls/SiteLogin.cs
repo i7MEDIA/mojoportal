@@ -15,19 +15,18 @@
 // send another confirmation email if user tries to login and
 // confirmation is needed.
 
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserSignInHandlers;
+using mojoPortal.Net;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
-using mojoPortal.Net;
-using log4net;
 using Resources;
-using mojoPortal.Core.Helpers;
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.UI
 {
@@ -51,23 +50,26 @@ namespace mojoPortal.Web.UI
 		{
 			base.OnInit(e);
 
-			this.Load += new EventHandler(SiteLogin_Load);
-			this.LoginError += new EventHandler(SiteLogin_LoginError);
-			this.LoggingIn += new LoginCancelEventHandler(SiteLogin_LoggingIn);
-			this.LoggedIn += new EventHandler(SiteLogin_LoggedIn);
+			Load += new EventHandler(SiteLogin_Load);
+			LoginError += new EventHandler(SiteLogin_LoginError);
+			LoggingIn += new LoginCancelEventHandler(SiteLogin_LoggingIn);
+			LoggedIn += new EventHandler(SiteLogin_LoggedIn);
 
-			this.CreateUserText = Resource.SignInRegisterLinkText;
-			this.CreateUserUrl = siteRoot + "/Secure/Register.aspx";
-			this.FailureText = ResourceHelper.GetMessageTemplate("LoginFailedMessage.config");
-			this.LoginButtonText = Resource.SignInLinkText;
-			this.PasswordRecoveryText = Resource.SignInSendPasswordButton;
-			this.PasswordRecoveryUrl = siteRoot + "/Secure/RecoverPassword.aspx";
-			this.RememberMeText = Resource.SignInSendRememberMeLabel;
-			this.RememberMeSet = WebConfigSettings.ForcePersistentAuthCheckboxChecked;
+			CreateUserText = Resource.SignInRegisterLinkText;
+			CreateUserUrl = PageUrlService.GetRegisterLink();
+
+			PasswordRecoveryText = Resource.SignInSendPasswordButton;
+			PasswordRecoveryUrl = PageUrlService.GetRecoverPasswordLink();
+
+			RememberMeText = Resource.SignInSendRememberMeLabel;
+			RememberMeSet = WebConfigSettings.ForcePersistentAuthCheckboxChecked;
+
+			FailureText = ResourceHelper.GetMessageTemplate("LoginFailedMessage.config");
+			LoginButtonText = Resource.SignInLinkText;
 
 #if !NET35
-			this.RenderOuterTable = false;
-			this.CssClass = string.Empty;
+			RenderOuterTable = false;
+			CssClass = string.Empty;
 #endif
 
 			//HookupSignInEventHandlers();
@@ -125,11 +127,11 @@ namespace mojoPortal.Web.UI
 
 			}
 
-			if (setRedirectUrl) { this.DestinationPageUrl = GetRedirectPath(); }
+			if (setRedirectUrl) { DestinationPageUrl = GetRedirectPath(); }
 
 			if (WebConfigSettings.DebugLoginRedirect)
 			{
-				log.Info("Login redirect url was " + this.DestinationPageUrl + " for Site Root " + siteRoot);
+				log.Info("Login redirect url was " + DestinationPageUrl + " for Site Root " + siteRoot);
 			}
 
 		}
@@ -145,10 +147,10 @@ namespace mojoPortal.Web.UI
 				&& (siteSettings.PasswordFormat != 1)
 				&& (siteSettings.AllowPasswordRetrieval)
 				&& (errorCount >= siteSettings.MaxInvalidPasswordAttempts)
-				&& (this.PasswordRecoveryUrl != String.Empty)
+				&& (PasswordRecoveryUrl != String.Empty)
 				)
 			{
-				WebUtils.SetupRedirect(this, this.PasswordRecoveryUrl);
+				WebUtils.SetupRedirect(this, PasswordRecoveryUrl);
 			}
 		}
 
@@ -157,7 +159,7 @@ namespace mojoPortal.Web.UI
 		{
 			if (siteSettings.RequireCaptchaOnLogin)
 			{
-				CaptchaControl captcha = (CaptchaControl)this.FindControl("captcha");
+				CaptchaControl captcha = (CaptchaControl)FindControl("captcha");
 				if (captcha != null)
 				{
 					// if (!captcha.Captcha.IsValid)
@@ -170,13 +172,13 @@ namespace mojoPortal.Web.UI
 
 			}
 
-			SiteUser siteUser = new SiteUser(siteSettings, this.UserName);
+			SiteUser siteUser = new SiteUser(siteSettings, UserName);
 			if (siteUser.UserId > -1)
 			{
 				if (siteSettings.UseSecureRegistration && siteUser.RegisterConfirmGuid != Guid.Empty)
 				{
 					//this.FailureText = Resource.LoginUnconfirmedEmailMessage;
-					Label lblFailure = (Label)this.FindControl("FailureText");
+					Label lblFailure = (Label)FindControl("FailureText");
 					if (lblFailure != null)
 					{
 						lblFailure.Visible = true;
@@ -202,7 +204,7 @@ namespace mojoPortal.Web.UI
 				if (siteUser.IsDeleted)
 				{
 					//this.FailureText = Resource.LoginAccountLockedMessage;
-					Label lblFailure = (Label)this.FindControl("FailureText");
+					Label lblFailure = (Label)FindControl("FailureText");
 					if (lblFailure != null)
 					{
 						lblFailure.Visible = true;
@@ -216,7 +218,7 @@ namespace mojoPortal.Web.UI
 				if (siteUser.IsLockedOut)
 				{
 					//this.FailureText = Resource.LoginAccountLockedMessage;
-					Label lblFailure = (Label)this.FindControl("FailureText");
+					Label lblFailure = (Label)FindControl("FailureText");
 					if (lblFailure != null)
 					{
 						lblFailure.Visible = true;
@@ -230,7 +232,7 @@ namespace mojoPortal.Web.UI
 				if ((siteSettings.RequireApprovalBeforeLogin) && (!siteUser.ApprovedForLogin))
 				{
 					//this.FailureText = Resource.LoginAccountLockedMessage;
-					Label lblFailure = (Label)this.FindControl("FailureText");
+					Label lblFailure = (Label)FindControl("FailureText");
 					if (lblFailure != null)
 					{
 						lblFailure.Visible = true;
@@ -249,7 +251,7 @@ namespace mojoPortal.Web.UI
 						{
 
 							//this.FailureText = Resource.LoginAccountLockedMessage;
-							Label lblFailure = (Label)this.FindControl("FailureText");
+							Label lblFailure = (Label)FindControl("FailureText");
 							if (lblFailure != null)
 							{
 								lblFailure.Visible = true;
@@ -272,12 +274,12 @@ namespace mojoPortal.Web.UI
 		{
 			if (siteSettings == null) return;
 
-			SiteUser siteUser = new SiteUser(siteSettings, this.UserName);
+			SiteUser siteUser = new SiteUser(siteSettings, UserName);
 
 			if (WebConfigSettings.UseFolderBasedMultiTenants)
 			{
 				string cookieName = "siteguid" + siteSettings.SiteGuid;
-				CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), this.RememberMeSet);
+				CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), RememberMeSet);
 			}
 
 			if (siteUser.UserId > -1 && siteSettings.AllowUserSkins && siteUser.Skin.Length > 0)
@@ -347,7 +349,7 @@ namespace mojoPortal.Web.UI
 
 		private string GetRedirectPath()
 		{
-			string redirectPath = WebConfigSettings.PageToRedirectToAfterSignIn;
+			string redirectPath = AppConfig.LoginRedirectLink;
 
 			if (redirectPath.Length > 0) { return redirectPath; }
 
