@@ -1,3 +1,4 @@
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using Resources;
 using System;
@@ -8,13 +9,13 @@ public partial class AccessDeniedPage : NonCmsBasePage
 {
 	override protected void OnInit(EventArgs e)
 	{
-		this.Load += new System.EventHandler(this.Page_Load);
+		Load += new EventHandler(Page_Load);
 		base.OnInit(e);
 	}
 
-	private void Page_Load(object sender, System.EventArgs e)
-	{
 
+	private void Page_Load(object sender, EventArgs e)
+	{
 		//having this here causes a redirect to the login page.
 		//Response.StatusCode = 401;
 
@@ -27,7 +28,7 @@ public partial class AccessDeniedPage : NonCmsBasePage
 		{
 			lnkLogin.Visible = true;
 			lnkLogin.Text = Resource.LoginLink;
-			lnkLogin.NavigateUrl = SiteUtils.GetLoginRelativeUrl();
+			lnkLogin.NavigateUrl = PageUrlService.GetLoginLink();
 		}
 
 		SiteUtils.AddNoIndexMeta(this);

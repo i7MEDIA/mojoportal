@@ -20,6 +20,7 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
 using mojoPortal.Net;
 using mojoPortal.SearchIndex;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
@@ -806,34 +807,37 @@ namespace mojoPortal.Web
 		//		 true);
 		//}
 
+
 		public static void RedirectToLoginPage(Control pageOrControl)
 		{
-			string redirectUrl = Invariant($"{GetNavigationSiteRoot()}{GetLoginRelativeUrl()}?returnurl={HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl)}");
+			var redirectUrl = PageUrlService.GetLoginLink(HttpContext.Current.Request.RawUrl);
 
 			WebUtils.SetupRedirect(pageOrControl, redirectUrl);
 		}
+
 
 		public static void RedirectToLoginPage(Control pageOrControl, string returnUrl)
 		{
-			string redirectUrl = Invariant($"{GetNavigationSiteRoot()}{GetLoginRelativeUrl()}?returnurl={HttpUtility.UrlEncode(returnUrl)}");
+			var redirectUrl = PageUrlService.GetLoginLink(returnUrl);
 
 			WebUtils.SetupRedirect(pageOrControl, redirectUrl);
 		}
+
 
 		public static void RedirectToLoginPage(Control pageOrControl, bool useHardRedirect)
 		{
 			if (!useHardRedirect)
 			{
 				RedirectToLoginPage(pageOrControl);
+
 				return;
 			}
 
-			string redirectUrl = Invariant($"{GetNavigationSiteRoot()}{GetLoginRelativeUrl()}?returnurl={HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl)}");
+			var redirectUrl = PageUrlService.GetLoginLink(HttpContext.Current.Request.RawUrl);
 
 			pageOrControl.Page.Response.Redirect(redirectUrl);
 		}
 
-		public static string GetLoginRelativeUrl() => ConfigHelper.GetStringProperty("LoginPageRelativeUrl", "/Secure/Login.aspx");
 
 		public static void RedirectToUrl(string url)
 		{

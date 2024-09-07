@@ -10,6 +10,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
@@ -84,9 +85,13 @@ public partial class Register : NonCmsBasePage
 
 	private void Page_Load(object sender, EventArgs e)
 	{
-		if ((WebConfigSettings.CustomRegistrationPage.Length > 0) && (WebConfigSettings.RedirectRegistrationPageToCustomPage))
+		if (
+			!string.IsNullOrWhiteSpace(AppConfig.RegistrationLink) &&
+			WebConfigSettings.RedirectRegistrationPageToCustomPage
+		)
 		{
-			WebUtils.SetupRedirect(this, SiteRoot + WebConfigSettings.CustomRegistrationPage);
+			WebUtils.SetupRedirect(this, PageUrlService.GetRegisterLink());
+
 			return;
 		}
 
