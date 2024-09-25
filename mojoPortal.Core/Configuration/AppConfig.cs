@@ -100,6 +100,9 @@ public static class AppConfig
 	}
 
 
+	public static string ExternalLoginCallbackLink => ConfigHelper.GetStringProperty("ExternalLoginCallbackLink", null);
+
+
 	public static string RegistrationLink
 	{
 		get
@@ -130,4 +133,26 @@ public static class AppConfig
 			return ConfigHelper.GetStringProperty("LoginRedirectLink", null);
 		}
 	}
+
+
+	public static string PasswordRecoveryLink => ConfigHelper.GetStringProperty("PasswordRecoveryLink", null);
+
+
+	public static OAuthConfiguration OAuth => new();
+
+	#region Types
+
+	public class OAuthConfiguration
+	{
+		public string Authority => ConfigHelper.GetStringProperty("OAuth:Authority", null);
+		public string ClientId => ConfigHelper.GetStringProperty("OAuth:ClientId", null);
+		public string ClientSecret => ConfigHelper.GetStringProperty("OAuth:ClientSecret", null);
+
+		public bool Configured =>
+			!string.IsNullOrWhiteSpace(Authority) &&
+			!string.IsNullOrWhiteSpace(ClientId) &&
+			!string.IsNullOrWhiteSpace(ClientSecret);
+	}
+
+	#endregion
 }
