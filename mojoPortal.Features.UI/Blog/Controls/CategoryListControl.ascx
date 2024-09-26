@@ -18,7 +18,7 @@
 				ID="Hyperlink5"
 				EnableViewState="false"
 				Text='<%# ResourceHelper.FormatCategoryLinkText(DataBinder.Eval(Container.DataItem,"Category").ToString(),Convert.ToInt32(DataBinder.Eval(Container.DataItem,"PostCount"))) %>'
-				NavigateUrl='<%# "Blog/ViewCategory.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>' />
+				NavigateUrl='<%# "Blog/ViewCategory.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>' />
 		</li>
 	</ItemTemplate>
 

@@ -28,7 +28,7 @@
 							Text="<%# EditLinkText %>"
 							ToolTip="<%# EditLinkTooltip %>"
 							ImageUrl='<%# EditLinkImageUrl %>'
-							NavigateUrl='<%# "/Blog/EditPost.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID"))) %>'
+							NavigateUrl='<%# "/Blog/EditPost.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(Convert.ToInt32(DataBinder.Eval(Container.DataItem,"ItemID"))) %>'
 							Visible='<%# CanEditPost(Convert.ToInt32(Eval("UserID"))) %>'
 							CssClass="ModuleEditLink" />
 					</<%# itemHeadingElement %>>
@@ -52,7 +52,7 @@
 									ID="Hyperlink6"
 									EnableViewState="false"
 									Text='<%# Eval("Category").ToString() %>' data-category='<%# Eval("Category").ToString() %>'
-									NavigateUrl='<%# "/Blog/ViewCategory.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>'>
+									NavigateUrl='<%# "/Blog/ViewCategory.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>'>
 								</asp:HyperLink>
 							</ItemTemplate>
 							<FooterTemplate>
@@ -164,7 +164,7 @@
 										ID="Hyperlink5"
 										EnableViewState="false"
 										Text='<%# Eval("Category").ToString() %>'
-										NavigateUrl='<%# "/Blog/ViewCategory.aspx".ToQueryBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>'>
+										NavigateUrl='<%# "/Blog/ViewCategory.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).AddParam("cat", DataBinder.Eval(Container.DataItem,"CategoryID")) %>'>
 									</asp:HyperLink>
 								</ItemTemplate>
 
