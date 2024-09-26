@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Web.UI;
+using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.UI;
 
 public partial class ChildPageSiteMapModule : SiteModuleControl
 {
+	protected string customCssClass = string.Empty;
 
 	protected override void OnInit(EventArgs e)
 	{
@@ -27,12 +29,15 @@ public partial class ChildPageSiteMapModule : SiteModuleControl
 			Title = ModuleConfiguration.ModuleTitle;
 			Description = ModuleConfiguration.FeatureName;
 		}
+		pnlOuterWrap.SetOrAppendCss(customCssClass);
 	}
 
 
 	private void LoadSettings()
 	{
 		ChildPageMenu1.ForceDisplay = !WebConfigSettings.EnforcePageSettingsInChildPageSiteMapModule;
+		customCssClass = Settings.ParseString("CustomCssClassSetting", customCssClass);
+
 		if (WebConfigSettings.HideMasterPageChildSiteMapWhenUsingModule)
 		{
 			Control c = Page.Master.FindControl("ChildPageMenu");

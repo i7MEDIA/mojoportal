@@ -10,31 +10,28 @@ namespace mojoPortal.Web.UI;
 
 public partial class CustomMenu : SiteModuleControl
 {
-	private bool showStartingNode = false;
-	private string viewName = "_CustomMenu";
-	private int maxDepth = -1;
 	private int startingPageId = -2;
+	private bool showStartingNode = false;
+	private int maxDepth = -1;
+	private string viewName = "_CustomMenu";
+	private string customCssClass = string.Empty;
 	private static readonly ILog log = LogManager.GetLogger(typeof(CustomMenu));
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		startingPageId = WebUtils.ParseInt32FromHashtable(Settings, "CustomMenuStartingPage", startingPageId);
-		maxDepth = WebUtils.ParseInt32FromHashtable(Settings, "CustomMenuMaxDepth", maxDepth);
-		showStartingNode = WebUtils.ParseBoolFromHashtable(Settings, "CustomMenuShowStartingNode", showStartingNode);
+		startingPageId = Settings.ParseInt32("CustomMenuStartingPage", startingPageId);
+		showStartingNode = Settings.ParseBool("CustomMenuShowStartingNode", showStartingNode);
+		maxDepth = Settings.ParseInt32("CustomMenuMaxDepth", maxDepth);
+		viewName = Settings.ParseString("CustomMenuView", viewName);
+		customCssClass = Settings.ParseString("CustomCssClassSetting", customCssClass);
 
-		if (Settings.Contains("CustomMenuView"))
+		pnlOuterWrap.SetOrAppendCss(customCssClass);
+
+		var startingPage = new PageSettings(siteSettings.SiteId, startingPageId);
+
+		var menuDataSource = new SiteMapDataSource()
 		{
-			if (Settings["CustomMenuView"].ToString() != string.Empty)
-			{
-				viewName = Settings["CustomMenuView"].ToString();
-			}
-		}
-
-		PageSettings startingPage = new(siteSettings.SiteId, startingPageId);
-
-		SiteMapDataSource menuDataSource = new()
-		{
-			SiteMapProvider = "mojosite" + siteSettings.SiteId.ToInvariantString()
+			SiteMapProvider = Invariant($"mojosite{siteSettings.SiteId}")
 		};
 
 		var startingNode = menuDataSource.Provider.RootNode;
