@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Web.SearchUI
+namespace mojoPortal.Web.UI
 {
 
 

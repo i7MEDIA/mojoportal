@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using log4net;
+using mojoPortal.Business.WebHelpers;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.Framework;
 using Resources;
@@ -38,6 +39,8 @@ public partial class RecentContentModule : SiteModuleControl
 			Description = ModuleConfiguration.FeatureName;
 		}
 
+		pnlOuterWrap.SetOrAppendCss(config.CustomCssClassSetting);
+
 		if (WebConfigSettings.DisableSearchIndex)
 		{
 			lblError.Text = Resource.FeatureDisabledDueToSearchIndexDisabled;
@@ -52,7 +55,7 @@ public partial class RecentContentModule : SiteModuleControl
 		catch (System.IO.IOException ex)
 		{ // this can happen if the search index has not been created or is broken
 			log.Error("handled error", ex);
-			lblError.Text = "There was an error accessing the search index. Recent content could not be retrieved.";
+			lblError.Text = Resource.RecentContentSearchIndexError;
 		}
 	}
 
@@ -81,18 +84,6 @@ public partial class RecentContentModule : SiteModuleControl
 		rptResults.DataSource = recentContent;
 		rptResults.DataBind();
 		rptResults.Visible = rptResults.Items.Count > 0;
-	}
-
-	public string BuildUrl(IndexItem indexItem)
-	{
-		if (indexItem.UseQueryStringParams)
-		{
-			return $"{SiteRoot}/{indexItem.ViewPage}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
-		}
-		else
-		{
-			return SiteRoot + "/" + indexItem.ViewPage;
-		}
 	}
 
 	public string FormatCreatedDate(IndexItem indexItem)
@@ -144,6 +135,7 @@ public partial class RecentContentModule : SiteModuleControl
 				TimeZoneInfo.ConvertTimeFromUtc(indexItem.LastModUtc, timeZone).ToString(displaySettings.DateFormat));
 	}
 
+
 	protected string FormatAuthor(string author)
 	{
 		if (!displaySettings.ShowAuthor || !config.ShowAuthor || string.IsNullOrWhiteSpace(author))
@@ -153,29 +145,12 @@ public partial class RecentContentModule : SiteModuleControl
 
 		if (displaySettings.AuthorFormat.Length > 0)
 		{
-			return string.Format(
-				CultureInfo.InvariantCulture,
-				displaySettings.AuthorFormat,
-				author);
+			return string.Format(CultureInfo.InvariantCulture, displaySettings.AuthorFormat, author);
 		}
 
-		return string.Format(
-				CultureInfo.InvariantCulture,
-				Resource.SearchAuthorHtmlFormat,
-				author);
-
-		//SearchAuthorHtmlFormat
+		return string.Format(CultureInfo.InvariantCulture, Resource.SearchAuthorHtmlFormat, author);
 	}
 
-	protected string FormatLinkText(string pageName, string moduleTtile, string itemTitle)
-	{
-		if (itemTitle.Length > 0)
-		{
-			return $"{pageName} &gt; {itemTitle}";
-		}
-
-		return pageName;
-	}
 
 	private void LoadSettings()
 	{
@@ -186,11 +161,7 @@ public partial class RecentContentModule : SiteModuleControl
 			timeZone = SiteUtils.GetUserTimeZone();
 		}
 
-		lnkFeedTop.NavigateUrl = $"{SiteRoot}/Services/RecentContentRss.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
-		if (config.FeedburnerFeedUrl.Length > 0)
-		{
-			lnkFeedTop.NavigateUrl += $"&r={Global.FeedRedirectBypassToken.ToString()}";
-		}
+		lnkFeedTop.NavigateUrl = $"Services/RecentContentRss.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).ToString();
 
 		lnkFeedTop.ToolTip = Resource.RssFeed;
 		lnkFeedTop.ImageUrl = Page.ResolveUrl(displaySettings.FeedIconPath);
@@ -203,10 +174,10 @@ public partial class RecentContentModule : SiteModuleControl
 	}
 }
 
+
 public class RecentContentConfiguration
 {
-	public RecentContentConfiguration()
-	{ }
+	public RecentContentConfiguration() { }
 
 	public RecentContentConfiguration(Hashtable settings)
 	{
@@ -245,25 +216,34 @@ public class RecentContentConfiguration
 
 	private void LoadSettings(Hashtable settings)
 	{
-		if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
+		if (settings == null)
+		{
+			throw new ArgumentException("must pass in a hashtable of settings");
+		}
 
-		GetCreated = WebUtils.ParseBoolFromHashtable(settings, "RecentContentUseCreatedDate", GetCreated);
-		ShowExcerpt = WebUtils.ParseBoolFromHashtable(settings, "ShowExcerpt", ShowExcerpt);
-		ShowAuthor = WebUtils.ParseBoolFromHashtable(settings, "ShowAuthor", ShowAuthor);
-		ShowCreatedDate = WebUtils.ParseBoolFromHashtable(settings, "ShowCreatedDate", ShowCreatedDate);
-		ShowLastModDate = WebUtils.ParseBoolFromHashtable(settings, "ShowLastModDate", ShowLastModDate);
-		MaxRecentItemsToGet = WebUtils.ParseInt32FromHashtable(settings, "MaxRecentItemsToGet", MaxRecentItemsToGet);
-		MaxDaysOldRecentItemsToGet = WebUtils.ParseInt32FromHashtable(settings, "MaxDaysOldRecentItemsToGet", MaxDaysOldRecentItemsToGet);
-		SearchableFeature = WebUtils.ParseStringFromHashtable(settings, "SearchableFeature", SearchableFeature);
-		EnableFeed = WebUtils.ParseBoolFromHashtable(settings, "EnableFeed", EnableFeed);
-		ShowFeedLink = WebUtils.ParseBoolFromHashtable(settings, "ShowFeedLink", ShowFeedLink);
-		FeedCacheTimeInMinutes = WebUtils.ParseInt32FromHashtable(settings, "FeedCacheTimeInMinutes", FeedCacheTimeInMinutes);
-		FeedTimeToLiveInMinutes = WebUtils.ParseInt32FromHashtable(settings, "FeedTimeToLiveInMinutes", FeedTimeToLiveInMinutes);
-		FeedburnerFeedUrl = WebUtils.ParseStringFromHashtable(settings, "FeedburnerFeedUrl", FeedburnerFeedUrl);
-		FeedChannelTitle = WebUtils.ParseStringFromHashtable(settings, "FeedChannelTitle", FeedChannelTitle);
-		FeedChannelDescription = WebUtils.ParseStringFromHashtable(settings, "FeedChannelDescription", FeedChannelDescription);
-		FeedChannelCopyright = WebUtils.ParseStringFromHashtable(settings, "FeedChannelCopyright", FeedChannelCopyright);
-		FeedChannelManagingEditor = WebUtils.ParseStringFromHashtable(settings, "FeedChannelManagingEditor", FeedChannelManagingEditor);
+		GetCreated = settings.ParseBool("RecentContentUseCreatedDate", GetCreated);
+		ShowExcerpt = settings.ParseBool("ShowExcerpt", ShowExcerpt);
+		ShowAuthor = settings.ParseBool("ShowAuthor", ShowAuthor);
+		ShowCreatedDate = settings.ParseBool("ShowCreatedDate", ShowCreatedDate);
+		ShowLastModDate = settings.ParseBool("ShowLastModDate", ShowLastModDate);
+		MaxRecentItemsToGet = settings.ParseInt32("MaxRecentItemsToGet", MaxRecentItemsToGet);
+		MaxDaysOldRecentItemsToGet = settings.ParseInt32("MaxDaysOldRecentItemsToGet", MaxDaysOldRecentItemsToGet);
+		SearchableFeature = settings.ParseString("SearchableFeature", SearchableFeature);
+		EnableFeed = settings.ParseBool("EnableFeed", EnableFeed);
+		if (EnableFeed && SiteUtils.DisableRecentContentFeed(CacheHelper.GetCurrentSiteSettings()))
+		{
+			EnableFeed = false;
+		}
+
+		ShowFeedLink = settings.ParseBool("ShowFeedLink", ShowFeedLink);
+		FeedCacheTimeInMinutes = settings.ParseInt32("FeedCacheTimeInMinutes", FeedCacheTimeInMinutes);
+		FeedTimeToLiveInMinutes = settings.ParseInt32("FeedTimeToLiveInMinutes", FeedTimeToLiveInMinutes);
+		FeedChannelTitle = settings.ParseString("FeedChannelTitle", FeedChannelTitle);
+		FeedChannelDescription = settings.ParseString("FeedChannelDescription", FeedChannelDescription);
+		FeedChannelCopyright = settings.ParseString("FeedChannelCopyright", FeedChannelCopyright);
+		FeedChannelManagingEditor = settings.ParseString("FeedChannelManagingEditor", FeedChannelManagingEditor);
+		CustomCssClassSetting = settings.ParseString("CustomCssClassSetting", CustomCssClassSetting);
+
 	}
 
 	public string FeedChannelManagingEditor { get; private set; } = string.Empty;
@@ -282,8 +262,6 @@ public class RecentContentConfiguration
 
 	public int FeedCacheTimeInMinutes { get; private set; } = 10;
 
-	public string FeedburnerFeedUrl { get; private set; } = string.Empty;
-
 	public bool ShowCreatedDate { get; set; } = true;
 
 	public bool ShowLastModDate { get; set; } = true;
@@ -299,4 +277,6 @@ public class RecentContentConfiguration
 	public bool GetCreated { get; private set; } = false;
 
 	public int MaxDaysOldRecentItemsToGet { get; private set; } = 30;
+
+	public string CustomCssClassSetting { get; private set; } = string.Empty;
 }

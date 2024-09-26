@@ -1,5 +1,4 @@
 ﻿using System;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.ELetterUI;
@@ -34,6 +33,8 @@ public partial class NewsLetterSubscribeModuleModule : SiteModuleControl
 			Title = ModuleConfiguration.ModuleTitle;
 			Description = ModuleConfiguration.FeatureName;
 		}
+		
+		pnlOuterWrap.SetOrAppendCss(CustomCssClassSetting);
 
 		// make this usique in case multiple instances on the same page
 		subscribe1.ValidationGroup = $"subscribe{ModuleId.ToInvariantString()}";
@@ -69,20 +70,19 @@ public partial class NewsLetterSubscribeModuleModule : SiteModuleControl
 
 	private void LoadSettings()
 	{
-		NewsletterButtonTextSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterButtonTextSetting", NewsletterButtonTextSetting);
-		NewsletterWatermarkTextSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterWatermarkTextSetting", NewsletterWatermarkTextSetting);
-		NewsletterThankYouMessageSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterThankYouMessageSetting", NewsletterThankYouMessageSetting);
-		NewsletterMoreInfoTextSetting = WebUtils.ParseStringFromHashtable(Settings, "NewsletterMoreInfoTextSetting", NewsletterMoreInfoTextSetting);
-		CustomCssClassSetting = WebUtils.ParseStringFromHashtable(Settings, "CustomCssClassSetting", CustomCssClassSetting);
-		NewsletterShowListSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowListSetting", NewsletterShowListSetting);
-		NewsletterIncludeDescriptionInListSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterIncludeDescriptionInListSetting", NewsletterIncludeDescriptionInListSetting);
-		NewsletterShowFormatOptionsSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowFormatOptionsSetting", NewsletterShowFormatOptionsSetting);
-		NewsletterHtmlIsDefaultSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterHtmlIsDefaultSetting", NewsletterHtmlIsDefaultSetting);
-		NewsletterShowmoreInfoLinkSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowmoreInfoLinkSetting", NewsletterShowmoreInfoLinkSetting);
-		NewsletterShowPreviousEditionLinksSetting = WebUtils.ParseBoolFromHashtable(Settings, "NewsletterShowPreviousEditionLinksSetting", NewsletterShowPreviousEditionLinksSetting);
-		NewsletterOverrideInputWidthSetting = WebUtils.ParseInt32FromHashtable(Settings, "NewsletterOverrideInputWidthSetting", NewsletterOverrideInputWidthSetting);
+		NewsletterButtonTextSetting = Settings.ParseString("NewsletterButtonTextSetting", NewsletterButtonTextSetting);
+		NewsletterWatermarkTextSetting = Settings.ParseString("NewsletterWatermarkTextSetting", NewsletterWatermarkTextSetting);
+		NewsletterThankYouMessageSetting = Settings.ParseString("NewsletterThankYouMessageSetting", NewsletterThankYouMessageSetting);
+		NewsletterMoreInfoTextSetting = Settings.ParseString("NewsletterMoreInfoTextSetting", NewsletterMoreInfoTextSetting);
+		CustomCssClassSetting = Settings.ParseString("CustomCssClassSetting", CustomCssClassSetting);
+		NewsletterShowListSetting = Settings.ParseBool("NewsletterShowListSetting", NewsletterShowListSetting);
+		NewsletterIncludeDescriptionInListSetting = Settings.ParseBool("NewsletterIncludeDescriptionInListSetting", NewsletterIncludeDescriptionInListSetting);
+		NewsletterShowFormatOptionsSetting = Settings.ParseBool("NewsletterShowFormatOptionsSetting", NewsletterShowFormatOptionsSetting);
+		NewsletterHtmlIsDefaultSetting = Settings.ParseBool("NewsletterHtmlIsDefaultSetting", NewsletterHtmlIsDefaultSetting);
+		NewsletterShowmoreInfoLinkSetting = Settings.ParseBool("NewsletterShowmoreInfoLinkSetting", NewsletterShowmoreInfoLinkSetting);
+		NewsletterShowPreviousEditionLinksSetting = Settings.ParseBool("NewsletterShowPreviousEditionLinksSetting", NewsletterShowPreviousEditionLinksSetting);
+		NewsletterOverrideInputWidthSetting = Settings.ParseInt32("NewsletterOverrideInputWidthSetting", NewsletterOverrideInputWidthSetting);
 
-		pnlOuterWrap.SetOrAppendCss(CustomCssClassSetting);
 	}
 
 	#region OnInit

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="SiteSearchModule.ascx.cs" Inherits="mojoPortal.Web.SearchUI.SiteSearchModule" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="SiteSearchModule.ascx.cs" Inherits="mojoPortal.Web.UI.SiteSearchModule" %>
 <portal:SearchModuleDisplaySettings ID="displaySettings" runat="server" />
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper SiteSearch">
@@ -10,7 +10,6 @@
 					<asp:UpdatePanel ID="updPnl" UpdateMode="Conditional" runat="server">
 						<ContentTemplate>
 							<portal:SearchPanel ID="pnlS" runat="server">
-								<%--<mp:WatermarkTextBox ID="txtSearch" runat="server" CssClass="watermarktextbox" />--%>
 								<asp:TextBox ID="txtSearch" runat="server" />
 								<portal:mojoButton ID="btnSearch" runat="server" CausesValidation="false" SkinID="searchinput" />
 							</portal:SearchPanel>
@@ -23,8 +22,8 @@
 										<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# mojoPortal.Web.Framework.SecurityHelper.RegexRelativeImageUrlPatern %>'>
 											<<%# displaySettings.ItemHeadingElement %>>
 												<asp:HyperLink ID="Hyperlink1" runat="server"
-													NavigateUrl='<%# BuildUrl((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>'
-													Text='<%# FormatLinkText(Eval("PageName").ToString(), Eval("ModuleTitle").ToString(), Eval("Title").ToString())  %>' />
+													NavigateUrl='<%# ((mojoPortal.SearchIndex.IndexItem)Container.DataItem).Url %>'
+													Text='<%# ((mojoPortal.SearchIndex.IndexItem)Container.DataItem).LinkText  %>' />
 											</<%# displaySettings.ItemHeadingElement %>>
 											<div id="divExcerpt" runat="server" visible='<%# config.ShowExcerpt && displaySettings.ShowExcerpt %>' class="searchbutton">
 												<%# Eval("Intro").ToString() %>

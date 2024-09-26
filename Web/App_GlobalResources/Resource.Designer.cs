@@ -4597,6 +4597,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feed Settings.
+        /// </summary>
+        internal static string FeedSettings {
+            get {
+                return ResourceManager.GetString("FeedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Feed Time To Live In Minutes.
         /// </summary>
         internal static string FeedTimeToLiveInMinutes {
@@ -9142,7 +9151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icon:.
+        ///   Looks up a localized string similar to Icon.
         /// </summary>
         internal static string ModuleSettingsIconLabel {
             get {
@@ -13147,11 +13156,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stay tuned for future updates..
+        /// </summary>
+        internal static string RecentContentEmptyMessage {
+            get {
+                return ResourceManager.GetString("RecentContentEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recent Content.
         /// </summary>
         internal static string RecentContentFeatureName {
             get {
                 return ResourceManager.GetString("RecentContentFeatureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to mojoPortal CMS Recent Content Feed Generator.
+        /// </summary>
+        internal static string RecentContentFeedGenerator {
+            get {
+                return ResourceManager.GetString("RecentContentFeedGenerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent Content from {0}.
+        /// </summary>
+        internal static string RecentContentRssFeedChannelDescription {
+            get {
+                return ResourceManager.GetString("RecentContentRssFeedChannelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recent Content.
+        /// </summary>
+        internal static string RecentContentRssFeedChannelTitle {
+            get {
+                return ResourceManager.GetString("RecentContentRssFeedChannelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error accessing the search index. Recent content could not be retrieved..
+        /// </summary>
+        internal static string RecentContentSearchIndexError {
+            get {
+                return ResourceManager.GetString("RecentContentSearchIndexError", resourceCulture);
             }
         }
         

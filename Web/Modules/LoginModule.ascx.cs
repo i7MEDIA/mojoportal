@@ -1,9 +1,12 @@
 ﻿using System;
+using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.Modules;
 
 public partial class LoginModule : SiteModuleControl
 {
+	public string customCssClass { get; private set; }
+
 	// FeatureGuid 12c68a12-ceea-4d29-8a81-2db8f2e9d29b
 
 	#region OnInit
@@ -19,7 +22,7 @@ public partial class LoginModule : SiteModuleControl
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if ((Request.IsAuthenticated) && (displaySettings.HideWhenAuthenticated))
+		if (Request.IsAuthenticated && displaySettings.HideWhenAuthenticated)
 		{
 			Visible = false;
 
@@ -49,10 +52,14 @@ public partial class LoginModule : SiteModuleControl
 			pnlOuterBody.RenderContentsOnly = true;
 			pnlInnerBody.RenderContentsOnly = true;
 		}
+
+		pnlOuterWrap.SetOrAppendCss(customCssClass);
 	}
 
 	private void LoadSettings()
 	{
+		customCssClass = Settings.ParseString("CustomCssClassSetting", customCssClass);
+
 		if (!WebHelper.IsSecureRequest())
 		{
 			if (WebConfigSettings.ShowWarningWhenSslIsAvailableButNotUsedWithLoginModule)
@@ -89,7 +96,7 @@ public partial class LoginModule : SiteModuleControl
 			login1.Visible = false;
 		}
 
-		if ((WebConfigSettings.PageToRedirectToAfterSignIn.Length > 0) && WebConfigSettings.UseRedirectInSignInModule)
+		if (WebConfigSettings.PageToRedirectToAfterSignIn.Length > 0 && WebConfigSettings.UseRedirectInSignInModule)
 		{
 			login1.SetRedirectUrl = true;
 			UpdatePanel1.ChildrenAsTriggers = false;

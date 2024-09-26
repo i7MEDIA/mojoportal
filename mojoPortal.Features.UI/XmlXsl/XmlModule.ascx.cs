@@ -3,7 +3,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Web.Framework;
 using Resources;
-using static System.FormattableString;
 
 namespace mojoPortal.Web.XmlUI;
 
@@ -31,22 +30,19 @@ public partial class XmlModule : SiteModuleControl
 		LoadSettings();
 
 		PopulateControls();
-
-
 	}
 
 	private void PopulateControls()
 	{
-		Title1.EditUrl = $"{SiteRoot}/XmlXsl/XmlEdit.aspx";
+		Title1.EditUrl = "XmlXsl/XmlEdit.aspx".ToLinkBuilder().ToString();
 		Title1.EditText = XmlResources.XmlEditButton;
-		
+
 		if (this.ModuleConfiguration != null)
 		{
 			this.Title = this.ModuleConfiguration.ModuleTitle;
 		}
 
-
-		if (config.InstanceCssClass.Length > 0) { pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass); }
+		pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass);
 
 		string xmlUrl = string.Empty;
 		string xslUrl = string.Empty;

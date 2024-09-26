@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Web;
+using mojoPortal.Business;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
 using Resources;
@@ -226,6 +226,10 @@ public partial class QuestionEditPage : NonCmsBasePage
 		}
 
 		AddClassToBody("surveyquestionedit");
+
+		var moduleSettings = ModuleSettings.GetModuleSettings(ModuleId);
+		var customCssClassSetting = moduleSettings.ParseString("CustomCssClassSetting");
+		pnlOuterWrap.SetOrAppendCss(customCssClassSetting);
 	}
 
 

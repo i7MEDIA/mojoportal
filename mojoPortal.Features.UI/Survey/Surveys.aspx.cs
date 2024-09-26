@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Web;
+using mojoPortal.Business;
 using mojoPortal.Web.Framework;
 using Resources;
 using SurveyFeature.Business;
@@ -85,7 +85,7 @@ public partial class SurveysPage : NonCmsBasePage
 		lnkAddNew.Text = SurveyResources.SurveyAddButton;
 
 		lnkAddNew.NavigateUrl = "Survey/SurveyEdit.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).ToString();
-			//$"{SiteRoot}/Survey/SurveyEdit.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
+		//$"{SiteRoot}/Survey/SurveyEdit.aspx?pageid={PageId.ToInvariantString()}&mid={ModuleId.ToInvariantString()}";
 
 		grdSurveys.Columns[0].HeaderText = SurveyResources.SurveysGridEditDeleteHeader;
 		grdSurveys.Columns[1].HeaderText = SurveyResources.SurveysGridSurveyNameHeader;
@@ -105,6 +105,10 @@ public partial class SurveysPage : NonCmsBasePage
 		surveyGuid = Survey.GetModulesCurrentSurvey(ModuleId);
 
 		AddClassToBody("surveys");
+
+		var moduleSettings = ModuleSettings.GetModuleSettings(ModuleId);
+		var customCssClassSetting = moduleSettings.ParseString("CustomCssClassSetting");
+		pnlOuterWrap.SetOrAppendCss(customCssClassSetting);
 	}
 
 

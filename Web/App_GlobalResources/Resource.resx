@@ -973,7 +973,7 @@
     <value>Feature</value>
   </data>
   <data name="ModuleSettingsIconLabel" xml:space="preserve">
-    <value>Icon:</value>
+    <value>Icon</value>
   </data>
   <data name="ModuleSettingsModuleNameLabel" xml:space="preserve">
     <value>Feature Instance Title</value>
@@ -6753,5 +6753,23 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="DeprecatedFeature" xml:space="preserve">
     <value>This feature has been deprecated and will be removed in a future release. Site admins should work on migrating their content from this feature to a replacement.</value>
+  </data>
+  <data name="FeedSettings" xml:space="preserve">
+    <value>Feed Settings</value>
+  </data>
+  <data name="RecentContentRssFeedChannelDescription" xml:space="preserve">
+    <value>Recent Content from {0}</value>
+  </data>
+  <data name="RecentContentRssFeedChannelTitle" xml:space="preserve">
+    <value>Recent Content</value>
+  </data>
+  <data name="RecentContentEmptyMessage" xml:space="preserve">
+    <value>Stay tuned for future updates.</value>
+  </data>
+  <data name="RecentContentSearchIndexError" xml:space="preserve">
+    <value>There was an error accessing the search index. Recent content could not be retrieved.</value>
+  </data>
+  <data name="RecentContentFeedGenerator" xml:space="preserve">
+    <value>mojoPortal CMS Recent Content Feed Generator</value>
   </data>
 </root>

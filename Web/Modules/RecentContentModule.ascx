@@ -16,8 +16,8 @@
 							<NeatHtml:UntrustedContent ID="UntrustedContent1" runat="server" TrustedImageUrlPattern='<%# mojoPortal.Web.Framework.SecurityHelper.RegexRelativeImageUrlPatern %>'>
 								<<%# displaySettings.ItemHeadingElement %>>
 									<asp:HyperLink ID="Hyperlink1" runat="server"
-										NavigateUrl='<%# BuildUrl((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>'
-										Text='<%# FormatLinkText(Eval("PageName").ToString(), Eval("ModuleTitle").ToString(), Eval("Title").ToString())  %>' />
+										NavigateUrl='<%# ((mojoPortal.SearchIndex.IndexItem)Container.DataItem).Url %>'
+										Text='<%#((mojoPortal.SearchIndex.IndexItem)Container.DataItem).LinkText %>' />
 								</<%# displaySettings.ItemHeadingElement %>>
 								<div id="divExcerpt" runat="server" visible='<%# config.ShowExcerpt && displaySettings.ShowExcerpt %>' class="searchresultdesc">
 									<%# Eval("ContentAbstract").ToString() %>
