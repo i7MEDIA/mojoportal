@@ -131,7 +131,7 @@ public static class SecurityHelper
 
 		// @"/(\.|\/)(gif|jpe?g|png)$/i"
 
-		regex.Append(@"(?i)/(\.|\/)(");
+		regex.Append(@"""/(\.|\/)(");
 
 		List<string> allowedExtensions = pipeSeparatedExtensions.SplitOnPipes();
 		string pipe = string.Empty;
@@ -141,7 +141,7 @@ public static class SecurityHelper
 			pipe = "|";
 		}
 
-		regex.Append(")$/i");
+		regex.Append(@")$/i""");
 
 		return regex.ToString();
 	}
