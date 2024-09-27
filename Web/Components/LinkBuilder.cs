@@ -20,10 +20,12 @@ public class LinkBuilder
 		if (_url.Contains("?"))
 		{
 			var query = HttpUtility.ParseQueryString(_url);
+
 			foreach (KeyValuePair<string, string> item in query)
 			{
 				_queries[item.Key] = item.Value;
 			}
+
 			_url = _url.Substring(0, _url.IndexOf('?'));
 		}
 
