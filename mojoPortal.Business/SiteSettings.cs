@@ -2545,24 +2545,14 @@ public class SiteSettings
 		return result;
 	}
 
+
 	public static int SiteCount()
 	{
-		int sitesFound = 0;
+		var siteCount = 0;
 
 		try
 		{
-			using (IDataReader reader = DBSiteSettings.GetSiteList())
-			{
-				if (reader != null)
-				{
-					while (reader.Read())
-					{
-						sitesFound += 1;
-
-					}
-				}
-			}
-
+			siteCount = DBSiteSettings.GetSiteCount();
 		}
 		catch (System.Data.Common.DbException) { }
 		catch (InvalidOperationException) { }
@@ -2570,13 +2560,8 @@ public class SiteSettings
 		catch (System.Net.Sockets.SocketException) { }
 
 
-		return sitesFound;
-
-
+		return siteCount;
 	}
-
-
-
 
 
 	//public static DataSet GetPageListForAdmin(int siteID) 
