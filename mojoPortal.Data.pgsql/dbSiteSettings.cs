@@ -1054,23 +1054,32 @@ namespace mojoPortal.Data
            
         }
 
-        public static IDataReader GetSiteList()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_sites ");
-            sqlCommand.Append("ORDER BY ");
-            sqlCommand.Append("sitename ");
-            sqlCommand.Append(";");
+		public static IDataReader GetSiteList()
+		{
+			var sqlCommand = "SELECT * FROM mp_sites ORDER BY sitename;";
 
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                null);
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand,
+				null
+			);
+		}
 
-           
-        }
+
+		public static int GetSiteCount()
+		{
+			var sqlCommand = "SELECT COUNT(*) FROM mp_sites;";
+
+			return Convert.ToInt32(
+				NpgsqlHelper.ExecuteScalar(
+					ConnectionString.GetReadConnectionString(),
+					CommandType.Text,
+					sqlCommand,
+					null
+				)
+			);
+		}
 
         
         public static IDataReader GetSite(string hostName)
