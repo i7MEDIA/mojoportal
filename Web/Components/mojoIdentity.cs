@@ -1,134 +1,101 @@
-// Author:					
-// Created:				    2007-04-24
-// Last Modified:		    2011-11-11
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Web.Security;
-using System.Security.Principal;
+#nullable enable
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
+using System;
+using System.Security.Principal;
 
-namespace mojoPortal.Web.Security
+namespace mojoPortal.Web.Security;
+
+[Serializable()]
+public class mojoIdentity : MarshalByRefObject, IIdentity
 {
-    /// <summary>
-    ///
-    /// </summary>
-    [Serializable()]
-    public class mojoIdentity : MarshalByRefObject, IIdentity
-    {
-        public mojoIdentity()
-        {
+	private readonly IIdentity? _innerIdentity;
+	private bool _isAuthenticated;
+	private bool _alreadyChecked = false;
+	private string? _username = null;
 
-        }
+	public string Name => _innerIdentity?.Name ?? _username ?? string.Empty;
+	public string AuthenticationType => _innerIdentity?.AuthenticationType ?? "Forms";
 
-        //public mojoIdentity(string username, string password)
-        //{
-        //    if (string.IsNullOrEmpty(username))
-        //        throw new ArgumentNullException("username");
 
-        //    if (string.IsNullOrEmpty(password))
-        //        throw new ArgumentNullException("password");
+	public mojoIdentity(IIdentity innerIdentity)
+	{
+		_innerIdentity = innerIdentity;
+		_isAuthenticated = innerIdentity.IsAuthenticated;
+	}
 
-        //    if (!Membership.ValidateUser(username, password)) { return; }
 
-        //    isAuthenticated = true;
-        //    name = username;
-        //}
+	/// <summary>
+	/// This constructor should only be used in conjunction with OAuth/OpenID Connect configuration
+	/// </summary>
+	/// <param name="username"></param>
+	public mojoIdentity(string username)
+	{
+		// Since this only gets called once a request is authenticated, set these items to true.
+		_alreadyChecked = true;
+		_isAuthenticated = true;
+		_username = username;
+	}
 
-        public mojoIdentity(IIdentity innerIdentity)
-        {
-            this.innerIdentity = innerIdentity;
-            name = this.innerIdentity.Name;
-            isAuthenticated = this.innerIdentity.IsAuthenticated;
-        }
 
-        
-        private IIdentity innerIdentity;
-        private string name = string.Empty;
-        //private string authenticationType = "Forms";
-        private bool isAuthenticated = false;
-        private bool alreadyChecked = false;
+	public bool IsAuthenticated
+	{
+		get
+		{
+			if (!_alreadyChecked)
+			{
+				var useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
-        public string Name
-        {
-            get 
-            {
-                return name;
-            }
-        }
+				if (
+					_isAuthenticated &&
+					!WebConfigSettings.UseRelatedSiteMode &&
+					useFolderForSiteDetection
+				)
+				{
+					var siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-        public string AuthenticationType
-        {
-            //get { return authenticationType; }
-            get { return innerIdentity.AuthenticationType; }
-        }
+					if (siteSettings == null)
+					{
+						return false;
+					}
 
-        public bool IsAuthenticated
-        {
-            get 
-            {
-                if (!alreadyChecked)
-                {
-                    bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
-                    
-                    if (
-                        (isAuthenticated) 
-                        &&(!WebConfigSettings.UseRelatedSiteMode)
-                        && (useFolderForSiteDetection)
-                        )
-                    {
-                        //string virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
+					var cookieName = "siteguid" + siteSettings.SiteGuid.ToString();
 
-                        isAuthenticated = false;
-                        SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+					if (!CookieHelper.CookieExists(cookieName))
+					{
+						return false;
+					}
 
-                        if (siteSettings == null) return isAuthenticated;
+					var cookieValue = CookieHelper.GetCookieValue(cookieName);
 
-                        string cookieName = "siteguid" + siteSettings.SiteGuid.ToString();
+					SiteUser siteUser;
 
-                        if (!CookieHelper.CookieExists(cookieName)) return isAuthenticated;
-                        
-                        string cookieValue = CookieHelper.GetCookieValue(cookieName);
-                        bool bypassAuthCheck = true;
-                        SiteUser siteUser = null;
-                        try
-                        {
-                            // errors can happen here during upgrades if a new column was added for mp_Users
-                            siteUser = SiteUtils.GetCurrentSiteUser(bypassAuthCheck);
-                        }
-                        catch 
-                        {
-                            return false;
-                        }
-                        if (siteUser == null) return isAuthenticated;
+					try
+					{
+						// errors can happen here during upgrades if a new column was added for mp_Users
+						siteUser = SiteUtils.GetCurrentSiteUser(true);
+					}
+					catch
+					{
+						return false;
+					}
 
-                        if (siteUser.UserGuid.ToString() == cookieValue) isAuthenticated = true;
+					if (siteUser is null)
+					{
+						return false;
+					}
 
-                        //if ((virtualFolder.Length == 0) && (cookieValue == "root"))
-                        //{
-                        //    isAuthenticated = true;
-                        //}
-                        //if (virtualFolder == cookieValue)
-                        //{
-                        //    isAuthenticated = true;
-                        //}
+					if (siteUser.UserGuid.ToString() == cookieValue)
+					{
+						_isAuthenticated = true;
+					}
 
-                        alreadyChecked = true;
+					_alreadyChecked = true;
+				}
+			}
 
-                    }
-                }
-                return isAuthenticated; 
-            }
-        }
-
-    }
+			return _isAuthenticated;
+		}
+	}
 }

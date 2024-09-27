@@ -1,46 +1,47 @@
+#nullable enable
 using mojoPortal.Business.WebHelpers;
 using System.Security.Principal;
 
-namespace mojoPortal.Web.Security
+namespace mojoPortal.Web.Security;
+
+public class mojoPrincipal : IPrincipal
 {
-	public class mojoPrincipal : IPrincipal
+	private readonly IPrincipal _innerPrincipal;
+	private readonly mojoIdentity identity;
+
+	public mojoPrincipal(IPrincipal innerPrincipal)
 	{
-		private readonly IPrincipal innerPrincipal;
-		private readonly mojoIdentity identity = new mojoIdentity();
+		_innerPrincipal = innerPrincipal;
+		identity = new(innerPrincipal.Identity);
+	}
+
+	public mojoPrincipal(string username)
+	{
+		identity = new mojoIdentity(username);
+	}
+
+	public IIdentity Identity => identity!;
 
 
-		public mojoPrincipal(IPrincipal innerPricipal)
+	public bool IsInRole(string role)
+	{
+		var result = false;
+
+		if (_innerPrincipal != null)
 		{
-			innerPrincipal = innerPricipal;
-			identity = new mojoIdentity(innerPrincipal.Identity);
+			result = _innerPrincipal.IsInRole(role);
 		}
 
-
-		public bool IsInRole(string role)
+		if (WebConfigSettings.UseFolderBasedMultiTenants)
 		{
-			var result = false;
+			var virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
 
-			if (innerPrincipal != null)
+			if (!string.IsNullOrWhiteSpace(virtualFolder))
 			{
-				result = innerPrincipal.IsInRole(role);
+				result = false;
 			}
-
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
-			{
-				string virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
-
-				if (virtualFolder.Length > 0)
-				{
-					result = false;
-				}
-			}
-
-			return result;
 		}
 
-		public IIdentity Identity
-		{
-			get { return identity; }
-		}
+		return result;
 	}
 }

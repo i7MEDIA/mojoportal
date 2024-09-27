@@ -1,11 +1,14 @@
+#nullable enable
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
+using Newtonsoft.Json;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Security;
@@ -204,63 +207,65 @@ public class mojoRoleProvider : RoleProvider
 	/// <returns>a list of roles</returns>
 	public override string[] GetRolesForUser(string userName)
 	{
-		if (HttpContext.Current != null)
+		if (HttpContext.Current == null)
 		{
-			var siteSettings = CacheHelper.GetCurrentSiteSettings();
-			var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
+			return [];
+		}
 
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
+
+		if (
+			HttpContext.Current.Request.IsAuthenticated &&
+			HttpContext.Current.User.Identity.Name == userName &&
+			siteSettings != null
+		)
+		{
 			if (
-				HttpContext.Current.Request.IsAuthenticated &&
-				HttpContext.Current.User.Identity.Name == userName &&
-				siteSettings != null
+				CookieHelper.CookieExists(roleCookieName) &&
+				!string.IsNullOrWhiteSpace(CookieHelper.GetCookieValue(roleCookieName))
 			)
 			{
-				if (
-					CookieHelper.CookieExists(roleCookieName) &&
-					!string.IsNullOrWhiteSpace(CookieHelper.GetCookieValue(roleCookieName))
-				)
+				try
 				{
-					try
-					{
-						return GetRolesFromCookie();
+					return GetRolesFromCookie();
 
-						// the below errors are expected if the machine key has been changed and the user already has a role cookie
-						// apparently the update for http://weblogs.asp.net/scottgu/archive/2010/09/28/asp-net-security-update-now-available.aspx
-						// changed it from throwing a CryptographyException to an HttpException
-					}
-					catch (CryptographicException)
-					{
-						return GetRolesAndSetCookieInternal();
-					}
-					catch (HttpException)
-					{
-						return GetRolesAndSetCookieInternal();
-					}
-					catch (NullReferenceException ex)
-					{
-						// https://www.mojoportal.com/Forums/Thread.aspx?thread=9515&mid=34&pageid=5&ItemID=2&pagenumber=1#post39505
-						// not sure what is null here but someone reported it happening using the Amazon silk browser
-						// which does some very weird things like caching everything on their own servers 
-						// so their servers make the web request and the brwoser gets it from their server
-						// its like a strange proxy server
-						// then it happened on my own site after applying a windows update
-						log.Error("handled exception", ex);
-
-						return GetRolesAndSetCookieInternal();
-					}
+					// the below errors are expected if the machine key has been changed and the user already has a role cookie
+					// apparently the update for http://weblogs.asp.net/scottgu/archive/2010/09/28/asp-net-security-update-now-available.aspx
+					// changed it from throwing a CryptographyException to an HttpException
 				}
-				else
+				catch (CryptographicException)
 				{
+					return GetRolesAndSetCookieInternal();
+				}
+				catch (HttpException)
+				{
+					return GetRolesAndSetCookieInternal();
+				}
+				catch (NullReferenceException ex)
+				{
+					// https://www.mojoportal.com/Forums/Thread.aspx?thread=9515&mid=34&pageid=5&ItemID=2&pagenumber=1#post39505
+					// not sure what is null here but someone reported it happening using the Amazon silk browser
+					// which does some very weird things like caching everything on their own servers 
+					// so their servers make the web request and the brwoser gets it from their server
+					// its like a strange proxy server
+					// then it happened on my own site after applying a windows update
+					log.Error("handled exception", ex);
+
 					return GetRolesAndSetCookieInternal();
 				}
 			}
 			else
 			{
-				// not current user or not authenticated
-				if (siteSettings != null && userName != null && userName.Length > 0)
-				{
-					return SiteUser.GetRoles(siteSettings, userName);
-				}
+				return GetRolesAndSetCookieInternal();
+			}
+		}
+		else
+		{
+			// not current user or not authenticated
+			if (siteSettings != null && userName != null && userName.Length > 0)
+			{
+				return SiteUser.GetRoles(siteSettings, userName);
 			}
 		}
 
@@ -286,20 +291,84 @@ public class mojoRoleProvider : RoleProvider
 	private static string[] GetRolesAndSetCookieInternal()
 	{
 		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-		var currentUserRoles = new string[0];
 
-		if (siteSettings != null)
+		if (siteSettings == null)
+		{
+			return [];
+		}
+
+		var userRoles = Role.GetRolesByUsername(HttpContext.Current.User.Identity.Name, siteSettings.SiteId);
+		var resultRoles = userRoles.Select(x => x.RoleName);
+
+		if (AppConfig.OAuth.Configured)
+		{
+			var accessToken = Global.OidcService.AccessToken;
+			var resourceAccessClaim = accessToken?.Claims.FirstOrDefault(x => x.Type.Equals("resource_access"))?.Value;
+
+			if (resourceAccessClaim is not null)
+			{
+				var resourceAccess = JsonConvert.DeserializeObject<ResourceAccess>(resourceAccessClaim);
+
+				if (resourceAccess is not null)
+				{
+					var rolesToRemove = (
+						from o in userRoles
+						join p in resourceAccess.PublicClient.Roles on o.RoleName equals p into t
+						from od in t.DefaultIfEmpty()
+						where od == null
+						select o.RoleName
+					).ToList();
+
+					var rolesToAdd = (
+						from o in resourceAccess.PublicClient.Roles
+						join p in userRoles on o equals p.RoleName into t
+						from od in t.DefaultIfEmpty()
+						where od == null
+						select o
+					).ToList();
+
+					if (rolesToRemove.Any() || rolesToAdd.Any())
+					{
+						var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
+						var siteRoles = Role.GetBySite(siteSettings.SiteId);
+
+						foreach (var role in rolesToRemove)
+						{
+							var _role = userRoles.FirstOrDefault(x => x.RoleName == role);
+
+							if (_role is not null)
+							{
+								Role.RemoveUser(_role.RoleId, user.UserId);
+
+								resultRoles = resultRoles
+									.Where(x => x != role)
+									.ToArray();
+							}
+						}
+
+						foreach (var role in rolesToAdd)
+						{
+							var _role = siteRoles.FirstOrDefault(x => x.RoleName == role);
+
+							if (_role is not null)
+							{
+								Role.AddUser(_role.RoleId, user.UserId, _role.RoleGuid, user.UserGuid);
+								resultRoles = [.. resultRoles, role];
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (!AppConfig.OAuth.Configured)
 		{
 			var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
-			var roleStr = "";
+			var roles = new RoleStringHelper();
 
-			currentUserRoles = SiteUser.GetRoles(siteSettings, HttpContext.Current.User.Identity.Name);
+			roles.AddRange(resultRoles);
 
-			foreach (var role in currentUserRoles)
-			{
-				roleStr += role;
-				roleStr += ";";
-			}
+			var roleStr = roles.ToString();
 
 			if (WebConfigSettings.PreEncryptRolesForCookie)
 			{
@@ -331,54 +400,51 @@ public class mojoRoleProvider : RoleProvider
 			HttpContext.Current.Response.Cookies.Add(roleCookie);
 		}
 
-		return currentUserRoles;
+		return resultRoles.ToArray();
 	}
 
 
 	private string[] GetRolesFromCookie()
 	{
 		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-		var currentUserRoles = new string[0];
+		string[] currentUserRoles = [];
 
-		if (siteSettings != null)
+		if (siteSettings == null)
 		{
-			var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
-			var userRoles = new ArrayList();
-			var roleCookie = HttpContext.Current.Request.Cookies[roleCookieName];
-
-			if (roleCookie != null)
-			{
-				var ticket = FormsAuthentication.Decrypt(roleCookie.Value);
-
-				if (null == ticket || ticket.Expired)
-				{
-					return GetRolesAndSetCookieInternal();
-				}
-
-				var roles = ticket.UserData;
-
-				if (WebConfigSettings.PreEncryptRolesForCookie)
-				{
-					try
-					{
-						roles = SiteUtils.Decrypt(roles);
-					}
-					catch (CryptographicException)
-					{ }
-					catch (FormatException)
-					{ }
-				}
-
-				foreach (var role in roles.Split(';'))
-				{
-					userRoles.Add(role);
-				}
-			}
-
-			currentUserRoles = (string[])userRoles.ToArray(typeof(string));
+			return currentUserRoles;
 		}
 
-		return currentUserRoles;
+		var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
+		var userRoles = new List<string>();
+		var roleCookie = HttpContext.Current.Request.Cookies[roleCookieName];
+
+		if (roleCookie != null)
+		{
+			var ticket = FormsAuthentication.Decrypt(roleCookie.Value);
+
+			if (null == ticket || ticket.Expired)
+			{
+				return GetRolesAndSetCookieInternal();
+			}
+
+			var roles = ticket.UserData;
+
+			if (WebConfigSettings.PreEncryptRolesForCookie)
+			{
+				try
+				{
+					roles = SiteUtils.Decrypt(roles);
+				}
+				catch (CryptographicException)
+				{ }
+				catch (FormatException)
+				{ }
+			}
+
+			userRoles.AddRange(RoleStringHelper.Parse(roles).Roles);
+		}
+
+		return userRoles.ToArray();
 	}
 
 
@@ -495,6 +561,19 @@ public class mojoRoleProvider : RoleProvider
 		}
 
 		return result;
+	}
+
+
+	public class ResourceAccess
+	{
+		[JsonProperty("easy-image")]
+		public PublicClient PublicClient { get; set; } = new();
+	}
+
+	public class PublicClient
+	{
+		[JsonProperty("roles")]
+		public IEnumerable<string> Roles { get; set; } = [];
 	}
 
 
