@@ -197,6 +197,7 @@ public static class WebConfigSettings
 	public static bool HidePageViewModeIfNoWorkflowItems => ConfigHelper.GetBoolProperty("HidePageViewModeIfNoWorkflowItems", true);
 
 	public static bool SuppressMenuOnBuiltIn404Page => ConfigHelper.GetBoolProperty("SuppressMenuOnBuiltIn404Page", false);
+	public static bool ShowForumPostsInMemberList => ConfigHelper.GetBoolProperty("ShowForumPostsInMemberList", true);
 
 	public static bool DisableLoginInfo => ConfigHelper.GetBoolProperty("DisableLoginInfo", false);
 
