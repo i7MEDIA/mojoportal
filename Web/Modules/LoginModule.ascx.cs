@@ -1,5 +1,5 @@
-﻿using System;
-using mojoPortal.Web.Framework;
+using mojoPortal.Web.Components;
+using System;
 
 namespace mojoPortal.Web.Modules;
 
@@ -96,7 +96,7 @@ public partial class LoginModule : SiteModuleControl
 			login1.Visible = false;
 		}
 
-		if (AppConfig.LoginRedirectLink.Length > 0 && WebConfigSettings.UseRedirectInSignInModule)
+		if (!string.IsNullOrWhiteSpace(PageUrlService.GetLoginRedirectLink()) && WebConfigSettings.UseRedirectInSignInModule)
 		{
 			login1.SetRedirectUrl = true;
 			UpdatePanel1.ChildrenAsTriggers = false;

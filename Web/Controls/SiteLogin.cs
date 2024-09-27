@@ -349,7 +349,7 @@ namespace mojoPortal.Web.UI
 
 		private string GetRedirectPath()
 		{
-			string redirectPath = AppConfig.LoginRedirectLink;
+			string redirectPath = PageUrlService.GetLoginRedirectLink();
 
 			if (redirectPath.Length > 0) { return redirectPath; }
 

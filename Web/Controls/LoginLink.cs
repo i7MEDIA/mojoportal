@@ -84,9 +84,9 @@ public class LoginLink : WebControl
 				Page is not Pages.AccessDeniedPage
 			)
 			{
-				if (!string.IsNullOrWhiteSpace(AppConfig.LoginRedirectLink))
+				if (!string.IsNullOrWhiteSpace(PageUrlService.GetLoginRedirectLink()))
 				{
-					loginUrl = PageUrlService.GetLoginLink(AppConfig.LoginRedirectLink);
+					loginUrl = PageUrlService.GetLoginLink(PageUrlService.GetLoginRedirectLink());
 				}
 				else
 				{
