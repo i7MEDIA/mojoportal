@@ -16,6 +16,7 @@ using System.Data;
 using System.Text;
 using Npgsql;
 using System.Collections.Generic;
+using NpgsqlTypes;
 
 
 namespace mojoPortal.Data
@@ -247,7 +248,48 @@ namespace mojoPortal.Data
                 arParams);
         }
 
-        public static IDataReader GetRoleMembers(int roleId)
+
+		public static IDataReader GetRolesByUsername(string username, int siteId)
+		{
+			var sqlCommand = @"
+SELECT
+	r.roleid,
+	r.siteid,
+	r.rolename,
+	r.displayname,
+	r.siteguid,
+	r.roleguid,
+	r.description
+FROM mp_userroles ur
+INNER JOIN mp_users u ON ur.userid = u.userid
+INNER JOIN mp_roles r ON ur.roleid = r.roleid
+WHERE u.siteid = :siteid
+AND (u.name = :username OR u.email = :username);";
+
+			var arParams = new NpgsqlParameter[]
+			{
+				new(":siteid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new(":username", NpgsqlDbType.Text, 225)
+				{
+					Direction = ParameterDirection.Input,
+					Value = username.ToLower(),
+				},
+			};
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand,
+				arParams
+			);
+		}
+
+
+		public static IDataReader GetRoleMembers(int roleId)
         {
 
             StringBuilder sqlCommand = new StringBuilder();
