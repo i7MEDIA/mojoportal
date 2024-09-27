@@ -1957,40 +1957,43 @@ namespace mojoPortal.Data
 
 		public static IDataReader GetRolesByUser(int siteId, int userId)
 		{
+			var sqlCommand = @"
+SELECT
+	mp_roles.roleid,
+	mp_roles.displayname,
+	mp_roles.rolename,
+	mp_roles.roleguid,
+	mp_roles.description,
+	mp_roles.siteid,
+	mp_roles.siteguid
+FROM mp_userroles
+INNER JOIN mp_users ON mp_userroles.userid = mp_users.userid
+INNER JOIN mp_roles ON mp_userroles.roleid = mp_roles.roleid
+WHERE mp_users.siteid = :siteid
+AND mp_users.userid = :userid;";
 
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT ");
-			sqlCommand.Append("mp_roles.roleid, ");
-			sqlCommand.Append("mp_roles.displayname, ");
-			sqlCommand.Append("mp_roles.rolename ");
-
-			sqlCommand.Append("FROM	 mp_userroles ");
-
-			sqlCommand.Append("INNER JOIN mp_users ");
-			sqlCommand.Append("ON mp_userroles.userid = mp_users.userid ");
-
-			sqlCommand.Append("INNER JOIN mp_roles ");
-			sqlCommand.Append("ON  mp_userroles.roleid = mp_roles.roleid ");
-
-			sqlCommand.Append("WHERE mp_users.siteid = :siteid AND mp_users.userid = :userid  ;");
-
-			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
-
-			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = siteId;
-
-			arParams[1] = new NpgsqlParameter(":userid", NpgsqlTypes.NpgsqlDbType.Integer);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = userId;
+			var arParams = new NpgsqlParameter[]
+			{
+				new(":siteid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new(":userid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = userId
+				},
+			};
 
 			return NpgsqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				CommandType.Text,
-				sqlCommand.ToString(),
-				arParams);
-
+				sqlCommand,
+				arParams
+			);
 		}
+
 
 		public static IDataReader GetUserByRegistrationGuid(int siteId, Guid registerConfirmGuid)
 		{
