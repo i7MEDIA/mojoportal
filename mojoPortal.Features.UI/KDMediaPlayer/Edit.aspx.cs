@@ -1,19 +1,10 @@
 ﻿// Author:					Kerry Doan
 // Created:					2011-09-06
-// Modified:				2018-03-28
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
 
 using System;
 using System.IO;
 using System.Web.UI.WebControls;
 using mojoPortal.Features.Business;
-using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -23,7 +14,7 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 {
 	private int pageId = -1;
 	private int moduleId = -1;
-	private MediaPlayer thePlayer = new MediaPlayer();
+	private MediaPlayer thePlayer = new();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -32,11 +23,13 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 			SiteUtils.RedirectToLoginPage(this);
 			return;
 		}
+
 		LoadParams();
 
 		// Make sure the user is allowed to edit the module
 		// same edit page used for audio player and video player so need to check both
-		if ((!UserCanEditModule(moduleId, MediaPlayer.AudioPlayerFeatureGuid)) && (!UserCanEditModule(moduleId, MediaPlayer.VideoPlayerFeatureGuid)))
+		if (!UserCanEditModule(moduleId, MediaPlayer.AudioPlayerFeatureGuid)
+			&& !UserCanEditModule(moduleId, MediaPlayer.VideoPlayerFeatureGuid))
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;
@@ -48,20 +41,20 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 			return;
 		}
 
-		LoadSettings();
 		PopulateLabels();
 		PopulateControls();
 	}
+
 
 	void AddMediaFileLinkButton_Click(object sender, EventArgs e)
 	{
 		//Need to perform checks to make sure that multiple files of the same type are not added.
 		bool fileTypeExists = false;
-		String addingExt = Path.GetExtension(MediaFileTextBox.Text);
+		string addingExt = Path.GetExtension(MediaFileTextBox.Text);
 
 		foreach (ListItem item in SelectedFilesListBox.Items)
 		{
-			String fileExt = Path.GetExtension(item.Text);
+			string fileExt = Path.GetExtension(item.Text);
 			if (addingExt == fileExt)
 			{
 				fileTypeExists = true;
@@ -77,23 +70,25 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 		}
 		else
 		{
-			AddTrackErrorLabel.Text = String.Format(MediaPlayerResources.FileTypeAlreadyExistsErrorText, addingExt);
+			AddTrackErrorLabel.Text = string.Format(MediaPlayerResources.FileTypeAlreadyExistsErrorText, addingExt);
 		}
 	}
+
 
 	void AddTrackButton_Click(object sender, EventArgs e)
 	{
 		if (SelectedFilesListBox.Items.Count > 0)
 		{
-			MediaTrack mt = new MediaTrack();
-
 			//Populate the MediaTrack object.
-			mt.PlayerId = thePlayer.PlayerId;
-			mt.TrackType = thePlayer.PlayerType;
-			mt.UserGuid = SiteUtils.GetCurrentSiteUser().UserGuid;
-			mt.Name = TrackNameTextBox.Text;
-			mt.Artist = ArtistTextBox.Text;
-			mt.TrackOrder = TracksGridView.Rows.Count + 1;
+			var mt = new MediaTrack
+			{
+				PlayerId = thePlayer.PlayerId,
+				TrackType = thePlayer.PlayerType,
+				UserGuid = SiteUtils.GetCurrentSiteUser().UserGuid,
+				Name = TrackNameTextBox.Text,
+				Artist = ArtistTextBox.Text,
+				TrackOrder = TracksGridView.Rows.Count + 1
+			};
 
 			try
 			{
@@ -103,12 +98,18 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 				//Add the MediaFiles
 				foreach (ListItem filePath in SelectedFilesListBox.Items)
 				{
-					MediaFile mf = new MediaFile();
+					var mf = new MediaFile();
 					mf.TrackId = mt.TrackId;
+
 					if (filePath.Text.StartsWith("http"))
+					{
 						mf.FilePath = filePath.Text;
+					}
 					else
+					{
 						mf.FilePath = "~" + filePath.Text;
+					}
+
 					mf.UserGuid = mt.UserGuid;
 					MediaFile.Add(mf);
 				}
@@ -132,45 +133,40 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 		}
 	}
 
-	void CancelButton_Click(object sender, EventArgs e)
-	{
-		WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl());
-	}
+
+	void CancelButton_Click(object sender, EventArgs e) => WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl());
+
 
 	void TracksGridView_RowCommand(object sender, GridViewCommandEventArgs e)
 	{
-		Int32 trackOrder = 0;
+		var arg = Convert.ToInt32(e.CommandArgument);
 
 		switch (e.CommandName)
 		{
 			case "MoveUp":
-				trackOrder = Convert.ToInt32(e.CommandArgument);
-				MediaTrack.MoveTrackUp(thePlayer.PlayerId, trackOrder);
+				MediaTrack.MoveTrackUp(thePlayer.PlayerId, arg);
 				RedirectToThisPage();
 				break;
 			case "MoveDown":
-				trackOrder = Convert.ToInt32(e.CommandArgument);
-				MediaTrack.MoveTrackDown(thePlayer.PlayerId, trackOrder);
+				MediaTrack.MoveTrackDown(thePlayer.PlayerId, arg);
 				RedirectToThisPage();
 				break;
 			case "EditTrack":
-				EditTrack(e.CommandArgument.ToString());
+				EditTrack(arg.ToString());
 				break;
 			default:
 				break;
 		}
 	}
 
-	private void EditTrack(string trackId)
-	{
-		//Session.Add("KDMediaPlayer_EditTrackID", trackId);
 
-		WebUtils.SetupRedirect(Page, SiteRoot + "/KDMediaPlayer/EditTrack.aspx?mid="
-			+ moduleId.ToInvariantString()
-			+ "&pageid=" + pageId.ToInvariantString()
-			+ "&trackid=" + trackId
-			);
-	}
+	private void EditTrack(string trackId) => WebUtils.SetupRedirect(
+		Page, "KDMediaPlayer/EditTrack.aspx".ToLinkBuilder()
+									  .PageId(pageId)
+									  .ModuleId(moduleId)
+									  .AddParam("trackid", trackId)
+									  .ToString());
+
 
 	protected void TracksGridView_RowDataBound(object sender, GridViewRowEventArgs e)
 	{
@@ -214,7 +210,6 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 		MediaFileBrowser.TextBoxClientId = MediaFileTextBox.ClientID;
 		MediaFileBrowser.Text = MediaPlayerResources.MediaFileBrowserLinkText;
 
-
 		if (thePlayer.PlayerType == MediaType.Audio)
 		{
 			MediaFileRegularExpValidator.ValidationExpression = SecurityHelper.GetRegexValidationForAllowedExtensions(WebConfigSettings.AudioFileExtensions);
@@ -224,6 +219,7 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 			MediaFileRegularExpValidator.ValidationExpression = SecurityHelper.GetRegexValidationForAllowedExtensions(WebConfigSettings.VideoFileExtensions);
 		}
 	}
+
 
 	private void PopulateLabels()
 	{
@@ -253,8 +249,9 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 		AddFileValidationSummary.HeaderText = MediaPlayerResources.AddFileValidationSummaryHeaderText;
 		AddTrackValidationSummary.HeaderText = MediaPlayerResources.AddTrackValidationSummaryHeaderText;
 
-		AddTrackErrorLabel.Text = String.Empty;
+		AddTrackErrorLabel.Text = string.Empty;
 	}
+
 
 	private void LoadParams()
 	{
@@ -264,8 +261,7 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 
 		thePlayer = MediaPlayer.GetForModule(moduleId);
 
-
-		if (thePlayer == null)
+		if (thePlayer is null)
 		{
 			Response.Redirect(SiteUtils.GetCurrentPageUrl(), true);
 			return;
@@ -284,15 +280,12 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 		}
 	}
 
-	private void LoadSettings()
-	{
 
-	}
-
-	private void RedirectToThisPage()
-	{
-		WebUtils.SetupRedirect(this, SiteRoot + "/KDMediaPlayer/Edit.aspx?mid=" + moduleId.ToInvariantString() + "&pageid=" + pageId.ToInvariantString());
-	}
+	private void RedirectToThisPage() => WebUtils.SetupRedirect(
+		this, "KDMediaPlayer/Edit.aspx".ToLinkBuilder()
+						   .PageId(pageId)
+						   .ModuleId(moduleId)
+						   .ToString());
 
 
 	#region OnInit
@@ -300,14 +293,18 @@ public partial class EditMediaPlayerPage : NonCmsBasePage
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(this.Page_Load);
+		Load += new EventHandler(Page_Load);
 		AddMediaFileLinkButton.Click += new EventHandler(AddMediaFileLinkButton_Click);
 		AddTrackButton.Click += new EventHandler(AddTrackButton_Click);
 		CancelButton.Click += new EventHandler(CancelButton_Click);
 		TracksGridView.RowDataBound += new GridViewRowEventHandler(TracksGridView_RowDataBound);
 		TracksGridView.RowCommand += new GridViewCommandEventHandler(TracksGridView_RowCommand);
 
-		if (VideoPlayerConfiguration.EditPageSuppressPageMenu) { SuppressPageMenu(); }
+		if (VideoPlayerConfiguration.EditPageSuppressPageMenu)
+		{
+			SuppressPageMenu();
+		}
+
 		ScriptConfig.IncludeJQTable = true;
 	}
 	#endregion

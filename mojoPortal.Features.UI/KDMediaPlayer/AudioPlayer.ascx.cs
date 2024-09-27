@@ -19,7 +19,6 @@ public partial class AudioPlayer : SiteModuleControl
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-
 		LoadSettings();
 		PopulateLabels();
 
@@ -40,16 +39,18 @@ public partial class AudioPlayer : SiteModuleControl
 		{
 			log.Error(ex);
 		}
-
-
 	}
+
 
 	/// <summary>
 	/// Builds the script of the jPlayer constructor.
 	/// </summary>
 	private void SetupScripts()
 	{
-		if (Page is not mojoBasePage) { return; }
+		if (Page is not mojoBasePage)
+		{
+			return;
+		}
 
 		// include the main scripts
 		mojoBasePage basePage = Page as mojoBasePage;
@@ -71,7 +72,7 @@ public partial class AudioPlayer : SiteModuleControl
 		//Keep a list of the file types that were added for the track to use to create the 
 		//"supplied" jPlayer constructor option
 		var suppliedTypes = new List<string>();
-		foreach (MediaTrack track in thePlayer.MediaTracks)
+		foreach (var track in thePlayer.MediaTracks)
 		{
 			//Gets the URL to the folder where the Media Files for the track exist (removing the ~ fromt the begining of
 			//the returned path).
@@ -79,7 +80,7 @@ public partial class AudioPlayer : SiteModuleControl
 			//string fileBasePath = SiteRoot + Utility.GetMediaFilePath(SiteId, thePlayer.PlayerID, track.TrackID).Remove(0, 1) + "/";
 
 			//Get the file information for the track
-			List<MediaFile> mediaFiles = track.MediaFiles;
+			var mediaFiles = track.MediaFiles;
 
 			if (isFirstTrack)
 			{
@@ -91,8 +92,8 @@ public partial class AudioPlayer : SiteModuleControl
 				script.Append(",{");
 			}
 
-			script.Append("title:\"" + track.Name + "\",");
-			script.Append("artist:\"" + track.Artist + "\",");
+			script.Append($"title:\"{track.Name}\",");
+			script.Append($"artist:\"{track.Artist}\",");
 
 			//Add the proper property for each file depending upon it's file extension.
 			bool isFirstFile = true;
@@ -122,60 +123,89 @@ public partial class AudioPlayer : SiteModuleControl
 					script.Append(",");
 				}
 
-				if (thePlayer.PlayerType == MediaType.Audio)
-				{
-					switch (fileExt)
-					{
-						case ".mp3":
-							script.Append("mp3:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("mp3"))
-								suppliedTypes.Add("mp3");
-							break;
-						case ".m4a":
-							script.Append("m4a:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("m4a"))
-								suppliedTypes.Add("m4a");
-							break;
-						case ".mp4":
-							script.Append("m4a:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("m4a"))
-								suppliedTypes.Add("m4a");
-							break;
-						case ".webma":
-							script.Append("webma:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("webma"))
-								suppliedTypes.Add("webma");
-							break;
-						case ".webm":
-							script.Append("webma:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("webma"))
-								suppliedTypes.Add("webma");
-							break;
-						case ".oga":
-							script.Append("oga:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("oga"))
-								suppliedTypes.Add("oga");
-							break;
-						case ".ogg":
-							script.Append("oga:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("oga"))
-								suppliedTypes.Add("oga");
-							break;
-						//case ".fla":
-						//    script.Append("fla:\"" + fullFilePath + "\"");
-						//    if (!suppliedTypes.Contains("fla"))
-						//        suppliedTypes.Add("fla");
-						//    break;
-						case ".wav":
-							script.Append("wav:\"" + fullFilePath + "\"");
-							if (!suppliedTypes.Contains("wav"))
-								suppliedTypes.Add("wav");
-							break;
-						default:
-							throw new ArgumentException("No Supported Audio File Extension Found");
-					}
-				}
+				// We already prevent usage of non-audio files so there's no need to check here
+				// old code provided in region below in case I'm wrong. -jmd
+				script.Append($"{fileExt.TrimStart('.')}:\"{fullFilePath}\"");
 
+				#region Old file extension logic
+				//if (thePlayer.PlayerType == MediaType.Audio)
+				//{
+				//	switch (fileExt)
+				//	{
+				//		case ".mp3":
+				//			script.Append($"mp3:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("mp3"))
+				//			{
+				//				suppliedTypes.Add("mp3");
+				//			}
+
+				//			break;
+				//		case ".m4a":
+				//			script.Append($"m4a:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("m4a"))
+				//			{
+				//				suppliedTypes.Add("m4a");
+				//			}
+
+				//			break;
+				//		case ".mp4":
+				//			script.Append($"m4a:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("m4a"))
+				//			{
+				//				suppliedTypes.Add("m4a");
+				//			}
+
+				//			break;
+				//		case ".webma":
+				//			script.Append($"webma:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("webma"))
+				//			{
+				//				suppliedTypes.Add("webma");
+				//			}
+
+				//			break;
+				//		case ".webm":
+				//			script.Append($"webma:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("webma"))
+				//			{
+				//				suppliedTypes.Add("webma");
+				//			}
+
+				//			break;
+				//		case ".oga":
+				//			script.Append($"oga:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("oga"))
+				//			{
+				//				suppliedTypes.Add("oga");
+				//			}
+
+				//			break;
+				//		case ".ogg":
+				//			script.Append($"oga:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("oga"))
+				//			{
+				//				suppliedTypes.Add("oga");
+				//			}
+
+				//			break;
+				//		//case ".fla":
+				//		//    script.Append("fla:\"" + fullFilePath + "\"");
+				//		//    if (!suppliedTypes.Contains("fla"))
+				//		//        suppliedTypes.Add("fla");
+				//		//    break;
+				//		case ".wav":
+				//			script.Append($"wav:\"{fullFilePath}\"");
+				//			if (!suppliedTypes.Contains("wav"))
+				//			{
+				//				suppliedTypes.Add("wav");
+				//			}
+
+				//			break;
+				//		default:
+				//			throw new ArgumentException("No Supported Audio File Extension Found");
+				//	}
+				//}
+				#endregion
 			}
 			script.Append("}");
 		}
@@ -191,7 +221,6 @@ public partial class AudioPlayer : SiteModuleControl
 		}
 
 		script.Append("},");
-		//script.Append("swfPath: \"" + Page.ResolveUrl(WebConfigSettings.JPlayerBasePath + "Jplayer.swf") + "\"");
 		script.Append("supplied: \"");
 
 		bool isFirstSupplied = true;
@@ -227,6 +256,7 @@ public partial class AudioPlayer : SiteModuleControl
 			UniqueID,
 			script.ToString());
 	}
+
 
 	/// <summary>
 	/// Populates controls with data.
@@ -266,6 +296,7 @@ public partial class AudioPlayer : SiteModuleControl
 				ModuleId = ModuleId,
 				PlayerType = MediaType.Audio
 			};
+
 			if (IsEditable)
 			{
 				if (SiteUtils.GetCurrentSiteUser() is SiteUser currentUser)
@@ -284,12 +315,9 @@ public partial class AudioPlayer : SiteModuleControl
 			ShuffleOffControl.Visible = false;
 		}
 
-		if (config.InstanceCssClass.Length > 0)
-		{
-			pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass);
-		}
-
+		pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass);
 	}
+
 
 	/// <summary>
 	/// Populates labels with their appropriate text.
