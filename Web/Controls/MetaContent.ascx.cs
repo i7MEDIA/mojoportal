@@ -1,10 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-//using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using Resources;
@@ -14,10 +12,9 @@ namespace mojoPortal.Web.UI;
 public partial class MetaContent : UserControl
 {
 	//private static readonly ILog log = LogManager.GetLogger(typeof(MetaContent));
-	private StringBuilder keywords = null;
+	private readonly List<string> keywords = [];
 	private SiteSettings siteSettings = null;
 
-	public bool PreZoomForIPhone { get; set; } = true;
 	public string KeywordCsv { get; set; } = string.Empty;
 	public string Description { get; set; } = string.Empty;
 	/// <summary>
@@ -32,94 +29,68 @@ public partial class MetaContent : UserControl
 	public bool DisableContentType { get; set; } = false;
 	public bool IncludeFacebookAppId { get; set; } = true;
 
+
 	public void AddKeword(string keyword)
 	{
-		if (keyword == null) { return; }
-
-		if (keywords == null)
+		if (!string.IsNullOrWhiteSpace(keyword))
 		{
-			keywords = new StringBuilder();
-			keywords.Append(keyword);
-			return;
-		}
-
-		if (keywords.Length > 0)
-		{
-			keywords.Append("," + keyword);
-		}
-		else
-		{
-			keywords.Append(keyword);
+			keywords.Add(keyword);
 		}
 	}
 
-	protected void Page_Load(object sender, EventArgs e) { }
+	//protected void Page_Load(object sender, EventArgs e) { }
 
 	protected override void OnPreRender(EventArgs e)
 	{
 		base.OnPreRender(e);
 
-		if (WebConfigSettings.AutoSetContentType) { AddEncoding(); }
+		if (WebConfigSettings.AutoSetContentType)
+		{
+			AddEncoding();
+		}
 
 		AddDescription();
 		AddKeywords();
 
 		if (AdditionalMetaMarkup.Length > 0)
 		{
-			Literal additionalMeta = new Literal();
-			additionalMeta.Text = AdditionalMetaMarkup;
+			var additionalMeta = new Literal { Text = AdditionalMetaMarkup };
 			Controls.Add(additionalMeta);
 		}
 
-		AddOpenSearchLink();
-		AddIPhoneZoom();
+		siteSettings ??= CacheHelper.GetCurrentSiteSettings();
 
-		if (IncludeFacebookAppId)
+		if (siteSettings is not null)
 		{
+			AddOpenSearchLink();
 			AddFacebookAppId();
 		}
 	}
 
-	private void AddIPhoneZoom()
-	{
-		//TODO: Skin Config: Get this from skin config
-		if (!PreZoomForIPhone) { return; }
-		if (HttpContext.Current == null) { return; }
-		if (Request.UserAgent == null) { return; }
-		if (Request.UserAgent.Length == 0) { return; }
-		if (!Request.UserAgent.Contains("iPhone")) { return; }
-
-		//http://developer.apple.com/library/ios/#technotes/tn2010/tn2262/_index.html
-		//<meta name="viewport" content="width=device-width" />
-
-		Controls.Add(new Literal { Text = "\n<meta name=\"viewport\" content=\"width=670, initial-scale=0.45, minimum-scale=0.45\" />" });
-	}
 
 	private void AddKeywords()
 	{
-		if (keywords != null)
+		if (!string.IsNullOrWhiteSpace(KeywordCsv))
 		{
-			if (KeywordCsv.Length > 0)
-			{
-				KeywordCsv = KeywordCsv + "," + keywords.ToString();
-			}
-			else
-			{
-				KeywordCsv = keywords.ToString();
-			}
+			keywords.AddRange(KeywordCsv.SplitOnCharAndTrim(','));
 		}
 
-		if (KeywordCsv.Length == 0) { return; }
-
-		Controls.Add(new Literal { Text = $"\n<meta name=\"keywords\" content=\"{KeywordCsv}\" />" });
+		if (keywords.Count > 0)
+		{
+			Controls.Add(new Literal { Text = $"\n<meta name=\"keywords\" content=\"{string.Join(",", keywords)}\" />" });
+		}
 	}
+
 
 	private void AddDescription()
 	{
-		if (Description.Length == 0) { return; }
-				
+		if (string.IsNullOrWhiteSpace(Description))
+		{
+			return;
+		}
+
 		string metaDescription = $"\n<meta name=\"description\" content=\"{Description}\" />";
-		
+
 		if (AddOpenGraphDescription)
 		{
 			metaDescription += $"\n{string.Format(CultureInfo.InvariantCulture, OpenGraphDescriptionFormat, Description)}";
@@ -128,9 +99,13 @@ public partial class MetaContent : UserControl
 		Controls.Add(new Literal { Text = metaDescription });
 	}
 
+
 	private void AddEncoding()
 	{
-		if (DisableContentType) { return; }
+		if (DisableContentType)
+		{
+			return;
+		}
 
 		string contentTypeMeta = $"\n<meta http-equiv=\"Content-Type\" content=\"{WebConfigSettings.ContentMimeType}; charset={WebConfigSettings.ContentEncoding}\" />";
 
@@ -139,45 +114,30 @@ public partial class MetaContent : UserControl
 
 	private void AddOpenSearchLink()
 	{
-		if (WebConfigSettings.DisableSearchIndex) { return; }
-		if (WebConfigSettings.DisableOpenSearchAutoDiscovery) { return; }
-
-		siteSettings ??= CacheHelper.GetCurrentSiteSettings();
-		if (siteSettings == null) { return; }
-
-		string searchTitle;
-		if (siteSettings.OpenSearchName.Length > 0)
+		if (WebConfigSettings.DisableSearchIndex || WebConfigSettings.DisableOpenSearchAutoDiscovery)
 		{
-			searchTitle = siteSettings.OpenSearchName;
-		}
-		else
-		{
-			searchTitle = string.Format(CultureInfo.InvariantCulture, Resource.SearchDiscoveryTitleFormat, siteSettings.SiteName);
+			return;
 		}
 
-		string openSearchLink = $"\n<link rel=\"search\" type=\"application/opensearchdescription+xml\" title=\"{searchTitle}\" href=\"{SiteUtils.GetNavigationSiteRoot()}/SearchEngineInfo.ashx\" />";
+		string searchTitle = siteSettings.OpenSearchName.Coalesce(string.Format(CultureInfo.InvariantCulture, Resource.SearchDiscoveryTitleFormat, siteSettings.SiteName));
+		
+		string openSearchLink = $"\n<link rel=\"search\" type=\"application/opensearchdescription+xml\" title=\"{searchTitle}\" href=\"{"SearchEngineInfo.ashx".ToLinkBuilder()}\" />";
 
 		Controls.Add(new Literal { Text = openSearchLink });
 	}
 
+
 	private void AddFacebookAppId()
 	{
-		string fbAppId;
-		if (WebConfigSettings.FacebookAppId.Length > 0)
+		if (IncludeFacebookAppId)
 		{
-			fbAppId = WebConfigSettings.FacebookAppId;
+			string fbAppId = WebConfigSettings.FacebookAppId.Coalesce(siteSettings.FacebookAppId);
+			
+			if (!string.IsNullOrWhiteSpace(fbAppId))
+			{
+				string meta = $"<meta property=\"fb:app_id\" content=\"{siteSettings.FacebookAppId}\"/>";
+				Controls.Add(new Literal { Text = meta });
+			}
 		}
-		else
-		{
-			siteSettings ??= CacheHelper.GetCurrentSiteSettings();
-			if (siteSettings == null) { return; }
-			fbAppId = siteSettings.FacebookAppId;
-		}
-
-		if (fbAppId.Length == 0) { return; }
-
-		string meta = $"<meta property=\"fb:app_id\" content=\"{siteSettings.FacebookAppId}\"/>";
-
-		Controls.Add(new Literal { Text = meta });
 	}
 }
