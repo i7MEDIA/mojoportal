@@ -6,6 +6,7 @@ using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
+using mojoPortal.Web.Security;
 using Resources;
 using System;
 using System.Collections.Concurrent;
@@ -60,19 +61,27 @@ public class Global : HttpApplication
 	public static bool AppDomainMonitoringEnabled { get; } = false;
 	public static bool FirstChanceExceptionMonitoringEnabled { get; } = false;
 	// this changes everytime the app starts and the token is required when calling /Services/FileService.ashx
-	// to help mitigate against xsrf attacks
-	public static Guid FileSystemToken =>
-		//2012-04-25 changed from application variable to cached item
-		// since application variable won't work well in a web farm
-		// return fileSystemToken; 
-		// still this will be a problem in a small cluster if not using a distributed cache shared by the nodes
-		GetFileSystemToken();
+	// to help mitigate against xsrf attacks.
+	// 2012-04-25 changed from application variable to cached item since application
+	// variable won't work well in a web farm return fileSystemToken; still this will
+	// be a problem in a small cluster if not using a distributed cache shared by the nodes.
+	public static Guid FileSystemToken => GetFileSystemToken();
+	public static OidcService OidcService { get; private set; }
 
 	#endregion
 
 
 	protected void Application_Start(object sender, EventArgs e)
 	{
+		#region Configure OAuth/OpenID Connect
+
+		if (AppConfig.OAuth.Configured)
+		{
+			OidcService = new OidcService(AppConfig.OAuth);
+		}
+
+		#endregion
+
 		try
 		{
 			ServicePointManager.SecurityProtocol |= ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;

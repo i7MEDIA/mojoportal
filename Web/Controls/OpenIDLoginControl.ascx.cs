@@ -41,7 +41,7 @@ public partial class OpenIdLoginControl : UserControl
 
 		if (!IsPostBack)
 		{
-			string returnUrl = AppConfig.LoginRedirectLink;
+			string returnUrl = PageUrlService.GetLoginRedirectLink();
 
 			if (returnUrl.EndsWith(".aspx"))
 			{
