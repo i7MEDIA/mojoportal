@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Web;
 
 namespace mojoPortal.Web;
@@ -70,18 +73,47 @@ public class LinkBuilder
 		return this;
 	}
 
-	public override string ToString()
+	public Uri ToUri()
 	{
-		string siteRoot = string.Empty;
+		var queryString = HttpUtility.ParseQueryString(string.Empty);
+		
+		foreach (var query in queries)
+		{
+			queryString.Add(query.Key, query.Value.ToString());
+		}
+
+		var path = url.TrimStart('~') + (queryString.Count > 0 ? $"?{queryString}" : string.Empty);
 
 		if (includeSiteRoot)
 		{
-			siteRoot = SiteUtils.GetNavigationSiteRoot();
+			return new Uri(new Uri(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute), new Uri(path, UriKind.Relative));	
 		}
 
-		string qmark = queries.Count > 0 ? "?" : string.Empty;
-		//return string.Format(CultureInfo.InvariantCulture, $"{siteRoot}/{url.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/'));
-		return $"{siteRoot}/{url?.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/');
+		try
+		{
+			return new Uri(path);
+		}
+		catch (UriFormatException)
+		{
+			return new Uri(new Uri(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute), new Uri(path, UriKind.Relative));
+		}
+
+	}
+
+	public override string ToString()
+	{
+		//string siteRoot = string.Empty;
+
+		//if (includeSiteRoot)
+		//{
+		//	siteRoot = SiteUtils.GetNavigationSiteRoot();
+		//}
+
+		//string qmark = queries.Count > 0 ? "?" : string.Empty;
+		////return string.Format(CultureInfo.InvariantCulture, $"{siteRoot}/{url.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/'));
+		//return $"{siteRoot}/{url?.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/');
+
+		return ToUri().ToString();
 	}
 }
 
@@ -90,5 +122,11 @@ public static class LinkBuilderExtensions
 	public static LinkBuilder ToLinkBuilder(this string str, bool includeSiteRoot = true)
 	{
 		return new LinkBuilder(str, includeSiteRoot);
+	}
+
+	public static LinkBuilder ToLinkBuilder(this Uri uri, bool includeSiteRoot = false)
+	{
+		return new LinkBuilder(uri.AbsolutePath, includeSiteRoot)
+			.AddParams((Dictionary<string, object>)uri.ParseQueryString().ToDictionary());
 	}
 }
