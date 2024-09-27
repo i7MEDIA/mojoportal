@@ -1,0 +1,170 @@
+
+/* Time-stamp: "2005-12-04 16:37:23 AST" sburke
+ by sburke@cpan.org - I hereby release this CSS code into the public domain.
+*/
+
+
+@media print {
+	.noprint {
+		display: none;
+	}
+
+	.enclosure, .end, .back {
+		display: none;
+	}
+}
+
+@media screen {
+	.noscreen {
+		display: none;
+	}
+
+	:root, body, html {
+		border: none;
+		padding: 0;
+		margin: 2px;
+		margin-left: 10px;
+		/*font-size: 11pt; */
+		display: block;
+		background-color: black;
+		background: black;
+		color: white;
+	}
+
+	a:link {
+		color: #42c0ff
+	}
+
+	a:visited {
+		color: #c8a0ff
+	}
+
+	a:active {
+		color: #ffa0a0
+	}
+
+	.meantForReader {
+		text-align: center;
+		color: #f88;
+		border: 2px #f00 dotted;
+		padding: 7px;
+		margin: 0;
+	}
+
+	.back {
+		display: none;
+		text-align: right;
+		font-size: smaller;
+		color: #ccc;
+		padding: 3px;
+		margin: 0;
+	}
+
+
+	.aboutThisFeed {
+		float: right;
+		width: 39%;
+		color: #bbb;
+		margin-right: 1em;
+		padding: 3px;
+		border: 1px #555 solid;
+	}
+
+		.aboutThisFeed p {
+			margin: 4px;
+			margin-left: 1.2em;
+			text-indent: -.7em;
+		}
+
+			.aboutThisFeed p + p {
+				margin-top: 7px;
+			}
+
+			.aboutThisFeed p em {
+				padding-right: .9em;
+			}
+
+	dt {
+		clear: both;
+	}
+
+	.enclosure {
+		float: left;
+		padding-right: .5em;
+	}
+
+	.feedtitle {
+		margin-bottom: 0;
+		font-size: larger;
+		margin-left: -7px;
+		font-style: italic;
+	}
+
+	.desc {
+		margin-top: 0;
+		margin-bottom: 2em;
+		color: #dff;
+	}
+
+	.updatefreq {
+		margin: 1em 0 2em 0;
+		color: #eee;
+	}
+
+	.leadIn {
+		clear: both;
+		color: #ccc;
+		font-style: italic;
+	}
+
+	.Items dd {
+		color: #ddd;
+	}
+
+	.Items dt {
+		border: 1px #555 solid;
+		border-width: 1px 0 0 1px;
+		border-left-color: #555;
+		padding: 4px;
+		background-color: #222;
+	}
+
+	.end {
+		font-style: italic;
+		background-color: #404040;
+		color: #888;
+		margin: 2em 0 0 0;
+		padding: 4px;
+	}
+
+	body.AAF .aboutThisFeed {
+		width: 50%;
+		float: none;
+	}
+
+	.aaflink {
+		background-color: #070;
+		background: #070;
+		text-align: center;
+		border: 1px #9f9 solid;
+		padding: 10px;
+	}
+
+	.lj {
+		vertical-align: bottom;
+		border: 0;
+	}
+}
+
+.Items {
+	margin-left: 1em;
+}
+
+	.Items dt {
+		margin-top: 1em;
+	}
+
+
+
+/* End */
+

@@ -926,7 +926,7 @@ public static class WebConfigSettings
 	/// <summary>
 	/// if true disables /Services/RecentContentRss.aspx
 	/// </summary>
-	public static bool DisableRecentContentFeed => ConfigHelper.GetBoolProperty("DisableRecentContentFeed", true);
+	public static bool DisableRecentContentFeed => ConfigHelper.GetBoolProperty("DisableRecentContentFeed", false);
 
 	public static string RecentContentChannelDescription => ConfigHelper.GetStringProperty("RecentContentChannelDescription", "Recent Content");
 

@@ -9,10 +9,10 @@ using System.Xml;
 using Argotic.Syndication;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.ContentUI;
 using mojoPortal.Web.Framework;
+using Resources;
 
 namespace mojoPortal.Web.Services;
 
@@ -31,12 +31,13 @@ public class RecentContentRss : Page
 	private Module module = null;
 	private Hashtable moduleSettings = null;
 	private RecentContentConfiguration config = null;
-	private Guid recentContentFeatureGuid = new Guid("f889c7c8-78e1-4cd2-a4cd-a0723f9a7cf0");
+	private Guid recentContentFeatureGuid = new("f889c7c8-78e1-4cd2-a4cd-a0723f9a7cf0");
 	private string channelTitle = string.Empty;
 	private string channelLink = string.Empty;
 	private string channelDescription = string.Empty;
 	private string channelCopyright = string.Empty;
 	private string channelManagingEditor = string.Empty;
+	private string channelLogo = string.Empty;
 	private int channelTimeToLive = 10;
 	private int feedCacheTimeInMinutes = 10;
 	private bool shouldRender = false;
@@ -53,23 +54,27 @@ public class RecentContentRss : Page
 			return;
 		}
 
-
-
 		RenderFeed();
-
-
 	}
 
 	private void LoadSettings()
 	{
 		siteSettings = CacheHelper.GetCurrentSiteSettings();
-		if (siteSettings == null) { return; }
+
+		if (siteSettings == null)
+		{
+			return;
+		}
 
 		cssBaseUrl = WebUtils.GetSiteRoot();
 		siteRoot = SiteUtils.GetNavigationSiteRoot();
 		modifiedSinceDate = DateTime.UtcNow.AddDays(-SiteUtils.RecentContentFeedMaxDaysOld(siteSettings)); // 30 by default
 		maxItems = WebUtils.ParseInt32FromQueryString("n", true, SiteUtils.RecentContentDefaultItemsToRetrieve(siteSettings));
-		if (maxItems > WebConfigSettings.RecentContentMaxItemsToRetrieve) { maxItems = SiteUtils.RecentContentMaxItemsToRetrieve(siteSettings); }
+
+		if (maxItems > WebConfigSettings.RecentContentMaxItemsToRetrieve)
+		{
+			maxItems = SiteUtils.RecentContentMaxItemsToRetrieve(siteSettings);
+		}
 
 		featureGuid = WebUtils.ParseGuidFromQueryString("f", featureGuid);
 		getCreated = WebUtils.ParseBoolFromQueryString("gc", getCreated);
@@ -79,20 +84,17 @@ public class RecentContentRss : Page
 
 		redirectUrl = SiteUtils.GetNavigationSiteRoot();
 
+		shouldRender = !SiteUtils.DisableRecentContentFeed(siteSettings);
 
 	}
 
 
-
 	private void RenderFeed()
 	{
-		if (siteSettings == null) { return; }
-		Argotic.Syndication.RssFeed feed = new Argotic.Syndication.RssFeed();
-		RssChannel channel = new RssChannel();
-		channel.Generator = "mojoPortal CMS Recent Content Feed Geenrator";
-		feed.Channel = channel;
-
-		List<IndexItem> recentContent = GetData(); // gets the data and initilizes the channel params
+		if (siteSettings == null)
+		{
+			return;
+		}
 
 		if (!shouldRender)
 		{
@@ -100,55 +102,73 @@ public class RecentContentRss : Page
 			return;
 		}
 
-		if (channelTitle.Length == 0) { channelTitle = "Recent Content"; } //empty string will cause an error
-		channel.Title = channelTitle;
-		channel.Link = new System.Uri(channelLink);
-		if (channelDescription.Length == 0) { channelDescription = "Recent Content"; } //empty string will cause an error
-		channel.Description = channelDescription;
-		channel.Copyright = channelCopyright;
-		channel.ManagingEditor = channelManagingEditor;
-		channel.TimeToLive = channelTimeToLive;
+		var recentContent = GetData(); // gets the data and initilizes the channel params
+
+		var mediaFolder = WebConfigSettings.SiteLogoUseMediaFolder ? "media/" : string.Empty;
+		var siteLogo = new Uri(
+			Invariant($"Data/Sites/{siteSettings.SiteId}/{mediaFolder}logos/{siteSettings.Logo}")
+			.ToLinkBuilder().ToString()
+			);
+
+		var channel = new RssChannel
+		{
+			Generator = Resource.RecentContentFeedGenerator,
+			Title = channelTitle.Coalesce(Resource.RecentContentRssFeedChannelTitle),
+			Link = new Uri(channelLink),
+			Description = channelDescription.Coalesce(string.Format(Resource.RecentContentRssFeedChannelDescription, siteSettings.SiteName)),
+			Copyright = channelCopyright.Coalesce(siteSettings.CompanyName),
+			ManagingEditor = channelManagingEditor,
+			TimeToLive = channelTimeToLive,
+			Image = new RssImage(
+				new Uri(channelLink),
+				siteSettings.SiteName,
+				siteLogo
+			)
+		};
+
+		var feed = new RssFeed
+		{
+			Channel = channel
+		};
 
 		int itemsAdded = 0;
-
 
 		if (recentContent != null)
 		{
 			foreach (IndexItem indexItem in recentContent)
 			{
-				RssItem item = new RssItem();
-				string itemUrl = BuildUrl(indexItem);
-				item.Link = new Uri(itemUrl);
-				item.Guid = new RssGuid(itemUrl);
-				item.Title = FormatLinkText(indexItem);
-				item.PublicationDate = indexItem.LastModUtc;
-				item.Author = indexItem.Author;
-				item.Description = indexItem.ContentAbstract;
+				var item = new RssItem
+				{
+					Link = new Uri(indexItem.Url),
+					Guid = new RssGuid(indexItem.Url),
+					Title = indexItem.LinkText,
+					PublicationDate = indexItem.LastModUtc,
+					Author = indexItem.Author,
+					Description = indexItem.ContentAbstract
+				};
 				channel.AddItem(item);
 				itemsAdded += 1;
-
 			}
 		}
 
 		if (itemsAdded == 0)
 		{
 			//channel must have at least one item
-			RssItem item = new RssItem();
-			item.Link = new Uri(siteRoot);
-			item.Title = "Stay tuned for future updates. ";
-			//item.Description = 
-			item.PublicationDate = DateTime.UtcNow;
+			var item = new RssItem
+			{
+				Link = new Uri(siteRoot),
+				Title = Resource.RecentContentEmptyMessage,
+				PublicationDate = DateTime.UtcNow
+			};
 
 			channel.AddItem(item);
-
 		}
 
 		// no cache locally
-		if (Request.Url.AbsolutePath.Contains("localhost"))
+		if (Request.Url.Host.Contains("localhost"))
 		{
 			Response.Cache.SetExpires(DateTime.Now.AddMinutes(-30));
 			Response.Cache.SetCacheability(HttpCacheability.NoCache);
-
 		}
 		else
 		{
@@ -157,56 +177,52 @@ public class RecentContentRss : Page
 			Response.Cache.VaryByParams["f;gc;n;pageid;mid"] = true;
 		}
 
-
 		Response.ContentType = "application/xml";
 
 		Encoding encoding = new UTF8Encoding();
 		Response.ContentEncoding = encoding;
 
-		using (XmlTextWriter xmlTextWriter = new XmlTextWriter(Response.OutputStream, encoding))
+		using var xmlTextWriter = new XmlTextWriter(Response.OutputStream, encoding);
+		xmlTextWriter.Formatting = Formatting.Indented;
+
+		xmlTextWriter.WriteRaw("<?xml version=\"1.0\"?>");
+
+		//////////////////
+		// style for RSS Feed viewed in browsers
+		if (ConfigurationManager.AppSettings["RSSCSS"] != null)
 		{
-			xmlTextWriter.Formatting = Formatting.Indented;
-
-			//////////////////
-			// style for RSS Feed viewed in browsers
-			if (ConfigurationManager.AppSettings["RSSCSS"] != null)
-			{
-				string rssCss = ConfigurationManager.AppSettings["RSSCSS"].ToString();
-				xmlTextWriter.WriteWhitespace(" ");
-				xmlTextWriter.WriteRaw("<?xml-stylesheet type=\"text/css\" href=\"" + cssBaseUrl + rssCss + "\" ?>");
-
-			}
-
-			if (ConfigurationManager.AppSettings["RSSXsl"] != null)
-			{
-				string rssXsl = ConfigurationManager.AppSettings["RSSXsl"].ToString();
-				xmlTextWriter.WriteWhitespace(" ");
-				xmlTextWriter.WriteRaw("<?xml-stylesheet type=\"text/xsl\" href=\"" + cssBaseUrl + rssXsl + "\" ?>");
-
-			}
-			///////////////////////////
-
-			feed.Save(xmlTextWriter);
-
-
+			string rssCss = ConfigurationManager.AppSettings["RSSCSS"].ToString();
+			xmlTextWriter.WriteWhitespace(" ");
+			xmlTextWriter.WriteRaw($"\r\n<?xml-stylesheet type=\"text/css\" href=\"{rssCss.ToLinkBuilder()}\" ?>");
 		}
 
+		if (ConfigurationManager.AppSettings["RSSXsl"] != null)
+		{
+			string rssXsl = ConfigurationManager.AppSettings["RSSXsl"].ToString();
+			xmlTextWriter.WriteWhitespace(" ");
+			xmlTextWriter.WriteRaw($"\r\n<?xml-stylesheet type=\"text/xsl\" href=\"{rssXsl.ToLinkBuilder()}\" ?>");
+		}
+		///////////////////////////
 
+		feed.Save(xmlTextWriter);
 	}
+
 
 	private List<IndexItem> GetData()
 	{
 		List<IndexItem> recentContent;
 
-		if ((pageId > -1) && (moduleId > -1))
+		if (pageId > -1 && moduleId > -1)
 		{
 			recentContent = GetRecentContent();
-
 		}
 		else
 		{
 			shouldRender = !SiteUtils.DisableRecentContentFeed(siteSettings);
-			if (!shouldRender) { return null; }
+			if (!shouldRender)
+			{
+				return null;
+			}
 
 			feedCacheTimeInMinutes = SiteUtils.RecentContentFeedCacheTimeInMinutes(siteSettings);
 
@@ -238,12 +254,15 @@ public class RecentContentRss : Page
 		return recentContent;
 	}
 
+
 	private List<IndexItem> GetRecentContent()
 	{
 		List<IndexItem> recentContent = null;
 
-		if (pageId == -1) { return recentContent; }
-		if (moduleId == -1) { return recentContent; }
+		if (pageId == -1 || moduleId == -1)
+		{
+			return recentContent;
+		}
 
 		pageSettings = CacheHelper.GetCurrentPage();
 		module = GetModule();
@@ -253,42 +272,18 @@ public class RecentContentRss : Page
 			moduleSettings = ModuleSettings.GetModuleSettings(moduleId);
 			config = new RecentContentConfiguration(moduleSettings);
 			shouldRender = config.EnableFeed;
-			if (!shouldRender) { return null; }
-
-			bool shouldRedirectToFeedburner = false;
-			if (config.FeedburnerFeedUrl.Length > 0)
+			if (!shouldRender)
 			{
-				shouldRedirectToFeedburner = true;
-				if ((Request.UserAgent != null) && (Request.UserAgent.Contains("FeedBurner")))
-				{
-					shouldRedirectToFeedburner = false; // don't redirect if the feedburner bot is reading the feed
-				}
-
-				Guid redirectBypassToken = WebUtils.ParseGuidFromQueryString("r", Guid.Empty);
-				if (redirectBypassToken == Global.FeedRedirectBypassToken)
-				{
-					shouldRedirectToFeedburner = false; // allows time for user to subscribe to autodiscovery links without redirecting
-				}
-
-
-			}
-
-			if (shouldRedirectToFeedburner)
-			{
-				redirectUrl = config.FeedburnerFeedUrl;
-				shouldRender = false;
 				return null;
-
 			}
 
 			feedCacheTimeInMinutes = config.FeedCacheTimeInMinutes;
 			channelTitle = config.FeedChannelTitle;
 			channelLink = WebUtils.ResolveServerUrl(SiteUtils.GetCurrentPageUrl());
 			channelDescription = config.FeedChannelDescription;
-			channelCopyright = config.FeedChannelCopyright;
+			channelCopyright = config.FeedChannelCopyright.Coalesce(siteSettings.SiteName);
 			channelManagingEditor = config.FeedChannelManagingEditor;
 			channelTimeToLive = config.FeedTimeToLiveInMinutes;
-
 
 			if (config.GetCreated)
 			{
@@ -308,10 +303,9 @@ public class RecentContentRss : Page
 			}
 		}
 
-
 		return recentContent;
-
 	}
+
 
 	private Module GetModule()
 	{
@@ -319,40 +313,12 @@ public class RecentContentRss : Page
 		{
 			foreach (Module module in pageSettings.Modules)
 			{
-				if ((module.ModuleId == moduleId) && (module.FeatureGuid == recentContentFeatureGuid)) { return module; }
+				if (module.ModuleId == moduleId && module.FeatureGuid == recentContentFeatureGuid)
+				{
+					return module;
+				}
 			}
 		}
 		return null;
-	}
-
-	protected string FormatLinkText(IndexItem indexItem)
-	{
-		if (indexItem.Title.Length > 0)
-		{
-			return indexItem.PageName + " > " + indexItem.Title;
-		}
-
-		return indexItem.PageName;
-	}
-
-	private string BuildUrl(IndexItem indexItem)
-	{
-		if (indexItem.UseQueryStringParams)
-		{
-			return siteRoot + "/" + indexItem.ViewPage
-				+ "?pageid="
-				+ indexItem.PageId.ToInvariantString()
-				+ "&mid="
-				+ indexItem.ModuleId.ToInvariantString()
-				+ "&ItemID="
-				+ indexItem.ItemId.ToInvariantString()
-				+ indexItem.QueryStringAddendum;
-
-		}
-		else
-		{
-			return siteRoot + "/" + indexItem.ViewPage;
-		}
-
 	}
 }
