@@ -9,6 +9,7 @@ public class RouteRegistrar
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(RouteRegistrar));
 
+
 	public static void RegisterRoutes(RouteCollection routes)
 	{
 		try
@@ -19,6 +20,12 @@ public class RouteRegistrar
 				name: "FileManager",
 				url: "FileManager/{action}/{id}",
 				defaults: new { controller = "FileManager", action = "Index", id = UrlParameter.Optional }
+			);
+
+			routes.MapRoute(
+				name: "ExternalLogin",
+				url: "ExternalLogin/{action}",
+				defaults: new { controller = "ExternalLogin", action = "Index" }
 			);
 
 			//routes.MapRoute(
