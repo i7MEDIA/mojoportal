@@ -33,12 +33,12 @@ public partial class Help : Page
 			{
 				if (helpKey != string.Empty)
 				{
-					litEditLink.Text = $"<a href=\"{"HelpEdit.aspx".ToLinkBuilder(false).AddParam("helpkey", helpKey)}\">{Resource.HelpEditLink}</a>";
+					litEditLink.Text = $"<a href=\"{"HelpEdit.aspx".ToLinkBuilder().AddParam("helpkey", helpKey)}\">{Resource.HelpEditLink}</a>";
 				}
 			}
 		}
 
-		if (helpKey != string.Empty)
+		if (!string.IsNullOrWhiteSpace(helpKey))
 		{
 			ShowHelp();
 		}
