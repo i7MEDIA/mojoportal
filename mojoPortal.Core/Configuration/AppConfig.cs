@@ -122,6 +122,8 @@ public static class AppConfig
 
 	public static string PasswordRecoveryLink => ConfigHelper.GetStringProperty("PasswordRecoveryLink", null);
 
+	public static string LogoutLink => ConfigHelper.GetStringProperty("LogoutLink", null);
+
 
 	public static OAuthConfiguration OAuth => new();
 
