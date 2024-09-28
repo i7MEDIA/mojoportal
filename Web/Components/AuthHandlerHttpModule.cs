@@ -253,7 +253,11 @@ public class AuthHandlerHttpModule : IHttpModule
 
 		if (
 			app.Request == null ||
-			checkAuthentication && !app.Request.IsAuthenticated ||
+			checkAuthentication == true && app.Request.IsAuthenticated == false ||
+			!app.Request.Path.EndsWith("svg", StringComparison.OrdinalIgnoreCase) &&
+			!app.Request.Path.EndsWith("png", StringComparison.OrdinalIgnoreCase) &&
+			!app.Request.Path.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) &&
+			!app.Request.Path.EndsWith("jpeg", StringComparison.OrdinalIgnoreCase) &&
 			WebUtils.IsRequestForStaticFile(app.Request.Path) ||
 			app.Request.Path.Contains(".ashx", StringComparison.OrdinalIgnoreCase) ||
 			app.Request.Path.Contains(".axd", StringComparison.OrdinalIgnoreCase) ||
