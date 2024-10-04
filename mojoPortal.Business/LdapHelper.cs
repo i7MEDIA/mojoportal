@@ -1,8 +1,8 @@
-using System.DirectoryServices;
 using log4net;
 using mojoPortal.Core.Configuration;
-using Mono.Security.X509;
 using Novell.Directory.Ldap;
+using System.DirectoryServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace mojoPortal.Business;
 
@@ -11,6 +11,7 @@ public sealed class LdapHelper
 	private LdapHelper() { }
 
 	private static readonly ILog log = LogManager.GetLogger(typeof(LdapHelper));
+
 
 	#region Static Methods
 
@@ -21,7 +22,7 @@ public sealed class LdapHelper
 		if (ConfigHelper.GetBoolProperty("UseSslForLdap", false))
 		{
 			// make this support ssl/tls
-			//http://stackoverflow.com/questions/386982/novell-ldap-c-novell-directory-ldap-has-anybody-made-it-work
+			// http://stackoverflow.com/questions/386982/novell-ldap-c-novell-directory-ldap-has-anybody-made-it-work
 			conn.SecureSocketLayer = true;
 			conn.UserDefinedServerCertValidationDelegate += new CertificateValidationCallback(LdapSSLHandler);
 		}
@@ -32,22 +33,25 @@ public sealed class LdapHelper
 	}
 
 
-	public static bool LdapSSLHandler(System.Security.Cryptography.X509Certificates.X509Certificate certificate, int[] certificateErrors)
+	public static bool LdapSSLHandler(X509Certificate certificate, int[] certificateErrors)
 	{
-		X509Store store = null;
-		var stores = X509StoreManager.LocalMachine;
-		store = stores.TrustedRoot;
+		// 2024-10-04 Removed Mono.Security.X509 dependency.
+		// The DLL was part of the Npgsql library in _libs and was
+		// removed when migrating the packages to nuget instead of locally.
+		var store = new X509Store(StoreLocation.LocalMachine);
 		X509Certificate x509 = null;
+		var data = certificate.GetRawCertData();
 
-		byte[] data = certificate.GetRawCertData();
-		if (data != null) { x509 = new X509Certificate(data); }
-
-		if (x509 != null)
+		if (data is not null)
 		{
-			//coll.Add(x509);
+			x509 = new X509Certificate(data);
+		}
+
+		if (x509 is not null)
+		{
 			if (!store.Certificates.Contains(x509))
 			{
-				store.Import(x509);
+				store.Certificates.Add(x509);
 			}
 		}
 
@@ -66,21 +70,22 @@ public sealed class LdapHelper
 			$"{ldapSettings.UserDNKey}={search}",
 			null,
 			false,
-			(LdapSearchQueue)null,
-			(LdapSearchConstraints)null);
+			null,
+			null
+		);
 
 		LdapEntry entry = null;
 
-		if (queue != null)
+		if (queue == null)
 		{
-			LdapMessage message = queue.getResponse();
-			if (message != null)
-			{
-				if (message is LdapSearchResult result)
-				{
-					entry = result.Entry;
-				}
-			}
+			return entry;
+		}
+
+		LdapMessage message = queue.getResponse();
+
+		if (message != null && message is LdapSearchResult result)
+		{
+			entry = result.Entry;
 		}
 
 		return entry;
@@ -89,7 +94,7 @@ public sealed class LdapHelper
 
 	public static LdapUser LdapLogin(LdapSettings ldapSettings, string uid, string password)
 	{
-		if (ldapSettings.UserDNKey == "uid") //OpenLDAP 
+		if (ldapSettings.UserDNKey == "uid") //OpenLDAP
 		{
 			return LdapStandardLogin(ldapSettings, uid, password);
 		}

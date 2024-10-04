@@ -82,6 +82,8 @@ public class AuthHandlerHttpModule : IHttpModule
 			if (!existsInDB)
 			{
 				var identityName = identityToken.Claims.FirstOrDefault(x => x.Type.Equals("name"))?.Value;
+				var identityGivenName = identityToken.Claims.FirstOrDefault(x => x.Type.Equals("given_name"))?.Value;
+				var identityFamilyName = identityToken.Claims.FirstOrDefault(x => x.Type.Equals("family_name"))?.Value;
 
 				// This should never happen, but we check anyway.
 				if (identityName is null)
@@ -96,6 +98,8 @@ public class AuthHandlerHttpModule : IHttpModule
 					LoginName = identityEmail,
 					Email = identityEmail,
 					Password = SiteUser.CreateRandomPassword(7, WebConfigSettings.PasswordGeneratorChars),
+					FirstName = identityGivenName ?? string.Empty,
+					LastName = identityFamilyName ?? string.Empty,
 				};
 
 				if (Membership.Provider is mojoMembershipProvider membershipProvider)
