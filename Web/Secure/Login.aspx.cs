@@ -1,9 +1,9 @@
-using System;
-using System.Globalization;
 using log4net;
-using mojoPortal.Core.Extensions;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Globalization;
 
 namespace mojoPortal.Web.UI.Pages;
 
@@ -18,6 +18,13 @@ public partial class LoginPage : NonCmsBasePage
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
+
+		if (AppConfig.OAuth.Configured)
+		{
+			WebUtils.SetupRedirect(this, PageUrlService.GetLoginLink());
+			return;
+		}
+
 		Load += new EventHandler(Page_Load);
 		AppendQueryStringToAction = false;
 

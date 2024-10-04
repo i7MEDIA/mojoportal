@@ -2063,44 +2063,39 @@ AND mp_users.userid = :userid;";
 
 		public static IDataReader GetSingleUserByLoginName(int siteId, string loginName, bool allowEmailFallback)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT * ");
-
-			sqlCommand.Append("FROM	mp_users ");
-
-			sqlCommand.Append("WHERE siteid = :siteid  ");
+			var sqlCommand = "SELECT * FROM	mp_users WHERE siteid = :siteid";
 
 			if (allowEmailFallback)
 			{
-				sqlCommand.Append("AND ");
-				sqlCommand.Append("(");
-				sqlCommand.Append("loginname = :loginname ");
-				sqlCommand.Append("OR email = :loginname ");
-				sqlCommand.Append(")");
+				sqlCommand += " AND (loginname = :loginname OR email = :loginname)";
 			}
 			else
 			{
-				sqlCommand.Append("AND loginname = :loginname ");
+				sqlCommand += " AND loginname = :loginname";
 			}
 
-			sqlCommand.Append(";");
+			sqlCommand += ";";
 
-			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
-
-			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = siteId;
-
-			arParams[1] = new NpgsqlParameter(":loginname", NpgsqlTypes.NpgsqlDbType.Text, 50);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = loginName;
+			var arParams = new NpgsqlParameter[]
+			{
+				new(":siteid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new(":loginname", NpgsqlDbType.Text, 50)
+				{
+					Direction = ParameterDirection.Input,
+					Value = loginName.ToLower()
+				}
+			};
 
 			return NpgsqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				CommandType.Text,
-				sqlCommand.ToString(),
-				arParams);
-
+				sqlCommand,
+				arParams
+			);
 		}
 
 

@@ -1,30 +1,149 @@
 ﻿@using Resources;
+@using System.Linq;
 
 @model mojoPortal.Web.Models.PagerInfo
 
-<nav role="navigation">
-	<ul class="pagination">
-		<li class="disabled"><span class="disabled">@string.Format(Resource.PagerPageOfFormat, Model.CurrentIndex, Model.PageCount)</span></li>
-		@if (Model.CurrentIndex != 1)
+@functions{
+	public List<int> GetPagedList(int totalPages, int currentPage, int maxLength = 9)
+	{
+		if (maxLength < 5)
 		{
-			<li><a href="@string.Format(Model.LinkFormat, "1")" title="@Resource.CutePagerBackToFirstClause"><span class="fa fa-angle-double-left"></span></a></li>
-			<li><a href="@string.Format(Model.LinkFormat, "1")" title="@Resource.CutePagerBackToPageClause @(Model.CurrentIndex - 1)"><span class="fa fa-angle-left"></span></a></li>
+			throw new ArgumentException($"{nameof(maxLength)} must be at least 5.");
 		}
-		@for (int i = 1; i < Model.PageCount + 1; i++)
+
+		List<int> Range(int start, int end)
 		{
-			if (i == Model.CurrentIndex)
+
+			return Enumerable.Range(start, end - start + 1).ToList();
+		}
+
+		List<int> Concat(List<int> source, List<int> additional)
+		{
+			source.AddRange(additional);
+
+			return source;
+		}
+
+		var sideWidth = maxLength < 9 ? 1 : 2;
+		var leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+		var rightWidth = (maxLength - sideWidth * 2 - 2) >> 1;
+
+		// no breaks in list
+		if (totalPages <= maxLength)
+		{
+			return Range(1, totalPages);
+		}
+
+		// no break on left of page
+		if (currentPage <= maxLength - sideWidth - 1 - rightWidth)
+		{
+			return Concat(
+				Concat(
+					Range(1, maxLength - sideWidth - 1),
+					new List<int> { 0 }
+				),
+				Range(totalPages - sideWidth + 1, totalPages)
+			);
+		}
+
+		// no break on right of page
+		if (currentPage >= totalPages - sideWidth - 1 - rightWidth)
+		{
+			return Concat(
+				Concat(
+					Range(1, sideWidth),
+					new List<int> { 0 }
+				),
+				Range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages)
+			);
+		}
+
+		// Breaks on both sides
+		return Concat(
+			Concat(
+				Range(1, sideWidth),
+					new List<int> { 0 }
+			),
+			Concat(
+				Concat(
+					Range(currentPage - leftWidth, currentPage + rightWidth),
+					new List<int> { 0 }
+				),
+				Range(totalPages - sideWidth + 1, totalPages)
+			)
+		);
+	}
+}
+
+@{
+	var pagerId = "pagination-" + Guid.NewGuid().ToString("N");
+	var pagedItems = GetPagedList(Model.PageCount, Model.CurrentIndex);
+}
+
+<nav role="navigation">
+	<ul class="pagination" id="@pagerId">
+		@foreach (var item in pagedItems)
+		{
+			if (item == 0)
 			{
-				<li class="active"><span>@i.ToString()</span></li>
+				var goToId = "goto-" + Guid.NewGuid().ToString("N");
+
+				<li>
+					<div id="@goToId" class="pagination-goto-popup" popover style="width: 300px; border: 1px solid #999; border-radius: 11px;">
+						<div class="input-group">
+							<div class="input-group-addon">Go To Page:</div>
+							<input class="form-control" type="number" autofocus />
+						</div>
+					</div>
+					<span class="pagination-goto" style="cursor: pointer;" data-popovertarget="@goToId" title="Go to Page">&hellip;</span>
+				</li>
+			}
+			else if (item == Model.CurrentIndex)
+			{
+				<li class="active">
+					<span>@(item)</span>
+				</li>
 			}
 			else
 			{
-				<li><a href="@string.Format(Model.LinkFormat, i.ToString())" title="@Resource.CutePagerNavigateToPageText @i">@i.ToString()</a></li>
+				<li>
+					<a href="@string.Format(Model.LinkFormat, item.ToString())" title="@Resource.CutePagerNavigateToPageText @(item)">
+						@item
+					</a>
+				</li>
 			}
-		}
-		@if (Model.CurrentIndex < Model.PageCount)
-		{
-			<li><a href="@string.Format(Model.LinkFormat, Model.CurrentIndex + 1)" title="@Resource.CutePagerNextToPageClause @(Model.CurrentIndex + 1)"><span class="fa fa-angle-right"></span></a></li>
-			<li><a href="@string.Format(Model.LinkFormat, Model.PageCount)" title="@Resource.CutePagerGoToLastClause"><span class="fa fa-angle-double-right"></span></a></li>
 		}
 	</ul>
 </nav>
+
+<script>
+	(function () {
+		const pagination = document.querySelector('#@(pagerId)');
+		const linkTemplate = '@(Model.LinkFormat)';
+
+		function onKeydown(e) {
+			if (e.key === 'Enter') {
+				e.preventDefault();
+				e.stopPropagation();
+				window.location = linkTemplate.replace(/\{0\}/g, e.target.value);
+				this.closest('.pagination-goto-popup').hidePopover();
+			}
+		}
+
+		function onClick(e) {
+			const target = e.target.closest('.pagination-goto');
+
+			if (target) {
+				const popupId = target.dataset.popovertarget;
+				const popover = pagination.querySelector('#' + popupId);
+				const input = popover.querySelector('input');
+
+				popover.showPopover();
+
+				input.addEventListener('keydown', onKeydown);
+			}
+		}
+
+		pagination.addEventListener('click', onClick);
+	})();
+</script>

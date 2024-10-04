@@ -150,7 +150,7 @@ public class OidcService
 				{
 					// This should only happen in the case that there was a refresh token but it was expired, so clear those cookies
 					// TODO: Redirect to the login page?
-					ClearTokenCookies();
+					//ClearTokenCookies();
 				}
 				else
 				{
@@ -199,22 +199,22 @@ public class OidcService
 
 	public async Task<string?> Logout()
 	{
+		// I don't know if we should revoke the token or not.
+		//var client = new HttpClient();
+		//var result = await client.RevokeTokenAsync(new TokenRevocationRequest
+		//{
+		//	Address = disco.RevocationEndpoint,
+		//	ClientId = "client",
+		//	ClientSecret = "secret",
+		//	Token = CookieHelper.GetCookieValue(TOKEN_KEY_ACCESS)
+		//});
+
+		//if (result.IsError)
+		//{
+		//	_log.Error(result.Error);
+		//}
+
 		var disco = await _discoveryCache.GetAsync();
-		var client = new HttpClient();
-
-		var result = await client.RevokeTokenAsync(new TokenRevocationRequest
-		{
-			Address = disco.RevocationEndpoint,
-			ClientId = "client",
-			ClientSecret = "secret",
-			Token = CookieHelper.GetCookieValue(TOKEN_KEY_ACCESS)
-		});
-
-		if (result.IsError)
-		{
-			_log.Error(result.Error);
-		}
-
 		var requestUrl = new RequestUrl(disco.EndSessionEndpoint!);
 		var endSessionUrl = requestUrl.CreateEndSessionUrl(
 			idTokenHint: CookieHelper.GetCookieValue(TOKEN_KEY_IDENTITY),
@@ -324,9 +324,20 @@ public class OidcService
 
 	private void ClearTokenCookies()
 	{
-		CookieHelper.ExpireCookie(TOKEN_KEY_ACCESS);
-		CookieHelper.ExpireCookie(TOKEN_KEY_IDENTITY);
-		CookieHelper.ExpireCookie(TOKEN_KEY_REFRESH);
+		if (CookieHelper.CookieExists(TOKEN_KEY_ACCESS))
+		{
+			CookieHelper.ExpireCookie(TOKEN_KEY_ACCESS);
+		}
+
+		if (CookieHelper.CookieExists(TOKEN_KEY_IDENTITY))
+		{
+			CookieHelper.ExpireCookie(TOKEN_KEY_IDENTITY);
+		}
+
+		if (CookieHelper.CookieExists(TOKEN_KEY_REFRESH))
+		{
+			CookieHelper.ExpireCookie(TOKEN_KEY_REFRESH);
+		}
 	}
 
 	#endregion
