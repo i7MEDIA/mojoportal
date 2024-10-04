@@ -72,6 +72,6 @@ public class RoleStringHelper
 
 	public override string ToString()
 	{
-		return string.Join(DELIMTER.ToString(), _roles);
+		return string.Join(DELIMTER.ToString(), _roles) + ";";
 	}
 }
