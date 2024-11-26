@@ -6772,4 +6772,7 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   <data name="RecentContentFeedGenerator" xml:space="preserve">
     <value>mojoPortal CMS Recent Content Feed Generator</value>
   </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found</value>
+  </data>
 </root>

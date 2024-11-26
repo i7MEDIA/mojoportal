@@ -1,30 +1,18 @@
 ﻿using System;
 
+namespace mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers;
 
-namespace mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers
+public delegate void ProfileUpdateEventHandler(object sender, UserRegisteredEventArgs e);
+
+public class ProfileUpdatedEventArgs : EventArgs
 {
-    public delegate void ProfileUpdateEventHandler(object sender, UserRegisteredEventArgs e);
+	public SiteUser SiteUser { get; } = null;
 
-    public class ProfileUpdatedEventArgs : EventArgs
-    {
-        private SiteUser _siteUser = null;
+	public bool UpdatedByAdmin { get; } = false;
 
-        public SiteUser SiteUser
-        {
-            get { return _siteUser; }
-        }
-
-        private bool _updatedByAdmin = false;
-
-        public bool UpdatedByAdmin
-        {
-            get { return _updatedByAdmin; }
-        }
-
-        public ProfileUpdatedEventArgs(SiteUser siteUser, bool updatedByAdmin)
-        {
-            _siteUser = siteUser;
-            _updatedByAdmin = updatedByAdmin;
-        }
-    }
+	public ProfileUpdatedEventArgs(SiteUser siteUser, bool updatedByAdmin)
+	{
+		SiteUser = siteUser;
+		UpdatedByAdmin = updatedByAdmin;
+	}
 }

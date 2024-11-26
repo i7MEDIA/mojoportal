@@ -10,5 +10,5 @@ public class ProfileDisplaySettings : BaseDisplaySettings
 
 	public bool HidePostCount { get; set; } = false;
 
-	public string IsDeletedUserNoteFormat { get; set; } = "<span class='txterror'>{0}</span>";
+	public string IsDeletedUserNoteFormat { get; set; } = "<span class=\"txterror\">{0}</span>";
 }

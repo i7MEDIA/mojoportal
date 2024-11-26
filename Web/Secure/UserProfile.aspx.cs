@@ -6,7 +6,6 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Editor;
@@ -29,7 +28,6 @@ public partial class UserProfile : NonCmsBasePage
 	private string rpxApiKey = string.Empty;
 	private string rpxApplicationName = string.Empty;
 	private bool allowUserSkin = false;
-
 
 
 	#region OnPreInit/OnInit
@@ -103,7 +101,7 @@ public partial class UserProfile : NonCmsBasePage
 
 	private void PopulateControls()
 	{
-		lnkChangePassword.NavigateUrl = SiteRoot + "/Secure/ChangePassword.aspx";
+		lnkChangePassword.NavigateUrl = "/Secure/ChangePassword.aspx".ToLinkBuilder().ToString();
 		lnkChangePassword.Text = Resource.UserChangePasswordLabel;
 
 		ListItem listItem;
@@ -145,7 +143,7 @@ public partial class UserProfile : NonCmsBasePage
 			lblTotalPosts.Text = siteUser.TotalPosts.ToString();
 			lnkUserPosts.UserId = siteUser.UserId;
 			lnkUserPosts.TotalPosts = siteUser.TotalPosts;
-			lnkPubProfile.NavigateUrl = SiteRoot + "/ProfileView.aspx?userid=" + siteUser.UserId.ToInvariantString();
+			lnkPubProfile.NavigateUrl = "ProfileView.aspx".ToLinkBuilder().AddParam("userid", siteUser.UserId).ToString();
 
 			if (divLiveMessenger.Visible)
 			{
@@ -309,7 +307,7 @@ public partial class UserProfile : NonCmsBasePage
 		{
 			if (siteUser.UserId != -1 && userEmail != siteUser.Email)
 			{
-				log.Info("email for user changed from " + userEmail + " to " + siteUser.Email + " from ip address " + SiteUtils.GetIP4Address());
+				log.Info($"email for user changed from {userEmail} to {siteUser.Email} from ip address {SiteUtils.GetIP4Address()}");
 			}
 		}
 
@@ -419,7 +417,7 @@ public partial class UserProfile : NonCmsBasePage
 
 				if (siteUser != null)
 				{
-					lnkAvatarUpld.NavigateUrl = SiteRoot + "/Dialog/AvatarUploadDialog.aspx?u=" + siteUser.UserId.ToInvariantString();
+					lnkAvatarUpld.NavigateUrl = "Dialog/AvatarUploadDialog.aspx".ToLinkBuilder().AddParam("u", siteUser.UserId).ToString();
 				}
 
 				if (WebConfigSettings.AvatarsCanOnlyBeUploadedByAdmin)
@@ -544,10 +542,10 @@ public partial class UserProfile : NonCmsBasePage
 	private void PopulateLabels()
 	{
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.ProfileLink);
-		litSecurityTab.Text = $"<a href='#tabSecurity'>{Resource.UserProfileSecurityTab}</a>";
-		litProfileTab.Text = $"<a href='#{tabProfile.ClientID}'>{Resource.UserProfileProfileTab}</a>";
-		litOrderHistoryTab.Text = $"<a href='#{tabOrderHistory.ClientID}'>{Resource.CommerceOrderHistoryTab}</a>";
-		litNewsletterTab.Text = $"<a href='#{tabNewsletters.ClientID}'>{Resource.UserProfileNewslettersTab}</a>";
+		litSecurityTab.Text = $"<a href=\"#tabSecurity\">{Resource.UserProfileSecurityTab}</a>";
+		litProfileTab.Text = $"<a href=\"#{tabProfile.ClientID}\">{Resource.UserProfileProfileTab}</a>";
+		litOrderHistoryTab.Text = $"<a href=\"#{tabOrderHistory.ClientID}\">{Resource.CommerceOrderHistoryTab}</a>";
+		litNewsletterTab.Text = $"<a href=\"#{tabNewsletters.ClientID}\">{Resource.UserProfileNewslettersTab}</a>";
 		lnkAllowLiveMessenger.Text = Resource.EnableLiveMessengerLink;
 		btnUpdate.Text = Resource.UserProfileUpdateButton;
 
@@ -610,7 +608,7 @@ public partial class UserProfile : NonCmsBasePage
 
 		lnkOpenIDUpdate.Text = Resource.OpenIDUpdateButton;
 		lnkOpenIDUpdate.ToolTip = Resource.OpenIDUpdateButton;
-		lnkOpenIDUpdate.NavigateUrl = SiteRoot + "/Secure/UpdateOpenID.aspx";
+		lnkOpenIDUpdate.NavigateUrl = "Secure/UpdateOpenID.aspx".ToLinkBuilder().ToString();
 
 		rpxLink.OverrideText = Resource.OpenIDUpdateButton;
 
@@ -630,7 +628,7 @@ public partial class UserProfile : NonCmsBasePage
 			if (p != null)
 			{
 				IFileSystem fileSystem = p.GetFileSystem();
-				string avatarBasePath = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/useravatars/";
+				string avatarBasePath = Invariant($"~/Data/Sites/{siteSettings.SiteId}/useravatars/");
 				WebFile avatarFile = fileSystem.RetrieveFile(avatarBasePath + siteUser.AvatarUrl);
 
 				if (avatarFile != null)
@@ -638,16 +636,9 @@ public partial class UserProfile : NonCmsBasePage
 					if (avatarFile.Modified > DateTime.Today)
 					{
 						// it was updated today so we'll assume it was just now since the avatar dialog just closed
-						string newfileName = "user"
-							+ siteUser.UserId.ToInvariantString()
-							+ "-" + siteUser.Name.ToCleanFileName()
-							+ "-" + DateTime.UtcNow.Millisecond.ToInvariantString()
-							+ System.IO.Path.GetExtension(siteUser.AvatarUrl);
-
+						string newfileName = Invariant($"user{siteUser.UserId}-{siteUser.Name.ToCleanFileName()}-{DateTime.UtcNow.Millisecond.ToInvariantString()}{System.IO.Path.GetExtension(siteUser.AvatarUrl)}");
 						fileSystem.MoveFile(avatarBasePath + siteUser.AvatarUrl, avatarBasePath + newfileName, true);
-
 						siteUser.AvatarUrl = newfileName;
-
 						siteUser.Save();
 					}
 				}
@@ -659,21 +650,21 @@ public partial class UserProfile : NonCmsBasePage
 
 	private void SetupAvatarScript()
 	{
-		var script = $@"
-<script data-loader=""UserProfile.aspx"">
-	$('#{lnkAvatarUpld.ClientID}').colorbox({{
-		width: '80%',
-		height: '80%',
-		iframe: true,
-		onClosed: () => {{
-			const btn = document.querySelector('#{btnUpdateAvartar.ClientID}');
-
-			if (btn !== null) {{
-				btn.click();
-			}}
-		}}
-	}});
-</script>";
+		var script = $$"""
+			<script data-loader="UserProfile.aspx">
+				$('#{{lnkAvatarUpld.ClientID}}').colorbox({
+					width: '80%',
+					height: '80%',
+					iframe: true,
+					onClosed: () => {
+						const btn = document.querySelector('#{{btnUpdateAvartar.ClientID}}');
+						if (btn !== null) {
+							btn.click();
+						}
+					}
+				});
+			</script>
+			""";
 
 		Page.ClientScript.RegisterStartupScript(GetType(), "cbupinit", script, false);
 	}

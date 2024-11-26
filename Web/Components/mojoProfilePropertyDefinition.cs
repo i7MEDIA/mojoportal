@@ -8,7 +8,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
@@ -54,7 +53,7 @@ public class mojoProfilePropertyDefinition
 	public string RegexValidationErrorResourceKey { get; set; } = string.Empty;
 	public SettingsSerializeAs SerializeAs { get; set; } = SettingsSerializeAs.String;
 	public string DefaultValue { get; set; } = string.Empty;
-	public Collection<mojoProfilePropertyOption> OptionList { get; } = new Collection<mojoProfilePropertyOption>();
+	public Collection<mojoProfilePropertyOption> OptionList { get; } = [];
 
 	#endregion
 
@@ -121,7 +120,7 @@ public class mojoProfilePropertyDefinition
 
 		var rowOpenTag = new Literal
 		{
-			Text = $"<div class='settingrow {propertyDefinition.CssClass}'>"
+			Text = $"<div class=\"settingrow {propertyDefinition.CssClass}\">"
 		};
 
 		parentControl.Controls.Add(rowOpenTag);
@@ -156,13 +155,13 @@ public class mojoProfilePropertyDefinition
 				}
 			}
 
-			if (c != null && c is ISettingControl)
+			if (c != null && c is ISettingControl control)
 			{
-				c.ID = "isc" + propertyDefinition.Name;
+				c.ID = $"isc{propertyDefinition.Name}";
 
 				parentControl.Controls.Add(label);
 
-				var settingControl = (ISettingControl)c;
+				var settingControl = control;
 
 				settingControl.SetValue(propertyValue);
 
@@ -180,7 +179,7 @@ public class mojoProfilePropertyDefinition
 			{
 				var cbl = CreateCheckBoxListQuestion(propertyDefinition, propertyValue);
 
-				cbl.ID = "cbl" + propertyDefinition.Name;
+				cbl.ID = $"cbl{propertyDefinition.Name}";
 				cbl.EnableTheming = false;
 				cbl.CssClass = "forminput";
 				cbl.TabIndex = 0;
@@ -218,9 +217,9 @@ public class mojoProfilePropertyDefinition
 
 				DropDownList dd = CreateDropDownQuestion(propertyDefinition, propertyValue);
 
-				dd.ID = "dd" + propertyDefinition.Name;
+				dd.ID = $"dd{propertyDefinition.Name}";
 				dd.EnableTheming = false;
-				dd.CssClass = "forminput " + propertyDefinition.CssClass;
+				dd.CssClass = $"forminput {propertyDefinition.CssClass}";
 				dd.TabIndex = 0;
 
 				label.ForControl = dd.ID;
@@ -280,8 +279,8 @@ public class mojoProfilePropertyDefinition
 					var checkBox = new CheckBox
 					{
 						TabIndex = 0,
-						ID = "chk" + propertyDefinition.Name,
-						CssClass = "forminput " + propertyDefinition.CssClass
+						ID = $"chk{propertyDefinition.Name}",
+						CssClass = $"forminput {propertyDefinition.CssClass}"
 					};
 
 					label.ForControl = checkBox.ID;
@@ -306,8 +305,8 @@ public class mojoProfilePropertyDefinition
 					var datePicker = CreateDatePicker(propertyDefinition, propertyValue, legacyTimeZoneOffset, timeZone, siteRoot);
 
 					datePicker.TabIndex = 0;
-					datePicker.ID = "dp" + propertyDefinition.Name;
-					datePicker.CssClass = "forminput " + propertyDefinition.CssClass;
+					datePicker.ID = $"dp{propertyDefinition.Name}";
+					datePicker.CssClass = $"forminput {propertyDefinition.CssClass}";
 
 					parentControl.Controls.Add(label);
 					parentControl.Controls.Add(datePicker);
@@ -363,8 +362,8 @@ public class mojoProfilePropertyDefinition
 					var textBox = new TextBox
 					{
 						TabIndex = 0,
-						ID = "txt" + propertyDefinition.Name,
-						CssClass = "forminput " + propertyDefinition.CssClass
+						ID = $"txt{propertyDefinition.Name}",
+						CssClass = $"forminput {propertyDefinition.CssClass}"
 					};
 
 					label.ForControl = textBox.ID;
@@ -573,7 +572,7 @@ public class mojoProfilePropertyDefinition
 		catch (ArgumentException)
 		{ }
 
-		datePicker.ID = "dp" + propertyDefinition.Name;
+		datePicker.ID = $"dp{propertyDefinition.Name}";
 		datePicker.ShowMonthList = propertyDefinition.DatePickerShowMonthList;
 		datePicker.ShowYearList = propertyDefinition.DatePickerShowYearList;
 
@@ -643,7 +642,7 @@ public class mojoProfilePropertyDefinition
 
 		var rowOpenTag = new Literal
 		{
-			Text = $"<div class='settingrow {propertyDefinition.CssClass}'>"
+			Text = $"<div class=\"settingrow {propertyDefinition.CssClass}\">"
 		};
 
 		parentControl.Controls.Add(rowOpenTag);
@@ -673,7 +672,7 @@ public class mojoProfilePropertyDefinition
 
 			if (c != null && c is IReadOnlySettingControl control)
 			{
-				c.ID = "isc" + propertyDefinition.Name;
+				c.ID = $"isc{propertyDefinition.Name}";
 
 				parentControl.Controls.Add(label);
 
@@ -693,7 +692,7 @@ public class mojoProfilePropertyDefinition
 			{
 				var dd = new DropDownList
 				{
-					ID = "dd" + propertyDefinition.Name
+					ID = $"dd{propertyDefinition.Name}"
 				};
 
 				foreach (mojoProfilePropertyOption option in propertyDefinition.OptionList)
@@ -747,7 +746,7 @@ public class mojoProfilePropertyDefinition
 							imgVal = "false";
 						}
 
-						litBool.Text = $"<img src='/Data/SiteImages/{imgVal}.png' alt='{propertyDefinition.Name}' />";
+						litBool.Text = $"<img src=\"/Data/SiteImages/{imgVal}.png\" alt=\"{propertyDefinition.Name}\" />";
 
 						parentControl.Controls.Add(litBool);
 
@@ -797,7 +796,7 @@ public class mojoProfilePropertyDefinition
 								{
 									var litLink = new Literal
 									{
-										Text = $"<a href='{HttpUtility.HtmlEncode(propertyValue)}'>{HttpUtility.HtmlEncode(propertyValue)}</a>"
+										Text = $"<a href=\"{HttpUtility.HtmlEncode(propertyValue)}\">{HttpUtility.HtmlEncode(propertyValue)}</a>"
 									};
 
 									parentControl.Controls.Add(litLink);
@@ -832,10 +831,7 @@ public class mojoProfilePropertyDefinition
 	}
 
 
-	private static void AddHelpLink(
-		Panel parentControl,
-		mojoProfilePropertyDefinition propertyDefinition
-	)
+	private static void AddHelpLink(Panel parentControl, mojoProfilePropertyDefinition propertyDefinition)
 	{
 		var litSpace = new Literal
 		{
@@ -846,7 +842,7 @@ public class mojoProfilePropertyDefinition
 
 		var helpLinkButton = new mojoHelpLink
 		{
-			HelpKey = "profile-" + propertyDefinition.Name.ToLower() + "-help"
+			HelpKey = $"profile-{propertyDefinition.Name.ToLower()}-help"
 		};
 
 		parentControl.Controls.Add(helpLinkButton);
@@ -858,6 +854,7 @@ public class mojoProfilePropertyDefinition
 
 		parentControl.Controls.Add(litSpace);
 	}
+
 
 	public static void SaveProperty(
 		SiteUser siteUser,
@@ -872,7 +869,7 @@ public class mojoProfilePropertyDefinition
 
 		if (propertyDefinition.ISettingControlSrc.Length > 0)
 		{
-			controlID = "isc" + propertyDefinition.Name;
+			controlID = $"isc{propertyDefinition.Name}";
 			control = parentControl.FindControl(controlID);
 
 			if (control != null)
@@ -890,7 +887,7 @@ public class mojoProfilePropertyDefinition
 			switch (propertyDefinition.Type)
 			{
 				case "System.Boolean":
-					controlID = "chk" + propertyDefinition.Name;
+					controlID = $"chk{propertyDefinition.Name}";
 					control = parentControl.FindControl(controlID);
 
 					if (control != null)
@@ -906,7 +903,7 @@ public class mojoProfilePropertyDefinition
 					break;
 
 				case "System.DateTime":
-					controlID = "dp" + propertyDefinition.Name;
+					controlID = $"dp{propertyDefinition.Name}";
 					control = parentControl.FindControl(controlID);
 
 					if (control != null)
@@ -1005,7 +1002,7 @@ public class mojoProfilePropertyDefinition
 					{
 						if (propertyDefinition.Type == "CheckboxList")
 						{
-							controlID = "cbl" + propertyDefinition.Name;
+							controlID = $"cbl{propertyDefinition.Name}";
 							control = parentControl.FindControl(controlID);
 
 							if (control != null)
@@ -1023,7 +1020,7 @@ public class mojoProfilePropertyDefinition
 						}
 						else
 						{
-							controlID = "dd" + propertyDefinition.Name;
+							controlID = $"dd{propertyDefinition.Name}";
 							control = parentControl.FindControl(controlID);
 
 							if (control != null)
@@ -1045,7 +1042,7 @@ public class mojoProfilePropertyDefinition
 					}
 					else
 					{
-						controlID = "txt" + propertyDefinition.Name;
+						controlID = $"txt{propertyDefinition.Name}";
 						control = parentControl.FindControl(controlID);
 
 						if (control != null)
@@ -1065,10 +1062,7 @@ public class mojoProfilePropertyDefinition
 	}
 
 
-	public static void SavePropertyDefault(
-		SiteUser siteUser,
-		mojoProfilePropertyDefinition propertyDefinition
-	)
+	public static void SavePropertyDefault(SiteUser siteUser, mojoProfilePropertyDefinition propertyDefinition)
 	{
 		siteUser.SetProperty(
 			propertyDefinition.Name,
@@ -1079,10 +1073,7 @@ public class mojoProfilePropertyDefinition
 	}
 
 
-	public static void LoadState(
-		Panel parentControl,
-		mojoProfilePropertyDefinition propertyDefinition
-	)
+	public static void LoadState(Panel parentControl, mojoProfilePropertyDefinition propertyDefinition)
 	{
 		string controlID;
 		Control control;
@@ -1090,7 +1081,7 @@ public class mojoProfilePropertyDefinition
 		switch (propertyDefinition.Type)
 		{
 			case "System.Boolean":
-				controlID = "chk" + propertyDefinition.Name;
+				controlID = $"chk{propertyDefinition.Name}";
 				control = parentControl.FindControl(controlID);
 
 				if (control != null)
@@ -1101,7 +1092,7 @@ public class mojoProfilePropertyDefinition
 				break;
 
 			case "System.DateTime":
-				controlID = "dp" + propertyDefinition.Name;
+				controlID = $"dp{propertyDefinition.Name}";
 				control = parentControl.FindControl(controlID);
 
 				if (control != null)
@@ -1122,7 +1113,7 @@ public class mojoProfilePropertyDefinition
 				{
 					if (propertyDefinition.Type == "CheckboxList")
 					{
-						controlID = "cbl" + propertyDefinition.Name;
+						controlID = $"cbl{propertyDefinition.Name}";
 						control = parentControl.FindControl(controlID);
 
 						if (control != null)
@@ -1135,7 +1126,7 @@ public class mojoProfilePropertyDefinition
 					}
 					else
 					{
-						controlID = "dd" + propertyDefinition.Name;
+						controlID = $"dd{propertyDefinition.Name}";
 						control = parentControl.FindControl(controlID);
 
 						if (control != null)
@@ -1152,7 +1143,7 @@ public class mojoProfilePropertyDefinition
 				}
 				else
 				{
-					controlID = "txt" + propertyDefinition.Name;
+					controlID = $"txt{propertyDefinition.Name}";
 					control = parentControl.FindControl(controlID);
 
 					if (control != null)

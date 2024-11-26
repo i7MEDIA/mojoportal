@@ -1,14 +1,4 @@
 ﻿//  Author:                     /Huw Reddick
-//  Created:                    2012-07-09
-//	Last Modified:              2012-07-09
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
 
 using System;
 using System.Configuration;
@@ -18,137 +8,122 @@ using System.Web.Caching;
 using System.Xml;
 using log4net;
 
-namespace mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers
+namespace mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers;
+public class ProfileUpdatedHandlerProviderConfig
 {
-    /// <summary>
-    ///  
-    /// </summary>
-    public class ProfileUpdatedHandlerProviderConfig
-    {
-        private static readonly ILog log
-            = LogManager.GetLogger(typeof(ProfileUpdatedHandlerProviderConfig));
+	private static readonly ILog log = LogManager.GetLogger(typeof(ProfileUpdatedHandlerProviderConfig));
 
 
-        private ProviderSettingsCollection providerSettingsCollection
-            = new ProviderSettingsCollection();
+	private ProviderSettingsCollection providerSettingsCollection = [];
 
-        public ProviderSettingsCollection Providers
-        {
-            get { return providerSettingsCollection; }
-        }
+	public ProviderSettingsCollection Providers => providerSettingsCollection;
 
-        public static ProfileUpdatedHandlerProviderConfig GetConfig()
-        {
-            try
-            {
-                if (
-                    (HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"] != null)
-                    && (HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"] is ProfileUpdatedHandlerProviderConfig)
-                )
-                {
-                    return (ProfileUpdatedHandlerProviderConfig)HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"];
-                }
+	public static ProfileUpdatedHandlerProviderConfig GetConfig()
+	{
+		try
+		{
+			if (
+				(HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"] != null)
+				&& (HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"] is ProfileUpdatedHandlerProviderConfig)
+			)
+			{
+				return (ProfileUpdatedHandlerProviderConfig)HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"];
+			}
 
-                ProfileUpdatedHandlerProviderConfig config
-                    = new ProfileUpdatedHandlerProviderConfig();
+			var config = new ProfileUpdatedHandlerProviderConfig();
+			var configFolderName = "~/Setup/ProviderConfig/userprofileupdatedhandlers/";
+			var pathToConfigFolder = HttpContext.Current.Server.MapPath(configFolderName);
 
-                String configFolderName = "~/Setup/ProviderConfig/userprofileupdatedhandlers/";
+			if (!Directory.Exists(pathToConfigFolder))
+			{
+				return config;
+			}
 
-                string pathToConfigFolder
-                    = HttpContext.Current.Server.MapPath(configFolderName);
+			var directoryInfo = new DirectoryInfo(pathToConfigFolder);
 
+			var configFiles = directoryInfo.GetFiles("*.config");
 
-                if (!Directory.Exists(pathToConfigFolder)) return config;
+			foreach (FileInfo fileInfo in configFiles)
+			{
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
+				config.LoadValuesFromConfigurationXml(configXml.DocumentElement);
+			}
 
-                DirectoryInfo directoryInfo
-                    = new DirectoryInfo(pathToConfigFolder);
+			var aggregateCacheDependency = new AggregateCacheDependency();
 
-                FileInfo[] configFiles = directoryInfo.GetFiles("*.config");
+			var pathToWebConfig = HttpContext.Current.Server.MapPath("~/Web.config");
 
-                foreach (FileInfo fileInfo in configFiles)
-                {
-                    var configXml = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
-                    config.LoadValuesFromConfigurationXml(configXml.DocumentElement);
-                }
+			aggregateCacheDependency.Add(new CacheDependency(pathToWebConfig));
 
-                AggregateCacheDependency aggregateCacheDependency
-                    = new AggregateCacheDependency();
+			HttpRuntime.Cache.Insert(
+				"ProfileUpdatedHandlerProviderConfig",
+				config,
+				aggregateCacheDependency,
+				DateTime.Now.AddYears(1),
+				TimeSpan.Zero,
+				CacheItemPriority.Default,
+				null);
 
-                string pathToWebConfig
-                    = HttpContext.Current.Server.MapPath("~/Web.config");
+			return (ProfileUpdatedHandlerProviderConfig)HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"];
 
-                aggregateCacheDependency.Add(new CacheDependency(pathToWebConfig));
+		}
+		catch (HttpException ex)
+		{
+			log.Error(ex);
 
-                System.Web.HttpRuntime.Cache.Insert(
-                    "ProfileUpdatedHandlerProviderConfig",
-                    config,
-                    aggregateCacheDependency,
-                    DateTime.Now.AddYears(1),
-                    TimeSpan.Zero,
-                    System.Web.Caching.CacheItemPriority.Default,
-                    null);
+		}
+		catch (XmlException ex)
+		{
+			log.Error(ex);
 
-                return (ProfileUpdatedHandlerProviderConfig)HttpRuntime.Cache["ProfileUpdatedHandlerProviderConfig"];
+		}
+		catch (ArgumentException ex)
+		{
+			log.Error(ex);
 
-            }
-            catch (HttpException ex)
-            {
-                log.Error(ex);
+		}
+		catch (NullReferenceException ex)
+		{
+			log.Error(ex);
 
-            }
-            catch (System.Xml.XmlException ex)
-            {
-                log.Error(ex);
+		}
 
-            }
-            catch (ArgumentException ex)
-            {
-                log.Error(ex);
-
-            }
-            catch (NullReferenceException ex)
-            {
-                log.Error(ex);
-
-            }
-
-            return null;
+		return null;
 
 
-        }
+	}
 
-        public void LoadValuesFromConfigurationXml(XmlNode node)
-        {
-            foreach (XmlNode child in node.ChildNodes)
-            {
-                if (child.Name == "providers")
-                {
-                    foreach (XmlNode providerNode in child.ChildNodes)
-                    {
-                        if (
-                            (providerNode.NodeType == XmlNodeType.Element)
-                            && (providerNode.Name == "add")
-                            )
-                        {
-                            if (
-                                (providerNode.Attributes["name"] != null)
-                                && (providerNode.Attributes["type"] != null)
-                                )
-                            {
-                                ProviderSettings providerSettings
-                                    = new ProviderSettings(
-                                    providerNode.Attributes["name"].Value,
-                                    providerNode.Attributes["type"].Value);
+	public void LoadValuesFromConfigurationXml(XmlNode node)
+	{
+		foreach (XmlNode child in node.ChildNodes)
+		{
+			if (child.Name == "providers")
+			{
+				foreach (XmlNode providerNode in child.ChildNodes)
+				{
+					if (
+						(providerNode.NodeType == XmlNodeType.Element)
+						&& (providerNode.Name == "add")
+						)
+					{
+						if (
+							(providerNode.Attributes["name"] != null)
+							&& (providerNode.Attributes["type"] != null)
+							)
+						{
+							ProviderSettings providerSettings
+								= new ProviderSettings(
+								providerNode.Attributes["name"].Value,
+								providerNode.Attributes["type"].Value);
 
-                                providerSettingsCollection.Add(providerSettings);
-                            }
+							providerSettingsCollection.Add(providerSettings);
+						}
 
-                        }
-                    }
+					}
+				}
 
-                }
-            }
-        }
+			}
+		}
+	}
 
-    }
 }

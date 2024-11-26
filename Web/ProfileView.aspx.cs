@@ -123,7 +123,7 @@ public partial class ProfileView : NonCmsBasePage
 		}
 		else
 		{
-			lblUserName.Text = "User not found";
+			lblUserName.Text = Resource.UserNotFound;
 			divAvatar.Visible = false;
 		}
 	}

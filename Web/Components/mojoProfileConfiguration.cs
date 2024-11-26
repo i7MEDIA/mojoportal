@@ -7,7 +7,6 @@ using System.Xml;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web.Configuration;
 
@@ -15,7 +14,7 @@ public class mojoProfileConfiguration
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(mojoProfileConfiguration));
 
-	public Collection<mojoProfilePropertyDefinition> PropertyDefinitions { get; } = new Collection<mojoProfilePropertyDefinition>();
+	public Collection<mojoProfilePropertyDefinition> PropertyDefinitions { get; } = [];
 
 
 	public mojoProfileConfiguration(XmlNode node)
