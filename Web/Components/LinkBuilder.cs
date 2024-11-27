@@ -52,6 +52,16 @@ public class LinkBuilder
 		queries.Add("itemid", id);
 		return this;
 	}
+	public LinkBuilder PageNumber(int pageNumber)
+	{
+		queries.Add("pagenumber", pageNumber);
+		return this;
+	}
+	public LinkBuilder PageNumber(string pageNumber)
+	{
+		queries.Add("pagenumber", pageNumber);
+		return this;
+	}
 	public LinkBuilder ReturnUrl(string returnUrl)
 	{
 		queries.Add("returnurl", UrlEncode(returnUrl)); //UrlEncode prevents querystring from being used as vector for XSS
@@ -73,10 +83,29 @@ public class LinkBuilder
 		return this;
 	}
 
+	/// <summary>
+	/// Sets existing parameter to passed value if the parameter exists. If the parameter is not found, creates a new parameter with the passed value.
+	/// </summary>
+	/// <param name="key"></param>
+	/// <param name="value"></param>
+	/// <returns>LinkBuilder</returns>
+	public LinkBuilder SetParam(string key, object value)
+	{
+		if (queries.ContainsKey(key))
+		{
+			queries[key] = UrlEncode(value.ToString()); //UrlEncode prevents querystring from being used as vector for XSS
+			return this;
+		}
+		else
+		{
+			return AddParam(key, value);
+		}
+	}
+
 	public Uri ToUri()
 	{
 		var queryString = HttpUtility.ParseQueryString(string.Empty);
-		
+
 		foreach (var query in queries)
 		{
 			queryString.Add(query.Key, query.Value.ToString());
@@ -86,7 +115,7 @@ public class LinkBuilder
 
 		if (includeSiteRoot)
 		{
-			return new Uri(new Uri(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute), new Uri(path, UriKind.Relative));	
+			return new Uri(new Uri(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute), new Uri(path, UriKind.Relative));
 		}
 
 		try
