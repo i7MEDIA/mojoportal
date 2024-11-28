@@ -25,8 +25,8 @@ public class BaseDisplaySettings : WebControl
 		{
 			return;
 		}
-		siteSkinPath = SiteUtils.DetermineSkinBaseUrl(true, false, Page);
-		skinName = SiteUtils.GetSkinName(true, Page);
+		siteSkinPath = SiteUtils.DetermineSkinBaseUrl(true, Page);
+		skinName = SiteUtils.GetSkinName(true);
 
 		InitConfig();
 	}
@@ -117,7 +117,18 @@ public class BaseDisplaySettings : WebControl
 		string plugins = IsPlugin ? "plugins" : string.Empty;
 
 		//var configFile = new FileInfo(HttpContext.Current.Server.MapPath($"{skinPath}/config/{plugins}{featureName}{subFeatureName}{configName}.json"));
-		var configPath = Path.Combine(HttpContext.Current.Server.MapPath(skinPath), "config", plugins, FeatureName, $"{subFeatureName}{configName}.json");
+		string relativeSkinPath;
+		if (skinPath.StartsWith("http"))
+		{
+			relativeSkinPath = new Uri(skinPath).LocalPath;
+		}
+		else
+		{
+			relativeSkinPath = HttpContext.Current.Server.MapPath(skinPath);
+		}
+
+		//var configPath = Path.Combine(new Uri(skinPath).LocalPath, "config", plugins, FeatureName, $"{subFeatureName}{configName}.json");
+		var configPath = Path.Combine(relativeSkinPath, "config", plugins, FeatureName, $"{subFeatureName}{configName}.json");
 		//data/sites/1/skins/framework/config/plugsin/EventCalendarPro/MonthViewModule-config.json
 		var configFile = new FileInfo(configPath);
 

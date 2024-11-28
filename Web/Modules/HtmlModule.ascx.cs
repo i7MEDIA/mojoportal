@@ -710,7 +710,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		// need a clone beucause these are chached and we are modifying the object
 		TinyMceSettings editorSettings = config.GetEditorSettings("FullWithTemplates").Clone();
 		editorSettings.Inline = true;
-		editorSettings.EditorAreaCSS = SiteUtils.GetEditorStyleSheetUrl(basePage.AllowSkinOverride, true, Page);
+		editorSettings.EditorAreaCSS = SiteUtils.GetEditorStyleSheetUrl(basePage.AllowSkinOverride, Page);
 		editorSettings.TemplatesUrl = $"{SiteUtils.GetNavigationSiteRoot()}/Services/TinyMceTemplates.ashx?v={siteSettings.SkinVersion}";
 		editorSettings.StyleFormats = TinyMceEditorAdapter.BuildTinyMceStyleJson();
 		editorSettings.EmotionsBaseUrl = Page.ResolveUrl("~/Data/SiteImages/emoticons/tinymce/");

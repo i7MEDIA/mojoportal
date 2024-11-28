@@ -1206,7 +1206,7 @@ public class mojoBasePage : Page
 
 		if (siteSettings is not null && siteSettings.SiteGuid != Guid.Empty)
 		{
-			string skinName = SiteUtils.GetSkinName(AllowSkinOverride, this);
+			string skinName = SiteUtils.GetSkinName(AllowSkinOverride);
 
 			if (SetMasterInBasePage)
 			{

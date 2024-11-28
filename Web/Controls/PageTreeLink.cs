@@ -95,7 +95,7 @@ namespace mojoPortal.Web.UI
 				}
 				else
 				{
-					ImageUrl = SiteUtils.DetermineSkinBaseUrl(Page) + linkImageUrl.TrimStart('/');
+					ImageUrl = SiteUtils.DetermineSkinBaseUrl(page: Page) + linkImageUrl.TrimStart('/');
 				}
 			}
 

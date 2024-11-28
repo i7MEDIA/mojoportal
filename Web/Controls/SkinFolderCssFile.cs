@@ -107,7 +107,7 @@ public class SkinFolderCssFile : WebControl
 			skinVersion = siteSettings.SkinVersion;
 		}
 
-		string cssUrl = SiteUtils.DetermineSkinBaseUrl(true, WebConfigSettings.UseFullUrlsForSkins, Page) + CssFileName;
+		string cssUrl = SiteUtils.DetermineSkinBaseUrl(true, Page) + CssFileName;
 
 		writer.Write(string.Format(CultureInfo.InvariantCulture, $"\n{LinkFormat}", $"{cssUrl.ToLinkBuilder().AddParam("v", skinVersion)}"));
 	}

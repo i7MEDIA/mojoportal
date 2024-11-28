@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
-using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 
 namespace mojoPortal.Web.UI;
@@ -16,19 +14,9 @@ namespace mojoPortal.Web.UI;
 public partial class StyleSheetCombiner : UserControl
 {
 	private string skinBaseUrl = string.Empty;
-	private string protocol = "http";
-	/// <summary>
-	/// this is just a flag used within specific features to determine if schema.org attributes can be added
-	/// it should always be fine in HTML 5 doctype but
-	/// may cause validation errors for XHTML doctypes
-	/// so, you have the option to disable it to fix w3c validation if using xhtml
-	/// but at the expense of SEO.
-	/// </summary>
-	public bool UseSchemaDotOrgFormats { get; set; } = true;
+	private string protocol = "https";
 
 	public bool AddBodyClassForLiveWriter { get; set; } = true;
-
-	public bool AddBodyClassForiPad { get; set; } = false;
 
 	/// <summary>
 	/// this property is not used directly by this control but the base page and cms page detect ths setting and use it
@@ -79,13 +67,6 @@ public partial class StyleSheetCombiner : UserControl
 
 	public bool IncludeColorPickerCss { get; set; } = false;
 
-	/// <summary>
-	/// valid options are empty for default, "folders", and "menu"
-	/// </summary>
-	//public string TreeViewStyle { get; set; } = string.Empty;
-
-	public bool IncludeTwitterCss { get; set; } = false;
-
 	public bool AlwaysShowLeftColumn { get; set; } = false;
 
 	public bool AlwaysShowRightColumn { get; set; } = false;
@@ -126,39 +107,56 @@ public partial class StyleSheetCombiner : UserControl
 
 	#endregion
 
-	private string FormatMedia()
+	private string GetMediaProperty()
 	{
 		if (Media.Length > 0)
 		{
-			return $" media=\"{Media}\" ";
+			return $"media=\"{Media}\"";
 		}
-		return " ";
+		return string.Empty;
 	}
 
 	protected override void OnPreRender(EventArgs e)
 	{
 		base.OnPreRender(e);
 
-		if (Core.Helpers.WebHelper.IsSecureRequest()) { protocol = "https"; }
+		if (!WebHelper.IsSecureRequest())
+		{
+			protocol = "http";
+		}
 
 		if (IncludejQueryUI)
 		{
 			SetupjQueryUICss();
 		}
-		if (IncludejCrop) { SetupjCropCss(); }
-		if (IncludeTwitterCss) { SetupTwitter(); }
-		if (IncludeGoogleCustomSearchCss) { SetupGoogleSearch(); }
 
-		if (!LoadSkinCss) { return; }
+		if (IncludejCrop)
+		{
+			SetupjCropCss();
+		}
 
-		skinBaseUrl = SiteUtils.DetermineSkinBaseUrl(AllowPageOverride, false, Page);
+		if (IncludeGoogleCustomSearchCss)
+		{
+			Controls.Add(new Literal
+			{
+				ID = "googlesearchcsss",
+				Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{protocol}://www.google.com/cse/static/style/look/v4/default.css\" />"
+			});
+		}
+
+		if (!LoadSkinCss)
+		{
+			return;
+		}
+
+		skinBaseUrl = SiteUtils.DetermineSkinBaseUrl(AllowPageOverride, Page);
 
 		if (OverrideSkinName.Length > 0)
 		{
 			skinBaseUrl = SiteUtils.DetermineSkinBaseUrl(OverrideSkinName);
 		}
 
-		if (WebConfigSettings.CombineCSS)
+		if (AppConfig.CombineCSS && !DisableCssHandler)
 		{
 			SetupCombinedCssUrl();
 		}
@@ -170,73 +168,30 @@ public partial class StyleSheetCombiner : UserControl
 
 	private void SetupCombinedCssUrl()
 	{
-		if (DisableCssHandler) { return; }
 		var cssLink = new Literal();
 
-		string siteRoot = SiteUtils.GetRelativeNavigationSiteRoot();
-
-		if (WebConfigSettings.UseFullUrlsForSkins)
-		{
-			siteRoot = SiteUtils.GetNavigationSiteRoot();
-		}
-
-		string siteParam = "&amp;s=-1";
 		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-		if (WebConfigSettings.IncludeVersionInCssUrl && siteSettings != null)
-		{
-			siteParam = $"&amp;s={siteSettings.SiteId.ToInvariantString()}&amp;v={Server.UrlEncode(DatabaseHelper.AppCodeVersion().ToString())}&amp;sv={siteSettings.SkinVersion}";
-		}
-		else if (siteSettings != null)
-		{
-			siteParam = $"&amp;s={siteSettings.SiteId.ToInvariantString()}&amp;sv={siteSettings.SkinVersion}";
-		}
-
 
 		if (SiteUtils.UseMobileSkin())
 		{
-			if (siteSettings.MobileSkin.Length > 0)
+			if (!string.IsNullOrWhiteSpace(siteSettings.MobileSkin))
 			{
 				OverrideSkinName = siteSettings.MobileSkin;
 			}
-			//web.config setting trumps site setting
-			if (WebConfigSettings.MobilePhoneSkin.Length > 0)
+			if (!string.IsNullOrWhiteSpace(WebConfigSettings.MobilePhoneSkin))
 			{
+				//web.config setting trumps site setting
 				OverrideSkinName = WebConfigSettings.MobilePhoneSkin;
 			}
 		}
 
-		if (OverrideSkinName.Length > 0)
-		{
-			cssLink.Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" {FormatMedia()}href=\"{siteRoot}/csshandler.ashx?skin={OverrideSkinName + siteParam}\"/>\n";
-		}
-		else
-		{
-			cssLink.Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" {FormatMedia()}href=\"{siteRoot}/csshandler.ashx?skin={SiteUtils.GetSkinName(AllowPageOverride, Page) + siteParam}\"/>\n";
-		}
+		cssLink.Text = $"""
+				<link rel="stylesheet" data-loader="StyleSheetCombiner" {GetMediaProperty()} href="{SiteUtils.GetCssHandlerUrl(true, OverrideSkinName)}"/>
+				""";
 
-		this.Controls.Add(cssLink);
-	}
-
-	private void SetupTwitter()
-	{
-		var cssLink = new Literal
-		{
-			ID = "twittercsss",
-			Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{protocol}://widgets.twimg.com/j/1/widget.css\" />"
-		};
 		Controls.Add(cssLink);
 	}
 
-	private void SetupGoogleSearch()
-	{
-		var cssLink = new Literal
-		{
-			ID = "googlesearchcsss",
-			Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{protocol}://www.google.com/cse/static/style/look/v4/default.css\" />"
-		};
-		Controls.Add(cssLink);
-	}
 
 	private void SetupjQueryUICss()
 	{
@@ -255,27 +210,28 @@ public partial class StyleSheetCombiner : UserControl
 			jQueryUIBasePath = Page.ResolveUrl(WebConfigSettings.jQueryUIBasePath);
 		}
 
-		var cssLink = new Literal
+		Controls.Add(new Literal
 		{
 			ID = "jqueryui-css",
-			Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{jQueryUIBasePath}themes/{JQueryUIThemeName}/{jQueryCssAllName}\" />"
-		};
-		this.Controls.Add(cssLink);
+			Text = $"""
+				   <link rel="stylesheet" data-loader="StyleSheetCombiner" href="{jQueryUIBasePath}themes/{JQueryUIThemeName}/{jQueryCssAllName}" />
+				   """
+		});
 	}
 
 	private void SetupjCropCss()
 	{
-		var cssLink = new Literal
+		Controls.Add(new Literal
 		{
 			ID = "jcrop-css",
-			Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{Page.ResolveUrl("~/ClientScript/jcrop0912/jquery.Jcrop.css")}\" />"
-		};
-		this.Controls.Add(cssLink);
+			Text = $"""
+				   <link rel="stylesheet" data-loader="StyleSheetCombiner" href="{Page.ResolveUrl("~/ClientScript/jcrop0912/jquery.Jcrop.css")}" />
+				   """
+		});
 	}
 
 	private void AddCssLinks()
 	{
-
 		string configFilePath;
 		if (OverrideSkinName.Length > 0)
 		{
@@ -283,53 +239,42 @@ public partial class StyleSheetCombiner : UserControl
 		}
 		else
 		{
-			configFilePath = Server.MapPath(SiteUtils.DetermineSkinBaseUrl(AllowPageOverride, false, Page) + "style.config");
+			configFilePath = Server.MapPath(SiteUtils.DetermineSkinBaseUrl(AllowPageOverride, Page) + "style.config");
 		}
 
 		if (File.Exists(configFilePath)) //if no file, no style is added
 		{
-			using (XmlReader reader = new XmlTextReader(new StreamReader(configFilePath)))
+			using XmlReader reader = new XmlTextReader(new StreamReader(configFilePath));
+			reader.MoveToContent();
+			while (reader.Read())
 			{
-				reader.MoveToContent();
-				while (reader.Read())
+				if (("file" == reader.Name) && (reader.NodeType != XmlNodeType.EndElement))
 				{
-					if (("file" == reader.Name) && (reader.NodeType != XmlNodeType.EndElement))
+					string cssVPath = reader.GetAttribute("cssvpath");
+					string cssUrl = string.Empty;
+					if (!string.IsNullOrWhiteSpace(cssVPath))
 					{
-						string csswebconfigkey = reader.GetAttribute("csswebconfigkey");
-						string cssVPath = reader.GetAttribute("cssvpath");
-
-						if ((!string.IsNullOrEmpty(csswebconfigkey)))
-						{
-							if ((ConfigurationManager.AppSettings[csswebconfigkey] != null))
-							{
-								AddCssLink(Page.ResolveUrl(ConfigurationManager.AppSettings[csswebconfigkey]));
-							}
-						}
-						else if ((!string.IsNullOrEmpty(cssVPath)))
-						{
-							AddCssLink(Page.ResolveUrl("~" + cssVPath));
-						}
-						else
-						{
-							string cssFile = reader.ReadElementContentAsString();
-							AddCssLink(skinBaseUrl + cssFile);
-						}
+						cssUrl = Page.ResolveUrl($"~{cssVPath}");
 					}
+					else
+					{
+						cssUrl = $"{skinBaseUrl}{reader.ReadElementContentAsString()}";
+					}
+
+					// only add CSS files
+					if (!cssUrl.EndsWith(".css"))
+					{
+						return;
+					}
+
+					Controls.Add(new Literal
+					{
+						Text = $"""
+							  <link rel="stylesheet" data-loader="StyleSheetCombiner" href="{cssUrl}" />
+							  """
+					});
 				}
 			}
 		}
-	}
-
-	private void AddCssLink(string cssUrl)
-	{
-		// don't add .less files
-		if (!cssUrl.EndsWith(".css")) { return; }
-
-		var cssLink = new Literal
-		{
-			Text = $"\n<link rel=\"stylesheet\" data-loader=\"StyleSheetCombiner\" href=\"{cssUrl}\" />"
-		};
-
-		this.Controls.Add(cssLink);
 	}
 }

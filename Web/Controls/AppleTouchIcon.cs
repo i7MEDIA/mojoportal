@@ -39,14 +39,14 @@ public class AppleTouchIcon : WebControl
 		{
 			writer.Write("\n<link rel='apple-touch-icon' sizes=\"{0}\" href='{1}{2}' />",
 			   Sizes,
-			  SiteUtils.DetermineSkinBaseUrl(true, false, Page),
+			  SiteUtils.DetermineSkinBaseUrl(true, Page),
 			  FileName
 			  );
 		}
 		else
 		{
 			writer.Write("\n<link rel='apple-touch-icon' href='{0}{1}' />",
-			   SiteUtils.DetermineSkinBaseUrl(true, false, Page),
+			   SiteUtils.DetermineSkinBaseUrl(true, Page),
 			   FileName
 			   );
 

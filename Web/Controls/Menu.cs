@@ -92,7 +92,7 @@ public class Menu : WebControl
 		}
 		catch (Exception ex)
 		{
-			renderString = RazorBridge.RenderFallback(View, "Menu control", "Menu", model, "Shared", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, false, Page)); 
+			renderString = RazorBridge.RenderFallback(View, "Menu control", "Menu", model, "Shared", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, Page)); 
 		}
 
 		writer.Write(renderString);

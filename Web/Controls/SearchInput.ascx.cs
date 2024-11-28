@@ -179,7 +179,7 @@ namespace mojoPortal.Web.UI
 					{
 						if (ImageUrl.Contains("skinbase_"))
 						{
-							ImageUrl = ImageUrl.Replace("skinbase_", SiteUtils.DetermineSkinBaseUrl(Page));
+							ImageUrl = ImageUrl.Replace("skinbase_", SiteUtils.DetermineSkinBaseUrl(page: Page));
 						}
 
 						pnlSearch.DefaultButton = btnSearch2.ID;

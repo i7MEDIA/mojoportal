@@ -571,9 +571,6 @@ namespace mojoPortal.Web
 			return allowedExtensions.Contains(extension.ToLower());
 		}
 
-		[Obsolete("Use IsAllowedFileType")]
-		public static string ImageFileExtensions() => WebConfigSettings.ImageFileExtensions;
-
 		public static List<string> ExtractUrls(string html)
 		{
 			string urlRegex = WebConfigSettings.UrlRegex;
@@ -933,7 +930,7 @@ namespace mojoPortal.Web
 			});
 		}
 
-		public static string GetMasterPage(Page page, SiteSettings siteSettings, bool allowOverride) => GetMasterPage(page, GetSkinName(allowOverride, page), siteSettings, allowOverride);
+		public static string GetMasterPage(Page page, SiteSettings siteSettings, bool allowOverride) => GetMasterPage(page, GetSkinName(allowOverride), siteSettings, allowOverride);
 
 		public static string GetMasterPage(Page page, string skinName, SiteSettings siteSettings, bool allowOverride, string masterPageName = "layout.Master")
 		{
@@ -1431,55 +1428,29 @@ namespace mojoPortal.Web
 		//	return GetSkinBaseUrl(null);
 		//}
 
-		/// <param name="page"></param>
-		/// <returns>Full Path to Skin with trailing slash</returns>
-		[Obsolete("Use DetermineSkinBaseUrl", true)]
-		public static string GetSkinBaseUrl(Page page) => DetermineSkinBaseUrl(page);
-
-		[Obsolete("Use DetermineSkinBaseUrl", true)]
-		public static string GetSkinBaseUrl(bool allowPageOverride, Page page) => DetermineSkinBaseUrl(allowPageOverride, page);
-
 		public static string DetermineSkinBaseUrl(string skinName)
 		{
-			if (string.IsNullOrEmpty(skinName))
+			if (string.IsNullOrWhiteSpace(skinName))
 			{
 				return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/";
 			}
 
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			if (siteSettings is null)
+			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
 			{
-				return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/";
-			}
-
 			return Invariant($"/Data/Sites/{siteSettings.SiteId}/skins/{skinName}/");
 		}
 
-		/// <param name="page"></param>
-		/// <returns>Full URL to Skin with trailing slash.</returns>
-		public static string DetermineSkinBaseUrl(Page page) => DetermineSkinBaseUrl(allowPageOverride: true, fullUrl: true, page);
+			return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/";
 
-		public static string DetermineSkinBaseUrl(bool allowPageOverride, Page page) => DetermineSkinBaseUrl(allowPageOverride, true, page);
+		}
 
 		/// <param name="allowPageOverride"></param>
-		/// <param name="fullUrl"></param>
 		/// <param name="page"></param>
-		/// <returns>Skin URL with trailing slash. When fullUrl is true, the siteRoot is prepended to the Skin URL</returns>
-		public static string DetermineSkinBaseUrl(bool allowPageOverride, bool fullUrl, Page page)
+		/// 
+		/// <returns>Full URL to Skin with trailing slash.</returns>
+		public static string DetermineSkinBaseUrl(bool allowPageOverride = true, Page page = null)
 		{
-			string skinFolder;
-			string siteRoot;
-
-			if (fullUrl)
-			{
-				siteRoot = WebUtils.GetSiteRoot();
-				skinFolder = $"{siteRoot}/Data/Sites/1/skins/";
-			}
-			else
-			{
-				siteRoot = WebUtils.GetRelativeSiteRoot();
-				skinFolder = "/Data/Sites/1/skins/";
-			}
+			string skinFolder = "Data/Sites/1/skins".ToLinkBuilder().ToString();
 
 			var currentSkin = WebConfigSettings.DefaultInitialSkin;
 
@@ -1542,13 +1513,35 @@ namespace mojoPortal.Web
 					}
 				}
 
-				skinFolder = Invariant($"{siteRoot}/Data/Sites/{siteSettings.SiteId}/skins/");
+				skinFolder = Invariant($"Data/Sites/{siteSettings.SiteId}/skins/").ToLinkBuilder().ToString();
 			}
 
-			return skinFolder + currentSkin;
+			return $"{skinFolder}/{currentSkin}/";
 		}
 
-		public static string GetEditorStyleSheetUrl(bool allowPageOverride, bool fullUrl, Page page, string editorProvider = "ckeditorprovider")
+		public static string GetCssHandlerUrl(bool allowPageOverride, string skinName = "")
+		{
+			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
+			{
+				var urlParams = new Dictionary<string, object>
+				{
+					{ "s", siteSettings.SiteId },
+					{ "skin", string.IsNullOrWhiteSpace(skinName) ? GetSkinName(allowPageOverride) : skinName },
+					{ "sv", siteSettings.SkinVersion }
+				};
+
+				if (AppConfig.IncludeVersionInCssUrl)
+				{
+					urlParams.Add("v", DatabaseHelper.AppCodeVersion().ToString());
+		}
+
+				return "csshandler.ashx".ToLinkBuilder().AddParams(urlParams).ToString();
+			}
+
+			return "";
+		}
+
+		public static string GetEditorStyleSheetUrl(bool allowPageOverride, Page page, string editorProvider = "ckeditorprovider")
 		{
 			if (string.IsNullOrWhiteSpace(editorProvider))
 			{
@@ -1559,17 +1552,18 @@ namespace mojoPortal.Web
 			var cssPaths = new List<string>();
 			cssPaths.AddRange(WebConfigSettings.EditorExtraCssUrlCsv.SplitOnCharAndTrim(','));
 
-			var useSkinCss = true;
+			var useSkinCss = WebConfigSettings.UseSkinCssInEditor;
 
 			getEditorConfig("all");
 			getEditorConfig(editorName);
 
-			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings
-				&& useSkinCss
-				&& page is not null)
+			if (WebConfigSettings.UseSkinCssInEditor)
 			{
-				var root = fullUrl ? GetNavigationSiteRoot() : GetRelativeNavigationSiteRoot();
-				cssPaths.Insert(0, Invariant($"{root}/csshandler.ashx?skin={GetSkinName(allowPageOverride, page)}&amp;s={siteSettings.SiteId}&amp;sv={siteSettings.SkinVersion}"));
+				var skinCssUrl = GetCssHandlerUrl(allowPageOverride);
+				if (!string.IsNullOrWhiteSpace(skinCssUrl))
+				{
+					cssPaths.Insert(0, skinCssUrl);
+			}
 			}
 
 			return string.Join(",", cssPaths);
@@ -1633,7 +1627,7 @@ namespace mojoPortal.Web
 
 				if (useSkinCss)
 				{
-					editor.WebEditor.EditorCSSUrl = GetEditorStyleSheetUrl(allowPageOverride, fullUrl, page, providerName);
+					editor.WebEditor.EditorCSSUrl = GetEditorStyleSheetUrl(allowPageOverride, page, providerName);
 				}
 
 				CultureInfo defaultCulture = GetDefaultCulture();
@@ -1682,7 +1676,7 @@ namespace mojoPortal.Web
 			return siteId;
 		}
 
-		public static string GetSkinName(bool allowPageOverride, Page page = null)
+		public static string GetSkinName(bool allowPageOverride)
 		{
 			string currentSkin = WebConfigSettings.DefaultInitialSkin;
 
@@ -1727,7 +1721,7 @@ namespace mojoPortal.Web
 			return currentSkin;
 		}
 
-		public static string GetStyleSheetUrl(Page page) => $"{GetNavigationSiteRoot()}/csshandler.ashx?skin={GetSkinName(false, page)}";
+		public static string GetStyleSheetUrl(Page page) => $"{GetNavigationSiteRoot()}/csshandler.ashx?skin={GetSkinName(false)}";
 
 		public static string ChangeRelativeUrlsToFullyQualifiedUrls(string navigationSiteRoot, string imageSiteRoot, string htmlContent)
 		{
@@ -2043,11 +2037,15 @@ namespace mojoPortal.Web
 		private const string FileAttachmentPathFormat = "~/Data/Sites/{0}/Attachments/";
 		public static string GetFileAttachmentUploadPath()
 		{
-			if (HttpContext.Current is null) { return string.Empty; }
+			if (HttpContext.Current is null)
+			{
+				return string.Empty;
+			}
 
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-			if (siteSettings is null) { return string.Empty; }
+			if (CacheHelper.GetCurrentSiteSettings() is not SiteSettings siteSettings)
+			{
+				return string.Empty;
+			}
 
 			return string.Format(FileAttachmentPathFormat, Invariant($"{siteSettings.SiteId}"));
 		}
@@ -2103,6 +2101,7 @@ namespace mojoPortal.Web
 			return false;
 		}
 
+
 		public static void ForceSsl()
 		{
 			if (WebHelper.IsSecureRequest() || !SslIsAvailable())
@@ -2117,7 +2116,11 @@ namespace mojoPortal.Web
 				{
 					string secureUrl;
 
-					if (WebConfigSettings.IsRunningInRootSite)
+					if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
+					{
+						secureUrl = $"https://{siteSettings.PreferredHostName}{HttpContext.Current.Request.RawUrl}";
+					}
+					else if (WebConfigSettings.IsRunningInRootSite)
 					{
 						secureUrl = WebUtils.GetSecureSiteRoot() + HttpContext.Current.Request.RawUrl;
 					}
@@ -2138,18 +2141,30 @@ namespace mojoPortal.Web
 			}
 		}
 
+
 		public static void ClearSsl()
 		{
-			if (HttpContext.Current is null) { return; }
+			if (HttpContext.Current is null)
+			{
+				return;
+			}
 
-			if (!WebConfigSettings.ClearSslOnNonSecurePages) { return; }
+			if (!WebConfigSettings.ClearSslOnNonSecurePages)
+			{
+				return;
+			}
 
 			string pageUrl = HttpContext.Current.Request.Url.ToString();
+
 			if (pageUrl.StartsWith("https:"))
 			{
 				string insecureUrl;
 
-				if (WebConfigSettings.IsRunningInRootSite)
+				if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
+				{
+					insecureUrl = $"http://{siteSettings.PreferredHostName}{HttpContext.Current.Request.RawUrl}";
+				}
+				else if (WebConfigSettings.IsRunningInRootSite)
 				{
 					insecureUrl = WebUtils.GetInSecureSiteRoot() + HttpContext.Current.Request.RawUrl;
 				}
@@ -2161,6 +2176,7 @@ namespace mojoPortal.Web
 				HttpContext.Current.Response.Redirect(insecureUrl, true);
 			}
 		}
+
 
 		/// <summary>
 		/// this uses the membership provider to encrypt strings the same way that passwords are encrypted

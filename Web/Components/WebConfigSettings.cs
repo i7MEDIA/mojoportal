@@ -291,22 +291,7 @@ public static class WebConfigSettings
 
 	public static bool DisableViewStateOnSiteMapDataSource => ConfigHelper.GetBoolProperty("DisableViewStateOnSiteMapDataSource", true);
 
-	public static bool CombineCSS => ConfigHelper.GetBoolProperty("CombineCSS", true);
-
-	public static bool CacheCssOnServer => ConfigHelper.GetBoolProperty("CacheCssOnServer", true);
-
-	public static bool CacheCssInBrowser => ConfigHelper.GetBoolProperty("CacheCssInBrowser", true);
-
-	/// <summary>
-	/// This can easily show the mojoPortal version to nefarious jerks that could then use it to exploit vulnerabilities in the advertised version
-	/// </summary>
-	public static bool IncludeVersionInCssUrl => ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", false);
-
-	public static int CssCacheInDays => ConfigHelper.GetIntProperty("CssCacheInDays", 7);
-
 	public static int ChannelFileCacheInDays => ConfigHelper.GetIntProperty("ChannelFileCacheInDays", 365);
-
-	public static bool MinifyCSS => ConfigHelper.GetBoolProperty("MinifyCSS", false);
 
 	public static bool CacheTimeZoneList => ConfigHelper.GetBoolProperty("CacheTimeZoneList", true);
 

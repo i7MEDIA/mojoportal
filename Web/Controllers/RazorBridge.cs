@@ -131,7 +131,7 @@ public class RazorBridge
 		{
 			if (model.Page != null)
 			{
-				log.Error($"Chosen layout ({model.Data}) for {model.CustomTemplate} was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, false, model.Page)}. Perhaps it is in a different skin. Error was: \n{ex}");
+				log.Error($"Chosen layout ({model.Data}) for {model.CustomTemplate} was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, model.Page)}. Perhaps it is in a different skin. Error was: \n{ex}");
 			}
 			else
 			{

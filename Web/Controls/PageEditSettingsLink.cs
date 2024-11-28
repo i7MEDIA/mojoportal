@@ -164,7 +164,7 @@ public class PageEditSettingsLink : HyperLink
 			}
 			else
 			{
-				ImageUrl = SiteUtils.DetermineSkinBaseUrl(Page) + linkImageUrl.TrimStart('/');
+				ImageUrl = SiteUtils.DetermineSkinBaseUrl(page: Page) + linkImageUrl.TrimStart('/');
 			}
 		}
 	}

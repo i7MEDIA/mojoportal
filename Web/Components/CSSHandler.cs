@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -9,7 +8,7 @@ using System.Xml;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
+
 using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.UI;
@@ -25,7 +24,10 @@ public class CssHandler : IHttpHandler
 	private static readonly ILog log = LogManager.GetLogger(typeof(CssHandler));
 	private const string POST = "POST";
 	private const bool DO_GZIP = true;
-	private readonly static TimeSpan CACHE_DURATION = TimeSpan.FromDays(WebConfigSettings.CssCacheInDays);
+	private const string responseContentType = "text/css";
+	private string urlReplacement = """url("{0}")""";
+
+	private readonly static TimeSpan CACHE_DURATION = TimeSpan.FromDays(AppConfig.CssCacheInDays);
 
 	private string skinVersion = string.Empty;
 
@@ -34,84 +36,79 @@ public class CssHandler : IHttpHandler
 	// 2014-12-09 URL_REGEX changed from the above per Todd Hansen to fix multi url on a line problem
 	// https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=12924~1#post53334
 
-	private readonly static Regex URL_REGEX = new Regex(@"url\((\""|\')?(?<path>(.*?))?(\""|\')?\)", RegexOptions.Compiled);
+	//private readonly static Regex URL_REGEX = new Regex(@"url\((\""|\')?(?<path>(.*?))?(\""|\')?\)", RegexOptions.Compiled);
+	private readonly static Regex URL_REGEX = new(AppConfig.CssHandlerUrlRegEx, RegexOptions.Compiled);
 
 	// We don't want to append "/Data/Sites/[site number]/skins/[skin folder]" to external links
 	// so we check all "url()" links if they start with "http://", "https://", "data:", and "//" to ignore them if they do
-	private readonly static Regex urlPathsToIgnore = new Regex(@"^(https?://|data:|//)");
+	//private readonly static Regex urlPathsToIgnore = new Regex(@"^(https?://|data:|//)");
+	private readonly static Regex urlPathsToIgnore = new(AppConfig.CssHandlerUrlIgnoreRegEx);
 
-	// 1 string to keep things DRY
-	private string urlReplacement = "url(\"{0}\")";
-
-	private StringBuilder less = null;
 
 	public void ProcessRequest(HttpContext context)
 	{
-		context.Response.ContentType = "text/css";
+		context.Response.ContentType = responseContentType;
 
 		if (context.Request.RequestType == POST)
 		{
 			return;
 		}
 
-		bool isCompressed = DO_GZIP && CanGZip(context.Request);
+		var isCompressed = DO_GZIP && CanGZip(context.Request);
 
-		int siteId = SiteUtils.ParseSiteIdFromSkinRequestUrl();
+		var siteId = SiteUtils.ParseSiteIdFromSkinRequestUrl();
 
-		string skinName = "framework";
+		var skinName = "framework";
 
 		if (context.Request["skin"] != null)
 		{
 			skinName = SiteUtils.SanitizeSkinParam(context.Request["skin"]);
 		}
 
-		string media = "screen";
+		//var media = "screen";
 
-		if (context.Request["media"] != null)
-		{
-			media = context.Request["media"];
-		}
+		//if (context.Request["media"] != null)
+		//{
+		//	media = context.Request["media"];
+		//}
 
 		skinVersion = WebUtils.ParseGuidFromQueryString("sv", Guid.Empty).ToString();
 
-		UTF8Encoding encoding = new UTF8Encoding(false);
+		var encoding = new UTF8Encoding(false);
 
 		if (!WriteFromCache(context, siteId, skinName, isCompressed))
 		{
 			byte[] cssBytes = GetCss(context, siteId, skinName, encoding);
 
-			using (MemoryStream memoryStream = new MemoryStream(5000))
+			using var memoryStream = new MemoryStream(5000);
+			using (Stream writer = isCompressed ? new GZipStream(memoryStream, CompressionMode.Compress) : memoryStream)
 			{
-				using (Stream writer = isCompressed ?
-					(Stream)(new GZipStream(memoryStream, CompressionMode.Compress)) :
-					memoryStream)
-				{
-					writer.Write(cssBytes, 0, cssBytes.Length);
-				}
-
-				byte[] responseBytes = memoryStream.ToArray();
-
-				if (ShouldCacheOnServer())
-				{
-					// TODO: Cache CSS to disk instead of memory or make it configurable
-					lock (this)
-					{
-						string cahceKey = GetCacheKey(siteId, skinName, isCompressed);
-
-						context.Cache.Insert(
-							cahceKey,
-							responseBytes,
-							null,
-							System.Web.Caching.Cache.NoAbsoluteExpiration,
-							CACHE_DURATION
-						);
-					}
-				}
-
-				WriteBytes(responseBytes, context, isCompressed);
+				writer.Write(cssBytes, 0, cssBytes.Length);
 			}
+
+			byte[] responseBytes = memoryStream.ToArray();
+
+			if (ShouldCacheOnServer())
+			{
+				// TODO: Cache CSS to disk instead of memory or make it configurable
+				lock (this)
+				{
+					string cahceKey = GetCacheKey(siteId, skinName, isCompressed);
+
+					context.Cache.Insert(
+						cahceKey,
+						responseBytes,
+						null,
+						System.Web.Caching.Cache.NoAbsoluteExpiration,
+						CACHE_DURATION
+					);
+				}
+			}
+
+			WriteBytes(responseBytes, context, isCompressed);
 		}
 	}
+
 
 	private bool HasNoCacheCookie()
 	{
@@ -130,6 +127,7 @@ public class CssHandler : IHttpHandler
 		return false;
 	}
 
+
 	private bool ShouldCacheOnServer()
 	{
 		if (HasNoCacheCookie())
@@ -137,8 +135,9 @@ public class CssHandler : IHttpHandler
 			return false;
 		}
 
-		return WebConfigSettings.CacheCssOnServer;
+		return AppConfig.CacheCssOnServer;
 	}
+
 
 	private bool ShouldCacheInBrowser()
 	{
@@ -147,8 +146,9 @@ public class CssHandler : IHttpHandler
 			return false;
 		}
 
-		return WebConfigSettings.CacheCssInBrowser;
+		return AppConfig.CacheCssInBrowser;
 	}
+
 
 	private void WriteBytes(byte[] bytes, HttpContext context, bool isCompressed)
 	{
@@ -160,7 +160,7 @@ public class CssHandler : IHttpHandler
 		HttpResponse response = context.Response;
 
 		response.AppendHeader("Content-Length", bytes.Length.ToInvariantString());
-		response.ContentType = "text/css";
+		response.ContentType = responseContentType;
 
 		if (isCompressed)
 		{
@@ -176,7 +176,7 @@ public class CssHandler : IHttpHandler
 		else
 		{
 			//if both cache settings are off it must be a designer so make it easy
-			context.Response.Cache.SetExpires(new DateTime(1995, 5, 6, 12, 0, 0, DateTimeKind.Utc));
+			context.Response.Cache.SetExpires(new DateTime(1942, 12, 30, 0, 0, 0, DateTimeKind.Utc));
 			context.Response.Cache.SetNoStore();
 			context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
 			context.Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
@@ -188,40 +188,16 @@ public class CssHandler : IHttpHandler
 
 	private byte[] GetCss(HttpContext context, int siteId, string skinName, Encoding encoding)
 	{
-		string basePath = HttpContext.Current.Server.MapPath(
-			"~/Data/Sites/" +
-			siteId.ToInvariantString() +
-			"/skins/" +
-			skinName +
-			"/"
-		);
 
-		string siteRoot = string.Empty;
+		var skinPath = Invariant($"~/Data/Sites/{siteId}/skins/{skinName}");
+		string physicalSkinPath = HttpContext.Current.Server.MapPath(skinPath);
+		string skinImageBasePath = skinPath.ToLinkBuilder().ToString();
 
-		if (WebConfigSettings.UseFullUrlsForSkins)
+		var cssContent = new StringBuilder();
+
+		if (File.Exists($"{physicalSkinPath}/style.config"))
 		{
-			siteRoot = WebUtils.GetSiteRoot();
-		}
-		else
-		{
-			siteRoot = WebUtils.GetRelativeSiteRoot();
-		}
-
-		string skinImageBasePath =
-			siteRoot +
-			"/Data/Sites/" +
-			siteId.ToInvariantString() +
-			"/skins/" +
-			skinName +
-			"/"
-		;
-
-		StringBuilder cssContent = new StringBuilder();
-		bool hasLessFiles = false;
-
-		if (File.Exists(basePath + "style.config"))
-		{
-			ProcessCssFileList(cssContent, basePath, siteRoot, skinImageBasePath, out hasLessFiles);
+			ProcessCssFileList(cssContent, physicalSkinPath, skinImageBasePath);
 		}
 
 		//2013-08-20 JA added this to support add on products on the demo site
@@ -229,301 +205,143 @@ public class CssHandler : IHttpHandler
 		// whereas customers would typically add the css that ships with the feature to their skin and list it in style.config
 		if (WebConfigSettings.GlobalAddOnStyleFolder.Length > 0)
 		{
-			basePath = HttpContext.Current.Server.MapPath(WebConfigSettings.GlobalAddOnStyleFolder);
+			physicalSkinPath = HttpContext.Current.Server.MapPath(WebConfigSettings.GlobalAddOnStyleFolder);
 
-			if (File.Exists(basePath + "style.config"))
+			if (File.Exists($"{physicalSkinPath}/style.config"))
 			{
-				skinImageBasePath = siteRoot + WebConfigSettings.GlobalAddOnStyleFolder.Replace("~/", "/");
+				skinImageBasePath = WebConfigSettings.GlobalAddOnStyleFolder.Replace("~/", "/").ToLinkBuilder().ToString();
 				// not supported/needed in global add on css
-				ProcessCssFileList(cssContent, basePath, siteRoot, skinImageBasePath, out _);
+				ProcessCssFileList(cssContent, physicalSkinPath, skinImageBasePath);
 			}
 		}
-
-
-		if (hasLessFiles && (less != null))
-		{
-			log.Error($"LESS parser has been removed from mojoPortal. Compile your LESS files to CSS using another tool (i.e., prepros) and then reference the CSS files in your skin style.config");
-		}
-
-		if (WebConfigSettings.MinifyCSS)
-		{
-			log.Error($"CSS Minifier has been removed from mojoPortal. Your CSS should be minified outside of mojoPortal.");
-		}
-
-		//if (ShouldCacheOnServer() && WebConfigSettings.MinifyCSS)
-		//{
-		//	// this method is expensive (7.87 seconds as measured by ANTS Profiler
-		//	// we do cache so its not called very often
-		//	return encoding.GetBytes(CssMinify.Minify(cssContent.ToString()));
-		//}
 
 		return encoding.GetBytes(cssContent.ToString());
 	}
 
-	private void ProcessCssFileList(StringBuilder cssContent, string basePath, string siteRoot, string skinImageBasePath, out bool hasLessFiles)
+	private void ProcessCssFileList(StringBuilder cssContent, string physicalSkinPath, string skinImageBasePath)
 	{
-		hasLessFiles = false;
+		using XmlReader reader = new XmlTextReader(new StreamReader($"{physicalSkinPath}/style.config"));
+		reader.MoveToContent();
 
-		using (XmlReader reader = new XmlTextReader(new StreamReader(basePath + "style.config")))
+		while (reader.Read())
 		{
-			reader.MoveToContent();
-
-			while (reader.Read())
+			if (("file" == reader.Name) && (reader.NodeType != XmlNodeType.EndElement))
 			{
-				if (("file" == reader.Name) && (reader.NodeType != XmlNodeType.EndElement))
+				// full virtual path option for things that don't move 
+				string cssVPath = reader.GetAttribute("cssvpath");
+				string imageBaseVPath = reader.GetAttribute("imagebasevpath");
+
+				if ((!string.IsNullOrEmpty(cssVPath)) && (!string.IsNullOrEmpty(imageBaseVPath)))
 				{
-					// config based css for things like YUI where the folder changes per version
-					string csswebconfigkey = reader.GetAttribute("csswebconfigkey");
-					string imagebasewebconfigkey = reader.GetAttribute("imagebasewebconfigkey");
+					string cssFilePath;
 
-					if (!string.IsNullOrEmpty(csswebconfigkey) && csswebconfigkey.Contains("YUI"))
+					if (cssVPath.StartsWith("/"))
 					{
-						csswebconfigkey = string.Empty;
-					}
-
-					if (WebConfigSettings.UseGoogleCDN && !string.IsNullOrEmpty(csswebconfigkey))
-					{
-						if (csswebconfigkey.Contains("YUI"))
-						{
-							csswebconfigkey = string.Empty;
-						}
-					}
-
-					// full virtual path option for things that don't move 
-					string cssVPath = reader.GetAttribute("cssvpath");
-					string imageBaseVPath = reader.GetAttribute("imagebasevpath");
-
-					if (
-						!string.IsNullOrEmpty(csswebconfigkey) &&
-						!string.IsNullOrEmpty(imagebasewebconfigkey)
-					)
-					{
-						if (
-							ConfigurationManager.AppSettings[csswebconfigkey] != null &&
-							ConfigurationManager.AppSettings[imagebasewebconfigkey] != null
-						)
-						{
-
-							string cssFullPath = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings[csswebconfigkey]);
-							string imageBasePath = ConfigurationManager.AppSettings[imagebasewebconfigkey];
-
-							if (File.Exists(cssFullPath))
-							{
-								FileInfo file = new FileInfo(cssFullPath);
-
-								if (file.Extension == ".less")
-								{
-									hasLessFiles = true;
-								}
-
-								using (StreamReader sr = file.OpenText())
-								{
-									string fileContent = sr.ReadToEnd();
-
-									string css = URL_REGEX.Replace(
-										fileContent,
-										new MatchEvaluator(
-											delegate (Match m)
-											{
-												string imgPath = trimQuotes(m.Groups["path"].Value);
-
-												// If paths are external or are a Data URL
-												if (urlPathsToIgnore.Match(imgPath).Success)
-												{
-													return string.Format(urlReplacement, imgPath);
-												}
-												else
-												{
-													// Prefix the image path
-													return string.Format(urlReplacement, siteRoot + imageBasePath + imgPath);
-												}
-											}
-										)
-									);
-
-									if (file.Extension == ".less")
-									{
-										AddToLess(css);
-									}
-									else
-									{
-										cssContent.Append(css);
-									}
-								}
-							}
-						}
-					}
-					else if ((!string.IsNullOrEmpty(cssVPath)) && (!string.IsNullOrEmpty(imageBaseVPath)))
-					{
-						string cssFilePath;
-
-						if (cssVPath.StartsWith("/"))
-						{
-							cssFilePath = HttpContext.Current.Server.MapPath("~" + cssVPath);
-						}
-						else
-						{
-							cssFilePath = HttpContext.Current.Server.MapPath(cssVPath);
-						}
-
-						if (File.Exists(cssFilePath))
-						{
-							FileInfo file = new FileInfo(cssFilePath);
-							if (file.Extension == ".less") { hasLessFiles = true; }
-							using (StreamReader sr = file.OpenText())
-							{
-								string fileContent = sr.ReadToEnd();
-
-								string css = URL_REGEX.Replace(fileContent,
-									new MatchEvaluator(
-										delegate (Match m)
-										{
-											string imgPath = trimQuotes(m.Groups["path"].Value);
-
-											// If paths are external or are a Data URL
-											if (urlPathsToIgnore.Match(imgPath).Success)
-											{
-												return string.Format(urlReplacement, imgPath);
-											}
-											else
-											{
-												// Prefix the image path
-												return string.Format(urlReplacement, siteRoot + imageBaseVPath + imgPath);
-											}
-										}
-									)
-								);
-
-								if (file.Extension == ".less")
-								{
-									AddToLess(css);
-								}
-								else
-								{
-									cssContent.Append(css);
-								}
-							}
-						}
+						cssFilePath = HttpContext.Current.Server.MapPath($"~{cssVPath}");
 					}
 					else
 					{
-						string cssFile = reader.ReadElementContentAsString();
+						cssFilePath = HttpContext.Current.Server.MapPath(cssVPath);
+					}
 
-						if (File.Exists(basePath + cssFile))
-						{
-							FileInfo file = new FileInfo(basePath + cssFile);
+					if (File.Exists(cssFilePath))
+					{
+						var file = new FileInfo(cssFilePath);
+						using StreamReader sr = file.OpenText();
+						string fileContent = sr.ReadToEnd();
 
-							if (file.Extension == ".less")
-							{
-								hasLessFiles = true;
-							}
-
-							using (StreamReader sr = file.OpenText())
-							{
-								string fileContent = sr.ReadToEnd();
-
-								if (cssFile == "style.css")
+						string css = URL_REGEX.Replace(fileContent,
+							new MatchEvaluator(
+								delegate (Match m)
 								{
-									fileContent = fileContent.Replace(")", ")\n");
-									fileContent = fileContent.Replace("form.art-search", "div.art-search");
+									string imgPath = trimQuotes(m.Groups["path"].Value);
+
+									// If paths are external or are a Data URL
+									if (urlPathsToIgnore.Match(imgPath).Success)
+									{
+										return string.Format(urlReplacement, imgPath);
+									}
+									else
+									{
+										// Prefix the image path
+										return string.Format(urlReplacement, $"{imageBaseVPath}/{imgPath}");
+									}
 								}
+							)
+						);
 
-								string css = URL_REGEX.Replace(fileContent,
-									new MatchEvaluator(
-										delegate (Match m)
-										{
-											string imgPath = trimQuotes(m.Groups["path"].Value);
+						cssContent.Append(css);
+					}
+				}
+				else
+				{
+					string cssFile = reader.ReadElementContentAsString();
 
-											// If paths are external or are a Data URL
-											if (urlPathsToIgnore.Match(imgPath).Success)
-											{
-												return string.Format(urlReplacement, imgPath);
-											}
-											else
-											{
-												// Prefix the image path
-												return string.Format(urlReplacement, skinImageBasePath + imgPath);
-											}
-										}
-									)
-								);
+					if (File.Exists($"{physicalSkinPath}/{cssFile}"))
+					{
+						var file = new FileInfo($"{physicalSkinPath}/{cssFile}");
 
-								if (file.Extension == ".less")
+						using StreamReader sr = file.OpenText();
+						string fileContent = sr.ReadToEnd();
+
+						string css = URL_REGEX.Replace(fileContent,
+							new MatchEvaluator(
+								delegate (Match m)
 								{
-									AddToLess(css);
+									string imgPath = trimQuotes(m.Groups["path"].Value);
+
+									// If paths are external or are a Data URL
+									if (urlPathsToIgnore.Match(imgPath).Success)
+									{
+										return string.Format(urlReplacement, imgPath);
+									}
+									else
+									{
+										// Prefix the image path
+										return string.Format(urlReplacement, $"{skinImageBasePath}/{imgPath}");
+									}
 								}
-								else
-								{
-									cssContent.Append(css);
-								}
-							}
-						}
+							)
+						);
+
+						cssContent.Append(css);
 					}
 				}
 			}
 		}
 	}
 
-	// Added to keep things DRY
-	private string trimQuotes(string url)
-	{
-		char[] quotes = { '"', '\'' };
 
-		return url.Trim(quotes);
-	}
-
-	private void EnsureLessBuilder()
-	{
-		if (less == null)
-		{
-			less = new StringBuilder();
-		}
-	}
-
-	private void AddToLess(string lessContent)
-	{
-		EnsureLessBuilder();
-
-		less.Append(lessContent);
-	}
+	private string trimQuotes(string url) => url.Trim(['"', '\'']);
 
 
 	private bool WriteFromCache(HttpContext context, int siteId, string skinName, bool isCompressed)
 	{
-		if (!ShouldCacheOnServer()) { return false; }
-
-		byte[] responseBytes = context.Cache[GetCacheKey(siteId, skinName, isCompressed)] as byte[];
-
-		if (null == responseBytes) { return false; }
-		if (responseBytes.Length == 0) { return false; }
+		if (!ShouldCacheOnServer() || context.Cache[GetCacheKey(siteId, skinName, isCompressed)] is not byte[] responseBytes || responseBytes.Length == 0)
+		{
+			return false;
+		}
 
 		WriteBytes(responseBytes, context, isCompressed);
+
 		return true;
 	}
 
+
 	private bool CanGZip(HttpRequest request)
 	{
-		string acceptEncoding = request.Headers["Accept-Encoding"];
-		if (
-			!string.IsNullOrEmpty(acceptEncoding) &&
+		var acceptEncoding = request.Headers["Accept-Encoding"];
+		if (!string.IsNullOrWhiteSpace(acceptEncoding) &&
 			(acceptEncoding.Contains("gzip") || acceptEncoding.Contains("deflate"))
 		)
 		{
 			return true;
 		}
+
 		return false;
 	}
 
-	private string GetCacheKey(int siteId, string skinName, bool isCompressed)
-	{
-		return "CssHandler." + siteId.ToInvariantString() + skinName + "." + isCompressed + skinVersion;
-	}
+	private string GetCacheKey(int siteId, string skinName, bool isCompressed) => Invariant($"CssHandler.{siteId}{skinName}.{isCompressed}{skinVersion}");
 
-	public bool IsReusable
-	{
-		get
-		{
-			return false;
-		}
-	}
+	public bool IsReusable => false;
 }

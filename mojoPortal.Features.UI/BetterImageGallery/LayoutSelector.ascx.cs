@@ -48,7 +48,7 @@ namespace mojoPortal.Features.UI.BetterImageGallery
 			}
 
 			if (ddlLayouts.Items.Count > 0) return;
-			string skinThemesPath = SiteUtils.DetermineSkinBaseUrl(true, false, Page) + themesPath;
+			string skinThemesPath = SiteUtils.DetermineSkinBaseUrl(true, Page) + themesPath;
 
 			List<FileInfo> themeFiles = GetLayouts(skinThemesPath);
 			List<ListItem> items = new List<ListItem>();

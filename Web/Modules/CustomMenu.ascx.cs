@@ -74,7 +74,7 @@ public partial class CustomMenu : SiteModuleControl
 		}
 		catch (Exception ex)
 		{
-			lit1.Text = RazorBridge.RenderFallback(viewName, "_CustomMenu", "_CustomMenu", model, "Common", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, false, Page));
+			lit1.Text = RazorBridge.RenderFallback(viewName, "_CustomMenu", "_CustomMenu", model, "Common", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, Page));
 		}
 	}
 }

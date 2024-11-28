@@ -66,4 +66,19 @@ public static class AppConfig
 	public static bool RelatedSiteModeHideRoleManagerInChildSites => ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true);
 
 	public static bool SanitizeQueryStrings => ConfigHelper.GetBoolProperty("SanitizeQueryStrings", true);
+
+	public static string CssHandlerUrlRegEx => ConfigHelper.GetStringProperty("CssHandlerRegEx", """url\((\"|\')?(?<path>(.*?))?(\"|\')?\)""");
+	public static string CssHandlerUrlIgnoreRegEx => ConfigHelper.GetStringProperty("CssHandlerUrlIgnoreRegEx", """^(https?://|data:|//)""");
+	public static bool CombineCSS => ConfigHelper.GetBoolProperty("CombineCSS", true);
+
+	public static bool CacheCssOnServer => ConfigHelper.GetBoolProperty("CacheCssOnServer", true);
+
+	public static bool CacheCssInBrowser => ConfigHelper.GetBoolProperty("CacheCssInBrowser", true);
+
+	/// <summary>
+	/// This can easily show the mojoPortal version to nefarious jerks that could then use it to exploit vulnerabilities in the advertised version
+	/// </summary>
+	public static bool IncludeVersionInCssUrl => ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", false);
+
+	public static int CssCacheInDays => ConfigHelper.GetIntProperty("CssCacheInDays", 7);
 }

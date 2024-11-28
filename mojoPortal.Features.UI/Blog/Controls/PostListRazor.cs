@@ -449,7 +449,7 @@ public class PostListRazor : WebControl
 		}
 		catch (Exception ex)
 		{
-			text = RazorBridge.RenderFallback(Config.Layout, "BlogPostList", "_BlogPostList", postListObject, "Blog", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, false, Page));
+			text = RazorBridge.RenderFallback(Config.Layout, "BlogPostList", "_BlogPostList", postListObject, "Blog", ex.ToString(), SiteUtils.DetermineSkinBaseUrl(true, Page));
 		}
 		output.Write(text);
 	}

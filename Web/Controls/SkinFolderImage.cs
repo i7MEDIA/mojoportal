@@ -47,7 +47,7 @@ namespace mojoPortal.Web.UI
                 return;
             }
 
-            this.ImageUrl = SiteUtils.DetermineSkinBaseUrl(true, WebConfigSettings.UseFullUrlsForSkins, Page) + this.imageFileName;
+            this.ImageUrl = SiteUtils.DetermineSkinBaseUrl(true, Page) + this.imageFileName;
 
         }
 

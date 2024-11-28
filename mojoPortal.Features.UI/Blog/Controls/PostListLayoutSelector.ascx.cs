@@ -56,7 +56,7 @@ namespace mojoPortal.Web.BlogUI
             }
             if (ddlLayouts.Items.Count > 0) { return; }
 
-            themesPath = SiteUtils.DetermineSkinBaseUrl(true, false, this.Page) + "/Views/Blog/";
+            themesPath = SiteUtils.DetermineSkinBaseUrl(true, this.Page) + "/Views/Blog/";
             //globalThemesPath = WebUtils.GetApplicationRoot() + "/Views/Blog/";
 
             List<FileInfo> themeFiles = GetLayouts(themesPath);

@@ -42,7 +42,7 @@ namespace mojoPortal.Web.UI
             }
             if (ddlLayouts.Items.Count > 0) { return; }
 
-            themesPath = SiteUtils.DetermineSkinBaseUrl(true, false, this.Page) + viewPath;
+            themesPath = SiteUtils.DetermineSkinBaseUrl(true, this.Page) + viewPath;
             globalThemesPath = "~/" + viewPath;
             List<FileInfo> themeFiles = GetLayouts(globalThemesPath);
             themeFiles.AddRange(GetLayouts(themesPath));

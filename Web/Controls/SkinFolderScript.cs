@@ -98,7 +98,7 @@ public class SkinFolderScript : WebControl
 			return;
 		}
 
-		string scriptUrl = SiteUtils.DetermineSkinBaseUrl(true, WebConfigSettings.UseFullUrlsForSkins, Page) + ScriptFileName;
+		string scriptUrl = SiteUtils.DetermineSkinBaseUrl(true, Page) + ScriptFileName;
 
 		if (IsStartup)
 		{
@@ -141,7 +141,7 @@ public class SkinFolderScript : WebControl
 		}
 		else
 		{
-			string scriptUrl = SiteUtils.DetermineSkinBaseUrl(true, WebConfigSettings.UseFullUrlsForSkins, Page) + ScriptFileName;
+			string scriptUrl = SiteUtils.DetermineSkinBaseUrl(true, Page) + ScriptFileName;
 			writer.Write(string.Format(CultureInfo.InvariantCulture, $"\n{ScriptRefFormat}", BuildUrl(scriptUrl)));
 		}
 

@@ -46,7 +46,7 @@ namespace mojoPortal.Web.UI
             //ed1.SiteRoot = siteRoot;
             if(WebConfigSettings.UseSkinCssInEditor)
             {
-                ed1.EditorCSSUrl = SiteUtils.GetEditorStyleSheetUrl(true, true, Page);
+                ed1.EditorCSSUrl = SiteUtils.GetEditorStyleSheetUrl(true, Page);
             }
             
             ed1.ToolBar = ToolBar.FullWithTemplates;
