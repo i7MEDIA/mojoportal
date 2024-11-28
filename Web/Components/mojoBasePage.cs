@@ -43,7 +43,6 @@ public class mojoBasePage : Page
 	public string MasterPageName = "layout.Master";
 	public CoreDisplaySettings DisplaySettings = new();
 
-
 	public ScriptLoader ScriptConfig
 	{
 		get
@@ -77,22 +76,35 @@ public class mojoBasePage : Page
 	public void EnsureDefaultModal()
 	{
 		ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"\r\n<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath.ToLinkBuilder()}\"></script>", false);
-		var phSiteFooter = Master.FindControl("phSiteFooter");
-		if (phSiteFooter is not null && phSiteFooter.FindControlRecursive("mojoModalTemplate") is null)
-		{
-			FileInfo modalFile = new(Server.MapPath(Global.SkinConfig.ModalTemplatePath));
-			if (modalFile.Exists)
-			{
-				var content = File.ReadAllText(modalFile.FullName);
 
-				phSiteFooter.Controls.Add(new Literal
+		if (Master.FindControl("phSiteFooter") is Control phSiteFooter)
+		{
+			injectModalTemplate(phSiteFooter);
+		}
+		else if (Master.FindControl("Body") is Control layoutBody)
+		{
+			injectModalTemplate(layoutBody);
+		}
+
+		void injectModalTemplate(Control control)
+		{
+			if (control.FindControlRecursive("mojoModalTemplate") is null)
+			{
+				FileInfo modalFile = new(Server.MapPath(Global.SkinConfig.ModalTemplatePath));
+				if (modalFile.Exists)
 				{
-					Text = content,
-					ID = "mojoModalTemplate"
-				});
+					var content = File.ReadAllText(modalFile.FullName);
+
+					control.Controls.AddAt(control.Controls.Count, new Literal
+					{
+						Text = content,
+						ID = "mojoModalTemplate"
+					});
+				}
 			}
 		}
 	}
+
 
 	public ContentPlaceHolder MPLeftPane { get; set; }
 	public ContentPlaceHolder MPContent { get; set; }
@@ -923,7 +935,7 @@ public class mojoBasePage : Page
 		}
 	}
 
-	// implement support for closing sites so tha only admins can access the content
+	// implement support for closing sites so only admins can access the content
 	private bool DidRedirectForClosedSite()
 	{
 		// allow accessing the login page
