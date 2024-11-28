@@ -39,15 +39,15 @@ public partial class LoginPage : NonCmsBasePage
 
 		returnUrlCookieName = Invariant($"returnurl{siteSettings.SiteId}");
 
-		if (WebConfigSettings.EnableOpenIdAuthentication && siteSettings.AllowOpenIdAuth)
-		{
-			pnlOpenID.Visible = true;
-			OpenIdLoginControl oidLogin = (OpenIdLoginControl)Page.LoadControl("~/Controls/OpenIDLoginControl.ascx");
-			oidLogin.ID = "oidLogin";
-			pnlOpenID.Controls.Add(oidLogin);
+		//if (WebConfigSettings.EnableOpenIdAuthentication && siteSettings.AllowOpenIdAuth)
+		//{
+		//	pnlOpenID.Visible = true;
+		//	OpenIdLoginControl oidLogin = (OpenIdLoginControl)Page.LoadControl("~/Controls/OpenIDLoginControl.ascx");
+		//	oidLogin.ID = "oidLogin";
+		//	pnlOpenID.Controls.Add(oidLogin);
 
-			AddClassToBody("openid");
-		}
+		//	AddClassToBody("openid");
+		//}
 
 		if (rpxApiKey.Length > 0)
 		{
