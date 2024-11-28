@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using mojoPortal.Business.WebHelpers;
@@ -39,12 +38,12 @@ public partial class DesignerToolsPage : NonCmsBasePage
 			PageHeading = DevTools.DesignTools
 		};
 
-		model.Links.AddRange(new List<ContentAdminLink>
-		{
+		model.Links.AddRange(
+		[
 			new() {
 				ResourceFile = "DevTools",
 				ResourceKey = "SkinManagement",
-				Url = SiteRoot + "/DesignTools/SkinList.aspx",
+				Url = "DesignTools/SkinList.aspx".ToLinkBuilder().ToString(),
 				CssClass = "adminlink-design-skins",
 				IconCssClass = "fa fa-image",
 				SortOrder = 10
@@ -52,12 +51,12 @@ public partial class DesignerToolsPage : NonCmsBasePage
 			new() {
 				ResourceFile = "DevTools",
 				ResourceKey = "CacheTool",
-				Url = SiteRoot + "/DesignTools/CacheTool.aspx",
+				Url = "DesignTools/CacheTool.aspx".ToLinkBuilder().ToString(),
 				CssClass = "adminlink-design-cache",
 				IconCssClass = "fa fa-floppy-o",
 				SortOrder = 15
 			},
-		});
+		]);
 
 		//Supplemental Links
 		model.Links.AddRange(supplementalLinks.AdminLinks.Where(l => l.Parent.ToLower() == "designtools").ToList());
@@ -72,7 +71,7 @@ public partial class DesignerToolsPage : NonCmsBasePage
 				new()
 				{
 					Text = Resource.AdminMenuLink,
-					Url = SiteRoot + "/Admin/AdminMenu.aspx",
+					Url = $"{WebConfigSettings.AdminDirectoryLocation}/AdminMenu.aspx".ToLinkBuilder().ToString(),
 					SortOrder = -1,
 					SystemName = "AdminMenu",
 					Parent = "root"
@@ -80,7 +79,7 @@ public partial class DesignerToolsPage : NonCmsBasePage
 				new()
 				{
 					Text = DevTools.DesignTools,
-					Url = SiteRoot + "/DesignTools/Default.aspx",
+					Url = "DesignTools/Default.aspx".ToLinkBuilder().ToString(),
 					IsCurrent = true,
 					SortOrder = 0,
 					SystemName = "DesignTools",
@@ -101,7 +100,7 @@ public partial class DesignerToolsPage : NonCmsBasePage
 		}
 		catch (System.Web.HttpException ex)
 		{
-			log.Error($"layout ({partialName}) was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, false, Page)}. perhaps it is in a different skin. Error was: {ex}");
+			log.Error($"layout ({partialName}) was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {ex}");
 		}
 	}
 

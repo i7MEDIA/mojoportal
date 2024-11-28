@@ -5269,7 +5269,7 @@
     <value>Custom Menu CSS Class</value>
   </data>
   <data name="SiteIdFormat" xml:space="preserve">
-    <value>(SiteID = {0})</value>
+    <value>(SiteId = {0})</value>
   </data>
   <data name="SiteList" xml:space="preserve">
     <value>Site List</value>

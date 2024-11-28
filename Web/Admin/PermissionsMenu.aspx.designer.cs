@@ -132,6 +132,24 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.HyperLink lnkSiteEditorRoles;
 
 		/// <summary>
+		/// liRolesNOTAllowedInstanceSettings control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl liRolesNOTAllowedInstanceSettings;
+
+		/// <summary>
+		/// lnkRolesNOTAllowedInstanceSettings control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HyperLink lnkRolesNOTAllowedInstanceSettings;
+
+		/// <summary>
 		/// liRolesThatCanViewCommerceReports control.
 		/// </summary>
 		/// <remarks>
@@ -274,24 +292,6 @@ namespace mojoPortal.Web.AdminUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.HyperLink lnkRolesThatCanEditContentTemplates;
-
-		/// <summary>
-		/// liRolesNOTAllowedInstanceSettings control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl liRolesNOTAllowedInstanceSettings;
-
-		/// <summary>
-		/// lnkRolesNOTAllowedInstanceSettings control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.HyperLink lnkRolesNOTAllowedInstanceSettings;
 
 		/// <summary>
 		/// liRolesThatCanViewMemberList control.

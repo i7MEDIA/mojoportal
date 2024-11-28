@@ -19,9 +19,16 @@
 						<li id="liSiteEditorRoles" runat="server">
 							<asp:HyperLink ID="lnkSiteEditorRoles" runat="server" CssClass="lnkSiteEditorRoles" />
 						</li>
+						<li id="liRolesNOTAllowedInstanceSettings" runat="server">
+							<asp:HyperLink ID="lnkRolesNOTAllowedInstanceSettings" runat="server" CssClass="lnkRolesNOTAllowedInstanceSettings" />
+						</li>
+					</ul>
+					<ul class="simplelist">
 						<li id="liRolesThatCanViewCommerceReports" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanViewCommerceReports" runat="server" CssClass="lnkRolesThatCanViewCommerceReports" />
 						</li>
+					</ul>
+					<ul class="simplelist">
 						<li id="liRolesThatCanBrowseFileSystem" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanBrowseFileSystem" runat="server" CssClass="lnkRolesThatCanBrowseFileSystem" />
 						</li>
@@ -34,6 +41,8 @@
 						<li id="liRolesThatCanDeleteFiles" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanDeleteFiles" runat="server" CssClass="lnkRolesThatCanDeleteFiles" />
 						</li>
+					</ul>
+					<ul class="simplelist">
 						<li id="liRolesThatCanManageSkins" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanManageSkins" runat="server" CssClass="lnkRolesThatCanManageSkins" />
 						</li>
@@ -43,9 +52,8 @@
 						<li id="liRolesThatCanEditContentTemplates" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanEditContentTemplates" runat="server" CssClass="lnkRolesThatCanEditContentTemplates" />
 						</li>
-						<li id="liRolesNOTAllowedInstanceSettings" runat="server">
-							<asp:HyperLink ID="lnkRolesNOTAllowedInstanceSettings" runat="server" CssClass="lnkRolesNOTAllowedInstanceSettings" />
-						</li>
+					</ul>
+					<ul class="simplelist">
 						<li id="liRolesThatCanViewMemberList" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanViewMemberList" runat="server" CssClass="lnkRolesThatCanViewMemberList" />
 						</li>
@@ -58,6 +66,8 @@
 						<li id="liRolesThatCanManageUsers" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanManageUsers" runat="server" CssClass="lnkRolesThatCanManageUsers" />
 						</li>
+					</ul>
+					<ul class="simplelist">
 						<li id="liRolesThatCanCreateRootLevelPages" runat="server">
 							<asp:HyperLink ID="lnkRolesThatCanCreateRootLevelPages" runat="server" CssClass="lnkRolesThatCanCreateRootLevelPages" />
 						</li>
@@ -70,14 +80,9 @@
 						<li id="liDefaultRootLevelCreateChildPageRoles" runat="server">
 							<asp:HyperLink ID="lnkDefaultRootLevelCreateChildPageRoles" runat="server" CssClass="lnkDefaultRootLevelCreateChildPageRoles" />
 						</li>
-
-
 					</ul>
-
-
 				</portal:InnerBodyPanel>
 			</portal:OuterBodyPanel>
-
 		</portal:InnerWrapperPanel>
 	</portal:OuterWrapperPanel>
 </asp:Content>

@@ -26,7 +26,6 @@ public partial class DefaultPage : NonCmsBasePage
 		MetaDescription = Resource.NewsletterSignUpPageMetaDescription;
 
 		AddClassToBody("eletterdefault");
-
 	}
 
 	private void AddCanonicalUrl()
@@ -39,7 +38,7 @@ public partial class DefaultPage : NonCmsBasePage
 		Page.Header.Controls.Add(new Literal()
 		{
 			ID = "threadurl",
-			Text = $"\n<link rel=\"canonical\" href=\"{SiteRoot}/eletter/Default.aspx\" />",
+			Text = $"\n<link rel=\"canonical\" href=\"{"eletter/Default.aspx".ToLinkBuilder()}\" />",
 			EnableViewState = false
 		});
 
@@ -51,8 +50,8 @@ public partial class DefaultPage : NonCmsBasePage
 		pnlAnonymousSubscriber.Visible = !newsLetterPrefs.Visible;
 		anonymousSubscribe.Visible = pnlAnonymousSubscriber.Visible;
 		spnAdmin.Visible = WebUser.IsNewsletterAdmin;
-		lnkLetterAdmin.NavigateUrl = $"{SiteRoot}/eletter/Admin.aspx";
-		lnkThisPage.NavigateUrl = $"{SiteRoot}/eletter/Default.aspx";
+		lnkLetterAdmin.NavigateUrl = $"eletter/Admin.aspx".ToLinkBuilder().ToString();
+		lnkThisPage.NavigateUrl = $"eletter/Default.aspx".ToLinkBuilder().ToString();
 		AddClassToBody("administration");
 		AddClassToBody("eletter");
 	}

@@ -43,7 +43,7 @@ public partial class AdminPage : NonCmsBasePage
 		}
 		catch (System.Web.HttpException ex)
 		{
-			log.Error($"layout for Newsletter _Admin was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, false, Page)}. perhaps it is in a different skin. Error was: {ex}");
+			log.Error($"layout for Newsletter _Admin was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {ex}");
 		}
 	}
 
@@ -54,10 +54,10 @@ public partial class AdminPage : NonCmsBasePage
 		heading.Text = Resource.AdminMenuNewsletterAdminLabel;
 
 		lnkAdminMenu.Text = Resource.AdminMenuLink;
-		lnkAdminMenu.NavigateUrl = $"{SiteRoot}/Admin/AdminMenu.aspx";
+		lnkAdminMenu.NavigateUrl = $"{WebConfigSettings.AdminDirectoryLocation}/AdminMenu.aspx".ToLinkBuilder().ToString();
 
 		lnkThisPage.Text = Resource.NewsLetterAdministrationHeading;
-		lnkThisPage.NavigateUrl = $"{SiteRoot}/eletter/Admin.aspx";
+		lnkThisPage.NavigateUrl = "eletter/Admin.aspx".ToLinkBuilder().ToString();
 	}
 
 	private void LoadSettings()

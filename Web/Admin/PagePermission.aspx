@@ -2,34 +2,34 @@
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
-<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
+	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 
-<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper ">
-<portal:HeadingControl ID="heading" runat="server" />
-<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
-<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-<div id="divRadioButtons" runat="server">
-<div class="settingrow">
-    <asp:RadioButton ID="rbAdminsOnly" runat="server"  GroupName="rdouseroles" CssClass="rbroles rbadminonly" />
-    <portal:mojoHelpLink ID="MojoHelpLink32" runat="server" HelpKey="pagepermission-adminonly-help" />
-</div>
-<div class="settingrow">
-    <asp:RadioButton ID="rbUseRoles" runat="server"  GroupName="rdouseroles" CssClass="rbroles" />
-</div>
-</div>
-<p>
-    <asp:CheckBoxList ID="chkAllowedRoles" runat="server" SkinID="Roles">
-    </asp:CheckBoxList>
-</p>
-<div class="settingrow">
-    <portal:mojoButton ID="btnSave" runat="server"  />
-</div>
-</portal:InnerBodyPanel>
-</portal:OuterBodyPanel>
+		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper ">
+			<portal:HeadingControl ID="heading" runat="server" />
+			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
+				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
+					<div id="divRadioButtons" runat="server">
+						<div class="settingrow">
+							<asp:RadioButton ID="rbAdminsOnly" runat="server" GroupName="rdouseroles" CssClass="rbroles rbadminonly" />
+							<portal:mojoHelpLink ID="MojoHelpLink32" runat="server" HelpKey="pagepermission-adminonly-help" />
+						</div>
+						<div class="settingrow">
+							<asp:RadioButton ID="rbUseRoles" runat="server" GroupName="rdouseroles" CssClass="rbroles" />
+						</div>
+					</div>
+					<p>
+						<asp:CheckBoxList ID="chkAllowedRoles" runat="server" SkinID="Roles">
+						</asp:CheckBoxList>
+					</p>
+					<div class="settingrow">
+						<portal:mojoButton ID="btnSave" runat="server" />
+					</div>
+				</portal:InnerBodyPanel>
+			</portal:OuterBodyPanel>
 
-</portal:InnerWrapperPanel> 
-	
-</portal:OuterWrapperPanel>
+		</portal:InnerWrapperPanel>
+
+	</portal:OuterWrapperPanel>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="rightContent" ID="MPRightPane" runat="server" />
 <asp:Content ContentPlaceHolderID="pageEditContent" ID="MPPageEdit" runat="server" />

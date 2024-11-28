@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using mojoPortal.Business.WebHelpers;
@@ -62,7 +61,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Site Settings
 		if (IsAdminOrContentAdmin || isSiteEditor)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuSiteSettingsLink",
@@ -76,7 +75,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Site List
 		if (WebConfigSettings.AllowMultipleSites && siteSettings.IsServerAdminSite && IsAdmin)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "SiteList",
@@ -92,7 +91,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		{
 			var needsAttention = !securityAdvisor.UsingCustomMachineKey() || securityAdvisor.DefaultAdmin().userExists;
 
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = needsAttention ? "SecurityAdvisorNeedsAttention" : "SecurityAdvisor",
@@ -115,7 +114,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 
 			if (addLink)
 			{
-				model.Links.Add(new ContentAdminLink
+				model.Links.Add(new()
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuRoleAdminLink",
@@ -130,7 +129,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Site Permissions
 		if (IsAdmin)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "SiteSettingsPermissionsTab",
@@ -144,7 +143,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Member List
 		if (WebUser.IsInRoles(siteSettings.RolesThatCanViewMemberList) || WebUser.IsInRoles(siteSettings.RolesThatCanLookupUsers))
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "MemberListLink",
@@ -158,7 +157,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Add User
 		if (WebUser.IsInRoles(siteSettings.RolesThatCanCreateUsers + siteSettings.RolesThatCanManageUsers + siteSettings.RolesThatCanLookupUsers))
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "MemberListAddUserLabel",
@@ -172,7 +171,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Page Manager
 		if (IsAdminOrContentAdmin || isSiteEditor || SiteMapHelper.UserHasAnyCreatePagePermissions(siteSettings))
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuPageTreeLink",
@@ -186,7 +185,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Content Manager
 		if (IsAdminOrContentAdmin || isSiteEditor)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuContentManagerLink",
@@ -200,7 +199,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Content Workflow
 		if (WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuContentWorkflowLabel",
@@ -214,9 +213,8 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Content Templates/Styles
 		if (IsAdminOrContentAdmin || isSiteEditor || WebUser.IsInRoles(siteSettings.RolesThatCanEditContentTemplates))
 		{
-			model.Links.AddRange(new List<ContentAdminLink> {
-				new ContentAdminLink
-				{
+			model.Links.AddRange([
+				new () {
 					ResourceFile = "Resource",
 					ResourceKey = "ContentTemplates",
 					Url = $"{WebConfigSettings.AdminDirectoryLocation}/ContentTemplates.aspx".ToLinkBuilder().ToString(),
@@ -224,8 +222,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 					IconCssClass = "fa fa-object-group",
 					SortOrder = 55
 				},
-				new ContentAdminLink
-				{
+				new () {
 					ResourceFile = "Resource",
 					ResourceKey = "ContentStyleTemplates",
 					Url = $"{WebConfigSettings.AdminDirectoryLocation}/ContentStyles.aspx".ToLinkBuilder().ToString(),
@@ -233,13 +230,13 @@ public partial class AdminMenuPage : NonCmsBasePage
 					IconCssClass = "fa fa-code",
 					SortOrder = 60
 				}
-			});
+			]);
 		}
 
 		//Design Tools
 		if (IsAdmin || WebUser.IsContentAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins))
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "DevTools",
 				ResourceKey = "DesignTools",
@@ -255,7 +252,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		var fileManagerLinkTest = new FileManagerLink();
 		if (fileManagerLinkTest.ShouldRender())
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuFileManagerLink",
@@ -269,7 +266,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Newsletter
 		if (WebConfigSettings.EnableNewsletter && (IsAdmin || isSiteEditor || WebUser.IsNewsletterAdmin))
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuNewsletterAdminLabel",
@@ -283,7 +280,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Commerce
 		if (isCommerceReportViewer && commerceConfig != null && commerceConfig.IsConfigured)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "CommerceReportsLink",
@@ -297,7 +294,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Registration Agreement
 		if (IsAdminOrContentAdmin)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "RegistrationAgreementLink",
@@ -310,7 +307,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 			//Login Page Text
 			if (!WebConfigSettings.DisableLoginInfo)
 			{
-				model.Links.Add(new ContentAdminLink
+				model.Links.Add(new ()
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "LoginPageContent",
@@ -324,7 +321,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 			//Core Data
 			if (siteSettings.IsServerAdminSite)
 			{
-				model.Links.Add(new ContentAdminLink
+				model.Links.Add(new ()
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "CoreDataAdministrationLink",
@@ -339,7 +336,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Adv. Tools
 		if (IsAdminOrContentAdmin || isSiteEditor)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new ()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdvancedToolsLink",
@@ -352,7 +349,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 			//System Info
 			if (siteSettings.IsServerAdminSite || WebConfigSettings.ShowSystemInformationInChildSiteAdminMenu)
 			{
-				model.Links.Add(new ContentAdminLink
+				model.Links.Add(new ()
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuServerInfoLabel",
@@ -367,7 +364,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Log Viewer
 		if (IsAdmin && siteSettings.IsServerAdminSite && WebConfigSettings.EnableLogViewer)
 		{
-			model.Links.Add(new ContentAdminLink
+			model.Links.Add(new ()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuServerLogLabel",
@@ -385,6 +382,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		model.Links.Sort((a, b) => a.SortOrder.CompareTo(b.SortOrder));
 	}
 
+
 	private void PopulateControls()
 	{
 		try
@@ -393,16 +391,16 @@ public partial class AdminMenuPage : NonCmsBasePage
 		}
 		catch (System.Web.HttpException ex)
 		{
-			log.Error($"layout ({partialName}) was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, false, Page)}. perhaps it is in a different skin. Error was: {ex}");
+			log.Error($"layout ({partialName}) was not found in skin {SiteUtils.DetermineSkinBaseUrl(true, Page)}. perhaps it is in a different skin. Error was: {ex}");
 		}
 	}
+
 
 	private void PopulateLabels()
 	{
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminMenuHeading);
-
-		//heading.Text = Resource.AdminMenuHeading;
 	}
+
 
 	private void LoadSettings()
 	{
@@ -416,12 +414,13 @@ public partial class AdminMenuPage : NonCmsBasePage
 		AddClassToBody("adminmenu");
 	}
 
+
 	#region OnInit
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
 
-		this.Load += new EventHandler(this.Page_Load);
+		Load += new EventHandler(Page_Load);
 
 		SuppressMenuSelection();
 		SuppressPageMenu();

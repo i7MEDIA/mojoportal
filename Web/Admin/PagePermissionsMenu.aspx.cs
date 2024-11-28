@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Web.UI;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
@@ -39,14 +38,6 @@ public partial class PagePermissionsMenuPage : NonCmsBasePage
 		}
 
 		PopulateLabels();
-		PopulateControls();
-
-	}
-
-	private void PopulateControls()
-	{
-
-
 	}
 
 
@@ -55,17 +46,19 @@ public partial class PagePermissionsMenuPage : NonCmsBasePage
 		heading.Text = string.Format(CultureInfo.InvariantCulture, Resource.ManagePermissionsFormat, CurrentPage.PageName);
 		Title = heading.Text;
 
+		var pagePermissionsUrl = $"{WebConfigSettings.AdminDirectoryLocation}/PagePermission.aspx".ToLinkBuilder().PageId(pageId);
+
 		lnkPageViewRoles.Text = Resource.PageLayoutViewRolesLabel;
-		lnkPageViewRoles.NavigateUrl = SiteRoot + "/Admin/PagePermission.aspx?pageid=" + pageId.ToInvariantString() + "&p=v";
+		lnkPageViewRoles.NavigateUrl = pagePermissionsUrl.AddParam("p", "v").ToString();
 
 		lnkPageEditRoles.Text = Resource.PageLayoutEditRolesLabel;
-		lnkPageEditRoles.NavigateUrl = SiteRoot + "/Admin/PagePermission.aspx?pageid=" + pageId.ToInvariantString() + "&p=e";
+		lnkPageEditRoles.NavigateUrl = pagePermissionsUrl.SetParam("p", "e").ToString();
 
 		lnkPageDraftRoles.Text = Resource.PageLayoutDraftEditRolesLabel;
-		lnkPageDraftRoles.NavigateUrl = SiteRoot + "/Admin/PagePermission.aspx?pageid=" + pageId.ToInvariantString() + "&p=d";
+		lnkPageDraftRoles.NavigateUrl = pagePermissionsUrl.SetParam("p", "d").ToString();
 
 		lnkChildPageRoles.Text = Resource.PageLayoutCreateChildPageRolesLabel;
-		lnkChildPageRoles.NavigateUrl = SiteRoot + "/Admin/PagePermission.aspx?pageid=" + pageId.ToInvariantString() + "&p=ce";
+		lnkChildPageRoles.NavigateUrl = pagePermissionsUrl.SetParam("p", "ce").ToString();
 
 		Control c = Master.FindControl("Breadcrumbs");
 		if (c != null)
@@ -73,12 +66,10 @@ public partial class PagePermissionsMenuPage : NonCmsBasePage
 			BreadcrumbsControl crumbs = (BreadcrumbsControl)c;
 			crumbs.ForceShowBreadcrumbs = true;
 			crumbs.AddedCrumbs
-				= crumbs.ItemWrapperTop + "<a href='" + SiteRoot + "/Admin/PageSettings.aspx?pageid="
-				+ pageId.ToInvariantString()
-				+ "' class='unselectedcrumb'>" + Resource.PageSettingsPageTitle
-				+ "</a>" + crumbs.ItemWrapperBottom;
+				= $"{crumbs.ItemWrapperTop}<a href=\"{$"{WebConfigSettings.AdminDirectoryLocation}/PageSettings.aspx".ToLinkBuilder().PageId(pageId)}\" class=\"unselectedcrumb\">{Resource.PageSettingsPageTitle}</a>{crumbs.ItemWrapperBottom}";
 		}
 	}
+
 
 	private void LoadSettings()
 	{
@@ -89,9 +80,7 @@ public partial class PagePermissionsMenuPage : NonCmsBasePage
 			isContentAdmin = WebUser.IsContentAdmin;
 			isSiteEditor = SiteUtils.UserIsSiteEditor();
 		}
-
 	}
-
 
 
 	#region OnInit
@@ -100,12 +89,12 @@ public partial class PagePermissionsMenuPage : NonCmsBasePage
 	{
 		pageId = WebUtils.ParseInt32FromQueryString("pageid", -1);
 
-		AllowSkinOverride = (pageId > -1);
+		AllowSkinOverride = pageId > -1;
 		base.OnPreInit(e);
 
 		if (
 			(pageId > -1)
-			   && (siteSettings.AllowPageSkins)
+			   && siteSettings.AllowPageSkins
 				&& (CurrentPage != null)
 				&& (CurrentPage.Skin.Length > 0)
 				)
@@ -113,7 +102,7 @@ public partial class PagePermissionsMenuPage : NonCmsBasePage
 
 			if (Global.RegisteredVirtualThemes)
 			{
-				this.Theme = "pageskin-" + siteSettings.SiteId.ToInvariantString() + CurrentPage.Skin;
+				this.Theme = Invariant($"pageskin-{siteSettings.SiteId}{CurrentPage.Skin}");
 			}
 			else
 			{
@@ -128,9 +117,7 @@ public partial class PagePermissionsMenuPage : NonCmsBasePage
 		base.OnInit(e);
 		this.Load += new EventHandler(this.Page_Load);
 
-
 		SuppressPageMenu();
-
 	}
 
 	#endregion

@@ -4,11 +4,11 @@ using System.Globalization;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 
 namespace mojoPortal.Web.AdminUI;
+
 public partial class PermissionEditPage : NonCmsBasePage
 {
 	int siteId = -1;
@@ -52,53 +52,61 @@ public partial class PermissionEditPage : NonCmsBasePage
 		{
 			PopulateControls();
 		}
-
 	}
+
 
 	private void PopulateControls()
 	{
-		ListItem allItem = new ListItem();
-		// localize display
-		allItem.Text = Resource.RolesAllUsersRole;
-		allItem.Value = "All Users";
+		var allItem = new ListItem
+		{
+			Text = Resource.RolesAllUsersRole,
+			Value = "All Users"
+		};
 
 		switch (permissionGuid)
 		{
 			case CorePermission.ViewMemberList:
 			case CorePermission.UseMyPage:
 			case CorePermission.ViewRootPages:
-				if ((currentPermissionRoles.LastIndexOf(allItem.Value + ";")) > -1) { allItem.Selected = true; }
+				if (currentPermissionRoles.LastIndexOf(allItem.Value + ";") > -1)
+				{
+					allItem.Selected = true;
+				}
+
 				chkAllowedRoles.Items.Add(allItem);
 
 				break;
-
-
 		}
 
-		using (IDataReader reader = Role.GetSiteRoles(siteSettings.SiteId))
+		using IDataReader reader = Role.GetSiteRoles(siteSettings.SiteId);
+		while (reader.Read())
 		{
-			while (reader.Read())
+			string roleName = reader["RoleName"].ToString();
+
+			if (!IncludeRole(roleName)) { continue; }
+
+			var listItem = new ListItem
 			{
-				string roleName = reader["RoleName"].ToString();
+				Text = reader["DisplayName"].ToString(),
+				Value = reader["RoleName"].ToString()
+			};
 
-				if (!IncludeRole(roleName)) { continue; }
-
-				ListItem listItem = new ListItem();
-				listItem.Text = reader["DisplayName"].ToString();
-				listItem.Value = reader["RoleName"].ToString();
-				if ((currentPermissionRoles.LastIndexOf(listItem.Value + ";")) > -1) { listItem.Selected = true; }
-				chkAllowedRoles.Items.Add(listItem);
-
-
+			if (currentPermissionRoles.LastIndexOf(listItem.Value + ";") > -1)
+			{
+				listItem.Selected = true;
 			}
+
+			chkAllowedRoles.Items.Add(listItem);
 		}
-
-
 	}
+
 
 	private bool IncludeRole(string roleName)
 	{
-		if (roleName == Role.AdministratorsRole) { return false; }
+		if (roleName == Role.AdministratorsRole)
+		{
+			return false;
+		}
 
 		switch (permissionGuid)
 		{
@@ -111,23 +119,25 @@ public partial class PermissionEditPage : NonCmsBasePage
 				break;
 
 			default:
-				if (roleName == Role.ContentAdministratorsRole) { return false; }
+				if (roleName == Role.ContentAdministratorsRole)
+				{
+					return false;
+				}
 				break;
 		}
 
-
-
 		return true;
 	}
+
 
 	void btnSave_Click(object sender, EventArgs e)
 	{
 		SavePermissions();
 	}
 
+
 	private void SavePermissions()
 	{
-
 		switch (permissionGuid)
 		{
 			case CorePermission.AssignPageSkins:
@@ -229,7 +239,6 @@ public partial class PermissionEditPage : NonCmsBasePage
 		}
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
-
 	}
 
 
@@ -361,23 +370,23 @@ public partial class PermissionEditPage : NonCmsBasePage
 
 		lnkAdminMenu.Text = Resource.AdminMenuLink;
 		lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
-		lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
+		lnkAdminMenu.NavigateUrl = "Admin/AdminMenu.aspx".ToLinkBuilder().ToString();
 
-		lnkSiteList.Visible = ((WebConfigSettings.AllowMultipleSites) && (siteSettings.IsServerAdminSite));
+		lnkSiteList.Visible = WebConfigSettings.AllowMultipleSites && siteSettings.IsServerAdminSite;
 		lnkSiteList.Text = Resource.SiteList;
-		lnkSiteList.NavigateUrl = SiteRoot + "/Admin/SiteList.aspx";
+		lnkSiteList.NavigateUrl = "Admin/SiteList.aspx".ToLinkBuilder().ToString();
 		litSiteListLinkSeparator.Visible = lnkSiteList.Visible;
 
 		lnkPermissionsMenu.Text = Resource.SiteSettingsPermissionsTab;
 		lnkPermissionsMenu.ToolTip = Resource.SiteSettingsPermissionsTab;
-		lnkPermissionsMenu.NavigateUrl = SiteRoot + "/Admin/PermissionsMenu.aspx";
+		lnkPermissionsMenu.NavigateUrl = "Admin/PermissionsMenu.aspx".ToLinkBuilder().ToString();
 
 		if (siteId > -1)
 		{
-			lnkPermissionsMenu.NavigateUrl = SiteRoot + "/Admin/PermissionsMenu.aspx?SiteID=" + siteId.ToInvariantString();
+			lnkPermissionsMenu.NavigateUrl = "Admin/PermissionsMenu.aspx".ToLinkBuilder().SiteId(siteId).ToString();
 		}
-
 	}
+
 
 	private string FormatHeading(string heading)
 	{
@@ -390,6 +399,7 @@ public partial class PermissionEditPage : NonCmsBasePage
 			return heading;
 		}
 	}
+
 
 	private void LoadSettings()
 	{
@@ -408,16 +418,14 @@ public partial class PermissionEditPage : NonCmsBasePage
 
 		AddClassToBody("administration");
 		AddClassToBody("permission");
-
 	}
+
 
 	private void LoadParams()
 	{
-		siteId = WebUtils.ParseInt32FromQueryString("SiteID", siteId);
+		siteId = WebUtils.ParseInt32FromQueryString("siteid", siteId);
 		permissionGuid = WebUtils.ParseStringFromQueryString("p", permissionGuid);
-
 	}
-
 
 	#region OnInit
 
