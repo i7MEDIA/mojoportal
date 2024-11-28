@@ -212,10 +212,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\CSSFriendly.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth, Version=3.1.0.9122, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\dotnetopenauth\DotNetOpenAuth.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
     </Reference>
