@@ -244,9 +244,10 @@ internal class ScriptJail
 
 		if (m.Groups[3].Success) // CDATA Section.
 		{
-			return HttpUtility.HtmlEncode(m.Groups[3].Value);
+			return System.Net.WebUtility.HtmlEncode((m.Groups[3].Value));
+			//return HttpUtility.HtmlEncode(m.Groups[3].Value);
 		}
-
+			
 		if (!m.Groups[10].Success   // No ending '>'
 			|| !m.Groups[6].Success // or no tag name
 			|| (m.Groups[4].Success // or an end tag with...

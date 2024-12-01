@@ -6,13 +6,13 @@ public class Helpers
 {
 	public static string ApplyAppPathModifier(string url)
 	{
-		string appPath = HttpContext.Current.Request.ApplicationPath;
+		var appPath = HttpContext.Current.Request.ApplicationPath ?? string.Empty;
 		if (appPath == "/")
 		{
-			appPath = "";
+			appPath = string.Empty;
 		}
-		string requestUrl = HttpContext.Current.Request.RawUrl;
-		string result = HttpContext.Current.Response.ApplyAppPathModifier(url);
+		var requestUrl = HttpContext.Current.Request.RawUrl;
+		var result = HttpContext.Current.Response.ApplyAppPathModifier(url);
 
 		// Workaround Mono XSP bug where ApplyAppPathModifier() doesn't add the session id
 		if (requestUrl.StartsWith($"{appPath}/(") && !result.StartsWith($"{appPath}/("))
@@ -23,7 +23,7 @@ public class Helpers
 			}
 			if (url.StartsWith("~/"))
 			{
-				string[] compsOfPathWithinApp = requestUrl.Substring(appPath.Length).Split('/');
+				var compsOfPathWithinApp = requestUrl.Substring(appPath.Length).Split('/');
 				url = $"{appPath}/{compsOfPathWithinApp[1]}/{url.Substring(2)}";
 			}
 			result = url;
