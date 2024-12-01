@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace mojoPortal.Core.Helpers;
 
@@ -8,7 +8,8 @@ public static class StringHelper
 {
 	public static string ToJsonString(object jsonObj)
 	{
-		return JsonSerializer.Serialize(jsonObj);
+		//return JsonSerializer.Serialize(jsonObj);
+		return JsonConvert.SerializeObject(jsonObj);
 	}
 
 	public static string DecodeBase64String(string base64String, Encoding encoding)
