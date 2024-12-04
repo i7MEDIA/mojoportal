@@ -1964,8 +1964,6 @@
     <Compile Include="Controls\mojoMenuSuperfishVertical.cs" />
     <Compile Include="Controls\mojoMenuWith3SpansInLinks.cs" />
     <Compile Include="Controls\mojoMenuWithSpanInLinks.cs" />
-    <Compile Include="Controls\mojoOpenIdLogin.cs" />
-    <Compile Include="Controls\mojoOpenIdRegister.cs" />
     <Compile Include="Controls\mojoPortalLink.cs" />
     <Compile Include="Controls\mojoSiteMapMenu.cs" />
     <Compile Include="Controls\mojoSiteMapPath.cs" />
@@ -1987,13 +1985,6 @@
     </Compile>
     <Compile Include="Controls\OnlineStatisticsControl.ascx.designer.cs">
       <DependentUpon>OnlineStatisticsControl.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\OpenIDLoginControl.ascx.cs">
-      <DependentUpon>OpenIDLoginControl.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\OpenIDLoginControl.ascx.designer.cs">
-      <DependentUpon>OpenIDLoginControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controls\OpenIdRpxNowLink.cs" />
     <Compile Include="Controls\OrderStatusSetting.ascx.cs">
@@ -2551,28 +2542,7 @@
     <Compile Include="Secure\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Secure\RegisterWithOpenID.aspx.cs">
-      <DependentUpon>RegisterWithOpenID.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Secure\RegisterWithOpenID.aspx.designer.cs">
-      <DependentUpon>RegisterWithOpenID.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Secure\RegisterWithWindowsLiveID.aspx.cs">
-      <DependentUpon>RegisterWithWindowsLiveID.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Secure\RegisterWithWindowsLiveID.aspx.designer.cs">
-      <DependentUpon>RegisterWithWindowsLiveID.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Secure\RegistrationPageDisplaySettings.cs" />
-    <Compile Include="Secure\UpdateOpenID.aspx.cs">
-      <DependentUpon>UpdateOpenID.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Secure\UpdateOpenID.aspx.designer.cs">
-      <DependentUpon>UpdateOpenID.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Secure\UserProfile.aspx.cs">
       <DependentUpon>UserProfile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2794,10 +2764,6 @@
     <Content Include="eletter\Preferences.aspx" />
     <Content Include="eletter\SendLog.aspx" />
     <Content Include="eletter\Unsubscribe.aspx" />
-    <Content Include="Secure\UpdateOpenID.aspx" />
-    <Content Include="Controls\OpenIDLoginControl.ascx" />
-    <Content Include="Secure\RegisterWithOpenID.aspx" />
-    <Content Include="Secure\RegisterWithWindowsLiveID.aspx" />
     <Content Include="Secure\WindowsLiveAuthHandler.aspx" />
     <Content Include="mojoCaptcha.config" />
     <Content Include="Admin\ServerInformation.aspx" />
