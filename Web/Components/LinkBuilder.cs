@@ -121,9 +121,9 @@ public class LinkBuilder
 	/// <returns>LinkBuilder</returns>
 	public LinkBuilder SetParam(string key, object value)
 	{
-		if (queries.ContainsKey(key))
+		if (_queries.ContainsKey(key))
 		{
-			queries[key] = UrlEncode(value.ToString()); //UrlEncode prevents querystring from being used as vector for XSS
+			_queries[key] = UrlEncode(value.ToString()); //UrlEncode prevents querystring from being used as vector for XSS
 			return this;
 		}
 		else
@@ -137,14 +137,14 @@ public class LinkBuilder
 	{
 		var queryString = HttpUtility.ParseQueryString(string.Empty);
 
-		foreach (var query in queries)
+		foreach (var query in _queries)
 		{
 			queryString.Add(query.Key, query.Value.ToString());
 		}
 
-		var path = url.TrimStart('~') + (queryString.Count > 0 ? $"?{queryString}" : string.Empty);
+		var path = _url.TrimStart('~') + (queryString.Count > 0 ? $"?{queryString}" : string.Empty);
 
-		if (includeSiteRoot)
+		if (_includeSiteRoot)
 		{
 			return new Uri(new Uri(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute), new Uri(path, UriKind.Relative));
 		}
