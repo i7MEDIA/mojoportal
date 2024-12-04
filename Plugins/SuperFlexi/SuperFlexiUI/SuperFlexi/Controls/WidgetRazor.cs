@@ -299,7 +299,7 @@ public class WidgetRazor : WebControl
 				PhysAppRoot = WebUtils.GetApplicationRoot(),
 				SitePath = WebUtils.GetApplicationRoot() + "/Data/Sites/" + module.SiteId,
 				SiteUrl = SiteUtils.GetNavigationSiteRoot(),
-				SkinPath = SiteUtils.DetermineSkinBaseUrl(SiteUtils.GetSkinName(true, this.Page)),
+				SkinPath = SiteUtils.DetermineSkinBaseUrl(SiteUtils.GetSkinName(true)),
 				TimeZone = SiteUtils.GetSiteTimeZone()
 			},
 			Pagination = new PaginationModel

@@ -51,7 +51,7 @@ namespace SuperFlexiUI
 
 			if (WebConfigSettings.UseSkinCssInEditor)
             {
-                ed1.EditorCSSUrl = SiteUtils.GetEditorStyleSheetUrl(true, true, Page);
+                ed1.EditorCSSUrl = SiteUtils.GetEditorStyleSheetUrl(true, Page);
             }
 
             if (attributes.ContainsKey("$EditorConfigPath"))
