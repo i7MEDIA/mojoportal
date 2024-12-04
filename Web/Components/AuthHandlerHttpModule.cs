@@ -77,7 +77,7 @@ public class AuthHandlerHttpModule : IHttpModule
 				return;
 			}
 
-			var existsInDB = SiteUser.LoginExistsInDB(siteSettings.SiteId, identityEmail);
+			var existsInDB = SiteUser.EmailExistsInDB(siteSettings.SiteId, identityEmail);
 
 			if (!existsInDB)
 			{
