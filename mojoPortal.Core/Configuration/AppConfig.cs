@@ -82,7 +82,6 @@ public static class AppConfig
 	public static bool IncludeVersionInCssUrl => ConfigHelper.GetBoolProperty("IncludeVersionInCssUrl", false);
 
 	public static int CssCacheInDays => ConfigHelper.GetIntProperty("CssCacheInDays", 7);
-}
 
 	public static string LoginLink
 	{
