@@ -1,7 +1,7 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Web.Mvc;
 using System.Web.Routing;
-using log4net;
 
 namespace mojoPortal.Web.Routing;
 
@@ -22,11 +22,14 @@ public class RouteRegistrar
 				defaults: new { controller = "FileManager", action = "Index", id = UrlParameter.Optional }
 			);
 
-			routes.MapRoute(
-				name: "ExternalLogin",
-				url: "ExternalLogin/{action}",
-				defaults: new { controller = "ExternalLogin", action = "Index" }
-			);
+			if (AppConfig.OAuth.Configured)
+			{
+				routes.MapRoute(
+					name: "ExternalLogin",
+					url: "ExternalLogin/{action}",
+					defaults: new { controller = "ExternalLogin", action = "Index" }
+				);
+			}
 
 			//routes.MapRoute(
 			//	name: "BadWord",

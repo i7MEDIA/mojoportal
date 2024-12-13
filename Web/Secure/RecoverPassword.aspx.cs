@@ -1,5 +1,6 @@
 using log4net;
 using mojoPortal.Net;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
 using Resources;
@@ -21,6 +22,13 @@ public partial class RecoverPassword : NonCmsBasePage
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
+
+		if (AppConfig.OAuth.Configured)
+		{
+			WebUtils.SetupRedirect(this, PageUrlService.GetLoginLink());
+			return;
+		}
+
 		Load += new EventHandler(Page_Load);
 		Error += new EventHandler(RecoverPassword_Error);
 		base.EnsureChildControls();

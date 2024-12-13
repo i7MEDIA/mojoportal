@@ -1,14 +1,3 @@
-///	Created:			    2007-04-13
-///	Last Modified:		    2011-03-07
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.		
-
 using mojoPortal.Web.Components;
 using Resources;
 using System.Web;
@@ -16,107 +5,81 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 
-namespace mojoPortal.Web.UI
+namespace mojoPortal.Web.UI;
+
+public class LogoutLink : WebControl
 {
+	public bool UseLeftSeparator { get; set; } = false;
+	public string LeftSeparatorImageUrl { get; set; } = string.Empty;
+	public bool RenderAsListItem { get; set; } = false;
+	public string ListItemCss { get; set; } = "topnavitem";
+	public string OverrideText { get; set; } = string.Empty;
 
-	public class LogoutLink : WebControl
+
+	protected override void OnLoad(System.EventArgs e)
 	{
-		// these separator properties are deprecated
-		// it is recommended not to use these properties
-		// but instead to use mojoPortal.Web.Controls.SeparatorControl
-		private bool useLeftSeparator = false;
-		public bool UseLeftSeparator
+		base.OnLoad(e);
+		Visible = Page.Request.IsAuthenticated;
+	}
+
+	
+	protected override void Render(HtmlTextWriter writer)
+	{
+		if (HttpContext.Current == null)
 		{
-			get { return useLeftSeparator; }
-			set { useLeftSeparator = value; }
+			writer.Write($"[{ID}]");
+
+			return;
 		}
 
-		private string leftSeparatorImageUrl = string.Empty;
-		public string LeftSeparatorImageUrl
+		if (!Page.Request.IsAuthenticated || Context.User.Identity.AuthenticationType != "Forms")
 		{
-			get { return leftSeparatorImageUrl; }
-			set { leftSeparatorImageUrl = value; }
+			return;
 		}
 
-		private bool renderAsListItem = false;
-		public bool RenderAsListItem
+		if (RenderAsListItem)
 		{
-			get { return renderAsListItem; }
-			set { renderAsListItem = value; }
-		}
-
-		private string listItemCSS = "topnavitem";
-		public string ListItemCss
-		{
-			get { return listItemCSS; }
-			set { listItemCSS = value; }
-		}
-
-		private string overrideText = string.Empty;
-		public string OverrideText
-		{
-			get { return overrideText; }
-			set { overrideText = value; }
-		}
-
-		protected override void OnLoad(System.EventArgs e)
-		{
-			base.OnLoad(e);
-			this.Visible = Page.Request.IsAuthenticated;
-		}
-
-		protected override void Render(HtmlTextWriter writer)
-		{
-			if (HttpContext.Current == null)
-			{
-				writer.Write("[" + this.ID + "]");
-				return;
-			}
-
-			if (!Page.Request.IsAuthenticated) { return; }
-			if (Context.User.Identity.AuthenticationType != "Forms") { return; }
-
-			if (renderAsListItem)
-			{
-				//writer.Write("<li class='" + listItemCSS + "'>");
-				writer.WriteBeginTag("li");
-				writer.WriteAttribute("class", listItemCSS);
-				writer.Write(HtmlTextWriter.TagRightChar);
-
-			}
-
-			if (UseLeftSeparator)
-			{
-				if (leftSeparatorImageUrl.Length > 0)
-				{
-					writer.Write("<img class='accent' alt='' src='" + Page.ResolveUrl(leftSeparatorImageUrl) + "' border='0' />");
-				}
-				else
-				{
-					writer.Write("<span class='accent'>|</span>");
-				}
-			}
-
-
-			if (CssClass.Length == 0) { CssClass = "sitelink"; }
-
-			writer.WriteBeginTag("a");
-			writer.WriteAttribute("class", CssClass);
-			writer.WriteAttribute("href", PageUrlService.GetLogoutLink());
+			writer.WriteBeginTag("li");
+			writer.WriteAttribute("class", ListItemCss);
 			writer.Write(HtmlTextWriter.TagRightChar);
+		}
 
-			if (overrideText.Length > 0)
+		if (UseLeftSeparator)
+		{
+			if (LeftSeparatorImageUrl.Length > 0)
 			{
-				writer.WriteEncodedText(overrideText);
+				writer.Write($"""<img class="accent" alt="" src="{Page.ResolveUrl(LeftSeparatorImageUrl)}" border="0" />""");
 			}
 			else
 			{
-				writer.WriteEncodedText(Resource.LogoutLink);
+				writer.Write("""<span class="accent">|</span>""");
 			}
+		}
 
-			writer.WriteEndTag("a");
+		if (CssClass.Length == 0)
+		{
+			CssClass = "sitelink";
+		}
 
-			if (renderAsListItem) writer.WriteEndTag("li");
+		writer.WriteBeginTag("a");
+		writer.WriteAttribute("class", CssClass);
+		writer.WriteAttribute("href", PageUrlService.GetLogoutLink());
+		writer.Write(HtmlTextWriter.TagRightChar);
+
+		if (OverrideText.Length > 0)
+		{
+			writer.WriteEncodedText(OverrideText);
+		}
+		else
+		{
+			writer.WriteEncodedText(Resource.LogoutLink);
+		}
+
+		writer.WriteEndTag("a");
+
+		if (RenderAsListItem)
+		{
+			writer.WriteEndTag("li");
 		}
 	}
 }

@@ -2118,21 +2118,21 @@ namespace mojoPortal.Data
 
 		public static IDataReader GetRolesByUser(int siteId, int userId)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT ");
-			sqlCommand.Append("mp_Roles.RoleID As RoleID, ");
-			sqlCommand.Append("mp_Roles.DisplayName As DisplayName, ");
-			sqlCommand.Append("mp_Roles.RoleName As RoleName ");
-
-			sqlCommand.Append("FROM	 mp_UserRoles ");
-
-			sqlCommand.Append("INNER JOIN mp_Users ");
-			sqlCommand.Append("ON mp_UserRoles.UserID = mp_Users.UserID ");
-
-			sqlCommand.Append("INNER JOIN mp_Roles ");
-			sqlCommand.Append("ON  mp_UserRoles.RoleID = mp_Roles.RoleID ");
-
-			sqlCommand.Append("WHERE mp_Users.SiteID = :SiteID AND mp_Users.UserID = :UserID  ;");
+			var sqlCommand = """
+				SELECT 
+					r.RoleID,
+					r.DisplayName,
+					r.RoleName,
+					r.RoleGuid,
+					r.Description,
+					r.SiteID,
+					r.SiteGuid
+				FROM mp_UserRoles AS ur
+				INNER JOIN mp_Users AS u ON ur.UserID = mp_Users.UserID
+				INNER JOIN mp_Roles AS r ON ur.RoleID = r.RoleID
+				WHERE u.SiteID = :SiteID
+				AND u.UserID = :UserID;
+				""";
 
 			SqliteParameter[] arParams = new SqliteParameter[2];
 
