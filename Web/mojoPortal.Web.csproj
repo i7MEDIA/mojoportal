@@ -2545,13 +2545,6 @@
     <Compile Include="Secure\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Secure\OpenIdRpxHandler.aspx.cs">
-      <DependentUpon>OpenIdRpxHandler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Secure\OpenIdRpxHandler.aspx.designer.cs">
-      <DependentUpon>OpenIdRpxHandler.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Secure\PasswordReset.aspx.cs">
       <DependentUpon>PasswordReset.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2910,7 +2903,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\ContentTemplates.aspx" />
-    <Content Include="Secure\OpenIdRpxHandler.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\ContentStyles.aspx" />

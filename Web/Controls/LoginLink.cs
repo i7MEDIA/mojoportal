@@ -1,4 +1,3 @@
-using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
 using Resources;
@@ -63,11 +62,11 @@ public class LoginLink : WebControl
 		{
 			if (LeftSeparatorImageUrl.Length > 0)
 			{
-				writer.Write($"<img class='accent' alt='' src='{Page.ResolveUrl(LeftSeparatorImageUrl)}' border='0' /> ");
+				writer.Write($"""<img class="accent" alt="" src="{Page.ResolveUrl(LeftSeparatorImageUrl)}" border="0" /> """);
 			}
 			else
 			{
-				writer.Write("<span class='accent'>|</span>");
+				writer.Write("""<span class="accent">|</span>""");
 			}
 		}
 

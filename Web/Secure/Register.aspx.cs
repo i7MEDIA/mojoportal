@@ -72,6 +72,13 @@ public partial class Register : NonCmsBasePage
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
+
+		if (AppConfig.OAuth.Configured)
+		{
+			WebUtils.SetupRedirect(this, PageUrlService.GetRegisterLink());
+			return;
+		}
+
 		Load += new EventHandler(Page_Load);
 		RegisterUser.CreatingUser += new LoginCancelEventHandler(RegisterUser_CreatingUser);
 		RegisterUser.CreatedUser += new EventHandler(RegisterUser_CreatedUser);

@@ -1670,6 +1670,20 @@ namespace mojoPortal.Data
                 sqlCommand.ToString());
         }
 
+
+		public static int GetSiteCount()
+		{
+			var sqlCommand = "SELECT COUNT(*) FROM mp_Sites;";
+
+			return Convert.ToInt32(
+				MySqlHelper.ExecuteScalar(
+					ConnectionString.GetReadConnectionString(),
+					sqlCommand
+				)
+			);
+		}
+
+
         public static int GetFirstSiteID()
         {
             StringBuilder sqlCommand = new StringBuilder();

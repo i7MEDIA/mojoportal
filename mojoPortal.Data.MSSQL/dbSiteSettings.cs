@@ -346,11 +346,20 @@ namespace mojoPortal.Data
             return (rowsAffected > -1);
         }
 
-        public static IDataReader GetSiteList()
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Sites_SelectAll", 0);
-            return sph.ExecuteReader();
-        }
+		public static IDataReader GetSiteList()
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Sites_SelectAll", 0);
+			return sph.ExecuteReader();
+		}
+
+
+		public static int GetSiteCount()
+		{
+			var sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Sites_SelectCount", 0);
+
+			return Convert.ToInt32(sph.ExecuteScalar());
+		}
+
 
         public static IDataReader GetSite(string hostName)
         {

@@ -1795,6 +1795,21 @@ namespace mojoPortal.Data
                 sqlCommand.ToString());
         }
 
+
+		public static int GetSiteCount()
+		{
+			var sqlCommand = "SELECT COUNT(*) FROM mp_Sites;";
+
+			return Convert.ToInt32(
+				SqliteHelper.ExecuteScalar(
+					GetConnectionString(),
+					sqlCommand
+				)
+			);
+		}
+
+
+
         public static IDataReader GetSite(int siteId)
         {
             StringBuilder sqlCommand = new StringBuilder();

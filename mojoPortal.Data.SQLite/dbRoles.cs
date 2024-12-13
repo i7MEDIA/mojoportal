@@ -297,8 +297,47 @@ namespace mojoPortal.Data
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
-
         }
+
+
+		public static IDataReader GetRolesByUsername(string username, int siteId)
+		{
+			var sqlCommand = @"
+SELECT
+	r.RoleID,
+	r.SiteID,
+	r.RoleName,
+	r.DisplayName,
+	r.SiteGuid,
+	r.RoleGuid,
+	r.Description
+FROM mp_UserRoles ur
+INNER JOIN mp_Users u ON ur.UserID = u.UserID
+INNER JOIN mp_Roles r ON ur.RoleID = r.RoleID
+WHERE u.SiteID = :SiteID
+AND (u.Name = :Username OR u.Email = :Username);";
+
+			var arParams = new SqliteParameter[]
+			{
+				new(":SiteID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+				new(":Username", DbType.String, 225)
+				{
+					Direction = ParameterDirection.Input,
+					Value = username.ToLower(),
+				},
+			};
+
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				sqlCommand,
+				arParams
+			);
+		}
+
 
         public static IDataReader GetRoleMembers(int roleId)
         {

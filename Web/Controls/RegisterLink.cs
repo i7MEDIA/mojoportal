@@ -58,7 +58,7 @@ public class RegisterLink : WebControl
 
 		if (UseLeftSeparator)
 		{
-			writer.Write("<span class='accent'>|</span> ");
+			writer.Write("""<span class="accent">|</span>""");
 		}
 
 		if (RenderAsListItem)
@@ -117,22 +117,6 @@ public class RegisterLink : WebControl
 		}
 
 		var registrationLink = PageUrlService.GetRegisterLink(returnUrl);
-
-		if (
-			siteSettings.DisableDbAuth &&
-			siteSettings.AllowOpenIdAuth &&
-			!string.IsNullOrWhiteSpace(siteSettings.RpxNowApiKey)
-		)
-		{
-			var linkBuilder = "~/Secure/RegisterWithOpenID.aspx".ToLinkBuilder();
-
-			if (returnUrl is not null)
-			{
-				linkBuilder.ReturnUrl(returnUrl);
-			}
-
-			registrationLink = linkBuilder.ToString();
-		}
 
 		return registrationLink;
 	}
