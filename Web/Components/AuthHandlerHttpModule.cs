@@ -258,6 +258,7 @@ public class AuthHandlerHttpModule : IHttpModule
 		if (
 			app.Request == null ||
 			checkAuthentication == true && app.Request.IsAuthenticated == false ||
+			// TODO: Escape requests that are files from API endpoints.
 			!app.Request.Path.EndsWith("svg", StringComparison.OrdinalIgnoreCase) &&
 			!app.Request.Path.EndsWith("png", StringComparison.OrdinalIgnoreCase) &&
 			!app.Request.Path.EndsWith("jpg", StringComparison.OrdinalIgnoreCase) &&
