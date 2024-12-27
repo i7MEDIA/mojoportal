@@ -77,15 +77,16 @@ public class LoginLink : WebControl
 		{
 			if (
 				Page is not Pages.LoginPage &&
-				// https://github.com/i7media/mojoportal/issues/7
 				Page is not Pages.ConfirmRegistration &&
 				Page is not Pages.RecoverPassword &&
 				Page is not Pages.AccessDeniedPage
 			)
 			{
-				if (!string.IsNullOrWhiteSpace(PageUrlService.GetLoginRedirectLink()))
+				var redirectLink = PageUrlService.GetLoginRedirectLink();
+
+				if (!string.IsNullOrWhiteSpace(redirectLink))
 				{
-					loginUrl = PageUrlService.GetLoginLink(PageUrlService.GetLoginRedirectLink());
+					loginUrl = PageUrlService.GetLoginLink(redirectLink);
 				}
 				else
 				{

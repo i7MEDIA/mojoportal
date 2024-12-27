@@ -88,7 +88,7 @@ public class LinkBuilder
 
 	public LinkBuilder ReturnUrl(string returnUrl)
 	{
-		_queries.Add("returnurl", UrlEncode(returnUrl)); //UrlEncode prevents querystring from being used as vector for XSS
+		_queries.Add("returnurl", returnUrl);
 
 		return this;
 	}
@@ -96,7 +96,7 @@ public class LinkBuilder
 
 	public LinkBuilder AddParam(string key, object value)
 	{
-		_queries.Add(key, UrlEncode(value.ToString())); //UrlEncode prevents querystring from being used as vector for XSS
+		_queries.Add(key, value.ToString());
 
 		return this;
 	}
@@ -106,7 +106,7 @@ public class LinkBuilder
 	{
 		foreach (var @param in @params)
 		{
-			_queries.Add(@param.Key, UrlEncode(@param.Value.ToString())); //UrlEncode prevents querystring from being used as vector for XSS
+			_queries.Add(@param.Key, @param.Value.ToString());
 		}
 
 		return this;
@@ -123,7 +123,7 @@ public class LinkBuilder
 	{
 		if (_queries.ContainsKey(key))
 		{
-			_queries[key] = UrlEncode(value.ToString()); //UrlEncode prevents querystring from being used as vector for XSS
+			_queries[key] = value.ToString();
 			return this;
 		}
 		else
