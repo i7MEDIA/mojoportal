@@ -1653,7 +1653,7 @@ public class metaweblogapi : IHttpHandler
 		newFriendlyUrl.SiteGuid = siteSettings.SiteGuid;
 		newFriendlyUrl.PageGuid = page.PageGuid;
 		newFriendlyUrl.Url = friendlyUrlString;
-		newFriendlyUrl.RealUrl = "~/Default.aspx?pageid=" + page.PageId.ToInvariantString();
+		newFriendlyUrl.RealUrl = "~/Default.aspx".ToLinkBuilder().PageId(page.PageId).ToString();
 		newFriendlyUrl.Save();
 
 
@@ -2204,8 +2204,6 @@ public class metaweblogapi : IHttpHandler
 		}
 		else
 		{
-			//url = siteSettings.SiteRoot + String.Format(CultureInfo.InvariantCulture, "/Blog/ViewPost.aspx?ItemID={0}&mid={1}", itemId, moduleId);
-			//url = navigationSiteRoot + string.Format(CultureInfo.InvariantCulture, "/Blog/ViewPost.aspx?ItemID={0}&mid={1}", itemId, moduleId);
 			url = "Blog/ViewPost.aspx".ToLinkBuilder().ModuleId(moduleId).ItemId(itemId).ToString();
 		}
 
@@ -2222,8 +2220,7 @@ public class metaweblogapi : IHttpHandler
 		}
 		else
 		{
-			//url = navigationSiteRoot + String.Format(CultureInfo.InvariantCulture, "/Default.aspx?pageid={0}", pageId);
-			url = "Default.aspx".ToLinkBuilder().PageId(pageId).ToString();
+			url = "~/Default.aspx".ToLinkBuilder().PageId(pageId).ToString();
 		}
 
 		return url;

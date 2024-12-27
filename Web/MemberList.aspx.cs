@@ -79,7 +79,7 @@ public partial class MemberList : NonCmsBasePage
 
 		if (!allowView)
 		{
-			WebUtils.SetupRedirect(this, SiteRoot + "/Default.aspx");
+			WebUtils.SetupRedirect(this, "~/Default.aspx".ToLinkBuilder().ToString());
 			return;
 		}
 

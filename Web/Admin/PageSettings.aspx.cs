@@ -792,7 +792,7 @@ namespace mojoPortal.Web.AdminUI
 			mojoPortal.SearchIndex.IndexHelper.ClearPageIndexAsync(pageSettings);
 			CacheHelper.ResetSiteMapCache(siteSettings.SiteId);
 
-			WebUtils.SetupRedirect(this, SiteRoot + "/Default.aspx");
+			WebUtils.SetupRedirect(this, "~/Default.aspx".ToLinkBuilder().ToString());
 		}
 
 		private bool SavePageData()
@@ -1145,7 +1145,7 @@ namespace mojoPortal.Web.AdminUI
 							SiteGuid = siteSettings.SiteGuid,
 							PageGuid = pageSettings.PageGuid,
 							Url = friendlyUrlString,
-							RealUrl = "~/Default.aspx?pageid=" + pageId.ToInvariantString()
+							RealUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageId).ToString(),
 						};
 
 						newFriendlyUrl.Save();

@@ -70,8 +70,7 @@ namespace mojoPortal.Web.UI
 
                 if (siteSettings.SiteFolderName.Length > 0)
                 {
-                    //urlToUse = siteSettings.SiteRoot + "/Default.aspx";
-                    urlToUse = siteRoot + "/Default.aspx";
+                    urlToUse = "~/Default.aspx".ToLinkBuilder().ToString();
                 }
 
                 if (UseH1)

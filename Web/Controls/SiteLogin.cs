@@ -360,7 +360,7 @@ namespace mojoPortal.Web.UI
 				&& (WebConfigSettings.AppendDefaultPageToFolderRootUrl)
 				)
 			{
-				defaultRedirect += "/Default.aspx";
+				defaultRedirect += "~/Default.aspx".ToLinkBuilder().ToString();
 			}
 
 			//if (redirectPath.EndsWith(".aspx")) { return redirectPath; }

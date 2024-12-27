@@ -719,7 +719,7 @@ public static class CacheHelper
 			&& !currentPage.UseUrl
 			)
 		{
-			currentPage.Url = Invariant($"~/{virtualFolder}/Default.aspx?pageid={currentPage.PageId}");
+			currentPage.Url = $"~/{virtualFolder}/Default.aspx".ToLinkBuilder().PageId(currentPage.PageId).ToString();
 			currentPage.UseUrl = true;
 			currentPage.UrlHasBeenAdjustedForFolderSites = true;
 		}
@@ -900,9 +900,9 @@ public static class CacheHelper
 					&& !pageDetails.UseUrl
 					)
 				{
-					pageDetails.UnmodifiedUrl = Invariant($"~/Default.aspx?pageid={pageDetails.PageId}");
+					pageDetails.UnmodifiedUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageDetails.PageId).ToString();
 
-					pageDetails.Url = Invariant($"~/{virtualFolder}/Default.aspx?pageid={pageDetails.PageId}");
+					pageDetails.Url = $"~/{virtualFolder}/Default.aspx".ToLinkBuilder().PageId(pageDetails.PageId).ToString();
 					pageDetails.UseUrl = true;
 					pageDetails.UrlHasBeenAdjustedForFolderSites = true;
 				}

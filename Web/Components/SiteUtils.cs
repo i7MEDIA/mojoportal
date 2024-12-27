@@ -2032,7 +2032,7 @@ namespace mojoPortal.Web
 			}
 			else
 			{
-				resolvedUrl = Invariant($"{GetNavigationSiteRoot()}/Default.aspx?pageid={pageSettings.PageId}");
+				resolvedUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageSettings.PageId).ToString();
 			}
 
 			return resolvedUrl;

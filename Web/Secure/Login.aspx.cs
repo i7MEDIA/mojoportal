@@ -92,9 +92,13 @@ public partial class LoginPage : NonCmsBasePage
 				returnUrlParam = Page.Server.UrlDecode(returnUrlParam).RemoveMarkup();
 
 				string redirectUrl = Page.ResolveUrl(returnUrlParam);
-				if ((redirectUrl.StartsWith("/") && (!redirectUrl.StartsWith("//")))
-					|| redirectUrl.StartsWith(SiteRoot)
-					|| redirectUrl.StartsWith(SiteRoot.Replace("https://", "http://")))
+				
+				if (
+					redirectUrl.StartsWith("/") &&
+					!redirectUrl.StartsWith("//") ||
+					redirectUrl.StartsWith(SiteRoot) ||
+					redirectUrl.StartsWith(SiteRoot.Replace("https://", "http://"))
+				)
 				{
 					WebUtils.SetupRedirect(this, returnUrlParam);
 					return;
@@ -102,7 +106,7 @@ public partial class LoginPage : NonCmsBasePage
 			}
 
 			// user is logged in
-			WebUtils.SetupRedirect(this, SiteRoot + "/Default.aspx");
+			WebUtils.SetupRedirect(this, "~/Default.aspx".ToLinkBuilder().ToString());
 			return;
 		}
 

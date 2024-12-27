@@ -112,7 +112,7 @@ namespace mojoPortal.Business
                 }
                 else
                 {
-                    pageModule.pageUrl = "~/Default.aspx?pageid=" + pageModule.pageID.ToString();
+                    pageModule.pageUrl = "~/Default.aspx?pageid=" + pageModule.pageID.ToString(CultureInfo.InvariantCulture);
                 }
 
                 pageModules.Add(pageModule);

@@ -550,7 +550,7 @@ public partial class ContentManagerPage : NonCmsBasePage
 
 		if (pageID > -1)
 		{
-			this.lnkBackToList.NavigateUrl = SiteUtils.GetNavigationSiteRoot() + "/Default.aspx?pageid=" + pageID.ToInvariantString();
+			this.lnkBackToList.NavigateUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageID).ToString();
 			this.lnkBackToList.Visible = true;
 			this.lnkBackToList.Text = Resource.ContentManagerBackToListLink;
 		}

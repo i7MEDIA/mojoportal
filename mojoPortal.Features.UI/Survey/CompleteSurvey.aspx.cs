@@ -53,7 +53,7 @@ public partial class CompleteSurveyPage : mojoBasePage
 
 		if (survey.SurveyGuid == Guid.Empty || survey.SiteGuid != siteSettings.SiteGuid)
 		{
-			WebUtils.SetupRedirect(this, $"{SiteRoot}/Default.aspx");
+			WebUtils.SetupRedirect(this, "~/Default.aspx".ToLinkBuilder().ToString());
 
 			return;
 		}
@@ -204,7 +204,7 @@ public partial class CompleteSurveyPage : mojoBasePage
 			{
 				SubmitResponse();
 				//We need to go back to the module main page
-				WebUtils.SetupRedirect(this, Invariant($"{SiteRoot}/Default.aspx?pageId={PageId}&SurveyEnd={surveyGuid}"));
+				WebUtils.SetupRedirect(this, "~/Default.aspx".ToLinkBuilder().PageId(PageId).AddParam("SurveyEnd", surveyGuid).ToString());
 			}
 			else
 			{

@@ -14,7 +14,7 @@ public partial class RedirectPage : Page
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		ProcessSkinCookie();
-		Response.Redirect(SiteUtils.GetNavigationSiteRoot() + "/Default.aspx"); // the default.aspx is needed to work with folder based child sites
+		Response.Redirect("~/Default.aspx".ToLinkBuilder().ToString()); // the default.aspx is needed to work with folder based child sites
 	}
 
 	private void ProcessSkinCookie()

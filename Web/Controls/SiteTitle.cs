@@ -111,7 +111,7 @@ namespace mojoPortal.Web.UI
                 {
                     if (siteSettings.DefaultFriendlyUrlPattern == SiteSettings.FriendlyUrlPattern.PageNameWithDotASPX)
                     {
-                        urlToUse = SiteUtils.GetNavigationSiteRoot() + "/Default.aspx";
+                        urlToUse = "~/Default.aspx".ToLinkBuilder().ToString();
                     }
                     else
                     {

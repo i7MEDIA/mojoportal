@@ -161,7 +161,7 @@ public partial class ModuleDefinitions : NonCmsBasePage
 		string redirectUrl;
 		if (pageId > -1)
 		{
-			redirectUrl = "Default.aspx".ToLinkBuilder().PageId(pageId).ToString();
+			redirectUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageId).ToString();
 		}
 		else
 		{

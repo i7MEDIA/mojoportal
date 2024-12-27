@@ -22,7 +22,7 @@ public partial class AccessDeniedPage : NonCmsBasePage
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AccessDenied);
 		lnkHome.Text = Resource.ReturnHomeLabel;
 		lnkHome.ToolTip = Resource.ReturnHomeLabel;
-		lnkHome.NavigateUrl = SiteRoot + "/Default.aspx";
+		lnkHome.NavigateUrl = "~/Default.aspx".ToLinkBuilder().ToString();
 
 		if (!Request.IsAuthenticated)
 		{

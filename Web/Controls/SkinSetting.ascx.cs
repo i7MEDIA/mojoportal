@@ -119,7 +119,7 @@ public partial class SkinSetting : UserControl, ISettingControl
 
 		if (pageUrl.Length == 0)
 		{
-			pageUrl = SiteUtils.GetNavigationSiteRoot() + "/Default.aspx";
+			pageUrl = "~/Default.aspx".ToLinkBuilder().ToString();
 		}
 
 		StringBuilder sb = new StringBuilder();

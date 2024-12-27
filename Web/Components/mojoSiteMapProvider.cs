@@ -163,7 +163,7 @@ public class mojoSiteMapProvider : StaticSiteMapProvider
         }
         else
         {
-           pageUrl = "~/Default.aspx?pageid=" + page.PageId.ToString();
+           pageUrl = "~/Default.aspx".ToLinkBuilder().PageId(page.PageId).ToString();
         }
 
 			mojoSiteMapNode node = new(

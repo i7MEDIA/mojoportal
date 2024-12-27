@@ -368,7 +368,7 @@ public partial class PageMenuControl : UserControl
 				}
 				else
 				{
-					pageMapDataSource.StartingNodeUrl = "~/Default.aspx?pageid=" + currentPage.PageId.ToString();
+					pageMapDataSource.StartingNodeUrl = "~/Default.aspx".ToLinkBuilder().PageId(currentPage.PageId).ToString();
 				}
 
 
@@ -817,7 +817,7 @@ public partial class PageMenuControl : UserControl
 				}
 				else
 				{
-					pageMapDataSource.StartingNodeUrl = "~/Default.aspx?pageid=" + currentPage.PageId.ToInvariantString();
+					pageMapDataSource.StartingNodeUrl = "~/Default.aspx".ToLinkBuilder().PageId(currentPage.PageId).ToString();
 				}
 
 			}

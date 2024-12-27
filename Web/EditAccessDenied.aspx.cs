@@ -16,7 +16,7 @@ public partial class EditAccessDenied : NonCmsBasePage
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AccessDenied);
 		lnkHome.Text = Resource.ReturnHomeLabel;
 		lnkHome.ToolTip = Resource.ReturnHomeLabel;
-		lnkHome.NavigateUrl = SiteRoot + "/Default.aspx";
+		lnkHome.NavigateUrl = "~/Default.aspx".ToLinkBuilder().ToString();
 		SiteUtils.AddNoIndexMeta(this);
 		//lblEditAccessDeniedMessage.Text = ResourceHelper.GetMessageTemplate("EditAccessDeniedMessage.config");
 

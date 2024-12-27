@@ -150,7 +150,7 @@ public partial class PasswordResetPage : NonCmsBasePage
 				&& WebConfigSettings.AppendDefaultPageToFolderRootUrl
 				)
 			{
-				redirectUrl += "/Default.aspx";
+				redirectUrl += "~/Default.aspx".ToLinkBuilder().ToString();
 			}
 		}
 
