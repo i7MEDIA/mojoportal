@@ -424,7 +424,8 @@ public sealed class mojoSetup
 					SiteGuid = siteSettings.SiteGuid,
 					PageGuid = pageSettings.PageGuid,
 					Url = pageSettings.Url.Replace("~/", string.Empty),
-					RealUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageSettings.PageId).ToString()
+					// This must stay as it is
+					RealUrl = Invariant($"~/Default.aspx?pageid={pageSettings.PageId}"),
 				};
 				friendlyUrl.Save();
 			}
