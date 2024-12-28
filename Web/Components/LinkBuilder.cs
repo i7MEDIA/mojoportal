@@ -143,19 +143,20 @@ public class LinkBuilder
 		}
 
 		var path = _url.TrimStart('~') + (queryString.Count > 0 ? $"?{queryString}" : string.Empty);
-
-		if (_includeSiteRoot)
-		{
-			return new Uri(new Uri(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute), new Uri(path, UriKind.Relative));
-		}
+		var siteRoot = SiteUtils.GetNavigationSiteRoot();
 
 		try
 		{
+			if (_includeSiteRoot && !string.IsNullOrWhiteSpace(siteRoot))
+			{
+				return new Uri(new Uri(siteRoot, UriKind.Absolute), new Uri(path, UriKind.Relative));
+			}
+
 			return new Uri(path);
 		}
 		catch (UriFormatException)
 		{
-			return new Uri(new Uri(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute), new Uri(path, UriKind.Relative));
+			return new Uri(path.TrimStart('/'), UriKind.Relative);
 		}
 
 	}
