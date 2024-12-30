@@ -1145,7 +1145,7 @@ namespace mojoPortal.Web.AdminUI
 							SiteGuid = siteSettings.SiteGuid,
 							PageGuid = pageSettings.PageGuid,
 							Url = friendlyUrlString,
-							RealUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageId).ToString(),
+							RealUrl = Invariant($"~/Default.aspx?pageid={pageId}"),
 						};
 
 						newFriendlyUrl.Save();
