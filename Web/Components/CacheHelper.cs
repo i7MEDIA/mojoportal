@@ -900,7 +900,7 @@ public static class CacheHelper
 					&& !pageDetails.UseUrl
 					)
 				{
-					pageDetails.UnmodifiedUrl = "~/Default.aspx".ToLinkBuilder().PageId(pageDetails.PageId).ToString();
+					pageDetails.UnmodifiedUrl = Invariant($"~/Default.aspx?pageid={pageDetails.PageId}");
 
 					pageDetails.Url = $"~/{virtualFolder}/Default.aspx".ToLinkBuilder().PageId(pageDetails.PageId).ToString();
 					pageDetails.UseUrl = true;

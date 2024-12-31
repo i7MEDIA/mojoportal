@@ -1653,7 +1653,7 @@ public class metaweblogapi : IHttpHandler
 		newFriendlyUrl.SiteGuid = siteSettings.SiteGuid;
 		newFriendlyUrl.PageGuid = page.PageGuid;
 		newFriendlyUrl.Url = friendlyUrlString;
-		newFriendlyUrl.RealUrl = "~/Default.aspx".ToLinkBuilder().PageId(page.PageId).ToString();
+		newFriendlyUrl.RealUrl = "~/Default.aspx?pageid=" + page.PageId.ToInvariantString();
 		newFriendlyUrl.Save();
 
 

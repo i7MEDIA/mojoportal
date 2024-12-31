@@ -193,7 +193,7 @@ namespace mojoPortal.Web.AdminUI
 					SiteId = siteSettings.SiteId,
 					SiteGuid = siteSettings.SiteGuid,
 					Url = txtFriendlyUrl.Text,
-					RealUrl = "~/Default.aspx".ToLinkBuilder().PageId(Convert.ToInt32(ddPages.SelectedValue)).ToString()
+					RealUrl = Invariant($"Default.aspx?pageid={ddPages.SelectedValue}")
 				};
 
 				//get pageGuid from PageSettings
@@ -284,7 +284,7 @@ namespace mojoPortal.Web.AdminUI
 							}
 						}
 
-						friendlyUrl.RealUrl = "~/Default.aspx".ToLinkBuilder().PageId(Convert.ToInt32(ddPagesEdit.SelectedValue)).ToString();
+						friendlyUrl.RealUrl = Invariant($"Default.aspx?pageid={ddPagesEdit.SelectedValue}");
 					}
 					else
 					{
