@@ -1,5 +1,5 @@
 ﻿@using mojoPortal.Web.Framework;
-@using mojoPortal.Web.Helpers;
+@using mojoPortal.Core.Extensions;
 @using mojoPortal.Business;
 @using mojoPortal.Web;
 @using mojoPortal.Business.WebHelpers;
@@ -39,7 +39,7 @@
 
 		<div class="col-md-3">
 			<div class="panel panel-default">
-				<div class="panel-heading"><h3 class="panel-title">@SecurityHelper.RemoveMarkup(letterInfo.Title) <a href="@siteRoot/eletter/LetterInfoEdit.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsletterEditLink" class="ModuleEditLink">@Resource.NewsletterEditLink</a></h3></div>
+				<div class="panel-heading"><h3 class="panel-title">@letterInfo.Title.RemoveMarkup() <a href="@siteRoot/eletter/LetterInfoEdit.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsletterEditLink" class="ModuleEditLink">@Resource.NewsletterEditLink</a></h3></div>
 				<div class="panel-body">
 					@Html.Raw(letterInfo.Description)
 					<a href="@siteRoot/eletter/LetterEdit.aspx?l=@letterInfo.LetterInfoGuid.ToString()" title="@Resource.NewsLetterAddNewLetterToolTip" class="btn btn-success btn-block">@Resource.NewsLetterAddNewLetterLink</a>
