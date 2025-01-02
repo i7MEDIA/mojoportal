@@ -1,11 +1,10 @@
-﻿using System;
+﻿using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web.UI;
 
@@ -45,6 +44,7 @@ public class SkinFolderCssFile : WebControl
 
 	public string LinkFormat { get; set; } = "<link rel=\"stylesheet\" href=\"{0}\" data-loader=\"skinfoldercss\">";
 
+
 	protected override void OnPreRender(EventArgs e)
 	{
 		base.OnPreRender(e);
@@ -66,6 +66,7 @@ public class SkinFolderCssFile : WebControl
 		{
 			bool match = false;
 			List<string> allowedUrls = VisibleUrls.SplitOnChar(',');
+
 			foreach (string u in allowedUrls)
 			{
 				//Page.AppRelativeVirtualPath will match for things like blog posts where the friendly url is something like /my-cool-post which
@@ -82,14 +83,14 @@ public class SkinFolderCssFile : WebControl
 					match = true;
 				}
 			}
-			Visible = match;
 
+			Visible = match;
 		}
 	}
 
+
 	protected override void Render(HtmlTextWriter writer)
 	{
-		//base.Render(writer);
 		if (!Visible)
 		{
 			return;
@@ -98,17 +99,14 @@ public class SkinFolderCssFile : WebControl
 		if (CssFullUrl.Length > 0)
 		{
 			writer.Write(string.Format(CultureInfo.InvariantCulture, $"\n{LinkFormat}", CssFullUrl));
+
 			return;
 		}
 
-		var skinVersion = Guid.Empty;
-		if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
-		{
-			skinVersion = siteSettings.SkinVersion;
-		}
-
-		string cssUrl = SiteUtils.DetermineSkinBaseUrl(true, Page) + CssFileName;
-
-		writer.Write(string.Format(CultureInfo.InvariantCulture, $"\n{LinkFormat}", $"{cssUrl.ToLinkBuilder().AddParam("v", skinVersion)}"));
+		writer.Write(string.Format(
+			CultureInfo.InvariantCulture,
+			$"\n{LinkFormat}",
+			LinkBuilder.SkinUrl(CssFileName, Page).ToString()
+		));
 	}
 }
