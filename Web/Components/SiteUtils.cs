@@ -1465,54 +1465,43 @@ namespace mojoPortal.Web
 			{
 				if (HttpContext.Current.Request.Params.Get("skin") is not null)
 				{
-					currentSkin = $"{SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin"))}/";
+					currentSkin = SanitizeSkinParam(HttpContext.Current.Request.Params.Get("skin"));
 				}
 				else
 				{
-					currentSkin = siteSettings.Skin + "/";
+					currentSkin = siteSettings.Skin;
 
 					if (siteSettings.AllowUserSkins)
 					{
-						string skinCookieName = Invariant($"mojoUserSkin{siteSettings.SiteId}");
+						var skinCookieName = Invariant($"mojoUserSkin{siteSettings.SiteId}");
+
 						if (CookieHelper.CookieExists(skinCookieName))
 						{
-							string cookieValue = CookieHelper.GetCookieValue(skinCookieName);
+							var cookieValue = CookieHelper.GetCookieValue(skinCookieName);
+
 							if (cookieValue.Length > 0)
 							{
-								currentSkin = cookieValue + "/";
+								currentSkin = cookieValue;
 							}
 						}
 					}
 
 					if (
-						allowPageOverride
-						&& siteSettings.AllowPageSkins
-						&& (CacheHelper.GetCurrentPage() is PageSettings currentPage)
-						&& (page is not null)
-							&& (
-							(page is AdminUI.PageLayout)
-							|| (page is AdminUI.PageProperties)
-							|| (page is AdminUI.ModuleSettingsPage)
-							|| (page is not NonCmsBasePage)
-							)
+						allowPageOverride &&
+						siteSettings.AllowPageSkins &&
+						CacheHelper.GetCurrentPage() is PageSettings currentPage &&
+						page is not null &&
+						(
+							page is AdminUI.PageLayout ||
+							page is AdminUI.PageProperties ||
+							page is AdminUI.ModuleSettingsPage ||
+							page is not NonCmsBasePage
 						)
+					)
 					{
 						if (currentPage.Skin.Length > 0)
 						{
-							currentSkin = $"{currentPage.Skin}/";
-						}
-					}
-
-					if (UseMobileSkin())
-					{
-						if (siteSettings.MobileSkin.Length > 0)
-						{
-							currentSkin = siteSettings.MobileSkin + "/";
-						}
-						//web.config setting trumps site setting
-						if (!string.IsNullOrWhiteSpace(WebConfigSettings.MobilePhoneSkin))
-						{
-							currentSkin = WebConfigSettings.MobilePhoneSkin + "/";
+							currentSkin = currentPage.Skin;
 						}
 					}
 				}
@@ -1521,7 +1510,7 @@ namespace mojoPortal.Web
 			}
 
 			// TODO: Refactor system so we can remove the trailing slash
-			return $"{skinFolder}/{currentSkin}".ToLinkBuilder().ToString() + "/";
+			return $"{$"{skinFolder}/{currentSkin}".ToLinkBuilder()}/";
 		}
 
 		public static string GetCssHandlerUrl(bool allowPageOverride, string skinName = "")
