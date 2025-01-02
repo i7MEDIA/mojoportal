@@ -1454,12 +1454,12 @@ namespace mojoPortal.Web
 		/// <returns>Full URL to Skin with trailing slash.</returns>
 		public static string DetermineSkinBaseUrl(bool allowPageOverride = true, Page page = null)
 		{
-			string skinFolder = "Data/Sites/1/skins".ToLinkBuilder().ToString();
+			var siteRoot = WebUtils.GetSiteRoot();
+			var skinFolder = $"{siteRoot}/Data/Sites/1/skins";
 
 			var currentSkin = WebConfigSettings.DefaultInitialSkin;
 
 			var siteSettings = CacheHelper.GetCurrentSiteSettings();
-			//var currentPage = CacheHelper.GetCurrentPage();
 
 			if (siteSettings is not null)
 			{
@@ -1517,10 +1517,11 @@ namespace mojoPortal.Web
 					}
 				}
 
-				skinFolder = Invariant($"Data/Sites/{siteSettings.SiteId}/skins/").ToLinkBuilder().ToString();
+				skinFolder = $"{siteRoot}/Data/Sites/{siteSettings.SiteId}/skins";
 			}
 
-			return $"{skinFolder}/{currentSkin}/";
+			// TODO: Refactor system so we can remove the trailing slash
+			return $"{skinFolder}/{currentSkin}".ToLinkBuilder().ToString() + "/";
 		}
 
 		public static string GetCssHandlerUrl(bool allowPageOverride, string skinName = "")
@@ -1781,33 +1782,35 @@ namespace mojoPortal.Web
 				return HttpContext.Current.Items["navigationRoot"].ToString();
 			}
 
-			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
+			var folderTenant = string.Empty;
 
-			if (useFolderForSiteDetection)
+			if (WebConfigSettings.UseFolderBasedMultiTenants)
 			{
-				return GetRelativeNavigationSiteRoot();
+				folderTenant = GetRelativeNavigationSiteRoot();
 			}
 
-			string navigationRoot = WebUtils.GetSiteRoot();
+			var navigationRoot = WebUtils.GetSiteRoot();
 
 			if (navigationRoot.StartsWith("http:"))
 			{
 				var useSSL = false;
+
 				if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && siteSettings.UseSslOnAllPages)
 				{
 					useSSL = true;
 				}
+
 				if (WebHelper.IsSecureRequest() || useSSL)
 				{
 					navigationRoot = navigationRoot.Replace("http:", "https:");
 				}
 			}
 
-			HttpContext.Current.Items["navigationRoot"] = navigationRoot;
+			HttpContext.Current.Items["navigationRoot"] = navigationRoot + folderTenant;
 
-			return navigationRoot;
-
+			return navigationRoot + folderTenant;
 		}
+
 
 		public static string GetNavigationSiteRoot(SiteSettings siteSettings)
 		{

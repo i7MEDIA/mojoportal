@@ -1,5 +1,4 @@
-﻿using log4net;
-using mojoPortal.Business;
+﻿using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using System;
 using System.Collections.Generic;
@@ -15,10 +14,8 @@ public class LinkBuilder
 {
 	#region Private Fields
 
-	private static readonly ILog log = LogManager.GetLogger(typeof(LinkBuilder));
-	private readonly string _url;
+	private readonly Uri _uri = new(string.Empty, UriKind.RelativeOrAbsolute);
 	private readonly NameValueCollection _queryCollection = HttpUtility.ParseQueryString(string.Empty);
-	private readonly bool _includeSiteRoot;
 
 	#endregion
 
@@ -28,26 +25,28 @@ public class LinkBuilder
 	public LinkBuilder(string url, bool includeSiteRoot = true)
 	{
 		url = ParseAndRemoveQueryParamsFromUrlString(url);
-		_url = CombinePaths(ParsePath(url));
-		log.Debug($"Public CTOR Include In Site Root1?: {includeSiteRoot}");
-		_includeSiteRoot = EnsureSiteRoot(includeSiteRoot);
-		log.Debug($"Public CTOR URL: {url}");
-		log.Debug($"Public CTOR Include In Site Root2?: {_includeSiteRoot}");
-	}
 
+		var urlParsed = Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out var uri);
 
-	private LinkBuilder(string[] urls, bool includeSiteRoot = true)
-	{
-		// Clean out any query parameters
-		urls = urls.Select(x => x.Contains("?") ? x.Remove(x.IndexOf('?'), x.IndexOf('?') - x.Length) : x).ToArray();
+		if (!urlParsed)
+		{
+			return;
+		}
 
-		(_, var paths) = ParsePaths(urls);
+		(var urlAuthority, var urlPaths) = ParsePath(url);
+		var siteRootPaths = Array.Empty<string>();
 
-		_url = CombinePaths(paths);
-		log.Debug($"Private CTOR Include In Site Root1?: {includeSiteRoot}");
-		_includeSiteRoot = EnsureSiteRoot(includeSiteRoot);
-		log.Debug($"Private CTOR URL: {_url}");
-		log.Debug($"Private CTOR Include In Site Root2?: {_includeSiteRoot}");
+		if (includeSiteRoot && !uri.IsAbsoluteUri)
+		{
+			var siteRoot = SiteUtils.GetNavigationSiteRoot();
+			var siteRootUri = new Uri(siteRoot);
+			urlAuthority = siteRootUri.GetLeftPart(UriPartial.Authority);
+			(_, siteRootPaths) = ParsePath(siteRootUri.AbsolutePath);
+		}
+
+		var cleanUrl = CombinePaths(urlAuthority, [.. siteRootPaths, .. urlPaths]);
+
+		_uri = new(cleanUrl, UriKind.RelativeOrAbsolute);
 	}
 
 	#endregion
@@ -137,6 +136,17 @@ public class LinkBuilder
 	}
 
 
+	public LinkBuilder AddParams(NameValueCollection collection)
+	{
+		foreach (KeyValuePair<string, string> item in collection)
+		{
+			_queryCollection.Add(item.Key, item.Value);
+		}
+
+		return this;
+	}
+
+
 	/// <summary>
 	/// Sets query parameter to passed value. This will override any previously set value.
 	/// </summary>
@@ -153,58 +163,16 @@ public class LinkBuilder
 	#endregion
 
 
+	#region Public Methods
+
 	public Uri ToUri()
 	{
-		try
-		{
-			log.Debug($"Site Root: {SiteUtils.GetNavigationSiteRoot()}");
-			log.Debug($"Include Site Root?: {_includeSiteRoot}");
-
-			if (
-				_includeSiteRoot &&
-				Uri.TryCreate(SiteUtils.GetNavigationSiteRoot(), UriKind.Absolute, out var baseUrl) &&
-				Uri.TryCreate(_url, UriKind.Relative, out var urlPath) &&
-				Uri.TryCreate(baseUrl, urlPath + GetQueryString(), out var fullSiteUri)
-			)
-			{
-				log.Debug($"Full Site URL BaseURL: {baseUrl}");
-				log.Debug($"Full Site URL URLPath: {urlPath}");
-				log.Debug($"Full Site URL: {fullSiteUri}");
-
-				return new UriBuilder(fullSiteUri)
-				{
-					Query = _queryCollection.ToString(),
-				}.Uri;
-			}
-
-			_ = Uri.TryCreate(_url + GetQueryString(), UriKind.Absolute, out Uri result) ||
-				Uri.TryCreate(_url + GetQueryString(), UriKind.Relative, out result);
-
-			log.Debug($"Relative or External URL: {result}");
-
-			return result;
-		}
-		catch (Exception e)
-		{
-			log.Error(e);
-			return null;
-		}
+		return new(_uri.AbsoluteUri + GetQueryString(), UriKind.RelativeOrAbsolute);
 	}
 
 
 	public override string ToString()
 	{
-		//string siteRoot = string.Empty;
-
-		//if (includeSiteRoot)
-		//{
-		//	siteRoot = SiteUtils.GetNavigationSiteRoot();
-		//}
-
-		//string qmark = queries.Count > 0 ? "?" : string.Empty;
-		////return string.Format(CultureInfo.InvariantCulture, $"{siteRoot}/{url.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/'));
-		//return $"{siteRoot}/{url?.TrimStart('~', '/')}{qmark}{queries.ToDelimitedString()}".TrimStart('/');
-
 		return ToUri()?.ToString() ?? string.Empty;
 	}
 
@@ -216,7 +184,23 @@ public class LinkBuilder
 	public static LinkBuilder SkinUrl(string path, Page page, bool includeSkinVersion = true)
 	{
 		var skinBaseUrl = SiteUtils.DetermineSkinBaseUrl(true, page);
-		var builder = new LinkBuilder([skinBaseUrl, path]);
+		string[] paths = [skinBaseUrl, path];
+
+		static string RemoveQueryString(string path)
+		{
+			if (path.Contains("?"))
+			{
+				return path.Remove(path.IndexOf('?'), path.IndexOf('?') - path.Length);
+			}
+
+			return path;
+		}
+
+		// Clean out any query parameters
+		paths = paths.Select(RemoveQueryString).ToArray();
+
+		var url = CombinePaths(ParsePaths(paths));
+		var builder = new LinkBuilder(url);
 
 		if (includeSkinVersion)
 		{
@@ -233,29 +217,14 @@ public class LinkBuilder
 		return builder;
 	}
 
+	#endregion
+
 
 	#region Private Utilities
 
-	private bool EnsureSiteRoot(bool includeSiteRoot)
-	{
-		var siteRoot = SiteUtils.GetNavigationSiteRoot();
-		var urlContainsSiteRoot = _url.Contains(siteRoot);
-
-		log.Debug($"EnsureSiteRoot SiteRoot: {siteRoot}");
-		log.Debug($"EnsureSiteRoot UrlContainsSiteRoot: {urlContainsSiteRoot}");
-
-		if (includeSiteRoot && urlContainsSiteRoot)
-		{
-			includeSiteRoot = false;
-		}
-
-		return includeSiteRoot;
-	}
-
-
 	private string ParseAndRemoveQueryParamsFromUrlString(string url, bool removeDuplicates = true)
 	{
-		var queryIndex = url.IndexOf("?");
+		var queryIndex = url.IndexOf('?');
 
 		if (queryIndex > -1)
 		{
@@ -277,7 +246,7 @@ public class LinkBuilder
 				}
 			}
 
-			url = url.Substring(0, url.IndexOf('?'));
+			url = url.Substring(0, queryIndex);
 		}
 
 		return url;
@@ -343,7 +312,7 @@ public class LinkBuilder
 			}
 		}
 
-		return (urlBase, path.Split(new char[] { '/', '\\', '~' }, StringSplitOptions.RemoveEmptyEntries));
+		return (urlBase, path.Split(['/', '\\', '~'], StringSplitOptions.RemoveEmptyEntries));
 	}
 
 	/// <summary>
@@ -379,9 +348,10 @@ public static class LinkBuilderExtensions
 		return new LinkBuilder(str, includeSiteRoot);
 	}
 
+
 	public static LinkBuilder ToLinkBuilder(this Uri uri, bool includeSiteRoot = false)
 	{
-		return new LinkBuilder(uri.AbsolutePath, includeSiteRoot)
-			.AddParams((Dictionary<string, object>)uri.ParseQueryString().ToDictionary());
+		return new LinkBuilder(uri.AbsoluteUri, includeSiteRoot)
+			.AddParams(uri.ParseQueryString());
 	}
 }
