@@ -2078,16 +2078,19 @@ namespace mojoPortal.Web
 		//	return WebHelper.IsSecureRequest();
 		//}
 
-		public static bool SslIsAvailable()
+		public static bool SslIsAvailable(SiteSettings siteSettings = null)
 		{
 			if (WebConfigSettings.SslisAvailable)
 			{
 				return true;
 			}
 
-			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
+			siteSettings ??= CacheHelper.GetCurrentSiteSettings();
+
+			if (siteSettings is not null)
 			{
 				string key = Invariant($"Site{siteSettings.SiteId.ToInvariantString()}-SSLIsAvailable");
+
 				if (ConfigurationManager.AppSettings[key] is not null)
 				{
 					return ConfigHelper.GetBoolProperty(key, false);

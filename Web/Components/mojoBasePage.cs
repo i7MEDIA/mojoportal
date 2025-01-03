@@ -1079,53 +1079,53 @@ public class mojoBasePage : Page
 
 		try
 		{
-			if (WebConfigSettings.AllowForcingPreferredHostName)
-			{
-				EnsureSiteSettings();
-				if (siteSettings is not null && siteSettings.PreferredHostName.Length > 0)
-				{
-					string requestedHostName = WebUtils.GetHostName();
+			//if (WebConfigSettings.AllowForcingPreferredHostName)
+			//{
+			//	EnsureSiteSettings();
+			//	if (siteSettings is not null && siteSettings.PreferredHostName.Length > 0)
+			//	{
+			//		string requestedHostName = WebUtils.GetHostName();
 
-					if (siteSettings.PreferredHostName != requestedHostName)
-					{
-						string redirectUrl;
-						string protocol = SiteUtils.SslIsAvailable() ? "https://" : "http://";
-						string serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
-						if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
-						{
-							serverPort = string.Empty;
-						}
-						else
-						{
-							serverPort = $":{serverPort}";
-						}
+			//		if (siteSettings.PreferredHostName != requestedHostName)
+			//		{
+			//			string redirectUrl;
+			//			string protocol = SiteUtils.SslIsAvailable() ? "https://" : "http://";
+			//			string serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+			//			if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
+			//			{
+			//				serverPort = string.Empty;
+			//			}
+			//			else
+			//			{
+			//				serverPort = $":{serverPort}";
+			//			}
 
-						if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
-						{
-							redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
-						}
-						else
-						{
-							redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
-						}
+			//			if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
+			//			{
+			//				redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
+			//			}
+			//			else
+			//			{
+			//				redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
+			//			}
 
-						if (WebConfigSettings.LogRedirectsToPreferredHostName)
-						{
-							log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
-						}
+			//			if (WebConfigSettings.LogRedirectsToPreferredHostName)
+			//			{
+			//				log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
+			//			}
 
-						if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
-						{
-							Response.RedirectPermanent(redirectUrl, true);
-							return;
-						}
+			//			if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
+			//			{
+			//				Response.RedirectPermanent(redirectUrl, true);
+			//				return;
+			//			}
 
-						Response.Redirect(redirectUrl, true);
+			//			Response.Redirect(redirectUrl, true);
 
-						return;
-					}
-				}
-			}
+			//			return;
+			//		}
+			//	}
+			//}
 
 			SetupMasterPage();
 		}

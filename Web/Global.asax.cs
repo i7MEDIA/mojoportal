@@ -154,35 +154,7 @@ public class Global : HttpApplication
 			}
 		}
 
-		//http://www.troyhunt.com/2011/11/owasp-top-10-for-net-developers-part-9.html
-		if (
-			siteCount > 0 && SiteUtils.SslIsAvailable() && WebConfigSettings.ForceSslOnAllPages ||
-			siteCount == 0 && WebConfigSettings.SslisAvailable
-		)
-		{
-			// if we have sites (not a new install) and SSL is avail and forced, we want to force all pages to SSL
-			// OR if we don't have any sites (is a new install) and SSL is avail, we want to force to SSL, which would really 
-			// only force it for default.aspx which then redirects to setup/default.aspx because there are no sites (see EnsurePageAndSite() in default.aspx)
-			switch (Request.Url.Scheme)
-			{
-				case "https":
-					if (WebConfigSettings.UseHSTSHeader)
-					{
-						Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
-					}
-
-					break;
-
-				case "http":
-					Response.Status = "301 Moved Permanently";
-					Response.AddHeader("Location", $"https://{Request.Url.Host}{Request.Url.PathAndQuery}");
-					Response.Cache.SetNoStore();
-					Response.Cache.SetCacheability(HttpCacheability.NoCache);
-					Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
-
-					break;
-			}
-		}
+		HandleRedirects(siteCount);
 
 		//moved RegisterBundles here so it can properly check the request for SSL. Can't do that when called from Application_Start
 		BundleConfig.RegisterBundles(BundleTable.Bundles);
@@ -402,6 +374,95 @@ public class Global : HttpApplication
 
 
 	#region Private Methods
+
+	private void HandleRedirects(int siteCount)
+	{
+		if (WebConfigSettings.AllowForcingPreferredHostName)
+		{
+			var siteSettings = CacheHelper.GetCurrentSiteSettings();
+			var useHttps = siteCount > 0 &&
+				SiteUtils.SslIsAvailable(siteSettings) ||
+				siteCount == 0 &&
+				WebConfigSettings.SslisAvailable;
+			var protocol = useHttps ? "https://" : "http://";
+			string redirectUrl = null;
+			bool doRedirect = false;
+
+			if (useHttps)
+			{
+				switch (Request.Url.Scheme)
+				{
+					case "https":
+						if (WebConfigSettings.UseHSTSHeader)
+						{
+							Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
+						}
+
+						break;
+
+					case "http":
+						doRedirect = true;
+						redirectUrl = $"https://{Request.Url.Host}{Request.Url.PathAndQuery}";
+
+						break;
+				}
+			}
+
+			if (siteSettings is not null && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
+			{
+				var requestedHostName = WebUtils.GetHostName();
+
+				if (siteSettings.PreferredHostName != requestedHostName)
+				{
+					doRedirect = true;
+
+					var serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+
+					if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
+					{
+						serverPort = string.Empty;
+					}
+					else
+					{
+						serverPort = $":{serverPort}";
+					}
+
+					if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
+					{
+						redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
+					}
+					else
+					{
+						redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
+					}
+
+					if (WebConfigSettings.LogRedirectsToPreferredHostName)
+					{
+						log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
+					}
+				}
+			}
+
+			if (doRedirect)
+			{
+				if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
+				{
+					Response.Status = "301 Moved Permanently";
+					Response.AddHeader("Location", redirectUrl);
+					Response.Cache.SetNoStore();
+					Response.Cache.SetCacheability(HttpCacheability.NoCache);
+					Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+
+					return;
+				}
+
+				Response.Redirect(redirectUrl, true);
+
+				return;
+			}
+		}
+	}
+
 
 	private void PurgeOldLogEvents()
 	{
