@@ -54,6 +54,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="log4net">
+      <Version>3.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Mono.Data.Sqlite">
       <Version>1.0.61</Version>
     </PackageReference>
