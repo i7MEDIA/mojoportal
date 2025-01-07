@@ -6,6 +6,7 @@ public class SubkismetInvisibleCaptchaProvider : CaptchaProvider
 {
 	public override ICaptcha GetCaptcha() => new SubkismetInvisibleCaptchaAdapter();
 
+
 	public override void Initialize(string name, NameValueCollection config)
 	{
 		base.Initialize(name, config);

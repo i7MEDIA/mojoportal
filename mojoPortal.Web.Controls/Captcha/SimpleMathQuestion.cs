@@ -6,24 +6,11 @@ namespace mojoPortal.Web.Controls.Captcha;
 [Serializable]
 public class SimpleMathQuestion
 {
-	#region Constructors
-
-	public SimpleMathQuestion()
-	{
-		var randomGenerator = new Random();
-
-		firstNumber = randomGenerator.Next(1, 10);
-		secondNumber = randomGenerator.Next(1, 10);
-	}
-
-	#endregion
-
-
 	#region Private Properties
 
-	private int firstNumber;
-	private int secondNumber;
-	private string operatorDisplay = " + ";
+	private readonly int firstNumber;
+	private readonly int secondNumber;
+	private readonly string operatorDisplay = " + ";
 
 	#endregion
 
@@ -39,9 +26,15 @@ public class SimpleMathQuestion
 	#endregion
 
 
-	#region Private Methods
+	#region Constructors
 
-	public int GetCorrectAnswer() => firstNumber + secondNumber;
+	public SimpleMathQuestion()
+	{
+		var randomGenerator = new Random();
+
+		firstNumber = randomGenerator.Next(1, 10);
+		secondNumber = randomGenerator.Next(1, 10);
+	}
 
 	#endregion
 
@@ -59,6 +52,13 @@ public class SimpleMathQuestion
 
 		return result;
 	}
+
+	#endregion
+
+
+	#region Private Methods
+
+	private int GetCorrectAnswer() => firstNumber + secondNumber;
 
 	#endregion
 }

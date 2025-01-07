@@ -4,10 +4,8 @@ namespace mojoPortal.Web.Controls.Captcha;
 
 public class SimpleMathCaptchaProvider : CaptchaProvider
 {
-	public override ICaptcha GetCaptcha()
-	{
-		return new SimpleMathCaptchaAdapter();
-	}
+	public override ICaptcha GetCaptcha() => new SimpleMathCaptchaAdapter();
+
 
 	public override void Initialize(string name, NameValueCollection config)
 	{
