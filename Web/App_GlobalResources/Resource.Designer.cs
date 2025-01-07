@@ -15425,7 +15425,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Solve This To Prove You are a Real Person, not a SPAM script..
+        ///   Looks up a localized string similar to Solve this to prove that you are not a robot:.
         /// </summary>
         internal static string SimpleMatchCaptchaControlInstructions {
             get {

@@ -1666,7 +1666,7 @@
     <value>Remember Me On This Computer</value>
   </data>
   <data name="SimpleMatchCaptchaControlInstructions" xml:space="preserve">
-    <value>Solve This To Prove You are a Real Person, not a SPAM script.</value>
+    <value>Solve this to prove that you are not a robot:</value>
   </data>
   <data name="SiteMapLink" xml:space="preserve">
     <value>Site Map</value>

@@ -1,98 +1,41 @@
-// Author:		        
-// Created:            2007-08-16
-// Last Modified:      2014-05-22
-// 
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
-
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace mojoPortal.Web.Controls.Captcha
+namespace mojoPortal.Web.Controls.Captcha;
+
+public class SimpleMathCaptchaAdapter : ICaptcha
 {
-    
-    public class SimpleMathCaptchaAdapter : ICaptcha
-    {
-        #region Constructors
+	private readonly SimpleMathCaptchaControl captchaControl = new();
 
-        public SimpleMathCaptchaAdapter() 
-        {
-            InitializeAdapter();
-        }
+	public bool IsValid => captchaControl.IsValid;
 
-        #endregion
+	public bool Enabled
+	{
+		get => captchaControl.Enabled;
+		set => captchaControl.Enabled = value;
+	}
 
-        private SimpleMathCaptchaControl captchaControl 
-            = new SimpleMathCaptchaControl();
+	public string ControlID
+	{
+		get => captchaControl.ID;
+		set => captchaControl.ID = value;
+	}
 
-        public bool IsValid
-        {
-            get { return captchaControl.IsValid; }
-           
-        }
+	public string ValidationGroup
+	{
+		get => captchaControl.ValidationGroup;
+		set => captchaControl.ValidationGroup = value;
+	}
 
-        public bool Enabled
-        {
-            get { return captchaControl.Enabled; }
-            set { captchaControl.Enabled = value; }
-
-        }
-
-        public string ControlID
-        {
-            get
-            {
-                return captchaControl.ID;
-            }
-            set
-            {
-                captchaControl.ID = value;
-            }
-        }
-
-        public string ValidationGroup
-        {
-            get
-            {
-                return captchaControl.ValidationGroup;
-            }
-            set
-            {
-                captchaControl.ValidationGroup = value;
-            }
-        }
-		public short TabIndex
-		{
-			get
-			{
-				return captchaControl.TabIndex;
-			}
-			set
-			{
-				captchaControl.TabIndex = value;
-			}
-		}
-
-		private void InitializeAdapter()
-        {
-
-        }
-
-        #region Public Methods
-
-        public Control GetControl()
-        {
-            return captchaControl;
-        }
+	public short TabIndex
+	{
+		get => captchaControl.TabIndex;
+		set => captchaControl.TabIndex = value;
+	}
 
 
+	public SimpleMathCaptchaAdapter()
+	{ }
 
-        #endregion
-    }
+
+	public Control GetControl() => captchaControl;
 }

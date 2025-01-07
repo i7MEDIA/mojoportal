@@ -4,116 +4,94 @@ using System.Web;
 using System.Web.Caching;
 using System.Xml;
 
-namespace mojoPortal.Web.Controls.Captcha
+namespace mojoPortal.Web.Controls.Captcha;
+
+public class CaptchaConfiguration
 {
-	public class CaptchaConfiguration
+	private readonly ProviderSettingsCollection providerSettingsCollection = [];
+
+	public string DefaultProvider { get; private set; } = "SimpleMathCaptchaProvider";
+
+
+	public CaptchaConfiguration(XmlNode node) => LoadValuesFromConfigurationXml(node);
+	public ProviderSettingsCollection Providers => providerSettingsCollection;
+
+
+	public void LoadValuesFromConfigurationXml(XmlNode node)
 	{
-		private ProviderSettingsCollection providerSettingsCollection = new ProviderSettingsCollection();
-		private string defaultProvider = "SimpleMathCaptchaProvider";
-
-		public CaptchaConfiguration(XmlNode node)
+		if (node.Attributes["defaultProvider"] is not null)
 		{
-			LoadValuesFromConfigurationXml(node);
+			DefaultProvider = node.Attributes["defaultProvider"].Value;
 		}
 
-		public ProviderSettingsCollection Providers
+		foreach (XmlNode child in node.ChildNodes)
 		{
-			get { return providerSettingsCollection; }
-		}
-
-
-		public string DefaultProvider
-		{
-			get { return defaultProvider; }
-		}
-
-		public void LoadValuesFromConfigurationXml(XmlNode node)
-		{
-			if (node.Attributes["defaultProvider"] != null)
+			if (child.Name == "providers")
 			{
-				defaultProvider = node.Attributes["defaultProvider"].Value;
-			}
-
-			foreach (XmlNode child in node.ChildNodes)
-			{
-				if (child.Name == "providers")
+				foreach (XmlNode providerNode in child.ChildNodes)
 				{
-					foreach (XmlNode providerNode in child.ChildNodes)
+					if (
+						providerNode.NodeType == XmlNodeType.Element &&
+						providerNode.Name == "add"
+					)
 					{
 						if (
-							(providerNode.NodeType == XmlNodeType.Element)
-							&& (providerNode.Name == "add")
-							)
+							providerNode.Attributes["name"] is not null &&
+							providerNode.Attributes["type"] is not null
+						)
 						{
-							if (
-								(providerNode.Attributes["name"] != null)
-								&& (providerNode.Attributes["type"] != null)
-								)
-							{
-								ProviderSettings providerSettings
-									= new ProviderSettings(
-									providerNode.Attributes["name"].Value,
-									providerNode.Attributes["type"].Value);
+							var providerSettings = new ProviderSettings(
+								providerNode.Attributes["name"].Value,
+								providerNode.Attributes["type"].Value
+							);
 
-								providerSettingsCollection.Add(providerSettings);
-							}
-
+							providerSettingsCollection.Add(providerSettings);
 						}
 					}
-
 				}
 			}
 		}
+	}
 
-		public static CaptchaConfiguration GetConfig()
+
+	public static CaptchaConfiguration GetConfig()
+	{
+		if (HttpRuntime.Cache["mojoCaptchaConfig"] is CaptchaConfiguration configuration)
 		{
-			CaptchaConfiguration captchaConfig = null;
+			return configuration;
+		}
+		else
+		{
+			var configFileName = "mojoCaptcha.config";
 
-			if (
-				(HttpRuntime.Cache["mojoCaptchaConfig"] != null)
-				&& (HttpRuntime.Cache["mojoCaptchaConfig"] is CaptchaConfiguration)
-			)
+			if (ConfigurationManager.AppSettings["mojoCaptchaConfigFileName"] is not null)
 			{
-				return (CaptchaConfiguration)HttpRuntime.Cache["mojoCaptchaConfig"];
-			}
-			else
-			{
-				String configFileName = "mojoCaptcha.config";
-				if (ConfigurationManager.AppSettings["mojoCaptchaConfigFileName"] != null)
-				{
-					configFileName = ConfigurationManager.AppSettings["mojoCaptchaConfigFileName"];
-				}
-
-				if (!configFileName.StartsWith("~/"))
-				{
-					configFileName = "~/" + configFileName;
-				}
-
-				var pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
-
-				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
-
-				captchaConfig = new CaptchaConfiguration(configXml.DocumentElement);
-
-				var aggregateCacheDependency = new AggregateCacheDependency();
-
-				aggregateCacheDependency.Add(new CacheDependency(pathToConfigFile));
-
-				System.Web.HttpRuntime.Cache.Insert(
-					"mojoCaptchaConfig",
-					captchaConfig,
-					aggregateCacheDependency,
-					DateTime.Now.AddYears(1),
-					TimeSpan.Zero,
-					System.Web.Caching.CacheItemPriority.Default,
-					null);
-
-				return (CaptchaConfiguration)HttpRuntime.Cache["mojoCaptchaConfig"];
-
+				configFileName = ConfigurationManager.AppSettings["mojoCaptchaConfigFileName"];
 			}
 
-			//return captchaConfig;
+			if (!configFileName.StartsWith("~/"))
+			{
+				configFileName = "~/" + configFileName;
+			}
 
+			var pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
+			var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
+			var captchaConfig = new CaptchaConfiguration(configXml.DocumentElement);
+			var aggregateCacheDependency = new AggregateCacheDependency();
+
+			aggregateCacheDependency.Add(new CacheDependency(pathToConfigFile));
+
+			HttpRuntime.Cache.Insert(
+				"mojoCaptchaConfig",
+				captchaConfig,
+				aggregateCacheDependency,
+				DateTime.Now.AddYears(1),
+				TimeSpan.Zero,
+				CacheItemPriority.Default,
+				null
+			);
+
+			return (CaptchaConfiguration)HttpRuntime.Cache["mojoCaptchaConfig"];
 		}
 	}
 }

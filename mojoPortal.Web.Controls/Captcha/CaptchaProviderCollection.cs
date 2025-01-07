@@ -1,40 +1,28 @@
 using System;
 using System.Configuration.Provider;
 
-namespace mojoPortal.Web.Controls.Captcha
+namespace mojoPortal.Web.Controls.Captcha;
+
+public class CaptchaProviderCollection : ProviderCollection
 {
-    /// <summary>
-    /// Author:		        
-    /// Created:            2007-08-15
-    /// Last Modified:      2007-08-15
-    /// 
-    /// Licensed under the terms of the GNU Lesser General Public License:
-    ///	http://www.opensource.org/licenses/lgpl-license.php
-    ///
-    /// You must not remove this notice, or any other, from this software.
-    /// 
-    /// </summary>
-    public class CaptchaProviderCollection : ProviderCollection
-    {
-        public override void Add(ProviderBase provider)
-        {
-            if (provider == null)
-                throw new ArgumentNullException("The provider parameter cannot be null.");
+	public new CaptchaProvider this[string name] => (CaptchaProvider)base[name];
 
-            if (!(provider is CaptchaProvider))
-                throw new ArgumentException("The provider parameter must be of type CaptchaProvider.");
 
-            base.Add(provider);
-        }
+	public override void Add(ProviderBase provider)
+	{
+		if (provider is null)
+		{
+			throw new ArgumentNullException("The provider parameter cannot be null.");
+		}
 
-        new public CaptchaProvider this[string name]
-        {
-            get { return (CaptchaProvider)base[name]; }
-        }
+		if (provider is not CaptchaProvider)
+		{
+			throw new ArgumentException("The provider parameter must be of type CaptchaProvider.");
+		}
 
-        public void CopyTo(CaptchaProvider[] array, int index)
-        {
-            base.CopyTo(array, index);
-        }
-    }
+		base.Add(provider);
+	}
+
+
+	public void CopyTo(CaptchaProvider[] array, int index) => base.CopyTo(array, index);
 }

@@ -1,132 +1,84 @@
-// Author:		        
-// Created:            2007-08-16
-// Last Modified:      2014-05-22
-// 
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using mojoPortal.Web.Controls;
-using Subkismet;
-using Subkismet.Captcha;
 
-namespace mojoPortal.Web.Controls.Captcha
+namespace mojoPortal.Web.Controls.Captcha;
+
+public class SubkismetCaptchaAdapter : ICaptcha
 {
-    
-    public class SubkismetCaptchaAdapter : ICaptcha
-    {
-        #region Constructors
+	private readonly Subkismet.Captcha.CaptchaControl captchaControl = new();
 
-        public SubkismetCaptchaAdapter() 
-        {
-            InitializeAdapter();
-        }
 
-        #endregion
+	#region Properties
 
-        private Subkismet.Captcha.CaptchaControl captchaControl
-            = new Subkismet.Captcha.CaptchaControl();
-
-        public bool IsValid
-        {
-            get
-            {
-                captchaControl.Validate();
-                return captchaControl.IsValid;
-            }
-           
-        }
-
-        public bool Enabled
-        {
-            get { return captchaControl.Enabled; }
-            set { captchaControl.Enabled = value; }
-
-        }
-
-        public string ControlID
-        {
-            get
-            {
-                return captchaControl.ID;
-            }
-            set
-            {
-                captchaControl.ID = value;
-            }
-        }
-
-        public string ValidationGroup
-        {
-            get
-            {
-                return captchaControl.ValidationGroup;
-            }
-            set
-            {
-                captchaControl.ValidationGroup = value;
-            }
-        }
-		public short TabIndex
+	public bool IsValid
+	{
+		get
 		{
-			get
+			captchaControl.Validate();
+			return captchaControl.IsValid;
+		}
+	}
+
+	public bool Enabled
+	{
+		get => captchaControl.Enabled;
+		set => captchaControl.Enabled = value;
+
+	}
+
+	public string ControlID
+	{
+		get => captchaControl.ID;
+		set => captchaControl.ID = value;
+	}
+
+	public string ValidationGroup
+	{
+		get => captchaControl.ValidationGroup;
+		set => captchaControl.ValidationGroup = value;
+	}
+
+	public short TabIndex
+	{
+		get => captchaControl.TabIndex;
+		set => captchaControl.TabIndex = value;
+	}
+
+	#endregion
+
+
+	public SubkismetCaptchaAdapter() => InitializeAdapter();
+
+
+	private void InitializeAdapter()
+	{
+		if (HttpContext.Current == null)
+		{
+			return;
+		}
+
+		captchaControl.InstructionText = "Enter the code shown above:";
+		captchaControl.ErrorMessage = "Incorrect, try again";
+
+		try
+		{
+			var resource = HttpContext.GetGlobalResourceObject("Resource", "SubkismetCaptchaInstructions");
+
+			if (resource is not null)
 			{
-				return captchaControl.TabIndex;
+				captchaControl.InstructionText = "&nbsp;" + resource.ToString();
 			}
-			set
+
+			resource = HttpContext.GetGlobalResourceObject("Resource", "SubkismetCaptchFailureMessage");
+
+			if (resource is not null)
 			{
-				captchaControl.TabIndex = value;
+				captchaControl.ErrorMessage = resource.ToString();
 			}
 		}
-		private void InitializeAdapter()
-        {
-            if (HttpContext.Current == null) return;
-
-            captchaControl.InstructionText = "Enter the code shown above:";
-            captchaControl.ErrorMessage = "Incorrect, try again";
-            //SubkismetCaptchFailureMessage
-
-            try
-            {
-                object resource = HttpContext.GetGlobalResourceObject(
-                    "Resource", "SubkismetCaptchaInstructions");
-
-                if (resource != null)
-                {
-                    captchaControl.InstructionText = "&nbsp;" + resource.ToString();
-                }
-
-                resource = HttpContext.GetGlobalResourceObject(
-                    "Resource", "SubkismetCaptchFailureMessage");
-
-                if (resource != null)
-                {
-                    captchaControl.ErrorMessage = resource.ToString();
-                }
-                
-            }
-            catch { }
-
-            
-        }
-
-        #region Public Methods
-
-        public Control GetControl()
-        {
-            return captchaControl;
-        }
+		catch { }
+	}
 
 
-
-        #endregion
-
-    }
+	public Control GetControl() => captchaControl;
 }

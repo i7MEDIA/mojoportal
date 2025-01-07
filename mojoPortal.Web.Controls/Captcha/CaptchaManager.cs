@@ -1,89 +1,44 @@
-using System;
-using System.Configuration;
 using System.Configuration.Provider;
 using System.Web.Configuration;
-using System.Web.UI;
 
-namespace mojoPortal.Web.Controls.Captcha
+namespace mojoPortal.Web.Controls.Captcha;
+
+public sealed class CaptchaManager
 {
-    /// <summary>
-    /// Author:		        
-    /// Created:            2007-08-15
-    /// Last Modified:      2007-08-15
-    /// 
-    /// Licensed under the terms of the GNU Lesser General Public License:
-    ///	http://www.opensource.org/licenses/lgpl-license.php
-    ///
-    /// You must not remove this notice, or any other, from this software.
-    /// 
-    /// </summary>
-    public sealed class CaptchaManager
-    {
-        //private static bool isInitialized = false;
-        //private static Exception initializationException;
-        private static object initializationLock = new object();
+	private static CaptchaProvider defaultProvider;
+	private static CaptchaProviderCollection providerCollection;
 
-        static CaptchaManager()
-        {
-            Initialize();
-        }
 
-        private static void Initialize()
-        {
+	static CaptchaManager() => Initialize();
 
-            //try
-            //{
-                CaptchaConfiguration config = CaptchaConfiguration.GetConfig();
 
-                if (
-                    (config.DefaultProvider == null)
-                    || (config.Providers == null)
-                    || (config.Providers.Count < 1)
-                    )
-                {
-                    throw new ProviderException("You must specify a valid default provider.");
-                }
+	private static void Initialize()
+	{
+		var config = CaptchaConfiguration.GetConfig();
 
- 
-                providerCollection = new CaptchaProviderCollection();
+		if (
+			config.DefaultProvider is null ||
+			config.Providers is null ||
+			config.Providers.Count < 1
+		)
+		{
+			throw new ProviderException("You must specify a valid default provider.");
+		}
 
-                ProvidersHelper.InstantiateProviders(
-                    config.Providers, 
-                    providerCollection, 
-                    typeof(CaptchaProvider));
-                
-                providerCollection.SetReadOnly();
-                defaultProvider = providerCollection[config.DefaultProvider];
-                
-            //}
-            //catch (Exception ex)
-            //{
-            //    initializationException = ex;
-            //    isInitialized = true;
-            //    throw ex;
-            //}
+		providerCollection = [];
 
-            //isInitialized = true; 
-        }
+		ProvidersHelper.InstantiateProviders(
+			config.Providers,
+			providerCollection,
+			typeof(CaptchaProvider)
+		);
 
- 
-        private static CaptchaProvider defaultProvider;
-        private static CaptchaProviderCollection providerCollection;
+		providerCollection.SetReadOnly();
+		defaultProvider = providerCollection[config.DefaultProvider];
+	}
 
-        public static CaptchaProvider Provider
-        {
-            get
-            {
-                return defaultProvider;
-            }
-        }
 
-        public static CaptchaProviderCollection Providers
-        {
-            get
-            {
-                return providerCollection;
-            }
-        }
-    }
+	public static CaptchaProvider Provider => defaultProvider;
+
+	public static CaptchaProviderCollection Providers => providerCollection;
 }

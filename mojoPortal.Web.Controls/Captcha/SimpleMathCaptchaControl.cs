@@ -1,192 +1,150 @@
-// Author:		        
-// Created:            2007-08-16
-// Last Modified:      2014-05-22
-// 
-// Licensed under the terms of the GNU Lesser General Public License:
-//	http://www.opensource.org/licenses/lgpl-license.php
-//
-// You must not remove this notice, or any other, from this software.
-
+using mojoPortal.Web.Controls.Captcha;
 using System;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using System.ComponentModel;
-using System.Globalization;
-using mojoPortal.Web.Controls.Captcha;
 
-namespace mojoPortal.Web.Controls
+namespace mojoPortal.Web.Controls;
+
+public class SimpleMathCaptchaControl : BaseValidator
 {
-    
-    public class SimpleMathCaptchaControl : BaseValidator 
-    {
-        #region Constructors
+	#region Constructors
 
-        public SimpleMathCaptchaControl()
+	public SimpleMathCaptchaControl()
+	{
+		EnsureControls();
+	}
+
+	#endregion
+
+
+	public string ResourceFile
+	{
+		get => ViewState["ResourceFile"] is not null ? (string)ViewState["ResourceFile"] : "Resource";
+		set => ViewState["ResourceFile"] = value;
+	}
+
+	public string ResourceKey
+	{
+		get => ViewState["ResourceKey"] is not null ? (string)ViewState["ResourceKey"] : "SimpleMatchCaptchaControlInstructions";
+		set => ViewState["ResourceKey"] = value;
+	}
+
+	public new bool IsValid => SpamPreventionQuestion is not null && SpamPreventionQuestion.IsCorrectAnswer(txtAnswerInput.Text);
+
+	public override short TabIndex { get; set; } = 0;
+
+
+	protected override bool EvaluateIsValid() => SpamPreventionQuestion is not null && SpamPreventionQuestion.IsCorrectAnswer(txtAnswerInput.Text);
+
+
+	#region Control Declarations
+
+	protected Label lblInstructions = null;
+	protected Literal litBefore = null;
+	protected TextBox txtAnswerInput = null;
+	protected Literal litQuestionExpression = null;
+	protected Literal litAfter = null;
+
+
+	public SimpleMathQuestion SpamPreventionQuestion
+	{
+		get => ViewState["SpamPreventionQuestion"] is not null ? (SimpleMathQuestion)ViewState["SpamPreventionQuestion"] : null;
+		set => ViewState["SpamPreventionQuestion"] = value;
+	}
+
+	#endregion
+
+
+	protected override void OnInit(EventArgs e)
+	{
+		EnsureControls();
+
+		base.OnInit(e);
+	}
+
+
+	private void EnsureControls()
+	{
+		if (txtAnswerInput is not null)
 		{
-			EnsureControls();
-
-            this.txtAnswerInput.ID = this.txtAnswerInput.UniqueID;
-            this.txtAnswerInput.MaxLength = 10;
-            this.txtAnswerInput.CssClass = this.CssClass;
-            this.lblInstructions.AssociatedControlID = this.txtAnswerInput.ID;
-		
-            
-            
+			return;
 		}
 
-		#endregion
+		litQuestionExpression = new Literal();
+		txtAnswerInput = new TextBox
+		{
+			TabIndex = TabIndex,
+			MaxLength = 10,
+			CssClass = CssClass,
+		};
+		txtAnswerInput.ID = txtAnswerInput.UniqueID;
+		lblInstructions = new Label
+		{
+			AssociatedControlID = txtAnswerInput.ID
+		};
 
-        public string ResourceFile
-        {
-            get { return (ViewState["ResourceFile"] != null ? (string)ViewState["ResourceFile"] : "Resource"); }
-            set { ViewState["ResourceFile"] = value; }
-        }
+		litBefore = new Literal { Text = "<div>" };
+		litAfter = new Literal { Text = "</div>" };
 
-        public string ResourceKey
-        {
-            get { return (ViewState["ResourceKey"] != null ? (string)ViewState["ResourceKey"] : "SimpleMatchCaptchaControlInstructions"); }
-            set { ViewState["ResourceKey"] = value; }
-        }
+		Controls.Add(lblInstructions);
+		Controls.Add(litBefore);
+		Controls.Add(litQuestionExpression);
+		Controls.Add(txtAnswerInput);
+		Controls.Add(litAfter);
+	}
 
-        public new bool IsValid
-        {
-            get
-            {
-                if (SpamPreventionQuestion != null)
-                {
 
-                    return SpamPreventionQuestion.IsCorrectAnswer(txtAnswerInput.Text);
+	protected override void OnPreRender(EventArgs e)
+	{
+		ControlToValidate = txtAnswerInput.ID;
+		base.OnPreRender(e);
 
-                }
+		Localize();
+		lblInstructions.AssociatedControlID = txtAnswerInput.ID;
 
-                return false;
+		SpamPreventionQuestion ??= new SimpleMathQuestion();
+		litQuestionExpression.Text = $"""<span class="smq__question-expression">{SpamPreventionQuestion.QuestionExpression}</span> """;
+	}
 
-            }
 
-        }
-		public override short TabIndex { get; set; } = 0;
-		protected override bool EvaluateIsValid()
-        {
-            if (SpamPreventionQuestion != null)
-            {
+	private void Localize()
+	{
+		try
+		{
+			var resource = HttpContext.GetGlobalResourceObject(ResourceFile, ResourceKey);
 
-                return SpamPreventionQuestion.IsCorrectAnswer(txtAnswerInput.Text);
+			if (resource is not null)
+			{
+				lblInstructions.Text = resource.ToString();
+			}
+			else
+			{
+				lblInstructions.Text = "Solve this to prove that you are not a robot:";
+			}
+		}
+		catch { }
+	}
 
-            }
 
-            return false;
-        }
-        
+	protected override void Render(HtmlTextWriter writer)
+	{
+		if (Site is not null && Site.DesignMode)
+		{
+			// render to the designer
+			txtAnswerInput.RenderControl(writer);
+			writer.Write($"[{ID}]");
+		}
+		else
+		{
+			// render to the response stream
+			base.RenderContents(writer);
+		}
+	}
 
-		#region Control Declarations
 
-		protected TextBox txtAnswerInput = null;
-        protected Literal litQuestionExpression = null;
-        protected Label lblInstructions = null;
-        protected Literal space;
-        
-
-        public SimpleMathQuestion SpamPreventionQuestion
-        {
-            get { return (ViewState["SpamPreventionQuestion"] != null ? (SimpleMathQuestion)ViewState["SpamPreventionQuestion"] : null); }
-            set { ViewState["SpamPreventionQuestion"] = value; }
-        }
-		
-
-		#endregion
-
-        protected override void OnInit(EventArgs e)
-        {
-            base.OnInit(e);
-
-            EnsureControls();
-
-            
-        }
-
-        private void EnsureControls()
-        {
-            if (txtAnswerInput != null) { return; }
-
-            litQuestionExpression = new Literal();
-            txtAnswerInput = new TextBox();
-            lblInstructions = new Label();
-			txtAnswerInput.TabIndex = this.TabIndex;
-
-            this.Controls.Add(this.litQuestionExpression);
-            this.Controls.Add(this.txtAnswerInput);
-            space = new Literal();
-            space.Text = "&nbsp;";
-            this.Controls.Add(space);
-            this.Controls.Add(this.lblInstructions);
-
-            
-        }
-
-        protected override void OnPreRender(EventArgs e)
-        {
-            ControlToValidate = txtAnswerInput.ID;
-            base.OnPreRender(e);
-
-            Localize();
-            if (SpamPreventionQuestion == null) SpamPreventionQuestion = new SimpleMathQuestion();
-
-            litQuestionExpression.Text = SpamPreventionQuestion.QuestionExpression;
-
-        }
-
-       
-        private void Localize()
-        {
-         
-            try
-            {
-                object resource = HttpContext.GetGlobalResourceObject(
-                    this.ResourceFile, this.ResourceKey);
-
-                if (resource != null)
-                {
-                    this.lblInstructions.Text = "<strong>" 
-                        + resource.ToString() + "</strong>";
-                }
-                else
-                {
-                    this.lblInstructions.Text = "<strong>Solve This To Prove You are a Real Person, not a SPAM script.</strong>";
-                }
-            }
-            catch { }
-
-            
-
-        }
-
-        
-        protected override void Render(HtmlTextWriter writer)
-        {
-            if (this.Site != null && this.Site.DesignMode)
-            {
-                // render to the designer
-                this.txtAnswerInput.RenderControl(writer);
-                writer.Write("[" + this.ID + "]");
-            }
-            else
-            {
-                // render to the response stream
-                base.RenderContents(writer);
-                //litQuestionExpression.RenderControl(writer);
-                //txtAnswerInput.RenderControl(writer);
-                //space.RenderControl(writer);
-                //lblInstructions.RenderControl(writer);
-            }
-        }
-
-        protected override void CreateChildControls()
-        {
-            EnsureControls();
-
-        }
-
-    }
+	protected override void CreateChildControls()
+	{
+		EnsureControls();
+	}
 }
