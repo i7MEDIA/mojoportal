@@ -1,8 +1,14 @@
 (function() {
 	// This code assumes that jQuery and the Bootstrap 3.4.1 Modal plugin are on the page.
 	function addModal(e) {
-		e.preventDefault();
 		const link = e.target.closest('a[data-modal]');
+
+		if (!link) {
+			return;
+		}
+
+		e.preventDefault();
+
 		const template = document.getElementById('mojoModalTemplate');
 		const clone = document.importNode(template.content, true);
 		const modal = clone.querySelector('.modal');
@@ -87,9 +93,5 @@
 		$(modal).on('hidden.bs.modal', e => e.target.remove());
 	}
 
-	const modalLinks = document.querySelectorAll('[data-modal]');
-
-	for (const modalLink of modalLinks) {
-		modalLink.addEventListener('click', addModal);
-	}
+	document.body.addEventListener('click', addModal);
 })();
