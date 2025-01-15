@@ -247,6 +247,14 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">
+      <Version>9.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Pipelines">
+      <Version>9.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

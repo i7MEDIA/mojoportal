@@ -107,7 +107,17 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">
+      <Version>9.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Pipelines">
+      <Version>9.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Text.Json">
+      <Version>9.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582d51e-126b-4d64-b080-07ad8245b38f}</Project>
@@ -155,12 +165,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+  <!--<Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-  </Target>
+  </Target>-->
   <PropertyGroup>
     <PostBuildEvent>xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Plugins.HtmlInclude.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y /d "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
@@ -171,11 +181,4 @@ xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.ascx" "$(SolutionDir)Web\HtmlInclude\
 xcopy /s /y /d "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup"
 </PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
