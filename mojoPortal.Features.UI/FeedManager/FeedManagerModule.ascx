@@ -25,7 +25,7 @@
 										Text="<%# Resources.FeedResources.EditImageAltText%>"
 										ToolTip="<%# Resources.FeedResources.EditImageAltText%>"
 										ImageUrl='<%# $"{this.ImageSiteRoot}/Data/SiteImages/{EditContentImage}" %>'
-										NavigateUrl='<%# SiteUtils.GetUrlWithQueryParams("FeedManager/FeedEdit.aspx", pageId: PageId, moduleId: ModuleId, itemId: Convert.ToInt32(Eval("ItemID"))) %>'
+										NavigateUrl='<%# "FeedManager/FeedEdit.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(Convert.ToInt32(Eval("ItemID"))).ToString() %>'
 										Visible="<%# IsEditable %>" />
 
 									<asp:HyperLink runat="server"
@@ -79,7 +79,7 @@
 											Text="<%# Resources.FeedResources.EditImageAltText%>"
 											ToolTip="<%# Resources.FeedResources.EditImageAltText%>"
 											ImageUrl='<%# $"{this.ImageSiteRoot}/Data/SiteImages/{EditContentImage}" %>'
-											NavigateUrl='<%# SiteUtils.GetUrlWithQueryParams("FeedManager/FeedEdit.aspx", pageId: PageId, moduleId: ModuleId, itemId: Convert.ToInt32(Eval("ItemID"))) %>'
+											NavigateUrl='<%# "FeedManager/FeedEdit.aspx".ToLinkBuilder().PageId(PageId).ModuleId(ModuleId).ItemId(Convert.ToInt32(Eval("ItemID"))).ToString() %>'
 											Visible="<%# IsEditable %>" />
 										<asp:HyperLink runat="server"
 											ID="lnkItem"

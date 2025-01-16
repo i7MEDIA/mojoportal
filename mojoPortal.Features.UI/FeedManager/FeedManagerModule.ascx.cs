@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
@@ -458,34 +459,38 @@ public partial class FeedManagerModule : SiteModuleControl
 
 	protected string FormatTitle(string link, string title)
 	{
-		string noFollow = string.Empty;
+		var noFollow = string.Empty;
+		var target = string.Empty;
 
 		if (displaySettings.UseNoFollowOnHeadingLinks)
 		{
-			noFollow = " rel='nofollow' ";
+			noFollow = "rel=\"nofollow\"";
 		}
 
-		return $@"
-<{FeedItemHeadingElement}>
-	<a {noFollow} href='{SecurityHelper.SanitizeHtml(link)}' {GetOnClick()}>{SecurityHelper.SanitizeHtml(title)}</a>
-</{FeedItemHeadingElement}>";
-	}
-
-
-	protected string GetOnClick()
-	{
 		if (config.OpenLinkInNewWindow)
 		{
-			return "target=\"_blank\"";
+			target = "target=\"_blank\"";
 		}
 
-		return string.Empty;
+		return Regex.Replace(
+			$"""
+			<{FeedItemHeadingElement}>
+				<a
+					href="{link.RemoveMarkup()}"
+					{noFollow}
+					{target}
+				>{title.RemoveMarkup()}</a>
+			</{FeedItemHeadingElement}>
+			""".Replace("\r\n", " "),
+			@"\s+|\t+",
+			" "
+		).Replace(" >", ">");
 	}
 
 
 	private void PopulateLabels()
 	{
-		Title1.EditUrl = SiteRoot + "/FeedManager/FeedEdit.aspx";
+		Title1.EditUrl = "~/FeedManager/FeedEdit.aspx".ToLinkBuilder().ToString();
 		Title1.EditText = FeedResources.AddButton;
 
 		if (ModuleConfiguration != null)
@@ -500,7 +505,6 @@ public partial class FeedManagerModule : SiteModuleControl
 &nbsp;<a href='{SiteRoot}/FeedManager/FeedManager.aspx?pageid={PageId.ToInvariantString()}&amp;mid={ModuleId.ToInvariantString()}'
 class='ModuleEditLink' title='{FeedResources.ManagePublishingLink}'>{FeedResources.ManagePublishingLink}</a>";
 		}
-
 	}
 
 
@@ -514,22 +518,23 @@ class='ModuleEditLink' title='{FeedResources.ManagePublishingLink}'>{FeedResourc
 		pnlInnerBody.RenderId = true; // added in case it was turned off in the theme.skin
 
 		// the main script for the scroller is included in mojocombinedfull.js
-		var script = $@"
-<script>
-$(document).ready(function() {{
-	$('#{pnlInnerBody.ClientID}').SetScroller({{
-		velocity: 60,
-		direction: 'vertical',
-		startfrom: 'bottom',
-		loop: 'infinite',
-		movetype: 'linear',
-		onmouseover: 'pause',
-		onmouseout: 'play',
-		onstartup: 'play',
-		cursor: 'pointer'
-	}});
-}});
-</script>";
+		var script = $$"""
+		<script>
+			$(document).ready(function() {
+				$('#{{pnlInnerBody.ClientID}}').SetScroller({
+					velocity: 60,
+					direction: 'vertical',
+					startfrom: 'bottom',
+					loop: 'infinite',
+					movetype: 'linear',
+					onmouseover: 'pause',
+					onmouseout: 'play',
+					onstartup: 'play',
+					cursor: 'pointer'
+				});
+			});
+		</script>
+		""";
 
 		ScriptManager.RegisterStartupScript(this, typeof(Page), "scroller" + ModuleId.ToInvariantString(), script, false);
 	}

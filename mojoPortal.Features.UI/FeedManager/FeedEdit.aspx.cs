@@ -190,8 +190,8 @@ public partial class FeedEditPage : NonCmsBasePage
 					SiteId = siteSettings.SiteId,
 					SiteGuid = siteSettings.SiteGuid,
 					Url = rssFriendlyUrl,
-					RealUrl = "FeedManager/FeedAggregate.aspx".ToLinkBuilder(false).PageId(PageId).ModuleId(ModuleId).ToString()
-						//Invariant($"~/FeedManager/FeedAggregate.aspx?pageid={PageId}&mid={ModuleId}")
+					RealUrl = //"FeedManager/FeedAggregate.aspx".ToLinkBuilder(false).PageId(PageId).ModuleId(ModuleId).ToString()
+						Invariant($"~/FeedManager/FeedAggregate.aspx?pageid={PageId}&mid={ModuleId}")
 				};
 
 				friendlyUrl.Save();
