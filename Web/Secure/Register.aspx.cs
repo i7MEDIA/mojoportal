@@ -926,9 +926,12 @@ $(""#{ConfirmEmail.ClientID}"").keyup(function() {{confirmEmail($(""#{txtEmail.C
 
 		IncludeDescriptionInList = displaySettings.IncludeNewsletterDescriptionInList;
 		pnlSubscribe = (Panel)CreateUserWizardStep1.ContentTemplateContainer.FindControl("pnlSubscribe");
+
 		if (pnlSubscribe != null)
 		{
 			pnlSubscribe.Visible = displaySettings.ShowNewsLetters;
+
+			clNewsletters = (CheckBoxList)pnlSubscribe.FindControl("clNewsletters");
 
 			// fix bug https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=11390~1#post47409
 			if (IsPostBack && clNewsletters.Items.Count == 0)
@@ -937,7 +940,6 @@ $(""#{ConfirmEmail.ClientID}"").keyup(function() {{confirmEmail($(""#{txtEmail.C
 			}
 			else
 			{
-				clNewsletters = (CheckBoxList)pnlSubscribe.FindControl("clNewsletters");
 				rbHtmlFormat = (RadioButton)pnlSubscribe.FindControl("rbHtmlFormat");
 				rbHtmlFormat.Text = Resource.NewsletterHtmlFormatLabel;
 
