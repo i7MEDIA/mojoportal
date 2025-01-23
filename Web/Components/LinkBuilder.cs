@@ -167,7 +167,13 @@ public class LinkBuilder
 
 	public Uri ToUri()
 	{
-		return new(_uri.AbsoluteUri + GetQueryString(), UriKind.RelativeOrAbsolute);
+		return new(
+			_uri.IsAbsoluteUri ?
+				_uri.AbsoluteUri + GetQueryString() :
+				_uri.OriginalString + GetQueryString()
+			,
+			UriKind.RelativeOrAbsolute
+		);
 	}
 
 
