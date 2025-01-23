@@ -157,7 +157,7 @@ namespace mojoPortal.Web.UI
             {
                 if (HttpContext.Current.Request.QueryString["q"] != null && HttpContext.Current.Request.QueryString["q"].Length > 0)
                 {
-                    writer.Write("customSearchControl.execute('" + SecurityHelper.SanitizeHtml(HttpContext.Current.Request.QueryString["q"]) + "');");
+                    writer.Write($"customSearchControl.execute('{HttpContext.Current.Request.QueryString["q"].RemoveMarkup()}');");
                 }
             }
 

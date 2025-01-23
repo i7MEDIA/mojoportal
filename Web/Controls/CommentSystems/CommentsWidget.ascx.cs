@@ -874,7 +874,7 @@ public partial class CommentsWidget : UserControl, IRefreshAfterPostback, IUpdat
 	{
 		if ((showUserUrl) && (!string.IsNullOrEmpty(authorUrl)))
 		{
-			return $"<a rel=\"nofollow\" href=\"{SecurityHelper.SanitizeHtml(authorUrl)}\">{userName}</a>";
+			return $"""<a rel="nofollow" href="{authorUrl.RemoveMarkup()}">{userName}</a>""";
 		}
 
 		if (userId == -1) { return userName; }

@@ -414,12 +414,16 @@ namespace mojoPortal.Web.AdminUI
 
 			RootUrl = SiteRoot + "/";
 			pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", pageNumber);
+
 			if (Request.QueryString["s"] != null)
 			{
-				searchTerm = Request.QueryString["s"];
+				searchTerm = Request.QueryString["s"].RemoveMarkup();
 			}
 
-			if ((!IsPostBack) && (searchTerm.Length > 0)) { txtSearch.Text = SecurityHelper.SanitizeHtml(searchTerm); }
+			if (!IsPostBack && searchTerm.Length > 0)
+			{
+				txtSearch.Text = searchTerm;
+			}
 
 			AddClassToBody("administration urlmanager");
 		}

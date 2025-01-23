@@ -203,11 +203,11 @@ public partial class SearchResults : NonCmsBasePage
 
 		if (Request.QueryString.Get("q") == null) { return; }
 
-		query = Request.QueryString.Get("q");
+		query = Request.QueryString.Get("q").RemoveMarkup();
 
 		if (query.Length == 0) { return; }
 
-		txtSearchInput.Text = SecurityHelper.SanitizeHtml(query);
+		txtSearchInput.Text = query;
 
 
 		// this is only to make sure its initialized

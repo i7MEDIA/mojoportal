@@ -176,13 +176,12 @@ public partial class BingSearchControl : UserControl
 
 		if (Request.QueryString.Get("q") == null) { return; }
 
-		queryText = Request.QueryString.Get("q");
+		queryText = Request.QueryString.Get("q").RemoveMarkup();
+
 		if (queryText.Length > 0)
 		{
-			txtSearch.Text = SecurityHelper.SanitizeHtml(queryText);
-
+			txtSearch.Text = queryText;
 		}
-
 	}
 
 
