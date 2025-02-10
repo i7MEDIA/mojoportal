@@ -117,15 +117,13 @@ public class BaseDisplaySettings : WebControl
 		string plugins = IsPlugin ? "plugins" : string.Empty;
 
 		//var configFile = new FileInfo(HttpContext.Current.Server.MapPath($"{skinPath}/config/{plugins}{featureName}{subFeatureName}{configName}.json"));
-		string relativeSkinPath;
+
 		if (skinPath.StartsWith("http"))
 		{
-			relativeSkinPath = new Uri(skinPath).LocalPath;
+			skinPath = new Uri(skinPath).LocalPath;
 		}
-		else
-		{
-			relativeSkinPath = HttpContext.Current.Server.MapPath(skinPath);
-		}
+
+		var relativeSkinPath = HttpContext.Current.Server.MapPath(skinPath);
 
 		//var configPath = Path.Combine(new Uri(skinPath).LocalPath, "config", plugins, FeatureName, $"{subFeatureName}{configName}.json");
 		var configPath = Path.Combine(relativeSkinPath, "config", plugins, FeatureName, $"{subFeatureName}{configName}.json");
