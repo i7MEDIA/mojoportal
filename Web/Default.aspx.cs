@@ -96,64 +96,70 @@ public partial class CmsPage : mojoBasePage
 			Title = SiteUtils.FormatPageTitle(siteSettings, CurrentPage.PageName);
 		}
 
-		if (CurrentPage.PageMetaKeyWords.Length > 0)
-		{
-			MetaKeywordCsv = CurrentPage.PageMetaKeyWords;
-		}
+		MetaContentControl.Title = Title;
+		MetaContentControl.Description = CurrentPage.PageMetaDescription;
 
-
-		if (CurrentPage.PageMetaDescription.Length > 0)
-		{
-			MetaDescription = CurrentPage.PageMetaDescription;
-		}
-
+		var mediaPath = WebConfigSettings.SiteLogoUseMediaFolder ?
+				"media/" :
+				string.Empty;
+		MetaContentControl.Image = string.IsNullOrWhiteSpace(CurrentPage.MenuImage) ?
+			$"~/Data/Sites/{siteSettings.SiteId}/{mediaPath}logos/{siteSettings.Logo}".ToLinkBuilder().ToString() :
+			string.IsNullOrWhiteSpace(CurrentPage.MenuImage) ?
+				string.Empty :
+				CurrentPage.MenuImage.ToLinkBuilder().ToString();
+		MetaContentControl.KeywordCsv = CurrentPage.PageMetaKeyWords;
 
 		if (CurrentPage.CompiledMeta.Length > 0)
 		{
 			AdditionalMetaMarkup = CurrentPage.CompiledMeta;
 		}
 
-		if (WebConfigSettings.AutomaticallyAddCanonicalUrlToCmsPages)
+
+		if (Page.Header != null && CurrentPage.UseUrl && CurrentPage.Url.Length > 0)
 		{
-			if (Page.Header != null && CurrentPage.UseUrl && CurrentPage.Url.Length > 0)
+			string urlToUse;
+			if (CurrentPage.CanonicalOverride.Length > 0)
 			{
-				string urlToUse;
-				if (CurrentPage.CanonicalOverride.Length > 0)
+				urlToUse = CurrentPage.CanonicalOverride;
+			}
+			else
+			{
+				if (CurrentPage.Url.StartsWith("http"))
 				{
-					urlToUse = CurrentPage.CanonicalOverride;
+					urlToUse = CurrentPage.Url;
 				}
 				else
 				{
-					if (CurrentPage.Url.StartsWith("http"))
+					if (CurrentPage.UrlHasBeenAdjustedForFolderSites)
 					{
-						urlToUse = CurrentPage.Url;
+						urlToUse = WebUtils.GetSiteRoot() + CurrentPage.Url.Replace("~/", "/");
 					}
 					else
 					{
-						if (CurrentPage.UrlHasBeenAdjustedForFolderSites)
-						{
-							urlToUse = WebUtils.GetSiteRoot() + CurrentPage.Url.Replace("~/", "/");
-						}
-						else
-						{
-							urlToUse = SiteRoot + CurrentPage.Url.Replace("~/", "/");
-						}
+						urlToUse = SiteRoot + CurrentPage.Url.Replace("~/", "/");
+					}
 
-						if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
+					if (WebConfigSettings.ForceHttpForCanonicalUrlsThatDontRequireSsl)
+					{
+						if (WebHelper.IsSecureRequest() && (!CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
 						{
-							if (WebHelper.IsSecureRequest() && (!CurrentPage.RequireSsl) && (!siteSettings.UseSslOnAllPages))
-							{
-								urlToUse = urlToUse.Replace("https:", "http:");
-							}
+							urlToUse = urlToUse.Replace("https:", "http:");
 						}
 					}
 				}
+			}
 
-				Literal link = new Literal();
-				link.ID = "pageurl";
-				link.Text = "\n<link rel='canonical' href='"
+			MetaContentControl.Url = urlToUse;
+			
+			if (WebConfigSettings.AutomaticallyAddCanonicalUrlToCmsPages)
+			{
+				Literal link = new Literal
+				{
+					ID = "pageurl",
+					Text = "\n<link rel='canonical' href='"
 					+ urlToUse
-					+ "' />";
+					+ "' />"
+				};
 
 				Page.Header.Controls.Add(link);
 			}

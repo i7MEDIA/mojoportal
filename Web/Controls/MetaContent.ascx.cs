@@ -1,33 +1,37 @@
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using Resources;
 
 namespace mojoPortal.Web.UI;
 
 public partial class MetaContent : UserControl
 {
-	//private static readonly ILog log = LogManager.GetLogger(typeof(MetaContent));
 	private readonly List<string> keywords = [];
 	private SiteSettings siteSettings = null;
 
-	public string KeywordCsv { get; set; } = string.Empty;
+	public string Url { get; set; }
+	public string Type { get; set; } = "website";
+	public string Title { get; set; }
 	public string Description { get; set; } = string.Empty;
-	/// <summary>
-	/// see http://www.mojoportal.com/Forums/Thread.aspx?thread=9301&mid=34&pageid=5&ItemID=2&pagenumber=1#post38648
-	/// </summary>
-	public bool AddOpenGraphDescription { get; set; } = true;
-	//https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=12155~1#post50489
-	// "<meta property=\"og:description\" content=\"{0}\" />";
-	// "<meta name=\"og:description\" content=\"{0}\" />";
-	public string OpenGraphDescriptionFormat { get; set; } = "<meta property=\"og:description\" content=\"{0}\" />";
+	public string Image { get; set; }
+
+	public string KeywordCsv { get; set; } = string.Empty;
 	public string AdditionalMetaMarkup { get; set; } = string.Empty;
 	public bool DisableContentType { get; set; } = false;
 	public bool IncludeFacebookAppId { get; set; } = true;
+
+	public bool AddOpenGraphMetadata { get; set; } = true;
+
+	public string OpenGraphUrlFormat { get; set; } = """<meta property="og:url" content="{0}" />""";
+	public string OpenGraphTypeFormat { get; set; } = """<meta property="og:type" content="{0}" />""";
+	public string OpenGraphTitleFormat { get; set; } = """<meta property="og:title" content="{0}" />""";
+	public string OpenGraphDescriptionFormat { get; set; } = """<meta property="og:description" content="{0}" />""";
+	public string OpenGraphImageFormat { get; set; } = """<meta property="og:image" content="{0}" />""";
 
 
 	public void AddKeword(string keyword)
@@ -38,7 +42,6 @@ public partial class MetaContent : UserControl
 		}
 	}
 
-	//protected void Page_Load(object sender, EventArgs e) { }
 
 	protected override void OnPreRender(EventArgs e)
 	{
@@ -51,6 +54,11 @@ public partial class MetaContent : UserControl
 
 		AddDescription();
 		AddKeywords();
+
+		if (AddOpenGraphMetadata)
+		{
+			AddOpenGraph();
+		}
 
 		if (AdditionalMetaMarkup.Length > 0)
 		{
@@ -91,12 +99,37 @@ public partial class MetaContent : UserControl
 
 		string metaDescription = $"\n<meta name=\"description\" content=\"{Description}\" />";
 
-		if (AddOpenGraphDescription)
+		Controls.Add(new Literal { Text = metaDescription });
+	}
+
+
+	private void AddOpenGraph()
+	{
+
+		if (!string.IsNullOrWhiteSpace(Url))
 		{
-			metaDescription += $"\n{string.Format(CultureInfo.InvariantCulture, OpenGraphDescriptionFormat, Description)}";
+			Controls.Add(new Literal { Text = $"\n{string.Format(CultureInfo.InvariantCulture, OpenGraphUrlFormat, Url)}" });
 		}
 
-		Controls.Add(new Literal { Text = metaDescription });
+		if (!string.IsNullOrWhiteSpace(Type))
+		{
+			Controls.Add(new Literal { Text = $"\n{string.Format(CultureInfo.InvariantCulture, OpenGraphTypeFormat, Type)}" });
+		}
+
+		if (!string.IsNullOrWhiteSpace(Title))
+		{
+			Controls.Add(new Literal { Text = $"\n{string.Format(CultureInfo.InvariantCulture, OpenGraphTitleFormat, Title)}" });
+		}
+
+		if (!string.IsNullOrWhiteSpace(Description))
+		{
+			Controls.Add(new Literal { Text = $"\n{string.Format(CultureInfo.InvariantCulture, OpenGraphDescriptionFormat, Description)}" });
+		}
+
+		if (!string.IsNullOrWhiteSpace(Image))
+		{
+			Controls.Add(new Literal { Text = $"\n{string.Format(CultureInfo.InvariantCulture, OpenGraphImageFormat, Image)}" });
+		}
 	}
 
 
@@ -120,7 +153,7 @@ public partial class MetaContent : UserControl
 		}
 
 		string searchTitle = siteSettings.OpenSearchName.Coalesce(string.Format(CultureInfo.InvariantCulture, Resource.SearchDiscoveryTitleFormat, siteSettings.SiteName));
-		
+
 		string openSearchLink = $"\n<link rel=\"search\" type=\"application/opensearchdescription+xml\" title=\"{searchTitle}\" href=\"{"SearchEngineInfo.ashx".ToLinkBuilder()}\" />";
 
 		Controls.Add(new Literal { Text = openSearchLink });
@@ -132,7 +165,7 @@ public partial class MetaContent : UserControl
 		if (IncludeFacebookAppId)
 		{
 			string fbAppId = WebConfigSettings.FacebookAppId.Coalesce(siteSettings.FacebookAppId);
-			
+
 			if (!string.IsNullOrWhiteSpace(fbAppId))
 			{
 				string meta = $"<meta property=\"fb:app_id\" content=\"{siteSettings.FacebookAppId}\"/>";

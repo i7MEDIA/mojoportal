@@ -43,6 +43,15 @@ public class mojoBasePage : Page
 	public string MasterPageName = "layout.Master";
 	public CoreDisplaySettings DisplaySettings = new();
 
+	public MetaContent MetaContentControl
+	{
+		get
+		{
+			metaContentControl ??= Master.FindControl("MetaContent") as MetaContent;
+			return metaContentControl;
+		}
+	}
+
 	public ScriptLoader ScriptConfig
 	{
 		get
