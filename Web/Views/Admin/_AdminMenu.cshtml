@@ -31,7 +31,10 @@
 					@foreach (var link in Model.Links)
 					{
 						<li class="@link.CssClass">
-							<a href="@link.Url">
+							@{
+								var attributes = link.Attributes.Aggregate("", (a, c) => a + $" {c.Key}=\"{c.Value}\"").Trim();
+							}
+							<a href="@link.Url" @Html.Raw(attributes)>
 								@if (link.ResourceKey == "LoginPageContent")
 								{
 									<span class="fa fa-stack fa-lg">

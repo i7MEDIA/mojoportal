@@ -1,88 +1,77 @@
 using System;
-using System.Collections.ObjectModel;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Caching;
-using log4net;
-using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Web;
 
 public class ContentAdminLinksConfiguration
 {
-	private static readonly ILog log = LogManager.GetLogger(typeof(ContentAdminLinksConfiguration));
+	public List<ContentAdminLink> AdminLinks { get; } = [];
 
-	public Collection<ContentAdminLink> AdminLinks { get; } = new Collection<ContentAdminLink>();
 
 	public static ContentAdminLinksConfiguration GetConfig(int siteId)
 	{
-		ContentAdminLinksConfiguration config = null;
-		string cacheKey = "ContentAdminLinksConfiguration-" + siteId.ToString();
-		if (
-			(HttpRuntime.Cache[cacheKey] != null)
-			&& (HttpRuntime.Cache[cacheKey] is ContentAdminLinksConfiguration)
-		)
+		var cacheKey = $"ContentAdminLinksConfiguration-{siteId}";
+
+		if (HttpRuntime.Cache[cacheKey] is ContentAdminLinksConfiguration configuration)
 		{
-			return (ContentAdminLinksConfiguration)HttpRuntime.Cache[cacheKey];
+			return configuration;
 		}
 		else
 		{
-			config = new ContentAdminLinksConfiguration();
+			var config = new ContentAdminLinksConfiguration();
+			var configFolderName = "~/Setup/initialcontent/supplementaladminmenulinks";
+			var pathToConfigFolder = HttpContext.Current.Server.MapPath(configFolderName);
 
-			String configFolderName = "~/Setup/initialcontent/supplementaladminmenulinks";
-
-			string pathToConfigFolder
-				= HttpContext.Current.Server.MapPath(configFolderName);
-
-			if (!Directory.Exists(pathToConfigFolder)) return config;
-
-
-			DirectoryInfo directoryInfo
-				= new DirectoryInfo(pathToConfigFolder);
-
-			FileInfo[] files = directoryInfo.GetFiles("*.config");
-
-			foreach (FileInfo fileInfo in files)
+			if (!Directory.Exists(pathToConfigFolder))
 			{
-				var configFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
+				return config;
+			}
 
-				ContentAdminLink.LoadLinksFromXml(
-					config,
-					configFile.DocumentElement);
+			var directoryInfo = new DirectoryInfo(pathToConfigFolder);
+			var files = directoryInfo.GetFiles("*.json");
+			//FileInfo[] files = directoryInfo.GetFiles("*.config");
 
+			foreach (var file in files)
+			{
+				ContentAdminLink.LoadLinksFromJson(config, file.FullName);
+
+				//var configFile = XmlHelper.GetXmlDocument(fileInfo.FullName);
+
+				//ContentAdminLink.LoadLinksFromXml(
+				//	config,
+				//	configFile.DocumentElement
+				//);
 			}
 
 			// now look for site specific links
-			configFolderName = "~/Data/Sites/"
-				+ siteId.ToInvariantString()
-				+ "/supplementaladminmenulinks";
-
-			pathToConfigFolder
-				= HttpContext.Current.Server.MapPath(configFolderName);
+			configFolderName = $"~/Data/Sites/{siteId.ToInvariantString()}/supplementaladminmenulinks";
+			pathToConfigFolder = HttpContext.Current.Server.MapPath(configFolderName);
 
 			if (Directory.Exists(pathToConfigFolder))
 			{
-				directoryInfo
-					= new DirectoryInfo(pathToConfigFolder);
+				directoryInfo = new DirectoryInfo(pathToConfigFolder);
+				files = directoryInfo.GetFiles("*.json");
+				//files = directoryInfo.GetFiles("*.config");
 
-				files = directoryInfo.GetFiles("*.config");
-
-				foreach (FileInfo fileInfo in files)
+				foreach (var file in files)
 				{
-					var configFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
+					ContentAdminLink.LoadLinksFromJson(config, file.FullName);
 
-					ContentAdminLink.LoadLinksFromXml(
-						config,
-						configFile.DocumentElement);
+					//var configFile = XmlHelper.GetXmlDocument(file.FullName);
 
-
+					//ContentAdminLink.LoadLinksFromXml(
+					//	config,
+					//	configFile.DocumentElement
+					//);
 				}
 			}
 
 			// cache can be cleared by touching Web.config
-			CacheDependency cacheDependency
-				= new CacheDependency(HttpContext.Current.Server.MapPath("~/Web.config"));
-
+			var cacheDependency = new CacheDependency(HttpContext.Current.Server.MapPath("~/Web.config"));
 
 			HttpRuntime.Cache.Insert(
 				cacheKey,
@@ -91,14 +80,10 @@ public class ContentAdminLinksConfiguration
 				DateTime.Now.AddYears(1),
 				TimeSpan.Zero,
 				CacheItemPriority.Default,
-				null);
+				null
+			);
 
-			return (ContentAdminLinksConfiguration)HttpRuntime.Cache[cacheKey];
-
-
+			return HttpRuntime.Cache[cacheKey] as ContentAdminLinksConfiguration;
 		}
-
 	}
-
-
 }
