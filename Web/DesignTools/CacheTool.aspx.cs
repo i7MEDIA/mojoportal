@@ -68,8 +68,10 @@ public partial class CacheToolPage : NonCmsBasePage
 		siteSettings.Save();
 		CacheHelper.ClearSiteSettingsCache(siteSettings.SiteId);
 		CacheHelper.ResetThemeCache();
+		CacheHelper.ClearHttpRuntimeCache();
 		TinyMceConfiguration.ClearCache();
 		Global.SkinConfigManager.ClearAll();
+
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 	}
 

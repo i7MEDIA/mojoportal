@@ -305,6 +305,18 @@ public static class CacheHelper
 			log.Error($"failed to clear cache for key {cachekey}", ex);
 		}
 	}
+
+
+	public static void ClearHttpRuntimeCache()
+	{
+		var enumerator = HttpRuntime.Cache.GetEnumerator();
+
+		while (enumerator.MoveNext())
+		{
+			HttpRuntime.Cache.Remove(enumerator.Key.ToString());
+		}
+	}
+
 	#endregion
 
 	public static List<TimeZoneInfo> GetTimeZones()
