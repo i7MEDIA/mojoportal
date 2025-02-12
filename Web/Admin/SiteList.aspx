@@ -27,7 +27,7 @@
 							<li class="simplelist">
 								<%# Eval("SiteName") %>
 								<asp:Label ID="lblSiteID" runat="server" CssClass="siteidlabel" Visible='<%# showSiteIDInSiteList %>' Text='<%# FormatSiteId(Convert.ToInt32(Eval("SiteID"))) %>' />
-								<a class="siteitem" href='<%# $"{WebConfigSettings.AdminDirectoryLocation}/Admin/SiteSettings.aspx".ToLinkBuilder().SiteId(Convert.ToInt32(Eval("SiteID"))) %>'><%# Resources.Resource.AdminMenuSiteSettingsLink %></a>
+								<a class="siteitem" href='<%# $"{WebConfigSettings.AdminDirectoryLocation}/SiteSettings.aspx".ToLinkBuilder().SiteId(Convert.ToInt32(Eval("SiteID"))) %>'><%# Resources.Resource.AdminMenuSiteSettingsLink %></a>
 								<a class="siteitem" href='<%# $"{WebConfigSettings.AdminDirectoryLocation}/PermissionsMenu.aspx".ToLinkBuilder().SiteId(Convert.ToInt32(Eval("SiteID"))) %>'><%# Resources.Resource.SiteSettingsPermissionsTab%></a>
 							</li>
 						</ItemTemplate>
