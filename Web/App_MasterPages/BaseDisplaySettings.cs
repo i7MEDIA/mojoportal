@@ -150,11 +150,11 @@ public class BaseDisplaySettings : WebControl
 		{
 			base.SkinID = value;
 
-			if (!initialized && !string.IsNullOrWhiteSpace(value))
-			{
-				InitConfig();
-				initialized = true;
-			}
+			//if (!initialized && !string.IsNullOrWhiteSpace(value))
+			//{
+			//	InitConfig();
+			//	initialized = true;
+			//}
 		}
 	}
 
