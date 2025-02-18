@@ -44,6 +44,11 @@ public class LinkBuilder
 			(_, siteRootPaths) = ParsePath(siteRootUri.AbsolutePath);
 		}
 
+		if (!includeSiteRoot)
+		{
+			urlAuthority = string.Empty;
+		}
+
 		var cleanUrl = CombinePaths(urlAuthority, [.. siteRootPaths, .. urlPaths]);
 
 		_uri = new(cleanUrl, UriKind.RelativeOrAbsolute);
@@ -303,6 +308,10 @@ public class LinkBuilder
 	private static (string, string[]) ParsePath(string path)
 	{
 		var urlBase = string.Empty;
+
+		path = path
+			.Replace("../", string.Empty)
+			.Replace("..\\", string.Empty);
 
 		// double leading slashes causes Uri to create a file URI e.g.: "file://something", so trim leading slashes
 		if (Uri.TryCreate(path.TrimStart('/'), UriKind.Absolute, out var uri))

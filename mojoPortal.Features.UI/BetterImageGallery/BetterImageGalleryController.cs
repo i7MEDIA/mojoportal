@@ -22,7 +22,7 @@ public class BetterImageGalleryController : ApiController
 	[Route("api/BetterImageGallery/imagehandler")]
 	public IHttpActionResult ImageHandler([FromUri] string path)
 	{
-		var imgPath = HttpContext.Current.Server.MapPath("~/Data/systemfiles/BetterImageGalleryCache/" + path);
+		var imgPath = HttpContext.Current.Server.MapPath($"~/Data/systemfiles/BetterImageGalleryCache/{path.ToLinkBuilder(false)}");
 		var fileInfo = new FileInfo(imgPath);
 
 		return !fileInfo.Exists
