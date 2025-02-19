@@ -46,7 +46,7 @@ public class ModuleConfiguration
 			FeatureGuid = module.FeatureGuid;
 			settings = ModuleSettings.GetModuleSettings(module.ModuleId);
 
-			fileSystem = FileSystemHelper.LoadFileSystem();
+			fileSystem = FileSystemHelper.LoadFileSystem(module.SiteId);
 
 			LoadSettings(settings, reloadDefinitionFromDisk);
 		}

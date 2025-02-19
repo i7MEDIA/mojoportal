@@ -14,7 +14,7 @@ namespace SuperFlexiUI;
 public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(SuperFlexiIndexBuilderProvider));
-	private static bool debugLog = log.IsDebugEnabled;
+	private static readonly bool debugLog = log.IsDebugEnabled;
 
 
 	public SuperFlexiIndexBuilderProvider() { }

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web;
 using System.Web.Caching;
+using System.Web.Hosting;
 using System.Xml;
 using mojoPortal.Web;
 
@@ -69,7 +70,7 @@ public class FileSystemConfiguration
 				configFileName = $"~/{configFileName}";
 			}
 
-			string pathToConfigFile = HttpContext.Current.Server.MapPath(configFileName);
+			string pathToConfigFile = HostingEnvironment.MapPath(configFileName);
 
 			var configXml = Core.Helpers.XmlHelper.GetXmlDocument(pathToConfigFile);
 			//editorConfig = new FileSystemConfiguration(configXml.DocumentElement);
