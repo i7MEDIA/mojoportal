@@ -1,28 +1,17 @@
-/*eslint eqeqeq: ["error", "smart"]*/
-// Element.closest() Polyfill
-Element.prototype.matches || (Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector), Element.prototype.closest || (Element.prototype.closest = function(e) { var t = this; do { if (t.matches(e)) return t; t = t.parentElement || t.parentNode } while (null !== t && 1 === t.nodeType); return null });
-// NodeList.prototype.forEach() Polyfill
-window.NodeList && !NodeList.prototype.forEach && (NodeList.prototype.forEach = function(o, t) { t = t || window; for (var i = 0; i < this.length; i++)o.call(t, this[i], i, this) });
-// https://tc39.github.io/ecma262/#sec-array.prototype.includes
-Array.prototype.includes || Object.defineProperty(Array.prototype, "includes", { value: function(r, e) { if (null == this) throw new TypeError('"this" is null or not defined'); var t = Object(this), n = t.length >>> 0; if (0 === n) return !1; var i, o, a = 0 | e, u = Math.max(0 <= a ? a : n - Math.abs(a), 0); for (; u < n;) { if ((i = t[u]) === (o = r) || "number" == typeof i && "number" == typeof o && isNaN(i) && isNaN(o)) return !0; u++ } return !1 } });
-
-
-
 //
 // Global method for setting input value from modal
 //
 
 var filePicker = {
-	set: function(url, clientId) {
+	set: function (url, clientId) {
 		const input = document.getElementById(clientId);
-		const event = document.createEvent('Event');
+		const event = new Event('input');
 
-		event.initEvent('input', true, true);
 		input.value = url;
 		input.dispatchEvent(event);
 	},
 
-	close: function() {
+	close: function () {
 		if (document.querySelector('.url-browser__modal') !== null) {
 			$('.url-browser__modal').modal('hide');
 		} else {
@@ -36,7 +25,7 @@ var filePicker = {
 // Advanced File Picker
 //
 
-(function(d) {
+(function (d) {
 	const advancedFilePicker = d.querySelectorAll('.advanced-file-picker');
 
 	//
@@ -50,18 +39,21 @@ var filePicker = {
 	// Set heading and iframe source of modal, then open it
 	//
 
-	const openFileManager = function(output, pickerType, startFolder) {
+	const openFileManager = function (output, pickerType, startFolder) {
 		const modal = d.querySelector('.url-browser__modal');
 		const modalIframe = modal.querySelector('.url-browser__modal-iframe');
 		const modalType = modal.querySelector('.url-browser__modal-type');
 		const modalPath = systemKeys.fileBrowserUrl + '?editor=filepicker&type=' + pickerType + '&inputId=' + output.id;
-		var modalStartFolder = "";
-		if (startFolder !== "") {
-			modalStartFolder = "&startFolder=" + startFolder;
+		let modalStartFolder = '';
+
+		if (startFolder !== '') {
+			modalStartFolder = '&startFolder=' + startFolder;
 		}
+
 		modalType.textContent = pickerType.charAt(0).toUpperCase() + pickerType.slice(1);
 		modalIframe.src = modalPath + modalStartFolder;
-		modalIframe.addEventListener('load', function() {
+
+		modalIframe.addEventListener('load', function () {
 			if (this.src !== '') {
 				this.removeAttribute('style');
 			}
@@ -75,7 +67,7 @@ var filePicker = {
 	// For Every File Picker
 	//
 
-	advancedFilePicker.forEach(function(picker) {
+	advancedFilePicker.forEach(function (picker) {
 
 		//
 		// Variables
@@ -99,7 +91,7 @@ var filePicker = {
 		// Functions
 		//
 
-		const previewState = function(state) {
+		const previewState = function (state) {
 			if (state === 'inside') {
 				if (pickerText.parentNode === picker) {
 					pickerLink.appendChild(pickerText);
@@ -113,12 +105,12 @@ var filePicker = {
 			}
 		};
 
-		const getFileName = function(str) {
+		const getFileName = function (str) {
 			const splitString = str.split('/');
 			return splitString[splitString.length - 1];
 		};
 
-		const setPickerText = function(str, title) {
+		const setPickerText = function (str, title) {
 			if (title === undefined) title = str;
 
 			pickerText.classList.remove('text-danger');
@@ -126,33 +118,33 @@ var filePicker = {
 			pickerText.innerHTML = str;
 		};
 
-		const returnGifIfEmpty = function(str) {
+		const returnGifIfEmpty = function (str) {
 			return str !== '' ? str : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 		};
 
-		const setImagePreview = function(url) {
+		const setImagePreview = function (url) {
 			imagePreview.src = returnGifIfEmpty(url);
 			previewState('outside');
 		};
 
-		const showTools = function(e) {
+		const showTools = function (e) {
 			tools.classList.remove('hide');
 			toolsInput.focus();
 		};
 
-		const hideTools = function(e) {
+		const hideTools = function (e) {
 			tools.classList.add('hide');
 		};
 
 
-		const failValidation = function(validationMessage) {
+		const failValidation = function (validationMessage) {
 			pickerText.classList.add('text-danger');
 			pickerText.textContent = validationMessage;
 			previewState('inside');
 		};
 
-		const validateInput = function(mutationsList) {
-			mutationsList.forEach(function(mutation) {
+		const validateInput = function (mutationsList) {
+			mutationsList.forEach(function (mutation) {
 				if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
 					const validationMessage = mutation.target.dataset.valErrormessage;
 
@@ -161,7 +153,7 @@ var filePicker = {
 			});
 		};
 
-		const pickerValidation = function() {
+		const pickerValidation = function () {
 			const valElement = picker.parentNode.querySelector('[data-val="true"]');
 
 			if (valElement !== null) {
@@ -188,9 +180,10 @@ var filePicker = {
 			}
 		};
 
-		const checkFile = function() {
-			const builtUrl = window.location.protocol + '//' + window.location.host + output.value;
-			const url = output.value.startsWith('/') ? new URL(builtUrl) : new URL(output.value);
+		const checkFile = function () {
+			const url = output.value.startsWith('/') ?
+				new URL(window.location.origin + output.value) :
+				new URL(output.value);
 
 			fetch(url, { method: 'HEAD' })
 				.then(response => {
@@ -203,7 +196,7 @@ var filePicker = {
 				});
 		};
 
-		const bindEvents = function() {
+		const bindEvents = function () {
 			pickerLink.addEventListener('click', fileManagerEvent, false);
 			output.addEventListener('input', updatePreviewEvent, false);
 			showToolsBtn.addEventListener('click', toggleToolsEvent, false);
@@ -218,12 +211,12 @@ var filePicker = {
 		// Event Handlers
 		//
 
-		const fileManagerEvent = function(e) {
+		const fileManagerEvent = function (e) {
 			e.preventDefault();
 			openFileManager(output, pickerType, startFolder);
 		};
 
-		const updatePreviewEvent = function(e) {
+		const updatePreviewEvent = function (e) {
 			e.preventDefault();
 
 			if (this.value === '') {
@@ -233,64 +226,62 @@ var filePicker = {
 				return;
 			}
 
-			const builtUrl = window.location.protocol + '//' + window.location.host + this.value;
-			const url = this.value.startsWith('/') ? new URL(builtUrl) : new URL(this.value);
+			let newPickerText = `<span class="trunc-center">${this.value}</span>`;
+			let newPickerTextTitle = this.value;
 
-			let newPickerText = `<span class="trunc-center">${url.toString()}</span>`;
-			let newPickerTextTitle = url.toString();
-
-			toolsInput.value = url.toString();
+			toolsInput.value = this.value;
 
 			previewState('inside');
 
-			if (url.pathname.includes('.')) {
-				const fileExt = url.pathname.split('.').pop();
-				let fileName = getFileName(url.pathname).split('.');
+			if (this.value.includes('.')) {
+				const fileExt = this.value.split('.').pop();
+				let fileName = getFileName(this.value).split('.');
 				fileName.pop();
 
 				newPickerText = '<span class="trunc-center">' + fileName + '</span><span class="trunc-ext">.' + fileExt + '</span>';
-				newPickerTextTitle = getFileName(url.pathname);
+				newPickerTextTitle = getFileName(this.value);
 
 				if (picker.dataset.pickerType === 'image') {
-					setImagePreview(url.toString());
+					setImagePreview(this.value);
 				}
 
 				if (picker.dataset.pickerType === 'file') {
 					const imageTypes = ['bmp', 'cod', 'gif', 'ief', 'jpe', 'jpeg', 'jpg', 'jfif', 'svg', 'tif', 'tiff', 'ras', 'cmx', 'ico', 'png', 'pnm', 'pbm', 'pgm', 'ppm', 'rgb', 'xbm', 'xpm', 'xwd'];
 
-					if (imageTypes.includes(fileExt)) {
-						setImagePreview(url.toString());
-					}
+					let iconCssClass;
 
 					if (fileExt) {
-						let iconCssClass;
-
 						switch (fileExt) {
 							case 'pdf':
-								iconCssClass = 'fa-file-pdf-o';
+								iconCssClass = 'fa-file-pdf';
 								break;
 							case 'xls':
 							case 'xlsx':
-								iconCssClass = 'fa-file-excel-o';
+								iconCssClass = 'fa-file-excel';
 								break;
 							case 'doc':
 							case 'docx':
-								iconCssClass = 'fa-file-word-o';
+								iconCssClass = 'fa-file-word';
 								break;
 							case 'ppt':
-								iconCssClass = 'fa-file-powerpoint-o';
+								iconCssClass = 'fa-file-powerpoint';
 								break;
 							default:
-								iconCssClass = 'fa-file-o';
+								iconCssClass = 'fa-file';
 						}
-
-						newPickerText = '<span class="trunc-icon fa ' + iconCssClass + '">' + '</span>' +
-							'<span class="trunc-center">' + fileName + '</span>' +
-							'<span class="trunc-ext">.' + fileExt + '</span>';
 					}
 					else {
-
+						iconCssClass = 'fa-link';
 					}
+
+					if (imageTypes.includes(fileExt)) {
+						setImagePreview(this.value);
+						iconCssClass = 'fa-image';
+					}
+
+					newPickerText = `<span class="trunc-icon fa-regular ${iconCssClass}"></span>
+						<span class="trunc-center">${fileName}</span>
+						<span class="trunc-ext">.${fileExt}</span>`;
 				}
 			}
 
@@ -298,7 +289,7 @@ var filePicker = {
 			checkFile();
 		};
 
-		const toggleToolsEvent = function(e) {
+		const toggleToolsEvent = function (e) {
 			e.preventDefault();
 
 			if (tools.classList.contains('hide')) {
@@ -308,18 +299,17 @@ var filePicker = {
 			}
 		};
 
-		const submitUrlEvent = function(e) {
+		const submitUrlEvent = function (e) {
 			e.preventDefault();
 
-			const outputEvent = document.createEvent('Event');
-			
-			outputEvent.initEvent('input', true, true);
+			const outputEvent = new Event('input');
+
 			output.value = toolsInput.value;
 			output.dispatchEvent(outputEvent);
 			hideTools();
 		};
 
-		const enterKeyEvent = function(e) {
+		const enterKeyEvent = function (e) {
 			if (e.key === 'Enter') {
 				e.stopPropagation();
 				e.preventDefault();
@@ -328,12 +318,11 @@ var filePicker = {
 			}
 		};
 
-		const clearFileEvent = function(e) {
+		const clearFileEvent = function (e) {
 			e.preventDefault();
 
-			const outputEvent = document.createEvent('Event');
+			const outputEvent = new Event('input');
 
-			outputEvent.initEvent('input', true, true);
 			output.value = '';
 			toolsInput.value = '';
 			imagePreview.src = returnGifIfEmpty('');
@@ -341,8 +330,11 @@ var filePicker = {
 			output.dispatchEvent(outputEvent);
 		};
 
-		const bodyToolsCloseEvent = function(e) {
-			if (!e.target.closest('.advanced-file-picker__show-tools-btn') && !e.target.closest('.advanced-file-picker__tools')) {
+		const bodyToolsCloseEvent = function (e) {
+			if (
+				!e.target.closest('.advanced-file-picker__show-tools-btn') &&
+				!e.target.closest('.advanced-file-picker__tools')
+			) {
 				hideTools();
 			}
 		};
@@ -352,10 +344,8 @@ var filePicker = {
 		// Init
 		//
 
-		const init = function() {
-			const outputEvent = document.createEvent('Event');
-			outputEvent.initEvent('input', true, true);
-
+		const init = function () {
+			const outputEvent = new Event('input');
 			const valid = pickerValidation();
 
 			bindEvents();
