@@ -240,4 +240,7 @@
   <data name="UseInputAddressAsFromAddress" xml:space="preserve">
     <value>Use entered email as reply-to address?</value>
   </data>
+  <data name="ContentEditorSetting" xml:space="preserve">
+    <value>Message Editor</value>
+  </data>
 </root>

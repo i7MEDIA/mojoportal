@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using mojoPortal.Web.Framework;
 
 namespace mojoPortal.Web.ContactUI;
 
@@ -14,66 +12,36 @@ public class ContactFormConfiguration
 	public ContactFormConfiguration(Hashtable settings)
 	{
 		LoadSettings(settings);
-
 	}
 
 	private void LoadSettings(Hashtable settings)
 	{
 		if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
 
-		if (settings.Contains("CustomCssClassSetting"))
-		{
-			InstanceCssClass = settings["CustomCssClassSetting"].ToString();
-		}
+		InstanceCssClass = settings.ParseString("CustomCssClassSetting", InstanceCssClass);
+		EditorHeight = settings.ParseString("ContactFormEditorHeightSetting", EditorHeight);
+		SubjectPrefix = settings.ParseString("ContactFormSubjectPrefixSetting", SubjectPrefix).Trim();
 
-		if (settings.Contains("ContactFormEditorHeightSetting"))
-		{
-			EditorHeight = settings["ContactFormEditorHeightSetting"].ToString();
-		}
-
-		if (settings.Contains("ContactFormSubjectPrefixSetting"))
-		{
-			subjectPrefix = settings["ContactFormSubjectPrefixSetting"].ToString().Trim();
-		}
-
-		if (settings.Contains("ContactFormEmailSetting"))
-		{
-			emailReceiveAddresses = settings["ContactFormEmailSetting"].ToString().Trim();
-			EmailAddresses = emailReceiveAddresses.SplitOnChar('|');
-		}
-
-		if (settings.Contains("ContactFormEmailAliasSetting"))
-		{
-			emailReceiveAliases = settings["ContactFormEmailAliasSetting"].ToString().Trim();
-
-		}
-
+		emailReceiveAddresses = settings.ParseString("ContactFormEmailSetting", emailReceiveAddresses).Trim();
+		EmailAddresses = emailReceiveAddresses.SplitOnChar('|');
+		emailReceiveAliases = settings["ContactFormEmailAliasSetting"].ToString().Trim();
 		EmailAliases = emailReceiveAliases.SplitOnChar('|');
+		EmailBccAddresses = settings.ParseString("ContactFormEmailBccSetting", EmailBccAddresses);
+		EmailAliases ??= [];
 
-		if (settings.Contains("ContactFormEmailBccSetting"))
-		{
-			EmailBccAddresses = settings["ContactFormEmailBccSetting"].ToString();
-		}
+		UseSpamBlocking = settings.ParseBool("ContactFormUseCommentSpamBlocker", UseSpamBlocking);
+		BlockBadWords = settings.ParseBool("BlockBadWords", BlockBadWords);
 
-		if (EmailAliases == null) { EmailAliases = new List<string>(); }
-
-		UseSpamBlocking = WebUtils.ParseBoolFromHashtable(settings, "ContactFormUseCommentSpamBlocker", true);
-		BlockBadWords = WebUtils.ParseBoolFromHashtable(settings, "BlockBadWords", true);
-
-		AppendIPToMessageSetting = WebUtils.ParseBoolFromHashtable(settings, "AppendIPToMessageSetting", AppendIPToMessageSetting);
-		KeepMessages = WebUtils.ParseBoolFromHashtable(settings, "KeepMessagesInDatabase", KeepMessages);
-		//can't do this reliably anymore
-		//useInputAsFromAddress = WebUtils.ParseBoolFromHashtable(settings, "UseInputAddressAsFromAddress", useInputAsFromAddress);
-
-		//useHeading = WebUtils.ParseBoolFromHashtable(settings, "UseHeading", useHeading);
-
+		AppendIPToMessageSetting = settings.ParseBool("AppendIPToMessageSetting", AppendIPToMessageSetting);
+		KeepMessages = settings.ParseBool("KeepMessagesInDatabase", KeepMessages);
+		OverrideEditorProvider = settings.ParseString("ContentEditorSetting", OverrideEditorProvider);
 	}
 
 	public bool UseSpamBlocking { get; private set; } = false;
+
 	public bool BlockBadWords { get; private set; } = true;
 
 	public bool AppendIPToMessageSetting { get; private set; } = true;
-
 
 	private string emailReceiveAddresses = string.Empty;
 
@@ -89,28 +57,11 @@ public class ContactFormConfiguration
 
 	public bool KeepMessages { get; private set; } = true;
 
-	private string subjectPrefix = string.Empty;
-
-	public string SubjectPrefix
-	{
-		get { return subjectPrefix; }
-	}
+	public string SubjectPrefix { get; private set; } = string.Empty;
 
 	public string EditorHeight { get; private set; } = "350";
 
 	public string InstanceCssClass { get; private set; } = string.Empty;
 
-
-	public static string OverrideEditorProvider
-	{
-		get
-		{
-			if (ConfigurationManager.AppSettings["ContactFormOverrideEditorProvider"] != null)
-			{
-				return ConfigurationManager.AppSettings["ContactFormOverrideEditorProvider"];
-			}
-			return string.Empty;
-		}
-	}
-
+	public static string OverrideEditorProvider { get; set; } = string.Empty;
 }

@@ -99,7 +99,7 @@ public partial class ContactForm : SiteModuleControl
 				subjectPrefix = Title;
 			}
 
-			StringBuilder message = new StringBuilder();
+			var message = new StringBuilder();
 			message.Append(txtName.Text + "<br />");
 			message.Append(txtEmail.Text + "<br /><br />");
 			message.Append(SiteUtils.ChangeRelativeUrlsToFullyQualifiedUrls(SiteUtils.GetNavigationSiteRoot(), WebUtils.GetSiteRoot(), edMessage.Text));
@@ -113,7 +113,7 @@ public partial class ContactForm : SiteModuleControl
 				message.Append("LOCAL_ADDR: " + Page.Request.ServerVariables["LOCAL_ADDR"] + "<br />");
 			}
 
-			Module m = new Module(ModuleId);
+			var m = new Module(ModuleId);
 			if (config.KeepMessages && (m.ModuleGuid != Guid.Empty))
 			{
 				ContactFormMessage contact = new ContactFormMessage();
@@ -138,18 +138,13 @@ public partial class ContactForm : SiteModuleControl
 
 			string fromAddress = siteSettings.DefaultEmailFromAddress;
 
-			//if (config.UseInputAsFromAddress)
-			//{
-			//	fromAddress = txtEmail.Text;
-			//}
-
 			if ((config.EmailAddresses != null) && (config.EmailAddresses.Count > 0))
 			{
 				SmtpSettings smtpSettings = SiteUtils.GetSmtpSettings();
 
 				smtpSettings.SenderHeader = "ContactForm";
 
-				if ((pnlToAddresses.Visible) && (ddToAddresses.SelectedIndex > -1))
+				if (pnlToAddresses.Visible && (ddToAddresses.SelectedIndex > -1))
 				{
 					string to = config.EmailAddresses[ddToAddresses.SelectedIndex];
 

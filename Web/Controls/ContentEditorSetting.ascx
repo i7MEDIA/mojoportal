@@ -1,0 +1,2 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ContentEditorSetting.ascx.cs" Inherits="mojoPortal.Web.UI.ContentEditorSetting" %>
+<asp:DropDownList ID="ddEditorProviders" runat="server" EnableTheming="false" CssClass="forminput" DataTextField="name" DataValueField="name"/>
