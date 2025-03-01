@@ -376,6 +376,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message Editor.
+        /// </summary>
+        internal static string ContentEditorSetting {
+            get {
+                return ResourceManager.GetString("ContentEditorSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Custom CSS Class.
         /// </summary>
         internal static string CustomCssClassSetting {

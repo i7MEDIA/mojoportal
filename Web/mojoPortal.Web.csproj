@@ -611,6 +611,7 @@
     <Content Include="Controls\EmailTemplates\EmailTemplateEditor.ascx" />
     <Content Include="Controls\AdditionalContentSetting.ascx" />
     <Content Include="Controls\FilePathSetting.ascx" />
+    <Content Include="Controls\ContentEditorSetting.ascx" />
     <Content Include="Controls\Gravatar\Gravatar.bmp" />
     <Content Include="Controls\HtmlSetting.ascx" />
     <Content Include="Controls\LoginControl.ascx" />
@@ -1169,6 +1170,13 @@
     <Compile Include="Controls\Editors\TinyMCE\ITinyMceSettings.cs" />
     <Compile Include="Controls\Editors\TinyMCE\TinyMceSettings.cs" />
     <Compile Include="Controls\EmbedSVGSprite.cs" />
+    <Compile Include="Controls\ContentEditorSetting.ascx.cs">
+      <DependentUpon>ContentEditorSetting.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ContentEditorSetting.ascx.designer.cs">
+      <DependentUpon>ContentEditorSetting.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Panels\AutoHidePanel.cs" />
     <Compile Include="Controls\Captcha\CaptchaVerificationResponse.cs" />
     <Compile Include="Controls\Captcha\RecaptchaControl.cs" />

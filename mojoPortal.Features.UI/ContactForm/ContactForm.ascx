@@ -1,8 +1,8 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="ContactForm.ascx.cs" Inherits="mojoPortal.Web.ContactUI.ContactForm" %>
+<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="ContactForm.ascx.cs" Inherits="mojoPortal.Web.ContactUI.ContactForm" %>
 
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server" CssClass="contactform-wrap">
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper contactform">
-		<portal:ModuleTitleControl id="Title1" runat="server"  />
+		<portal:ModuleTitleControl id="Title1" runat="server" />
 		<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 			<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 				<asp:Panel ID="pnlSend" runat="server" SkinID="plain" DefaultButton="btnSend">
@@ -20,10 +20,10 @@
 					</div>
 					<div class="settingrow">
 						<mp:SiteLabel id="lblSubject" runat="server" ForControl="txtSubject" ConfigKey="ContactFormSubjectLabel" ResourceFile="ContactFormResources" CssClass="settinglabel" />
-						<asp:TextBox id="txtSubject" runat="server" cssclass="forminput widetextbox"  MaxLength="50" />
+						<asp:TextBox id="txtSubject" runat="server" cssclass="forminput widetextbox" MaxLength="50" />
 					</div>
 					<div class="settingrow">
-					 <mp:SiteLabel id="lblMessageLabel" runat="server" ForControl="edMessage" ConfigKey="ContactFormMessageLabel" ResourceFile="ContactFormResources" CssClass="settinglabel" />
+						<mp:SiteLabel id="lblMessageLabel" runat="server" ForControl="edMessage" ConfigKey="ContactFormMessageLabel" ResourceFile="ContactFormResources" CssClass="settinglabel" />
 					</div>
 					<div class="settingrow">
 						<mpe:EditorControl id="edMessage" runat="server" />
@@ -34,8 +34,8 @@
 						<portal:EmailValidator ID="regexEmail" runat="server" Display="none" ValidationGroup="Contact" ControlToValidate="txtEmail" SetFocusOnError="true" />
 					</div>
 					<div class="settingrow" id="divCaptcha" runat="server">
-					   <mp:CaptchaControl id="captcha" runat="server" />
-					 </div>
+						<mp:CaptchaControl id="captcha" runat="server" />
+					</div>
 					<div class="modulebuttonrow">
 						<portal:mojoButton ID="btnSend" Runat="server" ValidationGroup="Contact" Text="Send" CausesValidation="true" />
 					</div>
