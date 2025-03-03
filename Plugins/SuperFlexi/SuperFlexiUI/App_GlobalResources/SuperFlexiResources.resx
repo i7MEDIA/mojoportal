@@ -291,4 +291,13 @@
   <data name="ExportFileNamePrefix" xml:space="preserve">
     <value>export</value>
   </data>
+  <data name="SolutionSearchFriendlyName" xml:space="preserve">
+    <value>Search Friendly Name</value>
+  </data>
+  <data name="SearchSettings" xml:space="preserve">
+    <value>Search Settings</value>
+  </data>
+  <data name="RelatedSearchPage" xml:space="preserve">
+    <value>Page for Search Index</value>
+  </data>
 </root>
