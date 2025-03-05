@@ -304,8 +304,20 @@ public partial class SearchResults : NonCmsBasePage
 		pgrBottom.PageCount = totalPages;
 		pgrBottom.Visible = (totalPages > 1);
 
-		rptResults.DataSource = searchResults;
-		rptResults.DataBind();
+		if (WebConfigSettings.UseNeatHtmlInSearchResults)
+		{
+			rptResultsSecure.DataSource = searchResults;
+			rptResultsSecure.DataBind();
+			rptResultsSecure.Visible = true;
+			rptResults.Visible = false;
+		}
+		else
+		{
+			rptResults.DataSource = searchResults;
+			rptResults.DataBind();
+			rptResults.Visible = true;
+			rptResultsSecure.Visible = false;
+		}
 	}
 
 	private string GetModBeginDateParam(bool encode)
