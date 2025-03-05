@@ -11,9 +11,7 @@ public class IndexItem : IComparable
 {
 	#region Constructors
 
-	public IndexItem()
-	{
-	}
+	public IndexItem() { }
 
 	private Lucene.Net.Documents.Document luceneDoc = null;
 
@@ -222,7 +220,7 @@ public class IndexItem : IComparable
 			PageName = System.Text.Encoding.Unicode.GetString(value);
 		}
 	}
-	
+
 	private bool didLoadPageMetaFromLuceneDoc = false;
 
 	[XmlIgnore]
@@ -803,8 +801,6 @@ public class IndexItem : IComparable
 		set { lastModUtc = value; }
 	}
 
-
-
 	private bool excludeFromRecentContent = false;
 
 	public bool ExcludeFromRecentContent
@@ -817,17 +813,12 @@ public class IndexItem : IComparable
 
 	public int CompareTo(object obj)
 	{
-		IndexItem i = obj as IndexItem;
-		if (i == null) { return -1; }
+		if (obj is not IndexItem i)
+		{
+			return -1;
+		}
 
 		// sort descending on LastModUtc
-		if (i.LastModUtc > LastModUtc) return 1;
-
-		return -1;
-
+		return i.LastModUtc > LastModUtc ? 1 : -1;
 	}
-
-
-
-
 }
