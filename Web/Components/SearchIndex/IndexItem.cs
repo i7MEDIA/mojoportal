@@ -19,110 +19,67 @@ public class IndexItem : IComparable
 	{
 		luceneDoc = doc;
 
-		docKey = luceneDoc.Get("Key");
-		siteID = Convert.ToInt32(luceneDoc.Get("SiteID"), CultureInfo.InvariantCulture);
-
+		DocKey = luceneDoc.Get("Key");
+		SiteId = Convert.ToInt32(luceneDoc.Get("SiteID"), CultureInfo.InvariantCulture);
 		PageName = luceneDoc.Get("PageName");
 		ModuleTitle = luceneDoc.Get("ModuleTitle");
 		Title = luceneDoc.Get("Title");
-		intro = luceneDoc.Get("Intro");
+		Intro = luceneDoc.Get("Intro");
 		ViewPage = luceneDoc.Get("ViewPage");
 		QueryStringAddendum = luceneDoc.Get("QueryStringAddendum");
-		bool useQString;
-		if (bool.TryParse(luceneDoc.Get("UseQueryStringParams"), out useQString))
+
+		if (bool.TryParse(luceneDoc.Get("UseQueryStringParams"), out bool useQString))
 		{
-			useQueryStringParams = useQString;
+			UseQueryStringParams = useQString;
 		}
+
 		Author = luceneDoc.GetNullSafeString("Author");
-
 	}
 
 	#endregion
 
-	#region Private Properties
+	#region Properties
 
-	private int siteID = -1;
-	private int pageID = -1;
-	private int moduleID = -1;
-	private int itemID = -1;
-	private int pageIndex = -1;
-	private int pageNumber = 1; // for use in pageable modules like forums
-	private string pageName = string.Empty;
-	private string featureId = Guid.Empty.ToString();
-	private string featureName = string.Empty;
-	private string featureResourceFile = string.Empty;
-	private string moduleTitle = string.Empty;
-	private string title = string.Empty;
-	private string content = string.Empty;
-	private string otherContent = string.Empty;
-	private string intro = string.Empty;
-	private string viewRoles = string.Empty;
-	private string moduleViewRoles = string.Empty;
-	private string viewPage = "Default.aspx";
-	private bool useQueryStringParams = true;
-	private string queryStringAddendum = string.Empty;
-	private DateTime publishBeginDate = DateTime.MinValue;
-	private DateTime publishEndDate = DateTime.MaxValue;
-	private string indexPath = string.Empty;
-	private string itemKey = string.Empty;
-	private string pageMetaDescription = string.Empty;
-	private string pageMetaKeywords = string.Empty;
-	private bool removeOnly = false;
+	public string IndexPath { get; set; } = string.Empty;
 
-	#endregion
+	/// <summary>
+	/// same as Key but only populated when retrieving items from the index
+	/// </summary>
+	public string DocKey { get; private set; } = string.Empty;
 
+	public string Key => $"{SiteId}~{PageId}~{ModuleId}~{ItemKey}{QueryStringAddendum}";
 
-	#region Public Properties
-
-	public string IndexPath
-	{
-		get { return indexPath; }
-		set { indexPath = value; }
-	}
-
-	private string docKey = string.Empty;
-
-	// same as Key but only populated when retrieving items from the index
-	public string DocKey
-	{
-		get { return docKey; }
-	}
-
-	public string Key => $"{siteID}~{pageID}~{moduleID}~{ItemKey}{queryStringAddendum}";
-
-
-	public int SiteId
-	{
-		get { return siteID; }
-		set { siteID = value; }
-	}
+	public int SiteId { get; set; } = -1;
 
 	private bool didLoadPageIdFromLuceneDoc = false;
-
+	private int pageID = -1;
 	public int PageId
 	{
 		get
 		{
 			//lazy load
-			if ((luceneDoc != null) && (!didLoadPageIdFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadPageIdFromLuceneDoc)
 			{
 				pageID = Convert.ToInt32(luceneDoc.Get("PageID"), CultureInfo.InvariantCulture);
 				didLoadPageIdFromLuceneDoc = true;
 			}
 			return pageID;
 		}
-		set { pageID = value; }
+		set
+		{
+			pageID = value;
+		}
 	}
-
 
 	private bool didLoadModuleIdFromLuceneDoc = false;
 
+	private int moduleID = -1;
 	public int ModuleId
 	{
 		get
 		{
 			//lazy load
-			if ((luceneDoc != null) && (!didLoadModuleIdFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadModuleIdFromLuceneDoc)
 			{
 				moduleID = Convert.ToInt32(luceneDoc.Get("ModuleID"), CultureInfo.InvariantCulture);
 				didLoadModuleIdFromLuceneDoc = true;
@@ -130,17 +87,21 @@ public class IndexItem : IComparable
 
 			return moduleID;
 		}
-		set { moduleID = value; }
+		set
+		{
+			moduleID = value;
+		}
 	}
 
 	private bool didLoadItemIdFromLuceneDoc = false;
 
+	private int itemID = -1;
 	public int ItemId
 	{
 		get
 		{
 			//lazy load
-			if ((luceneDoc != null) && (!didLoadItemIdFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadItemIdFromLuceneDoc)
 			{
 				itemID = Convert.ToInt32(luceneDoc.Get("ItemID"), CultureInfo.InvariantCulture);
 				didLoadItemIdFromLuceneDoc = true;
@@ -148,40 +109,37 @@ public class IndexItem : IComparable
 
 			return itemID;
 		}
-		set { itemID = value; }
+		set
+		{
+			itemID = value;
+		}
 	}
 
+	private string itemKey = string.Empty;
 	public string ItemKey
 	{
 		get
 		{
 			if (ItemId > -1)
 			{
-				//return ItemId.ToString(CultureInfo.InvariantCulture) + itemKey;
 				return ItemId.ToString(CultureInfo.InvariantCulture);
 			}
 			return itemKey;
 		}
-		set { itemKey = value; }
-	}
-
-	/// <summary>
-	/// legacy field not needed anymore
-	/// </summary>
-	public int PageIndex
-	{
-		get { return pageIndex; }
-		set { pageIndex = value; }
+		set
+		{
+			itemKey = value;
+		}
 	}
 
 	private bool didLoadPageNumberFromLuceneDoc = false;
-
+	private int pageNumber = 1; // for use in pageable modules like forums
 	public int PageNumber
 	{
 		get
 		{
 			//lazy load
-			if ((luceneDoc != null) && (!didLoadPageNumberFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadPageNumberFromLuceneDoc)
 			{
 				pageNumber = Convert.ToInt32(luceneDoc.Get("PageNumber"), CultureInfo.InvariantCulture);
 				didLoadPageNumberFromLuceneDoc = true;
@@ -189,22 +147,16 @@ public class IndexItem : IComparable
 
 			return pageNumber;
 		}
-		set { pageNumber = value; }
+		set
+		{
+			pageNumber = value;
+		}
 	}
 
-	public bool RemoveOnly
-	{
-		get { return removeOnly; }
-		set { removeOnly = value; }
-	}
-
+	public bool RemoveOnly { get; set; } = false;
 
 	[XmlIgnore]
-	public string PageName
-	{
-		get { return pageName; }
-		set { pageName = value; }
-	}
+	public string PageName { get; set; } = string.Empty;
 
 	// This is needed to support xml serialization, string with special characterscan cause invalid xml, base 64 encoding them gets around the problem.
 
@@ -256,25 +208,31 @@ public class IndexItem : IComparable
 	[XmlIgnore]
 	public string PageNameItemItemSeparator { get; set; } = " &gt; ";
 
+	private string pageMetaDescription = string.Empty;
 	[XmlIgnore]
 	public string PageMetaDescription
 	{
 		get
 		{
 			//lazy load
-			if ((luceneDoc != null) && (!didLoadPageMetaFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadPageMetaFromLuceneDoc)
 			{
 				string s = luceneDoc.Get("PageMetaDesc");
-				if ((s != null) && (s.Length > 0))
+
+				if (!string.IsNullOrWhiteSpace(s))
 				{
 					pageMetaDescription = s;
 				}
+
 				didLoadPageMetaFromLuceneDoc = true;
 			}
 
 			return pageMetaDescription;
 		}
-		set { pageMetaDescription = value; }
+		set
+		{
+			pageMetaDescription = value;
+		}
 	}
 
 	[XmlElement(ElementName = "pageMetaDescription", DataType = "base64Binary")]
@@ -292,16 +250,17 @@ public class IndexItem : IComparable
 
 	private bool didLoadPageMetaKeywordsFromLuceneDoc = false;
 
+	private string pageMetaKeywords = string.Empty;
 	[XmlIgnore]
 	public string PageMetaKeywords
 	{
 		get
 		{
 			//lazy load
-			if ((luceneDoc != null) && (!didLoadPageMetaKeywordsFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadPageMetaKeywordsFromLuceneDoc)
 			{
 				string s = luceneDoc.Get("Keyword");
-				if ((s != null) && (s.Length > 0))
+				if (!string.IsNullOrWhiteSpace(s))
 				{
 					pageMetaKeywords = s;
 				}
@@ -326,92 +285,17 @@ public class IndexItem : IComparable
 		}
 	}
 
-	//private bool didLoadItemMetaFromLuceneDoc = false;
-
-	//private string itemMetaDescription = string.Empty;
-
-	//[XmlIgnore]
-	//public string ItemMetaDescription
-	//{
-	//    get
-	//    {
-	//        //lazy load
-	//        if ((luceneDoc != null) && (!didLoadItemMetaFromLuceneDoc))
-	//        {
-	//            string s = luceneDoc.Get("ItemMetaDesc");
-	//            if ((s != null) && (s.Length > 0))
-	//            {
-	//                itemMetaDescription = s;
-	//            }
-	//            didLoadItemMetaFromLuceneDoc = true;
-	//        }
-
-	//        return itemMetaDescription;
-	//    }
-	//    set { itemMetaDescription = value; }
-	//}
-
-	//[XmlElement(ElementName = "itemMetaDescription", DataType = "base64Binary")]
-	//public byte[] ItemMetaDescriptionSerialization
-	//{
-	//    get
-	//    {
-	//        return System.Text.Encoding.Unicode.GetBytes(ItemMetaDescription);
-	//    }
-	//    set
-	//    {
-	//        ItemMetaDescription = System.Text.Encoding.Unicode.GetString(value);
-	//    }
-	//}
-
-	//private bool didLoadItemMetaKeywordsFromLuceneDoc = false;
-
-	//private string itemMetaKeywords = string.Empty;
-
-	//[XmlIgnore]
-	//public string ItemMetaKeywords
-	//{
-	//    get
-	//    {
-	//        //lazy load
-	//        if ((luceneDoc != null) && (!didLoadItemMetaKeywordsFromLuceneDoc))
-	//        {
-	//            string s = luceneDoc.Get("ItemKeywords");
-	//            if ((s != null) && (s.Length > 0))
-	//            {
-	//                itemMetaKeywords = s;
-	//            }
-	//            didLoadItemMetaKeywordsFromLuceneDoc = true;
-	//        }
-
-	//        return itemMetaKeywords;
-	//    }
-	//    set { itemMetaKeywords = value; }
-	//}
-
-	//[XmlElement(ElementName = "itemMetaKeywords", DataType = "base64Binary")]
-	//public byte[] ItemMetaKeywordsSerialization
-	//{
-	//    get
-	//    {
-	//        return System.Text.Encoding.Unicode.GetBytes(ItemMetaKeywords);
-	//    }
-	//    set
-	//    {
-	//        ItemMetaKeywords = System.Text.Encoding.Unicode.GetString(value);
-	//    }
-	//}
-
 	private bool didLoadFeatureIdFromLuceneDoc = false;
 
+	private string featureId = Guid.Empty.ToString();
 	public string FeatureId
 	{
 		get
 		{
-			if ((luceneDoc != null) && (!didLoadFeatureIdFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadFeatureIdFromLuceneDoc)
 			{
 				string fid = luceneDoc.Get("FeatureId");
-				if ((fid != null) && (fid.Length > 0))
+				if (!string.IsNullOrWhiteSpace(fid))
 				{
 					featureId = fid;
 				}
@@ -424,12 +308,13 @@ public class IndexItem : IComparable
 
 	private bool didLoadFeatureNameFromLuceneDoc = false;
 
+	private string featureName = string.Empty;
 	[XmlIgnore]
 	public string FeatureName
 	{
 		get
 		{
-			if ((luceneDoc != null) && (!didLoadFeatureNameFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadFeatureNameFromLuceneDoc)
 			{
 				featureName = luceneDoc.Get("Feature");
 				didLoadFeatureNameFromLuceneDoc = true;
@@ -452,20 +337,10 @@ public class IndexItem : IComparable
 		}
 	}
 
-	public string FeatureResourceFile
-	{
-		get { return featureResourceFile; }
-		set { featureResourceFile = value; }
-	}
-
-	private string author = string.Empty;
+	public string FeatureResourceFile { get; set; } = string.Empty;
 
 	[XmlIgnore]
-	public string Author
-	{
-		get { return author; }
-		set { author = value; }
-	}
+	public string Author { get; set; } = string.Empty;
 
 	[XmlElement(ElementName = "author", DataType = "base64Binary")]
 	public byte[] AuthorSerialization
@@ -480,14 +355,8 @@ public class IndexItem : IComparable
 		}
 	}
 
-	private string categories = string.Empty;
-
 	[XmlIgnore]
-	public string Categories
-	{
-		get { return categories; }
-		set { categories = value; }
-	}
+	public string Categories { get; set; } = string.Empty;
 
 	[XmlElement(ElementName = "categories", DataType = "base64Binary")]
 	public byte[] CategoriesSerialization
@@ -503,11 +372,7 @@ public class IndexItem : IComparable
 	}
 
 	[XmlIgnore]
-	public string ModuleTitle
-	{
-		get { return moduleTitle; }
-		set { moduleTitle = value; }
-	}
+	public string ModuleTitle { get; set; } = string.Empty;
 
 	[XmlElement(ElementName = "moduleTitle", DataType = "base64Binary")]
 	public byte[] ModuleTitleSerialization
@@ -523,11 +388,7 @@ public class IndexItem : IComparable
 	}
 
 	[XmlIgnore]
-	public string Title
-	{
-		get { return title; }
-		set { title = value; }
-	}
+	public string Title { get; set; } = string.Empty;
 
 	[XmlElement(ElementName = "title", DataType = "base64Binary")]
 	public byte[] TitleSerialization
@@ -543,11 +404,7 @@ public class IndexItem : IComparable
 	}
 
 	[XmlIgnore]
-	public string Intro
-	{
-		get { return intro; }
-		set { intro = value; }
-	}
+	public string Intro { get; set; } = string.Empty;
 
 	[XmlElement(ElementName = "intro", DataType = "base64Binary")]
 	public byte[] IntroSerialization
@@ -571,7 +428,7 @@ public class IndexItem : IComparable
 	{
 		get
 		{
-			if ((luceneDoc != null) && (!didLoadContentAbstrctFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadContentAbstrctFromLuceneDoc)
 			{
 				contentAbstract = luceneDoc.Get("Abstract");
 				didLoadContentAbstrctFromLuceneDoc = true;
@@ -595,16 +452,15 @@ public class IndexItem : IComparable
 		}
 	}
 
-
 	private bool didLoadContentFromLuceneDoc = false;
 
+	private string content = string.Empty;
 	[XmlIgnore]
 	public string Content
 	{
 		get
 		{
-
-			if ((luceneDoc != null) && (!didLoadContentFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadContentFromLuceneDoc)
 			{
 				content = luceneDoc.Get("contents");
 				didLoadContentFromLuceneDoc = true;
@@ -628,11 +484,7 @@ public class IndexItem : IComparable
 	}
 
 	[XmlIgnore]
-	public string OtherContent
-	{
-		get { return otherContent; }
-		set { otherContent = value; }
-	}
+	public string OtherContent { get; set; } = string.Empty;
 
 	[XmlElement(ElementName = "otherContent", DataType = "base64Binary")]
 	public byte[] OtherContentSerialization
@@ -649,13 +501,14 @@ public class IndexItem : IComparable
 
 	private bool didGetViewRolesFromDoc = false;
 
+	private string viewRoles = string.Empty;
 	[XmlIgnore]
 	public string ViewRoles
 	{
 		get
 		{
 			// lazyLoad
-			if ((luceneDoc != null) && (!didGetViewRolesFromDoc))
+			if (luceneDoc is not null && !didGetViewRolesFromDoc)
 			{
 				viewRoles = luceneDoc.Get("ViewRoles");
 				didGetViewRolesFromDoc = true; ;
@@ -680,20 +533,24 @@ public class IndexItem : IComparable
 
 	private bool didGetModuleViewRolesFromDoc = false;
 
+	private string moduleViewRoles = string.Empty;
 	[XmlIgnore]
 	public string ModuleViewRoles
 	{
 		get
 		{
 			// lazyLoad
-			if ((luceneDoc != null) && (!didGetModuleViewRolesFromDoc))
+			if (luceneDoc is not null && !didGetModuleViewRolesFromDoc)
 			{
 				moduleViewRoles = luceneDoc.Get("ModuleRole");
 				didGetModuleViewRolesFromDoc = true; ;
 			}
 			return moduleViewRoles;
 		}
-		set { moduleViewRoles = value; }
+		set
+		{
+			moduleViewRoles = value;
+		}
 	}
 
 	[XmlElement(ElementName = "moduleViewRoles", DataType = "base64Binary")]
@@ -710,11 +567,7 @@ public class IndexItem : IComparable
 	}
 
 	[XmlIgnore]
-	public string ViewPage
-	{
-		get { return viewPage; }
-		set { viewPage = value; }
-	}
+	public string ViewPage { get; set; } = "Default.aspx";
 
 	[XmlElement(ElementName = "viewPage", DataType = "base64Binary")]
 	public byte[] ViewPageSerialization
@@ -729,85 +582,67 @@ public class IndexItem : IComparable
 		}
 	}
 
-	public bool UseQueryStringParams
-	{
-		get { return useQueryStringParams; }
-		set { useQueryStringParams = value; }
-	}
+	public bool UseQueryStringParams { get; set; } = true;
 
-	public string QueryStringAddendum
-	{
-		get { return queryStringAddendum; }
-		set { queryStringAddendum = value; }
-	}
+	public string QueryStringAddendum { get; set; } = string.Empty;
 
-	public DateTime PublishBeginDate
-	{
-		get { return publishBeginDate; }
-		set { publishBeginDate = value; }
-	}
+	public DateTime PublishBeginDate { get; set; } = DateTime.MinValue;
 
-	public DateTime PublishEndDate
-	{
-		get { return publishEndDate; }
-		set { publishEndDate = value; }
-	}
-
-	private DateTime createdUtc = DateTime.MinValue;
+	public DateTime PublishEndDate { get; set; } = DateTime.MaxValue;
 
 	private bool didLoadCreatedUtcFromLuceneDoc = false;
 
+	private DateTime createdUtc = DateTime.MinValue;
 	public DateTime CreatedUtc
 	{
 		get
 		{
 			// lazyLoad
-			if ((luceneDoc != null) && (!didLoadCreatedUtcFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadCreatedUtcFromLuceneDoc)
 			{
-				DateTime c = DateTime.MinValue;
-				if (DateTime.TryParse(luceneDoc.Get("CreatedUtc"), out c))
+				if (DateTime.TryParse(luceneDoc.Get("CreatedUtc"), out DateTime c))
 				{
 					createdUtc = c;
 				}
 
 				didLoadCreatedUtcFromLuceneDoc = true; ;
 			}
+
 			return createdUtc;
 		}
-		set { createdUtc = value; }
+		set
+		{
+			createdUtc = value;
+		}
 	}
-
-	private DateTime lastModUtc = DateTime.MinValue;
 
 	private bool didLoadLastModUtcFromLuceneDoc = false;
 
+	private DateTime lastModUtc = DateTime.MinValue;
 	public DateTime LastModUtc
 	{
 		get
 		{
 			// lazyLoad
-			if ((luceneDoc != null) && (!didLoadLastModUtcFromLuceneDoc))
+			if (luceneDoc is not null && !didLoadLastModUtcFromLuceneDoc)
 			{
-				DateTime c = DateTime.MinValue;
-				if (DateTime.TryParse(luceneDoc.Get("LastModUtc"), out c))
+				if (DateTime.TryParse(luceneDoc.Get("LastModUtc"), out DateTime c))
 				{
 					lastModUtc = c;
 				}
 
 				didLoadLastModUtcFromLuceneDoc = true; ;
 			}
+
 			return lastModUtc;
 		}
-		set { lastModUtc = value; }
+		set
+		{
+			lastModUtc = value;
+		}
 	}
 
-	private bool excludeFromRecentContent = false;
-
-	public bool ExcludeFromRecentContent
-	{
-		get { return excludeFromRecentContent; }
-		set { excludeFromRecentContent = value; }
-	}
+	public bool ExcludeFromRecentContent { get; set; } = false;
 
 	#endregion
 
