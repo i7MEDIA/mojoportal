@@ -53,7 +53,7 @@ public static class IndexHelper
 
 	public static string GetSiteProviderName(int siteId)
 	{
-		string siteKey = "Site" + siteId.ToInvariantString() + "-LuceneSettingsProvider";
+		string siteKey = Invariant($"Site{siteId}-LuceneSettingsProvider");
 
 		if (ConfigurationManager.AppSettings[siteKey] != null)
 		{
@@ -66,7 +66,7 @@ public static class IndexHelper
 
 	public static string GetDataFolder(int siteId) => Invariant($"~/Data/Sites/{siteId}/");
 
-	public static string GetSearchIndexPath(int siteId) => System.Web.Hosting.HostingEnvironment.MapPath($"{GetDataFolder(siteId)}index/");
+	public static string GetSearchIndexPath(int siteId) => System.Web.Hosting.HostingEnvironment.MapPath(Invariant($"{GetDataFolder(siteId)}index/"));
 
 	public static Lucene.Net.Store.Directory GetDirectory(int siteId)
 	{
@@ -162,76 +162,45 @@ public static class IndexHelper
 
 			MatchAllDocsQuery matchAllQuery = new MatchAllDocsQuery();
 
-			using (IndexSearcher searcher = new IndexSearcher(searchDirectory))
+			using IndexSearcher searcher = new IndexSearcher(searchDirectory);
+			int maxResults = int.MaxValue;
+
+			TopDocs hits = searcher.Search(matchAllQuery, filter, maxResults);
+
+			int startHit = 0;
+			if (pageNumber > 1)
 			{
-				int maxResults = int.MaxValue;
-
-				TopDocs hits = searcher.Search(matchAllQuery, filter, maxResults);
-
-				int startHit = 0;
-				if (pageNumber > 1)
-				{
-					startHit = ((pageNumber - 1) * pageSize);
-				}
-
-				totalHits = hits.TotalHits;
-
-				if (startHit > totalHits)
-				{
-					startHit = totalHits;
-				}
-
-				int end = startHit + pageSize;
-				if (totalHits <= end)
-				{
-					end = totalHits;
-				}
-
-				int itemsAdded = 0;
-				int itemsToAdd = end;
-
-				for (int i = startHit; i < itemsToAdd; i++)
-				{
-					Document doc = searcher.Doc(hits.ScoreDocs[i].Doc);
-					IndexItem indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
-
-					results.Add(indexItem);
-					itemsAdded += 1;
-
-				}
-
-				results.ItemCount = itemsAdded;
-				results.PageIndex = pageNumber;
-
-				results.ExecutionTime = DateTime.Now.Ticks; // -0;
+				startHit = ((pageNumber - 1) * pageSize);
 			}
 
-			//    using (IndexReader reader = IndexReader.Open(searchDirectory, false))
-			//    {
+			totalHits = hits.TotalHits;
 
-			//        totalHits = reader.NumDocs();
-			//        int startHit = 0;
-			//        int itemsToAdd = pageSize;
-			//        if (pageNumber > 1)
-			//        {
-			//            startHit = ((pageNumber - 1) * pageSize);
-			//            int end = startHit + pageSize;
-			//            if (totalHits <= end)
-			//            {
-			//                end = totalHits;
-			//            }
-			//            itemsToAdd = end;
-			//        }
+			if (startHit > totalHits)
+			{
+				startHit = totalHits;
+			}
 
-			//        for (int i = startHit; i < itemsToAdd; i++)
-			//        {
-			//            Document doc = reader.Document(i);
-			//            IndexItem indexItem = new IndexItem(doc, 1);
-			//            results.Add(indexItem);
-			//        }
+			int end = startHit + pageSize;
+			if (totalHits <= end)
+			{
+				end = totalHits;
+			}
 
-			//    }
+			int itemsAdded = 0;
+			int itemsToAdd = end;
 
+			for (int i = startHit; i < itemsToAdd; i++)
+			{
+				var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
+				var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
+
+				results.Add(indexItem);
+				itemsAdded += 1;
+			}
+
+			results.ItemCount = itemsAdded;
+			results.PageIndex = pageNumber;
+			results.ExecutionTime = DateTime.Now.Ticks; // -0;
 		}
 
 		return results;
@@ -291,19 +260,17 @@ public static class IndexHelper
 			var filter = new QueryWrapperFilter(filterQuery);
 			var matchAllQuery = new MatchAllDocsQuery();
 
-			using (IndexSearcher searcher = new IndexSearcher(searchDirectory))
+			using IndexSearcher searcher = new IndexSearcher(searchDirectory);
+			int maxResults = int.MaxValue;
+			TopDocs hits = searcher.Search(matchAllQuery, filter, maxResults);
+			totalHits = hits.TotalHits;
+
+			for (int i = 0; i < totalHits; i++)
 			{
-				int maxResults = int.MaxValue;
-				TopDocs hits = searcher.Search(matchAllQuery, filter, maxResults);
-				totalHits = hits.TotalHits;
+				var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
+				var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
 
-				for (int i = 0; i < totalHits; i++)
-				{
-					Document doc = searcher.Doc(hits.ScoreDocs[i].Doc);
-					IndexItem indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
-
-					results.Add(indexItem);
-				}
+				results.Add(indexItem);
 			}
 		}
 
@@ -338,7 +305,6 @@ public static class IndexHelper
 
 		using (Lucene.Net.Store.Directory searchDirectory = GetDirectory(siteId))
 		{
-
 			var excludeFilter = new BooleanQuery
 			{
 				{ new TermQuery(new Term("ExcludeFromRecentContent", "false")), Occur.MUST }
@@ -349,7 +315,7 @@ public static class IndexHelper
 				{ excludeFilter, Occur.MUST }
 			}; // won't be used to score the results
 
-			TermRangeQuery createdDateFilter = new TermRangeQuery(
+			var createdDateFilter = new TermRangeQuery(
 				"CreatedUtc",
 				createdSinceDate.Date.ToString("s"),
 				DateTime.MaxValue.ToString("s"),
@@ -386,18 +352,16 @@ public static class IndexHelper
 
 			var matchAllQuery = new MatchAllDocsQuery();
 
-			using (var searcher = new IndexSearcher(searchDirectory))
-			{
-				int maxResults = int.MaxValue;
-				var hits = searcher.Search(matchAllQuery, filter, maxResults);
-				totalHits = hits.TotalHits;
+			using var searcher = new IndexSearcher(searchDirectory);
+			int maxResults = int.MaxValue;
+			var hits = searcher.Search(matchAllQuery, filter, maxResults);
+			totalHits = hits.TotalHits;
 
-				for (int i = 0; i < totalHits; i++)
-				{
-					var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
-					var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
-					results.Add(indexItem);
-				}
+			for (int i = 0; i < totalHits; i++)
+			{
+				var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
+				var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
+				results.Add(indexItem);
 			}
 		}
 
@@ -475,19 +439,17 @@ public static class IndexHelper
 
 			var matchAllQuery = new MatchAllDocsQuery();
 
-			using (var searcher = new IndexSearcher(searchDirectory))
+			using var searcher = new IndexSearcher(searchDirectory);
+			int maxResults = int.MaxValue;
+			var hits = searcher.Search(matchAllQuery, filter, maxResults);
+			totalHits = hits.TotalHits;
+
+			for (int i = 0; i < totalHits; i++)
 			{
-				int maxResults = int.MaxValue;
-				var hits = searcher.Search(matchAllQuery, filter, maxResults);
-				totalHits = hits.TotalHits;
+				var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
+				var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
 
-				for (int i = 0; i < totalHits; i++)
-				{
-					var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
-					var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
-
-					results.Add(indexItem);
-				}
+				results.Add(indexItem);
 			}
 		}
 
@@ -547,8 +509,8 @@ public static class IndexHelper
 			var pageRoleFilter = new TermQuery(pageRole);
 			filterQuery.Add(pageRoleFilter, Occur.MUST);
 
-			Term moduleRole = new Term("ModuleRole", "All Users");
-			TermQuery moduleRoleFilter = new TermQuery(moduleRole);
+			var moduleRole = new Term("ModuleRole", "All Users");
+			var moduleRoleFilter = new TermQuery(moduleRole);
 
 			filterQuery.Add(moduleRoleFilter, Occur.MUST);
 
@@ -565,24 +527,21 @@ public static class IndexHelper
 				filterQuery.Add(featureFilter, Occur.MUST);
 			}
 
-			Filter filter = new QueryWrapperFilter(filterQuery);
+			var filter = new QueryWrapperFilter(filterQuery);
 
-			MatchAllDocsQuery matchAllQuery = new MatchAllDocsQuery();
+			var matchAllQuery = new MatchAllDocsQuery();
 
-			using (IndexSearcher searcher = new IndexSearcher(searchDirectory))
+			using IndexSearcher searcher = new IndexSearcher(searchDirectory);
+			var maxResults = int.MaxValue;
+			var hits = searcher.Search(matchAllQuery, filter, maxResults);
+			totalHits = hits.TotalHits;
+
+			for (int i = 0; i < totalHits; i++)
 			{
+				var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
+				var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
 
-				int maxResults = int.MaxValue;
-				TopDocs hits = searcher.Search(matchAllQuery, filter, maxResults);
-				totalHits = hits.TotalHits;
-
-				for (int i = 0; i < totalHits; i++)
-				{
-					Document doc = searcher.Doc(hits.ScoreDocs[i].Doc);
-					IndexItem indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
-
-					results.Add(indexItem);
-				}
+				results.Add(indexItem);
 			}
 		}
 
@@ -631,179 +590,167 @@ public static class IndexHelper
 			return results;
 		}
 
-		using (Lucene.Net.Store.Directory searchDirectory = GetDirectory(siteId))
+		using Lucene.Net.Store.Directory searchDirectory = GetDirectory(siteId);
+		if (!IndexReader.IndexExists(searchDirectory))
 		{
-			if (!IndexReader.IndexExists(searchDirectory))
+			return results;
+		}
+
+		long startTicks = DateTime.Now.Ticks;
+
+		try
+		{
+			if (maxClauseCount != 1024)
 			{
-				return results;
+				BooleanQuery.MaxClauseCount = maxClauseCount;
 			}
 
-			long startTicks = DateTime.Now.Ticks;
+			// there are different analyzers for different languages
+			// see LuceneSettings.config in the root of the web
+			var provider = LuceneSettingsManager.Providers[GetSiteProviderName(siteId)];
+			var analyzer = provider.GetAnalyzer();
 
-			try
+			var searchQuery = MultiFieldQueryParser.Parse(
+				Lucene.Net.Util.Version.LUCENE_30,
+				[queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty)],
+				["Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Keyword"],
+				analyzer);
+
+			var filterQuery = new BooleanQuery(); // won't be used to score the results
+
+			if (!isAdminContentAdminOrSiteEditor) // skip role filters for these users
 			{
-				if (maxClauseCount != 1024)
-				{
-					BooleanQuery.MaxClauseCount = maxClauseCount;
-				}
+				AddRoleFilters(userRoles, filterQuery);
+				AddModuleRoleFilters(userRoles, filterQuery);
+			}
 
-				// there are different analyzers for different languages
-				// see LuceneSettings.config in the root of the web
-				var provider = LuceneSettingsManager.Providers[GetSiteProviderName(siteId)];
-				var analyzer = provider.GetAnalyzer();
+			var beginDateFilter = new TermRangeQuery(
+				"PublishBeginDate",
+				DateTime.MinValue.ToString("s"),
+				DateTime.UtcNow.ToString("s"),
+				true,
+				true);
 
-				var searchQuery = MultiFieldQueryParser.Parse(
-					Lucene.Net.Util.Version.LUCENE_30,
-					[queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty)],
-					["Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Keyword"],
-					analyzer);
+			filterQuery.Add(beginDateFilter, Occur.MUST);
 
-				var filterQuery = new BooleanQuery(); // won't be used to score the results
+			var endDateFilter = new TermRangeQuery(
+				"PublishEndDate",
+				DateTime.UtcNow.ToString("s"),
+				DateTime.MaxValue.ToString("s"),
+				true,
+				true);
 
-				if (!isAdminContentAdminOrSiteEditor) // skip role filters for these users
-				{
-					AddRoleFilters(userRoles, filterQuery);
-					AddModuleRoleFilters(userRoles, filterQuery);
-				}
+			filterQuery.Add(endDateFilter, Occur.MUST);
 
-				var beginDateFilter = new TermRangeQuery(
-					"PublishBeginDate",
-					DateTime.MinValue.ToString("s"),
-					DateTime.UtcNow.ToString("s"),
+			if (modifiedBeginDate.Date > DateTime.MinValue.Date || modifiedEndDate.Date < DateTime.MaxValue.Date)
+			{
+				var lastModifiedDateFilter = new TermRangeQuery(
+					"LastModUtc",
+					modifiedBeginDate.Date.ToString("s"),
+					modifiedEndDate.Date.ToString("s"),
 					true,
 					true);
 
-				filterQuery.Add(beginDateFilter, Occur.MUST);
+				filterQuery.Add(lastModifiedDateFilter, Occur.MUST);
+			}
 
-				var endDateFilter = new TermRangeQuery(
-					"PublishEndDate",
-					DateTime.UtcNow.ToString("s"),
-					DateTime.MaxValue.ToString("s"),
-					true,
-					true);
+			if (featureGuids != null && featureGuids.Length > 0)
+			{
+				var featureFilter = new BooleanQuery();
 
-				filterQuery.Add(endDateFilter, Occur.MUST);
-
-				if (modifiedBeginDate.Date > DateTime.MinValue.Date || modifiedEndDate.Date < DateTime.MaxValue.Date)
+				foreach (Guid featureGuid in featureGuids)
 				{
-					var lastModifiedDateFilter = new TermRangeQuery(
-						"LastModUtc",
-						modifiedBeginDate.Date.ToString("s"),
-						modifiedEndDate.Date.ToString("s"),
-						true,
-						true);
-
-					filterQuery.Add(lastModifiedDateFilter, Occur.MUST);
+					featureFilter.Add(new TermQuery(new Term("FeatureId", featureGuid.ToString())), Occur.SHOULD);
 				}
 
-				//if ((!DisableSearchFeatureFilters) && (featureGuid != Guid.Empty))
-				//{
-				//    BooleanQuery featureFilter = new BooleanQuery();
+				filterQuery.Add(featureFilter, Occur.MUST);
+			}
 
-				//    featureFilter.Add(new TermQuery(new Term("FeatureId", featureGuid.ToString())), Occur.MUST);
+			var filter = new QueryWrapperFilter(filterQuery); // filterQuery won't affect result scores
 
-				//    filterQuery.Add(featureFilter, Occur.MUST);
-				//}
+			using var searcher = new IndexSearcher(searchDirectory);
 
-				if ((featureGuids != null) && (featureGuids.Length > 0))
+			//http://stackoverflow.com/questions/9872933/migrating-lucene-hitcollector-2-x-to-collector-3-x
+			//TopScoreDocCollector collector = TopScoreDocCollector.Create(maxResults, true);
+
+			int maxResults = int.MaxValue;
+			var hits = searcher.Search(searchQuery, filter, maxResults);
+
+			int startHit = 0;
+			if (pageNumber > 1)
+			{
+				startHit = ((pageNumber - 1) * pageSize);
+			}
+
+			totalHits = hits.TotalHits;
+
+			int end = startHit + pageSize;
+			if (totalHits <= end)
+			{
+				end = totalHits;
+			}
+
+			int itemsAdded = 0;
+			int itemsToAdd = end;
+
+			var scorer = new QueryScorer(searchQuery);
+			var formatter = new SimpleHTMLFormatter("<mark class='searchterm'>", "</mark>");
+			var highlighter = new Highlighter(formatter, scorer)
+			{
+				TextFragmenter = new SimpleFragmenter(highlightedFragmentSize)
+			};
+
+			for (int i = startHit; i < itemsToAdd; i++)
+			{
+				var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
+				var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
+
+				if (highlightResults)
 				{
-					var featureFilter = new BooleanQuery();
-
-					foreach (Guid featureGuid in featureGuids)
+					try
 					{
-						featureFilter.Add(new TermQuery(new Term("FeatureId", featureGuid.ToString())), Occur.SHOULD);
-					}
+						var stream = analyzer.TokenStream("contents", new StringReader(doc.Get("contents")));
+						string highlightedResult = highlighter.GetBestFragment(stream, doc.Get("contents"));
 
-					filterQuery.Add(featureFilter, Occur.MUST);
+						if (highlightedResult != null) { indexItem.Intro = highlightedResult; }
+					}
+					catch (NullReferenceException) { }
 				}
 
-				var filter = new QueryWrapperFilter(filterQuery); // filterQuery won't affect result scores
-
-				using (var searcher = new IndexSearcher(searchDirectory))
-				{
-
-					//http://stackoverflow.com/questions/9872933/migrating-lucene-hitcollector-2-x-to-collector-3-x
-					//TopScoreDocCollector collector = TopScoreDocCollector.Create(maxResults, true);
-
-					int maxResults = int.MaxValue;
-					var hits = searcher.Search(searchQuery, filter, maxResults);
-
-					int startHit = 0;
-					if (pageNumber > 1)
-					{
-						startHit = ((pageNumber - 1) * pageSize);
-					}
-
-					totalHits = hits.TotalHits;
-
-					int end = startHit + pageSize;
-					if (totalHits <= end)
-					{
-						end = totalHits;
-					}
-
-					int itemsAdded = 0;
-					int itemsToAdd = end;
-
-					var scorer = new QueryScorer(searchQuery);
-					var formatter = new SimpleHTMLFormatter("<span class='searchterm'>", "</span>");
-					var highlighter = new Highlighter(formatter, scorer);
-
-					highlighter.TextFragmenter = new SimpleFragmenter(highlightedFragmentSize);
-
-					for (int i = startHit; i < itemsToAdd; i++)
-					{
-						var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
-						var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
-
-						if (highlightResults)
-						{
-							try
-							{
-								var stream = analyzer.TokenStream("contents", new StringReader(doc.Get("contents")));
-								string highlightedResult = highlighter.GetBestFragment(stream, doc.Get("contents"));
-
-								if (highlightedResult != null) { indexItem.Intro = highlightedResult; }
-							}
-							catch (NullReferenceException) { }
-						}
-
-						results.Add(indexItem);
-						itemsAdded += 1;
-					}
-
-					results.ItemCount = itemsAdded;
-					results.PageIndex = pageNumber;
-
-					results.ExecutionTime = DateTime.Now.Ticks - startTicks;
-				}
+				results.Add(indexItem);
+				itemsAdded += 1;
 			}
-			catch (ParseException ex)
-			{
-				invalidQuery = true;
-				log.Error($"handled error for search terms {queryText}", ex);
-				// these parser exceptions are generally caused by
-				// spambots posting too much junk into the search form
-				// heres an option to automatically ban the ip address
-				HandleSpam(queryText, ex);
 
-				return results;
-			}
-			catch (BooleanQuery.TooManyClauses ex)
-			{
-				invalidQuery = true;
-				log.Error($"handled error for search terms {queryText}", ex);
-				return results;
-			}
-			catch (IOException ex)
-			{
-				invalidQuery = true;
-				log.Error($"handled error for search terms {queryText}", ex);
-				return results;
-			}
+			results.ItemCount = itemsAdded;
+			results.PageIndex = pageNumber;
+
+			results.ExecutionTime = DateTime.Now.Ticks - startTicks;
+		}
+		catch (ParseException ex)
+		{
+			invalidQuery = true;
+			log.Error($"handled error for search terms {queryText}", ex);
+			// these parser exceptions are generally caused by
+			// spambots posting too much junk into the search form
+			// heres an option to automatically ban the ip address
+			HandleSpam(queryText, ex);
 
 			return results;
 		}
+		catch (BooleanQuery.TooManyClauses ex)
+		{
+			invalidQuery = true;
+			log.Error($"handled error for search terms {queryText}", ex);
+			return results;
+		}
+		catch (IOException ex)
+		{
+			invalidQuery = true;
+			log.Error($"handled error for search terms {queryText}", ex);
+			return results;
+		}
+
+		return results;
 	}
 
 	public static IndexItemCollection Search(
@@ -834,165 +781,164 @@ public static class IndexHelper
 
 		bool DisableSearchFeatureFilters = WebConfigSettings.DisableSearchFeatureFilters;
 
-		using (Lucene.Net.Store.Directory searchDirectory = GetDirectory(siteId))
+		using Lucene.Net.Store.Directory searchDirectory = GetDirectory(siteId);
+		if (!IndexReader.IndexExists(searchDirectory))
 		{
-			if (!IndexReader.IndexExists(searchDirectory)) { return results; }
+			return results;
+		}
 
-			long startTicks = DateTime.Now.Ticks;
+		long startTicks = DateTime.Now.Ticks;
 
-			try
+		try
+		{
+			if (maxClauseCount != 1024)
 			{
-				if (maxClauseCount != 1024)
-				{
-					BooleanQuery.MaxClauseCount = maxClauseCount;
-				}
+				BooleanQuery.MaxClauseCount = maxClauseCount;
+			}
 
-				// there are different analyzers for different languages
-				// see LuceneSettings.config in the root of the web
-				var provider = LuceneSettingsManager.Providers[GetSiteProviderName(siteId)];
-				var analyzer = provider.GetAnalyzer();
+			// there are different analyzers for different languages
+			// see LuceneSettings.config in the root of the web
+			var provider = LuceneSettingsManager.Providers[GetSiteProviderName(siteId)];
+			var analyzer = provider.GetAnalyzer();
 
-				var searchQuery = MultiFieldQueryParser.Parse(
-					Lucene.Net.Util.Version.LUCENE_30,
-					new string[] { queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty) },
-					new string[] { "Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Keyword" },
-					analyzer);
+			var searchQuery = MultiFieldQueryParser.Parse(
+				Lucene.Net.Util.Version.LUCENE_30,
+				[queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty)],
+				["Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Keyword"],
+				analyzer);
 
-				var filterQuery = new BooleanQuery(); // won't be used to score the results
+			var filterQuery = new BooleanQuery(); // won't be used to score the results
 
-				if (!isAdminContentAdminOrSiteEditor) // skip role filters for these users
-				{
-					AddRoleFilters(userRoles, filterQuery);
-					AddModuleRoleFilters(userRoles, filterQuery);
-				}
+			if (!isAdminContentAdminOrSiteEditor) // skip role filters for these users
+			{
+				AddRoleFilters(userRoles, filterQuery);
+				AddModuleRoleFilters(userRoles, filterQuery);
+			}
 
-				var beginDateFilter = new TermRangeQuery(
-					"PublishBeginDate",
-					DateTime.MinValue.ToString("s"),
-					DateTime.UtcNow.ToString("s"),
+			var beginDateFilter = new TermRangeQuery(
+				"PublishBeginDate",
+				DateTime.MinValue.ToString("s"),
+				DateTime.UtcNow.ToString("s"),
+				true,
+				true);
+
+			filterQuery.Add(beginDateFilter, Occur.MUST);
+
+			var endDateFilter = new TermRangeQuery(
+				"PublishEndDate",
+				DateTime.UtcNow.ToString("s"),
+				DateTime.MaxValue.ToString("s"),
+				true,
+				true);
+
+			filterQuery.Add(endDateFilter, Occur.MUST);
+
+			if (modifiedBeginDate.Date > DateTime.MinValue.Date || modifiedEndDate.Date < DateTime.MaxValue.Date)
+			{
+				var lastModifiedDateFilter = new TermRangeQuery(
+					"LastModUtc",
+					modifiedBeginDate.Date.ToString("s"),
+					modifiedEndDate.Date.ToString("s"),
 					true,
 					true);
 
-				filterQuery.Add(beginDateFilter, Occur.MUST);
+				filterQuery.Add(lastModifiedDateFilter, Occur.MUST);
+			}
 
-				var endDateFilter = new TermRangeQuery(
-					"PublishEndDate",
-					DateTime.UtcNow.ToString("s"),
-					DateTime.MaxValue.ToString("s"),
-					true,
-					true);
-
-				filterQuery.Add(endDateFilter, Occur.MUST);
-
-
-				if (modifiedBeginDate.Date > DateTime.MinValue.Date || modifiedEndDate.Date < DateTime.MaxValue.Date)
-				{
-					var lastModifiedDateFilter = new TermRangeQuery(
-						"LastModUtc",
-						modifiedBeginDate.Date.ToString("s"),
-						modifiedEndDate.Date.ToString("s"),
-						true,
-						true);
-
-					filterQuery.Add(lastModifiedDateFilter, Occur.MUST);
-				}
-
-				if (!DisableSearchFeatureFilters && featureGuid != Guid.Empty)
-				{
-					var featureFilter = new BooleanQuery
+			if (!DisableSearchFeatureFilters && featureGuid != Guid.Empty)
+			{
+				filterQuery.Add(new BooleanQuery
 					{
 						{ new TermQuery(new Term("FeatureId", featureGuid.ToString())), Occur.MUST }
-					};
-					filterQuery.Add(featureFilter, Occur.MUST);
-				}
+					},
+					Occur.MUST
+				);
+			}
 
-				var filter = new QueryWrapperFilter(filterQuery); // filterQuery won't affect result scores
+			var filter = new QueryWrapperFilter(filterQuery); // filterQuery won't affect result scores
 
-				using (var searcher = new IndexSearcher(searchDirectory))
+			using var searcher = new IndexSearcher(searchDirectory);
+
+			//http://stackoverflow.com/questions/9872933/migrating-lucene-hitcollector-2-x-to-collector-3-x
+			//TopScoreDocCollector collector = TopScoreDocCollector.Create(maxResults, true);
+
+			int maxResults = int.MaxValue;
+			var hits = searcher.Search(searchQuery, filter, maxResults);
+
+			int startHit = 0;
+			if (pageNumber > 1)
+			{
+				startHit = ((pageNumber - 1) * pageSize);
+			}
+
+			totalHits = hits.TotalHits;
+			int end = startHit + pageSize;
+			if (totalHits <= end)
+			{
+				end = totalHits;
+			}
+
+			int itemsAdded = 0;
+			int itemsToAdd = end;
+
+			var scorer = new QueryScorer(searchQuery);
+			var formatter = new SimpleHTMLFormatter("<mark class='searchterm'>", "</mark>");
+			var highlighter = new Highlighter(formatter, scorer)
+			{
+				TextFragmenter = new SimpleFragmenter(highlightedFragmentSize)
+			};
+
+			for (int i = startHit; i < itemsToAdd; i++)
+			{
+				var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
+				var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
+
+				if (highlightResults)
 				{
-
-					//http://stackoverflow.com/questions/9872933/migrating-lucene-hitcollector-2-x-to-collector-3-x
-					//TopScoreDocCollector collector = TopScoreDocCollector.Create(maxResults, true);
-
-					int maxResults = int.MaxValue;
-					var hits = searcher.Search(searchQuery, filter, maxResults);
-
-					int startHit = 0;
-					if (pageNumber > 1)
+					try
 					{
-						startHit = ((pageNumber - 1) * pageSize);
+						var stream = analyzer.TokenStream("contents", new StringReader(doc.Get("contents")));
+						string highlightedResult = highlighter.GetBestFragment(stream, doc.Get("contents"));
+
+						if (highlightedResult != null) { indexItem.Intro = highlightedResult; }
 					}
-
-					totalHits = hits.TotalHits;
-					int end = startHit + pageSize;
-					if (totalHits <= end)
-					{
-						end = totalHits;
-					}
-
-					int itemsAdded = 0;
-					int itemsToAdd = end;
-
-					var scorer = new QueryScorer(searchQuery);
-					var formatter = new SimpleHTMLFormatter("<mark class='searchterm'>", "</mark>");
-					var highlighter = new Highlighter(formatter, scorer)
-					{
-						TextFragmenter = new SimpleFragmenter(highlightedFragmentSize)
-					};
-
-					for (int i = startHit; i < itemsToAdd; i++)
-					{
-						var doc = searcher.Doc(hits.ScoreDocs[i].Doc);
-						var indexItem = new IndexItem(doc, hits.ScoreDocs[i].Score);
-
-						if (highlightResults)
-						{
-							try
-							{
-								var stream = analyzer.TokenStream("contents", new StringReader(doc.Get("contents")));
-								string highlightedResult = highlighter.GetBestFragment(stream, doc.Get("contents"));
-
-								if (highlightedResult != null) { indexItem.Intro = highlightedResult; }
-							}
-							catch (NullReferenceException) { }
-						}
-
-						results.Add(indexItem);
-						itemsAdded += 1;
-					}
-
-					results.ItemCount = itemsAdded;
-					results.PageIndex = pageNumber;
-
-					results.ExecutionTime = DateTime.Now.Ticks - startTicks;
+					catch (NullReferenceException) { }
 				}
-			}
-			catch (ParseException ex)
-			{
-				invalidQuery = true;
-				log.Error($"handled error for search terms {queryText}", ex);
-				// these parser exceptions are generally caused by
-				// spambots posting too much junk into the search form
-				// heres an option to automatically ban the ip address
-				HandleSpam(queryText, ex);
 
-				return results;
+				results.Add(indexItem);
+				itemsAdded += 1;
 			}
-			catch (BooleanQuery.TooManyClauses ex)
-			{
-				invalidQuery = true;
-				log.Error($"handled error for search terms {queryText}", ex);
-				return results;
-			}
-			catch (IOException ex)
-			{
-				invalidQuery = true;
-				log.Error($"handled error for search terms {queryText}", ex);
-				return results;
-			}
+
+			results.ItemCount = itemsAdded;
+			results.PageIndex = pageNumber;
+
+			results.ExecutionTime = DateTime.Now.Ticks - startTicks;
+		}
+		catch (ParseException ex)
+		{
+			invalidQuery = true;
+			log.Error($"handled error for search terms {queryText}", ex);
+			// these parser exceptions are generally caused by
+			// spambots posting too much junk into the search form
+			// heres an option to automatically ban the ip address
+			HandleSpam(queryText, ex);
 
 			return results;
 		}
+		catch (BooleanQuery.TooManyClauses ex)
+		{
+			invalidQuery = true;
+			log.Error($"handled error for search terms {queryText}", ex);
+			return results;
+		}
+		catch (IOException ex)
+		{
+			invalidQuery = true;
+			log.Error($"handled error for search terms {queryText}", ex);
+			return results;
+		}
+
+		return results;
 	}
 
 	/// <summary>
@@ -1081,6 +1027,10 @@ public static class IndexHelper
 		return bQuery;
 	}
 
+	/// <summary>
+	/// Rebuild Index for IndexItem
+	/// </summary>
+	/// <param name="indexItem"></param>
 	public static void RebuildIndex(IndexItem indexItem)
 	{
 		if (WebConfigSettings.DisableSearchIndex)
@@ -1109,7 +1059,11 @@ public static class IndexHelper
 		RebuildIndex(indexItem, indexPath);
 	}
 
-
+	/// <summary>
+	/// Rebuild Index for IndexItem matching IndexPath
+	/// </summary>
+	/// <param name="indexItem"></param>
+	/// <param name="indexPath"></param>
 	public static void RebuildIndex(IndexItem indexItem, string indexPath)
 	{
 		if (WebConfigSettings.DisableSearchIndex)
@@ -1122,18 +1076,20 @@ public static class IndexHelper
 			log.Info("IndexItem was NULL");
 			return;
 		}
+
 		if (indexPath == null)
 		{
 			log.Info("IndexPath was NULL");
 			return;
 		}
+
 		if (indexPath.Length == 0)
 		{
 			log.Info("IndexItem was empty");
 			return;
 		}
 
-		IndexingQueue queueItem = new IndexingQueue
+		var queueItem = new IndexingQueue
 		{
 			SiteId = indexItem.SiteId,
 			IndexPath = indexPath,
@@ -1146,9 +1102,16 @@ public static class IndexHelper
 		// the above queues the items to be indexed. Edit page must also call SiteUtils.QueueIndexing(); after the content is saved.
 	}
 
+	/// <summary>
+	/// Remove Index Item matching IndexItem
+	/// </summary>
+	/// <param name="indexItem"></param>
 	public static void RemoveIndex(IndexItem indexItem)
 	{
-		if (WebConfigSettings.DisableSearchIndex) { return; }
+		if (WebConfigSettings.DisableSearchIndex)
+		{
+			return;
+		}
 
 		if (indexItem == null)
 		{
@@ -1167,29 +1130,19 @@ public static class IndexHelper
 		return;
 	}
 
+	/// <summary>
+	/// Remove Index Item matching IndexItem and IndexPath
+	/// </summary>
+	/// <param name="indexItem"></param>
+	/// <param name="indexPath"></param>
 	public static void RemoveIndex(IndexItem indexItem, string indexPath)
 	{
-		if (WebConfigSettings.DisableSearchIndex)
+		if (WebConfigSettings.DisableSearchIndex || indexItem is null || string.IsNullOrWhiteSpace(indexPath))
 		{
 			return;
 		}
 
-		if (indexItem == null)
-		{
-			return;
-		}
-
-		if (indexPath == null)
-		{
-			return;
-		}
-
-		if (indexPath.Length == 0)
-		{
-			return;
-		}
-
-		IndexingQueue queueItem = new IndexingQueue
+		var queueItem = new IndexingQueue
 		{
 			SiteId = indexItem.SiteId,
 			IndexPath = indexPath,
@@ -1202,19 +1155,20 @@ public static class IndexHelper
 		// the above queues the items to be indexed. Edit page must also call SiteUtils.QueueIndexing(); after the content is deleted.
 	}
 
-	public static void RemoveIndexItem(
-		int pageId,
-		int moduleId,
-		int itemId)
+	/// <summary>
+	/// Remove Index Item matching PageId, ModuleId, and ItemId
+	/// </summary>
+	/// <param name="pageId"></param>
+	/// <param name="moduleId"></param>
+	/// <param name="itemId"></param>
+	public static void RemoveIndexItem(int pageId, int moduleId, int itemId)
 	{
 		if (WebConfigSettings.DisableSearchIndex)
 		{
 			return;
 		}
 
-		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-		if (siteSettings == null)
+		if (CacheHelper.GetCurrentSiteSettings() is not SiteSettings siteSettings)
 		{
 			if (log.IsErrorEnabled)
 			{
@@ -1241,18 +1195,26 @@ public static class IndexHelper
 		}
 	}
 
-	public static void RemoveIndexItem(
-		int pageId,
-		int moduleId,
-		string itemKey)
+	/// <summary>
+	/// Remove Index Item matching PageId, ModuleId, and ItemKey
+	/// </summary>
+	/// <param name="pageId"></param>
+	/// <param name="moduleId"></param>
+	/// <param name="itemKey"></param>
+	public static void RemoveIndexItem(int pageId, int moduleId, string itemKey)
 	{
-		if (WebConfigSettings.DisableSearchIndex) { return; }
-
-		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-		if (siteSettings == null)
+		if (WebConfigSettings.DisableSearchIndex)
 		{
-			log.Error("IndexHelper.RemoveIndexItem tried to obtain a SiteSettings object but it came back null");
+			return;
+		}
+
+		if (CacheHelper.GetCurrentSiteSettings() is not SiteSettings siteSettings)
+		{
+			if (log.IsErrorEnabled)
+			{
+				log.Error("IndexHelper.RemoveIndexItem tried to obtain a SiteSettings object but it came back null");
+			}
+
 			return;
 		}
 
@@ -1273,12 +1235,15 @@ public static class IndexHelper
 		}
 	}
 
-	public static void RemoveIndexItem(
-		int siteId,
-		int pageId,
-		int moduleId,
-		int itemId,
-		string indexPath)
+	/// <summary>
+	/// Remove Index Item matching SiteId, PageId, ModuleId, ItemId, and IndexPath
+	/// </summary>
+	/// <param name="siteId"></param>
+	/// <param name="pageId"></param>
+	/// <param name="moduleId"></param>
+	/// <param name="itemId"></param>
+	/// <param name="indexPath"></param>
+	public static void RemoveIndexItem(int siteId, int pageId, int moduleId, int itemId, string indexPath)
 	{
 		if (WebConfigSettings.DisableSearchIndex)
 		{
@@ -1302,13 +1267,28 @@ public static class IndexHelper
 		}
 	}
 
+	/// <summary>
+	/// Delete Index for Site
+	/// </summary>
+	/// <param name="siteSettings"></param>
 	public static void DeleteSearchIndex(SiteSettings siteSettings)
 	{
-		if (WebConfigSettings.DisableSearchIndex) { return; }
+		if (WebConfigSettings.DisableSearchIndex)
+		{
+			return;
+		}
 
 		string indexPath = GetSearchIndexPath(siteSettings.SiteId);
-		if (indexPath.Length == 0) { return; }
-		if (!Directory.Exists(indexPath)) { return; }
+
+		if (indexPath.Length == 0)
+		{
+			return;
+		}
+
+		if (!Directory.Exists(indexPath))
+		{
+			return;
+		}
 
 		try
 		{
@@ -1325,9 +1305,7 @@ public static class IndexHelper
 		}
 	}
 
-
 	#region ClearPageIndex
-
 
 	public static void ClearPageIndexAsync(PageSettings pageSettings)
 	{
@@ -1354,21 +1332,14 @@ public static class IndexHelper
 		}
 	}
 
-
 	private static void ClearPageIndexAsyncCallback(object o)
 	{
-		if (o == null)
+		if (o is null || o is not PageSettings)
 		{
 			return;
 		}
 
-		if (o is not PageSettings)
-		{
-			return;
-		}
-
-		PageSettings pageSettings = (PageSettings)o;
-		ClearPageIndex(pageSettings);
+		ClearPageIndex((PageSettings)o);
 	}
 
 	private static bool ClearPageIndex(PageSettings pageSettings)
@@ -1381,44 +1352,40 @@ public static class IndexHelper
 
 		try
 		{
-			using (Lucene.Net.Store.Directory searchDirectory = GetDirectory(pageSettings.SiteId))
+			using Lucene.Net.Store.Directory searchDirectory = GetDirectory(pageSettings.SiteId);
+			if (IndexReader.IndexExists(searchDirectory))
 			{
-				if (IndexReader.IndexExists(searchDirectory))
+				using IndexReader reader = IndexReader.Open(searchDirectory, false);
+				try
 				{
-					using (IndexReader reader = IndexReader.Open(searchDirectory, false))
+					int tot = reader.NumDocs();
+
+					for (int i = 0; i < tot; i++)
 					{
-						try
+						var doc = reader.Document(i);
+
+						if (doc.GetField("PageID").StringValue == pageSettings.PageId.ToString(CultureInfo.InvariantCulture))
 						{
-							int tot = reader.NumDocs();
-
-							for (int i = 0; i < tot; i++)
+							if (debugLog)
 							{
-								Document doc = reader.Document(i);
+								log.Debug("ClearPageIndex about to delete doc ");
+							}
 
-								if (doc.GetField("PageID").StringValue == pageSettings.PageId.ToString(CultureInfo.InvariantCulture))
-								{
-									if (debugLog)
-									{
-										log.Debug("ClearPageIndex about to delete doc ");
-									}
-
-									try
-									{
-										reader.DeleteDocument(i);
-										result = true;
-									}
-									catch (IOException ex)
-									{
-										log.Info("handled error:", ex);
-									}
-								}
+							try
+							{
+								reader.DeleteDocument(i);
+								result = true;
+							}
+							catch (IOException ex)
+							{
+								log.Info("handled error:", ex);
 							}
 						}
-						catch (Exception ex)
-						{
-							log.Info("handled error:", ex);
-						}
 					}
+				}
+				catch (Exception ex)
+				{
+					log.Info("handled error:", ex);
 				}
 			}
 		}
@@ -1461,20 +1428,14 @@ public static class IndexHelper
 
 	private static void RebuildPageIndexAsyncCallback(object o)
 	{
-		if (o == null)
-		{
-			return;
-		}
-
-		if (o is not PageSettings)
+		if (o is null || o is not PageSettings)
 		{
 			return;
 		}
 
 		try
 		{
-			PageSettings pageSettings = (PageSettings)o;
-			RebuildPageIndex(pageSettings);
+			RebuildPageIndex((PageSettings)o);
 
 			// TODO: could add some form of notification to let the admin know if it was able to index all the content
 		}
@@ -1526,7 +1487,7 @@ public static class IndexHelper
 		}
 
 		string indexPath = GetSearchIndexPath(siteSettings.SiteId);
-		if (indexPath.Length == 0)
+		if (string.IsNullOrWhiteSpace(indexPath))
 		{
 			return false;
 		}
@@ -1539,8 +1500,8 @@ public static class IndexHelper
 		if (Directory.Exists(indexPath))
 		{
 			var directoryInfo = new DirectoryInfo(indexPath);
-			int fileCount = directoryInfo.GetFiles().Length;
-			int configFileCount = directoryInfo.GetFiles(".config").Length;
+			var fileCount = directoryInfo.GetFiles().Length;
+			var configFileCount = directoryInfo.GetFiles(".config").Length;
 			if (fileCount == 0 || (fileCount == 1 && configFileCount == 1))
 			{
 				var rowsToIndex = IndexingQueue.GetCount();
@@ -1557,7 +1518,6 @@ public static class IndexHelper
 
 		return true;
 	}
-
 
 	public static void RebuildSiteIndexAsync(string indexPath, IEnumerable<PageSettings> menuPages)
 	{
@@ -1659,8 +1619,8 @@ public static class IndexHelper
 
 	public static string GetNullSafeString(this Document doc, string fieldName)
 	{
-		string s = doc.Get(fieldName);
-		if (string.IsNullOrEmpty(s))
+		var s = doc.Get(fieldName);
+		if (string.IsNullOrWhiteSpace(s))
 		{
 			return string.Empty;
 		}

@@ -12,8 +12,6 @@ using mojoPortal.Business;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 
-
-
 namespace mojoPortal.SearchIndex;
 
 [Serializable()]
