@@ -43,7 +43,7 @@
 						</div>
 						<asp:Panel ID="pnlSearchResults" runat="server" Visible="False" CssClass="settingrow searchresults">
 							<portal:mojoCutePager ID="pgrTop" runat="server" Visible="false" />
-							<asp:Repeater ID="rptResults" runat="server" EnableViewState="False">
+							<asp:Repeater ID="rptResultsSecure" runat="server" EnableViewState="False">
 								<HeaderTemplate>
 									<ol class="searchresultlist">
 								</HeaderTemplate>
@@ -69,6 +69,30 @@
 									</ol>
 								</FooterTemplate>
 							</asp:Repeater>
+<asp:Repeater ID="rptResults" runat="server" EnableViewState="False">
+				<HeaderTemplate>
+								<ol class="searchresultlist">
+				</HeaderTemplate>
+				<ItemTemplate>
+								<li class="searchresult">
+										<<%# displaySettings.ItemHeadingElement %>>
+											<asp:HyperLink ID="Hyperlink1" runat="server"
+												NavigateUrl='<%# BuildUrl((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>'
+												Text='<%# FormatLinkText(Eval("PageName").ToString(), Eval("ModuleTitle").ToString(), Eval("Title").ToString())  %>' />
+										</<%# displaySettings.ItemHeadingElement %>>
+
+										<div class="searchresultdesc">
+											<%# Eval("Intro").ToString() %>
+										</div>
+										<%# FormatAuthor(Eval("Author").ToString()) %>
+										<%# FormatCreatedDate((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>
+										<%# FormatModifiedDate((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>
+								</li>
+				</ItemTemplate>
+				<FooterTemplate>
+								</ol>
+				</FooterTemplate>
+</asp:Repeater>
 							<div>
 								&nbsp;
 							</div>
