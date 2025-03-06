@@ -353,12 +353,21 @@ public class IndexWriterTask : ITaskQueueTask
 		doc.Add(new Field("Title", indexItem.Title, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
 		doc.Add(new Field("PageMetaDesc", indexItem.PageMetaDescription, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
 
-		string[] keywords = indexItem.PageMetaKeywords.Split(',');
+		var categories = indexItem.Categories.SplitOnCharAndTrim(',');
+		foreach (var category in categories)
+		{
+			if (!string.IsNullOrWhiteSpace(category))
+			{
+				doc.Add(new Field("Category", category, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
+			}
+		}
+
+		var keywords = indexItem.PageMetaKeywords.SplitOnCharAndTrim(',');
 		foreach (string word in keywords)
 		{
-			if (word.Trim().Length > 0)
+			if (!string.IsNullOrWhiteSpace(word))
 			{
-				doc.Add(new Field("Keyword", word.Trim(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+				doc.Add(new Field("Keyword", word, Field.Store.YES, Field.Index.NOT_ANALYZED));
 			}
 		}
 
