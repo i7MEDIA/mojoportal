@@ -612,8 +612,8 @@ public static class IndexHelper
 
 			var searchQuery = MultiFieldQueryParser.Parse(
 				Lucene.Net.Util.Version.LUCENE_30,
-				[queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty)],
-				["Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Keyword"],
+				[queryText, queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty)],
+				["Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Category", "Keyword"],
 				analyzer);
 
 			var filterQuery = new BooleanQuery(); // won't be used to score the results
@@ -803,8 +803,8 @@ public static class IndexHelper
 
 			var searchQuery = MultiFieldQueryParser.Parse(
 				Lucene.Net.Util.Version.LUCENE_30,
-				[queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty)],
-				["Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Keyword"],
+				[queryText, queryText, queryText, queryText, queryText, queryText, queryText.Replace("*", string.Empty)],
+				["Title", "ModuleTitle", "contents", "PageName", "PageMetaDesc", "Category", "Keyword"],
 				analyzer);
 
 			var filterQuery = new BooleanQuery(); // won't be used to score the results

@@ -45,7 +45,7 @@ public class IndexItem : IComparable
 	/// <summary>
 	/// same as Key but only populated when retrieving items from the index
 	/// </summary>
-	public string DocKey { get; private set; } = string.Empty;
+	public string DocKey { get; set; } = string.Empty;
 
 	public string Key => $"{SiteId}~{PageId}~{ModuleId}~{ItemKey}{QueryStringAddendum}";
 
