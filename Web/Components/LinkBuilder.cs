@@ -24,7 +24,7 @@ public class LinkBuilder
 
 	public LinkBuilder(string url, bool includeSiteRoot = true)
 	{
-		url = ParseAndRemoveQueryParamsFromUrlString(url);
+		url = ParseAndRemoveQueryParamsFromUrlString(url.Trim());
 
 		var urlParsed = Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out var uri);
 
@@ -244,16 +244,16 @@ public class LinkBuilder
 
 			if (removeDuplicates)
 			{
-				foreach (KeyValuePair<string, string> item in queryCollection)
+				foreach (var item in queryCollection.AllKeys)
 				{
-					_queryCollection.Set(item.Key, item.Value);
+					_queryCollection.Set(item, queryCollection[item]);
 				}
 			}
 			else
 			{
-				foreach (KeyValuePair<string, string> item in queryCollection)
+				foreach (var item in queryCollection.AllKeys)
 				{
-					_queryCollection.Add(item.Key, item.Value);
+					_queryCollection.Add(item, queryCollection[item]);
 				}
 			}
 
