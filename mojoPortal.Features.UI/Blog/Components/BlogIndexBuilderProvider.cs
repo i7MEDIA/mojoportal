@@ -103,7 +103,8 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 				LastModUtc = Convert.ToDateTime(row["LastModUtc"]),
 				UseQueryStringParams = false,
 				Content = row["Description"].ToString(),
-				ContentAbstract = row["Abstract"].ToString()
+				ContentAbstract = row["Abstract"].ToString(),
+				Categories = row["Categories"].ToString()
 			};
 
 			int commentCount = Convert.ToInt32(row["CommentCount"]);
@@ -264,7 +265,8 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 				FeatureName = blogFeature.FeatureName,
 				FeatureResourceFile = blogFeature.ResourceFile,
 				OtherContent = stringBuilder.ToString(),
-				PublishBeginDate = pageModule.PublishBeginDate
+				PublishBeginDate = pageModule.PublishBeginDate,
+				Categories = blog.Categories
 			};
 
 			if (blog.SearchIndexPath.Length > 0)

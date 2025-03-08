@@ -1987,6 +1987,7 @@
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.2.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.2.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.2.2.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.2.3.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -643,7 +643,6 @@ public partial class BlogEdit : NonCmsBasePage
 		blog.PubStockTickers = txtPubStockTickers.Text;
 		blog.HeadlineImageUrl = txtHeadlineImage.Text;
 
-
 		if (blog.HeadlineImageUrl != currentFeaturedImagePath || string.IsNullOrWhiteSpace(blog.HeadlineImageUrl))
 		{
 			//update meta 
@@ -730,6 +729,31 @@ public partial class BlogEdit : NonCmsBasePage
 			blog.CreateHistory(siteSettings.SiteGuid);
 		}
 
+		Blog.DeleteItemCategories(blog.ItemId);
+
+		// Mono doesn't see this in update panel
+		// so help find it
+		if (chkCategories == null)
+		{
+			log.Error("chkCategories was null");
+
+			chkCategories = (CheckBoxList)UpdatePanel1.FindControl("chkCategories");
+		}
+		var categoriesList = new List<string>();
+		foreach (ListItem listItem in chkCategories.Items)
+		{
+			if (listItem.Selected)
+			{
+
+				if (int.TryParse(listItem.Value, out int categoryId))
+				{
+					Blog.AddItemCategory(blog.ItemId, categoryId);
+					categoriesList.Add(listItem.Text);
+				}
+			}
+		}
+		blog.Categories = string.Join(",", chkCategories.Items.Cast<ListItem>().Where(c => c.Selected).Select(c => c.Text).ToList());
+
 		blog.Save();
 
 		// Check to see if this post is being created or edited
@@ -803,30 +827,6 @@ public partial class BlogEdit : NonCmsBasePage
 		}
 
 		CurrentPage.UpdateLastModifiedTime();
-
-		Blog.DeleteItemCategories(blog.ItemId);
-
-		// Mono doesn't see this in update panel
-		// so help find it
-		if (chkCategories == null)
-		{
-			log.Error("chkCategories was null");
-
-			chkCategories = (CheckBoxList)UpdatePanel1.FindControl("chkCategories");
-		}
-
-		foreach (ListItem listItem in chkCategories.Items)
-		{
-			if (listItem.Selected)
-			{
-				int categoryId;
-
-				if (int.TryParse(listItem.Value, out categoryId))
-				{
-					Blog.AddItemCategory(blog.ItemId, categoryId);
-				}
-			}
-		}
 
 		CacheHelper.ClearModuleCache(moduleId);
 		SiteUtils.QueueIndexing();
