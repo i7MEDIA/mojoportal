@@ -62,7 +62,6 @@ namespace mojoPortal.Features
                     indexItem.SiteId = pageSettings.SiteId;
                     indexItem.PageId = pageSettings.PageId;
                     indexItem.PageName = pageSettings.PageName;
-                    indexItem.PageIndex = pageSettings.PageIndex;
                     indexItem.ViewRoles = pageSettings.AuthorizedRoles;
                     indexItem.ModuleViewRoles = row["ViewRoles"].ToString();
                     indexItem.FeatureId = calendarFeatureGuid.ToString();
