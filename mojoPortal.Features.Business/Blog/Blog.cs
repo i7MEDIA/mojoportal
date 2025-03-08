@@ -59,7 +59,7 @@ namespace mojoPortal.Business
 
 		public string SubTitle { get; set; } = string.Empty;
 
-		public string Category { get; set; } = string.Empty;
+		public string Categories { get; set; } = string.Empty;
 
 		public string Excerpt { get; set; } = string.Empty;
 
@@ -407,6 +407,8 @@ namespace mojoPortal.Business
 				{
 					IncludeImageInPost = Convert.ToBoolean(reader["IncludeImageInPost"]);
 				}
+
+				Categories = reader["Categories"].ToString();
 			}
 		}
 
@@ -2125,13 +2127,19 @@ namespace mojoPortal.Business
 			dataTable.Columns.Add("Name", typeof(string));
 			dataTable.Columns.Add("FirstName", typeof(string));
 			dataTable.Columns.Add("LastName", typeof(string));
+			dataTable.Columns.Add("Categories", typeof(string));
 
 			using (IDataReader reader = DBBlog.GetBlogsByPage(siteId, pageId))
 			{
 				while (reader.Read())
 				{
 					var row = dataTable.NewRow();
-
+					//var dataType = reader.GetDataTypeName(68);
+					string categories = reader.GetString(68);
+					//var catName = reader.GetName(68);
+					//string categories2 = reader[catName] as string;
+					//var categories3 = reader[catName];
+					//var categories4 = reader[68];
 					row["ItemID"] = reader["ItemID"];
 					row["ModuleID"] = reader["ModuleID"];
 					row["CommentCount"] = reader["CommentCount"];
@@ -2145,7 +2153,7 @@ namespace mojoPortal.Business
 					row["Name"] = reader["Name"];
 					row["FirstName"] = reader["FirstName"];
 					row["LastName"] = reader["LastName"];
-
+					row["Categories"] = categories;
 					if (reader["EndDate"] != DBNull.Value)
 					{
 						row["EndDate"] = Convert.ToDateTime(reader["EndDate"]);
