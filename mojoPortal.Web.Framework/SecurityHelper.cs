@@ -116,23 +116,22 @@ public static class SecurityHelper
 
 	public static string GetRegexValidationForAllowedExtensionsJqueryFileUploader(string pipeSeparatedExtensions)
 	{
-		var regex = new StringBuilder();
+		var regex = string.Empty;
 
-		// @"/(\.|\/)(gif|jpe?g|png)$/i"
+		regex += """/(\.|\/)(""";
 
-		regex.Append(@"""/(\.|\/)(");
+		var allowedExtensions = pipeSeparatedExtensions.SplitOnPipes();
+		var pipe = string.Empty;
 
-		List<string> allowedExtensions = pipeSeparatedExtensions.SplitOnPipes();
-		string pipe = string.Empty;
-		foreach (string ext in allowedExtensions)
+		foreach (var ext in allowedExtensions)
 		{
-			regex.Append(pipe + ext.Replace(".", string.Empty));
+			regex += pipe + ext.Replace(".", string.Empty);
 			pipe = "|";
 		}
 
-		regex.Append(@")$/i""");
+		regex += """)$/i""";
 
-		return regex.ToString();
+		return regex;
 	}
 
 
