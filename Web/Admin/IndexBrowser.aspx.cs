@@ -148,7 +148,6 @@ public partial class IndexBrowser : NonCmsBasePage
 
 	private void BindIndex()
 	{
-
 		IndexItemCollection searchResults = IndexHelper.Browse(
 			siteSettings.SiteId,
 			featureGuid,
@@ -160,7 +159,10 @@ public partial class IndexBrowser : NonCmsBasePage
 
 		totalPages = 1;
 
-		if (pageSize > 0) { totalPages = totalHits / pageSize; }
+		if (pageSize > 0)
+		{
+			totalPages = totalHits / pageSize;
+		}
 
 		if (totalHits <= pageSize)
 		{
@@ -175,34 +177,28 @@ public partial class IndexBrowser : NonCmsBasePage
 			}
 		}
 
-		string searchUrl = SiteRoot
-				+ "/Admin/IndexBrowser.aspx?p={0}"
-				+ "&amp;bd=" + modifiedBeginDate.Date.ToString("s")
-				+ "&amp;ed=" + modifiedEndDate.Date.ToString("s")
-				+ "&amp;f=" + featureGuid.ToString();
+		string searchUrl = $"{SiteRoot}/Admin/IndexBrowser.aspx?p={{0}}&amp;bd={modifiedBeginDate.Date:s}&amp;ed={modifiedEndDate.Date:s}&amp;f={featureGuid}";
 
 		pgrTop.PageURLFormat = searchUrl;
 		pgrTop.ShowFirstLast = true;
 		pgrTop.CurrentIndex = pageNumber;
 		pgrTop.PageSize = pageSize;
 		pgrTop.PageCount = totalPages;
-		pgrTop.Visible = (totalPages > 1);
+		pgrTop.Visible = totalPages > 1;
 
 		pgrBottom.PageURLFormat = searchUrl;
 		pgrBottom.ShowFirstLast = true;
 		pgrBottom.CurrentIndex = pageNumber;
 		pgrBottom.PageSize = pageSize;
 		pgrBottom.PageCount = totalPages;
-		pgrBottom.Visible = (totalPages > 1);
+		pgrBottom.Visible = totalPages > 1;
 
 		if (searchResults.Count > 0 && searchResults.ItemCount > 0)
 		{
 			rptResults.Visible = true;
 			rptResults.DataSource = searchResults;
 			rptResults.DataBind();
-
 		}
-
 	}
 
 	private void BindFeatureList()
