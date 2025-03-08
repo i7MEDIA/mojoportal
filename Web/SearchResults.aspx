@@ -69,12 +69,12 @@
 									</ol>
 								</FooterTemplate>
 							</asp:Repeater>
-<asp:Repeater ID="rptResults" runat="server" EnableViewState="False">
-				<HeaderTemplate>
-								<ol class="searchresultlist">
-				</HeaderTemplate>
-				<ItemTemplate>
-								<li class="searchresult">
+							<asp:Repeater ID="rptResults" runat="server" EnableViewState="False">
+								<HeaderTemplate>
+									<ol class="searchresultlist">
+								</HeaderTemplate>
+								<ItemTemplate>
+									<li class="searchresult">
 										<<%# displaySettings.ItemHeadingElement %>>
 											<asp:HyperLink ID="Hyperlink1" runat="server"
 												NavigateUrl='<%# BuildUrl((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>'
@@ -87,12 +87,12 @@
 										<%# FormatAuthor(Eval("Author").ToString()) %>
 										<%# FormatCreatedDate((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>
 										<%# FormatModifiedDate((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>
-								</li>
-				</ItemTemplate>
-				<FooterTemplate>
-								</ol>
-				</FooterTemplate>
-</asp:Repeater>
+									</li>
+								</ItemTemplate>
+								<FooterTemplate>
+									</ol>
+								</FooterTemplate>
+							</asp:Repeater>
 							<div>
 								&nbsp;
 							</div>
