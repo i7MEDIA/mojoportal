@@ -556,7 +556,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;span&gt;Update Required&lt;/span&gt; To play the media you will need to either update your browser to a recent version or update your &lt;a href=&quot;http://get.adobe.com/flashplayer/&quot; target=&quot;_blank&quot;&gt;Flash plugin&lt;/a&gt;..
+        ///   Looks up a localized string similar to &lt;span&gt;Update Required&lt;/span&gt; To play the media you will need to either update your browser to a recent version..
         /// </summary>
         internal static string NoSolutionMessageMarkup {
             get {

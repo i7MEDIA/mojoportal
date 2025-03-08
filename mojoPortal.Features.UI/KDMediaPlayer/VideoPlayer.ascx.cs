@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using log4net;
@@ -63,15 +64,11 @@ public partial class VideoPlayer : SiteModuleControl
 
 		// setup the instance script
 		var script = new StringBuilder();
-		script.Append("\n<script type=\"text/javascript\">\n");
-
+		script.Append("\n<script data-loader=\"VideoPlayer\">\n");
 		script.Append("(function() {");
-		script.Append("var pl_" + ClientID + " = new jPlayerPlaylist({");
-		script.Append("jPlayer: \"#" + PlayerInstance.ClientID + "\",");
-
-
-
-		script.Append("cssSelectorAncestor: \"#" + PlayerContainer.ClientID + "\"");
+		script.Append($"var pl_{ClientID} = new jPlayerPlaylist({{");
+		script.Append($"jPlayer: \"#{PlayerInstance.ClientID}\",");
+		script.Append($"cssSelectorAncestor: \"#{PlayerContainer.ClientID}\"");
 		script.Append("}");
 
 		//Start the construction of the playlist
@@ -79,7 +76,7 @@ public partial class VideoPlayer : SiteModuleControl
 		bool isFirstTrack = true;
 		//Keep a list of the file types that were added for the track to use to create the 
 		//"supplied" jPlayer constructor option
-		List<string> suppliedTypes = new List<string>();
+		var suppliedTypes = new List<string>();
 		foreach (MediaTrack track in thePlayer.MediaTracks)
 		{
 			//Gets the URL to the folder where the Media Files for the track exist (removing the ~ fromt the begining of
@@ -100,8 +97,10 @@ public partial class VideoPlayer : SiteModuleControl
 				script.Append(",{");
 			}
 
-			script.Append("title:\"" + track.Name + "\",");
-			script.Append("artist:\"" + track.Artist + "\",");
+			script.Append($$"""
+				title: "{{track.Name}}"
+				,artist: "{{track.Artist}}"
+			""");
 
 			//Add the proper property for each file depending upon it's file extension.
 			bool isFirstFile = true;
@@ -121,7 +120,7 @@ public partial class VideoPlayer : SiteModuleControl
 				string fullFilePath = Page.ResolveUrl(filePath);
 				//string fullFilePath = siteRoot + file.FilePath.Replace("~", string.Empty);
 
-				string fileExt = Path.GetExtension(file.FilePath).ToLowerInvariant();
+				string fileExt = Path.GetExtension(file.FilePath).ToLowerInvariant().TrimStart('.');
 
 				if (isFirstFile)
 				{
@@ -132,14 +131,19 @@ public partial class VideoPlayer : SiteModuleControl
 					script.Append(",");
 				}
 
-				// We already prevent usage of non-audio files so there's no need to check here
-				// old code provided in region below in case I'm wrong. -jmd
-				var justFileExt = fileExt.TrimStart('.');
-				script.Append($"{justFileExt}:\"{fullFilePath}\"");
-				if (!suppliedTypes.Contains(justFileExt))
+				//jPlayer needs to be fooled into supporting a couple of our types.
+				switch (fileExt)
 				{
-					suppliedTypes.Add(justFileExt);
+					case "mp4":
+						fileExt = "m4v";
+						break;
+					case "ogg":
+						fileExt = "ogv";
+						break;
 				}
+
+				suppliedTypes.Add(fileExt);
+				script.Append($",{fileExt}:\"{fullFilePath}\"");
 
 				#region Old file extension logic
 				//switch (fileExt)
@@ -207,58 +211,30 @@ public partial class VideoPlayer : SiteModuleControl
 		script.Append("]");
 		//End of playlist
 
-		script.Append(",{");
-		script.Append("playlistOptions: {");
-		script.Append("loopOnPrevious: true");
-		if (config.AutoStart)
-		{
-			script.Append(",autoPlay: true");
-		}
-		script.Append("},");
-		script.Append("supplied: \"");
+		script.Append($$"""
+				,{
+					playlistOptions: {
+						loopOnPrevious: true
+						,autoPlay: {{config.AutoStart.ToString().ToLower()}}
+					}
+					,supplied: "{{string.Join(",", suppliedTypes.Distinct().ToArray())}}"
+					,preload: "{{VideoPlayerConfiguration.VideoPreload}}"
+					,wmode: "{{VideoPlayerConfiguration.VideoWindowMode}}"
+					,loop: {{config.ContinuousPlay.ToString().ToLower()}}
+					,errorAlerts: {{VideoPlayerConfiguration.EnableErrors.ToString().ToLower()}}
+					,warningAlerts: {{VideoPlayerConfiguration.EnableWarnings.ToString().ToLower()}}
+				});
+			})();
+			</script>
+		""");
 
-		bool isFirstSupplied = true;
-		foreach (string type in suppliedTypes)
-		{
-			if (isFirstSupplied)
-			{
-				isFirstSupplied = false;
-			}
-			else
-			{
-				script.Append(", ");
-			}
-
-			script.Append(type);
-		}
-
-		script.Append("\"");
-		script.Append($",preload:\"{VideoPlayerConfiguration.VideoPreload}\"");
-		script.Append($",wmode: \"{VideoPlayerConfiguration.VideoWindowMode}\"");
-
-		if (config.ContinuousPlay)
-		{
-			script.Append(",loop: true");
-		}
-
-		if (VideoPlayerConfiguration.EnableErrors)
-		{
-			script.Append(",errorAlerts:true");
-		}
-
-		if (VideoPlayerConfiguration.EnableWarnings)
-		{
-			script.Append(",warningAlerts:true");
-		}
-
-		script.Append(@"
-		});
-	})();
-</script>");
+		//		script.Append(@"
+		//		});
+		//	})();
+		//</script>");
 
 		Page.ClientScript.RegisterStartupScript(GetType(), UniqueID, script.ToString());
 	}
-
 
 	private void PopulateControls()
 	{

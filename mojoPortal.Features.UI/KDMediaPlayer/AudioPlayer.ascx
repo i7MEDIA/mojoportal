@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="AudioPlayer.ascx.cs" Inherits="mojoPortal.MediaPlayerUI.AudioPlayer" %>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper AudioPlayer">
 		<portal:ModuleTitleControl runat="server" ID="TitleControl" />
 		<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">

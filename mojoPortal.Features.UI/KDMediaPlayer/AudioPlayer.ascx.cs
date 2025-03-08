@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 using log4net;
@@ -112,7 +113,7 @@ public partial class AudioPlayer : SiteModuleControl
 
 				string fullFilePath = Page.ResolveUrl(filePath);
 
-				string fileExt = Path.GetExtension(file.FilePath).ToLowerInvariant();
+				string fileExt = Path.GetExtension(file.FilePath).ToLowerInvariant().TrimStart('.');
 
 				if (isFirstFile)
 				{
@@ -125,7 +126,8 @@ public partial class AudioPlayer : SiteModuleControl
 
 				// We already prevent usage of non-audio files so there's no need to check here
 				// old code provided in region below in case I'm wrong. -jmd
-				script.Append($"{fileExt.TrimStart('.')}:\"{fullFilePath}\"");
+				suppliedTypes.Add(fileExt);
+				script.Append($"{fileExt}:\"{fullFilePath}\"");
 
 				#region Old file extension logic
 				//if (thePlayer.PlayerType == MediaType.Audio)
@@ -220,25 +222,25 @@ public partial class AudioPlayer : SiteModuleControl
 			script.Append(",autoPlay: true");
 		}
 
-		script.Append("},");
-		script.Append("supplied: \"");
+		script.Append("}");
+		script.Append($",supplied: \"{string.Join(",", suppliedTypes.Distinct().ToArray())}\"");
 
-		bool isFirstSupplied = true;
-		foreach (string type in suppliedTypes)
-		{
-			if (isFirstSupplied)
-			{
-				isFirstSupplied = false;
-			}
-			else
-			{
-				script.Append(", ");
-			}
+		//bool isFirstSupplied = true;
+		//foreach (string type in suppliedTypes)
+		//{
+		//	if (isFirstSupplied)
+		//	{
+		//		isFirstSupplied = false;
+		//	}
+		//	else
+		//	{
+		//		script.Append(", ");
+		//	}
 
-			script.Append(type);
-		}
+		//	script.Append(type);
+		//}
 
-		script.Append("\",preload: \"auto\"");
+		script.Append(",preload: \"auto\"");
 		script.Append(",wmode: \"window\"");
 		if (config.ContinuousPlay)
 		{

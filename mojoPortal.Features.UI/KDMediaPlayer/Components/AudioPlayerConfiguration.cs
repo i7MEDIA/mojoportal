@@ -1,99 +1,38 @@
-﻿// Author:				    
-// Created:			        2011-12-06
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// Last Modified: 2011-12-06
-
-using System;
+﻿using System;
 using System.Collections;
-using System.Globalization;
-using System.Web.UI.WebControls;
-using mojoPortal.Web.Framework;
 
-namespace mojoPortal.MediaPlayerUI
+namespace mojoPortal.MediaPlayerUI;
+
+public class AudioPlayerConfiguration
 {
-    public class AudioPlayerConfiguration
-    {
-        public AudioPlayerConfiguration()
-        { }
+	public AudioPlayerConfiguration() { }
 
-        public AudioPlayerConfiguration(Hashtable settings)
-        {
-            LoadSettings(settings);
+	public AudioPlayerConfiguration(Hashtable settings) => LoadSettings(settings);
 
-        }
+	private void LoadSettings(Hashtable settings)
+	{
+		if (settings == null)
+		{
+			throw new ArgumentException("must pass in a hashtable of settings");
+		}
 
-        private void LoadSettings(Hashtable settings)
-        {
-            if (settings == null) { throw new ArgumentException("must pass in a hashtable of settings"); }
+		AutoStart = settings.ParseBool("AutoStartSetting", AutoStart);
+		ContinuousPlay = settings.ParseBool("ContinuousPlaySetting", ContinuousPlay);
+		DisableShuffle = settings.ParseBool("DisableShuffleSetting", DisableShuffle);
+		InstanceCssClass = settings.ParseString("CustomCssClassSetting", InstanceCssClass);
+		HeaderContent = settings.ParseString("HeaderContent", HeaderContent);
+		FooterContent = settings.ParseString("FooterContent", FooterContent);
+	}
 
-            autoStart = WebUtils.ParseBoolFromHashtable(settings, "AutoStartSetting", autoStart);
-            continuousPlay = WebUtils.ParseBoolFromHashtable(settings, "ContinuousPlaySetting", continuousPlay);
-            disableShuffle = WebUtils.ParseBoolFromHashtable(settings, "DisableShuffleSetting", disableShuffle);
+	public string HeaderContent { get; private set; } = string.Empty;
 
-            if (settings.Contains("CustomCssClassSetting"))
-            {
-                instanceCssClass = settings["CustomCssClassSetting"].ToString();
-            }
+	public string FooterContent { get; private set; } = string.Empty;
 
-            if (settings.Contains("HeaderContent"))
-            {
-                headerContent = settings["HeaderContent"].ToString();
-            }
+	public string InstanceCssClass { get; private set; } = "bluemonday";
 
-            if (settings.Contains("FooterContent"))
-            {
-                footerContent = settings["FooterContent"].ToString();
-            }
+	public bool AutoStart { get; private set; } = false;
 
-        }
+	public bool ContinuousPlay { get; private set; } = false;
 
-        private string headerContent = string.Empty;
-
-        public string HeaderContent
-        {
-            get { return headerContent; }
-        }
-
-        private string footerContent = string.Empty;
-
-        public string FooterContent
-        {
-            get { return footerContent; }
-        }
-
-        private string instanceCssClass = "bluemonday";
-
-        public string InstanceCssClass
-        {
-            get { return instanceCssClass; }
-        }
-
-        private bool autoStart = false;
-
-        public bool AutoStart
-        {
-            get { return autoStart; }
-        }
-
-        private bool continuousPlay = false;
-
-        public bool ContinuousPlay
-        {
-            get { return continuousPlay; }
-        }
-
-        private bool disableShuffle = false;
-
-        public bool DisableShuffle
-        {
-            get { return disableShuffle; }
-        }
-    }
+	public bool DisableShuffle { get; private set; } = false;
 }

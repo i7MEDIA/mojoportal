@@ -265,7 +265,7 @@
     <value>No file(s) exist for this track</value>
   </data>
   <data name="NoSolutionMessageMarkup" xml:space="preserve">
-    <value>&lt;span&gt;Update Required&lt;/span&gt; To play the media you will need to either update your browser to a recent version or update your &lt;a href="http://get.adobe.com/flashplayer/" target="_blank"&gt;Flash plugin&lt;/a&gt;.</value>
+    <value>&lt;span&gt;Update Required&lt;/span&gt; To play the media you will need to either update your browser to a recent version.</value>
   </data>
   <data name="NoTracksSiteLabelText" xml:space="preserve">
     <value>No Tracks Exist For This Media Player</value>
