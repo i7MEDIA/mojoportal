@@ -1,6 +1,7 @@
-﻿using System;
-using System.Text;
-using mojoPortal.Web.Framework;
+﻿using mojoPortal.Web.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace mojoPortal.Features.UI;
 
@@ -23,6 +24,7 @@ public partial class IframeModule : SiteModuleControl
 	private string frameMarginWidth = "0";
 	private string frameScrolling = "auto"; // yes, no, auto
 
+
 	#region OnInit
 
 	protected override void OnInit(EventArgs e)
@@ -33,11 +35,13 @@ public partial class IframeModule : SiteModuleControl
 
 	#endregion
 
+
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		LoadSettings();
 		PopulateControls();
 	}
+
 
 	private void PopulateControls()
 	{
@@ -52,22 +56,49 @@ public partial class IframeModule : SiteModuleControl
 			return;
 		}
 
-		var markup = new StringBuilder("<iframe ");
-		if (string.IsNullOrWhiteSpace(frameName)) { markup.Append($"name=\"{frameName}\" "); }
-		if (string.IsNullOrWhiteSpace(frameTitle)) { markup.Append($"title=\"{frameTitle}\" "); }
-		markup.Append($"src=\"{frameSrc}\" ");
-		if (frameAlign.Length > 0) { markup.Append($"align=\"{frameAlign}\" "); }
-		if (frameCss.Length > 0) { markup.Append($"class=\"{frameCss}\" "); }
-		markup.Append($"frameborder=\"{frameBorder}\" ");
-		markup.Append($"height=\"{frameHeight}\" ");
-		markup.Append($"width=\"{frameWidth}\" ");
-		if (frameMarginHeight.Length > 0) { markup.Append($"marginheight=\"{frameMarginHeight}\" "); }
-		if (frameMarginWidth.Length > 0) { markup.Append($"marginwidth=\"{frameMarginWidth}\" "); }
-		markup.Append($"scrolling=\"{frameScrolling}\" ");
-		markup.Append("></iframe>");
+		var attribs = new Dictionary<string, string>();
 
-		litFrame.Text = markup.ToString();
-		pnlWrapper.Controls.Add(litFrame);
+		if (!string.IsNullOrWhiteSpace(frameName))
+		{
+			attribs.Add("name", frameName);
+		}
+
+		if (!string.IsNullOrWhiteSpace(frameTitle))
+		{
+			attribs.Add("title", frameTitle);
+		}
+
+		attribs.Add("src", frameSrc);
+
+		if (!string.IsNullOrWhiteSpace(frameAlign))
+		{
+			attribs.Add("align", frameAlign);
+		}
+
+		if (!string.IsNullOrWhiteSpace(frameCss))
+		{
+			attribs.Add("class", frameCss);
+		}
+
+		attribs.Add("frameborder", frameBorder);
+		attribs.Add("height", frameHeight);
+		attribs.Add("width", frameWidth);
+
+		if (!string.IsNullOrWhiteSpace(frameMarginHeight))
+		{
+			attribs.Add("marginheight", frameMarginHeight);
+		}
+
+		if (!string.IsNullOrWhiteSpace(frameMarginWidth))
+		{
+			attribs.Add("marginwidth", frameMarginWidth);
+		}
+
+		attribs.Add("scrolling", frameScrolling);
+
+		var markup = $"<iframe {string.Join(" ", attribs.Select(x => $"{x.Key}=\"{x.Value}\""))}></iframe>";
+
+		litFrame.Text = markup;
 	}
 
 	private void LoadSettings()
