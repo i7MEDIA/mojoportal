@@ -110,7 +110,7 @@
 
 														<asp:Button runat="server"
 															ID="lnkName"
-															CssClass="buttonlink"
+															SkinID="LinkButton"
 															Text='<%# DataBinder.Eval(Container.DataItem,"filename") %>'
 															CommandName="ItemClicked"
 															CommandArgument='<%# Eval("ID") %>'
