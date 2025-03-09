@@ -579,4 +579,16 @@
   <data name="ConfirmMarkAsAnswer" xml:space="preserve">
     <value>Are you sure you want to mark this post as the answer to this thread?</value>
   </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="PostingAndModeration" xml:space="preserve">
+    <value>Posting Control</value>
+  </data>
+  <data name="SearchIndexing" xml:space="preserve">
+    <value>Search/SEO</value>
+  </data>
 </root>

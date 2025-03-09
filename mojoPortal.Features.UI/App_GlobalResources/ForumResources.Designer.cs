@@ -268,6 +268,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display.
+        /// </summary>
+        internal static string Display {
+            get {
+                return ResourceManager.GetString("Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string EditImageAltText {
@@ -952,6 +961,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        internal static string General {
+            get {
+                return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Get your avatar.
         /// </summary>
         internal static string GravatarLinkTitle {
@@ -1141,6 +1159,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Posting Control.
+        /// </summary>
+        internal static string PostingAndModeration {
+            get {
+                return ResourceManager.GetString("PostingAndModeration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Require Moderation Before Sending Email Notification?.
         /// </summary>
         internal static string RequireModForNotify {
@@ -1191,6 +1218,15 @@ namespace Resources {
         internal static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search/SEO.
+        /// </summary>
+        internal static string SearchIndexing {
+            get {
+                return ResourceManager.GetString("SearchIndexing", resourceCulture);
             }
         }
         
