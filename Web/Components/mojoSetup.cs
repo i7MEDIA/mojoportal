@@ -629,7 +629,7 @@ public sealed class mojoSetup
 					{
 						var source = new DirectoryInfo(dir.BaseFilesPath);
 						var dest = new DirectoryInfo(dir.Path);
-						recursiveCopy(source, dest, true);
+						recursiveCopy(source, dest, false);
 					}
 				}
 			}
