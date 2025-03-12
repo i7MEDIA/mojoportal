@@ -425,7 +425,8 @@ public partial class BlogEdit : NonCmsBasePage
 			}
 		}
 
-		WebUtils.SetupRedirect(this, Request.RawUrl);	}
+		WebUtils.SetupRedirect(this, Request.RawUrl);
+	}
 
 
 	protected void btnAddCategory_Click(object sender, EventArgs e)
@@ -2009,7 +2010,79 @@ public partial class BlogEdit : NonCmsBasePage
 		fileSystem = FileSystemHelper.LoadFileSystem();
 
 		blogMetaConfigFile = $"~/Data/Sites/{siteSettings.SiteId.ToInvariantString()}/MetadataConfiguration/blog.json";
-		blogMetaConfigDefault = "[{\"NameProperty\":\"itemprop\",\"Name\":\"\",\"ContentProperty\":\"itemtype\",\"MetaContent\":\"http://schema.org/Article\"},{\"NameProperty\":\"itemprop\",\"Name\":\"name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"itemprop\",\"Name\":\"image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:type\",\"ContentProperty\":\"content\",\"MetaContent\":\"article\"},{\"NameProperty\":\"property\",\"Name\":\"og:site_name\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{site-name}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:url\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{url}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"property\",\"Name\":\"og:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:card\",\"ContentProperty\":\"content\",\"MetaContent\":\"summary_large_image\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:title\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{title}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:description\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{description}}\"},{\"NameProperty\":\"name\",\"Name\":\"twitter:image\",\"ContentProperty\":\"content\",\"MetaContent\":\"{{image}}\"}]";
+		blogMetaConfigDefault = """
+		[{
+			"NameProperty": "itemprop",
+			"Name": "",
+			"ContentProperty": "itemtype",
+			"MetaContent": "http://schema.org/Article"
+		}, {
+			"NameProperty": "itemprop",
+			"Name": "name",
+			"ContentProperty": "content",
+			"MetaContent": "{{title}}"
+		}, {
+			"NameProperty": "itemprop",
+			"Name": "description",
+			"ContentProperty": "content",
+			"MetaContent": "{{description}}"
+		}, {
+			"NameProperty": "itemprop",
+			"Name": "image",
+			"ContentProperty": "content",
+			"MetaContent": "{{image}}"
+		}, {
+			"NameProperty": "property",
+			"Name": "og:type",
+			"ContentProperty": "content",
+			"MetaContent": "article"
+		}, {
+			"NameProperty": "property",
+			"Name": "og:site_name",
+			"ContentProperty": "content",
+			"MetaContent": "{{site-name}}"
+		}, {
+			"NameProperty": "property",
+			"Name": "og:title",
+			"ContentProperty": "content",
+			"MetaContent": "{{title}}"
+		}, {
+			"NameProperty": "property",
+			"Name": "og:url",
+			"ContentProperty": "content",
+			"MetaContent": "{{url}}"
+		}, {
+			"NameProperty": "property",
+			"Name": "og:description",
+			"ContentProperty": "content",
+			"MetaContent": "{{description}}"
+		}, {
+			"NameProperty": "property",
+			"Name": "og:image",
+			"ContentProperty": "content",
+			"MetaContent": "{{image}}"
+		}, {
+			"NameProperty": "name",
+			"Name": "twitter:card",
+			"ContentProperty": "content",
+			"MetaContent": "summary_large_image"
+		}, {
+			"NameProperty": "name",
+			"Name": "twitter:title",
+			"ContentProperty": "content",
+			"MetaContent": "{{title}}"
+		}, {
+			"NameProperty": "name",
+			"Name": "twitter:description",
+			"ContentProperty": "content",
+			"MetaContent": "{{description}}"
+		}, {
+			"NameProperty": "name",
+			"Name": "twitter:image",
+			"ContentProperty": "content",
+			"MetaContent": "{{image}}"
+		}]
+		""";
 	}
 
 	private void SetupHistoryRestoreScript()

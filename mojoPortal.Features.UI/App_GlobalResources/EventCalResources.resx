@@ -228,4 +228,7 @@
   <data name="ShowTimeInMonthViewSetting" xml:space="preserve">
     <value>Show Time in Month View:</value>
   </data>
+  <data name="TitleRequiredValidationMessage" xml:space="preserve">
+    <value>Title is required.</value>
+  </data>
 </root>

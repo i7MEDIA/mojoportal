@@ -392,5 +392,14 @@ namespace Resources {
                 return ResourceManager.GetString("ShowTimeInMonthViewSetting", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title is required..
+        /// </summary>
+        internal static string TitleRequiredValidationMessage {
+            get {
+                return ResourceManager.GetString("TitleRequiredValidationMessage", resourceCulture);
+            }
+        }
     }
 }
