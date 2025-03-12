@@ -72,11 +72,11 @@ public partial class CompleteSurveyPage : mojoBasePage
 
 	private void RenderQuestions()
 	{
-		IQuestion control = null;
 		Collection<QuestionOption> options;
 
 		foreach (Question question in questions)
 		{
+			IQuestion control;
 			switch ((QuestionType)question.QuestionTypeId)
 			{
 				case QuestionType.TextBox:
@@ -103,7 +103,7 @@ public partial class CompleteSurveyPage : mojoBasePage
 
 			PopulateAnswer(control);
 
-			FormGroupPanel row = new FormGroupPanel
+			var row = new FormGroupPanel
 			{
 				CssClass = "settingrow"
 			};

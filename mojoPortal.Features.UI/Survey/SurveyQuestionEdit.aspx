@@ -15,6 +15,16 @@
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 					<asp:Panel ID="pnlQuestionEdit" runat="server" DefaultButton="btnSave">
+						<portal:FormGroupPanel runat="server">
+							<mp:SiteLabel runat="server"
+								ID="lblQuestionTypeLabel"
+								ConfigKey="QuestionTypeLabel"
+								ResourceFile="SurveyResources"
+								CssClass="settinglabel"
+							/>
+							<asp:Label runat="server" ID="lblQuestionType" />
+						</portal:FormGroupPanel>
+
 						<portal:FormGroupPanel runat="server" CssClass="settingrow">
 							<mp:SiteLabel runat="server"
 								ID="SiteLabel1"
@@ -45,17 +55,7 @@
 							<asp:CheckBox runat="server" ID="chkAnswerRequired" />
 						</portal:FormGroupPanel>
 
-						<portal:FormGroupPanel runat="server">
-							<mp:SiteLabel runat="server"
-								ID="lblQuestionTypeLabel"
-								ConfigKey="QuestionTypeLabel"
-								ResourceFile="SurveyResources"
-								CssClass="settinglabel"
-							/>
-							<asp:Label runat="server" ID="lblQuestionType" />
-						</portal:FormGroupPanel>
-
-						<portal:FormGroupPanel runat="server">
+						<portal:FormGroupPanel runat="server" ID="fgpValidationMessage" ExtraCssClasses="hide" RenderId="true">
 							<mp:SiteLabel runat="server"
 								ID="lblValidationMessage"
 								ForControl="txtValidationMessage"
@@ -65,7 +65,30 @@
 							/>
 							<asp:TextBox ID="txtValidationMessage" runat="server" Columns="39" MaxLength="100" />
 						</portal:FormGroupPanel>
+						<script>
+							(function () {
+								var chkAnswerRequired = document.getElementById('<%= chkAnswerRequired.ClientID %>');
+								var fgpValidationMessage = document.getElementById('<%= fgpValidationMessage.ClientID %>');
+								var txtValidationMessage = document.getElementById('<%= txtValidationMessage.ClientID %>');
 
+								function toggleVisibility() {
+									if (chkAnswerRequired.checked) {
+										fgpValidationMessage.classList.remove('hide');
+										txtValidationMessage.setAttribute("required", "true");
+										
+									} else {
+										fgpValidationMessage.classList.add('hide');
+										txtValidationMessage.removeAttribute("required");
+									}
+								}
+
+								toggleVisibility();
+
+								chkAnswerRequired.addEventListener('click', function (e) {
+									toggleVisibility();
+								});
+							})();
+						</script>
 						<portal:FormGroupPanel runat="server" ID="fgpItemsRow">
 							<div id="questionItems" class="floatpanel">
 								<asp:ListBox ID="lbOptions" SkinID="PageTree" DataTextField="Answer" DataValueField="OptionGuid" Rows="10" runat="server" />

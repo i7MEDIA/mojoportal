@@ -30,7 +30,7 @@ namespace SurveyFeature.UI
 				SkinID = "Survey"
 			};
 
-			Label lblQuestion = new Label
+			var lblQuestion = new Label
 			{
 				ID = "lbl" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
 				CssClass = "settinglabel",
@@ -38,12 +38,12 @@ namespace SurveyFeature.UI
 				AssociatedControlID = _dpAnswer.ID
 			};
 
-			Literal litQuestionText = new Literal
+			var litQuestionText = new Literal
 			{
 				Text = _question.QuestionText
 			};
 
-			RequiredFieldValidator valQuestion = new RequiredFieldValidator
+			var valQuestion = new RequiredFieldValidator
 			{
 				ID = "val" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
 				Text = _question.ValidationMessage,
@@ -51,10 +51,19 @@ namespace SurveyFeature.UI
 				ControlToValidate = _dpAnswer.ID
 			};
 
+			var valDate = new CompareValidator {
+				ID = "valReg" + _question.QuestionGuid.ToString().Replace("-", String.Empty),
+				Text = _question.ValidationMessage,
+				ControlToValidate = _dpAnswer.ID,
+				Type = ValidationDataType.Date,
+				Operator = ValidationCompareOperator.DataTypeCheck
+			};
+
 			Controls.Add(lblQuestion);
 			Controls.Add(litQuestionText);
 			Controls.Add(_dpAnswer);
 			Controls.Add(valQuestion);
+			Controls.Add(valDate);
 		}
 
 

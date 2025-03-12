@@ -46,20 +46,24 @@
 
 						<script>
 							(function () {
-								var checkbox = document.getElementById('<%= cbLimitSubmissions.ClientID %>');
-								var limitGroup = document.getElementById('<%= fgpSubmissionLimit.ClientID %>');
+								var cbLimitSubmissions = document.getElementById('<%= cbLimitSubmissions.ClientID %>');
+								var fgpSubmissionLimit = document.getElementById('<%= fgpSubmissionLimit.ClientID %>');
+								var txtSubmissionLimit = document.getElementById('<%= txtSubmissionLimit.ClientID %>');
 
 								function toggleVisibility() {
-									if (checkbox.checked) {
-										limitGroup.classList.remove('hide');
+									if (cbLimitSubmissions.checked) {
+										fgpSubmissionLimit.classList.remove('hide');
+										txtSubmissionLimit.setAttribute("required", "true");
+										
 									} else {
-										limitGroup.classList.add('hide');
+										fgpSubmissionLimit.classList.add('hide');
+										txtSubmissionLimit.setAttribute("required", "false");
 									}
 								}
 
 								toggleVisibility();
 
-								checkbox.addEventListener('click', function (e) {
+								cbLimitSubmissions.addEventListener('click', function (e) {
 									toggleVisibility();
 								});
 							})();

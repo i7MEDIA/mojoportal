@@ -22,6 +22,7 @@
 								ResourceFile="SurveyResources"
 								CssClass="settinglabel" />
 							<asp:TextBox runat="server" ID="txtPageTitle" />
+							<asp:RequiredFieldValidator runat="server" ControlToValidate="txtPageTitle" />
 						</portal:FormGroupPanel>
 
 						<portal:FormGroupPanel runat="server">
@@ -31,6 +32,10 @@
 								ResourceFile="SurveyResources"
 								CssClass="settinglabel" />
 							<asp:CheckBox runat="server" ID="chkPageEnabled" Checked="true" />
+						</portal:FormGroupPanel>
+
+						<portal:FormGroupPanel runat="server" ExtraCssClasses="validation-row">
+							<asp:ValidationSummary runat="server" />
 						</portal:FormGroupPanel>
 
 						<portal:FormGroupPanel runat="server" ExtraCssClasses="btn-row">
