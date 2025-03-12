@@ -127,6 +127,8 @@ public partial class EventCalendarEdit : NonCmsBasePage
 		{
 			btnDelete.Visible = false;
 		}
+
+		rfvTitle.ErrorMessage = EventCalResources.TitleRequiredValidationMessage;
 	}
 
 
