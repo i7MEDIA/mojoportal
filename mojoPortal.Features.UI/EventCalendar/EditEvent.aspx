@@ -24,6 +24,11 @@
 								Columns="50"
 								MaxLength="100"
 								CssClass="forminput widetextbox" />
+
+							<asp:RequiredFieldValidator runat="server"
+								ID="rfvTitle"
+								ControlToValidate="txtTitle"
+							/>
 						</div>
 
 						<div class="settingrow">
@@ -108,15 +113,19 @@
 						</div>
 
 						<div class="settingrow">
+							<asp:ValidationSummary runat="server" />
+						</div>
+
+						<div class="settingrow">
 							<mp:SiteLabel ID="SiteLabel35" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
 
 							<div class="forminput">
 								<portal:mojoButton ID="btnUpdate" runat="server" Text="Update" />
 								&nbsp;
-                        		<portal:mojoButton ID="btnDelete" runat="server" Text="Delete this item" CausesValidation="false" />
+								<portal:mojoButton ID="btnDelete" runat="server" Text="Delete this item" CausesValidation="false" />
 								&nbsp;
-		                        <asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" />&nbsp;	
-                        		<portal:mojoHelpLink ID="MojoHelpLink1" runat="server" HelpKey="eventedithelp" />
+								<asp:HyperLink ID="lnkCancel" runat="server" CssClass="cancellink" />&nbsp;	
+								<portal:mojoHelpLink ID="MojoHelpLink1" runat="server" HelpKey="eventedithelp" />
 							</div>
 						</div>
 
