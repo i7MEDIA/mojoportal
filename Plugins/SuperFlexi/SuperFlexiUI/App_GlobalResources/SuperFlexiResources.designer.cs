@@ -313,6 +313,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is invalid..
+        /// </summary>
+        internal static string GenericInvalidFormat {
+            get {
+                return ResourceManager.GetString("GenericInvalidFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Global View Sort Order.
         /// </summary>
         internal static string GlobalViewSortOrder {

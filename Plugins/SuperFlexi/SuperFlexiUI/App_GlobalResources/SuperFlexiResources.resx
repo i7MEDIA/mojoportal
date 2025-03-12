@@ -291,4 +291,7 @@
   <data name="ExportFileNamePrefix" xml:space="preserve">
     <value>export</value>
   </data>
+  <data name="GenericInvalidFormat" xml:space="preserve">
+    <value>{0} is invalid.</value>
+  </data>
 </root>

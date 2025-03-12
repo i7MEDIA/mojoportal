@@ -323,6 +323,11 @@ public partial class EditItems : NonCmsBasePage
 				}
 				panel.Controls.Add(textBox);
 
+				if (textBox.TextMode == TextBoxMode.Date)
+				{
+					panel.Controls.Add(CreateDateValidator(textBox, field));
+				}
+
 				if (field.Required)
 				{
 					var rfv = CreateGenericRFV(textBox, field);
@@ -829,6 +834,7 @@ public partial class EditItems : NonCmsBasePage
 
 				panel.Controls.Add(calTxt);
 				panel.Controls.Add(calBtn);
+				panel.Controls.Add(CreateDateValidator(calTxt, field));
 
 				if (field.Required)
 				{
@@ -1174,20 +1180,39 @@ public partial class EditItems : NonCmsBasePage
 	/// <returns></returns>
 	private static RequiredFieldValidator CreateGenericRFV(Control theControl, Field field)
 	{
-		var rfv = new RequiredFieldValidator();
+		var rfv = new RequiredFieldValidator
+		{
+			ControlToValidate = theControl.ID,
+			ErrorMessage = string.Format(CultureInfo.InvariantCulture, field.RequiredMessageFormat, field.Label),
+			ValidationGroup = "flexi"
+		};
+
 		try
 		{
 			rfv.SkinID = field.DefinitionName.Replace(" ", string.Empty);
 		}
 		catch (ArgumentException) { }
 
-		rfv.ControlToValidate = theControl.ID;
-
-		rfv.ErrorMessage = string.Format(CultureInfo.InvariantCulture, field.RequiredMessageFormat, field.Label);
-
-		rfv.ValidationGroup = "flexi";
-
 		return rfv;
+	}
+
+	private static CompareValidator CreateDateValidator (Control theControl, Field field)
+	{
+		var valDate = new CompareValidator
+		{
+			ErrorMessage = string.Format(SuperFlexiResources.GenericInvalidFormat, field.Label),
+			ControlToValidate = theControl.ID,
+			Type = ValidationDataType.Date,
+			Operator = ValidationCompareOperator.DataTypeCheck
+		};
+
+		try
+		{
+			valDate.SkinID = field.DefinitionName.Replace(" ", string.Empty);
+		}
+		catch (ArgumentException) { }
+
+		return valDate;
 	}
 
 	private static DatePickerControl CreateDatePicker(Field field, ItemFieldValue fieldValue)
