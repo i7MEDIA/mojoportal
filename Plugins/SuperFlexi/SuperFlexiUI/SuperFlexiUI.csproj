@@ -209,7 +209,6 @@
     <Content Include="SuperFlexi\Controls\Wysiwyg.ascx" />
     <Content Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx" />
     <Content Include="SuperFlexi\css\advanced-file-picker.css" />
-    <Content Include="SuperFlexi\Edit2.aspx" />
     <Content Include="SuperFlexi\Edit.aspx" />
     <Content Include="SuperFlexi\EditHeader.aspx" />
     <Content Include="SuperFlexi\Export.aspx" />
@@ -360,13 +359,6 @@
     </Compile>
     <Compile Include="SuperFlexi\Controls\MarkupDefinitionSetting.ascx.designer.cs">
       <DependentUpon>MarkupDefinitionSetting.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="SuperFlexi\Edit2.aspx.cs">
-      <DependentUpon>Edit2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SuperFlexi\Edit2.aspx.designer.cs">
-      <DependentUpon>Edit2.aspx</DependentUpon>
     </Compile>
     <Compile Include="SuperFlexi\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>

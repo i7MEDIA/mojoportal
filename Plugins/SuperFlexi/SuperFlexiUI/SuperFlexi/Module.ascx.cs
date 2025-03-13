@@ -12,22 +12,19 @@ public partial class SuperFlexiModule : SiteModuleControl
 {
 	protected ModuleConfiguration config = new();
 
-	protected void Page_Load(object sender, EventArgs e)
-	{
-		LoadSettings();
-	}
+	protected void Page_Load(object sender, EventArgs e) => LoadSettings();
 
 	private void LoadSettings()
 	{
 		var module = new Module(ModuleGuid);
-		if (module == null)
+		if (module is null)
 		{
 			return;
 		}
 		config = new ModuleConfiguration(module);
 		var currentPage = CacheHelper.GetCurrentPage();
 
-		if (config.MarkupDefinition != null)
+		if (config.MarkupDefinition is not null)
 		{
 			displaySettings = config.MarkupDefinition;
 		}
@@ -81,7 +78,7 @@ public partial class SuperFlexiModule : SiteModuleControl
 				Title = ModuleConfiguration.ModuleTitle;
 				Description = ModuleConfiguration.FeatureName;
 			}
-			StringBuilder moduleTitle = new StringBuilder();
+			var moduleTitle = new StringBuilder();
 
 			moduleTitle.Append(displaySettings.ModuleTitleMarkup);
 			SuperFlexiHelpers.ReplaceStaticTokens(moduleTitle, config, IsEditable, displaySettings, module, currentPage, siteSettings, out moduleTitle);
@@ -102,8 +99,10 @@ public partial class SuperFlexiModule : SiteModuleControl
 				var headerContent = new StringBuilder();
 				headerContent.AppendFormat(displaySettings.HeaderContentFormat, config.HeaderContent);
 				SuperFlexiHelpers.ReplaceStaticTokens(headerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out headerContent);
-				var litHeaderContent = new LiteralControl(headerContent.ToString());
-				litHeaderContent.EnableViewState = false;
+				var litHeaderContent = new LiteralControl(headerContent.ToString())
+				{
+					EnableViewState = false
+				};
 				//if HeaderLocation is set to a hidden panel the header will be added to the Outside.
 				switch (config.HeaderLocation)
 				{
@@ -135,8 +134,10 @@ public partial class SuperFlexiModule : SiteModuleControl
 				var footerContent = new StringBuilder();
 				footerContent.AppendFormat(displaySettings.FooterContentFormat, config.FooterContent);
 				SuperFlexiHelpers.ReplaceStaticTokens(footerContent, config, IsEditable, displaySettings, module, currentPage, siteSettings, out footerContent);
-				var litFooterContent = new LiteralControl(footerContent.ToString());
-				litFooterContent.EnableViewState = false;
+				var litFooterContent = new LiteralControl(footerContent.ToString())
+				{
+					EnableViewState = false
+				};
 				//if FooterLocation is set to a hidden panel the footer will be added to the Outside.
 				switch (config.FooterLocation)
 				{

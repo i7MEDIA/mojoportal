@@ -1,173 +1,164 @@
-﻿// Created:					2017-12-30
-// Last Modified:			2018-01-02
-
+﻿using System;
+using System.Data;
 using mojoPortal.Data;
 using Npgsql;
 using NpgsqlTypes;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Text;
 
-namespace SuperFlexiData
+namespace SuperFlexiData;
+
+public static class DBSearchDefs
 {
-	public static class DBSearchDefs
-    {
-        public static bool Create(Guid guid, Guid siteGuid, Guid featureGuid, Guid definitionGuid, string title, string keywords, string description, string link, string linkQueryAddendum)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.AppendFormat("insert into i7_sflexi_searchdefs ({0}) values ({1});",
-				@"guid
-                 ,siteguid
-                 ,featureguid
-                 ,fielddefinitionguid
-                 ,title
-                 ,keywords
-                 ,description
-                 ,link
-                 ,linkqueryaddendum"
-				, @":guid
-				   ,:siteguid
-				   ,:featureguid
-				   ,:fielddefinitionguid
-				   ,:title
-				   ,:keywords
-				   ,:description
-				   ,:link
-				   ,:linkqueryaddendum"
+	public static bool Create(Guid guid, Guid siteGuid, Guid featureGuid, Guid definitionGuid, string title, string keywords, string description, string link, string linkQueryAddendum)
+	{
+		var sqlCommand = """
+			insert into i7_sflexi_searchdefs (
+				guid
+				,siteguid
+				,featureguid
+				,fielddefinitionguid
+				,title
+				,keywords
+				,description
+				,link
+				,linkqueryaddendum
+			) values (
+				:guid
+				,:siteguid
+				,:featureguid
+				,:fielddefinitionguid
+				,:title
+				,:keywords
+				,:description
+				,:link
+				,:linkqueryaddendum
 			);
+			""";
 
-			var sqlParams = new List<NpgsqlParameter>
+		var sqlParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
-				new NpgsqlParameter(":featureguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = featureGuid },
-				new NpgsqlParameter(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid },
-				new NpgsqlParameter(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid },
-				new NpgsqlParameter(":title", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = title },
-				new NpgsqlParameter(":keywords", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = keywords },
-				new NpgsqlParameter(":description", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = description },
-				new NpgsqlParameter(":link", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = link },
-				new NpgsqlParameter(":linkqueryaddendum", NpgsqlDbType.Varchar, 16) { Direction = ParameterDirection.Input, Value = linkQueryAddendum }
+				new(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
+				new(":featureguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = featureGuid },
+				new(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid },
+				new(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid },
+				new(":title", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = title },
+				new(":keywords", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = keywords },
+				new(":description", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = description },
+				new(":link", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = link },
+				new(":linkqueryaddendum", NpgsqlDbType.Varchar, 16) { Direction = ParameterDirection.Input, Value = linkQueryAddendum }
 			};
 
-            int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                CommandType.Text,
-				sqlCommand.ToString(),
-                sqlParams.ToArray()).ToString());
+		int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			CommandType.Text,
+			sqlCommand,
+			sqlParams).ToString());
 
-            return rowsAffected > 0;
-        }
+		return rowsAffected > 0;
+	}
 
-        public static bool Update(Guid guid, Guid siteGuid, Guid featureGuid, Guid definitionGuid, string title, string keywords, string description, string link, string linkQueryAddendum)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.AppendFormat("update i7_sflexi_searchdefs set {0} where guid = :guid;",
-                "siteguid = :siteguid,"
-                + "featureguid = :featureguid,"
-                + "fielddefinitionguid = :fielddefinitionguid,"
-                + "title = :title,"
-                + "keywords = :keywords,"
-                + "description = :description,"
-                + "link = :link,"
-                + "linkqueryaddendum = :linkqueryaddendum");
+	public static bool Update(Guid guid, Guid siteGuid, Guid featureGuid, Guid definitionGuid, string title, string keywords, string description, string link, string linkQueryAddendum)
+	{
+		var sqlCommand = """
+			update i7_sflexi_searchdefs
+			set
+				siteguid = :siteguid
+				,featureguid = :featureguid
+				,fielddefinitionguid = :fielddefinitionguid
+				,title = :title
+				,keywords = :keywords
+				,description = :description
+				,link = :link
+				,linkqueryaddendum = :linkqueryaddendum
+			where guid = :guid;
+			""";
 
-			var sqlParams = new List<NpgsqlParameter>
+		var sqlParams = new NpgsqlParameter[]
 			{
-				new NpgsqlParameter(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
-				new NpgsqlParameter(":featureguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = featureGuid },
-				new NpgsqlParameter(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid },
-				new NpgsqlParameter(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid },
-				new NpgsqlParameter(":title", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = title },
-				new NpgsqlParameter(":keywords", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = keywords },
-				new NpgsqlParameter(":description", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = description },
-				new NpgsqlParameter(":link", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = link },
-				new NpgsqlParameter(":linkqueryaddendum", NpgsqlDbType.Varchar, 16) { Direction = ParameterDirection.Input, Value = linkQueryAddendum }
+				new(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid },
+				new(":featureguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = featureGuid },
+				new(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = definitionGuid },
+				new(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid },
+				new(":title", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = title },
+				new(":keywords", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = keywords },
+				new(":description", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = description },
+				new(":link", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = link },
+				new(":linkqueryaddendum", NpgsqlDbType.Varchar, 16) { Direction = ParameterDirection.Input, Value = linkQueryAddendum }
 			};
 
-			int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                CommandType.Text,
-				sqlCommand.ToString(),
-				sqlParams.ToArray()).ToString());
+		int rowsAffected = Convert.ToInt32(
+			NpgsqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				CommandType.Text,
+				sqlCommand,
+				sqlParams).ToString()
+				);
 
-            return rowsAffected > 0;
-        }
+		return rowsAffected > 0;
+	}
 
-        public static bool DeleteByFieldDefinition(Guid fieldDefGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_searchdefs where fielddefinitionguid = :fielddefinitionguid;");
+	public static bool DeleteByFieldDefinition(Guid fieldDefGuid)
+	{
+		var sqlCommand = "delete from i7_sflexi_searchdefs where fielddefinitionguid = :fielddefinitionguid;";
+		var sqlParam = new NpgsqlParameter(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldDefGuid };
 
-			var sqlParam = new NpgsqlParameter(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldDefGuid };
+		int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			CommandType.Text,
+			sqlCommand,
+			sqlParam);
 
-			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                CommandType.Text,
-				sqlCommand.ToString(),
-				sqlParam);
+		return rowsAffected > 0;
+	}
 
-            return (rowsAffected > 0);
-        }
+	public static bool DeleteBySite(Guid siteGuid)
+	{
+		var sqlCommand = "delete from i7_sflexi_searchdefs where siteguid = :siteguid;";
+		var sqlParam = new NpgsqlParameter(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid };
 
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_searchdefs where siteguid = :siteguid;");
+		int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			CommandType.Text,
+			sqlCommand,
+			sqlParam);
 
-			var sqlParam = new NpgsqlParameter(":siteguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = siteGuid };
+		return rowsAffected > 0;
+	}
 
-			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                CommandType.Text,
-				sqlCommand.ToString(),
-				sqlParam);
+	public static bool Delete(Guid guid)
+	{
+		var sqlCommand = "delete from i7_sflexi_searchdefs where guid = :guid;";
+		var sqlParam = new NpgsqlParameter(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid };
 
-            return (rowsAffected > 0);
-        }
+		int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			CommandType.Text,
+			sqlCommand,
+			sqlParam);
 
-        public static bool Delete(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_searchdefs where guid = :guid;");
+		return rowsAffected > 0;
+	}
 
-			var sqlParam = new NpgsqlParameter(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid };
+	public static IDataReader GetByFieldDefinition(Guid fieldDefinitionGuid)
+	{
+		var sqlCommand = "select * from i7_sflexi_searchdefs where fielddefinitionguid = :fielddefinitionguid;";
+		var sqlParam = new NpgsqlParameter(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldDefinitionGuid };
 
-			int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
-                CommandType.Text,
-				sqlCommand.ToString(),
-				sqlParam);
+		return NpgsqlHelper.ExecuteReader(
+			ConnectionString.GetWriteConnectionString(),
+			CommandType.Text,
+			sqlCommand.ToString(),
+			sqlParam);
+	}
 
-            return (rowsAffected > 0);
-        }
+	public static IDataReader GetOne(Guid guid)
+	{
+		var sqlCommand = "select * from i7_sflexi_searchdefs where guid = :guid;";
+		var sqlParam = new NpgsqlParameter(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid };
 
-        public static IDataReader GetByFieldDefinition(Guid fieldDefinitionGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_searchdefs where fielddefinitionguid = :fielddefinitionguid;");
-
-			var sqlParam = new NpgsqlParameter(":fielddefinitionguid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = fieldDefinitionGuid };
-
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
-                CommandType.Text,
-				sqlCommand.ToString(),
-				sqlParam);
-        }
-
-        public static IDataReader GetOne(Guid guid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_searchdefs where guid = :guid;");
-
-			var sqlParam = new NpgsqlParameter(":guid", NpgsqlDbType.Uuid) { Direction = ParameterDirection.Input, Value = guid };
-
-            return NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
-                CommandType.Text,
-				sqlCommand.ToString(),
-				sqlParam);
-        }
-    }
+		return NpgsqlHelper.ExecuteReader(
+			ConnectionString.GetWriteConnectionString(),
+			CommandType.Text,
+			sqlCommand.ToString(),
+			sqlParam);
+	}
 }

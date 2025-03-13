@@ -13,19 +13,14 @@ public partial class EditHeaderPage : NonCmsBasePage
 	private int moduleId = -1;
 	private Module module = null;
 	private bool isFooter = false;
-	private ModuleConfiguration config = new ModuleConfiguration();
+	private ModuleConfiguration config = new();
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		LoadParams();
 
-		if (!UserCanEditModule(moduleId, config.FeatureGuid))
-		{
-			SiteUtils.RedirectToAccessDeniedPage(this);
-			return;
-		}
-
-		if (SiteUtils.IsFishyPost(this))
+		if (!UserCanEditModule(moduleId, config.FeatureGuid)
+			|| SiteUtils.IsFishyPost(this))
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;
@@ -46,10 +41,7 @@ public partial class EditHeaderPage : NonCmsBasePage
 		}
 	}
 
-	private void PopulateControls()
-	{
-		edContent.Text = isFooter ? config.FooterContent : config.HeaderContent;
-	}
+	private void PopulateControls() => edContent.Text = isFooter ? config.FooterContent : config.HeaderContent;
 
 	void btnSave_Click(object sender, EventArgs e)
 	{
@@ -74,6 +66,7 @@ public partial class EditHeaderPage : NonCmsBasePage
 	{
 		//we want to get the module using this method because it will let the module be editable when placed on the page with a ModuleWrapper
 		module = SuperFlexiHelpers.GetSuperFlexiModule(moduleId);
+
 		if (module is null)
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);

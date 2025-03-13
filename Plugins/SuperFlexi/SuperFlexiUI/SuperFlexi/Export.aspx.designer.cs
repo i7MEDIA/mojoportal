@@ -7,126 +7,119 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SuperFlexiUI {
-    
-    
-    public partial class Export {
-        
-        /// <summary>
-        /// pnlOuterWrap control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
-        
-        /// <summary>
-        /// displaySettings control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::SuperFlexiUI.SuperFlexiDisplaySettings displaySettings;
-        
-        /// <summary>
-        /// pnlInnerWrap control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.InnerWrapperPanel pnlInnerWrap;
-        
-        /// <summary>
-        /// heading control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.HeadingControl heading;
-        
-        /// <summary>
-        /// pnlOuterBody control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.OuterBodyPanel pnlOuterBody;
-        
-        /// <summary>
-        /// pnlInnerBody control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
-        
-        /// <summary>
-        /// litInstructions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litInstructions;
-        
-        /// <summary>
-        /// txtExportName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtExportName;
-        
-        /// <summary>
-        /// exportButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton exportButton;
-        
-        /// <summary>
-        /// lnkCancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkCancel;
-        
-        /// <summary>
-        /// hdnReturnUrl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnReturnUrl;
-        
-        /// <summary>
-        /// divCleared control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        
-        
-        /// <summary>
-        /// ka1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.SessionKeepAliveControl ka1;
-    }
+namespace SuperFlexiUI
+{
+
+
+	public partial class Export
+	{
+
+		/// <summary>
+		/// pnlOuterWrap control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
+
+		/// <summary>
+		/// displaySettings control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::SuperFlexiUI.SuperFlexiDisplaySettings displaySettings;
+
+		/// <summary>
+		/// pnlInnerWrap control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.InnerWrapperPanel pnlInnerWrap;
+
+		/// <summary>
+		/// heading control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.HeadingControl heading;
+
+		/// <summary>
+		/// pnlOuterBody control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.OuterBodyPanel pnlOuterBody;
+
+		/// <summary>
+		/// pnlInnerBody control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
+
+		/// <summary>
+		/// litInstructions control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litInstructions;
+
+		/// <summary>
+		/// txtExportName control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox txtExportName;
+
+		/// <summary>
+		/// exportButton control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoButton exportButton;
+
+		/// <summary>
+		/// lnkCancel control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HyperLink lnkCancel;
+
+		/// <summary>
+		/// hdnReturnUrl control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HiddenField hdnReturnUrl;
+
+		/// <summary>
+		/// ka1 control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.SessionKeepAliveControl ka1;
+	}
 }

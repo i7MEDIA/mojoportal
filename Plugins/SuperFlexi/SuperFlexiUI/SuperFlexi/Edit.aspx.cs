@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -11,7 +10,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web;
 using mojoPortal.Web.Components;
@@ -27,18 +25,12 @@ namespace SuperFlexiUI;
 public partial class EditItems : NonCmsBasePage
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(EditItems));
-	private Hashtable moduleSettings;
 	private Module module;
 	private int moduleId = -1;
 	private int itemId = -1;
 	private int pageId = -1;
 	protected ModuleConfiguration config = new();
 	private Item item = new();
-
-	//protected Image imgPreview;
-	//protected HiddenField hdnEmptyImageUrl;
-	//protected HiddenField hdnImageBrowser;
-	//private SiteSettings siteSettings = new SiteSettings();
 
 	private bool advancedFilePickerAdded = false;
 
@@ -164,7 +156,10 @@ public partial class EditItems : NonCmsBasePage
 	public void PopulateCustomControls()
 	{
 		List<Field> savedFields = new List<Field>();
-		if (!FieldUtils.EnsureFields(SiteInfo.SiteGuid, config, out savedFields, config.DeleteOrphanedFieldValues)) return;
+		if (!FieldUtils.EnsureFields(SiteInfo.SiteGuid, config, out savedFields, config.DeleteOrphanedFieldValues))
+		{
+			return;
+		}
 
 		if (item.ItemID == -1)
 		{
@@ -183,36 +178,36 @@ public partial class EditItems : NonCmsBasePage
 		}
 		else
 		{
+			var fieldsWithValues = new List<Field>();
+			var fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
-			List<Field> fieldsWithValues = new List<Field>();
-			List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
-
-			foreach (ItemFieldValue fieldValue in fieldValues)
+			foreach (var fieldValue in fieldValues)
 			{
 				fieldsWithValues.Add(new Field(fieldValue.FieldGuid));
 			}
-			FieldComparer fieldComp = new FieldComparer();
-			List<Field> newFields = savedFields.Except(fieldsWithValues, fieldComp).ToList();
-			//List<Field> allFields = new List<Field>();
+			var fieldComp = new FieldComparer();
+			var newFields = savedFields.Except(fieldsWithValues, fieldComp).ToList();
 
 			foreach (Field field in newFields)
 			{
-				ItemFieldValue fieldValue = new ItemFieldValue();
-				fieldValue.FieldValue = field.DefaultValue;
-				fieldValue.FieldGuid = field.FieldGuid;
-				fieldValue.FeatureGuid = field.FeatureGuid;
-				fieldValue.ItemGuid = item.ItemGuid;
-				fieldValue.ModuleGuid = item.ItemGuid;
-				fieldValue.SiteGuid = item.SiteGuid;
+				var fieldValue = new ItemFieldValue
+				{
+					FieldValue = field.DefaultValue,
+					FieldGuid = field.FieldGuid,
+					FeatureGuid = field.FeatureGuid,
+					ItemGuid = item.ItemGuid,
+					ModuleGuid = item.ItemGuid,
+					SiteGuid = item.SiteGuid
+				};
 
 				fieldValues.Add(fieldValue);
 			}
 
-			foreach (Field field in savedFields)
+			foreach (var field in savedFields)
 			{
 				if (field.ControlType.ToLower() != "instructionblock")
 				{
-					foreach (ItemFieldValue fieldValue in fieldValues)
+					foreach (var fieldValue in fieldValues)
 					{
 						if (fieldValue.FieldGuid == field.FieldGuid)
 						{
@@ -225,14 +220,16 @@ public partial class EditItems : NonCmsBasePage
 					AddInstructionBlock(field);
 				}
 			}
-
 		}
 	}
 
 	private void AddInstructionBlock(Field field)
 	{
-		Literal litInstructions = new Literal();
-		litInstructions.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config);
+		var litInstructions = new Literal
+		{
+			Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config)
+		};
+
 		if (!string.IsNullOrWhiteSpace(litInstructions.Text))
 		{
 			customControls.Controls.Add(litInstructions);
@@ -248,50 +245,58 @@ public partial class EditItems : NonCmsBasePage
 		label.ResourceFile = "SuperFlexiResources";
 		label.ConfigKey = field.Label;
 		label.ShowWarningOnMissingKey = false; //chances are the configkey will not exist in the resource file.
+
 		try
 		{
 			label.SkinID = field.DefinitionName.Replace(" ", string.Empty);
 		}
 		catch (ArgumentException) { }
+
 		panel.Controls.Add(label);
 
 		AttributeCollection attribs = null;
 
-		string pickerStartFolder = string.Empty;
-		string controlType = field.ControlType.ToLower().ToLower();
+		var pickerStartFolder = string.Empty;
+		var controlType = field.ControlType.ToLower();
 		switch (controlType)
 		{
 			case "textbox":
 			case "":
 			default:
-				TextBox textBox = new TextBox
+				var textBox = new TextBox
 				{
 					TabIndex = 10,
 					ID = field.Name,
-					CssClass = field.EditPageControlCssClass
+					CssClass = field.EditPageControlCssClass,
+					TextMode = field.TextBoxMode.ToLower() switch
+					{
+						"multiline" => TextBoxMode.MultiLine,
+						"password" => TextBoxMode.Password,
+						"color" => TextBoxMode.Color,
+						"date" => TextBoxMode.Date,
+						"datetime" => TextBoxMode.DateTime,
+						"datetimelocal" => TextBoxMode.DateTimeLocal,
+						"email" => TextBoxMode.Email,
+						"month" => TextBoxMode.Month,
+						"number" => TextBoxMode.Number,
+						"range" => TextBoxMode.Range,
+						"search" => TextBoxMode.Search,
+						"phone" => TextBoxMode.Phone,
+						"time" => TextBoxMode.Time,
+						"url" => TextBoxMode.Url,
+						"week" => TextBoxMode.Week,
+						"singleline" or _ => TextBoxMode.SingleLine
+					},
+					Text = fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue
 				};
+
+				if (!string.IsNullOrWhiteSpace(field.EditRoles) && !WebUser.IsAdmin && !WebUser.IsInRoles(field.EditRoles))
+				{
+					textBox.Enabled = false;
+				}
+
 				label.ForControl = textBox.ID;
 
-				textBox.TextMode = field.TextBoxMode.ToLower() switch
-				{
-					"multiline" => TextBoxMode.MultiLine,
-					"password" => TextBoxMode.Password,
-					"color" => TextBoxMode.Color,
-					"date" => TextBoxMode.Date,
-					"datetime" => TextBoxMode.DateTime,
-					"datetimelocal" => TextBoxMode.DateTimeLocal,
-					"email" => TextBoxMode.Email,
-					"month" => TextBoxMode.Month,
-					"number" => TextBoxMode.Number,
-					"range" => TextBoxMode.Range,
-					"search" => TextBoxMode.Search,
-					"phone" => TextBoxMode.Phone,
-					"time" => TextBoxMode.Time,
-					"url" => TextBoxMode.Url,
-					"week" => TextBoxMode.Week,
-					"singleline" or _ => TextBoxMode.SingleLine
-				};
-				textBox.Text = fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue;
 				try
 				{
 					textBox.SkinID = field.DefinitionName.Replace(" ", string.Empty);
@@ -315,12 +320,8 @@ public partial class EditItems : NonCmsBasePage
 					{
 						textBox.Attributes.Add(key, attribs[key]);
 					}
+				}
 
-				}
-				if (!string.IsNullOrWhiteSpace(field.EditRoles) && !WebUser.IsAdmin && !WebUser.IsInRoles(field.EditRoles))
-				{
-					textBox.Enabled = false;
-				}
 				panel.Controls.Add(textBox);
 
 				if (textBox.TextMode == TextBoxMode.Date)
@@ -331,13 +332,19 @@ public partial class EditItems : NonCmsBasePage
 				if (field.Required)
 				{
 					var rfv = CreateGenericRFV(textBox, field);
-					if (rfv is not null) panel.Controls.Add(rfv);
+					if (rfv is not null)
+					{
+						panel.Controls.Add(rfv);
+					}
 				}
 
 				if (field.Regex.Length > 0)
 				{
 					var regexValidator = CreateRegexValidator(textBox, field);
-					if (regexValidator is not null) panel.Controls.Add(regexValidator);
+					if (regexValidator is not null)
+					{
+						panel.Controls.Add(regexValidator);
+					}
 				}
 
 				break;
@@ -347,9 +354,13 @@ public partial class EditItems : NonCmsBasePage
 				{
 					TabIndex = 10,
 					ID = field.Name,
-					CssClass = field.EditPageControlCssClass + " hide"
+					CssClass = field.EditPageControlCssClass + " hide",
+					Text = fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue,
+					TextMode = TextBoxMode.Url
 				};
+
 				linkPicker.SetOrAppendCss("advanced-file-picker__output");
+
 				label.ForControl = linkPicker.ID;
 
 				try
@@ -357,8 +368,6 @@ public partial class EditItems : NonCmsBasePage
 					linkPicker.SkinID = field.DefinitionName.Replace(" ", string.Empty);
 				}
 				catch (ArgumentException) { }
-
-				linkPicker.Text = fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue;
 
 				attribs = linkPicker.Attributes;
 				FieldUtils.GetFieldAttributes(field.Attributes, out attribs);
@@ -383,7 +392,6 @@ public partial class EditItems : NonCmsBasePage
 					}
 				}
 
-				linkPicker.TextMode = TextBoxMode.Url;
 				panel.Controls.Add(linkPicker);
 
 				AddUrlBrowserSupport(panel, field, pickerStartFolder);
@@ -392,13 +400,19 @@ public partial class EditItems : NonCmsBasePage
 				{
 
 					var rfv = CreateGenericRFV(linkPicker, field);
-					if (rfv is not null) panel.Controls.Add(rfv);
+					if (rfv is not null)
+					{
+						panel.Controls.Add(rfv);
+					}
 				}
 
 				if (field.Regex.Length > 0)
 				{
 					var regexValidator = CreateRegexValidator(linkPicker, field);
-					if (regexValidator is not null) panel.Controls.Add(regexValidator);
+					if (regexValidator is not null)
+					{
+						panel.Controls.Add(regexValidator);
+					}
 				}
 
 				break;
@@ -408,9 +422,13 @@ public partial class EditItems : NonCmsBasePage
 				{
 					TabIndex = 10,
 					ID = field.Name,
-					CssClass = field.EditPageControlCssClass + " hide"
+					CssClass = field.EditPageControlCssClass + " hide",
+					TextMode = TextBoxMode.Url,
+					Text = fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue
 				};
+
 				imagePicker.SetOrAppendCss("advanced-file-picker__output");
+
 				label.ForControl = imagePicker.ID;
 
 				try
@@ -418,8 +436,6 @@ public partial class EditItems : NonCmsBasePage
 					imagePicker.SkinID = field.DefinitionName.Replace(" ", string.Empty);
 				}
 				catch (ArgumentException) { }
-
-				imagePicker.Text = fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue;
 
 				attribs = imagePicker.Attributes;
 				FieldUtils.GetFieldAttributes(field.Attributes, out attribs);
@@ -442,10 +458,8 @@ public partial class EditItems : NonCmsBasePage
 					{
 						imagePicker.Attributes.Add(key, attribs[key]);
 					}
-
 				}
 
-				imagePicker.TextMode = TextBoxMode.Url;
 				panel.Controls.Add(imagePicker);
 
 				AddUrlBrowserSupport(panel, field, pickerStartFolder, true);
@@ -454,21 +468,31 @@ public partial class EditItems : NonCmsBasePage
 				{
 
 					RequiredFieldValidator rfv = CreateGenericRFV(imagePicker, field);
-					if (rfv is not null) panel.Controls.Add(rfv);
+					if (rfv is not null)
+					{
+						panel.Controls.Add(rfv);
+					}
 				}
 
 				if (field.Regex.Length > 0)
 				{
 					var regexValidator = CreateRegexValidator(imagePicker, field);
-					if (regexValidator is not null) panel.Controls.Add(regexValidator);
+					if (regexValidator is not null)
+					{
+						panel.Controls.Add(regexValidator);
+					}
 				}
 				break;
 			case "checkbox":
-				var checkBox = new CheckBox();
-				checkBox.TabIndex = 10;
-				checkBox.ID = field.Name;
-				checkBox.CssClass = field.EditPageControlCssClass;
+				var checkBox = new CheckBox
+				{
+					TabIndex = 10,
+					ID = field.Name,
+					CssClass = field.EditPageControlCssClass
+				};
+
 				label.ForControl = checkBox.ID;
+
 				try
 				{
 					checkBox.SkinID = field.DefinitionName.Replace(" ", string.Empty);
@@ -513,18 +537,18 @@ public partial class EditItems : NonCmsBasePage
 					};
 
 					label.ForControl = cbl.ID;
+
 					try
 					{
 						cbl.SkinID = field.DefinitionName.Replace(" ", string.Empty);
 					}
 					catch (ArgumentException) { }
 
-
 					var listItems = GetListItemsFromOptions(field.Options);
 
 					var selected = new List<string>();
 
-					cbl.Items.AddRange(listItems.ToArray());
+					cbl.Items.AddRange([.. listItems]);
 
 					if (fieldValue is not null)
 					{
@@ -545,7 +569,10 @@ public partial class EditItems : NonCmsBasePage
 					if (fieldValue is null && selected.Count < 1)
 					{
 						var defaultItem = cbl.Items.FindByValue(field.DefaultValue);
-						if (defaultItem is not null) defaultItem.Selected = true;
+						if (defaultItem is not null)
+						{
+							defaultItem.Selected = true;
+						}
 					}
 
 					attribs = cbl.Attributes;
@@ -583,7 +610,7 @@ public partial class EditItems : NonCmsBasePage
 
 				var newTxt = new TextBox
 				{
-					ID = field.Name + "_newTxt",
+					ID = $"{field.Name}_newTxt",
 					TabIndex = 10,
 					CssClass = field.EditPageControlCssClass
 				};
@@ -615,9 +642,9 @@ public partial class EditItems : NonCmsBasePage
 					dynamicListItems = GetListItemCollectionFromOptions(field.Options);
 				}
 
-				foreach (ItemFieldValue ifv in dynamicOptions)
+				foreach (var ifv in dynamicOptions)
 				{
-					foreach (ListItem dynamicItem in GetListItemsFromOptions(ifv.FieldValue))
+					foreach (var dynamicItem in GetListItemsFromOptions(ifv.FieldValue))
 					{
 						if (!dynamicListItems.Contains(dynamicItem))
 						{
@@ -631,7 +658,7 @@ public partial class EditItems : NonCmsBasePage
 					var selectedItems = GetListItemsFromOptions(fieldValue.FieldValue);
 					if (selectedItems.Count > 0)
 					{
-						foreach (ListItem selected in selectedItems)
+						foreach (var selected in selectedItems)
 						{
 							ListItem staticItem = dynamicListItems.FindByValue(selected.Value);
 							if (staticItem is not null)
@@ -659,7 +686,10 @@ public partial class EditItems : NonCmsBasePage
 					if (fieldValue is null && dcbl.SelectedIndex < 0)
 					{
 						var defaultItem = dcbl.Items.FindByValue(field.DefaultValue);
-						if (defaultItem is not null) defaultItem.Selected = true;
+						if (defaultItem is not null)
+						{
+							defaultItem.Selected = true;
+						}
 					}
 
 					var items = dynamicListItems.Cast<ListItem>().OrderBy(i => i.Text).ToArray();
@@ -671,7 +701,10 @@ public partial class EditItems : NonCmsBasePage
 					if (fieldValue is null && drbl.SelectedIndex < 0)
 					{
 						var defaultItem = drbl.Items.FindByValue(field.DefaultValue);
-						if (defaultItem is not null) defaultItem.Selected = true;
+						if (defaultItem is not null)
+						{
+							defaultItem.Selected = true;
+						}
 					}
 
 					var items = dynamicListItems.Cast<ListItem>().OrderBy(i => i.Text).ToArray();
@@ -732,7 +765,10 @@ public partial class EditItems : NonCmsBasePage
 					if (field.Required)
 					{
 						var rfv = CreateGenericRFV(ddl, field);
-						if (rfv is not null) panel.Controls.Add(rfv);
+						if (rfv is not null)
+						{
+							panel.Controls.Add(rfv);
+						}
 					}
 				}
 				break;
@@ -744,16 +780,17 @@ public partial class EditItems : NonCmsBasePage
 					{
 						TabIndex = 10,
 						ID = field.Name,
-						CssClass = field.EditPageControlCssClass
+						CssClass = field.EditPageControlCssClass,
+						RepeatLayout = RepeatLayout.UnorderedList
 					};
+
 					label.ForControl = radioList.ID;
+
 					try
 					{
 						radioList.SkinID = field.DefinitionName.Replace(" ", string.Empty);
 					}
 					catch (ArgumentException) { }
-
-					radioList.RepeatLayout = RepeatLayout.UnorderedList;
 
 					var listItems = GetListItemsFromOptions(field.Options);
 
@@ -783,7 +820,10 @@ public partial class EditItems : NonCmsBasePage
 				datePicker.ShowMonthList = field.DatePickerShowMonthList;
 				datePicker.ShowYearList = field.DatePickerShowYearList;
 
-				if (datePicker.ShowYearList) datePicker.YearRange = field.DatePickerYearRange;
+				if (datePicker.ShowYearList)
+				{
+					datePicker.YearRange = field.DatePickerYearRange;
+				}
 
 				attribs = datePicker.Attributes;
 				FieldUtils.GetFieldAttributes(field.Attributes, out attribs);
@@ -798,31 +838,40 @@ public partial class EditItems : NonCmsBasePage
 				if (field.Required)
 				{
 					var rfv = CreateGenericRFV(datePicker, field);
-					if (rfv is not null) panel.Controls.Add(rfv);
+					if (rfv is not null)
+					{
+						panel.Controls.Add(rfv);
+					}
 				}
 
-				if (field.Regex.Length > 0)
+				if (!string.IsNullOrWhiteSpace(field.Regex))
 				{
 					var regexValidator = CreateRegexValidator(datePicker, field);
-					if (regexValidator is not null) panel.Controls.Add(regexValidator);
+					if (regexValidator is not null)
+					{
+						panel.Controls.Add(regexValidator);
+					}
 				}
 
 				break;
 			case "date":
-				var calTxt = new TextBox();
-				var calBtn = new Label();
+				var calTxt = new TextBox
+				{
+					ID = field.Name,
+					TabIndex = 10,
+					CssClass = field.EditPageControlCssClass,
+					Text = ParseDateString(field, fieldValue)
+				};
 
-				calTxt.ID = field.Name;
-				calTxt.TabIndex = 10;
-				calTxt.CssClass = field.EditPageControlCssClass;
 				label.ForControl = calTxt.ID;
 
-				calTxt.Text = ParseDateString(field, fieldValue);
-
-				calBtn.ID = field.Name + "_calBtn";
-				calBtn.TabIndex = 10;
-				calBtn.Text = "...";
-				calBtn.CssClass = "btn btn-default";
+				var calBtn = new Label
+				{
+					ID = $"{field.Name}_calBtn",
+					TabIndex = 10,
+					Text = "...",
+					CssClass = "btn btn-default"
+				};
 
 				attribs = calTxt.Attributes;
 				FieldUtils.GetFieldAttributes(field.Attributes, out attribs);
@@ -839,13 +888,19 @@ public partial class EditItems : NonCmsBasePage
 				if (field.Required)
 				{
 					var rfv = CreateGenericRFV(calTxt, field);
-					if (rfv is not null) panel.Controls.Add(rfv);
+					if (rfv is not null)
+					{
+						panel.Controls.Add(rfv);
+					}
 				}
 
 				if (field.Regex.Length > 0)
 				{
 					var regexValidator = CreateRegexValidator(calTxt, field);
-					if (regexValidator is not null) panel.Controls.Add(regexValidator);
+					if (regexValidator is not null)
+					{
+						panel.Controls.Add(regexValidator);
+					}
 				}
 
 				break;
@@ -859,7 +914,10 @@ public partial class EditItems : NonCmsBasePage
 						{
 							var sc = uc as ISettingControl;
 							if (!IsPostBack)
+							{
 								sc.SetValue(fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue);
+							}
+
 							uc.ID = field.Name;
 							label.ForControl = uc.ID;
 
@@ -898,7 +956,7 @@ public partial class EditItems : NonCmsBasePage
 								}
 								else
 								{
-									log.Error("setting control " + field.ControlSrc + " does not implement ISettingControl");
+									log.Error($"setting control {field.ControlSrc} does not implement ISettingControl");
 								}
 							}
 
@@ -925,7 +983,10 @@ public partial class EditItems : NonCmsBasePage
 						{
 							var sc = uc as ICustomField;
 							if (!IsPostBack)
+							{
 								sc.SetValue(fieldValue is not null ? fieldValue.FieldValue : field.DefaultValue);
+							}
+
 							uc.ID = field.Name;
 							label.ForControl = uc.ID;
 
@@ -970,7 +1031,7 @@ public partial class EditItems : NonCmsBasePage
 								}
 								else
 								{
-									log.Error("setting control " + field.ControlSrc + " does not implement ICustomControl");
+									log.Error($"setting control {field.ControlSrc} does not implement ICustomControl");
 								}
 							}
 						}
@@ -1072,7 +1133,6 @@ public partial class EditItems : NonCmsBasePage
 		var listItems = new List<ListItem>();
 		foreach (string option in options)
 		{
-			//var opt = option.SplitOnCharAndTrim('|');
 			var opt = option.Split(['|', '^']).Select(x => x.Trim()).ToList();
 
 			if (opt.Count < 2)
@@ -1144,7 +1204,7 @@ public partial class EditItems : NonCmsBasePage
 	private ListItemCollection GetListItemCollectionFromOptions(string fieldOptions)
 	{
 		var lic = new ListItemCollection();
-		lic.AddRange(GetListItemsFromOptions(fieldOptions).ToArray());
+		lic.AddRange([.. GetListItemsFromOptions(fieldOptions)]);
 		return lic;
 	}
 
@@ -1156,19 +1216,21 @@ public partial class EditItems : NonCmsBasePage
 	/// <returns></returns>
 	private static RegularExpressionValidator CreateRegexValidator(Control theControl, Field field)
 	{
-		var regexValidator = new RegularExpressionValidator();
+		var regexValidator = new RegularExpressionValidator
+		{
+			ControlToValidate = theControl.ID,
+			ValidationExpression = field.Regex,
+			ValidationGroup = "flexi",
+			ErrorMessage = string.Format(field.RegexMessageFormat, field.Label),
+			Text = string.Format(field.RegexMessageFormat, field.Label)
+		};
+
 		try
 		{
 			regexValidator.SkinID = field.DefinitionName.Replace(" ", string.Empty);
 		}
 		catch (ArgumentException) { }
 
-		regexValidator.ControlToValidate = theControl.ID;
-		regexValidator.ValidationExpression = field.Regex;
-		regexValidator.ValidationGroup = "flexi";
-
-		regexValidator.ErrorMessage = string.Format(field.RegexMessageFormat, field.Label);
-		regexValidator.Text = string.Format(field.RegexMessageFormat, field.Label);
 		return regexValidator;
 	}
 
@@ -1196,7 +1258,7 @@ public partial class EditItems : NonCmsBasePage
 		return rfv;
 	}
 
-	private static CompareValidator CreateDateValidator (Control theControl, Field field)
+	private static CompareValidator CreateDateValidator(Control theControl, Field field)
 	{
 		var valDate = new CompareValidator
 		{
@@ -1217,39 +1279,42 @@ public partial class EditItems : NonCmsBasePage
 
 	private static DatePickerControl CreateDatePicker(Field field, ItemFieldValue fieldValue)
 	{
-
-		var datePicker = new DatePickerControl();
-		try
+		var datePicker = new DatePickerControl
 		{
-			datePicker.SkinID = field.Name.Replace(" ", string.Empty);
-		}
-		catch (ArgumentException) { }
-		datePicker.ID = "dp" + field.Name;
-		datePicker.ShowMonthList = field.DatePickerShowMonthList;
-		datePicker.ShowYearList = field.DatePickerShowYearList;
+			ID = $"dp{field.Name}",
+			ShowMonthList = field.DatePickerShowMonthList,
+			ShowYearList = field.DatePickerShowYearList,
+			Text = ParseDateString(field, fieldValue),
+			ShowTime = field.DatePickerIncludeTimeForDate
+		};
+
 		if (field.DatePickerYearRange.Length > 0)
 		{
 			datePicker.YearRange = field.DatePickerYearRange;
 		}
 
-		datePicker.Text = ParseDateString(field, fieldValue);
-
-		datePicker.ShowTime = field.DatePickerIncludeTimeForDate;
+		try
+		{
+			datePicker.SkinID = field.Name.Replace(" ", string.Empty);
+		}
+		catch (ArgumentException) { }
 
 		return datePicker;
 	}
 
 	private static string ParseDateString(Field field, ItemFieldValue fieldValue)
 	{
-		TimeZoneInfo timeZone = SiteUtils.GetUserTimeZone();
+		var timeZone = SiteUtils.GetUserTimeZone();
 
 		string dateString = string.Empty;
 		if (fieldValue is not null)
 		{
 			if (DateTime.TryParse(
-				fieldValue.FieldValue,
-				CultureInfo.CurrentCulture,
-			DateTimeStyles.AdjustToUniversal, out DateTime dt))
+					fieldValue.FieldValue,
+					CultureInfo.CurrentCulture,
+					DateTimeStyles.AdjustToUniversal, out DateTime dt
+					)
+				)
 			{
 
 				if (field.DatePickerIncludeTimeForDate)
@@ -1299,6 +1364,7 @@ public partial class EditItems : NonCmsBasePage
 	private void UpdateBtn_Click(object sender, EventArgs e)
 	{
 		Page.Validate("flexi");
+
 		if (!Page.IsValid)
 		{
 			updateButton.Enabled = true;
@@ -1338,14 +1404,17 @@ public partial class EditItems : NonCmsBasePage
 				return;
 			}
 
-			if (fields is null) return;
+			if (fields is null)
+			{
+				return;
+			}
 
 			foreach (var field in fields)
 			{
 				SaveFieldValue(customControls, field);
 			}
 
-			//so indexing is a pain in the ass with how superflexi works so we're going to save the item again to fire contentchanged AFTER our field values have been saved
+			//so indexing is a nuisance with how superflexi works so we're going to save the item again to fire contentchanged AFTER our field values have been saved
 			//we totally need to do something different
 			item.ContentChanged += new ContentChangedEventHandler(sflexiItem_ContentChanged);
 			item.Save();
@@ -1366,7 +1435,7 @@ public partial class EditItems : NonCmsBasePage
 	/// <param name="field"></param>
 	private void SaveFieldValue(Panel controlsPanel, Field field)
 	{
-		string controlID = field.Name;
+		var controlID = field.Name;
 
 		var fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 		ItemFieldValue fieldValue;
@@ -1420,26 +1489,16 @@ public partial class EditItems : NonCmsBasePage
 					{
 						fieldValue.FieldValue = field.CheckBoxReturnValueWhenFalse;
 					}
-					//we used to do this but we don't really care if the returnvaluewhen* has a value or not.
-					//allowing for blanks here is useful when using the PreTokenString and PostTokenString because then we can hide entire items by putting the markup and field tokens in the pre/posttokenstrings
-					//else if (!String.IsNullOrWhiteSpace(field.CheckBoxReturnValueWhenTrue) && !String.IsNullOrWhiteSpace(field.CheckBoxReturnValueWhenFalse))
-					//{
-					//   if (cbox.Checked)
-					//   {
-					//	   fieldValue.FieldValue = field.CheckBoxReturnValueWhenTrue;
-					//   }
-					//   else
-					//   {
-					//	   fieldValue.FieldValue = field.CheckBoxReturnValueWhenFalse;
-					//   }
-					//}
 					break;
 				case "checkboxlist":
 					var cbl = (CheckBoxList)control;
 					string selected = string.Empty;
 					foreach (ListItem cboxItem in cbl.Items)
 					{
-						if (cboxItem.Selected) selected += cboxItem.Value + ";";
+						if (cboxItem.Selected)
+						{
+							selected += $"{cboxItem.Value};";
+						}
 					}
 					fieldValue.FieldValue = selected.TrimEnd(';');
 					break;
@@ -1448,6 +1507,7 @@ public partial class EditItems : NonCmsBasePage
 					ListItemCollection dynamicListItems;
 					CheckBoxList dcbl;
 					RadioButtonList drbl;
+
 					if (controlType == "dynamiccheckboxlist")
 					{
 						dcbl = (CheckBoxList)control;
@@ -1458,10 +1518,10 @@ public partial class EditItems : NonCmsBasePage
 						drbl = (RadioButtonList)control;
 						dynamicListItems = drbl.Items;
 					}
+
 					var newTxt = (TextBox)ControlExtensions.FindControlRecursive(controlsPanel, controlID + "_newTxt");
 					var dynamicList_selectedItems = new List<string>();
 					var dynamicList_selected = string.Empty;
-
 
 					if (controlType == "dynamiccheckboxlist")
 					{
@@ -1469,12 +1529,15 @@ public partial class EditItems : NonCmsBasePage
 
 						foreach (ListItem dynamicItem in dynamicListItems)
 						{
-							if (dynamicItem.Selected) dynamicList_selectedItems.Add(dynamicItem.Value);
+							if (dynamicItem.Selected)
+							{
+								dynamicList_selectedItems.Add(dynamicItem.Value);
+							}
 						}
 
 						foreach (string val in dynamicList_selectedItems.Distinct(StringComparer.CurrentCultureIgnoreCase))
 						{
-							dynamicList_selected += val + ";";
+							dynamicList_selected += $"{val};";
 						}
 					}
 					else
@@ -1514,13 +1577,22 @@ public partial class EditItems : NonCmsBasePage
 					if ((dp is not null && dp.Text.Length > 0) || (calText is not null && calText.Text.Length > 0))
 					{
 						string textValue = string.Empty;
-						if (dp is not null) textValue = dp.Text;
-						if (calText is not null) textValue = calText.Text;
+						if (dp is not null)
+						{
+							textValue = dp.Text;
+						}
+
+						if (calText is not null)
+						{
+							textValue = calText.Text;
+						}
 
 						if (DateTime.TryParse(
-							textValue,
-							CultureInfo.CurrentCulture,
-							DateTimeStyles.AdjustToUniversal, out DateTime dt))
+								textValue,
+								CultureInfo.CurrentCulture,
+								DateTimeStyles.AdjustToUniversal, out DateTime dt
+								)
+							)
 						{
 
 							if (field.DatePickerIncludeTimeForDate)
@@ -1550,12 +1622,15 @@ public partial class EditItems : NonCmsBasePage
 					break;
 
 			}
+
 			fieldValue.Save();
+
 			if (field.Name == config.ItemViewRolesFieldName)
 			{
 				item.ViewRoles = fieldValue.FieldValue;
 				item.Save();
 			}
+
 			if (field.Name == config.ItemEditRolesFieldName)
 			{
 				item.EditRoles = fieldValue.FieldValue;
@@ -1567,10 +1642,7 @@ public partial class EditItems : NonCmsBasePage
 	void sflexiItem_ContentChanged(object sender, ContentChangedEventArgs e)
 	{
 		var indexBuilder = IndexBuilderManager.Providers["SuperFlexiIndexBuilderProvider"];
-		if (indexBuilder is not null)
-		{
-			indexBuilder.ContentChangedHandler(sender, e);
-		}
+		indexBuilder?.ContentChangedHandler(sender, e);
 	}
 
 	private void DeleteBtn_Click(object sender, EventArgs e)
@@ -1602,11 +1674,11 @@ public partial class EditItems : NonCmsBasePage
 	{
 		if (hdnReturnUrl.Value.Length > 0)
 		{
-			WebUtils.SetupRedirect(this, hdnReturnUrl.Value + "#module" + moduleId.ToString());
+			WebUtils.SetupRedirect(this, $"{hdnReturnUrl.Value}#module{moduleId.ToString()}");
 			return;
 		}
 
-		WebUtils.SetupRedirect(this, SiteUtils.GetCurrentPageUrl() + "#module" + moduleId.ToString());
+		WebUtils.SetupRedirect(this, $"{SiteUtils.GetCurrentPageUrl()}#module{moduleId.ToString()}");
 		return;
 	}
 
@@ -1636,44 +1708,46 @@ public partial class EditItems : NonCmsBasePage
 
 	private void LoadSettings()
 	{
-		moduleSettings = ModuleSettings.GetModuleSettings(moduleId);
-
 		//we want to get the module using this method because it will let the module be editable when placed on the page with a ModuleWrapper
 		module = SuperFlexiHelpers.GetSuperFlexiModule(moduleId);
+
 		if (module is null)
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;
 
 		}
+
 		config = new ModuleConfiguration(module, reloadDefinitionFromDisk: true);
 
 		lnkCancel.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 
-		AddClassToBody("flexi-edit " + config.EditPageCssClass);
+		AddClassToBody($"flexi-edit {config.EditPageCssClass}");
 	}
 
 	private void SetupScripts()
 	{
-		var rawScript = @"var systemKeys = { 
-		""moduleTitle"": ""$_RawModuleTitle_$"",
-		""moduleID"": ""$_ModuleID_$"",
-		""pageID"": ""$_PageID_$"",
-		""moduleClass"": ""$_ModuleClass_$"",
-		""siteID"": ""$_SiteID_$"",
-		""siteRoot"": ""$_SiteRoot_$"",
-		""skinPath"": ""$_SkinPath_$"",
-		""customSettings"": ""$_CustomSettings_$"",
-		""editorType"": ""$_EditorType_$"",
-		""editorSkin"": ""$_EditorSkin_$"",
-		""editorBasePath"": ""$_EditorBasePath_$"",
-		""editorConfigPath"": ""$_EditorConfigPath_$"",
-		""editorToolbarSet"": ""$_EditorToolbarSet_$"",
-		""editorTemplatesUrl"": ""$_EditorTemplatesUrl_$"",
-		""editorStylesUrl"": ""$_EditorStylesUrl_$"",
-		""dropFileUploadUrl"": ""$_DropFileUploadUrl_$"",
-		""fileBrowserUrl"": ""$_FileBrowserUrl_$""
-		};";
+		var rawScript = """
+			var systemKeys = { 
+				"moduleTitle": "$_RawModuleTitle_$",
+				"moduleID": "$_ModuleID_$",
+				"pageID": "$_PageID_$",
+				"moduleClass": "$_ModuleClass_$",
+				"siteID": "$_SiteID_$",
+				"siteRoot": "$_SiteRoot_$",
+				"skinPath": "$_SkinPath_$",
+				"customSettings": "$_CustomSettings_$",
+				"editorType": "$_EditorType_$",
+				"editorSkin": "$_EditorSkin_$",
+				"editorBasePath": "$_EditorBasePath_$",
+				"editorConfigPath": "$_EditorConfigPath_$",
+				"editorToolbarSet": "$_EditorToolbarSet_$",
+				"editorTemplatesUrl": "$_EditorTemplatesUrl_$",
+				"editorStylesUrl": "$_EditorStylesUrl_$",
+				"dropFileUploadUrl": "$_DropFileUploadUrl_$",
+				"fileBrowserUrl": "$_FileBrowserUrl_$"
+				};
+			""";
 
 		SuperFlexiHelpers.ReplaceStaticTokens(new StringBuilder(rawScript), config, true, displaySettings, module, CurrentPage, SiteInfo, out StringBuilder script);
 

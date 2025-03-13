@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Xml;
-using System.Xml.Linq;
 using log4net;
 using mojoPortal.FileSystem;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
 using SuperFlexiBusiness;
-using Core = mojoPortal.Core;
 
 namespace SuperFlexiUI;
 
@@ -27,7 +23,7 @@ public class FieldUtils
 	/// <param name="deleteOrphans"></param>
 	public static void SaveFieldsToDB(ModuleConfiguration config, Guid siteGuid, Guid featureGuid, bool deleteOrphans = false)
 	{
-		List<Field> fields = ParseFieldDefinitionXml(config, siteGuid);
+		var fields = ParseFieldDefinitionXml(config, siteGuid);
 		//List<MarkupScript> editPageScripts = ParseEditPageScript
 		SaveFieldsToDB(fields, siteGuid, featureGuid, deleteOrphans);
 
@@ -40,8 +36,7 @@ public class FieldUtils
 	/// <param name="featureGuid"></param>
 	public static void SaveFieldsToDB(List<Field> definedFields, Guid siteGuid, Guid featureGuid, bool deleteOrphans = false)
 	{
-
-		Guid definitionGuid = Guid.Empty;
+		var definitionGuid = Guid.Empty;
 		if (definedFields.Count > 0)
 		{
 			definitionGuid = definedFields[0].DefinitionGuid;
@@ -52,15 +47,15 @@ public class FieldUtils
 			return;
 		}
 
-		List<Field> savedFields = Field.GetAllForDefinition(definitionGuid, true);
+		var savedFields = Field.GetAllForDefinition(definitionGuid, true);
 
-		FieldComparer fieldComp = new FieldComparer();
-		SimpleFieldComparer simpleFieldComp = new SimpleFieldComparer();
-		List<Field> matchedFields = savedFields.Where(i => definedFields.Contains(i, simpleFieldComp)).ToList<Field>();
+		var fieldComp = new FieldComparer();
+		var simpleFieldComp = new SimpleFieldComparer();
+		var matchedFields = savedFields.Where(i => definedFields.Contains(i, simpleFieldComp)).ToList();
 
-		foreach (Field match in matchedFields)
+		foreach (var match in matchedFields)
 		{
-			Field updatedField = definedFields.Where(i => i.Name == match.Name).Single();
+			var updatedField = definedFields.Where(i => i.Name == match.Name).Single();
 			if (updatedField != null && !savedFields.Contains(updatedField, fieldComp))
 			{
 				updatedField.IsDeleted = false; //in case field was deleted, we're going to undelete it 
@@ -71,9 +66,9 @@ public class FieldUtils
 			}
 		}
 
-		List<Field> newFields = definedFields.Except(matchedFields, simpleFieldComp).ToList();
+		var newFields = definedFields.Except(matchedFields, simpleFieldComp).ToList();
 
-		foreach (Field newField in newFields)
+		foreach (var newField in newFields)
 		{
 			newField.SiteGuid = siteGuid;
 			newField.FeatureGuid = featureGuid;
@@ -86,11 +81,11 @@ public class FieldUtils
 		/// orphans are those fields which exist in the db but no longer exist in the definition
 		/// if we don't delete the fields, they will continue to show up on the edit page. 
 		/// If we delete the fields we have to delete any values associated with them.
-		List<Field> orphans = savedFields.Except(matchedFields, simpleFieldComp).ToList();
+		var orphans = savedFields.Except(matchedFields, simpleFieldComp).ToList();
 
 		if (deleteOrphans)
 		{
-			foreach (Field orphan in orphans)
+			foreach (var orphan in orphans)
 			{
 				ItemFieldValue.DeleteByField(orphan.FieldGuid);
 				Field.Delete(orphan.FieldGuid);
@@ -98,7 +93,7 @@ public class FieldUtils
 		}
 		else
 		{
-			foreach (Field orphan in orphans)
+			foreach (var orphan in orphans)
 			{
 				Field.MarkAsDeleted(orphan.FieldGuid);
 			}
@@ -109,48 +104,16 @@ public class FieldUtils
 	{
 		doc = new XmlDocument();
 
-		FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-		if (p == null)
-		{
-			log.Error("File System Provider Could Not Be Loaded.");
-			return false;
-		}
-		IFileSystem fileSystem = p.GetFileSystem();
-		if (fileSystem == null)
-		{
-			log.Error("File System Could Not Be Loaded.");
-			return false;
-		}
+		var fileSystem = FileSystemHelper.LoadFileSystem();
 
-		//if (path.IndexOf("~", 0) < 0) path = "~" + path;
-		//string fullPath = string.Empty;
-
-		//try
-		//{
-		//	fullPath = HttpContext.Current.Server.MapPath(path);
-		//}
-		//catch(System.Web.HttpException ex)
-		//{
-		//	fullPath = path;
-		//}
-
-
-
-		//if (!File.Exists(fullPath))
-		//{
-		//	path = "~" + path;
-		//	fullPath = HttpContext.Current.Server.MapPath(path);
-		//}
 		if (fileSystem.FileExists(path))
-		//if (File.Exists(fullPath))
 		{
 			WebFile webFile = fileSystem.RetrieveFile(path);
-			//FileInfo fileInfo = new FileInfo(fullPath);
 
 			try
 			{
 				//doc.Load(fileInfo.FullName);
-				doc = Core.Helpers.XmlHelper.GetXmlDocument(webFile.Path);
+				doc = XmlHelper.GetXmlDocument(webFile.Path);
 				return true;
 			}
 			catch (XmlException ex)
@@ -174,18 +137,7 @@ public class FieldUtils
 	{
 		var fields = new List<Field>();
 
-		var p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-		if (p is null)
-		{
-			log.Error("File System Provider Could Not Be Loaded.");
-			return fields;
-		}
-		var fileSystem = p.GetFileSystem();
-		if (fileSystem is null)
-		{
-			log.Error("File System Could Not Be Loaded.");
-			return fields;
-		}
+		var fileSystem = FileSystemHelper.LoadFileSystem();
 
 		//implemented "solutions" on 9/13/2017 (mojoPortal 2.6.0.0) which allows for markup definitions and field definitions to be wrapped up in a single folder
 		//b/c of this, we added the ability to pull the field definition file from the location of the markup definition (.sfmarkup) file w/o needing to use the full path in the fieldDefinitionSrc property
@@ -197,7 +149,7 @@ public class FieldUtils
 		}
 		else if (config.FieldDefinitionSrc.StartsWith("/"))
 		{
-			solutionFieldDefSrc = "~" + config.FieldDefinitionSrc;
+			solutionFieldDefSrc = $"~{config.FieldDefinitionSrc}";
 		}
 		else
 		{
@@ -282,38 +234,41 @@ public class FieldUtils
 								}
 								field.ViewRoles = viewRoles;
 							}
-							if (itemDefAttribs["editRoles"] != null) field.EditRoles = itemDefAttribs["editRoles"].Value;
+							if (itemDefAttribs["editRoles"] != null)
+							{
+								field.EditRoles = itemDefAttribs["editRoles"].Value;
+							}
 
-							StringBuilder options = new StringBuilder();
-							StringBuilder attributes = new StringBuilder();
+							var options = new StringBuilder();
+							var attributes = new StringBuilder();
 							foreach (XmlNode subNode in childNode)
 							{
-								switch (subNode.Name)
+								switch (subNode.Name.ToLower())
 								{
-									case "Options":
-										options = Core.Helpers.XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+									case "options":
+										options = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
 										//GetKeyValuePairs(subNode.ChildNodes, out options);
 										break;
-									case "Attributes":
-										attributes = Core.Helpers.XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+									case "attributes":
+										attributes = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
 										//GetKeyValuePairs(subNode.ChildNodes, out attributes);
 										break;
-									case "PreTokenString":
+									case "pretokenstring":
 										field.PreTokenString = subNode.InnerText.Trim();
 										break;
-									case "PostTokenString":
+									case "posttokenstring":
 										field.PostTokenString = subNode.InnerText.Trim();
 										break;
-									case "PreTokenStringWhenTrue":
+									case "pretokenstringwhentrue":
 										field.PreTokenStringWhenTrue = subNode.InnerText.Trim();
 										break;
-									case "PostTokenStringWhenTrue":
+									case "posttokenstringwhentrue":
 										field.PostTokenStringWhenTrue = subNode.InnerText.Trim();
 										break;
-									case "PreTokenStringWhenFalse":
+									case "pretokenstringwhenfalse":
 										field.PreTokenStringWhenFalse = subNode.InnerText.Trim();
 										break;
-									case "PostTokenStringWhenFalse":
+									case "posttokenstringwhenfalse":
 										field.PostTokenStringWhenFalse = subNode.InnerText.Trim();
 										break;
 								}
@@ -331,34 +286,34 @@ public class FieldUtils
 
 							fields.Add(field);
 						}
-						catch (System.Xml.XmlException ex)
+						catch (XmlException ex)
 						{
 							log.Error(ex);
 						}
 					}
-					else if (childNode.Name == "Scripts")
+					else if (childNode.Name.ToLower() == "scripts")
 					{
 						try
 						{
 							config.EditPageScripts = SuperFlexiHelpers.ParseScriptsFromXmlNode(childNode);
 						}
-						catch (System.Xml.XmlException ex)
+						catch (XmlException ex)
 						{
 							log.Error(ex);
 						}
 					}
-					else if (childNode.Name == "Styles")
+					else if (childNode.Name.ToLower() == "styles")
 					{
 						try
 						{
 							config.EditPageCSS = SuperFlexiHelpers.ParseCssFromXmlNode(childNode);
 						}
-						catch (System.Xml.XmlException ex)
+						catch (XmlException ex)
 						{
 							log.Error(ex);
 						}
 					}
-					else if (childNode.Name == "SearchDefinition")
+					else if (childNode.Name.ToLower() == "searchdefinition")
 					{
 						try
 						{
@@ -380,31 +335,6 @@ public class FieldUtils
 		return fields;
 	}
 
-	//private static void GetKeyValuePairs(XmlNodeList nodes, out StringBuilder sb)
-	//{
-
-	//    sb = new StringBuilder();
-	//    foreach (XmlNode node in nodes)
-	//    {
-	//        XmlAttributeCollection attribs = node.Attributes;
-	//        if (attribs["name"] != null)
-	//        {
-	//            if (!String.IsNullOrWhiteSpace(attribs["name"].Value))
-	//            {
-	//                string opValue = " ";
-	//                if (attribs["value"] != null && !String.IsNullOrWhiteSpace(attribs["value"].Value))
-	//                {
-	//                    opValue = attribs["value"].Value;
-	//                }
-	//                string option = attribs["name"].Value + "|" + opValue;
-
-	//                sb.Append(option + ";");
-	//            }
-	//        }
-	//    }
-
-	//}
-
 	public static void GetFieldAttributes(string p, out AttributeCollection attribCollection)
 	{
 		var attributes = p.SplitOnChar(';');
@@ -412,8 +342,8 @@ public class FieldUtils
 		attribCollection = new AttributeCollection(bag);
 		foreach (string attribute in attributes)
 		{
-			List<string> attr = attribute.SplitOnCharAndTrim('|');
-			if (attr.Count < 2 )
+			var attr = attribute.SplitOnCharAndTrim('|');
+			if (attr.Count < 2)
 			{
 				//no value so we set the value equal to the name
 				attr.Add(attr[0]);
@@ -425,8 +355,9 @@ public class FieldUtils
 	public static bool EnsureFields(Guid siteGuid, ModuleConfiguration config, out List<Field> savedFields, bool deleteOrphanedFieldValues = false)
 	{
 		savedFields = null;
-		List<Field> definedFields = ParseFieldDefinitionXml(config, siteGuid);
-		FieldComparer fieldComp = new FieldComparer();
+		var definedFields = ParseFieldDefinitionXml(config, siteGuid);
+		var fieldComp = new FieldComparer();
+
 		if (config.FieldDefinitionGuid != Guid.Empty)
 		{
 			savedFields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
@@ -438,18 +369,15 @@ public class FieldUtils
 
 		bool fieldsChanged = false;
 
-
-
 		if (savedFields != null)
 		{
-
 			if (savedFields.Count != definedFields.Count)
 			{
 				fieldsChanged = true;
 			}
 			else
 			{
-				foreach (Field definedField in definedFields)
+				foreach (var definedField in definedFields)
 				{
 					if (!savedFields.Contains(definedField, fieldComp))
 
@@ -464,7 +392,7 @@ public class FieldUtils
 
 		if (savedFields == null || fieldsChanged)
 		{
-			FieldUtils.SaveFieldsToDB(definedFields, siteGuid, config.FeatureGuid, deleteOrphanedFieldValues);
+			SaveFieldsToDB(definedFields, siteGuid, config.FeatureGuid, deleteOrphanedFieldValues);
 			savedFields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
 		}
 
