@@ -33,7 +33,7 @@ public partial class RecentContentModule : SiteModuleControl
 
 	private void PopulateControls()
 	{
-		if (ModuleConfiguration != null)
+		if (ModuleConfiguration is not null)
 		{
 			Title = ModuleConfiguration.ModuleTitle;
 			Description = ModuleConfiguration.FeatureName;
@@ -230,6 +230,7 @@ public class RecentContentConfiguration
 		MaxDaysOldRecentItemsToGet = settings.ParseInt32("MaxDaysOldRecentItemsToGet", MaxDaysOldRecentItemsToGet);
 		SearchableFeature = settings.ParseString("SearchableFeature", SearchableFeature);
 		EnableFeed = settings.ParseBool("EnableFeed", EnableFeed);
+
 		if (EnableFeed && SiteUtils.DisableRecentContentFeed(CacheHelper.GetCurrentSiteSettings()))
 		{
 			EnableFeed = false;
