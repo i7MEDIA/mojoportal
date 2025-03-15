@@ -11,6 +11,7 @@ using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
 using Resources;
+using static mojoPortal.Web.WindowsLiveLogin;
 
 namespace mojoPortal.Web.UI.Pages;
 
@@ -42,7 +43,7 @@ public partial class UserProfile : NonCmsBasePage
 
 		Load += new EventHandler(Page_Load);
 		btnUpdate.Click += new EventHandler(btnUpdate_Click);
-		btnUpdateAvartar.Click += new System.Web.UI.ImageClickEventHandler(btnUpdateAvartar_Click);
+		btnUpdateAvatar.Click += new EventHandler(btnUpdateAvatar_Click);
 
 		if (Global.SkinConfig.MenuOptions.HideOnProfile)
 		{
@@ -54,7 +55,6 @@ public partial class UserProfile : NonCmsBasePage
 		}
 
 		SuppressMenuSelection();
-		SetupAvatarScript();
 	}
 
 	#endregion
@@ -97,6 +97,8 @@ public partial class UserProfile : NonCmsBasePage
 		{
 			PopulateControls();
 		}
+
+		PopulateAvatar();
 	}
 
 	private void PopulateControls()
@@ -170,17 +172,20 @@ public partial class UserProfile : NonCmsBasePage
 					chkEnableLiveMessengerOnProfile.Enabled = false;
 				}
 			}
-
-			userAvatar.UseGravatar = allowGravatars;
-			userAvatar.Email = siteUser.Email;
-			userAvatar.UserName = siteUser.Name;
-			userAvatar.UserId = siteUser.UserId;
-			userAvatar.AvatarFile = siteUser.AvatarUrl;
-			userAvatar.MaxAllowedRating = MaxAllowedGravatarRating;
-			userAvatar.Disable = disableAvatars;
-			userAvatar.SiteId = siteSettings.SiteId;
-			userAvatar.UseLink = false;
 		}
+	}
+
+	private void PopulateAvatar()
+	{
+		userAvatar.UseGravatar = allowGravatars;
+		userAvatar.Email = siteUser.Email;
+		userAvatar.UserName = siteUser.Name;
+		userAvatar.UserId = siteUser.UserId;
+		userAvatar.AvatarFile = siteUser.AvatarUrl;
+		userAvatar.MaxAllowedRating = MaxAllowedGravatarRating;
+		userAvatar.Disable = disableAvatars;
+		userAvatar.SiteId = siteSettings.SiteId;
+		userAvatar.UseLink = false;
 	}
 
 	private void PopulateProfileControls()
@@ -418,6 +423,12 @@ public partial class UserProfile : NonCmsBasePage
 				if (siteUser != null)
 				{
 					lnkAvatarUpld.NavigateUrl = "Dialog/AvatarUploadDialog.aspx".ToLinkBuilder().AddParam("u", siteUser.UserId).ToString();
+					lnkAvatarUpld.Attributes.Add("data-size", "fluid-xlarge");
+					lnkAvatarUpld.Attributes.Add("data-modal", string.Empty);
+					lnkAvatarUpld.Attributes.Add("data-close-text", Resource.SaveButton);
+					lnkAvatarUpld.Attributes.Add("data-modal-type", "iframe");
+					lnkAvatarUpld.Attributes.Add("data-height", "full");
+					lnkAvatarUpld.Attributes.Add("data-callback", $"document.getElementById('{btnUpdateAvatar.ClientID}')?.click();");
 				}
 
 				if (WebConfigSettings.AvatarsCanOnlyBeUploadedByAdmin)
@@ -425,6 +436,9 @@ public partial class UserProfile : NonCmsBasePage
 					lnkAvatarUpld.Visible = false;
 					avatarHelp.Visible = false;
 				}
+
+
+
 				break;
 
 			case "none":
@@ -493,7 +507,6 @@ public partial class UserProfile : NonCmsBasePage
 
 		if (WebConfigSettings.GloballyDisableMemberUseOfWindowsLiveMessenger
 			|| !siteSettings.AllowWindowsLiveMessengerForMembers
-			|| siteSettings.WindowsLiveAppId.Length == 0
 			&& ConfigurationManager.AppSettings["GlobalWindowsLiveAppKey"] == null
 		)
 		{
@@ -578,11 +591,10 @@ public partial class UserProfile : NonCmsBasePage
 		QuestionRequired.ErrorMessage = Resource.RegisterSecurityQuestionRequiredMessage;
 		AnswerRequired.ErrorMessage = Resource.RegisterSecurityAnswerRequiredMessage;
 
-		lnkAvatarUpld.Text = Resource.UploadAvatarLink;
-		lnkAvatarUpld.ToolTip = Resource.UploadAvatarLink;
+		lnkAvatarUpld.Text = Resource.UploadAvatarHeading;
+		lnkAvatarUpld.ToolTip = Resource.UploadAvatarHeading;
 
-		btnUpdateAvartar.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/1x1.gif");
-		btnUpdateAvartar.Attributes.Add("tabIndex", "-1");
+		btnUpdateAvatar.Attributes.Add("tabIndex", "-1");
 
 		if (allowGravatars)
 		{
@@ -615,7 +627,7 @@ public partial class UserProfile : NonCmsBasePage
 		pnlSecurityQuestion.Visible = siteSettings.RequiresQuestionAndAnswer;
 	}
 
-	private void btnUpdateAvartar_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+	private void btnUpdateAvatar_Click(object sender, EventArgs e)
 	{
 		// this is fired when the avatar upload dialog is closed
 		// we don't really know for sure if the image was updated
@@ -623,49 +635,49 @@ public partial class UserProfile : NonCmsBasePage
 		// so we'll check if the files was modified recently, and if so rename it
 		if (siteUser != null && siteUser.AvatarUrl.Length > 0)
 		{
-			var p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+			var fileSystem = FileSystemHelper.LoadFileSystem();
+			string avatarBasePath = Invariant($"~/Data/Sites/{siteSettings.SiteId}/useravatars/");
+			WebFile avatarFile = fileSystem.RetrieveFile(avatarBasePath + siteUser.AvatarUrl);
 
-			if (p != null)
+			if (avatarFile != null)
 			{
-				IFileSystem fileSystem = p.GetFileSystem();
-				string avatarBasePath = Invariant($"~/Data/Sites/{siteSettings.SiteId}/useravatars/");
-				WebFile avatarFile = fileSystem.RetrieveFile(avatarBasePath + siteUser.AvatarUrl);
-
-				if (avatarFile != null)
+				if (avatarFile.Modified > DateTime.Today)
 				{
-					if (avatarFile.Modified > DateTime.Today)
-					{
-						// it was updated today so we'll assume it was just now since the avatar dialog just closed
-						string newfileName = Invariant($"user{siteUser.UserId}-{siteUser.Name.ToCleanFileName()}-{DateTime.UtcNow.Millisecond.ToInvariantString()}{System.IO.Path.GetExtension(siteUser.AvatarUrl)}");
-						fileSystem.MoveFile(avatarBasePath + siteUser.AvatarUrl, avatarBasePath + newfileName, true);
-						siteUser.AvatarUrl = newfileName;
-						siteUser.Save();
-					}
+					// it was updated today so we'll assume it was just now since the avatar dialog just closed
+					string newfileName = Invariant($"user{siteUser.UserId}-{siteUser.Name.ToCleanFileName()}-{DateTime.UtcNow.Millisecond.ToInvariantString()}{System.IO.Path.GetExtension(siteUser.AvatarUrl)}");
+					fileSystem.MoveFile(avatarBasePath + siteUser.AvatarUrl, avatarBasePath + newfileName, true);
+					siteUser.AvatarUrl = newfileName;
+					siteUser.Save();
+
+					userAvatar.AvatarFile = siteUser.AvatarUrl;
+
+					upAvatar.Update();
 				}
 			}
 		}
 
-		WebUtils.SetupRedirect(this, Request.RawUrl);
+		//WebUtils.SetupRedirect(this, Request.RawUrl);
+		
 	}
 
-	private void SetupAvatarScript()
-	{
-		var script = $$"""
-			<script data-loader="UserProfile.aspx">
-				$('#{{lnkAvatarUpld.ClientID}}').colorbox({
-					width: '80%',
-					height: '80%',
-					iframe: true,
-					onClosed: () => {
-						const btn = document.querySelector('#{{btnUpdateAvartar.ClientID}}');
-						if (btn !== null) {
-							btn.click();
-						}
-					}
-				});
-			</script>
-			""";
+	//private void SetupAvatarScript()
+	//{
+	//	var script = $$"""
+	//		<script data-loader="UserProfile.aspx">
+	//			$('#{{lnkAvatarUpld.ClientID}}').colorbox({
+	//				width: '80%',
+	//				height: '80%',
+	//				iframe: true,
+	//				onClosed: () => {
+	//					const btn = document.querySelector('#{{btnUpdateAvartar.ClientID}}');
+	//					if (btn !== null) {
+	//						btn.click();
+	//					}
+	//				}
+	//			});
+	//		</script>
+	//		""";
 
-		Page.ClientScript.RegisterStartupScript(GetType(), "cbupinit", script, false);
-	}
+	//	Page.ClientScript.RegisterStartupScript(GetType(), "cbupinit", script, false);
+	//}
 }

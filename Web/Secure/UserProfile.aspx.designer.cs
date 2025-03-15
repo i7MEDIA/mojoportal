@@ -492,6 +492,15 @@ namespace mojoPortal.Web.UI.Pages
 		protected global::mojoPortal.Web.Controls.SiteLabel lblAvatar;
 
 		/// <summary>
+		/// upAvatar control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.UpdatePanel upAvatar;
+
+		/// <summary>
 		/// userAvatar control.
 		/// </summary>
 		/// <remarks>
@@ -510,15 +519,6 @@ namespace mojoPortal.Web.UI.Pages
 		protected global::System.Web.UI.WebControls.HyperLink lnkAvatarUpld;
 
 		/// <summary>
-		/// btnUpdateAvartar control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.ImageButton btnUpdateAvartar;
-
-		/// <summary>
 		/// avatarHelp control.
 		/// </summary>
 		/// <remarks>
@@ -526,6 +526,15 @@ namespace mojoPortal.Web.UI.Pages
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::mojoPortal.Web.UI.mojoHelpLink avatarHelp;
+
+		/// <summary>
+		/// btnUpdateAvatar control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnUpdateAvatar;
 
 		/// <summary>
 		/// divLiveMessenger control.

@@ -10,6 +10,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.ProfileUpdatedHandlers;
 using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
+using mojoPortal.FileSystem;
 using mojoPortal.Net;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Configuration;
@@ -59,7 +60,7 @@ public partial class ManageUsers : NonCmsBasePage
 		btnApprove.Click += new EventHandler(btnApprove_Click);
 		btnPurgeUserLocations.Click += new EventHandler(btnPurgeUserLocations_Click);
 		btnResendConfirmationEmail.Click += new EventHandler(btnResendConfirmationEmail_Click);
-		//btnUploadAvatar.Click += new EventHandler(btnUploadAvatar_Click);
+		btnUpdateAvatar.Click += new EventHandler(btnUpdateAvatar_Click);
 
 		SuppressMenuSelection();
 		SuppressPageMenu();
@@ -68,7 +69,35 @@ public partial class ManageUsers : NonCmsBasePage
 
 	}
 
+	private void btnUpdateAvatar_Click(object sender, EventArgs e)
+	{
+		// this is fired when the avatar upload dialog is closed
+		// we don't really know for sure if the image was updated
+		// but if it was we should rename it since the previous version may be cached by web browsers
+		// so we'll check if the files was modified recently, and if so rename it
+		if (siteUser != null && siteUser.AvatarUrl.Length > 0)
+		{
+			var fileSystem = FileSystemHelper.LoadFileSystem();
+			string avatarBasePath = Invariant($"~/Data/Sites/{siteSettings.SiteId}/useravatars/");
+			WebFile avatarFile = fileSystem.RetrieveFile(avatarBasePath + siteUser.AvatarUrl);
 
+			if (avatarFile != null)
+			{
+				if (avatarFile.Modified > DateTime.Today)
+				{
+					// it was updated today so we'll assume it was just now since the avatar dialog just closed
+					string newfileName = Invariant($"user{siteUser.UserId}-{siteUser.Name.ToCleanFileName()}-{DateTime.UtcNow.Millisecond.ToInvariantString()}{System.IO.Path.GetExtension(siteUser.AvatarUrl)}");
+					fileSystem.MoveFile(avatarBasePath + siteUser.AvatarUrl, avatarBasePath + newfileName, true);
+					siteUser.AvatarUrl = newfileName;
+					siteUser.Save();
+
+					userAvatar.AvatarFile = siteUser.AvatarUrl;
+
+					upAvatar.Update();
+				}
+			}
+		}
+	}
 
 	#endregion
 
@@ -189,6 +218,7 @@ public partial class ManageUsers : NonCmsBasePage
 			PopulateControls();
 		}
 
+		PopulateAvatar();
 
 	}
 
@@ -349,29 +379,6 @@ public partial class ManageUsers : NonCmsBasePage
 			chkTrusted.Checked = siteUser.Trusted;
 			chkDisplayInMemberList.Checked = siteUser.DisplayInMemberList;
 
-			//if ((!allowGravatars)&&(!disableAvatars))
-			//{
-			//    if (siteUser.AvatarUrl.Length > 0)
-			//    {
-			//        imgAvatar.Src = ImageSiteRoot + "/Data/Sites/"
-			//            + siteSettings.SiteId.ToInvariantString() + "/useravatars/" + siteUser.AvatarUrl;
-			//    }
-			//    else
-			//    {
-			//        imgAvatar.Src = Page.ResolveUrl(WebConfigSettings.DefaultBlankAvatarPath);
-			//    }
-			//}
-
-			userAvatar.UseGravatar = allowGravatars;
-			userAvatar.Email = siteUser.Email;
-			userAvatar.UserName = siteUser.Name;
-			userAvatar.UserId = siteUser.UserId;
-			userAvatar.AvatarFile = siteUser.AvatarUrl;
-			userAvatar.MaxAllowedRating = MaxAllowedGravatarRating;
-			userAvatar.Disable = disableAvatars;
-			userAvatar.SiteId = siteSettings.SiteId;
-			userAvatar.UseLink = false;
-
 			if ((siteSettings.AllowUserEditorPreference) && (siteUser != null) && (siteUser.EditorPreference.Length > 0))
 			{
 
@@ -384,15 +391,11 @@ public partial class ManageUsers : NonCmsBasePage
 
 			}
 
-#if !MONO
-			ISettingControl setting = timeZoneSetting as ISettingControl;
-			if (setting != null)
+
+			if (timeZoneSetting is ISettingControl setting)
 			{
 				setting.SetValue(siteUser.TimeZoneId);
 			}
-
-#endif
-
 
 			List<UserLocation> userLocations = UserLocation.GetByUser(siteUser.UserGuid);
 			grdUserLocation.DataSource = userLocations;
@@ -406,6 +409,22 @@ public partial class ManageUsers : NonCmsBasePage
 			HideExtendedProfileControls();
 		}
 
+	}
+
+	private void PopulateAvatar()
+	{
+		if (siteUser is not null)
+		{
+			userAvatar.UseGravatar = allowGravatars;
+			userAvatar.Email = siteUser.Email;
+			userAvatar.UserName = siteUser.Name;
+			userAvatar.UserId = siteUser.UserId;
+			userAvatar.AvatarFile = siteUser.AvatarUrl;
+			userAvatar.MaxAllowedRating = MaxAllowedGravatarRating;
+			userAvatar.Disable = disableAvatars;
+			userAvatar.SiteId = siteSettings.SiteId;
+			userAvatar.UseLink = false;
+		}
 	}
 
 	protected bool CanDeleteUserFromRole(string roleName)
@@ -941,41 +960,6 @@ public partial class ManageUsers : NonCmsBasePage
 		return;
 	}
 
-	//private void AddRole_Click(Object sender, EventArgs e) 
-	//{
-	//    if (this.userID > -1)
-	//    {
-	//        SiteUser user = new SiteUser(siteSettings, this.userID);
-	//        int roleID = int.Parse(allRoles.SelectedItem.Value, CultureInfo.InvariantCulture);
-	//        Role role = new Role(roleID);
-	//        Role.AddUser(roleID, userID, role.RoleGuid, user.UserGuid);
-	//        user.RolesChanged = true;
-	//        user.Save();
-
-	//    }
-
-	//    WebUtils.SetupRedirect(this, Request.RawUrl);
-	//}
-
-
-	//private void UserRoles_ItemCommand(object sender, DataListCommandEventArgs e) 
-	//{
-	//    int roleID = Convert.ToInt32(userRoles.DataKeys[e.Item.ItemIndex]);
-	//    SiteUser user = new SiteUser(siteSettings, userID);
-
-	//    Role.RemoveUser(roleID,userID);
-	//    userRoles.EditItemIndex = -1;
-	//    if (user.UserId > -1)
-	//    {
-	//        user.RolesChanged = true;
-	//        user.Save();
-	//    }
-
-	//    WebUtils.SetupRedirect(this, Request.RawUrl);
-	//    return;
-
-	//}
-
 
 	void userRoles_ItemDataBound(object sender, DataListItemEventArgs e)
 	{
@@ -1050,15 +1034,10 @@ public partial class ManageUsers : NonCmsBasePage
 		SiteUtils.SetButtonAccessKey(btnDelete, AccessKeys.ManageUsersDeleteButtonAccessKey);
 		UIHelper.AddConfirmationDialog(btnDelete, Resource.ManageUsersDeleteUserWarning);
 
-		//addExisting.Text = Resource.ManageUsersAddToRoleButton;
-		//addExisting.ToolTip = Resource.ManageUsersAddToRoleButton;
-		//SiteUtils.SetButtonAccessKey(addExisting, AccessKeys.ManageUsersAddToRoleButtonAccessKey);
-
 		lnkUnsubscribeFromForums.Text = Resource.ManageUsersUnsubscribeForumsLink;
 
-		//lnkAvatarUpload.Text = Resource.UploadAvatarLink;
-		lnkAvatarUpld.Text = Resource.UploadAvatarLink;
-		lnkAvatarUpld.ToolTip = Resource.UploadAvatarLink;
+		lnkAvatarUpld.Text = Resource.UploadAvatarAdminHeading;
+		lnkAvatarUpld.ToolTip = Resource.UploadAvatarAdminHeading;
 
 		if (!(this.userID > -1))
 		{
@@ -1216,10 +1195,10 @@ public partial class ManageUsers : NonCmsBasePage
 		timeZone = SiteUtils.GetUserTimeZone();
 		userGuid = WebUtils.ParseGuidFromQueryString("u", Guid.Empty);
 		UserRolesControl.SiteRoot = SiteRoot;
-#if !MONO
+
 		divTimeZone.Visible = true;
 
-#endif
+
 
 		switch (siteSettings.AvatarSystem)
 		{
@@ -1234,9 +1213,10 @@ public partial class ManageUsers : NonCmsBasePage
 				lnkAvatarUpld.NavigateUrl = SiteRoot + "/Dialog/AvatarUploadDialog.aspx?u=" + userID.ToInvariantString();
 				lnkAvatarUpld.Attributes.Add("data-size", "fluid-xlarge");
 				lnkAvatarUpld.Attributes.Add("data-modal", string.Empty);
-				lnkAvatarUpld.Attributes.Add("data-close-text", Resource.CloseDialogButton);
+				lnkAvatarUpld.Attributes.Add("data-close-text", Resource.SaveButton);
 				lnkAvatarUpld.Attributes.Add("data-modal-type", "iframe");
 				lnkAvatarUpld.Attributes.Add("data-height", "full");
+				lnkAvatarUpld.Attributes.Add("data-callback", $"document.getElementById('{btnUpdateAvatar.ClientID}')?.click();");
 
 				break;
 
