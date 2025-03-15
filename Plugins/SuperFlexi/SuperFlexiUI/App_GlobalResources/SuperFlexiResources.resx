@@ -294,4 +294,13 @@
   <data name="GenericInvalidFormat" xml:space="preserve">
     <value>{0} is invalid.</value>
   </data>
+  <data name="SolutionSearchFriendlyName" xml:space="preserve">
+    <value>Search Friendly Name</value>
+  </data>
+  <data name="SearchSettings" xml:space="preserve">
+    <value>Search Settings</value>
+  </data>
+  <data name="RelatedSearchPage" xml:space="preserve">
+    <value>Page for Search Index</value>
+  </data>
 </root>

@@ -152,6 +152,7 @@
 										<div class="col-md-8">
 											<h4><%# Resources.Resource.AdminIndexBrowserItemIntro %></h4>
 											<asp:Literal ID="litIntro" runat="server" EnableViewState="false" Text='<%# Eval("ContentAbstract").ToString() %>' />
+											<asp:Literal ID="litRawIndex" runat="server" EnableViewState="false" Text='<%# Eval("ContentAbstract").ToString() %>' />
 										</div>
 									</div>
 								</div>

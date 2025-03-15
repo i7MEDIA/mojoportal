@@ -1,18 +1,5 @@
-// Author:					    
-// Created:				        2007-08-30
-// Last Modified:			    2014-12-05
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
 using System;
 using System.Configuration;
-using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Threading;
@@ -20,287 +7,279 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
-using mojoPortal.Web.Framework;
 using Resources;
 
-namespace mojoPortal.SearchIndex
+namespace mojoPortal.SearchIndex;
+
+public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HtmlContentIndexBuilderProvider));
-        private static bool debugLog = log.IsDebugEnabled;
+	private static readonly ILog log = LogManager.GetLogger(typeof(HtmlContentIndexBuilderProvider));
+	private static bool debugLog = log.IsDebugEnabled;
+	private static Guid htmlFeatureGuid = new("881e4e00-93e4-444c-b7b0-6672fb55de10");
+	private static bool disableSearchIndex = ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
 
-        public HtmlContentIndexBuilderProvider()
-        { }
+	public HtmlContentIndexBuilderProvider()
+	{ }
 
-        public override void RebuildIndex(
-            PageSettings pageSettings,
-            string indexPath)
-        {
-            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
-            if (disableSearchIndex) { return; }
+	public override void RebuildIndex(PageSettings pageSettings, string indexPath)
+	{
+		if (disableSearchIndex)
+		{
+			return;
+		}
 
-            if (pageSettings == null)
-            {
-                log.Error("pageSettings passed in to HtmlContentIndexBuilderProvider.RebuildIndex was null");
-                return;
-            }
+		if (pageSettings is null)
+		{
+			log.Error("pageSettings passed in to HtmlContentIndexBuilderProvider.RebuildIndex was null");
+			return;
+		}
 
-            //don't index pending/unpublished pages
-            if (pageSettings.IsPending) { return; }
+		//don't index pending/unpublished pages
+		if (pageSettings.IsPending)
+		{
+			return;
+		}
 
-            log.Info(Resource.HtmlContentFeatureName + " indexing page - " + pageSettings.PageName);
+		log.Info($"{Resource.HtmlContentFeatureName} indexing page - {pageSettings.PageName}");
 
-            try
-            {
-                Guid htmlFeatureGuid 
-                    = new Guid("881e4e00-93e4-444c-b7b0-6672fb55de10");
-                ModuleDefinition htmlFeature 
-                    = new ModuleDefinition(htmlFeatureGuid);
+		try
+		{
+			//var htmlFeatureGuid = new Guid("881e4e00-93e4-444c-b7b0-6672fb55de10");
+			var htmlFeature = new ModuleDefinition(htmlFeatureGuid);
 
-                List<PageModule> pageModules
-                        = PageModule.GetPageModulesByPage(pageSettings.PageId);
+			var pageModules = PageModule.GetPageModulesByPage(pageSettings.PageId);
 
-                HtmlRepository repository = new HtmlRepository();
+			var repository = new HtmlRepository();
 
-                DataTable dataTable = repository.GetHtmlContentByPage(
-                    pageSettings.SiteId,
-                    pageSettings.PageId);
+			var dataTable = repository.GetHtmlContentByPage(pageSettings.SiteId, pageSettings.PageId);
 
-                foreach (DataRow row in dataTable.Rows)
-                {
-                    bool includeInSearch = Convert.ToBoolean(row["IncludeInSearch"]);
-                    bool excludeFromRecentContent = Convert.ToBoolean(row["ExcludeFromRecentContent"]);
-                   
-                    IndexItem indexItem = new IndexItem();
-                    indexItem.ExcludeFromRecentContent = excludeFromRecentContent;
-                    indexItem.SiteId = pageSettings.SiteId;
-                    indexItem.PageId = pageSettings.PageId;
-                    indexItem.PageName = pageSettings.PageName;
+			foreach (DataRow row in dataTable.Rows)
+			{
+				var includeInSearch = Convert.ToBoolean(row["IncludeInSearch"]);
+				var excludeFromRecentContent = Convert.ToBoolean(row["ExcludeFromRecentContent"]);
 
-                    string authorName = row["CreatedByName"].ToString();
-                    string authorFirstName = row["CreatedByFirstName"].ToString();
-                    string authorLastName = row["CreatedByLastName"].ToString();
+				var indexItem = new IndexItem
+				{
+					ExcludeFromRecentContent = excludeFromRecentContent,
+					SiteId = pageSettings.SiteId,
+					PageId = pageSettings.PageId,
+					PageName = pageSettings.PageName,
+					FeatureId = htmlFeatureGuid.ToString(),
+					FeatureName = htmlFeature.FeatureName,
+					FeatureResourceFile = htmlFeature.ResourceFile,
+					ItemId = Convert.ToInt32(row["ItemID"]),
+					ModuleId = Convert.ToInt32(row["ModuleID"]),
+					ModuleTitle = row["ModuleTitle"].ToString(),
+					Title = row["Title"].ToString(),
+					Content = row["Body"].ToString().RemoveMarkup(),
+					CreatedUtc = Convert.ToDateTime(row["CreatedDate"]),
+					LastModUtc = Convert.ToDateTime(row["LastModUtc"]),
+					ViewRoles = pageSettings.AuthorizedRoles,
+					ModuleViewRoles = row["ViewRoles"].ToString()
+				};
 
-                    if ((authorFirstName.Length > 0) && (authorLastName.Length > 0))
-                    {
-                        indexItem.Author = string.Format(CultureInfo.InvariantCulture,
-                            Resource.FirstNameLastNameFormat, authorFirstName, authorLastName);
-                    }
-                    else
-                    {
-                        indexItem.Author = authorName;
-                    }
+				var authorName = row["CreatedByName"].ToString();
+				var authorFirstName = row["CreatedByFirstName"].ToString();
+				var authorLastName = row["CreatedByLastName"].ToString();
 
-                    if (!includeInSearch) { indexItem.RemoveOnly = true; }
+				if (authorFirstName.Length > 0 && authorLastName.Length > 0)
+				{
+					indexItem.Author = string.Format(
+						CultureInfo.InvariantCulture,
+						Resource.FirstNameLastNameFormat,
+						authorFirstName,
+						authorLastName
+					);
+				}
+				else
+				{
+					indexItem.Author = authorName;
+				}
 
-                    // generally we should not include the page meta because it can result in duplicate results
-                    // one for each instance of html content on the page because they all use the smae page meta.
-                    // since page meta should reflect the content of the page it is sufficient to just index the content
-                    if (WebConfigSettings.IndexPageKeywordsWithHtmlArticleContent)
-                    {
-                        indexItem.PageMetaDescription = pageSettings.PageMetaDescription;
-                        indexItem.PageMetaKeywords = pageSettings.PageMetaKeyWords;
-                    }
+				if (!includeInSearch)
+				{
+					indexItem.RemoveOnly = true;
+				}
 
-                    indexItem.ViewRoles = pageSettings.AuthorizedRoles;
-                    indexItem.ModuleViewRoles = row["ViewRoles"].ToString();
-                    if (pageSettings.UseUrl)
-                    {
-                        if (pageSettings.UrlHasBeenAdjustedForFolderSites)
-                        {
-                            indexItem.ViewPage = pageSettings.UnmodifiedUrl.Replace("~/", string.Empty);
-                        }
-                        else
-                        {
-                            indexItem.ViewPage = pageSettings.Url.Replace("~/", string.Empty);
-                        }
-                        indexItem.UseQueryStringParams = false;
-                    }
-                    indexItem.FeatureId = htmlFeatureGuid.ToString();
-                    indexItem.FeatureName = htmlFeature.FeatureName;
-                    indexItem.FeatureResourceFile = htmlFeature.ResourceFile;
+				// generally we should not include the page meta because it can result in duplicate results
+				// one for each instance of html content on the page because they all use the smae page meta.
+				// since page meta should reflect the content of the page it is sufficient to just index the content
+				if (WebConfigSettings.IndexPageKeywordsWithHtmlArticleContent)
+				{
+					indexItem.PageMetaDescription = pageSettings.PageMetaDescription;
+					indexItem.PageMetaKeywords = pageSettings.PageMetaKeyWords;
+				}
 
-                    indexItem.ItemId = Convert.ToInt32(row["ItemID"]);
-                    indexItem.ModuleId = Convert.ToInt32(row["ModuleID"]);
-                    indexItem.ModuleTitle = row["ModuleTitle"].ToString();
-                    indexItem.Title = row["Title"].ToString();
-                    // added the remove markup 2010-01-30 because some javascript strings like ]]> were apearing in search results if the content conatined jacvascript
-                    indexItem.Content = row["Body"].ToString().RemoveMarkup();
+				if (pageSettings.UseUrl)
+				{
+					if (pageSettings.UrlHasBeenAdjustedForFolderSites)
+					{
+						indexItem.ViewPage = pageSettings.UnmodifiedUrl.Replace("~/", string.Empty);
+					}
+					else
+					{
+						indexItem.ViewPage = pageSettings.Url.Replace("~/", string.Empty);
+					}
 
-                    indexItem.CreatedUtc = Convert.ToDateTime(row["CreatedDate"]);
-                    indexItem.LastModUtc = Convert.ToDateTime(row["LastModUtc"]);
+					indexItem.UseQueryStringParams = false;
+				}
 
-                    // lookup publish dates
-                    foreach (PageModule pageModule in pageModules)
-                    {
-                        if (indexItem.ModuleId == pageModule.ModuleId)
-                        {
-                            indexItem.PublishBeginDate = pageModule.PublishBeginDate;
-                            indexItem.PublishEndDate = pageModule.PublishEndDate;
-                        }
-                    }
+				// lookup publish dates
+				foreach (PageModule pageModule in pageModules)
+				{
+					if (indexItem.ModuleId == pageModule.ModuleId)
+					{
+						indexItem.PublishBeginDate = pageModule.PublishBeginDate;
+						indexItem.PublishEndDate = pageModule.PublishEndDate;
+					}
+				}
 
-                    IndexHelper.RebuildIndex(indexItem, indexPath);
+				IndexHelper.RebuildIndex(indexItem, indexPath);
 
-                    log.Debug("Indexed " + indexItem.Title);
+				log.Debug($"Indexed {indexItem.Title}");
+			}
+		}
+		catch (System.Data.Common.DbException ex)
+		{
+			log.Error(ex);
+		}
+	}
 
-                }
-            }
-            catch (System.Data.Common.DbException ex)
-            {
-                log.Error(ex);
-            }
-          
-        }
+	public override void ContentChangedHandler(object sender, ContentChangedEventArgs e)
+	{
+		if (!canIndex(sender))
+		{
+			return;
+		}
 
-        public override void ContentChangedHandler(
-            object sender,
-            ContentChangedEventArgs e)
-        {
-            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
-            if (disableSearchIndex) { return; }
+		var content = (HtmlContent)sender;
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		content.SiteId = siteSettings.SiteId;
+		content.SearchIndexPath = IndexHelper.GetSearchIndexPath(siteSettings.SiteId);
 
-            if (sender == null) return;
-            if (!(sender is HtmlContent)) return;
+		if (e.IsDeleted)
+		{
+			// get list of pages where this module is published
+			var pageModules = PageModule.GetPageModulesByModule(content.ModuleId);
 
-            HtmlContent content = (HtmlContent)sender;
-            SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-            content.SiteId = siteSettings.SiteId;
-            content.SearchIndexPath = IndexHelper.GetSearchIndexPath(siteSettings.SiteId);
+			foreach (var pageModule in pageModules)
+			{
+				IndexHelper.RemoveIndexItem(
+					pageModule.PageId,
+					content.ModuleId,
+					content.ItemId
+				);
+			}
+		}
+		else
+		{
+			if (ThreadPool.QueueUserWorkItem(new WaitCallback(IndexItem), content))
+			{
+				if (debugLog)
+				{
+					log.Debug("HtmlContentIndexBuilderProvider.IndexItem queued");
+				}
+			}
+			else
+			{
+				if (log.IsErrorEnabled)
+				{
+					log.Error("Failed to queue a thread for HtmlContentIndexBuilderProvider.IndexItem");
+				}
+			}
+		}
+	}
 
-            if (e.IsDeleted)
-            {
-                // get list of pages where this module is published
-                List<PageModule> pageModules
-                    = PageModule.GetPageModulesByModule(content.ModuleId);
+	private static bool canIndex(object o) => !ConfigHelper.GetBoolProperty("DisableSearchIndex", false) && o is HtmlContent;
 
-                foreach (PageModule pageModule in pageModules)
-                {
-                    IndexHelper.RemoveIndexItem(
-                        pageModule.PageId,
-                        content.ModuleId,
-                        content.ItemId);
-                }
-            }
-            else
-            {
-                if (ThreadPool.QueueUserWorkItem(new WaitCallback(IndexItem), content))
-                {
-                    if (debugLog) log.Debug("HtmlContentIndexBuilderProvider.IndexItem queued");
-                }
-                else
-                {
-                    if (log.IsErrorEnabled) log.Error("Failed to queue a thread for HtmlContentIndexBuilderProvider.IndexItem");
-                }
-                //IndexItem(content);
-            }
+	private static void IndexItem(object o) => IndexItem((HtmlContent)o);
+		
+	private static void IndexItem(HtmlContent content)
+	{
+		if (!canIndex(content))
+		{
+			return;
+		}
 
-        }
+		var module = new Module(content.ModuleId);
 
-        private static void IndexItem(object o)
-        {
-            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
-            if (disableSearchIndex) { return; }
+		var htmlFeature = new ModuleDefinition(htmlFeatureGuid);
 
-            if (o == null) return;
-            if (!(o is HtmlContent)) return;
+		// get list of pages where this module is published
+		var pageModules = PageModule.GetPageModulesByModule(content.ModuleId);
 
-            HtmlContent content = o as HtmlContent;
-            IndexItem(content);
+		foreach (PageModule pageModule in pageModules)
+		{
+			var pageSettings = new PageSettings(content.SiteId, pageModule.PageId);
 
-        }
+			//don't index pending/unpublished pages
+			if (pageSettings.IsPending)
+			{
+				continue;
+			}
 
-        private static void IndexItem(HtmlContent content)
-        {
-            bool disableSearchIndex = mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
-            if (disableSearchIndex) { return; }
+			var indexItem = new IndexItem
+			{
+				SiteId = content.SiteId,
+				ExcludeFromRecentContent = content.ExcludeFromRecentContent,
+				PageId = pageModule.PageId,
+				PageName = pageSettings.PageName,
+				ViewRoles = pageSettings.AuthorizedRoles,
+				ModuleViewRoles = module.ViewRoles,
+				FeatureId = htmlFeatureGuid.ToString(),
+				FeatureName = htmlFeature.FeatureName,
+				FeatureResourceFile = htmlFeature.ResourceFile,
+				ItemId = content.ItemId,
+				ModuleId = content.ModuleId,
+				ModuleTitle = module.ModuleTitle,
+				Title = content.Title,
+				Content = content.Body.RemoveMarkup(),
+				PublishBeginDate = pageModule.PublishBeginDate,
+				PublishEndDate = pageModule.PublishEndDate,
+				CreatedUtc = content.CreatedDate,
+				LastModUtc = content.LastModUtc
+			};
 
-            Module module = new Module(content.ModuleId);
-            
+			if (content.SearchIndexPath.Length > 0)
+			{
+				indexItem.IndexPath = content.SearchIndexPath;
+			}
 
-            Guid htmlFeatureGuid 
-                = new Guid("881e4e00-93e4-444c-b7b0-6672fb55de10");
-            ModuleDefinition htmlFeature 
-                = new ModuleDefinition(htmlFeatureGuid);
-            
+			if (pageSettings.UseUrl)
+			{
+				indexItem.ViewPage = pageSettings.Url.Replace("~/", string.Empty);
+				indexItem.UseQueryStringParams = false;
+			}
 
-            // get list of pages where this module is published
-            List<PageModule> pageModules
-                = PageModule.GetPageModulesByModule(content.ModuleId);
+			// generally we should not include the page meta because it can result in duplicate results
+			// one for each instance of html content on the page because they all use the smae page meta.
+			// since page meta should reflect the content of the page it is sufficient to just index the content
+			if (ConfigurationManager.AppSettings["IndexPageMeta"] != null
+				&& ConfigurationManager.AppSettings["IndexPageMeta"] == "true"
+				)
+			{
+				indexItem.PageMetaDescription = pageSettings.PageMetaDescription;
+				indexItem.PageMetaKeywords = pageSettings.PageMetaKeyWords;
+			}
 
-            foreach (PageModule pageModule in pageModules)
-            {
-                PageSettings pageSettings
-                    = new PageSettings(
-                    content.SiteId,
-                    pageModule.PageId);
+			if (content.CreatedByFirstName.Length > 0 && content.CreatedByLastName.Length > 0)
+			{
+				indexItem.Author = string.Format(CultureInfo.InvariantCulture,
+					Resource.FirstLastFormat, content.CreatedByFirstName, content.CreatedByLastName);
+			}
+			else
+			{
+				indexItem.Author = content.CreatedByName;
+			}
 
-                //don't index pending/unpublished pages
-                if (pageSettings.IsPending) { continue; }
+			if (!module.IncludeInSearch)
+			{
+				indexItem.RemoveOnly = true;
+			}
 
-                IndexItem indexItem = new IndexItem();
-                if (content.SearchIndexPath.Length > 0)
-                {
-                    indexItem.IndexPath = content.SearchIndexPath;
-                }
-                indexItem.SiteId = content.SiteId;
-                indexItem.ExcludeFromRecentContent = content.ExcludeFromRecentContent;
-                indexItem.PageId = pageModule.PageId;
-                indexItem.PageName = pageSettings.PageName;
-                indexItem.ViewRoles = pageSettings.AuthorizedRoles;
-                indexItem.ModuleViewRoles = module.ViewRoles;
-                if (pageSettings.UseUrl)
-                {
-                    indexItem.ViewPage = pageSettings.Url.Replace("~/", string.Empty);
-                    indexItem.UseQueryStringParams = false;
-                }
+			IndexHelper.RebuildIndex(indexItem);
+		}
 
-                // generally we should not include the page meta because it can result in duplicate results
-                // one for each instance of html content on the page because they all use the smae page meta.
-                // since page meta should reflect the content of the page it is sufficient to just index the content
-                if ((ConfigurationManager.AppSettings["IndexPageMeta"] != null) && (ConfigurationManager.AppSettings["IndexPageMeta"] == "true"))
-                {
-                    indexItem.PageMetaDescription = pageSettings.PageMetaDescription;
-                    indexItem.PageMetaKeywords = pageSettings.PageMetaKeyWords;
-                }
-
-                indexItem.FeatureId = htmlFeatureGuid.ToString();
-                indexItem.FeatureName = htmlFeature.FeatureName;
-                indexItem.FeatureResourceFile = htmlFeature.ResourceFile;
-
-                indexItem.ItemId = content.ItemId;
-                indexItem.ModuleId = content.ModuleId;
-                indexItem.ModuleTitle = module.ModuleTitle;
-                indexItem.Title = content.Title;
-                indexItem.Content = content.Body.RemoveMarkup();
-                indexItem.PublishBeginDate = pageModule.PublishBeginDate;
-                indexItem.PublishEndDate = pageModule.PublishEndDate;
-
-                if ((content.CreatedByFirstName.Length > 0) && (content.CreatedByLastName.Length > 0))
-                {
-                    indexItem.Author = string.Format(CultureInfo.InvariantCulture,
-                        Resource.FirstLastFormat, content.CreatedByFirstName, content.CreatedByLastName);
-                }
-                else
-                {
-                    indexItem.Author = content.CreatedByName;
-                }
-
-                indexItem.CreatedUtc = content.CreatedDate;
-                indexItem.LastModUtc = content.LastModUtc;
-
-                if (!module.IncludeInSearch) { indexItem.RemoveOnly = true; }
-
-                IndexHelper.RebuildIndex(indexItem);
-            }
-
-            log.Debug("Indexed " + content.Title);
-         
-        }
-
-    }
+		log.Debug("Indexed " + content.Title);
+	}
 }

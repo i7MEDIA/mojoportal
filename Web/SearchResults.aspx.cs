@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Globalization;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Web.UI;
@@ -64,7 +66,6 @@ public partial class SearchResults : NonCmsBasePage
 		PopulateLabels();
 
 		string primarySearchProvider = SiteUtils.GetPrimarySearchProvider();
-
 
 		switch (primarySearchProvider)
 		{
@@ -199,9 +200,10 @@ public partial class SearchResults : NonCmsBasePage
 
 	private void DoSearch()
 	{
-		if (Page.IsPostBack) { return; }
-
-		if (Request.QueryString.Get("q") == null) { return; }
+		if (Page.IsPostBack || Request.QueryString.Get("q") == null)
+		{
+			return;
+		}
 
 		query = Request.QueryString.Get("q").RemoveMarkup();
 
@@ -290,72 +292,128 @@ public partial class SearchResults : NonCmsBasePage
 			}
 		}
 
-		string searchUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(query)}&amp;p={{0}}{GetModBeginDateParam(true)}{GetModEndDateParam(true)}{GetFeatureParam(true)}";
+		//string searchUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(query)}&amp;p={{0}}{GetModBeginDateParam(true)}{GetModEndDateParam(true)}{GetFeatureParam(true)}";
 
-		pgrTop.PageURLFormat = searchUrl;
+		//if problems with encoding of query, swap 'query' out with Server.UrlEncode(query)
+		string searchUrl = "SearchResults.aspx".ToLinkBuilder().AddParams(getSearchParams(query)).ToString();
+
+		pgrTop.PageURLFormat = searchUrl + "&amp;p={0}";
 		pgrTop.ShowFirstLast = true;
 		pgrTop.CurrentIndex = pageNumber;
 		pgrTop.PageSize = pageSize;
 		pgrTop.PageCount = totalPages;
-		pgrTop.Visible = (totalPages > 1);
+		pgrTop.Visible = totalPages > 1;
 
-		pgrBottom.PageURLFormat = searchUrl;
-		pgrBottom.ShowFirstLast = true;
-		pgrBottom.CurrentIndex = pageNumber;
-		pgrBottom.PageSize = pageSize;
-		pgrBottom.PageCount = totalPages;
-		pgrBottom.Visible = (totalPages > 1);
+		pgrBottom.PageURLFormat = pgrTop.PageURLFormat;
+		pgrBottom.ShowFirstLast = pgrTop.ShowFirstLast;
+		pgrBottom.CurrentIndex = pgrTop.CurrentIndex;
+		pgrBottom.PageSize = pgrTop.PageSize;
+		pgrBottom.PageCount = pgrTop.PageCount;
+		pgrBottom.Visible = pgrTop.Visible;
 
-		rptResults.DataSource = searchResults;
-		rptResults.DataBind();
+		if (WebConfigSettings.UseNeatHtmlInSearchResults)
+		{
+			rptResultsSecure.DataSource = searchResults;
+			rptResultsSecure.DataBind();
+			rptResultsSecure.Visible = true;
+			rptResults.Visible = false;
+		}
+		else
+		{
+			rptResults.DataSource = searchResults;
+			rptResults.DataBind();
+			rptResults.Visible = true;
+			rptResultsSecure.Visible = false;
+		}
 	}
 
-	private string GetModBeginDateParam(bool encode)
+	private Dictionary<string, object> getSearchParams(string query)
 	{
-		if (modifiedBeginDate.Date == DateTime.MinValue.Date) { return string.Empty; }
-		if (!displaySettings.ShowModifiedDateFilters) { return string.Empty; }
-
-		if (encode)
+		var searchParams = new Dictionary<string, object>
 		{
-			return $"&amp;bd={modifiedBeginDate.Date:s}";
+			{ "q", Server.UrlEncode(query) }
+		};
+
+		if (modifiedBeginDate.Date != DateTime.MinValue.Date && displaySettings.ShowModifiedDateFilters)
+		{
+			searchParams.Add("bd", $"{modifiedBeginDate.Date:s}");
 		}
 
-		return $"&bd={modifiedBeginDate.Date:s}";
-	}
-
-	private string GetModEndDateParam(bool encode)
-	{
-		if (modifiedEndDate.Date == DateTime.MaxValue.Date) { return string.Empty; }
-		if (!displaySettings.ShowModifiedDateFilters) { return string.Empty; }
-
-		if (encode)
+		if (modifiedEndDate.Date != DateTime.MaxValue.Date && displaySettings.ShowModifiedDateFilters)
 		{
-			return $"&amp;ed={modifiedEndDate.Date:s}";
+			searchParams.Add("ed", $"{modifiedEndDate.Date:s}");
 		}
 
-		return $"&ed={modifiedEndDate.Date:s}";
-	}
-
-	private string GetFeatureParam(bool encode)
-	{
-		if (featureGuid == Guid.Empty) { return string.Empty; }
-
-		if (encode)
+		if (featureGuid != Guid.Empty)
 		{
-			return $"&amp;f={featureGuid}";
+			searchParams.Add("f", featureGuid);
 		}
 
-		return $"&f={featureGuid}";
+		return searchParams;
 	}
+
+	//private string GetModBeginDateParam(bool encode)
+	//{
+	//	if (modifiedBeginDate.Date == DateTime.MinValue.Date)
+	//	{
+	//		return string.Empty;
+	//	}
+	//	if (!displaySettings.ShowModifiedDateFilters)
+	//	{
+	//		return string.Empty;
+	//	}
+
+	//	if (encode)
+	//	{
+	//		return $"&amp;bd={modifiedBeginDate.Date:s}";
+	//	}
+
+	//	return $"&bd={modifiedBeginDate.Date:s}";
+	//}
+
+	//private string GetModEndDateParam(bool encode)
+	//{
+	//	if (modifiedEndDate.Date == DateTime.MaxValue.Date)
+	//	{
+	//		return string.Empty;
+	//	}
+	//	if (!displaySettings.ShowModifiedDateFilters)
+	//	{
+	//		return string.Empty;
+	//	}
+
+	//	if (encode)
+	//	{
+	//		return $"&amp;ed={modifiedEndDate.Date:s}";
+	//	}
+
+	//	return $"&ed={modifiedEndDate.Date:s}";
+	//}
+
+	//private string GetFeatureParam(bool encode)
+	//{
+	//	if (featureGuid == Guid.Empty)
+	//	{
+	//		return string.Empty;
+	//	}
+
+	//	if (encode)
+	//	{
+	//		return $"&amp;f={featureGuid}";
+	//	}
+
+	//	return $"&f={featureGuid}";
+	//}
 
 	private void BindFeatureList()
 	{
 		using IDataReader reader = ModuleDefinition.GetSearchableModules(siteSettings.SiteId);
 		ListItem listItem;
-
+		
 		// this flag tells it to look first for a web config setting for the resource string
 		// corresponding to SearchListName value
-		// it allows you to customize searchlist names wheeas by default they are just localized
+		// it allows you to customize searchlist names whereas by default they are just localized
+		// no actually implemented as of 20250305 - jmd0
 		bool useConfigOverrides = true;
 
 		while (reader.Read())
@@ -446,7 +504,10 @@ public partial class SearchResults : NonCmsBasePage
 			}
 		}
 
-		string redirectUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(txtSearchInput.Text)}{GetModBeginDateParam(false)}{GetModEndDateParam(false)}{GetFeatureParam(false)}";
+		//string redirectUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(txtSearchInput.Text)}{GetModBeginDateParam(false)}{GetModEndDateParam(false)}{GetFeatureParam(false)}";
+
+		//if problems with encoding of query, swap 'txtSearchInput.Text' out with Server.UrlEncode(txtSearchInput.Text)
+		string redirectUrl = "SearchResults.aspx".ToLinkBuilder().AddParams(getSearchParams(txtSearchInput.Text)).ToString();
 
 		WebUtils.SetupRedirect(this, redirectUrl);
 	}
@@ -546,7 +607,6 @@ public partial class SearchResults : NonCmsBasePage
 		SiteUtils.AddNoIndexFollowMeta(Page);
 
 		AddClassToBody("searchresults");
-
 	}
 
 	public string BuildUrl(IndexItem indexItem)
@@ -554,34 +614,33 @@ public partial class SearchResults : NonCmsBasePage
 		string value;
 		if (indexItem.UseQueryStringParams)
 		{
-			value = $"/{indexItem.ViewPage}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
+			value = indexItem.ViewPage.ToLinkBuilder().PageId(indexItem.PageId).ModuleId(indexItem.ModuleId).ItemId(indexItem.ItemId).ToString() + indexItem.QueryStringAddendum;
+			//value = $"/{indexItem.ViewPage}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
 		}
 		else
 		{
-			value = $"/{indexItem.ViewPage}";
+			value = indexItem.ViewPage.ToLinkBuilder().ToString();
+			//value = $"/{indexItem.ViewPage}";
 		}
 
-		if (value.StartsWith("/"))
-		{
-			value = SiteRoot + value;
-		}
+		//if (value.StartsWith("/"))
+		//{
+		//	value = SiteRoot + value;
+		//}
 
 		return value;
 	}
 
 	public string FormatCreatedDate(IndexItem indexItem)
 	{
-		if (!displaySettings.ShowCreatedDate || timeZone == null)
+		if (!displaySettings.ShowCreatedDate
+			|| timeZone is null
+			|| indexItem.CreatedUtc.Date == DateTime.MinValue.Date)
 		{
 			return string.Empty;
 		}
 
-		if (indexItem.CreatedUtc.Date == DateTime.MinValue.Date)
-		{
-			return string.Empty;
-		}
-
-		if (displaySettings.CreatedFormat.Length > 0)
+		if (!string.IsNullOrWhiteSpace(displaySettings.CreatedFormat))
 		{
 			return string.Format(
 				CultureInfo.CurrentCulture,
@@ -597,17 +656,14 @@ public partial class SearchResults : NonCmsBasePage
 
 	public string FormatModifiedDate(IndexItem indexItem)
 	{
-		if (!displaySettings.ShowLastModDate || timeZone == null)
+		if (!displaySettings.ShowLastModDate
+			|| timeZone is null
+			|| indexItem.LastModUtc.Date == DateTime.MinValue.Date)
 		{
 			return string.Empty;
 		}
 
-		if (indexItem.LastModUtc.Date == DateTime.MinValue.Date)
-		{
-			return string.Empty;
-		}
-
-		if (displaySettings.ModifiedFormat.Length > 0)
+		if (!string.IsNullOrWhiteSpace(displaySettings.ModifiedFormat))
 		{
 			return string.Format(
 				CultureInfo.CurrentCulture,
@@ -623,12 +679,12 @@ public partial class SearchResults : NonCmsBasePage
 
 	protected string FormatAuthor(string author)
 	{
-		if (!displaySettings.ShowAuthor || string.IsNullOrEmpty(author))
+		if (!displaySettings.ShowAuthor || string.IsNullOrWhiteSpace(author))
 		{
 			return string.Empty;
 		}
 
-		if (displaySettings.AuthorFormat.Length > 0)
+		if (!string.IsNullOrWhiteSpace(displaySettings.AuthorFormat))
 		{
 			return string.Format(CultureInfo.InvariantCulture, displaySettings.AuthorFormat, author);
 		}

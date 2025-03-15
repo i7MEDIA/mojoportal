@@ -834,7 +834,7 @@ public static class WebConfigSettings
 	public static bool IsSearchIndexingNode => ConfigHelper.GetBoolProperty("IsSearchIndexingNode", true);
 
 	/// <summary>
-	/// disabled by default for backawards compatibility with existing indexes.
+	/// disabled by default for backwards compatibility with existing indexes.
 	/// if you set this to true in Web.config/user.config you should rebuild the index
 	/// http://www.mojoportal.com/rebuilding-the-search-index.aspx
 	/// </summary>
@@ -848,6 +848,8 @@ public static class WebConfigSettings
 	public static bool DisableSearchFeatureFilters => ConfigHelper.GetBoolProperty("DisableSearchFeatureFilters", true);
 
 	public static string SearchableFeatureGuidsToExclude => ConfigHelper.GetStringProperty("SearchableFeatureGuidsToExclude", string.Empty);
+
+	public static bool UseNeatHtmlInSearchResults => ConfigHelper.GetBoolProperty("UseNeatHtmlInSearchResults", true);
 
 	///
 	///2013-08-20 JA added this to support add on products on the demo site

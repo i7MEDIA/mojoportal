@@ -153,24 +153,45 @@ public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 
 	private IndexItem GetIndexItem(PageSettings pageSettings, int moduleID, Item item)
 	{
-		Module module = new Module(moduleID);
+		var module = new Module(moduleID);
+
 		log.Debug($"moduleid: {moduleID} for module {module.ModuleTitle}");
 
-		ModuleConfiguration config = new ModuleConfiguration(module);
-		if (!config.IncludeInSearch) return null;
-		SuperFlexiDisplaySettings displaySettings = new SuperFlexiDisplaySettings();
-		ModuleDefinition flexiFeature = new ModuleDefinition(config.FeatureGuid);
-		IndexItem indexItem = new IndexItem();
-		indexItem.SiteId = pageSettings.SiteId;
-		indexItem.PageId = pageSettings.PageId;
-		indexItem.PageName = pageSettings.PageName;
-		indexItem.ViewRoles = pageSettings.AuthorizedRoles;
-		indexItem.FeatureId = flexiFeature.FeatureGuid.ToString();
-		indexItem.FeatureName = String.IsNullOrWhiteSpace(config.ModuleFriendlyName) ? module.ModuleTitle : config.ModuleFriendlyName;
-		indexItem.FeatureResourceFile = flexiFeature.ResourceFile;
-		indexItem.ItemId = item.ItemID;
-		indexItem.CreatedUtc = item.CreatedUtc;
-		indexItem.LastModUtc = item.LastModUtc;
+		var config = new ModuleConfiguration(module);
+
+		if (!config.IncludeInSearch)
+		{
+			return null;
+		}
+
+		var featureName = config.SearchFriendlyName.Coalesce(config.ModuleFriendlyName.Coalesce(module.ModuleTitle));
+
+		if (config.RelatedSearchPage > -1)
+		{
+			if (new PageSettings(pageSettings.SiteId, config.RelatedSearchPage) is PageSettings pageToUse)
+			{
+				pageSettings = pageToUse; 
+			}
+		}
+
+        var displaySettings = new SuperFlexiDisplaySettings();
+		var flexiFeature = new ModuleDefinition(config.FeatureGuid);
+
+		var indexItem = new IndexItem
+		{
+			SiteId = pageSettings.SiteId,
+			PageId = pageSettings.PageId,
+			PageName = pageSettings.PageName,
+			ViewRoles = pageSettings.AuthorizedRoles,
+			ModuleViewRoles = module.ViewRoles,
+			FeatureId = flexiFeature.FeatureGuid.ToString(),
+			FeatureName = featureName,
+			FeatureResourceFile = flexiFeature.ResourceFile,
+			ItemId = item.ItemID,
+			CreatedUtc = item.CreatedUtc,
+			LastModUtc = item.LastModUtc
+		};
+
 		if (pageSettings.UseUrl)
 		{
 			if (pageSettings.UrlHasBeenAdjustedForFolderSites)
@@ -184,19 +205,19 @@ public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 			indexItem.UseQueryStringParams = false;
 		}
 
-		SearchDef searchDef = SearchDef.GetByFieldDefinition(item.DefinitionGuid);
+		var searchDef = SearchDef.GetByFieldDefinition(item.DefinitionGuid);
 
-		bool hasSearchDef = true;
+		var hasSearchDef = true;
 		if (searchDef == null)
 		{
 			searchDef = new SearchDef();
 			hasSearchDef = false;
 		}
-		System.Text.StringBuilder sbTitle = new System.Text.StringBuilder(searchDef.Title);
-		System.Text.StringBuilder sbKeywords = new System.Text.StringBuilder(searchDef.Keywords);
-		System.Text.StringBuilder sbDescription = new System.Text.StringBuilder(searchDef.Description);
-		System.Text.StringBuilder sbLink = new System.Text.StringBuilder(searchDef.Link);
-		System.Text.StringBuilder sbLinkQueryAddendum = new System.Text.StringBuilder(searchDef.LinkQueryAddendum);
+		var sbTitle = new System.Text.StringBuilder(searchDef.Title);
+		var sbKeywords = new System.Text.StringBuilder(searchDef.Keywords);
+		var sbDescription = new System.Text.StringBuilder(searchDef.Description);
+		var sbLink = new System.Text.StringBuilder(searchDef.Link);
+		var sbLinkQueryAddendum = new System.Text.StringBuilder(searchDef.LinkQueryAddendum);
 		SiteSettings siteSettings = new SiteSettings(pageSettings.SiteGuid);
 		SuperFlexiHelpers.ReplaceStaticTokens(sbTitle, config, false, displaySettings, module, pageSettings, siteSettings, out sbTitle);
 		SuperFlexiHelpers.ReplaceStaticTokens(sbKeywords, config, false, displaySettings, module, pageSettings, siteSettings, out sbKeywords);
