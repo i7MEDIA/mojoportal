@@ -84,6 +84,11 @@
 		document.body.append(modal);
 	
 		$(modal).modal('show');
+
+		if (link.dataset.callback) {
+			$(modal).on('hidden.bs.modal', link.dataset.callback);
+		}
+
 		$(modal).on('hidden.bs.modal', e => e.target.remove());
 	}
 
