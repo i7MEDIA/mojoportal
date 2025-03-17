@@ -1,6 +1,18 @@
 <browsers>
 	<browser refID="Default">
 		<controlAdapters>
+			<adapter controlType="System.Web.UI.WebControls.CheckBoxList"
+					 adapterType="mojoPortal.Web.CheckBoxListAdapter" />
+
+			<!--<adapter controlType="System.Web.UI.WebControls.CheckBox"
+					 adapterType="mojoPortal.Web.CheckBoxAdapter" />-->
+			
+			<adapter controlType="System.Web.UI.WebControls.RadioButtonList"
+					 adapterType="mojoPortal.Web.RadioButtonListAdapter" />
+
+			<adapter controlType="System.Web.UI.WebControls.RadioButton"
+					 adapterType="mojoPortal.Web.RadioButtonAdapter" />
+			
 			<adapter controlType="mojoPortal.Web.UI.mojoSiteMapMenu"
 					 adapterType="mojoPortal.Web.SiteMapMenuAdapter" />
 
