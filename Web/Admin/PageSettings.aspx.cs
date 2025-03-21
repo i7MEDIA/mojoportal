@@ -45,7 +45,7 @@ namespace mojoPortal.Web.AdminUI
 			chkListCreateChildPageRoles.ViewStateMode = ViewStateMode.Enabled;
 			chkIncludeInChildSiteMap.ViewStateMode = ViewStateMode.Enabled;
 			SkinSetting.ViewStateMode = ViewStateMode.Enabled;
-			publishType.ViewStateMode = ViewStateMode.Enabled;
+			//publishType.ViewStateMode = ViewStateMode.Enabled;
 
 			if (pageId > -1 &&
 				siteSettings.AllowPageSkins &&
@@ -341,7 +341,7 @@ namespace mojoPortal.Web.AdminUI
 				txtPageHeading.Text = pageSettings.PageHeading;
 				chkShowPageHeading.Checked = pageSettings.ShowPageHeading;
 				hdnPageName.Value = txtPageName.Text;
-				publishType.SetValue(pageSettings.PublishMode.ToInvariantString());
+				//publishType.SetValue(pageSettings.PublishMode.ToInvariantString());
 				chkRequireSSL.Checked = pageSettings.RequireSsl;
 				chkShowBreadcrumbs.Checked = pageSettings.ShowBreadcrumbs;
 				chkShowChildPageBreadcrumbs.Checked = pageSettings.ShowChildPageBreadcrumbs;
@@ -933,7 +933,7 @@ namespace mojoPortal.Web.AdminUI
 
 			pageSettings.PageName = txtPageName.Text.RemoveMarkup();
 			pageSettings.PageTitle = txtPageTitle.Text;
-			pageSettings.PublishMode = Convert.ToInt32(publishType.GetValue(), CultureInfo.InvariantCulture);
+			//pageSettings.PublishMode = Convert.ToInt32(publishType.GetValue(), CultureInfo.InvariantCulture);
 
 			if (divPageHeading.Visible)
 			{

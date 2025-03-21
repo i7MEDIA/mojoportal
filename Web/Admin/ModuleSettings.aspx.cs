@@ -141,7 +141,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 			cacheTime.Text = module.CacheTime.ToString();
 			chkShowTitle.Checked = module.ShowTitle;
 			txtTitleElement.Text = module.HeadElement;
-			publishType.SetValue(module.PublishMode.ToString(CultureInfo.InvariantCulture));
+			//publishType.SetValue(module.PublishMode.ToString(CultureInfo.InvariantCulture));
 			chkIncludeInSearch.Checked = module.IncludeInSearch;
 			chkHideFromAuth.Checked = module.HideFromAuthenticated;
 			chkIsGlobal.Checked = module.IsGlobal;
@@ -254,11 +254,11 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 			Value = "All Users"
 		};
 
-		var allItem = new ListItem
-		{
-			Text = Resource.RolesAllUsersRole,
-			Value = "All Users"
-		};
+		//var allItem = new ListItem
+		//{
+		//	Text = Resource.RolesAllUsersRole,
+		//	Value = "All Users"
+		//};
 
 		cblViewRoles.Items.Add(vAllItem);
 
@@ -839,7 +839,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					}
 
 					module.ShowTitle = chkShowTitle.Checked;
-					module.PublishMode = Convert.ToInt32(publishType.GetValue(), CultureInfo.InvariantCulture);
+					//module.PublishMode = Convert.ToInt32(publishType.GetValue(), CultureInfo.InvariantCulture);
 					//module.Icon = ddIcons.SelectedValue;
 					module.HideFromAuthenticated = chkHideFromAuth.Checked;
 					module.HideFromUnauthenticated = chkHideFromUnauth.Checked;

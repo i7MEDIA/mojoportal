@@ -465,33 +465,6 @@ namespace mojoPortal.Web.AdminUI
 		protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink18;
 
 		/// <summary>
-		/// SiteLabel30 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel30;
-
-		/// <summary>
-		/// publishType control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.PublishTypeSetting publishType;
-
-		/// <summary>
-		/// MojoHelpLink38 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink38;
-
-		/// <summary>
 		/// divSkin control.
 		/// </summary>
 		/// <remarks>
@@ -1939,14 +1912,5 @@ namespace mojoPortal.Web.AdminUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::mojoPortal.Web.UI.mojoButton btnDelete;
-
-		/// <summary>
-		/// divCleared control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		
 	}
 }

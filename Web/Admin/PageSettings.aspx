@@ -95,11 +95,11 @@
 									<asp:CheckBox ID="chkRequireSSL" runat="server"></asp:CheckBox>
 									<portal:mojoHelpLink ID="MojoHelpLink18" runat="server" HelpKey="pagesettingsrequiresslhelp" />
 								</div>
-								<div class="settingrow">
+<%--								<div class="settingrow">
 									<mp:SiteLabel ID="SiteLabel30" runat="server" CssClass="settinglabel" ConfigKey="PublishMode"></mp:SiteLabel>
 									<portal:PublishType ID="publishType" runat="server" />
 									<portal:mojoHelpLink ID="MojoHelpLink38" runat="server" HelpKey="page-settings-publish-mode-help" />
-								</div>
+								</div>--%>
 								<div id="divSkin" runat="server" class="settingrow">
 									<mp:SiteLabel ID="lblSkin" runat="server" ForControl="ddSkins" CssClass="settinglabel"
 										ConfigKey="SiteSettingsSiteSkinLabel">
