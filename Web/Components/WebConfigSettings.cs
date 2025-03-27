@@ -1402,7 +1402,7 @@ namespace mojoPortal.Web
 
 		public static bool PreEncryptRolesForCookie
 		{
-			get { return ConfigHelper.GetBoolProperty("PreEncryptRolesForCookie", false); }
+			get { return ConfigHelper.GetBoolProperty("PreEncryptRolesForCookie", true); }
 		}
 
 		public static bool Return404StatusForCryptoError

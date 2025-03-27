@@ -3,22 +3,23 @@
 // Last Modified:      2012-01-03
 
 using System;
+using System.Collections;
 using System.Data;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
-using System.Collections;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
-using log4net;
 
 
 namespace mojoPortal.Web
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public class mojoRoleProvider : RoleProvider
+	/// <summary>
+	///
+	/// </summary>
+	public class mojoRoleProvider : RoleProvider
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(mojoRoleProvider));
 
@@ -290,7 +291,8 @@ namespace mojoPortal.Web
             if (siteSettings != null)
             {
                 string roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
-                currentUserRoles = SiteUser.GetRoles(siteSettings, HttpContext.Current.User.Identity.Name);
+                var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
+				currentUserRoles = SiteUser.GetRoles(user).ToArray();
                 string roleStr = "";
                 foreach (string role in currentUserRoles)
                 {
@@ -300,7 +302,12 @@ namespace mojoPortal.Web
 
                 if (WebConfigSettings.PreEncryptRolesForCookie)
                 {
-                    roleStr = SiteUtils.Encrypt(roleStr);
+                    if (string.IsNullOrWhiteSpace(user.PasswordSalt))
+                    {
+						user.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+                        user.Save();
+                    }
+                    roleStr = SiteUtils.Encrypt(roleStr, user.PasswordSalt);
                 }
 
                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
@@ -318,7 +325,7 @@ namespace mojoPortal.Web
                 //roleCookie.Expires = DateTime.Now.AddMinutes(20);
                 roleCookie.HttpOnly = true;
                 roleCookie.Path = "/";
-                if ((SiteUtils.SslIsAvailable()) && WebConfigSettings.RequireSslForRoleCookie)
+                if (SiteUtils.SslIsAvailable() && WebConfigSettings.RequireSslForRoleCookie)
                 {
                     roleCookie.Secure = true;
                 }
@@ -379,13 +386,13 @@ namespace mojoPortal.Web
             SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
             if (siteSettings != null)
             {
-                string roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
+				var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
+				string roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
                 ArrayList userRoles = new ArrayList();
                 HttpCookie roleCookie = HttpContext.Current.Request.Cookies[roleCookieName];
                 if (roleCookie != null)
                 {
-                    FormsAuthenticationTicket ticket
-                        = FormsAuthentication.Decrypt(roleCookie.Value);
+                    FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(roleCookie.Value);
 
                     if (null == ticket || ticket.Expired) { return GetRolesAndSetCookieInternal(); }
 
@@ -396,6 +403,20 @@ namespace mojoPortal.Web
                         try
                         {
                             roles = SiteUtils.Decrypt(roles);
+
+                            if (!roles.Contains(user.PasswordSalt)) 
+                            {
+								HttpContext.Current.Response.Cookies.Add(new HttpCookie(roleCookieName, string.Empty)
+								{
+									Expires = DateTime.MinValue,
+									Path = "/"
+								});//adding cookie with same name and expired date removes the cookie from the client
+
+								HttpContext.Current.Response.Redirect("~/Logoff.aspx");
+								return [];
+                            }
+
+                            roles = roles.Replace(user.PasswordSalt, string.Empty);
                         }
                         catch (System.Security.Cryptography.CryptographicException)
                         { }

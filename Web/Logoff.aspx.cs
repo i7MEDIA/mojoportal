@@ -41,32 +41,36 @@ namespace mojoPortal.Web.UI.Pages
                 + siteSettings.SiteId.ToString(CultureInfo.InvariantCulture);
 
             string roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
+			Response.Cookies.Remove(roleCookieName);
+            Response.Cookies.Remove("DisplayName");
 
-            HttpCookie roleCookie = new HttpCookie(roleCookieName, string.Empty);
-            roleCookie.Expires = DateTime.Now.AddMinutes(1);
-            roleCookie.Path = "/";
-            Response.Cookies.Add(roleCookie);
+			Response.Cookies.Add(new HttpCookie(roleCookieName, string.Empty)
+			{
+				Expires = DateTime.MinValue,
+				Path = "/"
+			});//adding cookie with same name and expired date removes the cookie from the client
 
-            HttpCookie displayNameCookie = new HttpCookie("DisplayName", string.Empty);
-            displayNameCookie.Expires = DateTime.Now.AddMinutes(1);
-            displayNameCookie.Path = "/";
-            Response.Cookies.Add(displayNameCookie);
+			Response.Cookies.Add(new HttpCookie("DisplayName", string.Empty)
+			{
+				Expires = DateTime.MinValue,
+				Path = "/"
+			});//adding cookie with same name and expired date removes the cookie from the client
 
-            // apparently we need this here for folder sites using windows auth
-            //https://www.mojoportal.com/Forums/EditPost.aspx?thread=13195&forumid=2&mid=34&pageid=5&pagenumber=1
-            CookieHelper.ExpireCookie("siteguid" + siteSettings.SiteGuid);
+			// apparently we need this here for folder sites using windows auth
+			//https://www.mojoportal.com/Forums/EditPost.aspx?thread=13195&forumid=2&mid=34&pageid=5&pagenumber=1
+			CookieHelper.ExpireCookie("siteguid" + siteSettings.SiteGuid);
            
             if (WebConfigSettings.UseFolderBasedMultiTenants && !WebConfigSettings.UseRelatedSiteMode)
             {
-                string cookieName = "siteguid" + siteSettings.SiteGuid.ToString();
+                string siteCookieName = "siteguid" + siteSettings.SiteGuid.ToString();
 
-                HttpCookie siteCookie = new HttpCookie(cookieName, string.Empty);
-                siteCookie.Expires = DateTime.Now.AddMinutes(1);
-                siteCookie.Path = "/";
-                Response.Cookies.Add(siteCookie);
-
-                CookieHelper.ExpireCookie("siteguid" + siteSettings.SiteGuid);
-
+				Response.Cookies.Add(new HttpCookie(siteCookieName, string.Empty)
+				{
+					Expires = DateTime.MinValue,
+					Path = "/"
+				}); //adding cookie with same name and expired date removes the cookie from the client
+                
+                CookieHelper.ExpireCookie($"siteguid{siteSettings.SiteGuid}");
             }
             else
             {
@@ -86,13 +90,11 @@ namespace mojoPortal.Web.UI.Pages
                     {
                         Response.Redirect(windowsLive.GetLogoutUrl());
                         Response.End();
-
                     }
                 }
                 catch (InvalidOperationException)
                 {
                 }
-
             }
 
             try
@@ -116,9 +118,6 @@ namespace mojoPortal.Web.UI.Pages
             }
 
             WebUtils.SetupRedirect(this, redirectUrl);
-        
-
-
         }
     }
 }
