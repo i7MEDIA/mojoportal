@@ -408,7 +408,7 @@ namespace mojoPortal.Web
                             {
 								HttpContext.Current.Response.Cookies.Add(new HttpCookie(roleCookieName, string.Empty)
 								{
-									Expires = DateTime.MinValue,
+									Expires = DateTime.Now.AddDays(-30),
 									Path = "/"
 								});//adding cookie with same name and expired date removes the cookie from the client
 
