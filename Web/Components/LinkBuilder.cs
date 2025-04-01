@@ -1,5 +1,6 @@
 ﻿using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -22,7 +23,7 @@ public class LinkBuilder
 
 	#region Constructors
 
-	public LinkBuilder(string url, bool includeSiteRoot = true)
+	public LinkBuilder(string url, bool includeSiteRoot = true, bool useRelativePath = true)
 	{
 		url = ParseAndRemoveQueryParamsFromUrlString(url.Trim());
 
@@ -38,7 +39,17 @@ public class LinkBuilder
 
 		if (includeSiteRoot && !uri.IsAbsoluteUri)
 		{
-			var siteRoot = SiteUtils.GetNavigationSiteRoot();
+			string siteRoot;
+
+			if (useRelativePath)
+			{
+				siteRoot = SiteUtils.GetNavigationSiteRoot();
+			}
+			else
+			{
+				siteRoot = WebUtils.GetSiteRoot();
+			}
+
 			var siteRootUri = new Uri(siteRoot);
 			urlAuthority = siteRootUri.GetLeftPart(UriPartial.Authority);
 			(_, siteRootPaths) = ParsePath(siteRootUri.AbsolutePath);
@@ -364,9 +375,22 @@ public static class LinkBuilderExtensions
 	}
 
 
+	public static LinkBuilder ToLinkBuilder(this string str, bool useRelativePath, bool includeSiteRoot = true)
+	{
+		return new LinkBuilder(str, includeSiteRoot, useRelativePath);
+	}
+
+
 	public static LinkBuilder ToLinkBuilder(this Uri uri, bool includeSiteRoot = false)
 	{
 		return new LinkBuilder(uri.AbsoluteUri, includeSiteRoot)
+			.AddParams(uri.ParseQueryString());
+	}
+
+
+	public static LinkBuilder ToLinkBuilder(this Uri uri, bool useRelativePath, bool includeSiteRoot = false)
+	{
+		return new LinkBuilder(uri.AbsoluteUri, includeSiteRoot, useRelativePath)
 			.AddParams(uri.ParseQueryString());
 	}
 }

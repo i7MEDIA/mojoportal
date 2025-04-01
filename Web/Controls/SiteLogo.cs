@@ -47,8 +47,8 @@ public class SiteLogo : WebControl
 				string.Empty;
 
 			var imageUrlToUse = !string.IsNullOrWhiteSpace(OverrideImageUrl) ?
-				OverrideImageUrl.ToLinkBuilder().ToString() :
-				Invariant($"~/Data/Sites/{siteSettings.SiteId}/{mediaPath}logos/{siteSettings.Logo}").ToLinkBuilder().ToString();
+				OverrideImageUrl.ToLinkBuilder(useRelativePath: false).ToString() :
+				Invariant($"~/Data/Sites/{siteSettings.SiteId}/{mediaPath}logos/{siteSettings.Logo}").ToLinkBuilder(useRelativePath: false).ToString();
 
 			if (UseH1)
 			{

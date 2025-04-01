@@ -84,7 +84,7 @@ public class mojoBasePage : Page
 
 	public void EnsureDefaultModal()
 	{
-		ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"\r\n<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath.ToLinkBuilder()}\"></script>", false);
+		ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"\r\n<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath.ToLinkBuilder(useRelativePath: false)}\"></script>", false);
 
 		if (Master.FindControl("phSiteFooter") is Control phSiteFooter)
 		{
