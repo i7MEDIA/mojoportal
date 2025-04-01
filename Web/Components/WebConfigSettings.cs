@@ -449,7 +449,7 @@ public static class WebConfigSettings
 
 	public static int MinUserNameLength => ConfigHelper.GetIntProperty("MinUserNameLength", 6);
 
-	public static bool PreEncryptRolesForCookie => ConfigHelper.GetBoolProperty("PreEncryptRolesForCookie", false);
+	public static bool PreEncryptRolesForCookie => ConfigHelper.GetBoolProperty("PreEncryptRolesForCookie", true);
 
 	public static bool Return404StatusForCryptoError => ConfigHelper.GetBoolProperty("Return404StatusForCryptoError", true);
 

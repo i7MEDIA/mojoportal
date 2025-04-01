@@ -299,6 +299,7 @@ public class mojoRoleProvider : RoleProvider
 
 		var userRoles = Role.GetRolesByUsername(HttpContext.Current.User.Identity.Name, siteSettings.SiteId);
 		var resultRoles = userRoles.Select(x => x.RoleName);
+		var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
 
 		if (AppConfig.OAuth.Configured)
 		{
@@ -329,7 +330,6 @@ public class mojoRoleProvider : RoleProvider
 
 					if (rolesToRemove.Any() || rolesToAdd.Any())
 					{
-						var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
 						var siteRoles = Role.GetBySite(siteSettings.SiteId);
 
 						foreach (var role in rolesToRemove)
@@ -372,7 +372,13 @@ public class mojoRoleProvider : RoleProvider
 
 			if (WebConfigSettings.PreEncryptRolesForCookie)
 			{
-				roleStr = SiteUtils.Encrypt(roleStr);
+				if (string.IsNullOrWhiteSpace(user.PasswordSalt))
+				{
+					user.PasswordSalt = SiteUser.CreateRandomPassword(128, WebConfigSettings.PasswordGeneratorChars);
+					user.Save();
+				}
+
+				roleStr = SiteUtils.Encrypt(roleStr, user.PasswordSalt);
 			}
 
 			var ticket = new FormsAuthenticationTicket(
@@ -433,7 +439,24 @@ public class mojoRoleProvider : RoleProvider
 			{
 				try
 				{
+					var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
+
 					roles = SiteUtils.Decrypt(roles);
+
+					if (!roles.Contains(user.PasswordSalt))
+					{
+						HttpContext.Current.Response.Cookies.Add(new HttpCookie(roleCookieName, string.Empty)
+						{
+							Expires = DateTime.Now.AddDays(-30),
+							Path = "/"
+						}); // Adding cookie with same name and expired date removes the cookie from the client
+
+						HttpContext.Current.Response.Redirect("~/Logoff.aspx");
+
+						return [];
+					}
+
+					roles = roles.Replace(user.PasswordSalt, string.Empty);
 				}
 				catch (CryptographicException)
 				{ }

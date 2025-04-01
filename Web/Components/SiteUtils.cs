@@ -2182,15 +2182,25 @@ namespace mojoPortal.Web
 		/// </summary>
 		/// <param name="unencrypted"></param>
 		/// <returns></returns>
-		public static string Encrypt(string unencrypted)
+		public static string Encrypt(string unencrypted) => Encrypt(unencrypted, string.Empty);
+
+
+		/// <summary>
+		/// this uses the membership provider to encrypt strings with a salt the same way that passwords are encrypted
+		/// </summary>
+		/// <param name="unencrypted"></param>
+		/// <param name="salt"></param>
+		/// <returns></returns>
+		public static string Encrypt(string unencrypted, string salt)
 		{
 			if (Membership.Provider is not mojoMembershipProvider m)
 			{
 				throw new InvalidOperationException("could not obtain membership provider to use for encryption");
 			}
 
-			return m.EncodePassword(unencrypted, string.Empty, MembershipPasswordFormat.Encrypted);
+			return m.EncodePassword(unencrypted, salt, MembershipPasswordFormat.Encrypted);
 		}
+
 
 		/// <summary>
 		/// this uses th emembership provider to decrypt strings that were encrypted with the membership provider

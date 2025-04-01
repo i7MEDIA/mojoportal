@@ -20,40 +20,39 @@ public partial class Logoff : Page
 	private void DoLogout()
 	{
 		var siteSettings = CacheHelper.GetCurrentSiteSettings();
-		string winliveCookieName = $"winliveid{siteSettings.SiteId.ToString(CultureInfo.InvariantCulture)}";
+		var winliveCookieName = $"winliveid{siteSettings.SiteId.ToString(CultureInfo.InvariantCulture)}";
+		var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
 
-		string roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
+		Response.Cookies.Remove(roleCookieName);
+		Response.Cookies.Remove("DisplayName");
 
-		var roleCookie = new HttpCookie(roleCookieName, string.Empty)
+		Response.Cookies.Add(new HttpCookie(roleCookieName, string.Empty)
 		{
-			Expires = DateTime.Now.AddMinutes(1),
+			Expires = DateTime.Now.AddDays(-30),
 			Path = "/"
-		};
-		Response.Cookies.Add(roleCookie);
+		}); // adding cookie with same name and expired date removes the cookie from the client
 
-		var displayNameCookie = new HttpCookie("DisplayName", string.Empty)
+		Response.Cookies.Add(new HttpCookie("DisplayName", string.Empty)
 		{
-			Expires = DateTime.Now.AddMinutes(1),
+			Expires = DateTime.Now.AddDays(-30),
 			Path = "/"
-		};
-		Response.Cookies.Add(displayNameCookie);
+		}); // adding cookie with same name and expired date removes the cookie from the client
 
 		// apparently we need this here for folder sites using windows auth
-		//https://www.mojoportal.com/Forums/EditPost.aspx?thread=13195&forumid=2&mid=34&pageid=5&pagenumber=1
+		// https://www.mojoportal.com/Forums/EditPost.aspx?thread=13195&forumid=2&mid=34&pageid=5&pagenumber=1
 		CookieHelper.ExpireCookie("siteguid" + siteSettings.SiteGuid);
 
 		if (WebConfigSettings.UseFolderBasedMultiTenants && !WebConfigSettings.UseRelatedSiteMode)
 		{
-			string cookieName = "siteguid" + siteSettings.SiteGuid.ToString();
+			var siteCookieName = $"siteguid{siteSettings.SiteGuid}";
 
-			var siteCookie = new HttpCookie(cookieName, string.Empty)
+			Response.Cookies.Add(new HttpCookie(siteCookieName, string.Empty)
 			{
-				Expires = DateTime.Now.AddMinutes(1),
+				Expires = DateTime.Now.AddDays(-30),
 				Path = "/"
-			};
+			}); //adding cookie with same name and expired date removes the cookie from the client
 
-			Response.Cookies.Add(siteCookie);
-			CookieHelper.ExpireCookie("siteguid" + siteSettings.SiteGuid);
+			CookieHelper.ExpireCookie($"siteguid{siteSettings.SiteGuid}");
 		}
 		else
 		{
