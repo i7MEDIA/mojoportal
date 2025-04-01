@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Web;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -112,7 +113,8 @@ public partial class Edit : NonCmsBasePage
 		{
 			var dir = new DirectoryInfo(filePath);
 
-			return dir?.GetFiles();
+			var list = dir?.GetFiles();
+			return list.Where(x => x.Extension != ".config").ToArray();
 		}
 
 		return null;

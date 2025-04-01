@@ -47,12 +47,15 @@ public partial class HtmlIncludeModule : SiteModuleControl
 			if (File.Exists(includeContentFile))
 			{
 				var file = new FileInfo(includeContentFile);
-				using StreamReader sr = file.OpenText();
-				litInclude.Text = sr.ReadToEnd();
+				if (file.Extension != ".config")
+				{
+					using StreamReader sr = file.OpenText();
+					litInclude.Text = sr.ReadToEnd();
+				}
 			}
 			else
 			{
-				Controls.Add(new LiteralControl($"<div class=\"txterror danger\">File {includeContentFile} not found."));
+				Controls.Add(new LiteralControl($"<div class=\"alert alert-danger\">File {includeContentFile} not found."));
 			}
 		}
 

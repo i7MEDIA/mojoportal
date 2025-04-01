@@ -592,15 +592,15 @@ public sealed class mojoSetup
 			new() {Path = $"{siteFolderPath}SharedFiles/"},
 			new() {Path = $"{siteFolderPath}SharedFiles/History/" },
 			new() {Path = $"{siteFolderPath}userfiles/"},
-			new() {Path = $"{siteFolderPath}skins/", DeleteTestFile = true },
-			new() {Path = $"{siteFolderPath}media/", DeleteTestFile = true},
-			new() {Path = $"{siteFolderPath}htmltemplateimages/", BaseFilesPath = "~/Data/htmltemplateimages", DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}skins/" },
+			new() {Path = $"{siteFolderPath}media/"},
+			new() {Path = $"{siteFolderPath}htmltemplateimages/", BaseFilesPath = "~/Data/htmltemplateimages"},
 
 			new() {Path = $"{siteFolderPath}systemfiles/", Condition = WebConfigSettings.UseCacheDependencyFiles},
-			new() {Path = $"{siteFolderPath}index/", Condition = !WebConfigSettings.DisableSearchIndex, DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}index/", Condition = !WebConfigSettings.DisableSearchIndex},
 
-			new() {Path = $"{siteFolderPath}media/logos/", BaseFilesPath = "~/Data/logos", Condition = WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
-			new() {Path = $"{siteFolderPath}logos/", BaseFilesPath = "~/Data/logos", Condition = !WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}media/logos/", BaseFilesPath = "~/Data/logos", Condition = WebConfigSettings.SiteLogoUseMediaFolder},
+			new() {Path = $"{siteFolderPath}logos/", BaseFilesPath = "~/Data/logos", Condition = !WebConfigSettings.SiteLogoUseMediaFolder},
 
 			new() {Path = $"{siteFolderPath}media/GalleryImages/", Condition = WebConfigSettings.ImageGalleryUseMediaFolder},
 			new() {Path = $"{siteFolderPath}GalleryImages/", Condition = !WebConfigSettings.ImageGalleryUseMediaFolder},
@@ -623,12 +623,13 @@ public sealed class mojoSetup
 			if (dir.Condition)
 			{
 				TouchTestFile(dir.Path + dir.TestFile, dir.DeleteTestFile);
-				if (copyBaseFiles)
+				if (dir.BaseFilesPath is not null && copyBaseFiles)
 				{
-					if (Directory.Exists(dir.BaseFilesPath))
+					var baseFilesPath = HttpContext.Current.Server.MapPath(dir.BaseFilesPath);
+					if (Directory.Exists(baseFilesPath))
 					{
-						var source = new DirectoryInfo(dir.BaseFilesPath);
-						var dest = new DirectoryInfo(dir.Path);
+						var source = new DirectoryInfo(baseFilesPath);
+						var dest = new DirectoryInfo(HttpContext.Current.Server.MapPath(dir.Path));
 						recursiveCopy(source, dest, false);
 					}
 				}
@@ -795,7 +796,7 @@ public class SystemRequiredDirectory
 {
 	public string Path { get; set; }
 	public string TestFile { get; set; } = "test.config";
-	public bool DeleteTestFile { get; set; } = false;
+	public bool DeleteTestFile { get; set; } = true;
 	public bool Condition { get; set; } = true;
 	/// <summary>
 	/// Path of initial or default files to be copied when creating new sites.
