@@ -900,8 +900,7 @@ namespace mojoPortal.Data
 
 		}
 
-		public static void DatabaseHelperDoForumVersion2202PostUpgradeTasks(
-			string overrideConnectionInfo)
+		public static void DatabaseHelperDoForumVersion2202PostUpgradeTasks(string overrideConnectionInfo)
 		{
 			string connectionString;
 			if (
@@ -967,13 +966,11 @@ namespace mojoPortal.Data
 					"PostGuid",
 					Guid.NewGuid().ToString(),
 					"  ");
-
 			}
-
 		}
 
-		public static void DatabaseHelperDoForumVersion2203PostUpgradeTasks(
-			string overrideConnectionInfo)
+
+		public static void DatabaseHelperDoForumVersion2203PostUpgradeTasks(string overrideConnectionInfo)
 		{
 			string connectionString;
 			if (
@@ -1044,8 +1041,8 @@ namespace mojoPortal.Data
 
 		}
 
-		public static void DatabaseHelperDoVersion2320PostUpgradeTasks(
-			string overrideConnectionInfo)
+
+		public static void DatabaseHelperDoVersion2320PostUpgradeTasks(string overrideConnectionInfo)
 		{
 			string connectionString;
 			if (
@@ -1098,13 +1095,11 @@ namespace mojoPortal.Data
 					new Guid("00000000-0000-0000-0000-000000000000"),
 					Convert.ToDateTime(row["BeginUTC"]),
 					Convert.ToBoolean(row["UseHtml"]));
-
 			}
-
 		}
 
-		public static void DatabaseHelperDoVersion2230PostUpgradeTasks(
-			string overrideConnectionInfo)
+
+		public static void DatabaseHelperDoVersion2230PostUpgradeTasks(string overrideConnectionInfo)
 		{
 			string connectionString;
 			if (
@@ -1159,285 +1154,6 @@ namespace mojoPortal.Data
 
 		}
 
-		//public static void DatabaseHelperDoVersion2234PostUpgradeTasks(
-		//	string overrideConnectionInfo)
-		//{
-		//	string connectionString;
-		//	if (
-		//		(overrideConnectionInfo != null)
-		//		&& (overrideConnectionInfo.Length > 0)
-		//	  )
-		//	{
-		//		connectionString = overrideConnectionInfo;
-		//	}
-		//	else
-		//	{
-		//		connectionString = ConnectionString.GetWriteConnectionString();
-		//	}
-
-		//	DataTable dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_Pages",
-		//		" where PageGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_Pages",
-		//			"PageID",
-		//			row["PageID"].ToString(),
-		//			"PageGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and PageGuid is null ");
-		//	}
-		//}
-
-		//public static void DatabaseHelperDoVersion2247PostUpgradeTasks(
-		//	string overrideConnectionInfo)
-		//{
-		//	string connectionString;
-		//	if (
-		//		(overrideConnectionInfo != null)
-		//		&& (overrideConnectionInfo.Length > 0)
-		//	  )
-		//	{
-		//		connectionString = overrideConnectionInfo;
-		//	}
-		//	else
-		//	{
-		//		connectionString = ConnectionString.GetWriteConnectionString();
-		//	}
-
-		//	DataTable dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_FriendlyUrls",
-		//		" where ItemGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_FriendlyUrls",
-		//			"UrlID",
-		//			row["UrlID"].ToString(),
-		//			"ItemGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and ItemGuid is null ");
-
-		//	}
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_Modules",
-		//		" where Guid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_Modules",
-		//			"ModuleID",
-		//			row["ModuleID"].ToString(),
-		//			"Guid",
-		//			Guid.NewGuid().ToString(),
-		//			" and Guid is null ");
-
-		//	}
-
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_Roles",
-		//		" where RoleGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_Roles",
-		//			"RoleID",
-		//			row["RoleID"].ToString(),
-		//			"RoleGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and RoleGuid is null ");
-
-		//	}
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_ModuleSettings",
-		//		" where SettingGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_ModuleSettings",
-		//			"ID",
-		//			row["ID"].ToString(),
-		//			"SettingGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and SettingGuid is null ");
-
-		//	}
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_Blogs",
-		//		" where BlogGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_Blogs",
-		//			"ItemID",
-		//			row["ItemID"].ToString(),
-		//			"BlogGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and BlogGuid is null ");
-
-		//	}
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_CalendarEvents",
-		//		" where ItemGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_CalendarEvents",
-		//			"ItemID",
-		//			row["ItemID"].ToString(),
-		//			"ItemGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and ItemGuid is null ");
-
-		//	}
-
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_GalleryImages",
-		//		" where ItemGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_GalleryImages",
-		//			"ItemID",
-		//			row["ItemID"].ToString(),
-		//			"ItemGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and ItemGuid is null ");
-
-		//	}
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_HtmlContent",
-		//		" where ItemGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_HtmlContent",
-		//			"ItemID",
-		//			row["ItemID"].ToString(),
-		//			"ItemGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and ItemGuid is null ");
-
-		//	}
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_Links",
-		//		" where ItemGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_Links",
-		//			"ItemID",
-		//			row["ItemID"].ToString(),
-		//			"ItemGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and ItemGuid is null ");
-
-		//	}
-
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_SharedFileFolders",
-		//		" where FolderGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_SharedFileFolders",
-		//			"FolderID",
-		//			row["FolderID"].ToString(),
-		//			"FolderGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and FolderGuid is null ");
-
-		//	}
-
-		//	dataTable = DatabaseHelperGetTable(
-		//		connectionString,
-		//		"mp_SharedFiles",
-		//		" where ItemGuid is null ");
-
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_SharedFiles",
-		//			"ItemID",
-		//			row["ItemID"].ToString(),
-		//			"ItemGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and ItemGuid is null ");
-
-		//	}
-
-
-		//}
-
-		//public static void DatabaseHelperDoVersion2253PostUpgradeTasks(string overrideConnectionInfo)
-		//{
-		//	string connectionString;
-		//	if ((overrideConnectionInfo != null) && (overrideConnectionInfo.Length > 0))
-		//	{
-		//		connectionString = overrideConnectionInfo;
-		//	}
-		//	else
-		//	{
-		//		connectionString = ConnectionString.GetWriteConnectionString();
-		//	}
-
-		//	DataTable dataTable = DatabaseHelperGetTable(connectionString, "mp_RssFeeds", " where ItemGuid is null ");
-
-		//	foreach (DataRow row in dataTable.Rows)
-		//	{
-		//		DatabaseHelperUpdateTableField(
-		//			"mp_RssFeeds",
-		//			"ItemID",
-		//			row["ItemID"].ToString(),
-		//			"ItemGuid",
-		//			Guid.NewGuid().ToString(),
-		//			" and ItemGuid is null ");
-		//	}
-		//}
 
 		/// <summary>
 		/// Runs tasks after Upgrade scripts
@@ -1618,7 +1334,6 @@ SET FeatureGuid = (
 						}
 					}
 					return result;
-
 				case var _ when version == new Version(2, 2, 5, 3):
 					dataTable = DatabaseHelperGetTable(connectionString, "mp_RssFeeds", " where ItemGuid is null ");
 					foreach (DataRow row in dataTable.Rows)
@@ -1630,7 +1345,6 @@ SET FeatureGuid = (
 						}
 					}
 					return result;
-
 				case var _ when version == new Version(2, 3, 2, 0):
 					sqlCommand = @"
 SELECT  
@@ -1659,6 +1373,7 @@ JOIN mp_Users u ON u.UserGuid = ls.UserGuid;";
 							Convert.ToBoolean(row["UseHtml"]));
 					}
 					break;
+
 				default:
 					return false;
 			}
