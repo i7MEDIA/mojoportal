@@ -136,7 +136,7 @@ public class Global : HttpApplication
 
 	protected void Application_BeginRequest(object sender, EventArgs e)
 	{
-		var siteCount = SiteSettings.SiteCount();
+		var siteCount = CacheManager.Cache.GetOrSetItem("SiteCount", SiteSettings.SiteCount);
 
 		//http://stackoverflow.com/questions/1340643/how-to-enable-ip-address-logging-with-log4net
 		ThreadContext.Properties["ip"] = SiteUtils.GetIP4Address();
