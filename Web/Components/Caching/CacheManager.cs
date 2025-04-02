@@ -19,11 +19,11 @@ public static class CacheManager
 	{
 		_cache = WebConfigSettings.CacheProviderType switch
 		{
-			// This was for older than .NET 3.5
-			//CacheTypes.AppFabricCache => new AppFabricCacheAdapter(),
+			CacheTypes.AppFabricCache => new AppFabricCacheAdapter(),
 			CacheTypes.MemoryCache => new MemoryCacheAdapter(),
 			_ => new MemoryCacheAdapter(),
 		};
+
 		_cacheProvider = new CacheProvider(_cache);
 	}
 }
