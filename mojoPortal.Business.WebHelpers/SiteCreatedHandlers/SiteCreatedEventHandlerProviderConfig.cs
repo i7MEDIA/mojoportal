@@ -1,154 +1,118 @@
-﻿//  Author:                     Joe Davis
-//  Created:                    2012-04-02
-//	Last Modified:              2012-04-02
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+﻿using log4net;
 using System;
 using System.Configuration;
 using System.IO;
 using System.Web;
 using System.Web.Caching;
 using System.Xml;
-using log4net;
 
-namespace mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers
+namespace mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
+
+public class SiteCreatedEventHandlerProviderConfig
 {
-    /// <summary>
-    ///  
-    /// </summary>
-    public class SiteCreatedEventHandlerProviderConfig
-    {
-        private static readonly ILog log
-            = LogManager.GetLogger(typeof(SiteCreatedEventHandlerProviderConfig));
+	private static readonly ILog log = LogManager.GetLogger(typeof(SiteCreatedEventHandlerProviderConfig));
+
+	private readonly ProviderSettingsCollection providerSettingsCollection = [];
 
 
-        private ProviderSettingsCollection providerSettingsCollection
-            = new ProviderSettingsCollection();
-
-        public ProviderSettingsCollection Providers
-        {
-            get { return providerSettingsCollection; }
-        }
-
-        public static SiteCreatedEventHandlerProviderConfig GetConfig()
-        {
-            try
-            {
-                if (
-                    (HttpRuntime.Cache["SiteCreatedEventHandlerProviderConfig"] != null)
-                    && (HttpRuntime.Cache["SiteCreatedEventHandlerProviderConfig"] is SiteCreatedEventHandlerProviderConfig)
-                )
-                {
-                    return (SiteCreatedEventHandlerProviderConfig)HttpRuntime.Cache["SiteCreatedEventHandlerProviderConfig"];
-                }
-
-                SiteCreatedEventHandlerProviderConfig config
-                    = new SiteCreatedEventHandlerProviderConfig();
-
-                String configFolderName = "~/Setup/ProviderConfig/sitecreatedeventhandlers/";
-
-                string pathToConfigFolder
-                    = HttpContext.Current.Server.MapPath(configFolderName);
+	public ProviderSettingsCollection Providers => providerSettingsCollection;
 
 
-                if (!Directory.Exists(pathToConfigFolder)) return config;
+	public static SiteCreatedEventHandlerProviderConfig GetConfig()
+	{
+		try
+		{
+			if (HttpRuntime.Cache["SiteCreatedEventHandlerProviderConfig"] is SiteCreatedEventHandlerProviderConfig config)
+			{
+				return config;
+			}
 
-                DirectoryInfo directoryInfo
-                    = new DirectoryInfo(pathToConfigFolder);
+			config = new SiteCreatedEventHandlerProviderConfig();
 
-                FileInfo[] configFiles = directoryInfo.GetFiles("*.config");
+			var configFolderName = "~/Setup/ProviderConfig/sitecreatedeventhandlers/";
+			var pathToConfigFolder = HttpContext.Current.Server.MapPath(configFolderName);
 
-                foreach (FileInfo fileInfo in configFiles)
-                {
-                    var configXml = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
-                    config.LoadValuesFromConfigurationXml(configXml.DocumentElement);
-                }
+			if (!Directory.Exists(pathToConfigFolder))
+			{
+				return config;
+			}
 
-                AggregateCacheDependency aggregateCacheDependency
-                    = new AggregateCacheDependency();
+			var directoryInfo = new DirectoryInfo(pathToConfigFolder);
+			var configFiles = directoryInfo.GetFiles("*.config");
 
-                string pathToWebConfig
-                    = HttpContext.Current.Server.MapPath("~/Web.config");
+			foreach (var fileInfo in configFiles)
+			{
+				var configXml = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
 
-                aggregateCacheDependency.Add(new CacheDependency(pathToWebConfig));
+				config.LoadValuesFromConfigurationXml(configXml.DocumentElement);
+			}
 
-                System.Web.HttpRuntime.Cache.Insert(
-                    "SiteCreatedEventHandlerProviderConfig",
-                    config,
-                    aggregateCacheDependency,
-                    DateTime.Now.AddYears(1),
-                    TimeSpan.Zero,
-                    System.Web.Caching.CacheItemPriority.Default,
-                    null);
+			var aggregateCacheDependency = new AggregateCacheDependency();
+			var pathToWebConfig = HttpContext.Current.Server.MapPath("~/Web.config");
 
-                return (SiteCreatedEventHandlerProviderConfig)HttpRuntime.Cache["SiteCreatedEventHandlerProviderConfig"];
+			aggregateCacheDependency.Add(new CacheDependency(pathToWebConfig));
 
-            }
-            catch (HttpException ex)
-            {
-                log.Error(ex);
+			HttpRuntime.Cache.Insert(
+				"SiteCreatedEventHandlerProviderConfig",
+				config,
+				aggregateCacheDependency,
+				DateTime.Now.AddYears(1),
+				TimeSpan.Zero,
+				CacheItemPriority.Default,
+				null
+			);
 
-            }
-            catch (System.Xml.XmlException ex)
-            {
-                log.Error(ex);
+			return (SiteCreatedEventHandlerProviderConfig)HttpRuntime.Cache["SiteCreatedEventHandlerProviderConfig"];
+		}
+		catch (HttpException ex)
+		{
+			log.Error(ex);
+		}
+		catch (XmlException ex)
+		{
+			log.Error(ex);
+		}
+		catch (ArgumentException ex)
+		{
+			log.Error(ex);
+		}
+		catch (NullReferenceException ex)
+		{
+			log.Error(ex);
+		}
 
-            }
-            catch (ArgumentException ex)
-            {
-                log.Error(ex);
-
-            }
-            catch (NullReferenceException ex)
-            {
-                log.Error(ex);
-
-            }
-
-            return null;
+		return null;
+	}
 
 
-        }
+	public void LoadValuesFromConfigurationXml(XmlNode node)
+	{
+		foreach (XmlNode child in node.ChildNodes)
+		{
+			if (child.Name == "providers")
+			{
+				foreach (XmlNode providerNode in child.ChildNodes)
+				{
+					if (
+						providerNode.NodeType == XmlNodeType.Element &&
+						providerNode.Name == "add"
+					)
+					{
+						if (
+							providerNode.Attributes["name"] != null &&
+							providerNode.Attributes["type"] != null
+						)
+						{
+							var providerSettings = new ProviderSettings(
+								providerNode.Attributes["name"].Value,
+								providerNode.Attributes["type"].Value
+							);
 
-        public void LoadValuesFromConfigurationXml(XmlNode node)
-        {
-            foreach (XmlNode child in node.ChildNodes)
-            {
-                if (child.Name == "providers")
-                {
-                    foreach (XmlNode providerNode in child.ChildNodes)
-                    {
-                        if (
-                            (providerNode.NodeType == XmlNodeType.Element)
-                            && (providerNode.Name == "add")
-                            )
-                        {
-                            if (
-                                (providerNode.Attributes["name"] != null)
-                                && (providerNode.Attributes["type"] != null)
-                                )
-                            {
-                                ProviderSettings providerSettings
-                                    = new ProviderSettings(
-                                    providerNode.Attributes["name"].Value,
-                                    providerNode.Attributes["type"].Value);
-
-                                providerSettingsCollection.Add(providerSettings);
-                            }
-
-                        }
-                    }
-
-                }
-            }
-        }
-
-    }
+							providerSettingsCollection.Add(providerSettings);
+						}
+					}
+				}
+			}
+		}
+	}
 }
