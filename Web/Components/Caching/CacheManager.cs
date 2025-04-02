@@ -3,56 +3,27 @@
 // License: Ms-Pl http://www.opensource.org/licenses/MS-PL
 // Forked on 2011-08-03 by 
 // Changed namespaces and modified for use in mojoPortal
-//
 
+namespace mojoPortal.Web.Caching;
 
-using System;
-
-namespace mojoPortal.Web.Caching
+public static class CacheManager
 {
-    public static class CacheManager
-    {
-    	private static ICacheProvider _cacheProvider;
-    	private static ICache _cache;
+	private static ICacheProvider _cacheProvider;
+	private static ICache _cache;
 
-        private const string AppFabricProvider = "mojoPortal.Web.Caching.AppFabricCacheAdapter, mojoPortal.Web";
-    	
-    	static CacheManager()
-    	{
-    		PreStartInitialise();
-    	}
-        
-        public static void PreStartInitialise()
-        {
-            switch (WebConfigSettings.CacheProviderType)
-            {
+	public static ICacheProvider Cache => _cacheProvider;
 
-#if !NET35
-                case CacheTypes.AppFabricCache:
+	static CacheManager() => PreStartInitialise();
 
-                    _cache = new AppFabricCacheAdapter();
-
-                    break;
-
-#endif
-                case CacheTypes.MemoryCache:
-                default:
-                    _cache = new MemoryCacheAdapter();
-
-                    // http://msdn.microsoft.com/en-us/library/wcxyzt4d.aspx
-                    //_cache = Activator.CreateInstance(Type.GetType(WebConfigSettings.CacheProviderType, _logger)) as ICache;
-
-
-                    break;
-
-
-            }
-
-
-			_cacheProvider = new CacheProvider(_cache);
-
-		}
-
-		public static ICacheProvider Cache { get { return _cacheProvider; } }
-    }
+	public static void PreStartInitialise()
+	{
+		_cache = WebConfigSettings.CacheProviderType switch
+		{
+			// This was for older than .NET 3.5
+			//CacheTypes.AppFabricCache => new AppFabricCacheAdapter(),
+			CacheTypes.MemoryCache => new MemoryCacheAdapter(),
+			_ => new MemoryCacheAdapter(),
+		};
+		_cacheProvider = new CacheProvider(_cache);
+	}
 }

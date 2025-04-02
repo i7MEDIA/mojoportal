@@ -5,24 +5,18 @@
 // Changed namespaces and modified for easier use in mojoPortal
 //
 // Change history for this file since original fork:
-// 
-//
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace mojoPortal.Web.Caching
+namespace mojoPortal.Web.Caching;
+
+public interface ICache
 {
-    public interface ICache
-    {
-        T Get<T>(string cacheKey) where T : class;
-        object GetObject(string cacheKey);
-        void Add(string cacheKey, DateTime absoluteExpiry, object dataToAdd);
-		void Add(string cacheKey, TimeSpan slidingExpiryWindow, object dataToAdd);
-        void InvalidateCacheItem(string cacheKey);
-    	void AddToPerRequestCache(string cacheKey, object dataToAdd);
-    	CacheSetting CacheType { get; }
-    }
+	T Get<T>(string cacheKey) where T : class;
+	object GetObject(string cacheKey);
+	void Add(string cacheKey, DateTime absoluteExpiry, object dataToAdd);
+	void Add(string cacheKey, TimeSpan slidingExpiryWindow, object dataToAdd);
+	void InvalidateCacheItem(string cacheKey);
+	void AddToPerRequestCache(string cacheKey, object dataToAdd);
+	CacheSetting CacheType { get; }
 }
