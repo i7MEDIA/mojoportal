@@ -1305,6 +1305,13 @@ namespace mojoPortal.Web
 			return HttpContext.Current.Server.MapPath(Invariant($"~/Data/Sites/{siteSettings.SiteId}/skins/"));
 		}
 
+		public static string GetSkinPath(bool allowPageOverride = true)
+		{
+			var skinPath = GetSiteSkinFolderPath();
+			var skinName = GetSkinName(allowPageOverride);
+			return Path.Combine(skinPath, skinName);
+		}
+
 		public static DirectoryInfo[] GetSkinList(SiteSettings siteSettings)
 		{
 			if (siteSettings is null)
@@ -1778,6 +1785,8 @@ namespace mojoPortal.Web
 				folderTenant = GetRelativeNavigationSiteRoot();
 			}
 
+			//gets the navigationRoot from the current context, if you're browsing with http, you get http
+			//todo: this could always be https if ssl is enabled because of how we redirect to ssl in global.asax
 			var navigationRoot = WebUtils.GetSiteRoot();
 
 			if (navigationRoot.StartsWith("http:"))
