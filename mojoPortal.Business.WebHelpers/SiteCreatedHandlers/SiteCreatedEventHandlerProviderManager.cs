@@ -8,7 +8,7 @@ namespace mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
 public sealed class SiteCreatedEventHandlerProviderManager
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(SiteCreatedEventHandlerProviderManager));
-	private static readonly SiteCreatedEventHandlerProviderCollection providerCollection = [];
+	private static SiteCreatedEventHandlerProviderCollection providerCollection;
 
 
 	public static SiteCreatedEventHandlerProviderCollection Providers
@@ -33,6 +33,9 @@ public sealed class SiteCreatedEventHandlerProviderManager
 
 	private static void Initialize()
 	{
+		//needs to be initialized here, not as default
+		providerCollection = [];
+
 		try
 		{
 			var config = SiteCreatedEventHandlerProviderConfig.GetConfig();

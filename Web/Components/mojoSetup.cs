@@ -9,6 +9,7 @@ using System.Web.Security;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -211,8 +212,10 @@ public sealed class mojoSetup
 			MinRequiredNonAlphanumericCharacters = 0,
 			MinRequiredPasswordLength = 7,
 			PasswordStrengthRegularExpression = string.Empty,
-			DefaultEmailFromAddress = GetSetupTemplate(templateFolder, "InitialEmailFromContent.config")
+			DefaultEmailFromAddress = GetSetupTemplate(templateFolder, "InitialEmailFromContent.config"),
 		};
+
+		newSite.SiteCreated += new SiteCreatedEventHandler(siteSettings_SiteCreated);
 
 		newSite.Save();
 
@@ -221,6 +224,24 @@ public sealed class mojoSetup
 		//newSite.CreateInitialDataOnCreate = false;
 
 		return newSite;
+	}
+
+	private static void siteSettings_SiteCreated(object sender, SiteCreatedEventArgs e)
+	{
+		// this is a hook so that custom code can be fired when sites are created
+		// implement a SiteCreatedEventHandlerProvider and put a config file for it in
+		// /Setup/ProviderConfig/sitecreatedeventhandlers
+		try
+		{
+			foreach (SiteCreatedEventHandlerProvider handler in SiteCreatedEventHandlerProviderManager.Providers)
+			{
+				handler.SiteCreatedHandler(sender, e);
+			}
+		}
+		catch (TypeInitializationException ex)
+		{
+			log.Error(ex);
+		}
 	}
 
 	private static SiteUser EnsureAdminUser(SiteSettings site)
