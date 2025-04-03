@@ -296,6 +296,8 @@ public class ModuleConfiguration
 				workingMarkupDefinition = (MarkupDefinition)MarkupDefinition.Clone();
 			}
 
+			workingMarkupDefinition.SolutionName = MarkupDefinitionName.Replace(" ", string.Empty).ToCleanFileName().RemovePunctuation();
+
 			foreach (XmlNode childNode in node)
 			{
 				if (!string.IsNullOrWhiteSpace(childNode.InnerText) || !string.IsNullOrWhiteSpace(childNode.InnerXml))
