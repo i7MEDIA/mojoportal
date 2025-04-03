@@ -6,7 +6,10 @@ public class SuperFlexiDisplaySettings : BasePluginDisplaySettings
 {
 
 	//public override string FeatureName => "Core";
-	//public override string SubFeatureName => GetType().Name.Replace("DisplaySettings", string.Empty);
+	public override string SubFeatureName { get { return SolutionName; } }
+
+	public string SolutionName { get; set; }
+
 	public SuperFlexiDisplaySettings() : base() { }
 
 	public bool HideOuterWrapperPanel { get; set; } = false;
