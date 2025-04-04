@@ -95,6 +95,9 @@ public class ModuleConfiguration
 		ModuleFriendlyName = WebUtils.ParseStringFromHashtable(settings, "ModuleFriendlyName", ModuleFriendlyName);
 		GlobalViewSortOrder = WebUtils.ParseInt32FromHashtable(settings, "GlobalViewSortOrder", GlobalViewSortOrder);
 		DescendingSort = WebUtils.ParseBoolFromHashtable(settings, "DescendingSortOrder", DescendingSort);
+		
+		SortField = WebUtils.ParseStringFromHashtable(settings, "SortField", SortField);
+
 		InstanceFeaturedImage = WebUtils.ParseStringFromHashtable(settings, "InstanceFeaturedImage", InstanceFeaturedImage);
 		HeaderContent = WebUtils.ParseStringFromHashtable(settings, "HeaderContent", HeaderContent);
 		FooterContent = WebUtils.ParseStringFromHashtable(settings, "FooterContent", FooterContent);
@@ -286,6 +289,11 @@ public class ModuleConfiguration
 			MaxItems = attrCollection.ParseInt32FromAttribute("maxItems", MaxItems);
 			ProcessItems = attrCollection.ParseBoolFromAttribute("processItems", ProcessItems);
 
+			if (string.IsNullOrWhiteSpace(SortField))
+			{
+				SortField = attrCollection.ParseStringFromAttribute("sortField", SortField);
+			}
+
 			ViewName = attrCollection.ParseStringFromAttribute("viewName", ViewName);
 			UseRazor = !string.IsNullOrWhiteSpace(ViewName);
 
@@ -454,6 +462,7 @@ public class ModuleConfiguration
 	public bool RenderJSONOfData => ProcessItems && !string.IsNullOrWhiteSpace(JsonRenderLocation);
 	public bool JsonLabelObjects { get; private set; } = false;
 	public bool DescendingSort { get; private set; } = false;
+	public string SortField { get; set; } = string.Empty;
 	public bool UseHeader { get; private set; } = false;
 	/// <summary>
 	/// Where the header content should be rendered.

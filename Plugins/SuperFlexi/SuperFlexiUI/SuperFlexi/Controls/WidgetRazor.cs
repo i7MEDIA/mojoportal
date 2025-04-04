@@ -27,6 +27,8 @@ public class WidgetRazor : WebControl
 	private int totalPages = -1;
 	private int totalRows = -1;
 	private int itemId = 0;
+	private string sortField = string.Empty;
+	private string sortDirection = "ASC";
 	private bool getDynamicListValuesFromReturnedItems = false;
 	private bool publishedToCurrentPage = false;
 
@@ -90,13 +92,37 @@ public class WidgetRazor : WebControl
 		pageSize = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_PageSize", Config.PageSize);
 		itemId = WebUtils.ParseInt32FromQueryString($"sf{ModuleId}_ItemId", itemId);
 
+		var _sortField = WebUtils.ParseStringFromQueryString($"sf{ModuleId}_SortBy", sortField).ToLower();
+		if (!string.IsNullOrWhiteSpace(_sortField))
+		{
+			var fields = Field.GetAllForDefinition(Config.FieldDefinitionGuid);
+			if (fields.Where(f => f.Name == _sortField).Count() > 0)
+			{
+				sortField = _sortField;
+			}
+		}
+
+		if (Config.DescendingSort)
+		{
+			sortDirection = "DESC";
+		}
+
+		var _sortDirection = WebUtils.ParseStringFromQueryString($"sf{ModuleId}_SortDir", sortDirection).ToUpper();
+
+		if (!string.IsNullOrWhiteSpace(_sortDirection.ValidateSQLSortDirection(string.Empty)))
+		{
+			sortDirection = _sortDirection;
+		}
+
 		foreach (string param in HttpContext.Current.Request.QueryString.Keys)
 		{
 			//the keys (param) can be null because some dev somewhere is an asshole
 			if (param is not null && param.StartsWith($"sf{ModuleId}")
 				&& param != $"sf{ModuleId}_PageNumber"
 				&& param != $"sf{ModuleId}_PageSize"
-				&& param != $"sf{ModuleId}_ItemId")
+				&& param != $"sf{ModuleId}_ItemId"
+				&& param != $"sf{ModuleId}_SortBy"
+				&& param != $"sf{ModuleId}_SortDirection")
 			{
 				dynamicQueryParams.Add(param, HttpContext.Current.Request.QueryString[param]);
 			}
@@ -225,35 +251,35 @@ public class WidgetRazor : WebControl
 		if (Config.IsGlobalView)
 		{
 			return ItemWithValues.GetListForDefinition(
-				Config.FieldDefinitionGuid,
-				siteSettings.SiteGuid,
-				out totalPages,
-				out totalRows,
-				pageNumber,
-				pageSize,
-				searchTerm,
-				searchField,
-				Config.DescendingSort
-			);
+				defGuid: Config.FieldDefinitionGuid,
+				siteGuid: siteSettings.SiteGuid,
+				totalPages: out totalPages,
+				totalRows: out totalRows,
+				pageNumber: pageNumber,
+				pageSize: pageSize,
+				searchTerm: searchTerm,
+				searchField: searchField,
+				sortField: sortField,
+				sortDirection: sortDirection);
 		}
 		else
 		{
 			return ItemWithValues.GetListForModule(
-					ModuleGuid,
-					out totalPages,
-					out totalRows,
-					pageNumber,
-					pageSize,
-					searchTerm,
-					searchField,
-					Config.DescendingSort
-				);
+				moduleGuid: ModuleGuid,
+				totalPages: out totalPages,
+				totalRows: out totalRows,
+				pageNumber: pageNumber,
+				pageSize: pageSize,
+				searchTerm: searchTerm,
+				searchField: searchField,
+				sortField: sortField,
+				sortDirection: sortDirection);
 		}
 	}
 
 	protected override void RenderContents(HtmlTextWriter writer)
 	{
-		prepareModel();	
+		prepareModel();
 		writer.Write(getViewContent());
 	}
 
@@ -297,7 +323,7 @@ public class WidgetRazor : WebControl
 				CacheGuid = siteSettings.SkinVersion,
 				CacheKey = SiteUtils.GetCssCacheCookieName(siteSettings),
 				PhysAppRoot = WebUtils.GetApplicationRoot(),
-				SitePath = WebUtils.GetApplicationRoot() + "/Data/Sites/" + module.SiteId,
+				SitePath = $"{WebUtils.GetApplicationRoot()}/Data/Sites/{module.SiteId}",
 				SiteUrl = SiteUtils.GetNavigationSiteRoot(),
 				SkinPath = SiteUtils.DetermineSkinBaseUrl(SiteUtils.GetSkinName(true)),
 				TimeZone = SiteUtils.GetSiteTimeZone()
@@ -331,15 +357,15 @@ public class WidgetRazor : WebControl
 
 		var masterLocationFormats = new List<string>(viewEngine.MasterLocationFormats);
 		masterLocationFormats.Insert(0, $"~{model.Site.SkinPath}Views/SuperFlexi/{{0}}.cshtml");
-		viewEngine.MasterLocationFormats = masterLocationFormats.ToArray();
+		viewEngine.MasterLocationFormats = [.. masterLocationFormats];
 
 		var partialViewLocationFormats = new List<string>(viewEngine.PartialViewLocationFormats);
 		partialViewLocationFormats.Insert(0, model.Site.SkinViewPath.Replace(Config.ViewName, string.Empty) + "/{0}.cshtml");
-		viewEngine.PartialViewLocationFormats = partialViewLocationFormats.ToArray();
+		viewEngine.PartialViewLocationFormats = [.. partialViewLocationFormats];
 
 		var viewLocationFormats = new List<string>(viewEngine.ViewLocationFormats);
 		viewLocationFormats.Insert(0, model.Site.SkinViewPath.Replace(Config.ViewName, string.Empty) + "/{0}.cshtml");
-		viewEngine.ViewLocationFormats = viewLocationFormats.ToArray();
+		viewEngine.ViewLocationFormats = [.. viewLocationFormats];
 
 		try
 		{

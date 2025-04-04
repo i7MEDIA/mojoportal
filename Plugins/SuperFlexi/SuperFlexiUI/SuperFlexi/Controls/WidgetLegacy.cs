@@ -84,13 +84,13 @@ public class WidgetLegacy : WebControl
 				{
 					//items = Item.GetAllForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, Config.DescendingSort);
 					//fieldValues = ItemFieldValue.GetItemValuesByDefinition(Config.FieldDefinitionGuid);
-					itemsWithValues = ItemWithValues.GetListForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, out _, out _, descending: Config.DescendingSort);
+					itemsWithValues = ItemWithValues.GetListForDefinition(Config.FieldDefinitionGuid, siteSettings.SiteGuid, out _, out _, sortDirection: Config.DescendingSort ? "DESC" : "ASC");
 				}
 				else
 				{
 					//items = Item.GetForModule(ModuleId, Config.DescendingSort);
 					//fieldValues = ItemFieldValue.GetItemValuesByModule(module.ModuleGuid);
-					itemsWithValues = ItemWithValues.GetListForModule(module.ModuleGuid, out _, out _, pageSize: 0, descending: Config.DescendingSort);
+					itemsWithValues = ItemWithValues.GetListForModule(module.ModuleGuid, out _, out _, pageSize: 0, sortDirection: Config.DescendingSort ? "DESC" : "ASC");
 				}
 			}
 		}

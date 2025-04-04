@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
       <Project>{6ddfe292-37aa-4a02-b2f0-ba7968a026ef}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>

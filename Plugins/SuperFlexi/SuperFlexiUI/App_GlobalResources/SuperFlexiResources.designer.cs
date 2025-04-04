@@ -547,6 +547,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sort Field.
+        /// </summary>
+        internal static string SortField {
+            get {
+                return ResourceManager.GetString("SortField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         internal static string UpdateButton {
