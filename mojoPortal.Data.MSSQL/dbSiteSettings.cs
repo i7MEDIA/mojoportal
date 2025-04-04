@@ -355,9 +355,50 @@ namespace mojoPortal.Data
 
 		public static int GetSiteCount()
 		{
-			var sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Sites_SelectCount", 0);
+			Version version;
+			var newProc = true;
 
-			return Convert.ToInt32(sph.ExecuteScalar());
+			using (IDataReader reader = DBPortal.SchemaVersionGetSchemaVersion(new("077e4857-f583-488e-836e-34a4b04be855")))
+			{
+				if (reader.Read())
+				{
+					version = new(
+						Convert.ToInt32(reader["Major"]),
+						Convert.ToInt32(reader["Minor"]),
+						Convert.ToInt32(reader["Build"]),
+						Convert.ToInt32(reader["Revision"])
+					);
+
+					if (version < new Version(2, 9, 1, 0))
+					{
+						newProc = false;
+					}
+				}
+			}
+
+			// We're doing this so that upgrading a site from a version earlier than 2910 won't incorrectly think that there are no sites.
+			if (newProc)
+			{
+				var sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Sites_SelectCount", 0);
+
+				return Convert.ToInt32(sph.ExecuteScalar());
+			}
+			else
+			{
+				var sitesFound = 0;
+
+				using IDataReader reader = GetSiteList();
+
+				if (reader != null)
+				{
+					while (reader.Read())
+					{
+						sitesFound += 1;
+					}
+				}
+
+				return sitesFound;
+			}
 		}
 
 
