@@ -1,11 +1,11 @@
-﻿using mojoPortal.Core.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using mojoPortal.Core.Helpers;
 
 namespace mojoPortal.Core.Extensions;
 
@@ -414,5 +414,23 @@ public static class StringExtensions
 	public static string RelativePath(this HttpServerUtility srv, string path)
 	{
 		return path.Replace(HttpContext.Current.Server.MapPath("~/"), "~/").Replace(@"\", "/");
+	}
+
+	/// <summary>
+	/// Ensures an OrderBy string is a valid SQL Order By sort direction
+	/// </summary>
+	/// <param name="s1"></param>
+	/// <param name="returnWhenInvalid"></param>
+	/// <returns></returns>
+	public static string ValidateSQLSortDirection(this string s1, string returnWhenInvalid = "ASC")
+	{
+		if (!string.IsNullOrWhiteSpace(s1) && s1.ToUpper().IsIn("ASC", "DESC"))
+		{
+			return s1;
+		}
+		else
+		{
+			return returnWhenInvalid;
+		}
 	}
 }
