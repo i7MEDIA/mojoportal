@@ -11,13 +11,13 @@ namespace mojoPortal.Web.UI.Razor;
 [ValidationProperty("SelectedValue")]
 public class RazorDropDownList : Control, IPostBackDataHandler
 {
-    public List<SelectListItem> Items;
+	public List<SelectListItem> Items;
 
 	public int TabIndex { get; set; } = 10;
 
 	public string CssClass { get; set; } = string.Empty;
 
-	public Dictionary<string, object> Attributes { get; set; }
+	public Dictionary<string, object> Attributes { get; set; } = [];
 
 	//public AttributeCollection Attributes { get; set; }
 
@@ -31,7 +31,7 @@ public class RazorDropDownList : Control, IPostBackDataHandler
 		}
 		set
 		{
-			ViewState["SelectedValue"] = value;	
+			ViewState["SelectedValue"] = value;
 		}
 	}
 
