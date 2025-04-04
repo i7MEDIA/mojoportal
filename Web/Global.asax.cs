@@ -377,35 +377,31 @@ public class Global : HttpApplication
 
 	private void HandleRedirects(int siteCount)
 	{
+		string redirectUrl = null;
+		bool doRedirect = false;
+
+		if (siteCount == 0 && WebConfigSettings.SslisAvailable)
+		{
+			//this would get hit during first setup
+			https();
+			if (doRedirect)
+			{
+				Response.Redirect(redirectUrl, true);
+				return;
+			}
+		}
+
 		if (WebConfigSettings.AllowForcingPreferredHostName)
 		{
 			var siteSettings = CacheHelper.GetCurrentSiteSettings();
-			var useHttps = siteCount > 0 &&
-				SiteUtils.SslIsAvailable(siteSettings) ||
-				siteCount == 0 &&
-				WebConfigSettings.SslisAvailable;
+			var useHttps = siteCount > 0 && SiteUtils.SslIsAvailable(siteSettings);
 			var protocol = useHttps ? "https://" : "http://";
-			string redirectUrl = null;
-			bool doRedirect = false;
 
 			if (useHttps)
 			{
-				switch (Request.Url.Scheme)
-				{
-					case "https":
-						if (WebConfigSettings.UseHSTSHeader)
-						{
-							Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
-						}
-
-						break;
-
-					case "http":
-						doRedirect = true;
-						redirectUrl = $"https://{Request.Url.Host}{Request.Url.PathAndQuery}";
-
-						break;
-				}
+				//determine if current request is http or https
+				//sets hsts header and initial redirectUrl
+				https();
 			}
 
 			if (siteSettings is not null && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
@@ -459,6 +455,26 @@ public class Global : HttpApplication
 				Response.Redirect(redirectUrl, true);
 
 				return;
+			}
+		}
+
+		void https()
+		{
+			switch (Request.Url.Scheme)
+			{
+				case "https":
+					if (WebConfigSettings.UseHSTSHeader)
+					{
+						Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
+					}
+
+					break;
+
+				case "http":
+					doRedirect = true;
+					redirectUrl = $"https://{Request.Url.Host}{Request.Url.PathAndQuery}";
+
+					break;
 			}
 		}
 	}
