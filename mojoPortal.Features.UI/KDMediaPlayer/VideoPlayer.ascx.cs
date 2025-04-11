@@ -64,20 +64,28 @@ public partial class VideoPlayer : SiteModuleControl
 
 		// setup the instance script
 		var script = new StringBuilder();
-		script.Append("\n<script data-loader=\"VideoPlayer\">\n");
-		script.Append("(function() {");
-		script.Append($"var pl_{ClientID} = new jPlayerPlaylist({{");
-		script.Append($"jPlayer: \"#{PlayerInstance.ClientID}\",");
-		script.Append($"cssSelectorAncestor: \"#{PlayerContainer.ClientID}\"");
-		script.Append("}");
+
+		script.Append($$"""
+		
+		<script data-loader="VideoPlayer">
+			(function() {
+				let pl_{{ClientID}} = new jPlayerPlaylist({
+					jPlayer: '#{{PlayerInstance.ClientID}}',
+					cssSelectorAncestor: '#{{PlayerContainer.ClientID}}'
+				},
+		""");
 
 		//Start the construction of the playlist
-		script.Append(",[");
-		bool isFirstTrack = true;
+		script.Append("""
+		
+				[
+		""");
+
 		//Keep a list of the file types that were added for the track to use to create the 
 		//"supplied" jPlayer constructor option
 		var suppliedTypes = new List<string>();
-		foreach (MediaTrack track in thePlayer.MediaTracks)
+
+		foreach (var track in thePlayer.MediaTracks)
 		{
 			//Gets the URL to the folder where the Media Files for the track exist (removing the ~ fromt the begining of
 			//the returned path).
@@ -87,49 +95,25 @@ public partial class VideoPlayer : SiteModuleControl
 			//Get the file information for the track
 			List<MediaFile> mediaFiles = track.MediaFiles;
 
-			if (isFirstTrack)
-			{
-				script.Append("{");
-				isFirstTrack = false;
-			}
-			else
-			{
-				script.Append(",{");
-			}
-
 			script.Append($$"""
-				title: "{{track.Name}}"
-				,artist: "{{track.Artist}}"
+			{
+						title: '{{track.Name.Replace("'", "\\'")}}',
+						artist: '{{track.Artist.Replace("'", "\\'")}}',
 			""");
 
-			//Add the proper property for each file depending upon it's file extension.
-			bool isFirstFile = true;
-			foreach (MediaFile file in mediaFiles)
+			foreach (var file in mediaFiles)
 			{
-				string filePath = file.FilePath;
-				if (!filePath.StartsWith("~/Data"))
+				var filePath = file.FilePath;
+
+				// fix for this
+				//https://www.mojoportal.com/Forums/Thread.aspx?thread=10596&mid=34&pageid=5&ItemID=2&pagenumber=1#post44051
+				if (!filePath.StartsWith("~/Data") && filePath.StartsWith("~"))
 				{
-					// fix for this
-					//https://www.mojoportal.com/Forums/Thread.aspx?thread=10596&mid=34&pageid=5&ItemID=2&pagenumber=1#post44051
-					if (filePath.StartsWith("~"))
-					{
-						filePath = filePath.Substring(1);
-					}
+					filePath = filePath.Substring(1);
 				}
 
-				string fullFilePath = Page.ResolveUrl(filePath);
-				//string fullFilePath = siteRoot + file.FilePath.Replace("~", string.Empty);
-
-				string fileExt = Path.GetExtension(file.FilePath).ToLowerInvariant().TrimStart('.');
-
-				if (isFirstFile)
-				{
-					isFirstFile = false;
-				}
-				else
-				{
-					script.Append(",");
-				}
+				var fullFilePath = Page.ResolveUrl(filePath);
+				var fileExt = Path.GetExtension(file.FilePath).ToLowerInvariant().TrimStart('.');
 
 				//jPlayer needs to be fooled into supporting a couple of our types.
 				switch (fileExt)
@@ -137,95 +121,43 @@ public partial class VideoPlayer : SiteModuleControl
 					case "mp4":
 						fileExt = "m4v";
 						break;
+
 					case "ogg":
 						fileExt = "ogv";
 						break;
 				}
 
 				suppliedTypes.Add(fileExt);
-				script.Append($",{fileExt}:\"{fullFilePath}\"");
-
-				#region Old file extension logic
-				//switch (fileExt)
-				//{
-				//	case ".m4v":
-				//		script.Append("m4v:\"" + fullFilePath + "\"");
-				//		if (!suppliedTypes.Contains("m4v"))
-				//		{
-				//			suppliedTypes.Add("m4v");
-				//		}
-
-				//		break;
-				//	case ".mp4":
-				//		script.Append("m4v:\"" + fullFilePath + "\"");
-				//		if (!suppliedTypes.Contains("m4v"))
-				//		{
-				//			suppliedTypes.Add("m4v");
-				//		}
-
-				//		break;
-				//	case ".webmv":
-				//		script.Append("webmv:\"" + fullFilePath + "\"");
-				//		if (!suppliedTypes.Contains("webmv"))
-				//		{
-				//			suppliedTypes.Add("webmv");
-				//		}
-
-				//		break;
-				//	case ".webm":
-				//		script.Append("webmv:\"" + fullFilePath + "\"");
-				//		if (!suppliedTypes.Contains("webmv"))
-				//		{
-				//			suppliedTypes.Add("webmv");
-				//		}
-
-				//		break;
-				//	case ".ogv":
-				//		script.Append("ogv:\"" + fullFilePath + "\"");
-				//		if (!suppliedTypes.Contains("ogv"))
-				//		{
-				//			suppliedTypes.Add("ogv");
-				//		}
-
-				//		break;
-				//	case ".ogg":
-				//		script.Append("ogv:\"" + fullFilePath + "\"");
-				//		if (!suppliedTypes.Contains("ogv"))
-				//		{
-				//			suppliedTypes.Add("ogv");
-				//		}
-
-				//		break;
-				//	//case ".flv":
-				//	//    script.Append("flv:\"" + fullFilePath + "\"");
-				//	//    if (!suppliedTypes.Contains("flv"))
-				//	//        suppliedTypes.Add("flv");
-				//	//    break;
-				//	default:
-				//		throw new ArgumentException("No Supported Video File Extension Found");
-				//}
-				#endregion
+				script.Append($"""
+				
+							{fileExt}: '{fullFilePath}',
+				""");
 			}
-			script.Append("}");
+
+			script.Append("""
+
+					},
+			""");
 		}
-		script.Append("]");
+
+		script.Append("""],""");
 		//End of playlist
 
 		script.Append($$"""
-				,{
+				{
 					playlistOptions: {
-						loopOnPrevious: true
-						,autoPlay: {{config.AutoStart.ToString().ToLower()}}
-					}
-					,supplied: "{{string.Join(",", suppliedTypes.Distinct().ToArray())}}"
-					,preload: "{{VideoPlayerConfiguration.VideoPreload}}"
-					,wmode: "{{VideoPlayerConfiguration.VideoWindowMode}}"
-					,loop: {{config.ContinuousPlay.ToString().ToLower()}}
-					,errorAlerts: {{VideoPlayerConfiguration.EnableErrors.ToString().ToLower()}}
-					,warningAlerts: {{VideoPlayerConfiguration.EnableWarnings.ToString().ToLower()}}
+						loopOnPrevious: true,
+						autoPlay: {{config.AutoStart.ToString().ToLower()}}
+					},
+					supplied: '{{string.Join(",", [.. suppliedTypes.Distinct()])}}',
+					preload: '{{VideoPlayerConfiguration.VideoPreload}}',
+					wmode: '{{VideoPlayerConfiguration.VideoWindowMode}}',
+					loop: {{config.ContinuousPlay.ToString().ToLower()}},
+					errorAlerts: {{VideoPlayerConfiguration.EnableErrors.ToString().ToLower()}},
+					warningAlerts: {{VideoPlayerConfiguration.EnableWarnings.ToString().ToLower()}}
 				});
 			})();
-			</script>
+		</script>
 		""");
 
 		//		script.Append(@"
