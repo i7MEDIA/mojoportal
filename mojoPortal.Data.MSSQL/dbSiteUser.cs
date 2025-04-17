@@ -95,14 +95,14 @@ namespace mojoPortal.Data
 			return sph.ExecuteReader();
 		}
 
-		public static IDataReader GetTop50UsersOnlineSince(int siteId, DateTime sinceTime)
+		public static IDataReader GetTopUsersSince(int siteId, DateTime sinceTime, int limit)
 		{
-			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectTop50UsersOnlineSinceTime", 2);
+			var sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Users_SelectTopUsersOnline", 3);
 			sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
 			sph.DefineSqlParameter("@SinceTime", SqlDbType.DateTime, ParameterDirection.Input, sinceTime);
+			sph.DefineSqlParameter("@Limit", SqlDbType.Int, ParameterDirection.Input, limit);
 			return sph.ExecuteReader();
 		}
-
 
 		public static int GetNewestUserId(int siteId)
 		{

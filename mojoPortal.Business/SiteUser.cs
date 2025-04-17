@@ -2297,14 +2297,14 @@ namespace mojoPortal.Business
 		}
 
 
-		public static IDataReader GetUsersTop50OnlineSince(int siteId, DateTime sinceTime)
+		public static IDataReader GetTopUsersSince(int siteId, DateTime sinceTime, int limit = 50)
 		{
 			if (UseRelatedSiteMode)
 			{
 				siteId = RelatedSiteID;
 			}
 
-			return DBSiteUser.GetTop50UsersOnlineSince(siteId, sinceTime);
+			return DBSiteUser.GetTopUsersSince(siteId, sinceTime, limit);
 		}
 
 
