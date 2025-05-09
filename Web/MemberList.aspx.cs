@@ -294,7 +294,7 @@ public partial class MemberList : NonCmsBasePage
 	{
 		timeOffset = SiteUtils.GetUserTimeOffset();
 		timeZone = SiteUtils.GetUserTimeZone();
-		//lnkAllUsers.NavigateUrl = SiteRoot + "/MemberList.aspx";
+
 		IsAdmin = WebUser.IsAdmin;
 		canManageUsers = IsAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageUsers);
 		ShowEmailInMemberList = WebConfigSettings.ShowEmailInMemberList || displaySettings.ShowEmail;
@@ -309,11 +309,15 @@ public partial class MemberList : NonCmsBasePage
 
 		pageNumber = WebUtils.ParseInt32FromQueryString("pagenumber", 1);
 
-		sortMode = WebUtils.ParseInt32FromQueryString("sd", sortMode);
+		sortMode = WebUtils.ParseInt32FromQueryString("s", sortMode);
 
-		if ((sortMode == 0) && (displaySettings.ShowFirstAndLastName))
+		if (sortMode == 5 && displaySettings.ShowFirstAndLastName)
 		{
-			sortMode = 2; // lastname, firstname
+			sortMode = 1; // lastname, firstname ASC
+		}
+		else if (sortMode == 6 && displaySettings.ShowFirstAndLastName)
+		{
+			sortMode = 2; // lastname, firstname DESC
 		}
 
 		if (Request.Params["letter"] != null)
