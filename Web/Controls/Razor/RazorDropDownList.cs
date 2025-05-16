@@ -79,7 +79,18 @@ public class RazorDropDownList : Control, IPostBackDataHandler
 
 		if (!string.IsNullOrWhiteSpace(CssClass))
 		{
-			Attributes.Add("class", CssClass);
+			Dictionary<string,object> classAttr = (Dictionary<string, object>)Attributes["class"];
+			if (classAttr == null)
+			{
+				Attributes.Add("class", CssClass);
+			}
+			else
+			{
+				if (!classAttr.ContainsValue(CssClass))
+				{
+					Attributes["class"] = $"{Attributes["class"]} {CssClass}";
+				}
+			}
 		}
 
 		if (Required)
