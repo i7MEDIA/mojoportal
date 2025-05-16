@@ -44,12 +44,13 @@ public partial class SiteSettingsPage : NonCmsBasePage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		SecurityHelper.DisableBrowserCache();
-		if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
+
 		if (!Request.IsAuthenticated)
 		{
 			SiteUtils.RedirectToLoginPage(this);
 			return;
 		}
+
 		LoadSettings();
 
 		CheckAuthentication();

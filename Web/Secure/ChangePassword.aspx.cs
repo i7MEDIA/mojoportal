@@ -36,11 +36,6 @@ public partial class ChangePassword : NonCmsBasePage
 			return;
 		}
 
-		if (SiteUtils.SslIsAvailable())
-		{
-			SiteUtils.ForceSsl();
-		}
-
 		SecurityHelper.DisableBrowserCache();
 
 		PopulateLabels();

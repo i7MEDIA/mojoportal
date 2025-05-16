@@ -24,14 +24,7 @@ public partial class CommentDialog : mojoDialogBasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         LoadSettings();
-        if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
-        {
-            SiteUtils.ForceSsl();
-        }
-        else
-        {
-            SiteUtils.ClearSsl();
-        }
+
         if (
             (!userCanEdit)
             ||(commentGuid == Guid.Empty)||(blog == null))

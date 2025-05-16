@@ -21,21 +21,13 @@ public partial class ManagePage : NonCmsBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
-		{
-			SiteUtils.ForceSsl();
-		}
-		else
-		{
-			SiteUtils.ClearSsl();
-		}
 		if (!Request.IsAuthenticated)
 		{
 			SiteUtils.RedirectToLoginPage(this);
 			return;
 		}
-		LoadParams();
 
+		LoadParams();
 
 		if (!UserCanEditModule(moduleId, Blog.FeatureGuid))
 		{

@@ -69,14 +69,11 @@ public partial class SiteMapPage : NonCmsBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		SiteUtils.ForceSsl();
-
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.SiteMapLink);
 		heading.Text = Resource.SiteMapLink;
 
 		//this page has no content other than nav
 		SiteUtils.AddNoIndexFollowMeta(Page);
-
 
 		resolveFullUrlsForMenuItemProtocolDifferences = WebConfigSettings.ResolveFullUrlsForMenuItemProtocolDifferences;
 		if (resolveFullUrlsForMenuItemProtocolDifferences)

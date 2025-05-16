@@ -49,19 +49,12 @@ namespace mojoPortal.Web.BlogUI
         protected void Page_Load(object sender, System.EventArgs e)
         {
             // nothing should post here
-            if (Page.IsPostBack) return;
+            if (Page.IsPostBack)
+			{
+				return;
+			}
 
 			LoadSettings();
-
-			if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || pageSettings.RequireSsl))
-            {
-                SiteUtils.ForceSsl();
-            }
-            else
-            {
-                SiteUtils.ClearSsl();
-            }
-
 
             if (canView)
             {

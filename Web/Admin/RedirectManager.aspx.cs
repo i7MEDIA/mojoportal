@@ -38,8 +38,6 @@ namespace mojoPortal.Web.AdminUI
 
 		protected void Page_Load(object sender, EventArgs e)
         {
-			SiteUtils.ForceSsl();
-
 			LoadSettings();
 			if (!Request.IsAuthenticated)
 			{

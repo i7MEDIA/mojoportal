@@ -13,8 +13,6 @@ public partial class ServerVarsControl : System.Web.UI.UserControl
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		SiteUtils.ForceSsl();
-
 		LoadSettings();
 
 		if (

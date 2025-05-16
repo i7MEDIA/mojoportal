@@ -102,11 +102,6 @@ public partial class Register : NonCmsBasePage
 			return;
 		}
 
-		if (SiteUtils.SslIsAvailable())
-		{
-			SiteUtils.ForceSsl();
-		}
-
 		SecurityHelper.DisableBrowserCache();
 
 		if (!siteSettings.AllowNewRegistration)

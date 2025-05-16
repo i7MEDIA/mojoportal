@@ -40,7 +40,6 @@ namespace mojoPortal.Web.AdminUI
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (SiteUtils.SslIsAvailable()) { SiteUtils.ForceSsl(); }
 			if (!Request.IsAuthenticated)
 			{
 				SiteUtils.RedirectToLoginPage(this);

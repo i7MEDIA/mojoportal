@@ -51,16 +51,15 @@ namespace mojoPortal.Web
 		}
 
 		/// <summary>
-		/// compares 2 urls, if running on Mono does a case sensitive match
-		/// else it does caseinsenitive match
-		/// returns false if either string isnullorempty
+		/// compares 2 urls
+		/// returns false if either string IsNullOrWhiteSpace
 		/// </summary>
 		/// <param name="url1"></param>
 		/// <param name="url2"></param>
 		/// <returns></returns>
 		public static bool UrlsMatch(string url1, string url2)
 		{
-			if (string.IsNullOrEmpty(url1) || string.IsNullOrEmpty(url2))
+			if (string.IsNullOrWhiteSpace(url1) || string.IsNullOrWhiteSpace(url2))
 			{
 				return false;
 			}
@@ -270,39 +269,6 @@ namespace mojoPortal.Web
 			return string.Empty;
 		}
 
-		//public static string GetUrlWithQueryParams(string pageUrl, int siteId = -1, int pageId = -1, int moduleId = -1, int itemId = -1, bool includeSiteRoot = true)
-		//{
-		//	var queryParams = new StringBuilder("?");
-		//	if (siteId != -1)
-		//	{
-		//		queryParams.Append(Invariant($"siteId={siteId}&"));
-		//	}
-
-		//	if (pageId != -1)
-		//	{
-		//		queryParams.Append(Invariant($"pageId={pageId}&"));
-		//	}
-
-		//	if (moduleId != -1)
-		//	{
-		//		queryParams.Append(Invariant($"mid={moduleId}&"));
-		//	}
-
-		//	if (itemId != -1)
-		//	{
-		//		queryParams.Append(Invariant($"itemId={itemId}&"));
-		//	}
-
-
-
-		//	string siteRoot = string.Empty;
-		//	if (includeSiteRoot)
-		//	{
-		//		siteRoot = GetNavigationSiteRoot();
-		//	}
-
-		//	return $"{siteRoot}/{pageUrl.TrimStart('~', '/')}{queryParams.ToString().TrimEnd('&')}".TrimStart('/');
-		//}
 
 		/// <summary>
 		/// You should pass your editor to this method during pre-init or init
@@ -322,33 +288,6 @@ namespace mojoPortal.Web
 			}
 
 			var providerName = siteSettings.NewsletterEditor;
-
-			var loweredBrowser = string.Empty;
-
-			if (HttpContext.Current.Request.UserAgent is not null)
-			{
-				loweredBrowser = HttpContext.Current.Request.UserAgent.ToLower();
-			}
-
-			//if (loweredBrowser.Contains("iphone") && WebConfigSettings.ForcePlainTextInIphone)
-			//{
-			//	providerName = "TextAreaProvider";
-			//}
-
-			//if (
-			//	(loweredBrowser.Contains("android"))
-			//	&& (WebConfigSettings.ForcePlainTextInAndroid)
-			//	)
-			//{
-			//	providerName = "TextAreaProvider";
-			//}
-
-			//string siteRoot = null;
-			//if (siteSettings.SiteFolderName.Length > 0)
-			//{
-			//    siteRoot = siteSettings.SiteRoot;
-			//}
-			//if (siteRoot is null) siteRoot = WebUtils.GetSiteRoot();
 
 			string siteRoot = GetNavigationSiteRoot();
 
@@ -432,97 +371,6 @@ namespace mojoPortal.Web
 
 			return ip4Address;
 		}
-
-		//public static string BuildStylesListForTinyMce()
-		//{
-		//	StringBuilder styles = new StringBuilder();
-
-		//	string comma = string.Empty;
-
-		//	if (WebConfigSettings.AddSystemStyleTemplatesAboveSiteTemplates)
-		//	{
-		//		styles.Append("Image on Right=image-right;Image on Left=image-left");
-		//		comma = ";";
-		//	}
-
-
-		//	SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-		//	if (siteSettings is not null)
-		//	{
-		//		using (IDataReader reader = ContentStyle.GetAllActive(siteSettings.SiteGuid))
-		//		{
-		//			while (reader.Read())
-		//			{
-		//				styles.Append(comma + reader["Name"].ToString() + "=" + reader["CssClass"].ToString());
-		//				comma = ";";
-		//			}
-		//		}
-
-		//	}
-
-		//	if (WebConfigSettings.AddSystemStyleTemplatesBelowSiteTemplates)
-		//	{
-		//		styles.Append(comma + "Image on Right=image-right;Image on Left=image-left");
-		//	}
-
-		//	return styles.ToString();
-		//}
-
-		//public static string BuildStylesListForTinyMce4()
-		//{
-		//	//http://www.tinymce.com/wiki.php/Configuration:style_formats
-
-		//	StringBuilder styles = new StringBuilder();
-
-		//	styles.Append("[");
-
-		//	//{title : 'Example 1', inline : 'span', classes : 'example1'}
-
-		//	string comma = string.Empty;
-
-		//	if (WebConfigSettings.AddSystemStyleTemplatesAboveSiteTemplates)
-		//	{
-		//		//styles.Append("{\"title\":\"FloatPanel\",\"inline\":\"span\",\"classes\":\"floatpanel\"}");
-		//		styles.Append(",{\"title\":\"Image on Right\",\"selector\":\"img\",\"classes\":\"image-right\"}");
-		//		styles.Append(",{\"title\":\"Image on Left\",\"selector\":\"img\",\"classes\":\"image-left\"}");
-		//		//styles.Append("FloatPanel=floatpanel;Image on Right=floatrightimage;Image on Left=floatleftimage");
-		//		comma = ",";
-		//	}
-
-
-		//	SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-		//	if (siteSettings is not null)
-		//	{
-		//		using (IDataReader reader = ContentStyle.GetAllActive(siteSettings.SiteGuid))
-		//		{
-		//			while (reader.Read())
-		//			{
-		//				styles.Append(comma);
-		//				styles.Append("{\"title\":\"" + reader["Name"].ToString().JsonEscape()
-		//					+ "\",\"selector\":\"" + reader["Element"].ToString().JsonEscape()
-		//					+ "\",\"classes\":\"" + reader["CssClass"].ToString().JsonEscape() + "\"}");
-
-		//				//styles.Append(comma + reader["Name"].ToString() + "=" + reader["CssClass"].ToString());
-
-		//				comma = ",";
-		//			}
-		//		}
-
-		//	}
-
-		//	if (WebConfigSettings.AddSystemStyleTemplatesBelowSiteTemplates)
-		//	{
-		//		styles.Append(comma);
-		//		//styles.Append(comma + "FloatPanel=floatpanel;Image on Right=floatrightimage;Image on Left=floatleftimage");
-		//		//styles.Append("{\"title\":\"FloatPanel\",\"inline\":\"span\",\"classes\":\"floatpanel\"}");
-		//		styles.Append(",{\"title\":\"Image on Right\",\"selector\":\"img\",\"classes\":\"image-right\"}");
-		//		styles.Append(",{\"title\":\"Image on Left\",\"selector\":\"img\",\"classes\":\"image-left\"}");
-		//	}
-
-		//	styles.Append("]");
-
-		//	return styles.ToString();
-		//}
 
 		public static bool IsWebImageFile(this WebFile file) => isExtensionAllowed(file, WebConfigSettings.ImageFileExtensions);
 
@@ -672,7 +520,6 @@ namespace mojoPortal.Web
 			button.Text += GetButtonAccessKeyPostfix(accessKey);
 		}
 
-
 		public static string GetButtonAccessKeyPostfix(string accessKey)
 		{
 			if (HttpContext.Current is null)
@@ -686,141 +533,15 @@ namespace mojoPortal.Web
 			return string.Format(CultureInfo.InvariantCulture, " [{0}+{1}]", browserAccessKey, accessKey);
 		}
 
-		/// <summary>
-		/// this method is deprecated
-		/// </summary>
-		//[Obsolete("This method is obsolete. You should use if(!Request.IsAuthenticated) SiteUtils.RedirectToLogin(PageorControl); return;")]
-		//public static void AllowOnlyAuthenticated()
-		//{
-		//	if (HttpContext.Current is null)
-		//	{
-		//		return;
-		//	}
-
-		//	if (!HttpContext.Current.Request.IsAuthenticated)
-		//	{
-		//		RedirectToLoginPage();
-		//	}
-		//}
-
-		//[Obsolete("This method is obsolete. You should use if(!Request.IsAuthenticated) SiteUtils.RedirectToLogin(PageorControl); return;")]
-		//public static void AllowOnlyAuthenticated(Control pageOrControl)
-		//{
-		//	if (HttpContext.Current is null)
-		//	{
-		//		return;
-		//	}
-
-		//	if (!HttpContext.Current.Request.IsAuthenticated)
-		//	{
-		//		RedirectToLoginPage(pageOrControl);
-		//	}
-		//}
-
-		//[Obsolete("This method is obsolete. You should use if(!WebUser.IsAdmin) SiteUtils.RedirectToAccessDenied(PageorControl); return;")]
-		//public static void AllowOnlyAdmin()
-		//{
-		//	if (HttpContext.Current is null)
-		//	{
-		//		return;
-		//	}
-
-		//	AllowOnlyAuthenticated();
-		//	if (!HttpContext.Current.Request.IsAuthenticated)
-		//	{
-		//		return;
-		//	}
-
-		//	if (!WebUser.IsAdmin)
-		//	{
-		//		RedirectToAccessDeniedPage();
-		//	}
-		//}
-
-		//[Obsolete("This method is obsolete. You should use if(!WebUser.IsAdminOrRoleAdmin) SiteUtils.RedirectToAccessDenied(PageorControl); return;")]
-		//public static void AllowOnlyAdminAndRoleAdmin()
-		//{
-		//	if (HttpContext.Current is null)
-		//	{
-		//		return;
-		//	}
-
-		//	AllowOnlyAuthenticated();
-		//	if (!HttpContext.Current.Request.IsAuthenticated)
-		//	{
-		//		return;
-		//	}
-
-		//	if ((!WebUser.IsAdmin) && (!WebUser.IsRoleAdmin))
-		//	{
-		//		RedirectToAccessDeniedPage();
-		//	}
-		//}
-
-		//[Obsolete("This method is obsolete. You should use if(!WebUser.IsAdminOrContentAdmin) SiteUtils.RedirectToAccessDenied(PageorControl); return;")]
-		//public static void AllowOnlyAdminAndContentAdmin()
-		//{
-		//	if (HttpContext.Current is null)
-		//	{
-		//		return;
-		//	}
-
-		//	AllowOnlyAuthenticated();
-		//	if (!HttpContext.Current.Request.IsAuthenticated)
-		//	{
-		//		return;
-		//	}
-
-		//	if (!WebUser.IsAdminOrContentAdmin)
-		//	{
-		//		RedirectToAccessDeniedPage();
-		//	}
-		//}
-
-		//[Obsolete("This method is obsolete. You should use if(!WebUser.IsAdminOrContentAdminOrRoleAdmin) SiteUtils.RedirectToAccessDenied(PageorControl); return;")]
-		//public static void AllowOnlyAdminAndContentAdminAndRoleAdmin()
-		//{
-		//	if (HttpContext.Current is null)
-		//	{
-		//		return;
-		//	}
-
-		//	AllowOnlyAuthenticated();
-		//	if (!HttpContext.Current.Request.IsAuthenticated)
-		//	{
-		//		return;
-		//	}
-
-		//	if (!WebUser.IsAdminOrContentAdminOrRoleAdmin)
-		//	{
-		//		RedirectToAccessDeniedPage();
-		//	}
-		//}
-
-		//[Obsolete("This method is obsolete. You should use RedirectToLoginPage(pageOrControl); return;")]
-		//public static void RedirectToLoginPage()
-		//{
-		//	HttpContext.Current.Response.Redirect
-		//		(string.Format(CultureInfo.InvariantCulture, "{0}" + GetLoginRelativeUrl() + "?returnurl={1}",
-		//					   GetNavigationSiteRoot(),
-		//					   HttpUtility.UrlEncode(HttpContext.Current.Request.RawUrl)),
-		//		 true);
-		//}
-
 
 		public static void RedirectToLoginPage(Control pageOrControl)
 		{
-			var redirectUrl = PageUrlService.GetLoginLink(HttpContext.Current.Request.RawUrl);
-
-			WebUtils.SetupRedirect(pageOrControl, redirectUrl);
+			WebUtils.SetupRedirect(pageOrControl, PageUrlService.GetLoginLink(HttpContext.Current.Request.RawUrl));
 		}
-
 
 		public static void RedirectToLoginPage(Control pageOrControl, string returnUrl)
 		{
-			var redirectUrl = PageUrlService.GetLoginLink(returnUrl);
-
-			WebUtils.SetupRedirect(pageOrControl, redirectUrl);
+			WebUtils.SetupRedirect(pageOrControl, PageUrlService.GetLoginLink(returnUrl));
 		}
 
 
@@ -838,7 +559,6 @@ namespace mojoPortal.Web
 			pageOrControl.Page.Response.Redirect(redirectUrl);
 		}
 
-
 		public static void RedirectToUrl(string url)
 		{
 			if (HttpContext.Current is null)
@@ -853,17 +573,6 @@ namespace mojoPortal.Web
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 
-		//[Obsolete("Please use SiteUtils.RedirectToAccessDeniedPage()")]
-		//public static void RedirectToEditAccessDeniedPage()
-		//{
-		//	RedirectToAccessDeniedPage();
-		//}
-
-		//public static void RedirectToAccessDeniedPage()
-		//{
-		//	RedirectToAccessDeniedPage("");
-		//}
-
 		public static void RedirectToAccessDeniedPage(string returnUrl = "")
 		{
 			if (HttpContext.Current is null)
@@ -871,17 +580,21 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			string url = $"{GetNavigationSiteRoot()}/AccessDenied.aspx{(string.IsNullOrWhiteSpace(returnUrl) ? string.Empty : $"?ReturnUrl={returnUrl}")}";
+			var url = "AccessDenied.aspx".ToLinkBuilder(); 
+			if (!string.IsNullOrWhiteSpace(returnUrl))
+			{
+				url.ReturnUrl(returnUrl);
+			}
 
 			HttpContext.Current.Response.TrySkipIisCustomErrors = true;
 			HttpContext.Current.Response.StatusCode = 403;
 			HttpContext.Current.Response.StatusDescription = $"Redirecting to {url}";
 			HttpContext.Current.Response.Write($"Redirecting to {url}");
-			HttpContext.Current.Response.Redirect(url);
+			HttpContext.Current.Response.Redirect(url.ToString());
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 
-		public static void RedirectToAccessDeniedPage(Control pageOrControl) => WebUtils.SetupRedirect(pageOrControl, $"{GetNavigationSiteRoot()}/AccessDenied.aspx");
+		public static void RedirectToAccessDeniedPage(Control pageOrControl) => WebUtils.SetupRedirect(pageOrControl, "/AccessDenied.aspx".ToLinkBuilder().ToString());
 
 		public static void RedirectToAccessDeniedPage(Control pageOrControl, bool useHardRedirect)
 		{
@@ -891,18 +604,12 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			pageOrControl.Page.Response.Redirect($"{GetNavigationSiteRoot()}/AccessDenied.aspx");
+			pageOrControl.Page.Response.Redirect("/AccessDenied.aspx".ToLinkBuilder().ToString());
 		}
 
-		public static void RedirectToAdminMenu(Control pageOrControl) => WebUtils.SetupRedirect(pageOrControl, GetNavigationSiteRoot() + WebConfigSettings.AdminDirectoryLocation);
+		public static void RedirectToAdminMenu(Control pageOrControl) => WebUtils.SetupRedirect(pageOrControl, WebConfigSettings.AdminDirectoryLocation.ToLinkBuilder().ToString());
 
 		public static void RedirectToSiteRoot() => RedirectToUrl(GetNavigationSiteRoot());
-
-		//[Obsolete("Will be removed in a future version. Please use RedirectToSiteRoot", false)]
-		//public static void RedirectToDefault()
-		//{
-		//	RedirectToSiteRoot();
-		//}
 
 		public static void SetFormAction(Page page, string action) => page.Form.Action = action;
 
@@ -916,7 +623,9 @@ namespace mojoPortal.Web
 			page.Header.Controls.Add(new Literal
 			{
 				ID = "metanoindexfollow",
-				Text = "\n<meta name='robots' content='NOINDEX,FOLLOW' />"
+				Text = """
+				<meta name="robots" content="NOINDEX,FOLLOW" />
+				"""
 			});
 		}
 
@@ -930,7 +639,9 @@ namespace mojoPortal.Web
 			page.Header.Controls.Add(new Literal
 			{
 				ID = "metanoindexfollow",
-				Text = "\n<meta name='robots' content='NOINDEX' />"
+				Text = """
+				<meta name="robots" content="NOINDEX" />
+				"""
 			});
 		}
 
@@ -956,12 +667,11 @@ namespace mojoPortal.Web
 					masterPage = $"{siteSettings.MobileSkin}/{masterPageName}";
 				}
 
-				//web.config setting trumps site setting
+				//web.config setting overrides site setting
 				if (!string.IsNullOrWhiteSpace(WebConfigSettings.MobilePhoneSkin))
 				{
 					masterPage = $"{WebConfigSettings.MobilePhoneSkin}/{masterPageName}";
 				}
-
 			}
 
 			return skinFolder + masterPage;
@@ -1001,7 +711,7 @@ namespace mojoPortal.Web
 		/// <returns>string</returns>
 		public static string SanitizeSkinParam(string skinName)
 		{
-			if (string.IsNullOrEmpty(skinName))
+			if (string.IsNullOrWhiteSpace(skinName))
 			{
 				return skinName;
 			}
@@ -1010,22 +720,6 @@ namespace mojoPortal.Web
 
 			return skinName.Remove(["%", " ", ">", "<", "'", "\""]);
 		}
-
-		//public static string GetMyPageMasterPage(SiteSettings siteSettings)
-		//{
-		//	if (siteSettings is null)
-		//	{
-		//		return "~/App_MasterPages/layout.Master";
-		//	}
-
-		//	if (siteSettings.MyPageSkin.Length > 0)
-		//	{
-		//		return "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + siteSettings.MyPageSkin + "/layout.Master";
-		//	}
-
-		//	return "~/Data/Sites/" + siteSettings.SiteId.ToInvariantString() + "/skins/" + siteSettings.Skin + "/layout.Master";
-
-		//}
 
 		public static void SetSkinCookie(SiteUser siteUser)
 		{
@@ -1251,23 +945,6 @@ namespace mojoPortal.Web
 			return dir.Exists ? dir.GetFiles("*.png") : null;
 		}
 
-		///// <summary>
-		///// deprecated, better to just call IOHelper.GetMimeType
-		///// </summary>
-		///// <param name="fileExtension"></param>
-		///// <returns></returns>
-		//public static string GetMimeType(string fileExtension)
-		//{
-		//	return IOHelper.GetMimeType(fileExtension);
-		//}
-
-		///// <summary>
-		///// deprecated, better to just call IOHelper.IsNonAttacmentFileType
-		///// </summary>
-		///// <param name="fileExtension"></param>
-		///// <returns>bool</returns>
-		//public static bool IsNonAttachmentFileType(string fileExtension) => IOHelper.IsNonAttachmentFileType(fileExtension);
-
 		public static string GetSiteSystemFolder()
 		{
 			if (HttpContext.Current is null)
@@ -1333,15 +1010,6 @@ namespace mojoPortal.Web
 			var dir = new DirectoryInfo(skinPath);
 			return dir.Exists ? dir.GetDirectories() : null;
 		}
-
-		public static FileInfo[] GetCodeTemplateList()
-		{
-			string filePath = HttpContext.Current.Server.MapPath("~/DevAdmin/CodeTemplates");
-
-			var dir = new DirectoryInfo(filePath);
-			return dir.Exists ? dir.GetFiles("*.aspx") : null;
-		}
-
 
 		public static SmtpSettings GetSmtpSettings()
 		{
@@ -1428,16 +1096,6 @@ namespace mojoPortal.Web
 			/// IF YOU WANT TO USE THE SMTPCUSTOMHEADERS, YOU MUST ENTER THEM IN THE SITE SETTINGS
 			///
 		};
-
-		//[Obsolete("Use GetSkinBaseUrl(Page page)")]
-		///// <summary>
-		///// deprecated, you should pass in the Page
-		///// </summary>
-		///// <returns></returns>
-		//public static string GetSkinBaseUrl()
-		//{
-		//	return GetSkinBaseUrl(null);
-		//}
 
 		public static string DetermineSkinBaseUrl(string skinName)
 		{
@@ -2077,15 +1735,6 @@ namespace mojoPortal.Web
 			}
 		}
 
-		///// <summary>
-		///// encapsulates checks for a secure connection with configurable server variable checks
-		///// </summary>
-		///// <returns></returns>
-		//[Obsolete("Use mojoPortal.Core.Helpers.WebHelper.IsSecureRequest")]
-		//public static bool IsSecureRequest()
-		//{
-		//	return WebHelper.IsSecureRequest();
-		//}
 
 		public static bool SslIsAvailable(SiteSettings siteSettings = null)
 		{
@@ -2107,82 +1756,6 @@ namespace mojoPortal.Web
 			}
 
 			return false;
-		}
-
-
-		public static void ForceSsl()
-		{
-			if (WebHelper.IsSecureRequest() || !SslIsAvailable())
-			{
-				return;
-			}
-
-			if (!WebConfigSettings.ProxyPreventsSSLDetection)
-			{
-				string pageUrl = HttpContext.Current.Request.Url.ToString();
-				if (pageUrl.StartsWith("http:"))
-				{
-					string secureUrl;
-
-					if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
-					{
-						secureUrl = $"https://{siteSettings.PreferredHostName}{HttpContext.Current.Request.RawUrl}";
-					}
-					else if (WebConfigSettings.IsRunningInRootSite)
-					{
-						secureUrl = WebUtils.GetSecureSiteRoot() + HttpContext.Current.Request.RawUrl;
-					}
-					else
-					{
-						secureUrl = WebUtils.GetSecureHostRoot() + HttpContext.Current.Request.RawUrl;
-					}
-
-					if (WebConfigSettings.RedirectSslWith301Status)
-					{
-						HttpContext.Current.Response.RedirectPermanent(secureUrl, true);
-					}
-					else
-					{
-						HttpContext.Current.Response.Redirect(secureUrl, true);
-					}
-				}
-			}
-		}
-
-
-		public static void ClearSsl()
-		{
-			if (HttpContext.Current is null)
-			{
-				return;
-			}
-
-			if (!WebConfigSettings.ClearSslOnNonSecurePages)
-			{
-				return;
-			}
-
-			string pageUrl = HttpContext.Current.Request.Url.ToString();
-
-			if (pageUrl.StartsWith("https:"))
-			{
-				string insecureUrl;
-
-				if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
-				{
-					insecureUrl = $"http://{siteSettings.PreferredHostName}{HttpContext.Current.Request.RawUrl}";
-				}
-				else if (WebConfigSettings.IsRunningInRootSite)
-				{
-					insecureUrl = WebUtils.GetInSecureSiteRoot() + HttpContext.Current.Request.RawUrl;
-				}
-				else
-				{
-					insecureUrl = WebUtils.GetInSecureHostRoot() + HttpContext.Current.Request.RawUrl;
-				}
-
-				HttpContext.Current.Response.Redirect(insecureUrl, true);
-			}
 		}
 
 
@@ -2481,7 +2054,7 @@ namespace mojoPortal.Web
 				return $"{hostName}portalroles1";
 			}
 
-			return $"{hostName}portalroles{siteSettings.SiteId.ToInvariantString()}";
+			return Invariant($"{hostName}portalroles{siteSettings.SiteId}");
 		}
 
 		public static string GetCssCacheCookieName(SiteSettings siteSettings)
@@ -2491,7 +2064,7 @@ namespace mojoPortal.Web
 				return "csscache";
 			}
 
-			return $"csscache{siteSettings.SiteId.ToInvariantString()}";
+			return Invariant($"csscache{siteSettings.SiteId}");
 		}
 
 		public static void RedirectToSignOut()
@@ -2834,10 +2407,10 @@ namespace mojoPortal.Web
 			return valuePath;
 		}
 
-		public static String GetPageMenuActivePageValuePath(SiteMapNode rootNode)
+		public static string GetPageMenuActivePageValuePath(SiteMapNode rootNode)
 		{
 
-			String valuePath = GetActivePageValuePath(rootNode, 0);
+			string valuePath = GetActivePageValuePath(rootNode, 0);
 
 			// need to remove the topmost level from value path
 			// which is from the beginning to the first separator

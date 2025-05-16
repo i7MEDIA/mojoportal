@@ -30,8 +30,6 @@ public partial class LoginModule : SiteModuleControl
 			return;
 		}
 
-		SiteUtils.ForceSsl();
-
 		LoadSettings();
 		PopulateControls();
 	}

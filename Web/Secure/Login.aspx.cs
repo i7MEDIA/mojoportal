@@ -76,11 +76,6 @@ public partial class LoginPage : NonCmsBasePage
 
 	private void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable())
-		{
-			SiteUtils.ForceSsl();
-		}
-
 		SecurityHelper.DisableBrowserCache();
 
 		if (Request.IsAuthenticated)

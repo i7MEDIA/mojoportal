@@ -68,11 +68,6 @@ public partial class UserProfile : NonCmsBasePage
 			return;
 		}
 
-		if (SiteUtils.SslIsAvailable())
-		{
-			SiteUtils.ForceSsl();
-		}
-
 		SecurityHelper.DisableBrowserCache();
 
 		if (!WebConfigSettings.AllowUserProfilePage)

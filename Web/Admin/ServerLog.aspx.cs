@@ -35,8 +35,6 @@ public partial class ServerLog : NonCmsBasePage
 			return;
 		}
 
-		if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
-
 		SecurityHelper.DisableBrowserCache();
 
 		LoadSettings();

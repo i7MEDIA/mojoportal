@@ -13,24 +13,15 @@ public partial class BlogCompare : mojoDialogBasePage
 	private int moduleId = -1;
 	private int itemId = -1;
 	private Guid historyGuid = Guid.Empty;
-	protected Double timeOffset = 0;
+	protected double timeOffset = 0;
 	protected TimeZoneInfo timeZone = null;
 	protected string currentFloat = "left";
 	protected string historyFloat = "right";
-	//private Module module = null;
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
 
 		LoadParams();
-		if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
-		{
-			SiteUtils.ForceSsl();
-		}
-		else
-		{
-			SiteUtils.ClearSsl();
-		}
 
 		if (!UserCanEditModule(moduleId, Blog.FeatureGuid))
 		{
@@ -41,7 +32,6 @@ public partial class BlogCompare : mojoDialogBasePage
 		LoadSettings();
 		PopulateLabels();
 		PopulateControls();
-
 	}
 
 	private void PopulateControls()

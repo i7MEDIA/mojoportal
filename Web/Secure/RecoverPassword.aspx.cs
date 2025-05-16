@@ -45,10 +45,6 @@ public partial class RecoverPassword : NonCmsBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable())
-			SiteUtils.ForceSsl();
-
-
 		bool allow = (siteSettings.AllowPasswordRetrieval || siteSettings.AllowPasswordReset)
 			&& (!siteSettings.UseLdapAuth || (siteSettings.UseLdapAuth && siteSettings.AllowDbFallbackWithLdap));
 

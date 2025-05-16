@@ -53,8 +53,6 @@ public partial class SearchResults : NonCmsBasePage
 
 	private void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable()) { SiteUtils.ForceSsl(); }
-
 		LoadSettings();
 
 		query = string.Empty;

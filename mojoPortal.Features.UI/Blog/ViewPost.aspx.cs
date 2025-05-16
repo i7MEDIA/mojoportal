@@ -44,22 +44,9 @@ namespace mojoPortal.Web.BlogUI
 			base.OnPreRender(e);
 		}
 
-		//private int moduleId = -1;
 
 		private void Page_Load(object sender, EventArgs e)
 		{
-			//moduleId = WebUtils.ParseInt32FromQueryString("mid", -1);
-			//pnlContainer.ModuleId = moduleId;
-
-			if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
-			{
-				SiteUtils.ForceSsl();
-			}
-			else
-			{
-				SiteUtils.ClearSsl();
-			}
-
 			if ((CurrentPage != null) && (CurrentPage.BodyCssClass.Length > 0))
 			{
 				AddClassToBody(CurrentPage.BodyCssClass);

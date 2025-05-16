@@ -72,8 +72,6 @@ public partial class MemberList : NonCmsBasePage
 
 	private void Page_Load(object sender, EventArgs e)
 	{
-		SiteUtils.ForceSsl();
-
 		LoadSettings();
 		PopulateLabels();
 
