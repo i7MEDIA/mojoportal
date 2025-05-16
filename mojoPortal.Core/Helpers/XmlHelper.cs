@@ -13,6 +13,19 @@ public static class XmlHelper
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(XmlHelper));
 
+	public static XmlDocument CreateXmlDocument(bool EnableResolver = false)
+	{
+		var xmlDoc = new XmlDocument();
+
+		if (!EnableResolver)
+		{
+			//prevent XXE (https://portswigger.net/web-security/xxe)
+			xmlDoc.XmlResolver = null;
+		}
+
+		return xmlDoc;
+	}
+
 	/// <summary>
 	/// Loads XML Document from stream and disables XmlResolver by default to prevent XXE
 	/// </summary>
