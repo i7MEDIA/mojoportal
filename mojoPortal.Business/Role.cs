@@ -1,9 +1,10 @@
-using log4net;
-using mojoPortal.Data;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
+using log4net;
+using mojoPortal.Core.Configuration;
+using mojoPortal.Data;
 
 namespace mojoPortal.Business;
 
@@ -317,6 +318,10 @@ public class Role
 		return roles;
 	}
 
+	public static Role GetAdminRole(int siteId)
+	{
+		return GetRoleByName(siteId, "Admins");
+	}
 
 	public static Role GetRoleByName(int siteId, string roleName)
 	{
@@ -409,7 +414,7 @@ public class Role
 		return DBRoles.Delete(roleId);
 	}
 
-	public static bool Exists(int siteId, String roleName)
+	public static bool Exists(int siteId, string roleName)
 	{
 		//if (UseRelatedSiteMode) { siteId = RelatedSiteID; }
 		return DBRoles.Exists(siteId, roleName);
@@ -432,20 +437,13 @@ public class Role
 		return DBRoles.GetUsersInRole(siteId, roleId, pageNumber, pageSize, out totalPages);
 	}
 
-	public static IDataReader GetRolesUserIsNotIn(
-		int siteId,
-		int userId)
+	public static IDataReader GetRolesUserIsNotIn(int siteId, int userId)
 	{
 		if (UseRelatedSiteMode) { siteId = RelatedSiteID; }
 		return DBRoles.GetRolesUserIsNotIn(siteId, userId);
 	}
 
-	public static bool AddUser(
-		int roleId,
-		int userId,
-		Guid roleGuid,
-		Guid userGuid
-		)
+	public static bool AddUser(int roleId, int userId, Guid roleGuid, Guid userGuid)
 	{
 		return DBRoles.AddUser(roleId, userId, roleGuid, userGuid);
 	}
@@ -462,54 +460,36 @@ public class Role
 
 	public static void AddUserToDefaultRoles(SiteUser siteUser)
 	{
+		var siteSettings = new SiteSettings(siteUser.SiteId);
+		var defaultRoles = "Authenticated Users;";
+		defaultRoles += ConfigHelper.GetStringProperty("DefaultRolesForNewUsers", string.Empty);
 
-		Role role = new Role(siteUser.SiteId, "Authenticated Users");
-		if (role.RoleId > -1)
+		var roleArray = defaultRoles.SplitOnCharAndTrim(';');
+
+		foreach (string roleName in roleArray)
 		{
-			Role.AddUser(role.RoleId, siteUser.UserId, role.RoleGuid, siteUser.UserGuid);
+			var role = EnsureRole(siteSettings, roleName, roleName);
+			AddUser(role.RoleId, siteUser.UserId, role.RoleGuid, siteUser.UserGuid);
 		}
-
-		string defaultRoles = string.Empty;
-
-		if (System.Configuration.ConfigurationManager.AppSettings["DefaultRolesForNewUsers"] != null)
-		{
-			defaultRoles = System.Configuration.ConfigurationManager.AppSettings["DefaultRolesForNewUsers"];
-		}
-
-		if (defaultRoles.Length > 0)
-		{
-			if (defaultRoles.IndexOf(";") == -1)
-			{
-				role = new Role(siteUser.SiteId, defaultRoles);
-				if (role.RoleId > -1)
-				{
-					Role.AddUser(role.RoleId, siteUser.UserId, role.RoleGuid, siteUser.UserGuid);
-				}
-			}
-			else
-			{
-				string[] roleArray = defaultRoles.Split(';');
-				foreach (string roleName in roleArray)
-				{
-					if (!string.IsNullOrEmpty(roleName))
-					{
-						role = new Role(siteUser.SiteId, roleName);
-						if (role.RoleId > -1)
-						{
-							Role.AddUser(role.RoleId, siteUser.UserId, role.RoleGuid, siteUser.UserGuid);
-						}
-					}
-				}
-
-			}
-
-		}
-
-
 	}
 
+	public static Role EnsureRole(SiteSettings siteSettings, string roleName, string displayName)
+	{
+		var role = new Role(siteSettings.SiteId, roleName);
+		if (role.RoleId == -1)
+		{
+			role = new Role
+			{
+				RoleName = roleName,
+				DisplayName = displayName,
+				SiteId = siteSettings.SiteId,
+				SiteGuid = siteSettings.SiteGuid
+			};
+			role.Save();
+		}
 
+		return role;
+	}
 
 	#endregion
-
 }

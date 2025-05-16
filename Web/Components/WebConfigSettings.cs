@@ -1498,39 +1498,44 @@ public static class WebConfigSettings
 	/// we don't expect the Web.config file to be writable in general but it usually is on a new 
 	/// installation so we can go ahead and try to update to a custom machine key
 	/// </summary>
-	public static void EnsureCustomMachineKey()
+	public static (bool customKeyExists, bool customKeyGenerated) EnsureCustomMachineKey()
 	{
 		var securityAdvisor = new SecurityAdvisor();
 
 		if (securityAdvisor.UsingCustomMachineKey())
 		{
-			return; // already using a custom key
+			return (true, false); // already using a custom key
 		}
 
-		var webConfigPath = HostingEnvironment.MapPath("~/Web.config");
-
-		var xmlConfig = XmlHelper.GetXmlDocument(webConfigPath);
-
-		var xmlMachineKey = xmlConfig.SelectSingleNode("/configuration/location/system.web/machineKey");
-
-		xmlMachineKey ??= xmlConfig.SelectSingleNode("/configuration/system.web/machineKey");
-
 		var (validationKey, decryptionKey, _, _) = SiteUtils.GenerateRandomMachineKey();
+		var machineKeyFileName = "webConfig-machineKey.config";
 
-		XmlAttribute attrib = xmlMachineKey.Attributes["validationKey"];
+		//web.config
+		var webConfigPath = HostingEnvironment.MapPath("~/Web.config");
+		var webConfigDoc = XmlHelper.GetXmlDocument(webConfigPath);
+		var xmlMachineKey = webConfigDoc.SelectSingleNode("/configuration/location/system.web/machineKey");
+		xmlMachineKey ??= webConfigDoc.SelectSingleNode("/configuration/system.web/machineKey");
+		xmlMachineKey.RemoveAll();
+		((XmlElement)xmlMachineKey).SetAttribute("configSource", machineKeyFileName);
 
-		attrib.InnerText = validationKey;
-		attrib = xmlMachineKey.Attributes["decryptionKey"];
-		attrib.InnerText = decryptionKey;
+		//web-config-machineKey.config
+		var machineKeyConfigPath = HostingEnvironment.MapPath($"~/{machineKeyFileName}");
 
-		var writer = new XmlTextWriter(webConfigPath, null)
-		{
-			Formatting = Formatting.Indented
-		};
+		var machineKeyDoc = XmlHelper.CreateXmlDocument();
+		var xmlDeclaration = machineKeyDoc.CreateXmlDeclaration("1.0", "utf-8", string.Empty);
+		var xmlRoot = machineKeyDoc.DocumentElement;
+		machineKeyDoc.InsertBefore(xmlDeclaration, xmlRoot);
+		var machineKeyDocElement = machineKeyDoc.CreateElement("machineKey");
+		machineKeyDocElement.SetAttribute("validation", MachineKeyValidationAlgorithm);
+		machineKeyDocElement.SetAttribute("decryption", MachineKeyDecryptionAlgorithm);
+		machineKeyDocElement.SetAttribute("validationKey", validationKey);
+		machineKeyDocElement.SetAttribute("decryptionKey", decryptionKey);
+		machineKeyDoc.AppendChild(machineKeyDocElement);
+		machineKeyDoc.Save(machineKeyConfigPath);
 
-		xmlConfig.WriteTo(writer);
+		//save web.config after saving new machineKey config file because saving web.config will restart application
+		webConfigDoc.Save(webConfigPath);
 
-		writer.Flush();
-		writer.Close();
+		return (false, true);
 	}
 }

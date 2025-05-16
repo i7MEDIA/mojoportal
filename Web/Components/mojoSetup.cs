@@ -244,7 +244,7 @@ public sealed class mojoSetup
 		}
 	}
 
-	private static SiteUser EnsureAdminUser(SiteSettings site)
+	public static SiteUser EnsureAdminUser(SiteSettings siteSettings)
 	{
 		// if using related sites mode there is a problem if we already have user admin@admin.com
 		// and we create another one in the child site with the same email and login so we need to make it different
@@ -256,11 +256,11 @@ public sealed class mojoSetup
 
 		if (countOfSites >= 1 && WebConfigSettings.UseRelatedSiteMode)
 		{
-			siteDifferentiator = site.SiteId.ToInvariantString();
+			siteDifferentiator = siteSettings.SiteId.ToInvariantString();
 		}
 
 		bool overridRelatedSiteMode = true;
-		var adminUser = new SiteUser(site, overridRelatedSiteMode)
+		var adminUser = new SiteUser(siteSettings, overridRelatedSiteMode)
 		{
 			Email = string.Format(AppConfig.DefaultAdminUserEmailFormat, siteDifferentiator),
 			Name = "Admin",
@@ -269,13 +269,13 @@ public sealed class mojoSetup
 
 		bool userExists;
 
-		if (site.UseEmailForLogin)
+		if (siteSettings.UseEmailForLogin)
 		{
-			userExists = SiteUser.EmailExistsInDB(site.SiteId, adminUser.Email);
+			userExists = SiteUser.EmailExistsInDB(siteSettings.SiteId, adminUser.Email);
 		}
 		else
 		{
-			userExists = SiteUser.LoginExistsInDB(site.SiteId, adminUser.LoginName);
+			userExists = SiteUser.LoginExistsInDB(siteSettings.SiteId, adminUser.LoginName);
 		}
 
 		if (!userExists)
@@ -284,7 +284,7 @@ public sealed class mojoSetup
 
 			if (Membership.Provider is mojoMembershipProvider membership)
 			{
-				adminUser.Password = membership.EncodePassword(site, adminUser, AppConfig.DefaultAdminPassword);
+				adminUser.Password = membership.EncodePassword(siteSettings, adminUser, AppConfig.DefaultAdminPassword);
 			}
 
 			adminUser.PasswordQuestion = AppConfig.DefaultAdminSecurityQuestion;
@@ -293,56 +293,32 @@ public sealed class mojoSetup
 		}
 		else
 		{
-			if (site.UseEmailForLogin)
+			if (siteSettings.UseEmailForLogin)
 			{
-				adminUser = new SiteUser(site, adminUser.Email);
+				adminUser = new SiteUser(siteSettings, adminUser.Email);
 			}
 			else
 			{
-				adminUser = new SiteUser(site, adminUser.LoginName);
+				adminUser = new SiteUser(siteSettings, adminUser.LoginName);
 			}
 		}
+
+		Role.AddUserToDefaultRoles(adminUser);
+		var adminRole = Role.GetAdminRole(siteSettings.SiteId);
+		Role.AddUser(adminRole.RoleId, adminUser.UserId, adminRole.RoleGuid, adminUser.UserGuid);
 
 		return adminUser;
 	}
 
-	public static Role EnsureRole(SiteSettings site, string roleName, string displayName)
+	public static void EnsureDefaultRoles(SiteSettings siteSettings)
 	{
-		var role = new Role(site.SiteId, roleName);
-		if (role.RoleId != -1)
-		{
-			return role;
-		}
-		else
-		{
-			role = new Role
-			{
-				RoleName = roleName,
-				DisplayName = displayName,
-				SiteId = site.SiteId,
-				SiteGuid = site.SiteGuid
-			};
-			role.Save();
-			return role;
-		}
-	}
-
-	public static void EnsureRolesAndAdminUser(SiteSettings site)
-	{
-		SiteUser adminUser = EnsureAdminUser(site);
-
-		var adminRole = EnsureRole(site, "Admins", "Administrators");
-		if (adminRole is not null)
-		{
-			Role.AddUser(adminRole.RoleId, adminUser.UserId, adminRole.RoleGuid, adminUser.UserGuid);
-		}
-
-		EnsureRole(site, "Role Admins", SetupResource.RoleNameRoleAdministrators);
-		EnsureRole(site, "Content Administrators", SetupResource.RoleNameContentAdministrators);
-		EnsureRole(site, "Authenticated Users", SetupResource.RoleNameAuthenticated);
-		EnsureRole(site, "Content Publishers", SetupResource.RoleNameContentPublishers);
-		EnsureRole(site, "Content Authors", SetupResource.RoleNameContentAuthors);
-		EnsureRole(site, "Newsletter Administrators", SetupResource.RoleNameNewsletterAdministrators);
+		Role.EnsureRole(siteSettings, "Admins", SetupResource.RoleNameAdministrators);
+		Role.EnsureRole(siteSettings, "Role Admins", SetupResource.RoleNameRoleAdministrators);
+		Role.EnsureRole(siteSettings, "Content Administrators", SetupResource.RoleNameContentAdministrators);
+		Role.EnsureRole(siteSettings, "Authenticated Users", SetupResource.RoleNameAuthenticated);
+		Role.EnsureRole(siteSettings, "Content Publishers", SetupResource.RoleNameContentPublishers);
+		Role.EnsureRole(siteSettings, "Content Authors", SetupResource.RoleNameContentAuthors);
+		Role.EnsureRole(siteSettings, "Newsletter Administrators", SetupResource.RoleNameNewsletterAdministrators);
 	}
 
 	#endregion
@@ -351,7 +327,8 @@ public sealed class mojoSetup
 
 	public static void CreateNewSiteData(SiteSettings siteSettings)
 	{
-		EnsureRolesAndAdminUser(siteSettings);
+		EnsureDefaultRoles(siteSettings);
+		EnsureAdminUser(siteSettings);
 		CreateDefaultSiteFolders(siteSettings.SiteId);
 		EnsureSkins(siteSettings.SiteId);
 
