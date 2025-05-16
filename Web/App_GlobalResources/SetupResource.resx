@@ -394,16 +394,16 @@ Obviously, instructions will be different across hosting environments but the sa
     <value>Warning</value>
   </data>
   <data name="CustomMachineKeyCreated" xml:space="preserve">
-    <value>Custom MachineKey generated</value>
+    <value>Custom MachineKey Generated!</value>
   </data>
   <data name="CustomMachineKeyNotCreated" xml:space="preserve">
-    <value>Custom MachineKey not created</value>
+    <value>Custom MachineKey Not Created!</value>
   </data>
   <data name="InfoTitle" xml:space="preserve">
     <value>Note</value>
   </data>
   <data name="CustomMachineKeyCreatedDetails" xml:space="preserve">
-    <value>Please make note of this MachineKey and keep it somewhere safe.</value>
+    <value>Your new MachineKey is in the webConfig-machineKey.config file in the root of your site. Be sure to save it somewhere.</value>
   </data>
   <data name="SetupInProgressMessage" xml:space="preserve">
     <value>Setup is already in progress. Please wait a few minutes and then refresh this page.</value>
@@ -416,5 +416,11 @@ Obviously, instructions will be different across hosting environments but the sa
   </data>
   <data name="InstallingFeature" xml:space="preserve">
     <value>Installing {0} - v{1}</value>
+  </data>
+  <data name="RoleNameAdministrators" xml:space="preserve">
+    <value>Administrators</value>
+  </data>
+  <data name="CustomMachineKeyFound" xml:space="preserve">
+    <value>Custom MachineKey Found!</value>
   </data>
 </root>
