@@ -89,7 +89,7 @@ public partial class Logoff : Page
 		}
 		catch (HttpException) { }
 
-		string redirectUrl = "~/Default.aspx".ToLinkBuilder().ToString();
+		string redirectUrl = "~/".ToLinkBuilder().ToString();
 
 		if (!siteSettings.UseSslOnAllPages)
 		{
