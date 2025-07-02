@@ -3,7 +3,7 @@
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
-		<div class="breadcrumbs">
+		<div class="breadcrumb">
 			<asp:HyperLink ID="lnkBackToPage" runat="server" />&nbsp;&nbsp;
 			<asp:HyperLink ID="lnkEditFeeds" runat="server" />
 		</div>
