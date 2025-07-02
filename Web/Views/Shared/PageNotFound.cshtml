@@ -36,50 +36,27 @@
 				}
 				else
 				{*@
-					<input type="text" class="form-control" placeholder="@Resource.SearchInputWatermark..." id="srchtext" onKeyPress="return submitenter(this,event)" />
-					<button type="button" id="searchbutton" class="btn btn-success pnfsbtn" onClick="changeAction();" name="searchbutton" aria-label="@Resource.SearchButtonText" title="@Resource.SearchButtonText"><i class="fal fa-search"></i></button>
+					<input type="text" class="form-control" placeholder="@Resource.SearchInputWatermark..." id="srchtext" />
+					<button type="button" id="searchbutton" class="btn btn-success pnfsbtn" name="searchbutton" aria-label="@Resource.SearchButtonText" title="@Resource.SearchButtonText"><i class="fal fa-search"></i></button>
 				@*}*@
 
 			</div>
 		</div>
 	</div>
-	<script data-loader="PageNotFoundView">
 
-	$(document).ready(function () {
-		$('#srchtext').val($('#goog-wm-qt').val());
-		$('#searchbutton').click(function () {
-			window.location.href = '@Model.SearchUrl' + '?q=' + $('#srchtext').val();
-		});
-	});
+	<script data-loader="PageNotFoundView" type="module">
+		const btnSearch = document.getElementById('searchbutton');
+		const txtSearch = document.getElementById('srchtext');
 
-	function submitenter(myfield, e) {
-		var keycode;
-		if (window.event) keycode = window.event.keyCode;
-		else if (e) keycode = e.which;
-		else return true;
-
-		if (keycode == 13) {
-			window.location.href = '@Model.SearchUrl' + '?q=' + $('#srchtext').val();
-			return false;
+		function onEnter(e) {
+			if (e.key === 'Enter') {
+				e.preventDefault();
+				e.stopPropagation();
+				window.location.href = `@(Model.SearchUrl)?q=${txtSearch.value}`;
+			}
 		}
-		else {
-			return true;
-		}
-	}
 
-	function tabIfEnter(myfield, e) {
-		var keycode;
-		if (window.event) keycode = window.event.keyCode;
-		else if (e) keycode = e.which;
-		else return true;
-
-		if (keycode == 13) {
-			document.forms[0].password.focus();
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
+		btnSearch.addEventListener('click', (e) => window.location.href = `@(Model.SearchUrl)?q=${txtSearch.value}`);
+		txtSearch.addEventListener('keypress', onEnter);
 	</script>
 </div>
