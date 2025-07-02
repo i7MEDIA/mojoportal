@@ -1781,6 +1781,7 @@
     <Compile Include="Helpers\CustomHtmlHelper.cs" />
     <Compile Include="MemberListDisplaySettings.cs" />
     <Compile Include="Models\ExternalLoginErrorModel.cs" />
+    <Compile Include="Models\PageNotFoundModel.cs" />
     <Compile Include="Modules\HtmlDisplaySettings.cs" />
     <Compile Include="Modules\LoginModuleDisplaySettings.cs" />
     <Compile Include="Modules\RecentContentDisplaySettings.cs" />
@@ -2740,6 +2741,7 @@
     <Content Include="Views\Controls\DropDownList.cshtml" />
     <Content Include="Views\Shared\_DebugInfo.cshtml" />
     <Content Include="Views\ExternalLogin\Error.cshtml" />
+    <Content Include="Views\Shared\PageNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />

@@ -1,0 +1,85 @@
+@model mojoPortal.Web.Models.PageNotFoundModel
+@using Resources;
+<div class="outerwrap">
+	<div class="page-not-found-content-wrap">
+		<div class="page-not-found-intro">
+			<h1>@Resource.PageNotFoundTitle</h1>
+			<p>
+				@Resource.PageNotFoundMessage
+			</p>
+		</div>
+		<div class="page-not-found-options">
+			<p class="lead">@Resource.PageNotFoundPleaseTryLead</p>
+			<ol>
+				<li>@Resource.PageNotFoundCheckUrl</li>
+				<li>@Resource.PageNotFoundPleaseTry <a href="@Model.SiteMapUrl" class="sitemaplink">@Resource.SiteMapLink</a>.</li>
+				<li>@Resource.PageNotFoundSearchLead</li>
+			</ol>
+			<div class="page-not-found-search">
+				@*@if (Model.UseGoogle404Enhancement)
+				{
+					<div class="page-not-found-google">
+						<script data-loader="PageNotFoundView">
+						var GOOG_FIXURL_LANG = '@Model.CultureCode';
+						var GOOG_FIXURL_SITE = '@Model.SiteRootUrl';
+						var searchInput = $(".searchpanel input[type=text]");
+						var searchButton = $(".searchpanel input[type=submit]");
+						if ((searchInput) && (searchButton)) {
+							searchButton.click(function () {
+								window.location = "@Model.SearchUrl" + "?q=" + searchInput.val();
+								return false;
+							});
+						}
+						</script>
+						<script data-loader="PageNotFoundView" src="https://linkhelp.clients.google.com/tbproxy/lh/wm/fixurl.js"></script>
+					</div>
+				}
+				else
+				{*@
+					<input type="text" class="form-control" placeholder="@Resource.SearchInputWatermark..." id="srchtext" onKeyPress="return submitenter(this,event)" />
+					<button type="button" id="searchbutton" class="btn btn-success pnfsbtn" onClick="changeAction();" name="searchbutton" aria-label="@Resource.SearchButtonText" title="@Resource.SearchButtonText"><i class="fal fa-search"></i></button>
+				@*}*@
+
+			</div>
+		</div>
+	</div>
+	<script data-loader="PageNotFoundView">
+
+	$(document).ready(function () {
+		$('#srchtext').val($('#goog-wm-qt').val());
+		$('#searchbutton').click(function () {
+			window.location.href = '@Model.SearchUrl' + '?q=' + $('#srchtext').val();
+		});
+	});
+
+	function submitenter(myfield, e) {
+		var keycode;
+		if (window.event) keycode = window.event.keyCode;
+		else if (e) keycode = e.which;
+		else return true;
+
+		if (keycode == 13) {
+			window.location.href = '@Model.SearchUrl' + '?q=' + $('#srchtext').val();
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	function tabIfEnter(myfield, e) {
+		var keycode;
+		if (window.event) keycode = window.event.keyCode;
+		else if (e) keycode = e.which;
+		else return true;
+
+		if (keycode == 13) {
+			document.forms[0].password.focus();
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	</script>
+</div>

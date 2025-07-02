@@ -3310,7 +3310,7 @@
     <value>Task Started</value>
   </data>
   <data name="PageNotFoundMessage" xml:space="preserve">
-    <value>We're sorry but we could not find the page you are looking for.</value>
+    <value>We're sorry, the page you are looking for has moved or no longer exists.</value>
   </data>
   <data name="PageNotFoundTitle" xml:space="preserve">
     <value>Page Not Found</value>
@@ -3991,7 +3991,7 @@
     <value>This feature was not designed to be used on more than one page. You should only publish this instance on one page and you should not move it to a different page after adding content.</value>
   </data>
   <data name="PageNotFoundPleaseTry" xml:space="preserve">
-    <value>Please try the </value>
+    <value>Try to find the page on the</value>
   </data>
   <data name="AdminMenuContentWorkflowLabel" xml:space="preserve">
     <value>Content Workflow</value>
@@ -6774,5 +6774,14 @@ Copy the machine key below to your site's configuration by following &lt;a href=
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found</value>
+  </data>
+  <data name="PageNotFoundPleaseTryLead" xml:space="preserve">
+    <value>If you're still having trouble finding the content you're looking for, here's some things you can try:</value>
+  </data>
+  <data name="PageNotFoundCheckUrl" xml:space="preserve">
+    <value>Check the spelling of your URL and ensure it is correct.</value>
+  </data>
+  <data name="PageNotFoundSearchLead" xml:space="preserve">
+    <value>Search for the page below:</value>
   </data>
 </root>

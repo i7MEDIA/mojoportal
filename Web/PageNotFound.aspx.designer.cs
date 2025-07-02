@@ -15,57 +15,12 @@ namespace mojoPortal.Web
 	{
 
 		/// <summary>
-		/// pnlOuterWrap control.
+		/// litOutput control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
-
-		/// <summary>
-		/// pnlInnerWrap control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.InnerWrapperPanel pnlInnerWrap;
-
-		/// <summary>
-		/// pnlOuterBody control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.OuterBodyPanel pnlOuterBody;
-
-		/// <summary>
-		/// pnlInnerBody control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
-
-		/// <summary>
-		/// litErrorMessage control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.Literal litErrorMessage;
-
-		/// <summary>
-		/// pnlGoogle404Enhancement control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.Panel pnlGoogle404Enhancement;
+		protected global::System.Web.UI.WebControls.Literal litOutput;
 	}
 }

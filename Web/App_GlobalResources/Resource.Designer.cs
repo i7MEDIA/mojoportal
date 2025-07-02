@@ -11824,7 +11824,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We&apos;re sorry but we could not find the page you are looking for..
+        ///   Looks up a localized string similar to Check the spelling of your URL and ensure it is correct..
+        /// </summary>
+        internal static string PageNotFoundCheckUrl {
+            get {
+                return ResourceManager.GetString("PageNotFoundCheckUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We&apos;re sorry, the page you are looking for has moved or no longer exists..
         /// </summary>
         internal static string PageNotFoundMessage {
             get {
@@ -11833,11 +11842,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please try the .
+        ///   Looks up a localized string similar to Try to find the page on the.
         /// </summary>
         internal static string PageNotFoundPleaseTry {
             get {
                 return ResourceManager.GetString("PageNotFoundPleaseTry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you&apos;re still having trouble finding the content you&apos;re looking for, here&apos;s some things you can try:.
+        /// </summary>
+        internal static string PageNotFoundPleaseTryLead {
+            get {
+                return ResourceManager.GetString("PageNotFoundPleaseTryLead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for the page below:.
+        /// </summary>
+        internal static string PageNotFoundSearchLead {
+            get {
+                return ResourceManager.GetString("PageNotFoundSearchLead", resourceCulture);
             }
         }
         
