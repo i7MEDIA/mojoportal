@@ -1,5 +1,9 @@
 ﻿namespace mojoPortal.Web.UI;
 
+/// <summary>
+/// Display Settings for the User Profile page.
+/// Configuration is per skin via the config/Core/UserProfile-display.json file.
+/// </summary>
 public class ProfileDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

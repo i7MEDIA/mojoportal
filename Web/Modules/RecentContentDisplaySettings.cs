@@ -1,5 +1,9 @@
 ﻿namespace mojoPortal.Web.UI;
 
+/// <summary>
+/// Display Settings for the Recent Content Module.
+/// Configuration is per skin via the config/Core/RecentContent-display.json file.
+/// </summary>
 public class RecentContentDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

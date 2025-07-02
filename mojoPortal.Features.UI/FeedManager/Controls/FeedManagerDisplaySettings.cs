@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.FeedUI;
 
-
+/// <summary>
+/// Display Settings for Feed Manager feature.
+/// Configuration is per skin via the config/plugins/FeedManager/display.json file.
+/// </summary>
 public class FeedManagerDisplaySettings : BasePluginDisplaySettings
 {
 	public FeedManagerDisplaySettings() : base() { }

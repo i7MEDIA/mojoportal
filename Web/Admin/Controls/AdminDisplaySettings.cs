@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.AdminUI;
 
-
+/// <summary>
+/// Display Settings for Administrative Features.
+/// Configuration is per skin via the config/Core/admin-display.json file.
+/// </summary>
 public class AdminDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

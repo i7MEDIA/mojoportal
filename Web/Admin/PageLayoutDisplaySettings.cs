@@ -1,5 +1,9 @@
 ﻿namespace mojoPortal.Web.UI;
 
+/// <summary>
+/// Display Settings for the PageLayout page.
+/// Configuration is per skin via the config/Core/PageLayoutPage-display.json file.
+/// </summary>
 public class PageLayoutDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

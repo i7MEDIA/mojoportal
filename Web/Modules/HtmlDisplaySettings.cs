@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.ContentUI;
 
-
+/// <summary>
+/// Display Settings for the HTML Content module.
+/// Configuration is per skin via the config/Core/HtmlModule-display.json file.
+/// </summary>
 public class HtmlDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

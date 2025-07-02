@@ -2,7 +2,8 @@
 
 
 /// <summary>
-/// this control doesn't render anything, it is used only as a themeable collection of settings for things we would like to be able to configure from theme.skin
+/// Display Settings for the Search Results page.
+/// Configuration is per skin via the config/Core/SearchResults-display.json file.
 /// </summary>
 public class SearchResultsDisplaySettings : BaseDisplaySettings
 {

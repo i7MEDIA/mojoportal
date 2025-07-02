@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.GalleryUI;
 
-
+/// <summary>
+/// Display Settings for Gallery feature.
+/// Configuration is per skin via the config/plugins/Gallery/display.json file.
+/// </summary>
 public class GalleryDisplaySettings : BasePluginDisplaySettings
 {
 	public GalleryDisplaySettings() : base() { }

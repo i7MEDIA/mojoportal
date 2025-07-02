@@ -1,5 +1,11 @@
 ﻿namespace mojoPortal.Web.UI;
 
+/// <summary>
+/// Display Settings for the Member List page.
+/// Configuration is per skin via the config/Core/MemberList-display.json file.
+/// </summary>
+/// 
+
 public class MemberListDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

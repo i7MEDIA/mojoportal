@@ -1,5 +1,9 @@
 ﻿namespace mojoPortal.Web.UI;
 
+/// <summary>
+/// Display Settings for the Search Module.
+/// Configuration is per skin via the config/Core/SearchModule-display.json file.
+/// </summary>
 public class SearchModuleDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

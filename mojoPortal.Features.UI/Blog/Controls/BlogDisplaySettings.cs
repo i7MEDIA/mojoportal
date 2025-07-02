@@ -2,7 +2,10 @@ using System;
 using System.Globalization;
 namespace mojoPortal.Web.BlogUI;
 
-
+/// <summary>
+/// Display Settings for Blog feature.
+/// Configuration is per skin via the config/plugins/Blog/display.json file.
+/// </summary>
 public class BlogDisplaySettings : BasePluginDisplaySettings
 {
 	public BlogDisplaySettings() : base() { }

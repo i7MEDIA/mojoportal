@@ -1,5 +1,9 @@
 ﻿namespace mojoPortal.Web.ContactUI;
 
+/// <summary>
+/// Display Settings for Contact Form feature.
+/// Configuration is per skin via the config/plugins/ContactForm/display.json file.
+/// </summary>
 public class ContactFormDisplaySettings : BasePluginDisplaySettings
 {
 	public ContactFormDisplaySettings() : base() { }

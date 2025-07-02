@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.UI;
 
-
+/// <summary>
+/// Display Settings for the Comment System.
+/// Configuration is per skin via the config/Core/CommentSystem-display.json file.
+/// </summary>
 public class CommentSystemDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

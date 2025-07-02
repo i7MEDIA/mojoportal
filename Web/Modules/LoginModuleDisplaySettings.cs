@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.UI;
 
-
+/// <summary>
+/// Display Settings for the Login Module
+/// Configuration is per skin via the config/Core/LoginModule-display.json file.
+/// </summary>
 public class LoginModuleDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";

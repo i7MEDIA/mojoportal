@@ -1,12 +1,14 @@
 ﻿namespace mojoPortal.Web.UI;
 
-
+/// <summary>
+/// Display Settings for the Registration page.
+/// Configuration is per skin via the config/Core/RegistrationPage-display.json file.
+/// </summary>
 public class RegistrationPageDisplaySettings : BaseDisplaySettings
 {
 	public override string FeatureName => "Core";
 	public override string SubFeatureName => GetType().Name.Replace("DisplaySettings", string.Empty);
 	public RegistrationPageDisplaySettings() : base() { }
-
 
 	public string NewsletterListHeading { get; set; } = string.Empty;
 

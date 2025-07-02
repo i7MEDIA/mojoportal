@@ -2,6 +2,10 @@
 
 namespace SuperFlexiUI;
 
+/// <summary>
+/// Display Settings for SuperFlexi feature.
+/// Configuration is per skin via the config/plugins/SuperFlexi/display.json file.
+/// </summary>
 public class SuperFlexiDisplaySettings : BasePluginDisplaySettings
 {
 

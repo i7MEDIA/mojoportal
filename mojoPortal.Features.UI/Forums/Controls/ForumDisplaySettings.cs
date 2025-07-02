@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.ForumUI;
 
-
+/// <summary>
+/// Display Settings for Forum feature.
+/// Configuration is per skin via the config/plugins/Forum/display.json file.
+/// </summary>
 public class ForumDisplaySettings : BasePluginDisplaySettings
 {
 	public ForumDisplaySettings() : base() { }

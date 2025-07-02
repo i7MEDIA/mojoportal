@@ -1,6 +1,9 @@
 ﻿namespace mojoPortal.Web.SharedFilesUI;
 
-
+/// <summary>
+/// Display Settings for Shared Files feature.
+/// Configuration is per skin via the config/plugins/SharedFiles/display.json file.
+/// </summary>
 public class SharedFilesDisplaySettings : BasePluginDisplaySettings
 {
 	public SharedFilesDisplaySettings() : base() { }
