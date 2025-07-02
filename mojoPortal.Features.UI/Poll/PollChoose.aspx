@@ -16,8 +16,8 @@
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 					<div class="settingrow">
-						<asp:Button ID="btnRemoveCurrent" runat="server" CssClass="buttonlink" CausesValidation="false" />
-						<asp:HyperLink ID="lnkNewPoll" runat="server"></asp:HyperLink>
+						<asp:Button ID="btnRemoveCurrent" runat="server" SkinID="WarningButton" CausesValidation="false" />
+						<asp:HyperLink ID="lnkNewPoll" runat="server" SkinID="AddButton"></asp:HyperLink>
 					</div>
 					<portal:mojoDataList ID="dlPolls" runat="server" DataKeyField="PollGuid">
 						<ItemTemplate>
@@ -32,11 +32,11 @@
 							<br />
 							<asp:Label ID="lblActive" runat="server" Text='<%# GetActiveText(Eval("ActiveFrom"), Eval("ActiveTo")) %>'></asp:Label>
 							<br />
-							<asp:Button CommandName="Choose" runat="server" CssClass="buttonlink" ID="btnChoose"
+							<asp:Button CommandName="Choose" ID="btnChoose" runat="server" SkinID="InfoButton"
 								Text='<%$ Resources:PollResources, PollChooseChooseAlternateText %>' CommandArgument='<%# Eval("PollGuid") %>' />
-							<asp:HyperLink ID="lnkEdit" runat="server" Text='<%$ Resources:PollResources, PollViewEditAlternateText %>'
+							<asp:HyperLink ID="lnkEdit" runat="server" SkinID="InfoButton" Text='<%$ Resources:PollResources, PollViewEditAlternateText %>'
 								NavigateUrl='<%# SiteRoot + "/Poll/PollEdit.aspx?PollGuid=" + Eval("PollGuid") + "&pageid=" + pageId + "&mid=" + moduleId %>'></asp:HyperLink>
-							<asp:Button ID="btnCopyToNewPoll" runat="server" CssClass="buttonlink" CommandName="Copy" CommandArgument='<%# Eval("PollGuid") %>'
+							<asp:Button ID="btnCopyToNewPoll" runat="server" SkinID="InfoButton" CommandName="Copy" CommandArgument='<%# Eval("PollGuid") %>'
 								Text='<%$ Resources:PollResources, PollViewCopyToNewPollButton %>' ToolTip='<%$ Resources:PollResources, PollViewCopyToNewPollToolTip %>' />
 							<hr />
 						</ItemTemplate>

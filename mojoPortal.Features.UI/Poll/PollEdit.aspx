@@ -16,8 +16,8 @@
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
 					<asp:Panel ID="pnlPoll" runat="server" DefaultButton="btnSave">
 						<div class="pollwrap">
-							<asp:Button ID="btnAddNewPoll" runat="server" CssClass="buttonlink" CausesValidation="false" />
-							<asp:Button ID="btnViewPolls" runat="server" CssClass="buttonlink" CausesValidation="false" />
+							<asp:Button ID="btnAddNewPoll" runat="server" SkinID="AddButton" CausesValidation="false" />
+							<asp:Button ID="btnViewPolls" runat="server" SkinID="InfoButton" CausesValidation="false" />
 							<hr />
 							<div class="settingrow">
 								<mp:SiteLabel ID="lblQuestion" runat="server" ForControl="txtQuestion" CssClass="settinglabel"
@@ -70,7 +70,7 @@
 									<tr>
 										<td>
 											<asp:TextBox ID="txtNewOption" runat="server" Columns="39" MaxLength="100"></asp:TextBox>
-											<portal:mojoButton ID="btnAddOption" runat="server" CausesValidation="False" />
+											<portal:mojoButton ID="btnAddOption" runat="server" SkinID="AddButton" CausesValidation="False" />
 										</td>
 										<td>&nbsp;</td>
 									</tr>
@@ -97,9 +97,9 @@
 							</div>
 							<div class="settingrow">
 								<mp:SiteLabel ID="lblspacer" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
-								<portal:mojoButton ID="btnSave" runat="server" />&nbsp;
-								<portal:mojoButton ID="btnDelete" runat="server" CausesValidation="false" />&nbsp;
-								<portal:mojoButton ID="btnActivateDeactivate" runat="server" CausesValidation="False" Visible="false" />
+								<portal:mojoButton ID="btnSave" runat="server" SkinID="SaveButton"/>&nbsp;
+								<portal:mojoButton ID="btnDelete" runat="server" SkinID="DeleteButton" CausesValidation="false" />&nbsp;
+								<portal:mojoButton ID="btnActivateDeactivate" runat="server" SkinID="WarningButton" CausesValidation="False" Visible="false" />
 							</div>
 						</div>
 					</asp:Panel>

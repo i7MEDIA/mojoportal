@@ -40,8 +40,8 @@
 						<asp:Label ID="lblMessage" runat="server"></asp:Label>
 						<br />
 						<asp:Label ID="lblVotingStatus" runat="server" />
-						<asp:Button ID="btnShowResults" runat="server" CssClass="buttonlink"></asp:Button>
-						<asp:Button ID="btnBackToVote" runat="server" CssClass="buttonlink" Visible="false"></asp:Button>
+						<asp:Button ID="btnShowResults" runat="server" SkinID="InfoButton"></asp:Button>
+						<asp:Button ID="btnBackToVote" runat="server" SkinID="LinkButton" Visible="false"></asp:Button>
 					</ContentTemplate>
 				</asp:UpdatePanel>
 				<br />
