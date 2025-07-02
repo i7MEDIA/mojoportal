@@ -551,6 +551,7 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <asp:HyperLink runat="server" SkinID="SuccessButton" CssClass="btn btn-success"/>
 <portal:mojoButton runat="server" SkinID="SuccessButton" CssClass="btn btn-success" />
 
+<asp:HyperLink runat="server" SkinID="AddButton" CssClass="btn btn-success"/>
 <portal:mojoButton runat="server" SkinID="AddButton" CssClass="btn btn-success" />
 <portal:mojoButton runat="server" SkinID="SaveButton" CssClass="btn btn-success" />
 
