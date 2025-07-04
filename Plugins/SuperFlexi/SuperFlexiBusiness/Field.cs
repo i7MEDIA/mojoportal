@@ -149,11 +149,55 @@ public class Field : Hashtable, IComparable<Field>
 			DefinitionName = reader["DefinitionName"].ToString();
 			Name = reader["Name"].ToString();
 			Label = reader["Label"].ToString();
-			DefaultValue = reader["DefaultValue"].ToString();
 			ControlType = reader["ControlType"].ToString();
 			ControlSrc = reader["ControlSrc"].ToString();
 			DataType = reader["DataType"].ToString();
+			DefaultValue = reader["DefaultValue"].ToString();
 			IsList = Convert.ToBoolean(reader["IsList"]);
+			if (string.IsNullOrWhiteSpace(DefaultValue))
+			{
+				switch (DataType)
+				{
+					case "int":
+						if (IsList ||
+							IsCheckBoxListField ||
+							IsDynamicListField)
+						{
+							goto case "string";
+						}
+
+						if (int.TryParse(DefaultValue, out int intVal))
+						{
+							DefaultValue = intVal.ToString();
+						}
+						else
+						{
+							DefaultValue = "-1";
+						}
+
+							break;
+					case "bool":
+					case "boolean":
+						if (bool.TryParse(DefaultValue, out bool boolVal))
+						{
+							DefaultValue = boolVal.ToString();
+						}
+						else
+						{
+							DefaultValue = "False";
+						}
+						break;
+					case "string":
+					default:
+						if (ControlType == "CheckBox")
+						{
+							goto case "bool";
+						}
+
+						break;
+				}
+			}
+			
 			SortOrder = Convert.ToInt32(reader["SortOrder"]);
 			HelpKey = reader["HelpKey"].ToString();
 			Required = Convert.ToBoolean(reader["Required"]);
@@ -419,6 +463,50 @@ public class Field : Hashtable, IComparable<Field>
 				{
 					//mysql doesn't allow default values for TEXT columns so we do this because the field should never be empty
 					field.ViewRoles = "All Users;";
+				}
+
+				if (string.IsNullOrWhiteSpace(field.DefaultValue))
+				{
+					switch (field.DataType)
+					{
+						case "int":
+							if (field.IsList ||
+								field.IsCheckBoxListField ||
+								field.IsDynamicListField)
+							{
+								goto case "string";
+							}
+
+							if (int.TryParse(field.DefaultValue, out int intVal))
+							{
+								field.DefaultValue = intVal.ToString();
+							}
+							else
+							{
+								field.DefaultValue = "-1";
+							}
+
+							break;
+						case "bool":
+						case "boolean":
+							if (bool.TryParse(field.DefaultValue, out bool boolVal))
+							{
+								field.DefaultValue = boolVal.ToString();
+							}
+							else
+							{
+								field.DefaultValue = "False";
+							}
+							break;
+						case "string":
+						default:
+							if (field.ControlType == "CheckBox")
+							{
+								goto case "bool";
+							}
+
+							break;
+					}
 				}
 
 				fieldList.Add(field);

@@ -259,7 +259,22 @@ public class ClassBuilder
 								goto case "List";
 							}
 
-							SetItemClassProperty(fieldName, theValue);
+							if (field.DataType == "int")
+							{
+								if (int.TryParse(theValue.ToString(), out int intVal))
+								{
+									SetItemClassProperty(fieldName, intVal);
+								}
+								else
+								{
+									SetItemClassProperty(fieldName, field.DefaultValue);
+								}
+							}
+							else
+							{
+								SetItemClassProperty(fieldName, theValue);
+
+							}
 
 							break;
 					}
