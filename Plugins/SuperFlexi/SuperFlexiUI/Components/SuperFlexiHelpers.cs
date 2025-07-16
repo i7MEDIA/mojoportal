@@ -15,6 +15,7 @@ using System.Configuration;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -668,18 +669,27 @@ namespace SuperFlexiUI
 
 			dynamic itemExpando = new ExpandoObject();
 			itemExpando.Guid = item.ItemGuid;
+			itemExpando.Id = item.ItemID;
 			itemExpando.SortOrder = item.SortOrder;
 
 			List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
 			foreach (Field field in fields)
 			{
+				var found = false;
+
 				foreach (ItemFieldValue fieldValue in fieldValues)
 				{
 					if (field.FieldGuid == fieldValue.FieldGuid)
 					{
+						found = true;
 						((IDictionary<String, Object>)itemExpando)[field.Name] = fieldValue.FieldValue;
 					}
+				}
+
+				if (!found)
+				{
+					((IDictionary<String, Object>)itemExpando)[field.Name] = field.DefaultValue;
 				}
 			}
 
@@ -721,7 +731,8 @@ namespace SuperFlexiUI
 		public static object GetFieldValueFromKVPWithType(KeyValuePair<string, object> fieldValue, Field field)
 		{
 			object theValue;
-			var emptyValue = string.IsNullOrWhiteSpace(fieldValue.Value.ToString());
+			var _fieldValue = fieldValue.Value.ToString();
+			var emptyValue = string.IsNullOrWhiteSpace(_fieldValue);
 
 			switch (field.DataType)
 			{
@@ -733,25 +744,25 @@ namespace SuperFlexiUI
 						goto case "string";
 					}
 
-					if (int.TryParse(fieldValue.Value.ToString(), out int intVal) && !emptyValue)
+					if (!emptyValue && int.TryParse(_fieldValue, out int intVal))
 					{
 						theValue = intVal;
 					}
 					else
 					{
-						theValue = null;
+						theValue = field.DefaultValue;
 					}
 
 					break;
 				case "bool":
 				case "boolean":
-					if (bool.TryParse(fieldValue.Value.ToString(), out bool boolVal) && !emptyValue)
+					if (bool.TryParse(_fieldValue, out bool boolVal) && !emptyValue)
 					{
 						theValue = boolVal;
 					}
 					else
 					{
-						theValue = null;
+						theValue = field.DefaultValue;
 					}
 					break;
 				case "string":
@@ -761,7 +772,7 @@ namespace SuperFlexiUI
 						goto case "bool";
 					}
 
-					theValue = fieldValue.Value.ToString();
+					theValue = _fieldValue;
 					break;
 					//case "float":
 					//	theValue = Convert.ToSingle(emptyValue ? float.MinValue : fieldValue.Value);
