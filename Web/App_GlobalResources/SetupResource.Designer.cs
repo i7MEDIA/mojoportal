@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom MachineKey generated.
+        ///   Looks up a localized string similar to Custom MachineKey Generated!.
         /// </summary>
         internal static string CustomMachineKeyCreated {
             get {
@@ -205,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please make note of this MachineKey and keep it somewhere safe..
+        ///   Looks up a localized string similar to Your new MachineKey is in the webConfig-machineKey.config file in the root of your site. Be sure to save it somewhere..
         /// </summary>
         internal static string CustomMachineKeyCreatedDetails {
             get {
@@ -214,7 +214,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Custom MachineKey not created.
+        ///   Looks up a localized string similar to Custom MachineKey Found!.
+        /// </summary>
+        internal static string CustomMachineKeyFound {
+            get {
+                return ResourceManager.GetString("CustomMachineKeyFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom MachineKey Not Created!.
         /// </summary>
         internal static string CustomMachineKeyNotCreated {
             get {
@@ -651,6 +660,15 @@ namespace Resources {
         internal static string ProbingSystemMessage {
             get {
                 return ResourceManager.GetString("ProbingSystemMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrators.
+        /// </summary>
+        internal static string RoleNameAdministrators {
+            get {
+                return ResourceManager.GetString("RoleNameAdministrators", resourceCulture);
             }
         }
         

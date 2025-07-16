@@ -41,21 +41,9 @@ public partial class ForumView : mojoBasePage
 
 	private void Page_Load(object sender, EventArgs e)
 	{
-		if (Page.IsPostBack) return;
-
-		if ((siteSettings != null) && (CurrentPage != null))
+		if (Page.IsPostBack)
 		{
-			if (SiteUtils.SslIsAvailable()
-				&& (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl)
-				)
-			{
-				SiteUtils.ForceSsl();
-			}
-			else
-			{
-				SiteUtils.ClearSsl();
-			}
-
+			return;
 		}
 
 		LoadParams();

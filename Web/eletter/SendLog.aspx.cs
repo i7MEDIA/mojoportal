@@ -54,11 +54,10 @@ namespace mojoPortal.Web.ELetterUI
                 SiteUtils.RedirectToAccessDeniedPage(this);
                 return;
             }
-            if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
+
             LoadSettings();
             PopulateLabels();
             PopulateControls();
-
         }
 
         private void PopulateControls()

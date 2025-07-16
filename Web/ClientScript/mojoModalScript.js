@@ -90,6 +90,13 @@
 		document.body.append(modal);
 	
 		$(modal).modal('show');
+
+		if (link.dataset.callback) {
+			$(modal).on('hidden.bs.modal', function () {
+				eval(link.dataset.callback);
+			});
+		}
+
 		$(modal).on('hidden.bs.modal', e => e.target.remove());
 	}
 

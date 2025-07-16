@@ -1,11 +1,8 @@
 ﻿using System;
-using System.CodeDom;
 using System.Globalization;
 using System.IO;
 using System.Web;
 using System.Web.UI;
-using Google.GData.Extensions.Apps;
-using Ionic.Zip;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -138,8 +135,33 @@ public partial class SetupHome : Page
 		//existingSiteCount = DatabaseHelper.ExistingSiteCount();
 		if (DatabaseHelper.ExistingSiteCount() == 0)
 		{
+			if (WebConfigSettings.TryEnsureCustomMachineKeyOnSetup)
+			{
+				try
+				{
+					switch (WebConfigSettings.EnsureCustomMachineKey())
+					{
+						case (true, false):
+							WritePageContent(SetupStatus.Success, SetupResource.CustomMachineKeyFound);
+							break;
+
+						case (false, true):
+							WritePageContent(SetupStatus.Success, SetupResource.CustomMachineKeyCreated);
+							machineKeyGenerated = true;
+							break;
+					}
+				}
+				catch (Exception ex)
+				{
+					log.Error("tried to ensure a custom machinekey in Web.config but an error occurred.", ex);
+					WritePageContent(SetupStatus.Error, SetupResource.CustomMachineKeyNotCreated);
+				}
+			}
+
 			siteSettings = CreateSite();
-			CreateAdminUser(siteSettings);
+			WritePageContent(SetupStatus.Info, SetupResource.CreatingRolesAndAdminUserMessage);
+			mojoSetup.EnsureDefaultRoles(siteSettings);
+			mojoSetup.EnsureAdminUser(siteSettings);
 		}
 		else
 		{
@@ -160,12 +182,11 @@ public partial class SetupHome : Page
 			}
 		}
 
-
 		// look for new features or settings to install
 
 		var featureConfigMarkup = $"<h3>{SetupResource.ConfigureFeaturesMessage}</h3>";
-/*<ul class=""list-group"" style=""max-width: 75%;"">"; */
-//<ul class=""list-group"" style=""max-width: 75%; width: 600px; white-space:nowrap; max-height: 400px; overflow: auto; border: 1px solid;"">";
+		/*<ul class=""list-group"" style=""max-width: 75%;"">"; */
+		//<ul class=""list-group"" style=""max-width: 75%; width: 600px; white-space:nowrap; max-height: 400px; overflow: auto; border: 1px solid;"">";
 
 		WritePageContent(SetupStatus.none, featureConfigMarkup);
 
@@ -213,17 +234,17 @@ public partial class SetupHome : Page
 				mojoSetup.SetupDefaultContentPages(siteSettings);
 			}
 
-			try
-			{
-				if (SiteUser.UserCount(siteSettings.SiteId) == 0)
-				{
-					mojoSetup.EnsureRolesAndAdminUser(siteSettings);
-				}
-			}
-			catch (Exception ex)
-			{
-				log.Error("EnsureAdminUserAndRoles", ex);
-			}
+			//try
+			//{
+			//	if (SiteUser.UserCount(siteSettings.SiteId) == 0)
+			//	{
+			//		mojoSetup.EnsureDefaultRoles(siteSettings);
+			//	}
+			//}
+			//catch (Exception ex)
+			//{
+			//	log.Error("EnsureAdminUserAndRoles", ex);
+			//}
 
 			mojoSetup.EnsureSkins(siteSettings.SiteId);
 		}
@@ -233,21 +254,6 @@ public partial class SetupHome : Page
 		//ThreadPool.QueueUserWorkItem(new WaitCallback(SyncDefinitions), null);
 		//ModuleDefinition.SyncDefinitions();
 		SiteSettings.EnsureExpandoSettings();
-
-		if (WebConfigSettings.TryEnsureCustomMachineKeyOnSetup)
-		{
-			try
-			{
-				WebConfigSettings.EnsureCustomMachineKey();
-				WritePageContent(SetupStatus.Success, SetupResource.CustomMachineKeyCreated);
-				machineKeyGenerated = true;
-			}
-			catch (Exception ex)
-			{
-				log.Error("tried to ensure a custom machinekey in Web.config but an error occurred.", ex);
-				WritePageContent(SetupStatus.Warning, SetupResource.CustomMachineKeyNotCreated);
-			}
-		}
 
 		return (SetupStatus.Success, "setup complete");
 	}
@@ -582,13 +588,6 @@ public partial class SetupHome : Page
 	}
 
 
-	private void CreateAdminUser(SiteSettings newSite)
-	{
-		WritePageContent(SetupStatus.Info, SetupResource.CreatingRolesAndAdminUserMessage);
-		mojoSetup.EnsureRolesAndAdminUser(newSite);
-	}
-
-
 	private void SetupFeatures(string applicationName)
 	{
 		var appFeatureConfig = ContentFeatureConfiguration.GetConfig(applicationName);
@@ -605,11 +604,11 @@ public partial class SetupHome : Page
 
 	private void SetupFeature(ContentFeature feature)
 	{
-//		var html = @$"
-//<li class=""list-group-item d-flex justify-content-between align-items-top"">
-//{string.Format(successFormat, ResourceHelper.GetResourceString(feature.ResourceFile, feature.FeatureNameReasourceKey))} 
-//</li>
-//";
+		//		var html = @$"
+		//<li class=""list-group-item d-flex justify-content-between align-items-top"">
+		//{string.Format(successFormat, ResourceHelper.GetResourceString(feature.ResourceFile, feature.FeatureNameReasourceKey))} 
+		//</li>
+		//";
 		WritePageContent(SetupStatus.Success, string.Format(SetupResource.ConfigureFeatureMessage, ResourceHelper.GetResourceString(feature.ResourceFile, feature.FeatureNameReasourceKey)));
 
 		var moduleDefinition = new ModuleDefinition(feature.FeatureGuid)
@@ -689,41 +688,35 @@ public partial class SetupHome : Page
 
 	private void WritePageContentCard(SetupStatus setupStatus, string message, string title = "")
 	{
-		var cssClass = string.Empty;
-		//if (string.IsNullOrWhiteSpace(title))
-		//{
-		//	title = string.Empty;
-		//}
 		var msg = $"\r\n<p>{message}</p>";
+		string cssClass;
 		switch (setupStatus)
 		{
 			case SetupStatus.Success:
 				cssClass = "success";
-				title.Coalesce(SetupResource.SetupSuccessTitle);
+				title = title.Coalesce(SetupResource.SetupSuccessTitle);
 				msg = $"\r\n<p>{string.Format(SetupResource.SetupSuccessMessage, Page.ResolveUrl("~/"))}</p>";
 
 				if (machineKeyGenerated)
 				{
-					var key = ConfigHelper.GetMachineKeySection();
-					var keyXml = @$"<machineKey 
-	validationKey=""{key.ValidationKey}"" 
-	decryptionKey=""{key.DecryptionKey}"" 
-	validation=""{key.Validation}"" 
-	decryption=""{key.Decryption}"" 
-/>";
-					msg += @$"
-<div class=""alert alert-info""><p class=""lead""><strong>{SetupResource.CustomMachineKeyCreated}</strong> {SetupResource.CustomMachineKeyCreatedDetails}</p>
-<pre><code>{Server.HtmlEncode(keyXml)}</code></pre></div>
-";
+					msg += $"""
+						<div class="alert alert-info">
+							<p class="lead"><strong>{SetupResource.CustomMachineKeyCreated}</strong></p>
+							<p>{SetupResource.CustomMachineKeyCreatedDetails}</p>
+						</div>
+						""";
 				}
 				else
 				{
 					var securityAdvisor = new SecurityAdvisor();
 					if (!securityAdvisor.UsingCustomMachineKey())
 					{
-						msg += @$"
-<div class=""alert alert-danger""><p class=""lead""><strong>{SetupResource.CustomMachineKeyNotCreated}</strong> {Resource.SecurityAdvisorMachineKeyWrong}</p>
-<pre><code>{Server.HtmlEncode(SiteUtils.GenerateRandomMachineKeyXml())}</code></pre></div>";
+						msg += $"""
+							<div class="alert alert-danger">
+								<p class="lead"><strong>{SetupResource.CustomMachineKeyNotCreated}</strong> {Resource.SecurityAdvisorMachineKeyWrong}</p>
+								<pre><code class="language-xml">{Server.HtmlEncode(SiteUtils.GenerateRandomMachineKeyXml())}</code></pre>
+							</div>
+							""";
 					}
 				}
 
@@ -732,33 +725,34 @@ public partial class SetupHome : Page
 			case SetupStatus.Info:
 			default:
 				cssClass = "info";
-				title.Coalesce(SetupResource.InfoTitle);
+				title = title.Coalesce(SetupResource.InfoTitle);
 				break;
 
 			case SetupStatus.Warning:
 				cssClass = "warning";
-				title.Coalesce(SetupResource.WarningTitle);
+				title = title.Coalesce(SetupResource.WarningTitle);
 				break;
 
 			case SetupStatus.Error:
 				cssClass = "danger";
-				title.Coalesce(SetupResource.ErrorLabel);
+				title = title.Coalesce(SetupResource.ErrorLabel);
 				break;
 		}
 
-		var html = @$"
-<hr />
-<div class=""card border-{cssClass}"">
-	<h3 class=""card-header text-bg-{cssClass}"">{title}</h3>
-	<div class=""card-body"">{msg}
-		<dl class=""row mb-0"">
-			<dt class=""col-sm-3"">{SetupResource.DatabasePlatformLabel}</dt><dd class=""col-sm-9"">{DatabaseHelper.DBPlatform()}</dd>
-			<dt class=""col-sm-3"">{SetupResource.SchemaVersionLabel}</dt><dd class=""col-sm-9"">{DatabaseHelper.SchemaVersion()}</dd>
-			<dt class=""col-sm-3"">{SetupResource.AppCodeVersionLabel}</dt><dd class=""col-sm-9"">{DatabaseHelper.AppCodeVersion()}</dd>
-			<dt class=""col-sm-3"">{SetupResource.MessageLabel}</dt><dd class=""col-sm-9"">{message}</dd>
-		</dl>
-	</div>
-</div>";
+		var html = $"""
+			<hr />
+			<div class="card border-{cssClass}">
+				<h3 class="card-header text-bg-{cssClass}">{title}</h3>
+				<div class="card-body">{msg}
+					<dl class="row mb-0">
+						<dt class="col-sm-3">{SetupResource.DatabasePlatformLabel}</dt><dd class="col-sm-9">{DatabaseHelper.DBPlatform()}</dd>
+						<dt class="col-sm-3">{SetupResource.SchemaVersionLabel}</dt><dd class="col-sm-9">{DatabaseHelper.SchemaVersion()}</dd>
+						<dt class="col-sm-3">{SetupResource.AppCodeVersionLabel}</dt><dd class="col-sm-9">{DatabaseHelper.AppCodeVersion()}</dd>
+						<dt class="col-sm-3">{SetupResource.MessageLabel}</dt><dd class="col-sm-9">{message}</dd>
+					</dl>
+				</div>
+			</div>
+			""";
 
 		WritePageContent(SetupStatus.none, html);
 	}

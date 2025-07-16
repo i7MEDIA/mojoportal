@@ -1,10 +1,3 @@
-using log4net;
-using Microsoft.Ajax.Utilities;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
-using mojoPortal.Net;
-using mojoPortal.Web.Framework;
 using System;
 using System.Collections.Specialized;
 using System.Configuration.Provider;
@@ -16,6 +9,12 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
+using mojoPortal.Net;
+using mojoPortal.Web.Framework;
 
 #nullable enable
 
@@ -1698,35 +1697,23 @@ public class mojoMembershipProvider : MembershipProvider
 	{
 		var saltedPassword = saltFirst ? string.Concat(saltKey, password) : string.Concat(password, saltKey);
 
-		switch (passwordFormat)
+		return passwordFormat switch
 		{
-			default:
-			case MembershipPasswordFormat.Clear:
-				return saltedPassword;
-
-			case MembershipPasswordFormat.Hashed:
-				return CreatePasswordHash(saltedPassword);
-
-			case MembershipPasswordFormat.Encrypted:
-				return EncryptPassword(saltedPassword);
-		}
+			MembershipPasswordFormat.Hashed => CreatePasswordHash(saltedPassword),
+			MembershipPasswordFormat.Encrypted => EncryptPassword(saltedPassword),
+			_ => password,
+		};
 	}
 
 
 	public virtual string UnencodePassword(string password, MembershipPasswordFormat passwordFormat)
 	{
-		switch (passwordFormat)
+		return passwordFormat switch
 		{
-			default:
-			case MembershipPasswordFormat.Clear:
-				return password;
-
-			case MembershipPasswordFormat.Hashed:
-				throw new ProviderException("Can't decrypt hashed password");
-
-			case MembershipPasswordFormat.Encrypted:
-				return DecryptPassword(password);
-		}
+			MembershipPasswordFormat.Hashed => throw new ProviderException("Can't decrypt hashed password"),
+			MembershipPasswordFormat.Encrypted => DecryptPassword(password),
+			_ => password,
+		};
 	}
 
 

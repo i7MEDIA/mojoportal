@@ -54,7 +54,7 @@ public class FlexMenu : WebControl
 
 	public string DescriptionCssClass { get; set; } = string.Empty;
 
-	public bool RenderImage { get; set; } = true;
+	public bool RenderImage { get; set; } = false;
 
 	public string ImageWrapCssClass { get; set; } = string.Empty;
 

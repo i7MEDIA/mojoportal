@@ -117,7 +117,7 @@ public partial class PostList : UserControl
 		var commonUrlParams = new Dictionary<string, object>
 		{
 			{ "pageid", PageId },
-			{ "moduleid", ModuleId },
+			{ "mid", ModuleId },
 			{ "pagenumber", "{0}" }
 		};
 

@@ -43,8 +43,6 @@ public partial class IndexBrowser : NonCmsBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		SiteUtils.ForceSsl();
-
 		if (!Request.IsAuthenticated)
 		{
 			SiteUtils.RedirectToLoginPage(this);

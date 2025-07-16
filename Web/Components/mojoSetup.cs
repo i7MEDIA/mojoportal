@@ -9,6 +9,7 @@ using System.Web.Security;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -211,8 +212,10 @@ public sealed class mojoSetup
 			MinRequiredNonAlphanumericCharacters = 0,
 			MinRequiredPasswordLength = 7,
 			PasswordStrengthRegularExpression = string.Empty,
-			DefaultEmailFromAddress = GetSetupTemplate(templateFolder, "InitialEmailFromContent.config")
+			DefaultEmailFromAddress = GetSetupTemplate(templateFolder, "InitialEmailFromContent.config"),
 		};
+
+		newSite.SiteCreated += new SiteCreatedEventHandler(siteSettings_SiteCreated);
 
 		newSite.Save();
 
@@ -223,7 +226,25 @@ public sealed class mojoSetup
 		return newSite;
 	}
 
-	private static SiteUser EnsureAdminUser(SiteSettings site)
+	private static void siteSettings_SiteCreated(object sender, SiteCreatedEventArgs e)
+	{
+		// this is a hook so that custom code can be fired when sites are created
+		// implement a SiteCreatedEventHandlerProvider and put a config file for it in
+		// /Setup/ProviderConfig/sitecreatedeventhandlers
+		try
+		{
+			foreach (SiteCreatedEventHandlerProvider handler in SiteCreatedEventHandlerProviderManager.Providers)
+			{
+				handler.SiteCreatedHandler(sender, e);
+			}
+		}
+		catch (TypeInitializationException ex)
+		{
+			log.Error(ex);
+		}
+	}
+
+	public static SiteUser EnsureAdminUser(SiteSettings siteSettings)
 	{
 		// if using related sites mode there is a problem if we already have user admin@admin.com
 		// and we create another one in the child site with the same email and login so we need to make it different
@@ -235,11 +256,11 @@ public sealed class mojoSetup
 
 		if (countOfSites >= 1 && WebConfigSettings.UseRelatedSiteMode)
 		{
-			siteDifferentiator = site.SiteId.ToInvariantString();
+			siteDifferentiator = siteSettings.SiteId.ToInvariantString();
 		}
 
 		bool overridRelatedSiteMode = true;
-		var adminUser = new SiteUser(site, overridRelatedSiteMode)
+		var adminUser = new SiteUser(siteSettings, overridRelatedSiteMode)
 		{
 			Email = string.Format(AppConfig.DefaultAdminUserEmailFormat, siteDifferentiator),
 			Name = "Admin",
@@ -248,13 +269,13 @@ public sealed class mojoSetup
 
 		bool userExists;
 
-		if (site.UseEmailForLogin)
+		if (siteSettings.UseEmailForLogin)
 		{
-			userExists = SiteUser.EmailExistsInDB(site.SiteId, adminUser.Email);
+			userExists = SiteUser.EmailExistsInDB(siteSettings.SiteId, adminUser.Email);
 		}
 		else
 		{
-			userExists = SiteUser.LoginExistsInDB(site.SiteId, adminUser.LoginName);
+			userExists = SiteUser.LoginExistsInDB(siteSettings.SiteId, adminUser.LoginName);
 		}
 
 		if (!userExists)
@@ -263,7 +284,7 @@ public sealed class mojoSetup
 
 			if (Membership.Provider is mojoMembershipProvider membership)
 			{
-				adminUser.Password = membership.EncodePassword(site, adminUser, AppConfig.DefaultAdminPassword);
+				adminUser.Password = membership.EncodePassword(siteSettings, adminUser, AppConfig.DefaultAdminPassword);
 			}
 
 			adminUser.PasswordQuestion = AppConfig.DefaultAdminSecurityQuestion;
@@ -272,56 +293,32 @@ public sealed class mojoSetup
 		}
 		else
 		{
-			if (site.UseEmailForLogin)
+			if (siteSettings.UseEmailForLogin)
 			{
-				adminUser = new SiteUser(site, adminUser.Email);
+				adminUser = new SiteUser(siteSettings, adminUser.Email);
 			}
 			else
 			{
-				adminUser = new SiteUser(site, adminUser.LoginName);
+				adminUser = new SiteUser(siteSettings, adminUser.LoginName);
 			}
 		}
+
+		Role.AddUserToDefaultRoles(adminUser);
+		var adminRole = Role.GetAdminRole(siteSettings.SiteId);
+		Role.AddUser(adminRole.RoleId, adminUser.UserId, adminRole.RoleGuid, adminUser.UserGuid);
 
 		return adminUser;
 	}
 
-	public static Role EnsureRole(SiteSettings site, string roleName, string displayName)
+	public static void EnsureDefaultRoles(SiteSettings siteSettings)
 	{
-		var role = new Role(site.SiteId, roleName);
-		if (role.RoleId != -1)
-		{
-			return role;
-		}
-		else
-		{
-			role = new Role
-			{
-				RoleName = roleName,
-				DisplayName = displayName,
-				SiteId = site.SiteId,
-				SiteGuid = site.SiteGuid
-			};
-			role.Save();
-			return role;
-		}
-	}
-
-	public static void EnsureRolesAndAdminUser(SiteSettings site)
-	{
-		SiteUser adminUser = EnsureAdminUser(site);
-
-		var adminRole = EnsureRole(site, "Admins", "Administrators");
-		if (adminRole is not null)
-		{
-			Role.AddUser(adminRole.RoleId, adminUser.UserId, adminRole.RoleGuid, adminUser.UserGuid);
-		}
-
-		EnsureRole(site, "Role Admins", SetupResource.RoleNameRoleAdministrators);
-		EnsureRole(site, "Content Administrators", SetupResource.RoleNameContentAdministrators);
-		EnsureRole(site, "Authenticated Users", SetupResource.RoleNameAuthenticated);
-		EnsureRole(site, "Content Publishers", SetupResource.RoleNameContentPublishers);
-		EnsureRole(site, "Content Authors", SetupResource.RoleNameContentAuthors);
-		EnsureRole(site, "Newsletter Administrators", SetupResource.RoleNameNewsletterAdministrators);
+		Role.EnsureRole(siteSettings, "Admins", SetupResource.RoleNameAdministrators);
+		Role.EnsureRole(siteSettings, "Role Admins", SetupResource.RoleNameRoleAdministrators);
+		Role.EnsureRole(siteSettings, "Content Administrators", SetupResource.RoleNameContentAdministrators);
+		Role.EnsureRole(siteSettings, "Authenticated Users", SetupResource.RoleNameAuthenticated);
+		Role.EnsureRole(siteSettings, "Content Publishers", SetupResource.RoleNameContentPublishers);
+		Role.EnsureRole(siteSettings, "Content Authors", SetupResource.RoleNameContentAuthors);
+		Role.EnsureRole(siteSettings, "Newsletter Administrators", SetupResource.RoleNameNewsletterAdministrators);
 	}
 
 	#endregion
@@ -330,7 +327,8 @@ public sealed class mojoSetup
 
 	public static void CreateNewSiteData(SiteSettings siteSettings)
 	{
-		EnsureRolesAndAdminUser(siteSettings);
+		EnsureDefaultRoles(siteSettings);
+		EnsureAdminUser(siteSettings);
 		CreateDefaultSiteFolders(siteSettings.SiteId);
 		EnsureSkins(siteSettings.SiteId);
 
@@ -592,15 +590,15 @@ public sealed class mojoSetup
 			new() {Path = $"{siteFolderPath}SharedFiles/"},
 			new() {Path = $"{siteFolderPath}SharedFiles/History/" },
 			new() {Path = $"{siteFolderPath}userfiles/"},
-			new() {Path = $"{siteFolderPath}skins/", DeleteTestFile = true },
-			new() {Path = $"{siteFolderPath}media/", DeleteTestFile = true},
-			new() {Path = $"{siteFolderPath}htmltemplateimages/", BaseFilesPath = "~/Data/htmltemplateimages", DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}skins/" },
+			new() {Path = $"{siteFolderPath}media/"},
+			new() {Path = $"{siteFolderPath}htmltemplateimages/", BaseFilesPath = "~/Data/htmltemplateimages"},
 
 			new() {Path = $"{siteFolderPath}systemfiles/", Condition = WebConfigSettings.UseCacheDependencyFiles},
-			new() {Path = $"{siteFolderPath}index/", Condition = !WebConfigSettings.DisableSearchIndex, DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}index/", Condition = !WebConfigSettings.DisableSearchIndex},
 
-			new() {Path = $"{siteFolderPath}media/logos/", BaseFilesPath = "~/Data/logos", Condition = WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
-			new() {Path = $"{siteFolderPath}logos/", BaseFilesPath = "~/Data/logos", Condition = !WebConfigSettings.SiteLogoUseMediaFolder, DeleteTestFile = true},
+			new() {Path = $"{siteFolderPath}media/logos/", BaseFilesPath = "~/Data/logos", Condition = WebConfigSettings.SiteLogoUseMediaFolder},
+			new() {Path = $"{siteFolderPath}logos/", BaseFilesPath = "~/Data/logos", Condition = !WebConfigSettings.SiteLogoUseMediaFolder},
 
 			new() {Path = $"{siteFolderPath}media/GalleryImages/", Condition = WebConfigSettings.ImageGalleryUseMediaFolder},
 			new() {Path = $"{siteFolderPath}GalleryImages/", Condition = !WebConfigSettings.ImageGalleryUseMediaFolder},
@@ -623,12 +621,13 @@ public sealed class mojoSetup
 			if (dir.Condition)
 			{
 				TouchTestFile(dir.Path + dir.TestFile, dir.DeleteTestFile);
-				if (copyBaseFiles)
+				if (dir.BaseFilesPath is not null && copyBaseFiles)
 				{
-					if (Directory.Exists(dir.BaseFilesPath))
+					var baseFilesPath = HttpContext.Current.Server.MapPath(dir.BaseFilesPath);
+					if (Directory.Exists(baseFilesPath))
 					{
-						var source = new DirectoryInfo(dir.BaseFilesPath);
-						var dest = new DirectoryInfo(dir.Path);
+						var source = new DirectoryInfo(baseFilesPath);
+						var dest = new DirectoryInfo(HttpContext.Current.Server.MapPath(dir.Path));
 						recursiveCopy(source, dest, false);
 					}
 				}
@@ -795,7 +794,7 @@ public class SystemRequiredDirectory
 {
 	public string Path { get; set; }
 	public string TestFile { get; set; } = "test.config";
-	public bool DeleteTestFile { get; set; } = false;
+	public bool DeleteTestFile { get; set; } = true;
 	public bool Condition { get; set; } = true;
 	/// <summary>
 	/// Path of initial or default files to be copied when creating new sites.

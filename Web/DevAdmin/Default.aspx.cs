@@ -8,7 +8,6 @@ public partial class DevToolsPage : NonCmsBasePage
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable()) SiteUtils.ForceSsl();
 		if (!WebUser.IsAdmin
 			|| !siteSettings.IsServerAdminSite
 			|| !WebConfigSettings.EnableDeveloperMenuInAdminMenu)

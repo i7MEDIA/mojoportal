@@ -71,8 +71,8 @@ public partial class CmsPage : mojoBasePage
 		// solves background problems with some skin in WLW
 		if ((StyleCombiner != null) && (StyleCombiner.AddBodyClassForLiveWriter))
 		{
-			if (HttpContext.Current != null 
-				&& HttpContext.Current.Request != null 
+			if (HttpContext.Current != null
+				&& HttpContext.Current.Request != null
 				&& HttpContext.Current.Request.UserAgent != null
 				&& HttpContext.Current.Request.UserAgent.ToLower().Contains("windows live writer"))
 			{
@@ -150,7 +150,7 @@ public partial class CmsPage : mojoBasePage
 			}
 
 			MetaContentControl.Url = urlToUse;
-			
+
 			if (WebConfigSettings.AutomaticallyAddCanonicalUrlToCmsPages)
 			{
 				Literal link = new Literal
@@ -423,30 +423,14 @@ public partial class CmsPage : mojoBasePage
 
 	private void EnforceSecuritySettings()
 	{
-		if (CurrentPage.PageId == -1) { return; }
+		if (CurrentPage.PageId == -1)
+		{
+			return;
+		}
 
 		if (!CurrentPage.AllowBrowserCache)
 		{
 			SecurityHelper.DisableBrowserCache();
-		}
-
-		bool useSsl = false;
-
-		if (SiteUtils.SslIsAvailable())
-		{
-			if (WebConfigSettings.ForceSslOnAllPages || siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl)
-			{
-				useSsl = true;
-			}
-		}
-
-		if (useSsl)
-		{
-			SiteUtils.ForceSsl();
-		}
-		else
-		{
-			SiteUtils.ClearSsl();
 		}
 	}
 

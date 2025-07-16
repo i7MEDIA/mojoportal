@@ -27,14 +27,6 @@ public partial class ClosedPostsPage : NonCmsBasePage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		LoadParams();
-		if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
-		{
-			SiteUtils.ForceSsl();
-		}
-		else
-		{
-			SiteUtils.ClearSsl();
-		}
 
 		if (!UserCanEditModule(moduleId, Blog.FeatureGuid))
 		{

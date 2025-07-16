@@ -48,19 +48,9 @@ namespace mojoPortal.Web.BlogUI
 
         private void Page_Load(object sender, EventArgs e)
 		{
-            if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
-            {
-                SiteUtils.ForceSsl();
-            }
-            else
-            {
-                SiteUtils.ClearSsl();
-            }
-            AnalyticsSection = mojoPortal.Core.Configuration.ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
+            AnalyticsSection = ConfigHelper.GetStringProperty("AnalyticsBlogSection", "blog");
 
-            LoadParams();
-
-            
+            LoadParams();            
 
             if (!UserCanViewPage(moduleId, Blog.FeatureGuid))
             {

@@ -5,21 +5,13 @@
 // Changed namespaces and modified for easier use in mojoPortal
 //
 // Change history for this file since original fork:
-// 
-//
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+namespace mojoPortal.Web.Caching;
 
-namespace mojoPortal.Web.Caching
+public enum CacheSetting
 {
-    public enum CacheSetting
-    {
-        Memory,
-        Web,
-        AppFabric,
-		memcached
-    }
+	Memory,
+	Web,
+	AppFabric,
+	memcached
 }

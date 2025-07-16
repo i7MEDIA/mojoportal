@@ -30,14 +30,6 @@ public partial class ViewList : mojoBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if (SiteUtils.SslIsAvailable() && (siteSettings.UseSslOnAllPages || CurrentPage.RequireSsl))
-		{
-			SiteUtils.ForceSsl();
-		}
-		else
-		{
-			SiteUtils.ClearSsl();
-		}
 		LoadParams();
 
 		if (!UserCanViewPage(moduleId))
@@ -48,7 +40,6 @@ public partial class ViewList : mojoBasePage
 
 		LoadSettings();
 		PopulateControls();
-
 	}
 
 	private void PopulateControls()

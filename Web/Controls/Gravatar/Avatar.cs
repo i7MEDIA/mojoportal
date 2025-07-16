@@ -248,10 +248,10 @@ public class Avatar : WebControl
 	{
 		if (!UseLink || (LinkUrl.Length == 0))
 		{
-			return "<img  alt='" + LinkTitle + "' src='" + GetInternalAvatarUrl() + "' class='" + CssClass + "' />";
+			return $"<img alt=\"{LinkTitle}\" src=\"{GetInternalAvatarUrl()}\" class=\"{CssClass}\" />";
 		}
 
-		return "<a rel='nofollow' href='" + GetLinkUrl() + "' class='" + CssClass + "'><img  alt='" + GetAltText() + "' src='" + GetInternalAvatarUrl() + "' /></a>";
+		return $"<a rel=\"nofollow\" href=\"{GetLinkUrl()}\" class=\"{CssClass}\"><img alt=\"{GetAltText()}\" src=\"{GetInternalAvatarUrl()}\" /></a>";
 	}
 
 	/*
@@ -294,7 +294,7 @@ public class Avatar : WebControl
 			userSiteId = WebConfigSettings.RelatedSiteID.ToInvariantString();
 		}
 
-		return Page.ResolveUrl("~/Data/Sites/" + userSiteId + "/useravatars/" + AvatarFile);
+		return Page.ResolveUrl($"~/Data/Sites/{userSiteId}/useravatars/{AvatarFile}");
 	}
 
 
@@ -339,14 +339,14 @@ public class Avatar : WebControl
 		if (!string.IsNullOrEmpty(Email))
 		{
 			// build up image url, including MD5 hash for supplied email:
-			MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+			var md5 = new MD5CryptoServiceProvider();
 
-			UTF8Encoding encoder = new UTF8Encoding();
-			MD5CryptoServiceProvider md5Hasher = new MD5CryptoServiceProvider();
+			var encoder = new UTF8Encoding();
+			var md5Hasher = new MD5CryptoServiceProvider();
 
 			byte[] hashedBytes = md5Hasher.ComputeHash(encoder.GetBytes(Email));
 
-			StringBuilder sb = new StringBuilder(hashedBytes.Length * 2);
+			var sb = new StringBuilder(hashedBytes.Length * 2);
 
 			for (int i = 0; i < hashedBytes.Length; i++)
 			{
@@ -354,18 +354,18 @@ public class Avatar : WebControl
 			}
 
 			imageUrl += sb.ToString().ToLower();
-			imageUrl += ".jpg?r=" + MaxAllowedRating.ToString();
-			imageUrl += "&s=" + Size.ToString();
+			imageUrl += $".jpg?r={MaxAllowedRating}";
+			imageUrl += $"&s={Size}";
 		}
 
 		// output default parameter if specified
-		if ((UseInternalDefaultForGravatar) && (DefaultInternalAvatar.Length > 0))
+		if (UseInternalDefaultForGravatar && (DefaultInternalAvatar.Length > 0))
 		{
-			string defaultImageUrl = WebUtils.ResolveServerUrl(DefaultInternalAvatar);
+			var defaultImageUrl = WebUtils.ResolveServerUrl(DefaultInternalAvatar);
 
 			if (!defaultImageUrl.Contains("localhost"))
 			{
-				imageUrl += "&default=" + HttpUtility.UrlEncode(defaultImageUrl);
+				imageUrl += $"&default={HttpUtility.UrlEncode(defaultImageUrl)}";
 			}
 		}
 

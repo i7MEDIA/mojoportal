@@ -8,15 +8,13 @@
 // 
 //
 
+namespace mojoPortal.Web.Caching;
 
-namespace mojoPortal.Web.Caching
+internal static class CacheTypes
 {
-    internal static class CacheTypes
-    {
-        public const string MemoryCache = "Memory";
-        //public const string WebCache = "web";
-        public const string AppFabricCache = "AppFabricCache";
-    	//public const string memcached = "memcached";
+	public const string MemoryCache = "Memory";
+	//public const string WebCache = "web";
+	public const string AppFabricCache = "AppFabricCache";
+	//public const string memcached = "memcached";
 
-    }
 }

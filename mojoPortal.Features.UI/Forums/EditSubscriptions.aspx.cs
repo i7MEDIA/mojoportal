@@ -28,21 +28,6 @@ namespace mojoPortal.Web.ForumUI
 
         private void Page_Load(object sender, EventArgs e)
 		{
-            if ((siteSettings != null) && (CurrentPage != null))
-            {
-                if ((SiteUtils.SslIsAvailable())
-                    && ((siteSettings.UseSslOnAllPages) || (CurrentPage.RequireSsl))
-                    )
-                {
-                    SiteUtils.ForceSsl();
-                }
-                else
-                {
-                    SiteUtils.ClearSsl();
-                }
-
-            }
-
             SecurityHelper.DisableBrowserCache();
 
             LoadSettings();

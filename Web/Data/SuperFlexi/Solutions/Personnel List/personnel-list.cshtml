@@ -4,7 +4,7 @@
 @using mojoPortal.Business;
 @using Resources;
 
-<div class="personnel-list" id="module@Model.Module.Id" data-contentsection="@Model.Config.ModuleFriendlyName">
+<div class="personnel-list" id="module@(Model.Module.Id)" data-contentsection="@Model.Config.ModuleFriendlyName">
     @Html.Partial("_ModuleTitle")
 
     @if(Model.Config.UseHeader && !string.IsNullOrWhiteSpace(Model.Config.HeaderContent))

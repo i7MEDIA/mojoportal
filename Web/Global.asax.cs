@@ -136,7 +136,7 @@ public class Global : HttpApplication
 
 	protected void Application_BeginRequest(object sender, EventArgs e)
 	{
-		var siteCount = SiteSettings.SiteCount();
+		var siteCount = CacheManager.Cache.GetOrSetItem("SiteCount", SiteSettings.SiteCount);
 
 		//http://stackoverflow.com/questions/1340643/how-to-enable-ip-address-logging-with-log4net
 		ThreadContext.Properties["ip"] = SiteUtils.GetIP4Address();
@@ -377,89 +377,109 @@ public class Global : HttpApplication
 
 	private void HandleRedirects(int siteCount)
 	{
-		if (WebConfigSettings.AllowForcingPreferredHostName)
+		// This will only be the case when the site has yet to be installed
+		if (siteCount == 0)
 		{
-			var siteSettings = CacheHelper.GetCurrentSiteSettings();
-			var useHttps = siteCount > 0 &&
-				SiteUtils.SslIsAvailable(siteSettings) ||
-				siteCount == 0 &&
-				WebConfigSettings.SslisAvailable;
-			var protocol = useHttps ? "https://" : "http://";
-			string redirectUrl = null;
-			bool doRedirect = false;
-
-			if (useHttps)
+			// Redirect to the setup page if the request is to any url other than the setup page
+			if (Request.Path != "/Setup/Default.aspx")
 			{
-				switch (Request.Url.Scheme)
+				var siteRoot = WebUtils.GetSiteRoot();
+
+				if (WebConfigSettings.SslisAvailable)
 				{
-					case "https":
-						if (WebConfigSettings.UseHSTSHeader)
-						{
-							Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
-						}
-
-						break;
-
-					case "http":
-						doRedirect = true;
-						redirectUrl = $"https://{Request.Url.Host}{Request.Url.PathAndQuery}";
-
-						break;
+					siteRoot.Replace("http://", "https://");
 				}
+
+				Response.Clear();
+				Response.Redirect($"{siteRoot}/Setup/Default.aspx", true);
 			}
 
-			if (siteSettings is not null && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
-			{
-				var requestedHostName = WebUtils.GetHostName();
+			return;
+		}
 
-				if (siteSettings.PreferredHostName != requestedHostName)
-				{
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		var useHttps = siteCount > 0 && SiteUtils.SslIsAvailable(siteSettings);
+		var protocol = useHttps ? "https://" : "http://";
+		string redirectUrl = null;
+		var doRedirect = false;
+
+		if (useHttps)
+		{
+			//determine if current request is http or https
+			//sets hsts header and initial redirectUrl
+			switch (Request.Url.Scheme)
+			{
+				case "https":
+					if (WebConfigSettings.UseHSTSHeader)
+					{
+						Response.AddHeader("Strict-Transport-Security", WebConfigSettings.HSTSHeaders);
+					}
+
+					break;
+
+				case "http":
 					doRedirect = true;
+					redirectUrl = $"https://{Request.Url.Host}{Request.Url.PathAndQuery}";
 
-					var serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+					break;
+			}
+		}
 
-					if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
-					{
-						serverPort = string.Empty;
-					}
-					else
-					{
-						serverPort = $":{serverPort}";
-					}
+		if (
+			WebConfigSettings.AllowForcingPreferredHostName && 
+			siteSettings is not null &&
+			!string.IsNullOrWhiteSpace(siteSettings.PreferredHostName)
+		)
+		{
+			var requestedHostName = WebUtils.GetHostName();
 
-					if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
-					{
-						redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
-					}
-					else
-					{
-						redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
-					}
+			if (siteSettings.PreferredHostName != requestedHostName)
+			{
+				doRedirect = true;
 
-					if (WebConfigSettings.LogRedirectsToPreferredHostName)
-					{
-						log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
-					}
+				var serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+
+				if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
+				{
+					serverPort = string.Empty;
+				}
+				else
+				{
+					serverPort = $":{serverPort}";
+				}
+
+				if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
+				{
+					redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
+				}
+				else
+				{
+					redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
+				}
+
+				if (WebConfigSettings.LogRedirectsToPreferredHostName)
+				{
+					log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
 				}
 			}
+		}
 
-			if (doRedirect)
+		if (doRedirect)
+		{
+			if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
 			{
-				if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
-				{
-					Response.Status = "301 Moved Permanently";
-					Response.AddHeader("Location", redirectUrl);
-					Response.Cache.SetNoStore();
-					Response.Cache.SetCacheability(HttpCacheability.NoCache);
-					Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
-
-					return;
-				}
-
-				Response.Redirect(redirectUrl, true);
+				Response.Status = "301 Moved Permanently";
+				Response.AddHeader("Location", redirectUrl);
+				Response.Cache.SetNoStore();
+				Response.Cache.SetCacheability(HttpCacheability.NoCache);
+				Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
 
 				return;
 			}
+
+			Response.Redirect(redirectUrl, true);
+
+			return;
 		}
 	}
 

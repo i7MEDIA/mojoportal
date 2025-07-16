@@ -976,7 +976,6 @@ namespace mojoPortal.Data
 
             StringBuilder sqlCommand = new StringBuilder();
 
-            sqlCommand.Append("DELETE FROM mp_webparts WHERE siteid = :siteid; ");
             sqlCommand.Append("DELETE FROM mp_pagemodules ");
             sqlCommand.Append("WHERE pageid IN (SELECT pageid FROM mp_pages WHERE siteid = :siteid); ");
             sqlCommand.Append("DELETE FROM mp_modulesettings WHERE moduleid IN (SELECT moduleid FROM mp_modules WHERE siteid = :siteid);");

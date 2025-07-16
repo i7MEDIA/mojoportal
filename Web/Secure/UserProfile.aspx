@@ -85,12 +85,17 @@
 						</div>
 						<div id="divAvatar" runat="server" class="settingrow">
 							<mp:SiteLabel ID="lblAvatar" runat="server" CssClass="settinglabel" ConfigKey="UserProfileAvatarLabel" ShowWarningOnMissingKey="false" />
-							<div class="forminput">
-								<portal:Avatar ID="userAvatar" runat="server" CssClass="forminput" />
-								<asp:HyperLink ID="lnkAvatarUpld" runat="server" />
-								<asp:ImageButton ID="btnUpdateAvartar" runat="server" />
-								<portal:mojoHelpLink ID="avatarHelp" runat="server" HelpKey="useravatarhelp" />
-							</div>
+							<asp:UpdatePanel ID="upAvatar" runat="server" RenderMode="Block" UpdateMode="Conditional" class="forminput">
+								<Triggers>
+									<asp:AsyncPostBackTrigger ControlID="btnUpdateAvatar" EventName="Click" /> 
+								</Triggers>
+								<ContentTemplate>
+									<portal:Avatar ID="userAvatar" runat="server" CssClass="forminput" />
+									<asp:HyperLink ID="lnkAvatarUpld" runat="server" />
+									<portal:mojoHelpLink ID="avatarHelp" runat="server" HelpKey="useravatarhelp" />
+									<asp:Button ID="btnUpdateAvatar" runat="server" style="visibility:hidden;" />
+								</ContentTemplate>
+							</asp:UpdatePanel>
 						</div>
 						<div id="divLiveMessenger" runat="server" class="settingrow">
 							<mp:SiteLabel ID="SiteLabel14" runat="server" ForControl="chkEnableLiveMessengerOnProfile" CssClass="settinglabel" ConfigKey="EnableLiveMessengerLabel" />

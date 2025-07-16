@@ -9,36 +9,34 @@
 /// 
 /// This implementation is for SQLite. 
 
+using log4net;
+using Mono.Data.Sqlite;
 using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
 using System.Data.Common;
-using System.Text;
-using System.Globalization;
 using System.IO;
-using System.Web;
-using log4net;
-using Mono.Data.Sqlite;
+using System.Text;
 
-namespace mojoPortal.Data 
+namespace mojoPortal.Data
 {
-	
-	public static class DBPortal 
-    {
-        // Create a logger for use in this class
-        private static readonly ILog log = LogManager.GetLogger(typeof(DBPortal));
 
-        public static String DBPlatform()
-        {
-            return "SQLite";
-        }
+	public static class DBPortal
+	{
+		// Create a logger for use in this class
+		private static readonly ILog log = LogManager.GetLogger(typeof(DBPortal));
 
-        private static string GetConnectionString()
-        {
-            string connectionString = ConfigurationManager.AppSettings["SqliteConnectionString"];
-            if (connectionString == "defaultdblocation")
-            {
+		public static String DBPlatform()
+		{
+			return "SQLite";
+		}
+
+		private static string GetConnectionString()
+		{
+			string connectionString = ConfigurationManager.AppSettings["SqliteConnectionString"];
+			if (connectionString == "defaultdblocation")
+			{
 				FileInfo theDb = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo.db.config"));
 				FileInfo seedDb = new FileInfo(System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo-seed.db.config"));
 
@@ -46,724 +44,724 @@ namespace mojoPortal.Data
 				{
 					seedDb.CopyTo("~/Data/sqlitedb/mojo.db.config");
 				}
-				
+
 				connectionString = "version=3,URI=file:"
-					+ System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo.db.config");				
+					+ System.Web.Hosting.HostingEnvironment.MapPath("~/Data/sqlitedb/mojo.db.config");
 			}
 
-            return connectionString;
-            
-        }
-
-        public static void EnsureDatabase()
-        {
-        }
+			return connectionString;
 
-        
-        #region Versioning and Upgrade Helpers
+		}
 
-       
-       
-
-        #region Schema Table Methods
-
-        public static IDataReader DatabaseHelperGetApplicationId(string applicationName)
-        {
-            return DatabaseHelperGetReader(
-                GetConnectionString(),
-                "mp_SchemaVersion",
-                " WHERE LOWER(ApplicationName) = '" + applicationName.ToLower() + "'");
+		public static void EnsureDatabase()
+		{
+		}
 
-        }
 
+		#region Versioning and Upgrade Helpers
 
 
-        public static bool SchemaVersionAddSchemaVersion(
-            Guid applicationId,
-            string applicationName,
-            int major,
-            int minor,
-            int build,
-            int revision)
-        {
-            #region Bit Conversion
 
 
-            #endregion
+		#region Schema Table Methods
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_SchemaVersion (");
-            sqlCommand.Append("ApplicationID, ");
-            sqlCommand.Append("ApplicationName, ");
-            sqlCommand.Append("Major, ");
-            sqlCommand.Append("Minor, ");
-            sqlCommand.Append("Build, ");
-            sqlCommand.Append("Revision )");
+		public static IDataReader DatabaseHelperGetApplicationId(string applicationName)
+		{
+			return DatabaseHelperGetReader(
+				GetConnectionString(),
+				"mp_SchemaVersion",
+				" WHERE LOWER(ApplicationName) = '" + applicationName.ToLower() + "'");
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append(":ApplicationID, ");
-            sqlCommand.Append(":ApplicationName, ");
-            sqlCommand.Append(":Major, ");
-            sqlCommand.Append(":Minor, ");
-            sqlCommand.Append(":Build, ");
-            sqlCommand.Append(":Revision );");
+		}
 
-            SqliteParameter[] arParams = new SqliteParameter[6];
 
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
 
-            arParams[1] = new SqliteParameter(":ApplicationName", DbType.String, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = applicationName;
+		public static bool SchemaVersionAddSchemaVersion(
+			Guid applicationId,
+			string applicationName,
+			int major,
+			int minor,
+			int build,
+			int revision)
+		{
+			#region Bit Conversion
 
-            arParams[2] = new SqliteParameter(":Major", DbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = major;
 
-            arParams[3] = new SqliteParameter(":Minor", DbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = minor;
+			#endregion
 
-            arParams[4] = new SqliteParameter(":Build", DbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = build;
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("INSERT INTO mp_SchemaVersion (");
+			sqlCommand.Append("ApplicationID, ");
+			sqlCommand.Append("ApplicationName, ");
+			sqlCommand.Append("Major, ");
+			sqlCommand.Append("Minor, ");
+			sqlCommand.Append("Build, ");
+			sqlCommand.Append("Revision )");
 
-            arParams[5] = new SqliteParameter(":Revision", DbType.Int32);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = revision;
+			sqlCommand.Append(" VALUES (");
+			sqlCommand.Append(":ApplicationID, ");
+			sqlCommand.Append(":ApplicationName, ");
+			sqlCommand.Append(":Major, ");
+			sqlCommand.Append(":Minor, ");
+			sqlCommand.Append(":Build, ");
+			sqlCommand.Append(":Revision );");
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                GetConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams);
-            
-            return (rowsAffected > 0);
+			SqliteParameter[] arParams = new SqliteParameter[6];
 
-        }
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
 
+			arParams[1] = new SqliteParameter(":ApplicationName", DbType.String, 255);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = applicationName;
 
-        public static bool SchemaVersionUpdateSchemaVersion(
-            Guid applicationId,
-            string applicationName,
-            int major,
-            int minor,
-            int build,
-            int revision)
-        {
-            #region Bit Conversion
+			arParams[2] = new SqliteParameter(":Major", DbType.Int32);
+			arParams[2].Direction = ParameterDirection.Input;
+			arParams[2].Value = major;
 
+			arParams[3] = new SqliteParameter(":Minor", DbType.Int32);
+			arParams[3].Direction = ParameterDirection.Input;
+			arParams[3].Value = minor;
 
-            #endregion
+			arParams[4] = new SqliteParameter(":Build", DbType.Int32);
+			arParams[4].Direction = ParameterDirection.Input;
+			arParams[4].Value = build;
 
-            StringBuilder sqlCommand = new StringBuilder();
+			arParams[5] = new SqliteParameter(":Revision", DbType.Int32);
+			arParams[5].Direction = ParameterDirection.Input;
+			arParams[5].Value = revision;
 
-            sqlCommand.Append("UPDATE mp_SchemaVersion ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("ApplicationName = :ApplicationName, ");
-            sqlCommand.Append("Major = :Major, ");
-            sqlCommand.Append("Minor = :Minor, ");
-            sqlCommand.Append("Build = :Build, ");
-            sqlCommand.Append("Revision = :Revision ");
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams);
 
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("ApplicationID = :ApplicationID ;");
+			return (rowsAffected > 0);
 
-            SqliteParameter[] arParams = new SqliteParameter[6];
+		}
 
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
 
-            arParams[1] = new SqliteParameter(":ApplicationName", DbType.String, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = applicationName;
+		public static bool SchemaVersionUpdateSchemaVersion(
+			Guid applicationId,
+			string applicationName,
+			int major,
+			int minor,
+			int build,
+			int revision)
+		{
+			#region Bit Conversion
 
-            arParams[2] = new SqliteParameter(":Major", DbType.Int32);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = major;
 
-            arParams[3] = new SqliteParameter(":Minor", DbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = minor;
+			#endregion
 
-            arParams[4] = new SqliteParameter(":Build", DbType.Int32);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = build;
+			StringBuilder sqlCommand = new StringBuilder();
 
-            arParams[5] = new SqliteParameter(":Revision", DbType.Int32);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = revision;
-
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-            return (rowsAffected > -1);
+			sqlCommand.Append("UPDATE mp_SchemaVersion ");
+			sqlCommand.Append("SET  ");
+			sqlCommand.Append("ApplicationName = :ApplicationName, ");
+			sqlCommand.Append("Major = :Major, ");
+			sqlCommand.Append("Minor = :Minor, ");
+			sqlCommand.Append("Build = :Build, ");
+			sqlCommand.Append("Revision = :Revision ");
 
-        }
+			sqlCommand.Append("WHERE  ");
+			sqlCommand.Append("ApplicationID = :ApplicationID ;");
 
+			SqliteParameter[] arParams = new SqliteParameter[6];
 
-        public static bool SchemaVersionDeleteSchemaVersion(
-            Guid applicationId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_SchemaVersion ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ApplicationID = :ApplicationID ;");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
-
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-            return (rowsAffected > 0);
-
-        }
-
-        public static bool SchemaVersionExists(Guid applicationId)
-        {
-            bool result = false;
-
-            using (IDataReader reader = SchemaVersionGetSchemaVersion(applicationId))
-            {
-                if (reader.Read())
-                {
-                    result = true;
-                }
-            }
-
-            return result;
-        }
-
-        public static IDataReader SchemaVersionGetSchemaVersion(
-            Guid applicationId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SchemaVersion ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ApplicationID = :ApplicationID ;");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
-
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
-
-        }
-
-        public static IDataReader SchemaVersionGetNonCore()
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SchemaVersion ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ApplicationID <> '077E4857-F583-488E-836E-34A4B04BE855' ");
-            sqlCommand.Append("ORDER BY ApplicationName ");
-            sqlCommand.Append(";");
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
 
-            
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                null);
+			arParams[1] = new SqliteParameter(":ApplicationName", DbType.String, 255);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = applicationName;
 
-        }
+			arParams[2] = new SqliteParameter(":Major", DbType.Int32);
+			arParams[2].Direction = ParameterDirection.Input;
+			arParams[2].Value = major;
 
-        public static int SchemaScriptHistoryAddSchemaScriptHistory(
-            Guid applicationId,
-            string scriptFile,
-            DateTime runTime,
-            bool errorOccurred,
-            string errorMessage,
-            string scriptBody)
-        {
-            #region Bit Conversion
+			arParams[3] = new SqliteParameter(":Minor", DbType.Int32);
+			arParams[3].Direction = ParameterDirection.Input;
+			arParams[3].Value = minor;
 
-            int intErrorOccurred;
-            if (errorOccurred)
-            {
-                intErrorOccurred = 1;
-            }
-            else
-            {
-                intErrorOccurred = 0;
-            }
+			arParams[4] = new SqliteParameter(":Build", DbType.Int32);
+			arParams[4].Direction = ParameterDirection.Input;
+			arParams[4].Value = build;
 
+			arParams[5] = new SqliteParameter(":Revision", DbType.Int32);
+			arParams[5].Direction = ParameterDirection.Input;
+			arParams[5].Value = revision;
 
-            #endregion
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_SchemaScriptHistory (");
-            sqlCommand.Append("ApplicationID, ");
-            sqlCommand.Append("ScriptFile, ");
-            sqlCommand.Append("RunTime, ");
-            sqlCommand.Append("ErrorOccurred, ");
-            sqlCommand.Append("ErrorMessage, ");
-            sqlCommand.Append("ScriptBody )");
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+			return (rowsAffected > -1);
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append(":ApplicationID, ");
-            sqlCommand.Append(":ScriptFile, ");
-            sqlCommand.Append(":RunTime, ");
-            sqlCommand.Append(":ErrorOccurred, ");
-            sqlCommand.Append(":ErrorMessage, ");
-            sqlCommand.Append(":ScriptBody );");
+		}
 
-            sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
 
-            SqliteParameter[] arParams = new SqliteParameter[6];
-
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
-
-            arParams[1] = new SqliteParameter(":ScriptFile", DbType.String, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = scriptFile;
-
-            arParams[2] = new SqliteParameter(":RunTime", DbType.DateTime);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = runTime;
-
-            arParams[3] = new SqliteParameter(":ErrorOccurred", DbType.Int32);
-            arParams[3].Direction = ParameterDirection.Input;
-            arParams[3].Value = intErrorOccurred;
-
-            arParams[4] = new SqliteParameter(":ErrorMessage", DbType.Object);
-            arParams[4].Direction = ParameterDirection.Input;
-            arParams[4].Value = errorMessage;
-
-            arParams[5] = new SqliteParameter(":ScriptBody", DbType.Object);
-            arParams[5].Direction = ParameterDirection.Input;
-            arParams[5].Value = scriptBody;
-
-
-            int newID = 0;
-            newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(GetConnectionString(), sqlCommand.ToString(), arParams).ToString());
-            return newID;
-
-        }
-
-        public static bool SchemaScriptHistoryDeleteSchemaScriptHistory(int id)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("DELETE FROM mp_SchemaScriptHistory ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ID = :ID ;");
-
-            SqliteParameter[] arParams = new SqliteParameter[1];
-
-            arParams[0] = new SqliteParameter(":ID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = id;
-
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-            return (rowsAffected > 0);
+		public static bool SchemaVersionDeleteSchemaVersion(
+			Guid applicationId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("DELETE FROM mp_SchemaVersion ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ApplicationID = :ApplicationID ;");
 
-        }
+			SqliteParameter[] arParams = new SqliteParameter[1];
+
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
+
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+			return (rowsAffected > 0);
+
+		}
 
-        public static IDataReader SchemaScriptHistoryGetSchemaScriptHistory(int id)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ID = :ID ;");
+		public static bool SchemaVersionExists(Guid applicationId)
+		{
+			bool result = false;
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+			using (IDataReader reader = SchemaVersionGetSchemaVersion(applicationId))
+			{
+				if (reader.Read())
+				{
+					result = true;
+				}
+			}
 
-            arParams[0] = new SqliteParameter(":ID", DbType.Int32);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = id;
+			return result;
+		}
+
+		public static IDataReader SchemaVersionGetSchemaVersion(
+			Guid applicationId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	mp_SchemaVersion ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ApplicationID = :ApplicationID ;");
 
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
+			SqliteParameter[] arParams = new SqliteParameter[1];
 
-        }
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
 
-        public static IDataReader SchemaScriptHistoryGetSchemaScriptHistory(Guid applicationId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ApplicationID = :ApplicationID ");
-            //sqlCommand.Append("AND ErrorOccurred = 0 ");
-            sqlCommand.Append(" ;");
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams);
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+		}
 
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
+		public static IDataReader SchemaVersionGetNonCore()
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	mp_SchemaVersion ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ApplicationID <> '077E4857-F583-488E-836E-34A4B04BE855' ");
+			sqlCommand.Append("ORDER BY ApplicationName ");
+			sqlCommand.Append(";");
 
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
 
-        }
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				null);
 
-        public static IDataReader SchemaScriptHistoryGetSchemaScriptErrorHistory(Guid applicationId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  * ");
-            sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ApplicationID = :ApplicationID ");
-            sqlCommand.Append("AND ErrorOccurred = 1 ");
-            sqlCommand.Append(" ;");
+		}
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+		public static int SchemaScriptHistoryAddSchemaScriptHistory(
+			Guid applicationId,
+			string scriptFile,
+			DateTime runTime,
+			bool errorOccurred,
+			string errorMessage,
+			string scriptBody)
+		{
+			#region Bit Conversion
 
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
+			int intErrorOccurred;
+			if (errorOccurred)
+			{
+				intErrorOccurred = 1;
+			}
+			else
+			{
+				intErrorOccurred = 0;
+			}
 
-            return SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams);
 
-        }
+			#endregion
 
-        public static bool SchemaScriptHistoryExists(Guid applicationId, String scriptFile)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT Count(*) ");
-            sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("ApplicationID = :ApplicationID ");
-            sqlCommand.Append("AND ScriptFile = :ScriptFile ");
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("INSERT INTO mp_SchemaScriptHistory (");
+			sqlCommand.Append("ApplicationID, ");
+			sqlCommand.Append("ScriptFile, ");
+			sqlCommand.Append("RunTime, ");
+			sqlCommand.Append("ErrorOccurred, ");
+			sqlCommand.Append("ErrorMessage, ");
+			sqlCommand.Append("ScriptBody )");
 
-            sqlCommand.Append(" ;");
+			sqlCommand.Append(" VALUES (");
+			sqlCommand.Append(":ApplicationID, ");
+			sqlCommand.Append(":ScriptFile, ");
+			sqlCommand.Append(":RunTime, ");
+			sqlCommand.Append(":ErrorOccurred, ");
+			sqlCommand.Append(":ErrorMessage, ");
+			sqlCommand.Append(":ScriptBody );");
 
-            SqliteParameter[] arParams = new SqliteParameter[2];
+			sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
 
-            arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = applicationId.ToString();
+			SqliteParameter[] arParams = new SqliteParameter[6];
 
-            arParams[1] = new SqliteParameter(":ScriptFile", DbType.String, 255);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = scriptFile;
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
+
+			arParams[1] = new SqliteParameter(":ScriptFile", DbType.String, 255);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = scriptFile;
 
-            int count = Convert.ToInt32(SqliteHelper.ExecuteScalar(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                arParams));
+			arParams[2] = new SqliteParameter(":RunTime", DbType.DateTime);
+			arParams[2].Direction = ParameterDirection.Input;
+			arParams[2].Value = runTime;
 
-            return (count > 0);
+			arParams[3] = new SqliteParameter(":ErrorOccurred", DbType.Int32);
+			arParams[3].Direction = ParameterDirection.Input;
+			arParams[3].Value = intErrorOccurred;
 
-        }
+			arParams[4] = new SqliteParameter(":ErrorMessage", DbType.Object);
+			arParams[4].Direction = ParameterDirection.Input;
+			arParams[4].Value = errorMessage;
 
+			arParams[5] = new SqliteParameter(":ScriptBody", DbType.Object);
+			arParams[5].Direction = ParameterDirection.Input;
+			arParams[5].Value = scriptBody;
+
+
+			int newID = 0;
+			newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(GetConnectionString(), sqlCommand.ToString(), arParams).ToString());
+			return newID;
 
-        #endregion
+		}
 
-        #endregion
+		public static bool SchemaScriptHistoryDeleteSchemaScriptHistory(int id)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("DELETE FROM mp_SchemaScriptHistory ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ID = :ID ;");
 
-       
+			SqliteParameter[] arParams = new SqliteParameter[1];
+
+			arParams[0] = new SqliteParameter(":ID", DbType.Int32);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = id;
+
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+			return (rowsAffected > 0);
+
+		}
+
+		public static IDataReader SchemaScriptHistoryGetSchemaScriptHistory(int id)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ID = :ID ;");
+
+			SqliteParameter[] arParams = new SqliteParameter[1];
+
+			arParams[0] = new SqliteParameter(":ID", DbType.Int32);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = id;
+
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams);
+
+		}
+
+		public static IDataReader SchemaScriptHistoryGetSchemaScriptHistory(Guid applicationId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ApplicationID = :ApplicationID ");
+			//sqlCommand.Append("AND ErrorOccurred = 0 ");
+			sqlCommand.Append(" ;");
+
+			SqliteParameter[] arParams = new SqliteParameter[1];
+
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
+
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams);
+
+		}
+
+		public static IDataReader SchemaScriptHistoryGetSchemaScriptErrorHistory(Guid applicationId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT  * ");
+			sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ApplicationID = :ApplicationID ");
+			sqlCommand.Append("AND ErrorOccurred = 1 ");
+			sqlCommand.Append(" ;");
+
+			SqliteParameter[] arParams = new SqliteParameter[1];
+
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
+
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams);
+
+		}
+
+		public static bool SchemaScriptHistoryExists(Guid applicationId, String scriptFile)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT Count(*) ");
+			sqlCommand.Append("FROM	mp_SchemaScriptHistory ");
+			sqlCommand.Append("WHERE ");
+			sqlCommand.Append("ApplicationID = :ApplicationID ");
+			sqlCommand.Append("AND ScriptFile = :ScriptFile ");
+
+			sqlCommand.Append(" ;");
+
+			SqliteParameter[] arParams = new SqliteParameter[2];
+
+			arParams[0] = new SqliteParameter(":ApplicationID", DbType.String, 36);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = applicationId.ToString();
+
+			arParams[1] = new SqliteParameter(":ScriptFile", DbType.String, 255);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = scriptFile;
+
+			int count = Convert.ToInt32(SqliteHelper.ExecuteScalar(
+				GetConnectionString(),
+				sqlCommand.ToString(),
+				arParams));
+
+			return (count > 0);
+
+		}
+
+
+		#endregion
+
+		#endregion
+
+
 		#region DatabaseHelper
 
-        public static DataTable GetTableFromDataReader(IDataReader reader)
-        {
-            DataTable dataTable = new DataTable();
-            try
-            {
-                DataTable schemaTable = reader.GetSchemaTable();
+		public static DataTable GetTableFromDataReader(IDataReader reader)
+		{
+			DataTable dataTable = new DataTable();
+			try
+			{
+				DataTable schemaTable = reader.GetSchemaTable();
 
-                DataColumn column;
-                DataRow row;
-                ArrayList arrayList = new ArrayList();
+				DataColumn column;
+				DataRow row;
+				ArrayList arrayList = new ArrayList();
 
-                for (int i = 0; i < schemaTable.Rows.Count; i++)
-                {
+				for (int i = 0; i < schemaTable.Rows.Count; i++)
+				{
 
-                    column = new DataColumn();
+					column = new DataColumn();
 
-                    if (!dataTable.Columns.Contains(schemaTable.Rows[i]["ColumnName"].ToString()))
-                    {
+					if (!dataTable.Columns.Contains(schemaTable.Rows[i]["ColumnName"].ToString()))
+					{
 
-                        column.ColumnName = schemaTable.Rows[i]["ColumnName"].ToString();
-                        // we don't always want to enforce constrainnts, it may be fine to have duplicates in a query even if the underlying table has a unique constraint
-                        //column.Unique = Convert.ToBoolean(schemaTable.Rows[i]["IsUnique"]);
-                        column.AllowDBNull = Convert.ToBoolean(schemaTable.Rows[i]["AllowDBNull"]);
-                        column.ReadOnly = Convert.ToBoolean(schemaTable.Rows[i]["IsReadOnly"]);
-                        arrayList.Add(column.ColumnName);
-                        dataTable.Columns.Add(column);
+						column.ColumnName = schemaTable.Rows[i]["ColumnName"].ToString();
+						// we don't always want to enforce constrainnts, it may be fine to have duplicates in a query even if the underlying table has a unique constraint
+						//column.Unique = Convert.ToBoolean(schemaTable.Rows[i]["IsUnique"]);
+						column.AllowDBNull = Convert.ToBoolean(schemaTable.Rows[i]["AllowDBNull"]);
+						column.ReadOnly = Convert.ToBoolean(schemaTable.Rows[i]["IsReadOnly"]);
+						arrayList.Add(column.ColumnName);
+						dataTable.Columns.Add(column);
 
-                    }
+					}
 
-                }
+				}
 
-                while (reader.Read())
-                {
+				while (reader.Read())
+				{
 
-                    row = dataTable.NewRow();
+					row = dataTable.NewRow();
 
-                    for (int i = 0; i < arrayList.Count; i++)
-                    {
+					for (int i = 0; i < arrayList.Count; i++)
+					{
 
-                        row[((System.String)arrayList[i])] = reader[(System.String)arrayList[i]];
+						row[((System.String)arrayList[i])] = reader[(System.String)arrayList[i]];
 
-                    }
+					}
 
-                    dataTable.Rows.Add(row);
+					dataTable.Rows.Add(row);
 
-                }
+				}
 
-            }
-            finally
-            {
-                reader.Close();
-            }
-
-
-            return dataTable;
+			}
+			finally
+			{
+				reader.Close();
+			}
 
 
-        }
-
-        public static DbException DatabaseHelperGetConnectionError(String overrideConnectionInfo)
-        {
-            DbException exception = null;
-
-            SqliteConnection connection;
-
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connection = new SqliteConnection(overrideConnectionInfo);
-            }
-            else
-            {
-                connection = new SqliteConnection(GetConnectionString());
-            }
-
-            try
-            {
-                connection.Open();
+			return dataTable;
 
 
-            }
-            catch (DbException ex)
-            {
-                exception = ex;
-            }
-            finally
-            {
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
-            }
+		}
+
+		public static DbException DatabaseHelperGetConnectionError(String overrideConnectionInfo)
+		{
+			DbException exception = null;
+
+			SqliteConnection connection;
+
+			if (
+				(overrideConnectionInfo != null)
+				&& (overrideConnectionInfo.Length > 0)
+			  )
+			{
+				connection = new SqliteConnection(overrideConnectionInfo);
+			}
+			else
+			{
+				connection = new SqliteConnection(GetConnectionString());
+			}
+
+			try
+			{
+				connection.Open();
 
 
-            return exception;
-
-        }
-
-        public static bool DatabaseHelperCanAccessDatabase(String overrideConnectionInfo)
-        {
-            bool result = false;
-
-            SqliteConnection connection;
-
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connection = new SqliteConnection(overrideConnectionInfo);
-            }
-            else
-            {
-                connection = new SqliteConnection(GetConnectionString());
-            }
-
-            try
-            {
-                connection.Open();
-                result = (connection.State == ConnectionState.Open);
-
-            }
-            catch { }
-            finally
-            {
-                if (connection.State == ConnectionState.Open)
-                    connection.Close();
-            }
+			}
+			catch (DbException ex)
+			{
+				exception = ex;
+			}
+			finally
+			{
+				if (connection.State == ConnectionState.Open)
+					connection.Close();
+			}
 
 
-            return result;
+			return exception;
 
-        }
+		}
 
-        public static bool DatabaseHelperCanAccessDatabase()
-        {
-            return DatabaseHelperCanAccessDatabase(null);
-        }
+		public static bool DatabaseHelperCanAccessDatabase(String overrideConnectionInfo)
+		{
+			bool result = false;
 
-        public static bool DatabaseHelperCanAlterSchema(String overrideConnectionInfo)
-        {
-            
-            bool result = true;
-            // Make sure we can create, alter and drop tables
+			SqliteConnection connection;
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append(@"
+			if (
+				(overrideConnectionInfo != null)
+				&& (overrideConnectionInfo.Length > 0)
+			  )
+			{
+				connection = new SqliteConnection(overrideConnectionInfo);
+			}
+			else
+			{
+				connection = new SqliteConnection(GetConnectionString());
+			}
+
+			try
+			{
+				connection.Open();
+				result = (connection.State == ConnectionState.Open);
+
+			}
+			catch { }
+			finally
+			{
+				if (connection.State == ConnectionState.Open)
+					connection.Close();
+			}
+
+
+			return result;
+
+		}
+
+		public static bool DatabaseHelperCanAccessDatabase()
+		{
+			return DatabaseHelperCanAccessDatabase(null);
+		}
+
+		public static bool DatabaseHelperCanAlterSchema(String overrideConnectionInfo)
+		{
+
+			bool result = true;
+			// Make sure we can create, alter and drop tables
+
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append(@"
                 CREATE TABLE `mp_Testdb` (
                   `FooID` INTEGER PRIMARY KEY,
                   `Foo` varchar(255) NOT NULL default ''
                 );
                 ");
 
-            try
-            {
-                DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
-            }
-            catch (DbException)
-            {
-                result = false;
-            }
-            catch (ArgumentException)
-            {
-                result = false;
-            }
-            //catch (SqliteExecutionException)
-            //{
-            //    result = false;
-            //}
+			try
+			{
+				DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
+			}
+			catch (DbException)
+			{
+				result = false;
+			}
+			catch (ArgumentException)
+			{
+				result = false;
+			}
+			//catch (SqliteExecutionException)
+			//{
+			//    result = false;
+			//}
 
 
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("ALTER TABLE mp_Testdb ADD COLUMN `MoreFoo` varchar(255) NULL;");
+			sqlCommand = new StringBuilder();
+			sqlCommand.Append("ALTER TABLE mp_Testdb ADD COLUMN `MoreFoo` varchar(255) NULL;");
 
-            try
-            {
-                DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
-            }
-            catch (DbException)
-            {
-                result = false;
-            }
-            catch (ArgumentException)
-            {
-                result = false;
-            }
-            
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("DROP TABLE mp_Testdb;");
-
-            try
-            {
-                DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
-            }
-            catch (DbException)
-            {
-                result = false;
-            }
-            catch (ArgumentException)
-            {
-                result = false;
-            }
-            
-
-            return result;
-        }
-
-        public static bool DatabaseHelperCanCreateTemporaryTables()
-        {
-            bool result = true;
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append(" CREATE TEMPORARY TABLE Temptest ");
-            sqlCommand.Append("(IndexID INT  ,");
-            sqlCommand.Append(" foo VARCHAR (100) );");
-            sqlCommand.Append(" DROP TABLE Temptest;");
-            try
-            {
-                DatabaseHelperRunScript(sqlCommand.ToString(), GetConnectionString());
-            }
-            catch 
-            {
-                result = false;
-            }
+			try
+			{
+				DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
+			}
+			catch (DbException)
+			{
+				result = false;
+			}
+			catch (ArgumentException)
+			{
+				result = false;
+			}
 
 
-            return result;
-        }
+			sqlCommand = new StringBuilder();
+			sqlCommand.Append("DROP TABLE mp_Testdb;");
 
-        public static bool DatabaseHelperRunScript(
-            FileInfo scriptFile,
-            String overrideConnectionInfo)
-        {
-            if (scriptFile == null) return false;
+			try
+			{
+				DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
+			}
+			catch (DbException)
+			{
+				result = false;
+			}
+			catch (ArgumentException)
+			{
+				result = false;
+			}
 
-            string script = File.ReadAllText(scriptFile.FullName);
 
-            if ((script == null) || (script.Length == 0)) return true;
+			return result;
+		}
 
-            return DatabaseHelperRunScript(script, overrideConnectionInfo);
+		public static bool DatabaseHelperCanCreateTemporaryTables()
+		{
+			bool result = true;
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append(" CREATE TEMPORARY TABLE Temptest ");
+			sqlCommand.Append("(IndexID INT  ,");
+			sqlCommand.Append(" foo VARCHAR (100) );");
+			sqlCommand.Append(" DROP TABLE Temptest;");
+			try
+			{
+				DatabaseHelperRunScript(sqlCommand.ToString(), GetConnectionString());
+			}
+			catch
+			{
+				result = false;
+			}
 
-        }
 
-        public static bool DatabaseHelperRunScript(String script, String overrideConnectionInfo)
-        {
-            if ((script == null) || (script.Length == 0)) return true;
+			return result;
+		}
 
-            bool result = false;
-            SqliteConnection connection;
+		public static bool DatabaseHelperRunScript(
+			FileInfo scriptFile,
+			String overrideConnectionInfo)
+		{
+			if (scriptFile == null) return false;
 
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connection = new SqliteConnection(overrideConnectionInfo);
-            }
-            else
-            {
-                connection = new SqliteConnection(GetConnectionString());
-            }
+			string script = File.ReadAllText(scriptFile.FullName);
 
-            connection.Open();
+			if ((script == null) || (script.Length == 0)) return true;
 
-            SqliteTransaction transaction = (SqliteTransaction)connection.BeginTransaction();
+			return DatabaseHelperRunScript(script, overrideConnectionInfo);
 
-            try
-            {
-                SqliteHelper.ExecuteNonQuery(connection, script, null);
-                transaction.Commit();
-                result = true;
-            }
-            finally
-            {
-                connection.Close();
+		}
 
-            }
+		public static bool DatabaseHelperRunScript(String script, String overrideConnectionInfo)
+		{
+			if ((script == null) || (script.Length == 0)) return true;
 
-            return result;
-        }
+			bool result = false;
+			SqliteConnection connection;
+
+			if (
+				(overrideConnectionInfo != null)
+				&& (overrideConnectionInfo.Length > 0)
+			  )
+			{
+				connection = new SqliteConnection(overrideConnectionInfo);
+			}
+			else
+			{
+				connection = new SqliteConnection(GetConnectionString());
+			}
+
+			connection.Open();
+
+			SqliteTransaction transaction = (SqliteTransaction)connection.BeginTransaction();
+
+			try
+			{
+				SqliteHelper.ExecuteNonQuery(connection, script, null);
+				transaction.Commit();
+				result = true;
+			}
+			finally
+			{
+				connection.Close();
+
+			}
+
+			return result;
+		}
 
 		public static bool DatabaseHelperUpdateTableField(
 			String connectionString,
-			String tableName, 
+			String tableName,
 			String keyFieldName,
 			String keyFieldValue,
-			String dataFieldName, 
+			String dataFieldName,
 			String dataFieldValue,
 			String additionalWhere)
 		{
@@ -772,10 +770,10 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("UPDATE " + tableName + " ");
 			sqlCommand.Append(" SET " + dataFieldName + " = :fieldValue ");
-			sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue );
+			sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
 			sqlCommand.Append(" " + additionalWhere + " ");
 			sqlCommand.Append(" ; ");
-			
+
 			SqliteParameter[] arParams = new SqliteParameter[1];
 
 			arParams[0] = new SqliteParameter(":fieldValue", DbType.String);
@@ -784,62 +782,62 @@ namespace mojoPortal.Data
 
 			SqliteConnection connection = new SqliteConnection(connectionString);
 			connection.Open();
-            try
-            {
-                int rowsAffected = SqliteHelper.ExecuteNonQuery(connection, sqlCommand.ToString(), arParams);
-                result = (rowsAffected > 0);
-            }
-            finally
-            {
-                connection.Close();
-            }
+			try
+			{
+				int rowsAffected = SqliteHelper.ExecuteNonQuery(connection, sqlCommand.ToString(), arParams);
+				result = (rowsAffected > 0);
+			}
+			finally
+			{
+				connection.Close();
+			}
 
 			return result;
-			
+
 		}
 
-        public static bool DatabaseHelperUpdateTableField(
-            String tableName,
-            String keyFieldName,
-            String keyFieldValue,
-            String dataFieldName,
-            String dataFieldValue,
-            String additionalWhere)
-        {
-            bool result = false;
+		public static bool DatabaseHelperUpdateTableField(
+			String tableName,
+			String keyFieldName,
+			String keyFieldValue,
+			String dataFieldName,
+			String dataFieldValue,
+			String additionalWhere)
+		{
+			bool result = false;
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE " + tableName + " ");
-            sqlCommand.Append(" SET " + dataFieldName + " = :fieldValue ");
-            sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
-            sqlCommand.Append(" " + additionalWhere + " ");
-            sqlCommand.Append(" ; ");
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("UPDATE " + tableName + " ");
+			sqlCommand.Append(" SET " + dataFieldName + " = :fieldValue ");
+			sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
+			sqlCommand.Append(" " + additionalWhere + " ");
+			sqlCommand.Append(" ; ");
 
-            SqliteParameter[] arParams = new SqliteParameter[1];
+			SqliteParameter[] arParams = new SqliteParameter[1];
 
-            arParams[0] = new SqliteParameter(":fieldValue", DbType.String);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = dataFieldValue;
+			arParams[0] = new SqliteParameter(":fieldValue", DbType.String);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = dataFieldValue;
 
-            SqliteConnection connection = new SqliteConnection(GetConnectionString());
-            connection.Open();
-            try
-            {
-                int rowsAffected = SqliteHelper.ExecuteNonQuery(connection, sqlCommand.ToString(), arParams);
-                result = (rowsAffected > 0);
-            }
-            finally
-            {
-                connection.Close();
-            }
+			SqliteConnection connection = new SqliteConnection(GetConnectionString());
+			connection.Open();
+			try
+			{
+				int rowsAffected = SqliteHelper.ExecuteNonQuery(connection, sqlCommand.ToString(), arParams);
+				result = (rowsAffected > 0);
+			}
+			finally
+			{
+				connection.Close();
+			}
 
-            return result;
+			return result;
 
-        }
+		}
 
 		public static IDataReader DatabaseHelperGetReader(
 			String connectionString,
-			String tableName, 
+			String tableName,
 			String whereClause)
 		{
 			StringBuilder sqlCommand = new StringBuilder();
@@ -849,42 +847,42 @@ namespace mojoPortal.Data
 			sqlCommand.Append(" ; ");
 
 			return SqliteHelper.ExecuteReader(
-				connectionString, 
+				connectionString,
 				sqlCommand.ToString());
 
 		}
 
-        public static IDataReader DatabaseHelperGetReader(
-            string connectionString,
-            string query
-            )
-        {
-            if (string.IsNullOrEmpty(connectionString)) { connectionString = GetConnectionString(); }
+		public static IDataReader DatabaseHelperGetReader(
+			string connectionString,
+			string query
+			)
+		{
+			if (string.IsNullOrEmpty(connectionString)) { connectionString = GetConnectionString(); }
 
-            return SqliteHelper.ExecuteReader(
-                connectionString,
-                query);
+			return SqliteHelper.ExecuteReader(
+				connectionString,
+				query);
 
-        }
+		}
 
-        public static int DatabaseHelperExecteNonQuery(
-            string connectionString,
-            string query
-            )
-        {
-            if (string.IsNullOrEmpty(connectionString)) { connectionString = GetConnectionString(); }
+		public static int DatabaseHelperExecteNonQuery(
+			string connectionString,
+			string query
+			)
+		{
+			if (string.IsNullOrEmpty(connectionString)) { connectionString = GetConnectionString(); }
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                connectionString,
-                query);
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				connectionString,
+				query);
 
-            return rowsAffected;
+			return rowsAffected;
 
-        }
+		}
 
 		public static DataTable DatabaseHelperGetTable(
 			String connectionString,
-			String tableName, 
+			String tableName,
 			String whereClause)
 		{
 			StringBuilder sqlCommand = new StringBuilder();
@@ -894,1352 +892,1348 @@ namespace mojoPortal.Data
 			sqlCommand.Append(" ; ");
 
 			DataSet ds = SqliteHelper.ExecuteDataset(
-				connectionString, 
+				connectionString,
 				sqlCommand.ToString());
 
 			return ds.Tables[0];
 
 		}
 
-        public static void DatabaseHelperDoForumVersion2202PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-            // we need to poulate the new guid fields from .net code in this db platform
-
-            string connectionString;
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connectionString = overrideConnectionInfo;
-            }
-            else
-            {
-                connectionString = GetConnectionString();
-            }
-
-            DataTable dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_Forums",
-                " where (ForumGuid is null OR ForumGuid = '00000000-0000-0000-0000-000000000000') ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_Forums",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "ForumGuid",
-                    Guid.NewGuid().ToString(),
-                    "  ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_ForumThreads",
-                " where (ThreadGuid is null OR ThreadGuid = '00000000-0000-0000-0000-000000000000') ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_ForumThreads",
-                    "ThreadID",
-                    row["ThreadID"].ToString(),
-                    "ThreadGuid",
-                    Guid.NewGuid().ToString(),
-                    "  ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_ForumPosts",
-                " where (PostGuid is null OR PostGuid = '00000000-0000-0000-0000-000000000000') ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_ForumPosts",
-                    "PostID",
-                    row["PostID"].ToString(),
-                    "PostGuid",
-                    Guid.NewGuid().ToString(),
-                    "  ");
-
-            }
-
-        }
-
-        public static void DatabaseHelperDoForumVersion2203PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-            string connectionString;
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connectionString = overrideConnectionInfo;
-            }
-            else
-            {
-                connectionString = ConnectionString.GetWriteConnectionString();
-            }
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT SubscriptionID ");
-            sqlCommand.Append("FROM mp_ForumSubscriptions ");
-            sqlCommand.Append(" where (SubGuid is null OR SubGuid = '00000000-0000-0000-0000-000000000000') ");
-            sqlCommand.Append(" ; ");
-
-            DataSet ds = SqliteHelper.ExecuteDataset(
-                connectionString,
-                sqlCommand.ToString());
-
-            DataTable dataTable = ds.Tables[0];
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_ForumSubscriptions",
-                    "SubscriptionID",
-                    row["SubscriptionID"].ToString(),
-                    "SubGuid",
-                    Guid.NewGuid().ToString(),
-                    "  ");
-
-            }
-
-
-
-            sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT ThreadSubscriptionID ");
-            sqlCommand.Append("FROM mp_ForumThreadSubscriptions ");
-            sqlCommand.Append(" where (SubGuid is null OR SubGuid = '00000000-0000-0000-0000-000000000000') ");
-            sqlCommand.Append(" ; ");
-
-            ds = SqliteHelper.ExecuteDataset(
-                connectionString,
-                sqlCommand.ToString());
-
-            dataTable = ds.Tables[0];
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_ForumThreadSubscriptions",
-                    "ThreadSubscriptionID",
-                    row["ThreadSubscriptionID"].ToString(),
-                    "SubGuid",
-                    Guid.NewGuid().ToString(),
-                    "  ");
-
-            }
-
-
-
-        }
-
-        public static void DatabaseHelperDoVersion2320PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-            string connectionString;
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connectionString = overrideConnectionInfo;
-            }
-            else
-            {
-                connectionString = GetConnectionString();
-            }
-
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT  ");
-            sqlCommand.Append("u.SiteGuid, ");
-            sqlCommand.Append("ls.LetterInfoGuid, ");
-            sqlCommand.Append("ls.UserGuid, ");
-            sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("ls.BeginUTC, ");
-            sqlCommand.Append("ls.UseHtml ");
-
-
-            sqlCommand.Append("FROM ");
-            sqlCommand.Append("mp_LetterSubscriber ls ");
-            sqlCommand.Append("JOIN ");
-            sqlCommand.Append("mp_Users u ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("u.UserGuid = ls.UserGuid ");
-            sqlCommand.Append(" ; ");
-
-            DataSet ds = SqliteHelper.ExecuteDataset(
-                connectionString,
-                sqlCommand.ToString());
-
-            DataTable dataTable = ds.Tables[0];
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-               
-                DBLetterSubscription.Create(
-                    Guid.NewGuid(),
-                    new Guid(row["SiteGuid"].ToString()),
-                    new Guid(row["LetterInfoGuid"].ToString()),
-                    new Guid(row["UserGuid"].ToString()),
-                    row["Email"].ToString().ToLower(),
-                    true,
-                    new Guid("00000000-0000-0000-0000-000000000000"),
-                    Convert.ToDateTime(row["BeginUTC"]),
-                    Convert.ToBoolean(row["UseHtml"])
-                    );
-
-            }
-
-        }
-
-        public static void DatabaseHelperDoVersion2230PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-
-
-        }
-
-        public static void DatabaseHelperDoVersion2234PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-            string connectionString;
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connectionString = overrideConnectionInfo;
-            }
-            else
-            {
-                connectionString = GetConnectionString();
-            }
-
-            DataTable dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_Pages",
-                " where PageGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_Pages",
-                    "PageID",
-                    row["PageID"].ToString(),
-                    "PageGuid",
-                    Guid.NewGuid().ToString(),
-                    " and PageGuid is null ");
-
-            }
-
-
-        }
-
-        public static void DatabaseHelperDoVersion2247PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-            string connectionString;
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connectionString = overrideConnectionInfo;
-            }
-            else
-            {
-                connectionString = GetConnectionString();
-            }
-
-            DataTable dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_FriendlyUrls",
-                " where ItemGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_FriendlyUrls",
-                    "UrlID",
-                    row["UrlID"].ToString(),
-                    "ItemGuid",
-                    Guid.NewGuid().ToString(),
-                    " and ItemGuid is null ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_Modules",
-                " where Guid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_Modules",
-                    "ModuleID",
-                    row["ModuleID"].ToString(),
-                    "Guid",
-                    Guid.NewGuid().ToString(),
-                    " and Guid is null ");
-
-            }
-
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_Roles",
-                " where RoleGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_Roles",
-                    "RoleID",
-                    row["RoleID"].ToString(),
-                    "RoleGuid",
-                    Guid.NewGuid().ToString(),
-                    " and RoleGuid is null ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_ModuleSettings",
-                " where SettingGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_ModuleSettings",
-                    "ID",
-                    row["ID"].ToString(),
-                    "SettingGuid",
-                    Guid.NewGuid().ToString(),
-                    " and SettingGuid is null ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_Blogs",
-                " where BlogGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_Blogs",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "BlogGuid",
-                    Guid.NewGuid().ToString(),
-                    " and BlogGuid is null ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_CalendarEvents",
-                " where ItemGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_CalendarEvents",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "ItemGuid",
-                    Guid.NewGuid().ToString(),
-                    " and ItemGuid is null ");
-
-            }
-
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_GalleryImages",
-                " where ItemGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_GalleryImages",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "ItemGuid",
-                    Guid.NewGuid().ToString(),
-                    " and ItemGuid is null ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_HtmlContent",
-                " where ItemGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_HtmlContent",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "ItemGuid",
-                    Guid.NewGuid().ToString(),
-                    " and ItemGuid is null ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_Links",
-                " where ItemGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_Links",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "ItemGuid",
-                    Guid.NewGuid().ToString(),
-                    " and ItemGuid is null ");
-
-            }
-
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_SharedFileFolders",
-                " where FolderGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_SharedFileFolders",
-                    "FolderID",
-                    row["FolderID"].ToString(),
-                    "FolderGuid",
-                    Guid.NewGuid().ToString(),
-                    " and FolderGuid is null ");
-
-            }
-
-            dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_SharedFiles",
-                " where ItemGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_SharedFiles",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "ItemGuid",
-                    Guid.NewGuid().ToString(),
-                    " and ItemGuid is null ");
-
-            }
-
-
-        }
-
-        public static void DatabaseHelperDoVersion2253PostUpgradeTasks(
-            String overrideConnectionInfo)
-        {
-            string connectionString;
-            if (
-                (overrideConnectionInfo != null)
-                && (overrideConnectionInfo.Length > 0)
-              )
-            {
-                connectionString = overrideConnectionInfo;
-            }
-            else
-            {
-                connectionString = GetConnectionString();
-            }
-
-            DataTable dataTable = DatabaseHelperGetTable(
-                connectionString,
-                "mp_RssFeeds",
-                " where ItemGuid is null ");
-
-
-            foreach (DataRow row in dataTable.Rows)
-            {
-                DatabaseHelperUpdateTableField(
-                    "mp_RssFeeds",
-                    "ItemID",
-                    row["ItemID"].ToString(),
-                    "ItemGuid",
-                    Guid.NewGuid().ToString(),
-                    " and ItemGuid is null ");
-
-            }
-
-
-
-
-        }
-
-        public static bool DatabaseHelperSitesTableExists()
-        {
-            return DatabaseHelperTableExists("mp_Sites");
-        }
-
-        public static bool DatabaseHelperTableExists(string tableName)
-        {
-            SqliteConnection connection = new SqliteConnection(GetConnectionString());
-            string[] restrictions = new string[4];
-            restrictions[2] = tableName;
-            connection.Open();
-            DataTable table = connection.GetSchema("Tables", restrictions);
-            connection.Close();
-            if (table != null)
-            {
-                return (table.Rows.Count > 0);
-            }
-
-            return false;
-        }
-
-        
+
+		public static void DatabaseHelperDoForumVersion2202PostUpgradeTasks(string overrideConnectionInfo)
+		{
+			// we need to poulate the new guid fields from .net code in this db platform
+
+			string connectionString;
+			if (
+				(overrideConnectionInfo != null)
+				&& (overrideConnectionInfo.Length > 0)
+			  )
+			{
+				connectionString = overrideConnectionInfo;
+			}
+			else
+			{
+				connectionString = GetConnectionString();
+			}
+
+			DataTable dataTable = DatabaseHelperGetTable(
+				connectionString,
+				"mp_Forums",
+				" where (ForumGuid is null OR ForumGuid = '00000000-0000-0000-0000-000000000000') ");
+
+
+			foreach (DataRow row in dataTable.Rows)
+			{
+				DatabaseHelperUpdateTableField(
+					"mp_Forums",
+					"ItemID",
+					row["ItemID"].ToString(),
+					"ForumGuid",
+					Guid.NewGuid().ToString(),
+					"  ");
+
+			}
+
+			dataTable = DatabaseHelperGetTable(
+				connectionString,
+				"mp_ForumThreads",
+				" where (ThreadGuid is null OR ThreadGuid = '00000000-0000-0000-0000-000000000000') ");
+
+
+			foreach (DataRow row in dataTable.Rows)
+			{
+				DatabaseHelperUpdateTableField(
+					"mp_ForumThreads",
+					"ThreadID",
+					row["ThreadID"].ToString(),
+					"ThreadGuid",
+					Guid.NewGuid().ToString(),
+					"  ");
+
+			}
+
+			dataTable = DatabaseHelperGetTable(
+				connectionString,
+				"mp_ForumPosts",
+				" where (PostGuid is null OR PostGuid = '00000000-0000-0000-0000-000000000000') ");
+
+
+			foreach (DataRow row in dataTable.Rows)
+			{
+				DatabaseHelperUpdateTableField(
+					"mp_ForumPosts",
+					"PostID",
+					row["PostID"].ToString(),
+					"PostGuid",
+					Guid.NewGuid().ToString(),
+					"  ");
+
+			}
+
+		}
+
+
+		public static void DatabaseHelperDoForumVersion2203PostUpgradeTasks(string overrideConnectionInfo)
+		{
+			string connectionString;
+			if (
+				(overrideConnectionInfo != null)
+				&& (overrideConnectionInfo.Length > 0)
+			  )
+			{
+				connectionString = overrideConnectionInfo;
+			}
+			else
+			{
+				connectionString = ConnectionString.GetWriteConnectionString();
+			}
+
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT SubscriptionID ");
+			sqlCommand.Append("FROM mp_ForumSubscriptions ");
+			sqlCommand.Append(" where (SubGuid is null OR SubGuid = '00000000-0000-0000-0000-000000000000') ");
+			sqlCommand.Append(" ; ");
+
+			DataSet ds = SqliteHelper.ExecuteDataset(
+				connectionString,
+				sqlCommand.ToString());
+
+			DataTable dataTable = ds.Tables[0];
+
+			foreach (DataRow row in dataTable.Rows)
+			{
+				DatabaseHelperUpdateTableField(
+					"mp_ForumSubscriptions",
+					"SubscriptionID",
+					row["SubscriptionID"].ToString(),
+					"SubGuid",
+					Guid.NewGuid().ToString(),
+					"  ");
+
+			}
+
+			sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT ThreadSubscriptionID ");
+			sqlCommand.Append("FROM mp_ForumThreadSubscriptions ");
+			sqlCommand.Append(" where (SubGuid is null OR SubGuid = '00000000-0000-0000-0000-000000000000') ");
+			sqlCommand.Append(" ; ");
+
+			ds = SqliteHelper.ExecuteDataset(
+				connectionString,
+				sqlCommand.ToString());
+
+			dataTable = ds.Tables[0];
+
+			foreach (DataRow row in dataTable.Rows)
+			{
+				DatabaseHelperUpdateTableField(
+					"mp_ForumThreadSubscriptions",
+					"ThreadSubscriptionID",
+					row["ThreadSubscriptionID"].ToString(),
+					"SubGuid",
+					Guid.NewGuid().ToString(),
+					"  ");
+			}
+		}
+
+
+		/// <summary>
+		/// Runs tasks after Upgrade scripts
+		/// </summary>
+		/// <param name="version"></param>
+		/// <param name="overrideConnectionString"></param>
+		/// <returns>True if tasks for versions completed successfully, false if they did not.</returns>
+		public static bool RunPostUpgradeTask(Version version, string overrideConnectionString)
+		{
+			var connectionString = ConnectionString.GetWriteConnectionString();
+
+			if (!string.IsNullOrWhiteSpace(overrideConnectionString))
+			{
+				connectionString = overrideConnectionString;
+			}
+
+			bool result = true;
+			DataTable dataTable;
+			string sqlCommand;
+			bool localResult;
+			DataSet ds;
+
+			switch (version)
+			{
+				case var _ when version == new Version(2, 2, 3, 4):
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_Pages",
+						" where PageGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_Pages",
+							"PageID",
+							row["PageID"].ToString(),
+							"PageGuid",
+							Guid.NewGuid().ToString(),
+							" and PageGuid is null "
+						);
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					return result;
+				case var _ when version == new Version(2, 2, 4, 7):
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_FriendlyUrls",
+						" where ItemGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_FriendlyUrls",
+							"UrlID",
+							row["UrlID"].ToString(),
+							"ItemGuid",
+							Guid.NewGuid().ToString(),
+							" and ItemGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_Modules",
+						" where Guid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_Modules",
+							"ModuleID",
+							row["ModuleID"].ToString(),
+							"Guid",
+							Guid.NewGuid().ToString(),
+							" and Guid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_Roles",
+						" where RoleGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_Roles",
+							"RoleID",
+							row["RoleID"].ToString(),
+							"RoleGuid",
+							Guid.NewGuid().ToString(),
+							" and RoleGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_ModuleSettings",
+						" where SettingGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_ModuleSettings",
+							"ID",
+							row["ID"].ToString(),
+							"SettingGuid",
+							Guid.NewGuid().ToString(),
+							" and SettingGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_Blogs",
+						" where BlogGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_Blogs",
+							"ItemID",
+							row["ItemID"].ToString(),
+							"BlogGuid",
+							Guid.NewGuid().ToString(),
+							" and BlogGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_CalendarEvents",
+						" where ItemGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_CalendarEvents",
+							"ItemID",
+							row["ItemID"].ToString(),
+							"ItemGuid",
+							Guid.NewGuid().ToString(),
+							" and ItemGuid is null "
+						);
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_GalleryImages",
+						" where ItemGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_GalleryImages",
+							"ItemID",
+							row["ItemID"].ToString(),
+							"ItemGuid",
+							Guid.NewGuid().ToString(),
+							" and ItemGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_HtmlContent",
+						" where ItemGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_HtmlContent",
+							"ItemID",
+							row["ItemID"].ToString(),
+							"ItemGuid",
+							Guid.NewGuid().ToString(),
+							" and ItemGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_Links",
+						" where ItemGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_Links",
+							"ItemID",
+							row["ItemID"].ToString(),
+							"ItemGuid",
+							Guid.NewGuid().ToString(),
+							" and ItemGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_SharedFileFolders",
+						" where FolderGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_SharedFileFolders",
+							"FolderID",
+							row["FolderID"].ToString(),
+							"FolderGuid",
+							Guid.NewGuid().ToString(),
+							" and FolderGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_SharedFiles",
+						" where ItemGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_SharedFiles",
+							"ItemID",
+							row["ItemID"].ToString(),
+							"ItemGuid",
+							Guid.NewGuid().ToString(),
+							" and ItemGuid is null ");
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					return result;
+				case var _ when version == new Version(2, 2, 5, 3):
+					dataTable = DatabaseHelperGetTable(
+						connectionString,
+						"mp_RssFeeds",
+						" where ItemGuid is null "
+					);
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						localResult = DatabaseHelperUpdateTableField(
+							"mp_RssFeeds",
+							"ItemID",
+							row["ItemID"].ToString(),
+							"ItemGuid",
+							Guid.NewGuid().ToString(),
+							" and ItemGuid is null "
+						);
+
+						if (!localResult)
+						{
+							result = localResult;
+						}
+					}
+
+					return result;
+				case var _ when version == new Version(2, 3, 2, 0):
+					sqlCommand = "SELECT  ";
+					sqlCommand += "u.SiteGuid, ";
+					sqlCommand += "ls.LetterInfoGuid, ";
+					sqlCommand += "ls.UserGuid, ";
+					sqlCommand += "u.Email, ";
+					sqlCommand += "ls.BeginUTC, ";
+					sqlCommand += "ls.UseHtml ";
+
+
+					sqlCommand += "FROM ";
+					sqlCommand += "mp_LetterSubscriber ls ";
+					sqlCommand += "JOIN ";
+					sqlCommand += "mp_Users u ";
+					sqlCommand += "ON ";
+					sqlCommand += "u.UserGuid = ls.UserGuid ";
+					sqlCommand += " ; ";
+
+					ds = SqliteHelper.ExecuteDataset(
+						connectionString,
+						sqlCommand.ToString());
+
+					dataTable = ds.Tables[0];
+
+					foreach (DataRow row in dataTable.Rows)
+					{
+						DBLetterSubscription.Create(
+							Guid.NewGuid(),
+							new Guid(row["SiteGuid"].ToString()),
+							new Guid(row["LetterInfoGuid"].ToString()),
+							new Guid(row["UserGuid"].ToString()),
+							row["Email"].ToString().ToLower(),
+							true,
+							new Guid("00000000-0000-0000-0000-000000000000"),
+							Convert.ToDateTime(row["BeginUTC"]),
+							Convert.ToBoolean(row["UseHtml"])
+						);
+					}
+
+					return false;
+
+				default: return false;
+			}
+
+			return false;
+		}
+
+
+		public static bool DatabaseHelperSitesTableExists()
+		{
+			return DatabaseHelperTableExists("mp_Sites");
+		}
+
+		public static bool DatabaseHelperTableExists(string tableName)
+		{
+			SqliteConnection connection = new SqliteConnection(GetConnectionString());
+			string[] restrictions = new string[4];
+			restrictions[2] = tableName;
+			connection.Open();
+			DataTable table = connection.GetSchema("Tables", restrictions);
+			connection.Close();
+			if (table != null)
+			{
+				return (table.Rows.Count > 0);
+			}
+
+			return false;
+		}
+
+
 
 		#endregion
 
-        
-
-        //#region Private Message System
-
-        //public static int PrivateMessage_AddPrivateMessage(
-        //    Guid messageID,
-        //    Guid fromUser,
-        //    Guid priorityID,
-        //    string subject,
-        //    string body,
-        //    string toCSVList,
-        //    string ccCSVList,
-        //    string bccCSVList,
-        //    string toCSVLabels,
-        //    string ccCSVLabels,
-        //    string bccCSVLabels,
-        //    DateTime createdDate,
-        //    DateTime sentDate)
-        //{
-        //    #region Bit Conversion
-
-
-        //    #endregion
-
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("INSERT INTO mp_PrivateMessages (");
-        //    sqlCommand.Append("MessageID, ");
-        //    sqlCommand.Append("FromUser, ");
-        //    sqlCommand.Append("PriorityID, ");
-        //    sqlCommand.Append("Subject, ");
-        //    sqlCommand.Append("Body, ");
-        //    sqlCommand.Append("ToCSVList, ");
-        //    sqlCommand.Append("CcCSVList, ");
-        //    sqlCommand.Append("BccCSVList, ");
-        //    sqlCommand.Append("ToCSVLabels, ");
-        //    sqlCommand.Append("CcCSVLabels, ");
-        //    sqlCommand.Append("BccCSVLabels, ");
-        //    sqlCommand.Append("CreatedDate, ");
-        //    sqlCommand.Append("SentDate )");
-
-        //    sqlCommand.Append(" VALUES (");
-        //    sqlCommand.Append(":MessageID, ");
-        //    sqlCommand.Append(":FromUser, ");
-        //    sqlCommand.Append(":PriorityID, ");
-        //    sqlCommand.Append(":Subject, ");
-        //    sqlCommand.Append(":Body, ");
-        //    sqlCommand.Append(":ToCSVList, ");
-        //    sqlCommand.Append(":CcCSVList, ");
-        //    sqlCommand.Append(":BccCSVList, ");
-        //    sqlCommand.Append(":ToCSVLabels, ");
-        //    sqlCommand.Append(":CcCSVLabels, ");
-        //    sqlCommand.Append(":BccCSVLabels, ");
-        //    sqlCommand.Append(":CreatedDate, ");
-        //    sqlCommand.Append(":SentDate );");
-
-        //    SqliteParameter[] arParams = new SqliteParameter[13];
-
-        //    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = messageID.ToString();
-
-        //    arParams[1] = new SqliteParameter(":FromUser", DbType.String, 36);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = fromUser.ToString();
-
-        //    arParams[2] = new SqliteParameter(":PriorityID", DbType.String, 36);
-        //    arParams[2].Direction = ParameterDirection.Input;
-        //    arParams[2].Value = priorityID.ToString();
-
-        //    arParams[3] = new SqliteParameter(":Subject", DbType.String, 255);
-        //    arParams[3].Direction = ParameterDirection.Input;
-        //    arParams[3].Value = subject;
-
-        //    arParams[4] = new SqliteParameter(":Body", DbType.Object);
-        //    arParams[4].Direction = ParameterDirection.Input;
-        //    arParams[4].Value = body;
-
-        //    arParams[5] = new SqliteParameter(":ToCSVList", DbType.Object);
-        //    arParams[5].Direction = ParameterDirection.Input;
-        //    arParams[5].Value = toCSVList;
-
-        //    arParams[6] = new SqliteParameter(":CcCSVList", DbType.Object);
-        //    arParams[6].Direction = ParameterDirection.Input;
-        //    arParams[6].Value = ccCSVList;
-
-        //    arParams[7] = new SqliteParameter(":BccCSVList", DbType.Object);
-        //    arParams[7].Direction = ParameterDirection.Input;
-        //    arParams[7].Value = bccCSVList;
-
-        //    arParams[8] = new SqliteParameter(":ToCSVLabels", DbType.Object);
-        //    arParams[8].Direction = ParameterDirection.Input;
-        //    arParams[8].Value = toCSVLabels;
-
-        //    arParams[9] = new SqliteParameter(":CcCSVLabels", DbType.Object);
-        //    arParams[9].Direction = ParameterDirection.Input;
-        //    arParams[9].Value = ccCSVLabels;
-
-        //    arParams[10] = new SqliteParameter(":BccCSVLabels", DbType.Object);
-        //    arParams[10].Direction = ParameterDirection.Input;
-        //    arParams[10].Value = bccCSVLabels;
-
-        //    arParams[11] = new SqliteParameter(":CreatedDate", DbType.DateTime);
-        //    arParams[11].Direction = ParameterDirection.Input;
-        //    arParams[11].Value = createdDate;
 
-        //    arParams[12] = new SqliteParameter(":SentDate", DbType.DateTime);
-        //    arParams[12].Direction = ParameterDirection.Input;
-        //    arParams[12].Value = sentDate;
 
+		//#region Private Message System
+
+		//public static int PrivateMessage_AddPrivateMessage(
+		//    Guid messageID,
+		//    Guid fromUser,
+		//    Guid priorityID,
+		//    string subject,
+		//    string body,
+		//    string toCSVList,
+		//    string ccCSVList,
+		//    string bccCSVList,
+		//    string toCSVLabels,
+		//    string ccCSVLabels,
+		//    string bccCSVLabels,
+		//    DateTime createdDate,
+		//    DateTime sentDate)
+		//{
+		//    #region Bit Conversion
+
+
+		//    #endregion
+
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("INSERT INTO mp_PrivateMessages (");
+		//    sqlCommand.Append("MessageID, ");
+		//    sqlCommand.Append("FromUser, ");
+		//    sqlCommand.Append("PriorityID, ");
+		//    sqlCommand.Append("Subject, ");
+		//    sqlCommand.Append("Body, ");
+		//    sqlCommand.Append("ToCSVList, ");
+		//    sqlCommand.Append("CcCSVList, ");
+		//    sqlCommand.Append("BccCSVList, ");
+		//    sqlCommand.Append("ToCSVLabels, ");
+		//    sqlCommand.Append("CcCSVLabels, ");
+		//    sqlCommand.Append("BccCSVLabels, ");
+		//    sqlCommand.Append("CreatedDate, ");
+		//    sqlCommand.Append("SentDate )");
+
+		//    sqlCommand.Append(" VALUES (");
+		//    sqlCommand.Append(":MessageID, ");
+		//    sqlCommand.Append(":FromUser, ");
+		//    sqlCommand.Append(":PriorityID, ");
+		//    sqlCommand.Append(":Subject, ");
+		//    sqlCommand.Append(":Body, ");
+		//    sqlCommand.Append(":ToCSVList, ");
+		//    sqlCommand.Append(":CcCSVList, ");
+		//    sqlCommand.Append(":BccCSVList, ");
+		//    sqlCommand.Append(":ToCSVLabels, ");
+		//    sqlCommand.Append(":CcCSVLabels, ");
+		//    sqlCommand.Append(":BccCSVLabels, ");
+		//    sqlCommand.Append(":CreatedDate, ");
+		//    sqlCommand.Append(":SentDate );");
+
+		//    SqliteParameter[] arParams = new SqliteParameter[13];
+
+		//    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = messageID.ToString();
+
+		//    arParams[1] = new SqliteParameter(":FromUser", DbType.String, 36);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = fromUser.ToString();
+
+		//    arParams[2] = new SqliteParameter(":PriorityID", DbType.String, 36);
+		//    arParams[2].Direction = ParameterDirection.Input;
+		//    arParams[2].Value = priorityID.ToString();
+
+		//    arParams[3] = new SqliteParameter(":Subject", DbType.String, 255);
+		//    arParams[3].Direction = ParameterDirection.Input;
+		//    arParams[3].Value = subject;
+
+		//    arParams[4] = new SqliteParameter(":Body", DbType.Object);
+		//    arParams[4].Direction = ParameterDirection.Input;
+		//    arParams[4].Value = body;
+
+		//    arParams[5] = new SqliteParameter(":ToCSVList", DbType.Object);
+		//    arParams[5].Direction = ParameterDirection.Input;
+		//    arParams[5].Value = toCSVList;
+
+		//    arParams[6] = new SqliteParameter(":CcCSVList", DbType.Object);
+		//    arParams[6].Direction = ParameterDirection.Input;
+		//    arParams[6].Value = ccCSVList;
+
+		//    arParams[7] = new SqliteParameter(":BccCSVList", DbType.Object);
+		//    arParams[7].Direction = ParameterDirection.Input;
+		//    arParams[7].Value = bccCSVList;
+
+		//    arParams[8] = new SqliteParameter(":ToCSVLabels", DbType.Object);
+		//    arParams[8].Direction = ParameterDirection.Input;
+		//    arParams[8].Value = toCSVLabels;
+
+		//    arParams[9] = new SqliteParameter(":CcCSVLabels", DbType.Object);
+		//    arParams[9].Direction = ParameterDirection.Input;
+		//    arParams[9].Value = ccCSVLabels;
+
+		//    arParams[10] = new SqliteParameter(":BccCSVLabels", DbType.Object);
+		//    arParams[10].Direction = ParameterDirection.Input;
+		//    arParams[10].Value = bccCSVLabels;
+
+		//    arParams[11] = new SqliteParameter(":CreatedDate", DbType.DateTime);
+		//    arParams[11].Direction = ParameterDirection.Input;
+		//    arParams[11].Value = createdDate;
 
-        //    int rowsAffected = 0;
-        //    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return rowsAffected;
+		//    arParams[12] = new SqliteParameter(":SentDate", DbType.DateTime);
+		//    arParams[12].Direction = ParameterDirection.Input;
+		//    arParams[12].Value = sentDate;
 
-        //}
 
+		//    int rowsAffected = 0;
+		//    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return rowsAffected;
 
+		//}
 
 
-        //public static bool PrivateMessage_UpdatePrivateMessage(
-        //    Guid messageID,
-        //    Guid fromUser,
-        //    Guid priorityID,
-        //    string subject,
-        //    string body,
-        //    string toCSVList,
-        //    string ccCSVList,
-        //    string bccCSVList,
-        //    string toCSVLabels,
-        //    string ccCSVLabels,
-        //    string bccCSVLabels,
-        //    DateTime createdDate,
-        //    DateTime sentDate)
-        //{
-        //    #region Bit Conversion
 
 
-        //    #endregion
+		//public static bool PrivateMessage_UpdatePrivateMessage(
+		//    Guid messageID,
+		//    Guid fromUser,
+		//    Guid priorityID,
+		//    string subject,
+		//    string body,
+		//    string toCSVList,
+		//    string ccCSVList,
+		//    string bccCSVList,
+		//    string toCSVLabels,
+		//    string ccCSVLabels,
+		//    string bccCSVLabels,
+		//    DateTime createdDate,
+		//    DateTime sentDate)
+		//{
+		//    #region Bit Conversion
 
-        //    StringBuilder sqlCommand = new StringBuilder();
 
-        //    sqlCommand.Append("UPDATE mp_PrivateMessages ");
-        //    sqlCommand.Append("SET  ");
-        //    sqlCommand.Append("FromUser = :FromUser, ");
-        //    sqlCommand.Append("PriorityID = :PriorityID, ");
-        //    sqlCommand.Append("Subject = :Subject, ");
-        //    sqlCommand.Append("Body = :Body, ");
-        //    sqlCommand.Append("ToCSVList = :ToCSVList, ");
-        //    sqlCommand.Append("CcCSVList = :CcCSVList, ");
-        //    sqlCommand.Append("BccCSVList = :BccCSVList, ");
-        //    sqlCommand.Append("ToCSVLabels = :ToCSVLabels, ");
-        //    sqlCommand.Append("CcCSVLabels = :CcCSVLabels, ");
-        //    sqlCommand.Append("BccCSVLabels = :BccCSVLabels, ");
-        //    sqlCommand.Append("CreatedDate = :CreatedDate, ");
-        //    sqlCommand.Append("SentDate = :SentDate ");
+		//    #endregion
 
-        //    sqlCommand.Append("WHERE  ");
-        //    sqlCommand.Append("MessageID = :MessageID ;");
+		//    StringBuilder sqlCommand = new StringBuilder();
 
-        //    SqliteParameter[] arParams = new SqliteParameter[13];
+		//    sqlCommand.Append("UPDATE mp_PrivateMessages ");
+		//    sqlCommand.Append("SET  ");
+		//    sqlCommand.Append("FromUser = :FromUser, ");
+		//    sqlCommand.Append("PriorityID = :PriorityID, ");
+		//    sqlCommand.Append("Subject = :Subject, ");
+		//    sqlCommand.Append("Body = :Body, ");
+		//    sqlCommand.Append("ToCSVList = :ToCSVList, ");
+		//    sqlCommand.Append("CcCSVList = :CcCSVList, ");
+		//    sqlCommand.Append("BccCSVList = :BccCSVList, ");
+		//    sqlCommand.Append("ToCSVLabels = :ToCSVLabels, ");
+		//    sqlCommand.Append("CcCSVLabels = :CcCSVLabels, ");
+		//    sqlCommand.Append("BccCSVLabels = :BccCSVLabels, ");
+		//    sqlCommand.Append("CreatedDate = :CreatedDate, ");
+		//    sqlCommand.Append("SentDate = :SentDate ");
 
-        //    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = messageID.ToString();
+		//    sqlCommand.Append("WHERE  ");
+		//    sqlCommand.Append("MessageID = :MessageID ;");
 
-        //    arParams[1] = new SqliteParameter(":FromUser", DbType.String, 36);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = fromUser.ToString();
+		//    SqliteParameter[] arParams = new SqliteParameter[13];
 
-        //    arParams[2] = new SqliteParameter(":PriorityID", DbType.String, 36);
-        //    arParams[2].Direction = ParameterDirection.Input;
-        //    arParams[2].Value = priorityID.ToString();
+		//    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = messageID.ToString();
 
-        //    arParams[3] = new SqliteParameter(":Subject", DbType.String, 255);
-        //    arParams[3].Direction = ParameterDirection.Input;
-        //    arParams[3].Value = subject;
+		//    arParams[1] = new SqliteParameter(":FromUser", DbType.String, 36);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = fromUser.ToString();
 
-        //    arParams[4] = new SqliteParameter(":Body", DbType.Object);
-        //    arParams[4].Direction = ParameterDirection.Input;
-        //    arParams[4].Value = body;
+		//    arParams[2] = new SqliteParameter(":PriorityID", DbType.String, 36);
+		//    arParams[2].Direction = ParameterDirection.Input;
+		//    arParams[2].Value = priorityID.ToString();
 
-        //    arParams[5] = new SqliteParameter(":ToCSVList", DbType.Object);
-        //    arParams[5].Direction = ParameterDirection.Input;
-        //    arParams[5].Value = toCSVList;
+		//    arParams[3] = new SqliteParameter(":Subject", DbType.String, 255);
+		//    arParams[3].Direction = ParameterDirection.Input;
+		//    arParams[3].Value = subject;
 
-        //    arParams[6] = new SqliteParameter(":CcCSVList", DbType.Object);
-        //    arParams[6].Direction = ParameterDirection.Input;
-        //    arParams[6].Value = ccCSVList;
+		//    arParams[4] = new SqliteParameter(":Body", DbType.Object);
+		//    arParams[4].Direction = ParameterDirection.Input;
+		//    arParams[4].Value = body;
 
-        //    arParams[7] = new SqliteParameter(":BccCSVList", DbType.Object);
-        //    arParams[7].Direction = ParameterDirection.Input;
-        //    arParams[7].Value = bccCSVList;
+		//    arParams[5] = new SqliteParameter(":ToCSVList", DbType.Object);
+		//    arParams[5].Direction = ParameterDirection.Input;
+		//    arParams[5].Value = toCSVList;
 
-        //    arParams[8] = new SqliteParameter(":ToCSVLabels", DbType.Object);
-        //    arParams[8].Direction = ParameterDirection.Input;
-        //    arParams[8].Value = toCSVLabels;
+		//    arParams[6] = new SqliteParameter(":CcCSVList", DbType.Object);
+		//    arParams[6].Direction = ParameterDirection.Input;
+		//    arParams[6].Value = ccCSVList;
 
-        //    arParams[9] = new SqliteParameter(":CcCSVLabels", DbType.Object);
-        //    arParams[9].Direction = ParameterDirection.Input;
-        //    arParams[9].Value = ccCSVLabels;
+		//    arParams[7] = new SqliteParameter(":BccCSVList", DbType.Object);
+		//    arParams[7].Direction = ParameterDirection.Input;
+		//    arParams[7].Value = bccCSVList;
 
-        //    arParams[10] = new SqliteParameter(":BccCSVLabels", DbType.Object);
-        //    arParams[10].Direction = ParameterDirection.Input;
-        //    arParams[10].Value = bccCSVLabels;
+		//    arParams[8] = new SqliteParameter(":ToCSVLabels", DbType.Object);
+		//    arParams[8].Direction = ParameterDirection.Input;
+		//    arParams[8].Value = toCSVLabels;
 
-        //    arParams[11] = new SqliteParameter(":CreatedDate", DbType.DateTime);
-        //    arParams[11].Direction = ParameterDirection.Input;
-        //    arParams[11].Value = createdDate;
+		//    arParams[9] = new SqliteParameter(":CcCSVLabels", DbType.Object);
+		//    arParams[9].Direction = ParameterDirection.Input;
+		//    arParams[9].Value = ccCSVLabels;
 
-        //    arParams[12] = new SqliteParameter(":SentDate", DbType.DateTime);
-        //    arParams[12].Direction = ParameterDirection.Input;
-        //    arParams[12].Value = sentDate;
+		//    arParams[10] = new SqliteParameter(":BccCSVLabels", DbType.Object);
+		//    arParams[10].Direction = ParameterDirection.Input;
+		//    arParams[10].Value = bccCSVLabels;
 
+		//    arParams[11] = new SqliteParameter(":CreatedDate", DbType.DateTime);
+		//    arParams[11].Direction = ParameterDirection.Input;
+		//    arParams[11].Value = createdDate;
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > -1);
+		//    arParams[12] = new SqliteParameter(":SentDate", DbType.DateTime);
+		//    arParams[12].Direction = ParameterDirection.Input;
+		//    arParams[12].Value = sentDate;
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > -1);
 
-        //public static bool PrivateMessage_DeletePrivateMessage(Guid messageID)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("DELETE FROM mp_PrivateMessages ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("MessageID = :MessageID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = messageID.ToString();
+		//public static bool PrivateMessage_DeletePrivateMessage(Guid messageID)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("DELETE FROM mp_PrivateMessages ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("MessageID = :MessageID ;");
 
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > 0);
+		//    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = messageID.ToString();
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > 0);
 
-        //public static IDataReader PrivateMessage_GetPrivateMessage(Guid messageID)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("SELECT  * ");
-        //    sqlCommand.Append("FROM	mp_PrivateMessages ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("MessageID = :MessageID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = messageID.ToString();
+		//public static IDataReader PrivateMessage_GetPrivateMessage(Guid messageID)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("SELECT  * ");
+		//    sqlCommand.Append("FROM	mp_PrivateMessages ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("MessageID = :MessageID ;");
 
-        //    return SqliteHelper.ExecuteReader(
-        //        GetConnectionString(),
-        //        sqlCommand.ToString(),
-        //        arParams);
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //}
+		//    arParams[0] = new SqliteParameter(":MessageID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = messageID.ToString();
 
-        //public static int PrivateMessagePriority_AddPrivateMessagePriority(
-        //    Guid priorityID,
-        //    string priority)
-        //{
-        //    #region Bit Conversion
+		//    return SqliteHelper.ExecuteReader(
+		//        GetConnectionString(),
+		//        sqlCommand.ToString(),
+		//        arParams);
 
+		//}
 
-        //    #endregion
+		//public static int PrivateMessagePriority_AddPrivateMessagePriority(
+		//    Guid priorityID,
+		//    string priority)
+		//{
+		//    #region Bit Conversion
 
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("INSERT INTO mp_PrivateMessagePriority (");
-        //    sqlCommand.Append("PriorityID, ");
-        //    sqlCommand.Append("Priority )");
 
-        //    sqlCommand.Append(" VALUES (");
-        //    sqlCommand.Append(":PriorityID, ");
-        //    sqlCommand.Append(":Priority );");
+		//    #endregion
 
-        //    SqliteParameter[] arParams = new SqliteParameter[2];
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("INSERT INTO mp_PrivateMessagePriority (");
+		//    sqlCommand.Append("PriorityID, ");
+		//    sqlCommand.Append("Priority )");
 
-        //    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = priorityID.ToString();
+		//    sqlCommand.Append(" VALUES (");
+		//    sqlCommand.Append(":PriorityID, ");
+		//    sqlCommand.Append(":Priority );");
 
-        //    arParams[1] = new SqliteParameter(":Priority", DbType.String, 50);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = priority;
+		//    SqliteParameter[] arParams = new SqliteParameter[2];
 
+		//    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = priorityID.ToString();
 
-        //    int rowsAffected = 0;
-        //    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return rowsAffected;
+		//    arParams[1] = new SqliteParameter(":Priority", DbType.String, 50);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = priority;
 
-        //}
 
+		//    int rowsAffected = 0;
+		//    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return rowsAffected;
 
+		//}
 
 
-        //public static bool PrivateMessagePriority_UpdatePrivateMessagePriority(
-        //    Guid priorityID,
-        //    string priority)
-        //{
-        //    #region Bit Conversion
 
 
-        //    #endregion
+		//public static bool PrivateMessagePriority_UpdatePrivateMessagePriority(
+		//    Guid priorityID,
+		//    string priority)
+		//{
+		//    #region Bit Conversion
 
-        //    StringBuilder sqlCommand = new StringBuilder();
 
-        //    sqlCommand.Append("UPDATE mp_PrivateMessagePriority ");
-        //    sqlCommand.Append("SET  ");
-        //    sqlCommand.Append("Priority = :Priority ");
+		//    #endregion
 
-        //    sqlCommand.Append("WHERE  ");
-        //    sqlCommand.Append("PriorityID = :PriorityID ;");
+		//    StringBuilder sqlCommand = new StringBuilder();
 
-        //    SqliteParameter[] arParams = new SqliteParameter[2];
+		//    sqlCommand.Append("UPDATE mp_PrivateMessagePriority ");
+		//    sqlCommand.Append("SET  ");
+		//    sqlCommand.Append("Priority = :Priority ");
 
-        //    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = priorityID.ToString();
+		//    sqlCommand.Append("WHERE  ");
+		//    sqlCommand.Append("PriorityID = :PriorityID ;");
 
-        //    arParams[1] = new SqliteParameter(":Priority", DbType.String, 50);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = priority;
+		//    SqliteParameter[] arParams = new SqliteParameter[2];
 
+		//    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = priorityID.ToString();
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > -1);
+		//    arParams[1] = new SqliteParameter(":Priority", DbType.String, 50);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = priority;
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > -1);
 
-        //public static bool PrivateMessagePriority_DeletePrivateMessagePriority(Guid priorityID)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("DELETE FROM mp_PrivateMessagePriority ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("PriorityID = :PriorityID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = priorityID.ToString();
+		//public static bool PrivateMessagePriority_DeletePrivateMessagePriority(Guid priorityID)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("DELETE FROM mp_PrivateMessagePriority ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("PriorityID = :PriorityID ;");
 
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > 0);
+		//    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = priorityID.ToString();
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > 0);
 
-        //public static IDataReader PrivateMessagePriority_GetPrivateMessagePriority(Guid priorityID)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("SELECT  * ");
-        //    sqlCommand.Append("FROM	mp_PrivateMessagePriority ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("PriorityID = :PriorityID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = priorityID.ToString();
+		//public static IDataReader PrivateMessagePriority_GetPrivateMessagePriority(Guid priorityID)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("SELECT  * ");
+		//    sqlCommand.Append("FROM	mp_PrivateMessagePriority ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("PriorityID = :PriorityID ;");
 
-        //    return SqliteHelper.ExecuteReader(
-        //        GetConnectionString(),
-        //        sqlCommand.ToString(),
-        //        arParams);
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //}
+		//    arParams[0] = new SqliteParameter(":PriorityID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = priorityID.ToString();
 
-        //public static int PrivateMessageAttachment_AddPrivateMessageAttachment(
-        //    Guid attachmentID,
-        //    Guid messageID,
-        //    string originalFileName,
-        //    string serverFileName,
-        //    DateTime createdDate)
-        //{
-        //    #region Bit Conversion
+		//    return SqliteHelper.ExecuteReader(
+		//        GetConnectionString(),
+		//        sqlCommand.ToString(),
+		//        arParams);
 
+		//}
 
-        //    #endregion
+		//public static int PrivateMessageAttachment_AddPrivateMessageAttachment(
+		//    Guid attachmentID,
+		//    Guid messageID,
+		//    string originalFileName,
+		//    string serverFileName,
+		//    DateTime createdDate)
+		//{
+		//    #region Bit Conversion
 
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("INSERT INTO mp_PrivateMessageAttachments (");
-        //    sqlCommand.Append("AttachmentID, ");
-        //    sqlCommand.Append("MessageID, ");
-        //    sqlCommand.Append("OriginalFileName, ");
-        //    sqlCommand.Append("ServerFileName, ");
-        //    sqlCommand.Append("CreatedDate )");
 
-        //    sqlCommand.Append(" VALUES (");
-        //    sqlCommand.Append(":AttachmentID, ");
-        //    sqlCommand.Append(":MessageID, ");
-        //    sqlCommand.Append(":OriginalFileName, ");
-        //    sqlCommand.Append(":ServerFileName, ");
-        //    sqlCommand.Append(":CreatedDate );");
+		//    #endregion
 
-        //    SqliteParameter[] arParams = new SqliteParameter[5];
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("INSERT INTO mp_PrivateMessageAttachments (");
+		//    sqlCommand.Append("AttachmentID, ");
+		//    sqlCommand.Append("MessageID, ");
+		//    sqlCommand.Append("OriginalFileName, ");
+		//    sqlCommand.Append("ServerFileName, ");
+		//    sqlCommand.Append("CreatedDate )");
 
-        //    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = attachmentID.ToString();
+		//    sqlCommand.Append(" VALUES (");
+		//    sqlCommand.Append(":AttachmentID, ");
+		//    sqlCommand.Append(":MessageID, ");
+		//    sqlCommand.Append(":OriginalFileName, ");
+		//    sqlCommand.Append(":ServerFileName, ");
+		//    sqlCommand.Append(":CreatedDate );");
 
-        //    arParams[1] = new SqliteParameter(":MessageID", DbType.String, 36);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = messageID.ToString();
+		//    SqliteParameter[] arParams = new SqliteParameter[5];
 
-        //    arParams[2] = new SqliteParameter(":OriginalFileName", DbType.String, 255);
-        //    arParams[2].Direction = ParameterDirection.Input;
-        //    arParams[2].Value = originalFileName;
+		//    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = attachmentID.ToString();
 
-        //    arParams[3] = new SqliteParameter(":ServerFileName", DbType.String, 50);
-        //    arParams[3].Direction = ParameterDirection.Input;
-        //    arParams[3].Value = serverFileName;
+		//    arParams[1] = new SqliteParameter(":MessageID", DbType.String, 36);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = messageID.ToString();
 
-        //    arParams[4] = new SqliteParameter(":CreatedDate", DbType.DateTime);
-        //    arParams[4].Direction = ParameterDirection.Input;
-        //    arParams[4].Value = createdDate;
+		//    arParams[2] = new SqliteParameter(":OriginalFileName", DbType.String, 255);
+		//    arParams[2].Direction = ParameterDirection.Input;
+		//    arParams[2].Value = originalFileName;
 
+		//    arParams[3] = new SqliteParameter(":ServerFileName", DbType.String, 50);
+		//    arParams[3].Direction = ParameterDirection.Input;
+		//    arParams[3].Value = serverFileName;
 
-        //    int rowsAffected = 0;
-        //    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return rowsAffected;
+		//    arParams[4] = new SqliteParameter(":CreatedDate", DbType.DateTime);
+		//    arParams[4].Direction = ParameterDirection.Input;
+		//    arParams[4].Value = createdDate;
 
-        //}
 
+		//    int rowsAffected = 0;
+		//    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return rowsAffected;
 
+		//}
 
 
-        //public static bool PrivateMessageAttachment_UpdatePrivateMessageAttachment(
-        //    Guid attachmentID,
-        //    Guid messageID,
-        //    string originalFileName,
-        //    string serverFileName,
-        //    DateTime createdDate)
-        //{
-        //    #region Bit Conversion
 
 
-        //    #endregion
+		//public static bool PrivateMessageAttachment_UpdatePrivateMessageAttachment(
+		//    Guid attachmentID,
+		//    Guid messageID,
+		//    string originalFileName,
+		//    string serverFileName,
+		//    DateTime createdDate)
+		//{
+		//    #region Bit Conversion
 
-        //    StringBuilder sqlCommand = new StringBuilder();
 
-        //    sqlCommand.Append("UPDATE mp_PrivateMessageAttachments ");
-        //    sqlCommand.Append("SET  ");
-        //    sqlCommand.Append("MessageID = :MessageID, ");
-        //    sqlCommand.Append("OriginalFileName = :OriginalFileName, ");
-        //    sqlCommand.Append("ServerFileName = :ServerFileName, ");
-        //    sqlCommand.Append("CreatedDate = :CreatedDate ");
+		//    #endregion
 
-        //    sqlCommand.Append("WHERE  ");
-        //    sqlCommand.Append("AttachmentID = :AttachmentID ;");
+		//    StringBuilder sqlCommand = new StringBuilder();
 
-        //    SqliteParameter[] arParams = new SqliteParameter[5];
+		//    sqlCommand.Append("UPDATE mp_PrivateMessageAttachments ");
+		//    sqlCommand.Append("SET  ");
+		//    sqlCommand.Append("MessageID = :MessageID, ");
+		//    sqlCommand.Append("OriginalFileName = :OriginalFileName, ");
+		//    sqlCommand.Append("ServerFileName = :ServerFileName, ");
+		//    sqlCommand.Append("CreatedDate = :CreatedDate ");
 
-        //    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = attachmentID.ToString();
+		//    sqlCommand.Append("WHERE  ");
+		//    sqlCommand.Append("AttachmentID = :AttachmentID ;");
 
-        //    arParams[1] = new SqliteParameter(":MessageID", DbType.String, 36);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = messageID.ToString();
+		//    SqliteParameter[] arParams = new SqliteParameter[5];
 
-        //    arParams[2] = new SqliteParameter(":OriginalFileName", DbType.String, 255);
-        //    arParams[2].Direction = ParameterDirection.Input;
-        //    arParams[2].Value = originalFileName;
+		//    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = attachmentID.ToString();
 
-        //    arParams[3] = new SqliteParameter(":ServerFileName", DbType.String, 50);
-        //    arParams[3].Direction = ParameterDirection.Input;
-        //    arParams[3].Value = serverFileName;
+		//    arParams[1] = new SqliteParameter(":MessageID", DbType.String, 36);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = messageID.ToString();
 
-        //    arParams[4] = new SqliteParameter(":CreatedDate", DbType.DateTime);
-        //    arParams[4].Direction = ParameterDirection.Input;
-        //    arParams[4].Value = createdDate;
+		//    arParams[2] = new SqliteParameter(":OriginalFileName", DbType.String, 255);
+		//    arParams[2].Direction = ParameterDirection.Input;
+		//    arParams[2].Value = originalFileName;
 
+		//    arParams[3] = new SqliteParameter(":ServerFileName", DbType.String, 50);
+		//    arParams[3].Direction = ParameterDirection.Input;
+		//    arParams[3].Value = serverFileName;
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > -1);
+		//    arParams[4] = new SqliteParameter(":CreatedDate", DbType.DateTime);
+		//    arParams[4].Direction = ParameterDirection.Input;
+		//    arParams[4].Value = createdDate;
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > -1);
 
-        //public static bool PrivateMessageAttachment_DeletePrivateMessageAttachment(
-        //    Guid attachmentID)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("DELETE FROM mp_PrivateMessageAttachments ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("AttachmentID = :AttachmentID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = attachmentID.ToString();
+		//public static bool PrivateMessageAttachment_DeletePrivateMessageAttachment(
+		//    Guid attachmentID)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("DELETE FROM mp_PrivateMessageAttachments ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("AttachmentID = :AttachmentID ;");
 
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > 0);
+		//    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = attachmentID.ToString();
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > 0);
 
-        //public static IDataReader PrivateMessageAttachment_GetPrivateMessageAttachment(
-        //    Guid attachmentID)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("SELECT  * ");
-        //    sqlCommand.Append("FROM	mp_PrivateMessageAttachments ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("AttachmentID = :AttachmentID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = attachmentID.ToString();
+		//public static IDataReader PrivateMessageAttachment_GetPrivateMessageAttachment(
+		//    Guid attachmentID)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("SELECT  * ");
+		//    sqlCommand.Append("FROM	mp_PrivateMessageAttachments ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("AttachmentID = :AttachmentID ;");
 
-        //    return SqliteHelper.ExecuteReader(
-        //        GetConnectionString(),
-        //        sqlCommand.ToString(),
-        //        arParams);
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //}
+		//    arParams[0] = new SqliteParameter(":AttachmentID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = attachmentID.ToString();
 
-        //#endregion
+		//    return SqliteHelper.ExecuteReader(
+		//        GetConnectionString(),
+		//        sqlCommand.ToString(),
+		//        arParams);
 
+		//}
 
-        //#region UserEmailAccount
+		//#endregion
 
-        //public static int UserEmailAccount_AddUserEmailAccount(
-        //    Guid id,
-        //    Guid userGuid,
-        //    string accountName,
-        //    string userName,
-        //    string email,
-        //    string password,
-        //    string pop3Server,
-        //    int pop3Port,
-        //    string smtpServer,
-        //    int smtpPort,
-        //    bool useSSL)
-        //{
-        //    #region Bit Conversion
 
-        //    byte ussl;
-        //    if (useSSL)
-        //    {
-        //        ussl = 1;
-        //    }
-        //    else
-        //    {
-        //        ussl = 0;
-        //    }
+		//#region UserEmailAccount
 
-        //    #endregion
+		//public static int UserEmailAccount_AddUserEmailAccount(
+		//    Guid id,
+		//    Guid userGuid,
+		//    string accountName,
+		//    string userName,
+		//    string email,
+		//    string password,
+		//    string pop3Server,
+		//    int pop3Port,
+		//    string smtpServer,
+		//    int smtpPort,
+		//    bool useSSL)
+		//{
+		//    #region Bit Conversion
 
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("INSERT INTO mp_UserEmailAccounts (");
-        //    sqlCommand.Append("ID, ");
-        //    sqlCommand.Append("UserGuid, ");
-        //    sqlCommand.Append("AccountName, ");
-        //    sqlCommand.Append("UserName, ");
-        //    sqlCommand.Append("Email, ");
-        //    sqlCommand.Append("Password, ");
-        //    sqlCommand.Append("Pop3Server, ");
-        //    sqlCommand.Append("Pop3Port, ");
-        //    sqlCommand.Append("SmtpServer, ");
-        //    sqlCommand.Append("SmtpPort, ");
-        //    sqlCommand.Append("UseSSL )");
+		//    byte ussl;
+		//    if (useSSL)
+		//    {
+		//        ussl = 1;
+		//    }
+		//    else
+		//    {
+		//        ussl = 0;
+		//    }
 
-        //    sqlCommand.Append(" VALUES (");
-        //    sqlCommand.Append(":ID, ");
-        //    sqlCommand.Append(":UserGuid, ");
-        //    sqlCommand.Append(":AccountName, ");
-        //    sqlCommand.Append(":UserName, ");
-        //    sqlCommand.Append(":Email, ");
-        //    sqlCommand.Append(":Password, ");
-        //    sqlCommand.Append(":Pop3Server, ");
-        //    sqlCommand.Append(":Pop3Port, ");
-        //    sqlCommand.Append(":SmtpServer, ");
-        //    sqlCommand.Append(":SmtpPort, ");
-        //    sqlCommand.Append(":UseSSL );");
+		//    #endregion
 
-        //    SqliteParameter[] arParams = new SqliteParameter[11];
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("INSERT INTO mp_UserEmailAccounts (");
+		//    sqlCommand.Append("ID, ");
+		//    sqlCommand.Append("UserGuid, ");
+		//    sqlCommand.Append("AccountName, ");
+		//    sqlCommand.Append("UserName, ");
+		//    sqlCommand.Append("Email, ");
+		//    sqlCommand.Append("Password, ");
+		//    sqlCommand.Append("Pop3Server, ");
+		//    sqlCommand.Append("Pop3Port, ");
+		//    sqlCommand.Append("SmtpServer, ");
+		//    sqlCommand.Append("SmtpPort, ");
+		//    sqlCommand.Append("UseSSL )");
 
-        //    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = id.ToString();
+		//    sqlCommand.Append(" VALUES (");
+		//    sqlCommand.Append(":ID, ");
+		//    sqlCommand.Append(":UserGuid, ");
+		//    sqlCommand.Append(":AccountName, ");
+		//    sqlCommand.Append(":UserName, ");
+		//    sqlCommand.Append(":Email, ");
+		//    sqlCommand.Append(":Password, ");
+		//    sqlCommand.Append(":Pop3Server, ");
+		//    sqlCommand.Append(":Pop3Port, ");
+		//    sqlCommand.Append(":SmtpServer, ");
+		//    sqlCommand.Append(":SmtpPort, ");
+		//    sqlCommand.Append(":UseSSL );");
 
-        //    arParams[1] = new SqliteParameter(":UserGuid", DbType.String, 36);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = userGuid.ToString();
+		//    SqliteParameter[] arParams = new SqliteParameter[11];
 
-        //    arParams[2] = new SqliteParameter(":AccountName", DbType.String, 50);
-        //    arParams[2].Direction = ParameterDirection.Input;
-        //    arParams[2].Value = accountName;
+		//    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = id.ToString();
 
-        //    arParams[3] = new SqliteParameter(":UserName", DbType.String, 75);
-        //    arParams[3].Direction = ParameterDirection.Input;
-        //    arParams[3].Value = userName;
+		//    arParams[1] = new SqliteParameter(":UserGuid", DbType.String, 36);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = userGuid.ToString();
 
-        //    arParams[4] = new SqliteParameter(":Email", DbType.String, 100);
-        //    arParams[4].Direction = ParameterDirection.Input;
-        //    arParams[4].Value = email;
+		//    arParams[2] = new SqliteParameter(":AccountName", DbType.String, 50);
+		//    arParams[2].Direction = ParameterDirection.Input;
+		//    arParams[2].Value = accountName;
 
-        //    arParams[5] = new SqliteParameter(":Password", DbType.String, 255);
-        //    arParams[5].Direction = ParameterDirection.Input;
-        //    arParams[5].Value = password;
+		//    arParams[3] = new SqliteParameter(":UserName", DbType.String, 75);
+		//    arParams[3].Direction = ParameterDirection.Input;
+		//    arParams[3].Value = userName;
 
-        //    arParams[6] = new SqliteParameter(":Pop3Server", DbType.String, 75);
-        //    arParams[6].Direction = ParameterDirection.Input;
-        //    arParams[6].Value = pop3Server;
+		//    arParams[4] = new SqliteParameter(":Email", DbType.String, 100);
+		//    arParams[4].Direction = ParameterDirection.Input;
+		//    arParams[4].Value = email;
 
-        //    arParams[7] = new SqliteParameter(":Pop3Port", DbType.Int32);
-        //    arParams[7].Direction = ParameterDirection.Input;
-        //    arParams[7].Value = pop3Port;
+		//    arParams[5] = new SqliteParameter(":Password", DbType.String, 255);
+		//    arParams[5].Direction = ParameterDirection.Input;
+		//    arParams[5].Value = password;
 
-        //    arParams[8] = new SqliteParameter(":SmtpServer", DbType.String, 75);
-        //    arParams[8].Direction = ParameterDirection.Input;
-        //    arParams[8].Value = smtpServer;
+		//    arParams[6] = new SqliteParameter(":Pop3Server", DbType.String, 75);
+		//    arParams[6].Direction = ParameterDirection.Input;
+		//    arParams[6].Value = pop3Server;
 
-        //    arParams[9] = new SqliteParameter(":SmtpPort", DbType.Int32);
-        //    arParams[9].Direction = ParameterDirection.Input;
-        //    arParams[9].Value = smtpPort;
+		//    arParams[7] = new SqliteParameter(":Pop3Port", DbType.Int32);
+		//    arParams[7].Direction = ParameterDirection.Input;
+		//    arParams[7].Value = pop3Port;
 
-        //    arParams[10] = new SqliteParameter(":UseSSL", DbType.Int32);
-        //    arParams[10].Direction = ParameterDirection.Input;
-        //    arParams[10].Value = ussl;
+		//    arParams[8] = new SqliteParameter(":SmtpServer", DbType.String, 75);
+		//    arParams[8].Direction = ParameterDirection.Input;
+		//    arParams[8].Value = smtpServer;
 
+		//    arParams[9] = new SqliteParameter(":SmtpPort", DbType.Int32);
+		//    arParams[9].Direction = ParameterDirection.Input;
+		//    arParams[9].Value = smtpPort;
 
-        //    int rowsAffected = 0;
-        //    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return rowsAffected;
+		//    arParams[10] = new SqliteParameter(":UseSSL", DbType.Int32);
+		//    arParams[10].Direction = ParameterDirection.Input;
+		//    arParams[10].Value = ussl;
 
-        //}
 
+		//    int rowsAffected = 0;
+		//    rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return rowsAffected;
 
+		//}
 
 
-        //public static bool UserEmailAccount_UpdateUserEmailAccount(
-        //    Guid id,
-        //    string accountName,
-        //    string userName,
-        //    string email,
-        //    string password,
-        //    string pop3Server,
-        //    int pop3Port,
-        //    string smtpServer,
-        //    int smtpPort,
-        //    bool useSSL)
-        //{
-        //    #region Bit Conversion
 
-        //    byte ussl;
-        //    if (useSSL)
-        //    {
-        //        ussl = 1;
-        //    }
-        //    else
-        //    {
-        //        ussl = 0;
-        //    }
 
-        //    #endregion
+		//public static bool UserEmailAccount_UpdateUserEmailAccount(
+		//    Guid id,
+		//    string accountName,
+		//    string userName,
+		//    string email,
+		//    string password,
+		//    string pop3Server,
+		//    int pop3Port,
+		//    string smtpServer,
+		//    int smtpPort,
+		//    bool useSSL)
+		//{
+		//    #region Bit Conversion
 
-        //    StringBuilder sqlCommand = new StringBuilder();
+		//    byte ussl;
+		//    if (useSSL)
+		//    {
+		//        ussl = 1;
+		//    }
+		//    else
+		//    {
+		//        ussl = 0;
+		//    }
 
-        //    sqlCommand.Append("UPDATE mp_UserEmailAccounts ");
-        //    sqlCommand.Append("SET  ");
-        //    sqlCommand.Append("AccountName = :AccountName, ");
-        //    sqlCommand.Append("UserName = :UserName, ");
-        //    sqlCommand.Append("Email = :Email, ");
-        //    sqlCommand.Append("Password = :Password, ");
-        //    sqlCommand.Append("Pop3Server = :Pop3Server, ");
-        //    sqlCommand.Append("Pop3Port = :Pop3Port, ");
-        //    sqlCommand.Append("SmtpServer = :SmtpServer, ");
-        //    sqlCommand.Append("SmtpPort = :SmtpPort, ");
-        //    sqlCommand.Append("UseSSL = :UseSSL ");
+		//    #endregion
 
-        //    sqlCommand.Append("WHERE  ");
-        //    sqlCommand.Append("ID = :ID ;");
+		//    StringBuilder sqlCommand = new StringBuilder();
 
-        //    SqliteParameter[] arParams = new SqliteParameter[10];
+		//    sqlCommand.Append("UPDATE mp_UserEmailAccounts ");
+		//    sqlCommand.Append("SET  ");
+		//    sqlCommand.Append("AccountName = :AccountName, ");
+		//    sqlCommand.Append("UserName = :UserName, ");
+		//    sqlCommand.Append("Email = :Email, ");
+		//    sqlCommand.Append("Password = :Password, ");
+		//    sqlCommand.Append("Pop3Server = :Pop3Server, ");
+		//    sqlCommand.Append("Pop3Port = :Pop3Port, ");
+		//    sqlCommand.Append("SmtpServer = :SmtpServer, ");
+		//    sqlCommand.Append("SmtpPort = :SmtpPort, ");
+		//    sqlCommand.Append("UseSSL = :UseSSL ");
 
-        //    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = id.ToString();
+		//    sqlCommand.Append("WHERE  ");
+		//    sqlCommand.Append("ID = :ID ;");
 
-        //    arParams[1] = new SqliteParameter(":AccountName", DbType.String, 50);
-        //    arParams[1].Direction = ParameterDirection.Input;
-        //    arParams[1].Value = accountName;
+		//    SqliteParameter[] arParams = new SqliteParameter[10];
 
-        //    arParams[2] = new SqliteParameter(":UserName", DbType.String, 75);
-        //    arParams[2].Direction = ParameterDirection.Input;
-        //    arParams[2].Value = userName;
+		//    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = id.ToString();
 
-        //    arParams[3] = new SqliteParameter(":Email", DbType.String, 100);
-        //    arParams[3].Direction = ParameterDirection.Input;
-        //    arParams[3].Value = email;
+		//    arParams[1] = new SqliteParameter(":AccountName", DbType.String, 50);
+		//    arParams[1].Direction = ParameterDirection.Input;
+		//    arParams[1].Value = accountName;
 
-        //    arParams[4] = new SqliteParameter(":Password", DbType.String, 255);
-        //    arParams[4].Direction = ParameterDirection.Input;
-        //    arParams[4].Value = password;
+		//    arParams[2] = new SqliteParameter(":UserName", DbType.String, 75);
+		//    arParams[2].Direction = ParameterDirection.Input;
+		//    arParams[2].Value = userName;
 
-        //    arParams[5] = new SqliteParameter(":Pop3Server", DbType.String, 75);
-        //    arParams[5].Direction = ParameterDirection.Input;
-        //    arParams[5].Value = pop3Server;
+		//    arParams[3] = new SqliteParameter(":Email", DbType.String, 100);
+		//    arParams[3].Direction = ParameterDirection.Input;
+		//    arParams[3].Value = email;
 
-        //    arParams[6] = new SqliteParameter(":Pop3Port", DbType.Int32);
-        //    arParams[6].Direction = ParameterDirection.Input;
-        //    arParams[6].Value = pop3Port;
+		//    arParams[4] = new SqliteParameter(":Password", DbType.String, 255);
+		//    arParams[4].Direction = ParameterDirection.Input;
+		//    arParams[4].Value = password;
 
-        //    arParams[7] = new SqliteParameter(":SmtpServer", DbType.String, 75);
-        //    arParams[7].Direction = ParameterDirection.Input;
-        //    arParams[7].Value = smtpServer;
+		//    arParams[5] = new SqliteParameter(":Pop3Server", DbType.String, 75);
+		//    arParams[5].Direction = ParameterDirection.Input;
+		//    arParams[5].Value = pop3Server;
 
-        //    arParams[8] = new SqliteParameter(":SmtpPort", DbType.Int32);
-        //    arParams[8].Direction = ParameterDirection.Input;
-        //    arParams[8].Value = smtpPort;
+		//    arParams[6] = new SqliteParameter(":Pop3Port", DbType.Int32);
+		//    arParams[6].Direction = ParameterDirection.Input;
+		//    arParams[6].Value = pop3Port;
 
-        //    arParams[9] = new SqliteParameter(":UseSSL", DbType.Int32);
-        //    arParams[9].Direction = ParameterDirection.Input;
-        //    arParams[9].Value = ussl;
+		//    arParams[7] = new SqliteParameter(":SmtpServer", DbType.String, 75);
+		//    arParams[7].Direction = ParameterDirection.Input;
+		//    arParams[7].Value = smtpServer;
 
+		//    arParams[8] = new SqliteParameter(":SmtpPort", DbType.Int32);
+		//    arParams[8].Direction = ParameterDirection.Input;
+		//    arParams[8].Value = smtpPort;
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > -1);
+		//    arParams[9] = new SqliteParameter(":UseSSL", DbType.Int32);
+		//    arParams[9].Direction = ParameterDirection.Input;
+		//    arParams[9].Value = ussl;
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > -1);
 
-        //public static bool UserEmailAccount_DeleteUserEmailAccount(Guid id)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("DELETE FROM mp_UserEmailAccounts ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("ID = :ID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = id.ToString();
+		//public static bool UserEmailAccount_DeleteUserEmailAccount(Guid id)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("DELETE FROM mp_UserEmailAccounts ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("ID = :ID ;");
 
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-        //    return (rowsAffected > 0);
+		//    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = id.ToString();
 
-        //}
 
+		//    int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+		//    return (rowsAffected > 0);
 
-        //public static IDataReader UserEmailAccount_GetUserEmailAccount(Guid id)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("SELECT  * ");
-        //    sqlCommand.Append("FROM	mp_UserEmailAccounts ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("ID = :ID ;");
+		//}
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = id.ToString();
+		//public static IDataReader UserEmailAccount_GetUserEmailAccount(Guid id)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("SELECT  * ");
+		//    sqlCommand.Append("FROM	mp_UserEmailAccounts ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("ID = :ID ;");
 
-        //    return SqliteHelper.ExecuteReader(
-        //        GetConnectionString(),
-        //        sqlCommand.ToString(),
-        //        arParams);
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //}
+		//    arParams[0] = new SqliteParameter(":ID", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = id.ToString();
 
-        //public static IDataReader UserEmailAccount_GetUserEmailAccountByUser(Guid userGuid)
-        //{
-        //    StringBuilder sqlCommand = new StringBuilder();
-        //    sqlCommand.Append("SELECT  * ");
-        //    sqlCommand.Append("FROM	mp_UserEmailAccounts ");
-        //    sqlCommand.Append("WHERE ");
-        //    sqlCommand.Append("UserGuid = :UserGuid ;");
+		//    return SqliteHelper.ExecuteReader(
+		//        GetConnectionString(),
+		//        sqlCommand.ToString(),
+		//        arParams);
 
-        //    SqliteParameter[] arParams = new SqliteParameter[1];
+		//}
 
-        //    arParams[0] = new SqliteParameter(":UserGuid", DbType.String, 36);
-        //    arParams[0].Direction = ParameterDirection.Input;
-        //    arParams[0].Value = userGuid.ToString();
+		//public static IDataReader UserEmailAccount_GetUserEmailAccountByUser(Guid userGuid)
+		//{
+		//    StringBuilder sqlCommand = new StringBuilder();
+		//    sqlCommand.Append("SELECT  * ");
+		//    sqlCommand.Append("FROM	mp_UserEmailAccounts ");
+		//    sqlCommand.Append("WHERE ");
+		//    sqlCommand.Append("UserGuid = :UserGuid ;");
 
-        //    return SqliteHelper.ExecuteReader(
-        //        GetConnectionString(),
-        //        sqlCommand.ToString(),
-        //        arParams);
+		//    SqliteParameter[] arParams = new SqliteParameter[1];
 
-        //}
+		//    arParams[0] = new SqliteParameter(":UserGuid", DbType.String, 36);
+		//    arParams[0].Direction = ParameterDirection.Input;
+		//    arParams[0].Value = userGuid.ToString();
 
+		//    return SqliteHelper.ExecuteReader(
+		//        GetConnectionString(),
+		//        sqlCommand.ToString(),
+		//        arParams);
 
-        //#endregion
+		//}
 
-        
 
-        
+		//#endregion
 
-    }
+
+
+
+
+	}
 }

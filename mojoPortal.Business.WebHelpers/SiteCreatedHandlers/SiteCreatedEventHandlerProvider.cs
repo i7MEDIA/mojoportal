@@ -1,27 +1,8 @@
-﻿//  Author:                     Joe Davis
-//  Created:                    2012-04-02
-//	Last Modified:              2012-04-02
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
+﻿using System.Configuration.Provider;
 
-using System.Configuration.Provider;
+namespace mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers;
 
-namespace mojoPortal.Business.WebHelpers.SiteCreatedEventHandlers
+public abstract class SiteCreatedEventHandlerProvider : ProviderBase
 {
-    /// <summary>
-    ///  
-    /// </summary>
-    public abstract class SiteCreatedEventHandlerProvider : ProviderBase
-    {
-        public abstract void SiteCreatedHandler(
-            object sender,
-            SiteCreatedEventArgs e);
-
-    }
+	public abstract void SiteCreatedHandler(object sender, SiteCreatedEventArgs e);
 }

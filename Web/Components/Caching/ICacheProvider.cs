@@ -9,22 +9,20 @@
 //
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace mojoPortal.Web.Caching
+namespace mojoPortal.Web.Caching;
+
+
+public delegate T GetDataToCacheDelegate<T>();
+
+public interface ICacheProvider
 {
-    public delegate T GetDataToCacheDelegate<T>();
-
-    public interface ICacheProvider
-    {
-        T Get<T>(string cacheKey, DateTime absoluteExpiryDate, GetDataToCacheDelegate<T> getData, bool addToPerRequestCache = false) where T : class;
-		T Get<T>(string cacheKey, TimeSpan slidingExpiryWindow, GetDataToCacheDelegate<T> getData, bool addToPerRequestCache = false) where T : class;
-        object GetObject(string cacheKey);
-        void InvalidateCacheItem(string cacheKey);
-    	void Add(string cacheKey, DateTime absoluteExpiryDate, object dataToAdd);
-		void Add(string cacheKey, TimeSpan slidingExpiryWindow, object dataToAdd);
-    	void AddToPerRequestCache(string cacheKey, object dataToAdd);
-    }
+	public T GetOrSetItem<T>(string cacheKey, Func<T> fetch, DateTime? expires = null);
+	T Get<T>(string cacheKey, DateTime absoluteExpiryDate, GetDataToCacheDelegate<T> getData, bool addToPerRequestCache = false) where T : class;
+	T Get<T>(string cacheKey, TimeSpan slidingExpiryWindow, GetDataToCacheDelegate<T> getData, bool addToPerRequestCache = false) where T : class;
+	object GetObject(string cacheKey);
+	void InvalidateCacheItem(string cacheKey);
+	void Add(string cacheKey, DateTime absoluteExpiryDate, object dataToAdd);
+	void Add(string cacheKey, TimeSpan slidingExpiryWindow, object dataToAdd);
+	void AddToPerRequestCache(string cacheKey, object dataToAdd);
 }

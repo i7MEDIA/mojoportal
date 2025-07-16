@@ -5,7 +5,7 @@
 	"License": "EPL",
 	"SupportUrl": "https://i7media.com",
 	"HelpLinkScriptPath": "",
-	"ModalScriptPath": "$SkinPath$/config/GenericModalScript.js",
+	"ModalScriptPath": "$SkinPath$/js/GenericModalScript.js",
 	"ModalTemplatePath": "$SkinPath$/includes/modal.html",
 	"Display": {
 		"ShowSkinSearchInputOnSearchResults": false,

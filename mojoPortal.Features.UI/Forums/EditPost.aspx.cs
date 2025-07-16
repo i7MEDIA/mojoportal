@@ -64,25 +64,7 @@ namespace mojoPortal.Web.ForumUI
 
 			SecurityHelper.DisableBrowserCache();
 
-
-			if ((siteSettings != null) && (CurrentPage != null))
-			{
-				if ((SiteUtils.SslIsAvailable())
-					&& ((siteSettings.UseSslOnAllPages) || (CurrentPage.RequireSsl))
-					)
-				{
-					SiteUtils.ForceSsl();
-				}
-				else
-				{
-					SiteUtils.ClearSsl();
-				}
-
-			}
-
 			SiteUtils.SetupEditor(edMessage, AllowSkinOverride, this);
-
-
 		}
 
 		#endregion
