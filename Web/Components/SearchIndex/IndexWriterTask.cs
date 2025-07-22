@@ -25,7 +25,7 @@ public class IndexWriterTask : ITaskQueueTask
 	private int rowsProcessed = 0;
 	private int errorCount = 0;
 	// we'll try to update every 10 seconds
-	// we use this insteaod fo public updatefrequency because some things may take longer
+	// we use this instead of public update frequency because some things may take longer
 	// to execute like indexWriter.Optimize()
 	private int actualUpdateFrequency = 10;
 	private DateTime nextStatusUpdateTime = DateTime.MinValue;
@@ -59,7 +59,7 @@ public class IndexWriterTask : ITaskQueueTask
 
 		log.Debug("deserialized IndexWriterTask task");
 
-		// give a little time to make sure the taskqueue was updated after spawning the thread
+		// give a little time to make sure the task queue was updated after spawning the thread
 		Thread.Sleep(100); // 0.10 seconds
 
 		task.RunTask();
@@ -77,7 +77,6 @@ public class IndexWriterTask : ITaskQueueTask
 		}
 
 		ProcessIndexingQueue();
-		//MarkAsComplete();
 	}
 
 	private void ProcessIndexingQueue()
@@ -281,9 +280,10 @@ public class IndexWriterTask : ITaskQueueTask
 		}
 	}
 
+
 	private Document GetDocument(IndexItem indexItem)
 	{
-		Document doc = new Document();
+		var doc = new Document();
 
 		// searchable fields
 		doc.Add(new Field("Key", indexItem.Key, Field.Store.YES, Field.Index.NOT_ANALYZED));
@@ -291,22 +291,18 @@ public class IndexWriterTask : ITaskQueueTask
 		doc.Add(new Field("SiteID", indexItem.SiteId.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
 		doc.Add(new Field("ViewRoles", indexItem.ViewRoles, Field.Store.YES, Field.Index.NO));
 
-		string[] roles = indexItem.ViewRoles.Split(';');
-		foreach (string role in roles)
+		var roles = indexItem.ViewRoles.Split([';'], StringSplitOptions.RemoveEmptyEntries);
+
+		foreach (var role in roles)
 		{
-			if (role.Length > 0)
-			{
-				doc.Add(new Field("Role", role, Field.Store.YES, Field.Index.NOT_ANALYZED));
-			}
+			doc.Add(new Field("Role", role, Field.Store.YES, Field.Index.NOT_ANALYZED));
 		}
 
-		roles = indexItem.ModuleViewRoles.Split(';');
-		foreach (string role in roles)
+		var moduleRoles = indexItem.ModuleViewRoles.Split([';'], StringSplitOptions.RemoveEmptyEntries);
+
+		foreach (var role in moduleRoles)
 		{
-			if (role.Length > 0)
-			{
-				doc.Add(new Field("ModuleRole", role, Field.Store.YES, Field.Index.NOT_ANALYZED));
-			}
+			doc.Add(new Field("ModuleRole", role, Field.Store.YES, Field.Index.NOT_ANALYZED));
 		}
 
 		doc.Add(new Field("FeatureId", indexItem.FeatureId, Field.Store.YES, Field.Index.NOT_ANALYZED));
@@ -316,37 +312,9 @@ public class IndexWriterTask : ITaskQueueTask
 
 		doc.Add(new Field("PublishBeginDate", indexItem.PublishBeginDate.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
 		doc.Add(new Field("PublishEndDate", indexItem.PublishEndDate.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
-		//doc.Add(new Field("IndexedUtc", DateTime.UtcNow.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-		//doc.Add(new NumericField("PubBeginDate", Field.Store.YES, true).SetLongValue(indexItem.PublishBeginDate.Ticks));
-		//doc.Add(new NumericField("PubEndDate", Field.Store.YES, true).SetLongValue(indexItem.PublishEndDate.Ticks));
-
-		//2013-01-08 adding created and lastmod date and storage to Numeric field for sorting and range queries
-		//http://stackoverflow.com/questions/2685490/lucene-net-sorting-by-int
-
-		//if (indexItem.CreatedUtc > DateTime.MinValue)
-		//{
-		//    doc.Add(new NumericField("CreatedUtc", Field.Store.YES, true).SetLongValue(indexItem.CreatedUtc.Ticks));
-		//}
-		//else
-		//{
-		//    doc.Add(new NumericField("CreatedUtc", Field.Store.YES, true).SetLongValue(DateTime.UtcNow.Ticks));
-		//}
-
-		//if (indexItem.LastModUtc > DateTime.MinValue)
-		//{
-		//    doc.Add(new NumericField("LastModUtc", Field.Store.YES, true).SetLongValue(indexItem.LastModUtc.Ticks));
-		//}
-		//else
-		//{
-		//    doc.Add(new NumericField("LastModUtc", Field.Store.YES, true).SetLongValue(DateTime.UtcNow.Ticks));
-		//}
 
 		doc.Add(new Field("CreatedUtc", indexItem.CreatedUtc.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
 		doc.Add(new Field("LastModUtc", indexItem.LastModUtc.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-		//doc.Add(new NumericField("CreatedUtc", Field.Store.YES, true).SetIntValue(indexItem.CreatedUtc.ToDateInteger()));
-		//doc.Add(new NumericField("LastModUtc", Field.Store.YES, true).SetIntValue(indexItem.LastModUtc.ToDateInteger()));
 
 		doc.Add(new Field("PageName", indexItem.PageName, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
 		doc.Add(new Field("ModuleTitle", indexItem.ModuleTitle, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
@@ -354,6 +322,7 @@ public class IndexWriterTask : ITaskQueueTask
 		doc.Add(new Field("PageMetaDesc", indexItem.PageMetaDescription, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
 
 		var categories = indexItem.Categories.SplitOnCharAndTrim(',');
+
 		foreach (var category in categories)
 		{
 			if (!string.IsNullOrWhiteSpace(category))
@@ -363,7 +332,8 @@ public class IndexWriterTask : ITaskQueueTask
 		}
 
 		var keywords = indexItem.PageMetaKeywords.SplitOnCharAndTrim(',');
-		foreach (string word in keywords)
+
+		foreach (var word in keywords)
 		{
 			if (!string.IsNullOrWhiteSpace(word))
 			{
@@ -372,8 +342,8 @@ public class IndexWriterTask : ITaskQueueTask
 		}
 
 		// TODO: store an abstract that can be displayed in alternate to intro and contain raw html
+		var introContent = ConvertToText(indexItem.Content);
 
-		string introContent = ConvertToText(indexItem.Content);
 		if (introContent.Length > WebConfigSettings.SearchResultsFragmentSize)
 		{
 			introContent = UIHelper.CreateExcerpt(introContent, WebConfigSettings.SearchResultsFragmentSize - 3) + "...";
@@ -381,35 +351,17 @@ public class IndexWriterTask : ITaskQueueTask
 
 		doc.Add(new Field("Intro", introContent, Field.Store.YES, Field.Index.NOT_ANALYZED));
 
-		//doc.Add(new Field("Intro",
-		//   (textContent.Length < WebConfigSettings.SearchResultsFragmentSize ? textContent : (UIHelper.CreateExcerpt(textContent, (WebConfigSettings.SearchResultsFragmentSize -3)) + "..."))
-		//   , Field.Store.YES, Field.Index.NOT_ANALYZED
-		//   )
-		//   );
-
 		// for display in recent content features, html is allowed here
 		if (indexItem.ContentAbstract.Length == 0)
 		{
 			indexItem.ContentAbstract = introContent;
 		}
-		doc.Add(new Field("Abstract", indexItem.ContentAbstract, Field.Store.YES, Field.Index.NO));
 
-		//// other content is optional, used for blog comments
-		//// could be used elsewhere
-		//if (storeContentForResultsHighlighting)
-		//{
+		doc.Add(new Field("Abstract", indexItem.ContentAbstract, Field.Store.YES, Field.Index.NO));
 
 		// this is the main searched field
 		doc.Add(new Field("contents", ConvertToText(indexItem.Content) + " "
 				+ ConvertToText(indexItem.OtherContent), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
-
-		//}
-		//else
-		//{
-		//    doc.Add(new Field("contents", textContent + " "
-		//        + ConvertToText(indexItem.OtherContent), Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.YES));
-		//}
-
 
 		//unsearchable fields
 		doc.Add(new Field("Feature", indexItem.FeatureName, Field.Store.YES, Field.Index.NO));
@@ -420,6 +372,8 @@ public class IndexWriterTask : ITaskQueueTask
 		doc.Add(new Field("QueryStringAddendum", indexItem.QueryStringAddendum, Field.Store.YES, Field.Index.NO));
 
 		doc.Add(new Field("ExcludeFromRecentContent", indexItem.ExcludeFromRecentContent.ToString().ToLower(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+
+		doc.Add(new Field("ItemImage", indexItem.ItemImage, Field.Store.YES, Field.Index.NO));
 
 		return doc;
 	}
