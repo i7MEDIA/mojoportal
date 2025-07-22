@@ -80,70 +80,73 @@
 	var pagedItems = GetPagedList(Model.PageCount, Model.CurrentIndex);
 }
 
-<nav role="navigation">
-	<ul class="pagination" id="@pagerId">
-		@foreach (var item in pagedItems)
-		{
-			if (item == 0)
+@if (pagedItems.Count > 1)
+{
+	<nav role="navigation">
+		<ul class="pagination" id="@pagerId">
+			@foreach (var item in pagedItems)
 			{
-				var goToId = "goto-" + Guid.NewGuid().ToString("N");
+				if (item == 0)
+				{
+					var goToId = "goto-" + Guid.NewGuid().ToString("N");
 
-				<li>
-					<div id="@goToId" class="pagination-goto-popup" popover style="width: 300px; border: 1px solid #999; border-radius: 11px;">
-						<div class="input-group">
-							<div class="input-group-addon">Go To Page:</div>
-							<input class="form-control" type="number" autofocus />
+					<li>
+						<div id="@goToId" class="pagination-goto-popup" popover style="width: 300px; border: 1px solid #999; border-radius: 11px;">
+							<div class="input-group">
+								<div class="input-group-addon">Go To Page:</div>
+								<input class="form-control" type="number" autofocus />
+							</div>
 						</div>
-					</div>
-					<span class="pagination-goto" style="cursor: pointer;" data-popovertarget="@goToId" title="Go to Page">&hellip;</span>
-				</li>
+						<span class="pagination-goto" style="cursor: pointer;" data-popovertarget="@goToId" title="Go to Page">&hellip;</span>
+					</li>
+				}
+				else if (item == Model.CurrentIndex)
+				{
+					<li class="active">
+						<span>@(item)</span>
+					</li>
+				}
+				else
+				{
+					<li>
+						<a href="@string.Format(Model.LinkFormat, item.ToString())" title="@Resource.CutePagerNavigateToPageText @(item)">
+							@item
+						</a>
+					</li>
+				}
 			}
-			else if (item == Model.CurrentIndex)
-			{
-				<li class="active">
-					<span>@(item)</span>
-				</li>
+		</ul>
+	</nav>
+
+	<script>
+		(function () {
+			const pagination = document.querySelector('#@(pagerId)');
+			const linkTemplate = '@(Model.LinkFormat)';
+
+			function onKeydown(e) {
+				if (e.key === 'Enter') {
+					e.preventDefault();
+					e.stopPropagation();
+					window.location = linkTemplate.replace(/\{0\}/g, e.target.value);
+					this.closest('.pagination-goto-popup').hidePopover();
+				}
 			}
-			else
-			{
-				<li>
-					<a href="@string.Format(Model.LinkFormat, item.ToString())" title="@Resource.CutePagerNavigateToPageText @(item)">
-						@item
-					</a>
-				</li>
+
+			function onClick(e) {
+				const target = e.target.closest('.pagination-goto');
+
+				if (target) {
+					const popupId = target.dataset.popovertarget;
+					const popover = pagination.querySelector('#' + popupId);
+					const input = popover.querySelector('input');
+
+					popover.showPopover();
+
+					input.addEventListener('keydown', onKeydown);
+				}
 			}
-		}
-	</ul>
-</nav>
 
-<script>
-	(function () {
-		const pagination = document.querySelector('#@(pagerId)');
-		const linkTemplate = '@(Model.LinkFormat)';
-
-		function onKeydown(e) {
-			if (e.key === 'Enter') {
-				e.preventDefault();
-				e.stopPropagation();
-				window.location = linkTemplate.replace(/\{0\}/g, e.target.value);
-				this.closest('.pagination-goto-popup').hidePopover();
-			}
-		}
-
-		function onClick(e) {
-			const target = e.target.closest('.pagination-goto');
-
-			if (target) {
-				const popupId = target.dataset.popovertarget;
-				const popover = pagination.querySelector('#' + popupId);
-				const input = popover.querySelector('input');
-
-				popover.showPopover();
-
-				input.addEventListener('keydown', onKeydown);
-			}
-		}
-
-		pagination.addEventListener('click', onClick);
-	})();
-</script>
+			pagination.addEventListener('click', onClick);
+		})();
+	</script>
+}

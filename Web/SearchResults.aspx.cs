@@ -1,19 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data;
-using System.Globalization;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.SearchIndex;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.Models;
 using Resources;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.Text;
+using System.Threading;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.UI.Pages;
 
@@ -175,6 +175,7 @@ public partial class SearchResults : NonCmsBasePage
 		DoSearch();
 	}
 
+
 	private List<string> GetUserRoles()
 	{
 		List<string> userRoles = new List<string>();
@@ -196,6 +197,7 @@ public partial class SearchResults : NonCmsBasePage
 		return userRoles;
 	}
 
+
 	private void DoSearch()
 	{
 		if (Page.IsPostBack || Request.QueryString.Get("q") == null)
@@ -213,14 +215,14 @@ public partial class SearchResults : NonCmsBasePage
 		// this is only to make sure its initialized
 		// before indexing is queued on a thread
 		// because there is no HttpContext on
-		// external threads and httpcontext is needed to initilaize
-		// once initialized its cached
+		// external threads and HttpContext is needed to initialize
+		// once initialized it's cached
 
-		var indexProviders = IndexBuilderManager.Providers;
+		_ = IndexBuilderManager.Providers;
 
 		queryErrorOccurred = false;
 
-		IndexItemCollection searchResults = IndexHelper.Search(
+		var searchResults = IndexHelper.Search(
 			siteSettings.SiteId,
 			isSiteEditor,
 			GetUserRoles(),
@@ -238,94 +240,50 @@ public partial class SearchResults : NonCmsBasePage
 
 		if (searchResults.Count == 0)
 		{
-			ShowNoResults();
+			//ShowNoResults();
 			InitIndexIfNeeded();
 			return;
 		}
 
-		int start = 1;
-		if (pageNumber > 1)
+		if (searchResults.Count > 0)
 		{
-			start = ((pageNumber - 1) * pageSize) + 1;
+			var duration = searchResults.ExecutionTime * 0.0000001F;
+			lblDuration.Visible = true;
+			lblDuration.Text = duration.ToString();
+			lblSeconds.Visible = true;
 		}
-
-		int end = pageSize;
-
-		if (start > 1) { end += start; }
-
-		if (end > totalHits)
-		{
-			end = totalHits;
-		}
-
-		pnlSearchResults.Visible = true;
-		pnlNoResults.Visible = false;
-		lblDuration.Visible = true;
-		lblSeconds.Visible = true;
-
-		lblFrom.Text = (start).ToString();
-		lblTo.Text = end.ToString(CultureInfo.InvariantCulture);
-		lblTotal.Text = totalHits.ToString(CultureInfo.InvariantCulture);
-		lblQueryText.Text = Server.HtmlEncode(query);
-
-		float duration = searchResults.ExecutionTime * 0.0000001F;
-
-		lblDuration.Text = duration.ToString();
-		divResults.Visible = true;
-
-		totalPages = 1;
-
-		if (pageSize > 0) { totalPages = totalHits / pageSize; }
-
-		if (totalHits <= pageSize)
-		{
-			totalPages = 1;
-		}
-		else
-		{
-			Math.DivRem(totalHits, pageSize, out int remainder);
-			if (remainder > 0)
-			{
-				totalPages += 1;
-			}
-		}
-
-		//string searchUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(query)}&amp;p={{0}}{GetModBeginDateParam(true)}{GetModEndDateParam(true)}{GetFeatureParam(true)}";
 
 		//if problems with encoding of query, swap 'query' out with Server.UrlEncode(query)
-		string searchUrl = "SearchResults.aspx".ToLinkBuilder().AddParams(getSearchParams(query)).ToString();
+		var pagerUrlFormat = "SearchResults.aspx"
+			.ToLinkBuilder()
+			.AddParams(GetSearchParams(query))
+			.AddParam("p", "{0}")
+			.ToString();
 
-		pgrTop.PageURLFormat = searchUrl + "&amp;p={0}";
-		pgrTop.ShowFirstLast = true;
-		pgrTop.CurrentIndex = pageNumber;
-		pgrTop.PageSize = pageSize;
-		pgrTop.PageCount = totalPages;
-		pgrTop.Visible = totalPages > 1;
+		var model = SearchResultsViewModel.Create(
+			pageNumber,
+			pageSize,
+			totalHits,
+			showModuleTitleInResultLink,
+			pagerUrlFormat,
+			query,
+			timeZone,
+			searchResults,
+			displaySettings
+		);
 
-		pgrBottom.PageURLFormat = pgrTop.PageURLFormat;
-		pgrBottom.ShowFirstLast = pgrTop.ShowFirstLast;
-		pgrBottom.CurrentIndex = pgrTop.CurrentIndex;
-		pgrBottom.PageSize = pgrTop.PageSize;
-		pgrBottom.PageCount = pgrTop.PageCount;
-		pgrBottom.Visible = pgrTop.Visible;
-
-		if (WebConfigSettings.UseNeatHtmlInSearchResults)
+		try
 		{
-			rptResultsSecure.DataSource = searchResults;
-			rptResultsSecure.DataBind();
-			rptResultsSecure.Visible = true;
-			rptResults.Visible = false;
+			litSearchResults.Text = RazorBridge.RenderPartialToString("Results", model, "SearchResults");
 		}
-		else
+		catch (Exception e)
 		{
-			rptResults.DataSource = searchResults;
-			rptResults.DataBind();
-			rptResults.Visible = true;
-			rptResultsSecure.Visible = false;
+			log.Error("There was an issue rendering the search results page.", e);
 		}
 	}
 
-	private Dictionary<string, object> getSearchParams(string query)
+
+	private Dictionary<string, object> GetSearchParams(string query)
 	{
 		var searchParams = new Dictionary<string, object>
 		{
@@ -350,64 +308,12 @@ public partial class SearchResults : NonCmsBasePage
 		return searchParams;
 	}
 
-	//private string GetModBeginDateParam(bool encode)
-	//{
-	//	if (modifiedBeginDate.Date == DateTime.MinValue.Date)
-	//	{
-	//		return string.Empty;
-	//	}
-	//	if (!displaySettings.ShowModifiedDateFilters)
-	//	{
-	//		return string.Empty;
-	//	}
-
-	//	if (encode)
-	//	{
-	//		return $"&amp;bd={modifiedBeginDate.Date:s}";
-	//	}
-
-	//	return $"&bd={modifiedBeginDate.Date:s}";
-	//}
-
-	//private string GetModEndDateParam(bool encode)
-	//{
-	//	if (modifiedEndDate.Date == DateTime.MaxValue.Date)
-	//	{
-	//		return string.Empty;
-	//	}
-	//	if (!displaySettings.ShowModifiedDateFilters)
-	//	{
-	//		return string.Empty;
-	//	}
-
-	//	if (encode)
-	//	{
-	//		return $"&amp;ed={modifiedEndDate.Date:s}";
-	//	}
-
-	//	return $"&ed={modifiedEndDate.Date:s}";
-	//}
-
-	//private string GetFeatureParam(bool encode)
-	//{
-	//	if (featureGuid == Guid.Empty)
-	//	{
-	//		return string.Empty;
-	//	}
-
-	//	if (encode)
-	//	{
-	//		return $"&amp;f={featureGuid}";
-	//	}
-
-	//	return $"&f={featureGuid}";
-	//}
 
 	private void BindFeatureList()
 	{
 		using IDataReader reader = ModuleDefinition.GetSearchableModules(siteSettings.SiteId);
 		ListItem listItem;
-		
+
 		// this flag tells it to look first for a web config setting for the resource string
 		// corresponding to SearchListName value
 		// it allows you to customize searchlist names whereas by default they are just localized
@@ -416,63 +322,52 @@ public partial class SearchResults : NonCmsBasePage
 
 		while (reader.Read())
 		{
-			string featureid = reader["Guid"].ToString();
+			var featureId = reader["Guid"].ToString();
 
-			if (!WebConfigSettings.SearchableFeatureGuidsToExclude.Contains(featureid))
+			if (!WebConfigSettings.SearchableFeatureGuidsToExclude.Contains(featureId))
 			{
 				listItem = new ListItem(
 					ResourceHelper.GetResourceString(
 					reader["ResourceFile"].ToString(),
 					reader["SearchListName"].ToString(),
 					useConfigOverrides),
-					featureid);
+					featureId);
 
 				ddFeatureList.Items.Add(listItem);
 			}
 		}
 	}
 
+
 	private void InitIndexIfNeeded()
 	{
-		if (indexVerified) { return; }
+		if (indexVerified)
+		{
+			return;
+		}
 
 		indexVerified = true;
+
 		if (!IndexHelper.VerifySearchIndex(siteSettings))
 		{
 			lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
+
 			Thread.Sleep(5000); //wait 5 seconds
 			SiteUtils.QueueIndexing();
 		}
 	}
 
+
 	private void ShowNoResults()
 	{
 		if (queryErrorOccurred)
 		{
-			lblNoResults.Text = Resource.SearchQueryInvalid;
+			//lblNoResults.Text = Resource.SearchQueryInvalid;
 		}
-		divResults.Visible = false;
-		pnlNoResults.Visible = txtSearchInput.Text.Length > 0;
+		//divResults.Visible = false;
+		//pnlNoResults.Visible = txtSearchInput.Text.Length > 0;
 	}
 
-	protected string FormatLinkText(string pageName, string moduleTtile, string itemTitle)
-	{
-		if (showModuleTitleInResultLink)
-		{
-			if (itemTitle.Length > 0)
-			{
-				return $"{pageName} &gt; {moduleTtile} &gt; {itemTitle}";
-			}
-
-		}
-
-		if (itemTitle.Length > 0)
-		{
-			return $"{pageName} &gt; {itemTitle}";
-		}
-
-		return pageName;
-	}
 
 	private void btnDoSearch_Click(object sender, EventArgs e)
 	{
@@ -505,7 +400,7 @@ public partial class SearchResults : NonCmsBasePage
 		//string redirectUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(txtSearchInput.Text)}{GetModBeginDateParam(false)}{GetModEndDateParam(false)}{GetFeatureParam(false)}";
 
 		//if problems with encoding of query, swap 'txtSearchInput.Text' out with Server.UrlEncode(txtSearchInput.Text)
-		string redirectUrl = "SearchResults.aspx".ToLinkBuilder().AddParams(getSearchParams(txtSearchInput.Text)).ToString();
+		string redirectUrl = "SearchResults.aspx".ToLinkBuilder().AddParams(GetSearchParams(txtSearchInput.Text)).ToString();
 
 		WebUtils.SetupRedirect(this, redirectUrl);
 	}
@@ -580,7 +475,7 @@ public partial class SearchResults : NonCmsBasePage
 		MetaDescription = string.Format(CultureInfo.InvariantCulture, Resource.MetaDescriptionSearchFormat, siteSettings.SiteName);
 
 		lblMessage.Text = string.Empty;
-		divResults.Visible = true;
+		//divResults.Visible = true;
 
 		btnDoSearch.Text = Resource.SearchButtonText;
 		SiteUtils.SetButtonAccessKey(btnDoSearch, AccessKeys.SearchButtonTextAccessKey);
@@ -590,7 +485,7 @@ public partial class SearchResults : NonCmsBasePage
 
 		divDelete.Visible = (WebConfigSettings.ShowRebuildSearchIndexButtonToAdmins && WebUser.IsAdmin);
 
-		lblNoResults.Text = Resource.SearchResultsNotFound;
+		//lblNoResults.Text = Resource.SearchResultsNotFound;
 
 		litAltSearchMessage.Text = Resource.AltSearchPrompt;
 		lnkBingSearch.Text = Resource.SearchThisSiteWithBing;
@@ -605,88 +500,5 @@ public partial class SearchResults : NonCmsBasePage
 		SiteUtils.AddNoIndexFollowMeta(Page);
 
 		AddClassToBody("searchresults");
-	}
-
-	public string BuildUrl(IndexItem indexItem)
-	{
-		string value;
-		if (indexItem.UseQueryStringParams)
-		{
-			value = indexItem.ViewPage.ToLinkBuilder().PageId(indexItem.PageId).ModuleId(indexItem.ModuleId).ItemId(indexItem.ItemId).ToString() + indexItem.QueryStringAddendum;
-			//value = $"/{indexItem.ViewPage}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
-		}
-		else
-		{
-			value = indexItem.ViewPage.ToLinkBuilder().ToString();
-			//value = $"/{indexItem.ViewPage}";
-		}
-
-		//if (value.StartsWith("/"))
-		//{
-		//	value = SiteRoot + value;
-		//}
-
-		return value;
-	}
-
-	public string FormatCreatedDate(IndexItem indexItem)
-	{
-		if (!displaySettings.ShowCreatedDate
-			|| timeZone is null
-			|| indexItem.CreatedUtc.Date == DateTime.MinValue.Date)
-		{
-			return string.Empty;
-		}
-
-		if (!string.IsNullOrWhiteSpace(displaySettings.CreatedFormat))
-		{
-			return string.Format(
-				CultureInfo.CurrentCulture,
-				displaySettings.CreatedFormat,
-				TimeZoneInfo.ConvertTimeFromUtc(indexItem.CreatedUtc, timeZone).ToShortDateString());
-		}
-
-		return string.Format(
-				CultureInfo.CurrentCulture,
-				Resource.SearchCreatedHtmlFormat,
-				TimeZoneInfo.ConvertTimeFromUtc(indexItem.CreatedUtc, timeZone).ToShortDateString());
-	}
-
-	public string FormatModifiedDate(IndexItem indexItem)
-	{
-		if (!displaySettings.ShowLastModDate
-			|| timeZone is null
-			|| indexItem.LastModUtc.Date == DateTime.MinValue.Date)
-		{
-			return string.Empty;
-		}
-
-		if (!string.IsNullOrWhiteSpace(displaySettings.ModifiedFormat))
-		{
-			return string.Format(
-				CultureInfo.CurrentCulture,
-				displaySettings.ModifiedFormat,
-				TimeZoneInfo.ConvertTimeFromUtc(indexItem.LastModUtc, timeZone).ToShortDateString());
-		}
-
-		return string.Format(
-				CultureInfo.CurrentCulture,
-				Resource.SearchModifiedHtmlFormat,
-				TimeZoneInfo.ConvertTimeFromUtc(indexItem.LastModUtc, timeZone).ToShortDateString());
-	}
-
-	protected string FormatAuthor(string author)
-	{
-		if (!displaySettings.ShowAuthor || string.IsNullOrWhiteSpace(author))
-		{
-			return string.Empty;
-		}
-
-		if (!string.IsNullOrWhiteSpace(displaySettings.AuthorFormat))
-		{
-			return string.Format(CultureInfo.InvariantCulture, displaySettings.AuthorFormat, author);
-		}
-
-		return string.Format(CultureInfo.InvariantCulture, Resource.SearchAuthorHtmlFormat, author);
 	}
 }

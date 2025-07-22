@@ -1,0 +1,65 @@
+@model mojoPortal.Web.Models.SearchResultsViewModel
+
+@using Resources
+
+<div class="settingrow searchresultsummary">
+	@Resource.SearchResultsLabel
+	@Model.Results.From - @Model.Results.To
+	@Resource.SearchResultsOfLabel
+	@Model.Results.Total
+	@Resource.SearchResultsForLabel
+	@Model.Results.Query
+</div>
+
+@Html.Partial("_Pager", Model.Pagination)
+
+@if (Model.Items.Count > 0)
+{
+	<div class="settingrow searchresults">
+		<ol class="searchresultlist">
+			@foreach (var result in Model.Items)
+			{
+				<li class="searchresult">
+					<h3><a href="@result.Link.Href">@result.Link.Text</a></h3>
+
+					@if (result.Image is not null)
+					{
+						<figure class="searchresult__image">
+							<img src="@result.Image.Href" alt="@result.Image.Alt" />
+						</figure>
+					}
+
+					<div class="searchresultdesc">
+						@Html.Raw(result.Content.Text)
+					</div>
+
+					<div class="s-items">
+						@if (result.Author.ShowAuthor)
+						{
+							<span class="s-item s-author"><b>@Resource.Author:</b> @result.Author</span>
+						}
+
+						@if (result.CreatedDate.ShowDate)
+						{
+							<span class="s-item s-created"><b>@Resource.Created:</b> @result.CreatedDate</span>
+						}
+
+						@if (result.ModifiedDate.ShowDate)
+						{
+							<span class="s-item s-modified"><b>@Resource.LastModified:</b> @result.ModifiedDate</span>
+						}
+					</div>
+				</li>
+			}
+		</ol>
+	</div>
+}
+else
+{
+	<div class="settingrow searchresults searchresults--empty">
+		@Resource.SearchResultsNotFound
+	</div>
+}
+
+
+@Html.Partial("_Pager", Model.Pagination)
