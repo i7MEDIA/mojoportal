@@ -146,36 +146,19 @@ public partial class IndexBrowser : NonCmsBasePage
 
 	private void BindIndex()
 	{
-		IndexItemCollection searchResults = IndexHelper.Browse(
+		var searchResults = IndexHelper.Browse(
 			siteSettings.SiteId,
 			featureGuid,
 			modifiedBeginDate,
 			modifiedEndDate,
 			pageNumber,
 			pageSize,
-			out totalHits);
+			out totalHits
+		);
 
-		totalPages = 1;
+		totalPages = (int)Math.Ceiling((double)totalHits / pageSize);
 
-		if (pageSize > 0)
-		{
-			totalPages = totalHits / pageSize;
-		}
-
-		if (totalHits <= pageSize)
-		{
-			totalPages = 1;
-		}
-		else
-		{
-			Math.DivRem(totalHits, pageSize, out int remainder);
-			if (remainder > 0)
-			{
-				totalPages += 1;
-			}
-		}
-
-		string searchUrl = $"{SiteRoot}/Admin/IndexBrowser.aspx?p={{0}}&amp;bd={modifiedBeginDate.Date:s}&amp;ed={modifiedEndDate.Date:s}&amp;f={featureGuid}";
+		var searchUrl = $"{SiteRoot}/Admin/IndexBrowser.aspx?p={{0}}&amp;bd={modifiedBeginDate.Date:s}&amp;ed={modifiedEndDate.Date:s}&amp;f={featureGuid}";
 
 		pgrTop.PageURLFormat = searchUrl;
 		pgrTop.ShowFirstLast = true;
