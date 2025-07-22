@@ -1,20 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+namespace mojoPortal.Business;
 
-namespace mojoPortal.Business
+public delegate void ContentChangedEventHandler(object sender, ContentChangedEventArgs e);
+
+public class ContentChangedEventArgs : EventArgs
 {
-    public delegate void ContentChangedEventHandler(object sender, ContentChangedEventArgs e);
-
-    public class ContentChangedEventArgs : EventArgs
-    {
-        private bool isDeleted = false;
-
-        public bool IsDeleted
-        {
-            get { return this.isDeleted; }
-            set { isDeleted = value; }
-        }
-
-    }
+	public bool IsDeleted { get; set; } = false;
 }

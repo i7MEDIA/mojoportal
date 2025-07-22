@@ -3,43 +3,43 @@
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<style type="text/css">
-		.label-v-center { 
-			vertical-align: middle; 
-			margin: 0; 
-		} 
- 
-		button.ui-datepicker-trigger { 
+		.label-v-center {
+			vertical-align: middle;
+			margin: 0;
+		}
+
+		button.ui-datepicker-trigger {
 			padding: 1px 10px 6px 10px !important;
-		    font-weight: 700 !important;
-		    margin: 0 !important;
-		    border: 1px solid #eee !important;
-		    background-color: #f7f7f7 !important;
-		} 
- 
-		.label-width-small { 
-			width: auto; 
-		} 
- 
-		.input-group-separated > * { 
-			margin: 0 10px; 
-			flex: 1 1 auto; 
-		} 
- 
-		.input-group-separated { 
-			display: flex; 
-			flex-flow: row wrap; 
-			justify-content: center; 
-			align-items: center; 
-		} 
- 
-		.input-as-text { 
+			font-weight: 700 !important;
+			margin: 0 !important;
 			border: 1px solid #eee !important;
-		    margin: 0;
-		    font-weight: 700;
-		    width: auto !important;
-		    float: none !important;
-		    box-shadow: none !important;
-		    border-right: 0 none !important;
+			background-color: #f7f7f7 !important;
+		}
+
+		.label-width-small {
+			width: auto;
+		}
+
+		.input-group-separated > * {
+			margin: 0 10px;
+			flex: 1 1 auto;
+		}
+
+		.input-group-separated {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.input-as-text {
+			border: 1px solid #eee !important;
+			margin: 0;
+			font-weight: 700;
+			width: auto !important;
+			float: none !important;
+			box-shadow: none !important;
+			border-right: 0 none !important;
 		}
 
 		.padded-group {
@@ -51,24 +51,27 @@
 			$('.date-picker').addClass('input-as-text');
 		});
 	</script>
+
 	<portal:AdminCrumbContainer ID="pnlAdminCrumbs" runat="server" CssClass="breadcrumbs">
 		<asp:HyperLink ID="lnkAdminMenu" runat="server" NavigateUrl="~/Admin/AdminMenu.aspx" />
 		<portal:AdminCrumbSeparator ID="litLinkSeparator1" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
 		<asp:HyperLink ID="lnkAdvancedTools" runat="server" /><portal:AdminCrumbSeparator ID="AdminCrumbSeparator2" runat="server" Text="&nbsp;&gt;" EnableViewState="false" />
 		<asp:HyperLink ID="lnkCurrentPage" runat="server" CssClass="selectedcrumb" />
 	</portal:AdminCrumbContainer>
+
 	<portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 		<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper admin admin-index-browser">
 			<portal:HeadingControl ID="heading" runat="server" />
+
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-
 					<div class="row">
 						<div class="col-md-2">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title"><%= Resources.Resource.AdminIndexBrowserFilterContentType %></h3>
 								</div>
+
 								<div class="panel-body">
 									<div class="form-inline">
 										<div class="form-group">
@@ -80,11 +83,13 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="col-md-6">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title"><%= Resources.Resource.AdminIndexBrowserFilterDate %></h3>
 								</div>
+
 								<div class="panel-body">
 									<div class="form-inline">
 										<div class="form-group padded-group">
@@ -99,17 +104,21 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="col-md-4">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<h3 class="panel-title"><%= Resources.Resource.AdminIndexBrowserActionsHeading %></h3>
 								</div>
+
 								<div class="panel-body">
 									<div class="form-inline">
 										<div class="form-group">
 											<div class="input-group input-group-separated input-group-btn">
 												<portal:mojoButton ID="btnGo" runat="server" SkinID="SuccessButton" />
-												<a href='<%= SiteRoot %>/Admin/IndexBrowser.aspx' class="btn btn-warning"><%= Resources.Resource.AdminIndexBrowserClearFilter %></a>
+												<a href='<%= SiteRoot %>/Admin/IndexBrowser.aspx' class="btn btn-warning">
+													<%= Resources.Resource.AdminIndexBrowserClearFilter %>
+												</a>
 												<portal:mojoButton ID="btnRebuildSearchIndex" runat="server" SkinID="DangerButton" />
 											</div>
 										</div>
@@ -122,17 +131,23 @@
 						<portal:mojoLabel ID="lblMessage" runat="server" SkinID="error" />
 					</div>
 
-
 					<asp:Panel ID="pnlSearchResults" runat="server" CssClass="settingrow searchresults">
 						<portal:mojoCutePager ID="pgrTop" runat="server" Visible="false" />
-						<asp:Repeater ID="rptResults" runat="server" EnableViewState="true" OnItemCommand="rptResults_ItemCommand" OnItemDataBound="rptResults_ItemDataBound">
+						<asp:Repeater runat="server"
+							ID="rptResults"
+							EnableViewState="true"
+							OnItemCommand="rptResults_ItemCommand"
+							OnItemDataBound="rptResults_ItemDataBound">
 							<ItemTemplate>
 								<div class="result">
 									<h3>
-										<asp:HyperLink ID="Hyperlink1" runat="server" EnableViewState="false"
+										<asp:HyperLink runat="server"
+											ID="Hyperlink1"
+											EnableViewState="false"
 											NavigateUrl='<%# BuildUrl((mojoPortal.SearchIndex.IndexItem)Container.DataItem) %>'
 											Text='<%# FormatItemTitle(Eval("PageName").ToString(), Eval("ModuleTitle").ToString(), Eval("Title").ToString(), ">")  %>' />
 									</h3>
+
 									<div class="row">
 										<div class="col-md-3">
 											<div class="well">
@@ -149,10 +164,19 @@
 												<portal:mojoButton ID="btnDelete" runat="server" Text="Delete" CommandName="delete" CommandArgument='<%# Eval("DocKey").ToString() %>' SkinID="DeleteButton" />
 											</div>
 										</div>
+
 										<div class="col-md-8">
 											<h4><%# Resources.Resource.AdminIndexBrowserItemIntro %></h4>
+
+											<div runat="server"
+												class="result_item-image form-group"
+												visible='<%# !string.IsNullOrWhiteSpace(Eval("ItemImage").ToString()) %>'>
+												<img
+													src="<%# Eval("ItemImage").ToString() %>"
+													alt="<%# Eval("Title").ToString() %>" />
+											</div>
+
 											<asp:Literal ID="litIntro" runat="server" EnableViewState="false" Text='<%# Eval("ContentAbstract").ToString() %>' />
-											<asp:Literal ID="litRawIndex" runat="server" EnableViewState="false" Text='<%# Eval("ContentAbstract").ToString() %>' />
 										</div>
 									</div>
 								</div>

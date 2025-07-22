@@ -1,17 +1,16 @@
+#nullable enable
+using log4net;
 using System;
 using System.Configuration.Provider;
 using System.Web.Configuration;
-using log4net;
 
 namespace mojoPortal.SearchIndex;
 
 public sealed class IndexBuilderManager
 {
-	//private static bool isInitialized = false;
-	//private static Exception initializationException;
-	private static object initializationLock = new object();
 	private static readonly ILog log = LogManager.GetLogger(typeof(IndexBuilderManager));
-	private static IndexBuilderProviderCollection providerCollection;
+
+	private static IndexBuilderProviderCollection? providerCollection;
 
 	public static IndexBuilderProviderCollection Providers
 	{
@@ -22,21 +21,25 @@ public sealed class IndexBuilderManager
 				Initialize();
 			}
 
-			return providerCollection;
+			return providerCollection!; // We know that calling initialize() will populate the collection
 		}
 	}
+
+
 	static IndexBuilderManager() => Initialize();
+
+
 	private static void Initialize()
 	{
 		providerCollection = [];
 
 		try
 		{
-			IndexBuilderConfiguration config = IndexBuilderConfiguration.GetConfig();
+			var config = IndexBuilderConfiguration.GetConfig();
 
-			if (config != null)
+			if (config is not null)
 			{
-				if (config.Providers == null || config.Providers.Count < 1)
+				if (config.Providers is null || config.Providers.Count < 1)
 				{
 					throw new ProviderException("No IndexBuilderProvider found.");
 				}

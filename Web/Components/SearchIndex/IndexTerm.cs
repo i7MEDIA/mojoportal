@@ -16,6 +16,6 @@ public class IndexTerm : IComparable
 		}
 
 		// sort descending on frequency
-		return i.Frequency > this.Frequency ? 1 : -1;
+		return i.Frequency > Frequency ? 1 : -1;
 	}
 }
