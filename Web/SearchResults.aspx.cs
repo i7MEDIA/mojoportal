@@ -13,6 +13,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.Models;
 using Resources;
 
 namespace mojoPortal.Web.UI.Pages;
@@ -213,14 +214,14 @@ public partial class SearchResults : NonCmsBasePage
 		// this is only to make sure its initialized
 		// before indexing is queued on a thread
 		// because there is no HttpContext on
-		// external threads and httpcontext is needed to initilaize
-		// once initialized its cached
+		// external threads and HttpContext is needed to initialize
+		// once initialized it's cached
 
 		var indexProviders = IndexBuilderManager.Providers;
 
 		queryErrorOccurred = false;
 
-		IndexItemCollection searchResults = IndexHelper.Search(
+		var searchResults = IndexHelper.Search(
 			siteSettings.SiteId,
 			isSiteEditor,
 			GetUserRoles(),
@@ -243,87 +244,33 @@ public partial class SearchResults : NonCmsBasePage
 			return;
 		}
 
-		int start = 1;
-		if (pageNumber > 1)
+		if (searchResults.Count > 0)
 		{
-			start = ((pageNumber - 1) * pageSize) + 1;
+			var duration = searchResults.ExecutionTime * 0.0000001F;
+			lblDuration.Visible = true;
+			lblDuration.Text = duration.ToString();
+			lblSeconds.Visible = true;
 		}
-
-		int end = pageSize;
-
-		if (start > 1) { end += start; }
-
-		if (end > totalHits)
-		{
-			end = totalHits;
-		}
-
-		pnlSearchResults.Visible = true;
-		pnlNoResults.Visible = false;
-		lblDuration.Visible = true;
-		lblSeconds.Visible = true;
-
-		lblFrom.Text = (start).ToString();
-		lblTo.Text = end.ToString(CultureInfo.InvariantCulture);
-		lblTotal.Text = totalHits.ToString(CultureInfo.InvariantCulture);
-		lblQueryText.Text = Server.HtmlEncode(query);
-
-		float duration = searchResults.ExecutionTime * 0.0000001F;
-
-		lblDuration.Text = duration.ToString();
-		divResults.Visible = true;
-
-		totalPages = 1;
-
-		if (pageSize > 0) { totalPages = totalHits / pageSize; }
-
-		if (totalHits <= pageSize)
-		{
-			totalPages = 1;
-		}
-		else
-		{
-			Math.DivRem(totalHits, pageSize, out int remainder);
-			if (remainder > 0)
-			{
-				totalPages += 1;
-			}
-		}
-
-		//string searchUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(query)}&amp;p={{0}}{GetModBeginDateParam(true)}{GetModEndDateParam(true)}{GetFeatureParam(true)}";
-
 		//if problems with encoding of query, swap 'query' out with Server.UrlEncode(query)
-		string searchUrl = "SearchResults.aspx".ToLinkBuilder().AddParams(getSearchParams(query)).ToString();
+		var pagerUrlFormat = "SearchResults.aspx"
+			.ToLinkBuilder()
+			.AddParams(getSearchParams(query))
+			.AddParam("p", "{0}")
+			.ToString();
 
-		pgrTop.PageURLFormat = searchUrl + "&amp;p={0}";
-		pgrTop.ShowFirstLast = true;
-		pgrTop.CurrentIndex = pageNumber;
-		pgrTop.PageSize = pageSize;
-		pgrTop.PageCount = totalPages;
-		pgrTop.Visible = totalPages > 1;
-
-		pgrBottom.PageURLFormat = pgrTop.PageURLFormat;
-		pgrBottom.ShowFirstLast = pgrTop.ShowFirstLast;
-		pgrBottom.CurrentIndex = pgrTop.CurrentIndex;
-		pgrBottom.PageSize = pgrTop.PageSize;
-		pgrBottom.PageCount = pgrTop.PageCount;
-		pgrBottom.Visible = pgrTop.Visible;
-
-		if (WebConfigSettings.UseNeatHtmlInSearchResults)
-		{
-			rptResultsSecure.DataSource = searchResults;
-			rptResultsSecure.DataBind();
-			rptResultsSecure.Visible = true;
-			rptResults.Visible = false;
-		}
-		else
-		{
-			rptResults.DataSource = searchResults;
-			rptResults.DataBind();
-			rptResults.Visible = true;
-			rptResultsSecure.Visible = false;
-		}
+		// TODO: RAZOR TEMPLATING HERE
+		var model = SearchResultsViewModel.Create(
+			pageNumber,
+			pageSize,
+			totalHits,
+			showModuleTitleInResultLink,
+			pagerUrlFormat,
+			query,
+			timeZone,
+			searchResults
+		);
 	}
+
 
 	private Dictionary<string, object> getSearchParams(string query)
 	{
