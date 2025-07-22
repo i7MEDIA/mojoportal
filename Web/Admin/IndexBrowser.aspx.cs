@@ -285,11 +285,11 @@ public partial class IndexBrowser : NonCmsBasePage
 		string value;
 		if (indexItem.UseQueryStringParams)
 		{
-			value = $"/{indexItem.ViewPage}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
+			value = $"/{indexItem.ViewPage.TrimStart('/')}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
 		}
 		else
 		{
-			value = $"/{indexItem.ViewPage}";
+			value = $"/{indexItem.ViewPage.TrimStart('/')}";
 		}
 
 		if (value.StartsWith("/"))

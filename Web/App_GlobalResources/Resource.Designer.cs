@@ -943,6 +943,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        internal static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auth. Code.
         /// </summary>
         internal static string AuthorizeNetLogAuthCode {
@@ -14731,7 +14740,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For.
+        ///   Looks up a localized string similar to for.
         /// </summary>
         internal static string SearchResultsForLabel {
             get {
