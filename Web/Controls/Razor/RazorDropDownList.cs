@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web.Mvc;
 using System.Web.UI;
 using mojoPortal.Web.Components;
@@ -73,20 +74,23 @@ public class RazorDropDownList : Control, IPostBackDataHandler
 	{
 		base.Render(writer);
 
-		Attributes ??= new Dictionary<string, object>();
+		Attributes ??= [];
 
 		Attributes.Add("tabindex", TabIndex);
 
 		if (!string.IsNullOrWhiteSpace(CssClass))
 		{
-			Dictionary<string,object> classAttr = (Dictionary<string, object>)Attributes["class"];
-			if (classAttr == null)
+			var hasClass = Attributes.ContainsKey("class");
+
+			if (!hasClass)
 			{
 				Attributes.Add("class", CssClass);
 			}
 			else
 			{
-				if (!classAttr.ContainsValue(CssClass))
+				var classValue = Attributes["class"].ToString().Split([' '], StringSplitOptions.RemoveEmptyEntries).ToList();
+
+				if (!classValue.Contains(CssClass))
 				{
 					Attributes["class"] = $"{Attributes["class"]} {CssClass}";
 				}
@@ -98,7 +102,7 @@ public class RazorDropDownList : Control, IPostBackDataHandler
 			Attributes.Add("required", Required);
 		}
 
-		var model = new DropDownlistModel
+		var model = new DropDownListModel
 		{
 			ID = UniqueID,
 			Items = Items,
@@ -106,13 +110,16 @@ public class RazorDropDownList : Control, IPostBackDataHandler
 			DefaultOption = DefaultOption
 		};
 		var content = RazorBridge.RenderPartialToString("DropDownList", model, "Controls");
+
 		writer.Write(content);
 	}
 }
-public class DropDownlistModel
+
+
+public class DropDownListModel
 {
-	public string ID;
-	public List<SelectListItem> Items;
+	public string ID { get; set; }
+	public List<SelectListItem> Items { get; set; }
 	public Dictionary<string, object> Attributes { get; set; }
 	public string DefaultOption { get; set; } = string.Empty;
 }
