@@ -363,7 +363,7 @@ namespace mojoPortal.Business
 		public string Email
 		{
 			get { return email; }
-			set { email = value; }
+			set { email = value.ToLower(); }
 		}
 
 		public string FirstName
@@ -387,7 +387,7 @@ namespace mojoPortal.Business
 		public string NewEmail
 		{
 			get { return newEmail; }
-			set { newEmail = value; }
+			set { newEmail = value.ToLower(); }
 		}
 
 		public string EditorPreference
@@ -621,9 +621,10 @@ namespace mojoPortal.Business
 			set { skin = value; }
 		}
 
+		[Obsolete("Email is lowercase, use it.", false)]
 		public string LoweredEmail
 		{
-			get { return loweredEmail; }
+			get { return email.ToLower(); }
 		}
 
 		public string PasswordQuestion
@@ -865,7 +866,7 @@ namespace mojoPortal.Business
 					isLockedOut = Convert.ToBoolean(reader["IsLockedOut"]);
 				}
 
-				loweredEmail = reader["LoweredEmail"].ToString();
+				loweredEmail = reader["Email"].ToString();
 				passwordQuestion = reader["PasswordQuestion"].ToString();
 				passwordAnswer = reader["PasswordAnswer"].ToString();
 
@@ -1972,7 +1973,7 @@ namespace mojoPortal.Business
 					return Skin;
 
 				case "LoweredEmail":
-					return LoweredEmail;
+					return Email.ToLower();
 
 				case "PasswordQuestion":
 					return PasswordQuestion;
@@ -2628,7 +2629,7 @@ namespace mojoPortal.Business
 			user.lastName = reader["LastName"].ToString();
 
 			user.email = reader["Email"].ToString();
-			user.loweredEmail = reader["LoweredEmail"].ToString();
+			user.loweredEmail = reader["Email"].ToString();
 			user.password = reader["Pwd"].ToString();
 			user.passwordQuestion = reader["PasswordQuestion"].ToString();
 			user.passwordAnswer = reader["PasswordAnswer"].ToString();

@@ -91,7 +91,7 @@ namespace mojoPortal.Data
 			var sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_UserRoles_SelectByUsername", 2);
 
 			sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
-			sph.DefineSqlParameter("@Username", SqlDbType.NVarChar, 225, ParameterDirection.Input, username);
+			sph.DefineSqlParameter("@Username", SqlDbType.NVarChar, 225, ParameterDirection.Input, username.ToLower());
 
 			return sph.ExecuteReader();
 		}

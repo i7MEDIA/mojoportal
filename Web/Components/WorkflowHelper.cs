@@ -238,9 +238,9 @@ namespace mojoPortal.Web
             messageTemplate = ResourceHelper.GetMessageTemplate(defaultCulture, "PublishRequestRejectionNotification.config");
             messageSubject = ResourceHelper.GetMessageTemplate(defaultCulture, "PublishRequestRejectionNotificationSubject.config").Replace("{SiteName}", siteSettings.SiteName);
 
-            if (Email.IsValidEmailAddressSyntax(draftSubmissionUser.LoweredEmail))
+            if (Email.IsValidEmailAddressSyntax(draftSubmissionUser.Email))
             {
-                messageRecipients.Add(draftSubmissionUser.LoweredEmail);
+                messageRecipients.Add(draftSubmissionUser.Email);
             }
 
             StringBuilder message = new StringBuilder();
@@ -254,7 +254,7 @@ namespace mojoPortal.Web
             {
                 //no valid addresses -- log it
                 log.Error("Failed to send workflow publish rejection message, no valid recipient email "
-                    + rejectedWorkflow.RecentActionByUserEmail + ", " + draftSubmissionUser.LoweredEmail
+                    + rejectedWorkflow.RecentActionByUserEmail + ", " + draftSubmissionUser.Email
                     + " message was " + message.ToString());
 
                 return;
