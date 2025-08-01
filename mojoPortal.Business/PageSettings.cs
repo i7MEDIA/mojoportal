@@ -6,11 +6,9 @@
 //
 // You must not remove this notice, or any other, from this software.
 
-using System;
-using System.Configuration;
+using System.Collections;
 using System.Data;
 using System.Globalization;
-using System.Collections;
 using mojoPortal.Data;
 
 namespace mojoPortal.Business
@@ -18,32 +16,32 @@ namespace mojoPortal.Business
 	/// <summary>
 	/// Represents a page in the content management system.
 	/// </summary>
-	public class PageSettings : IComparable 
+	public class PageSettings : IComparable
 	{
 		#region Constructors
 
 		public PageSettings()
 		{
-            
-        }
 
-        public PageSettings(Guid pageGuid)
-        {
-            if (pageGuid == null) { return; }
-            if (pageGuid == Guid.Empty) { return; }
+		}
 
-            GetPage(pageGuid);
+		public PageSettings(Guid pageGuid)
+		{
+			if (pageGuid == null) { return; }
+			if (pageGuid == Guid.Empty) { return; }
 
-        }
+			GetPage(pageGuid);
 
-        public PageSettings(int siteId, int pageId)
-        {
-            if (siteId > -1)
-            {
-                GetPage(siteId, pageId);
-            }
+		}
 
-        }
+		public PageSettings(int siteId, int pageId)
+		{
+			if (siteId > -1)
+			{
+				GetPage(siteId, pageId);
+			}
+
+		}
 
 		#endregion
 
@@ -101,12 +99,16 @@ namespace mojoPortal.Business
 
 		public string PageTitle { get; set; } = String.Empty;
 
-		public int PublishMode { get; set; } = 0;
+		/// <summary>
+		/// Used to set whether the page should show on "Desktop/Web" (1), "Mobile" (2), both (0).
+		/// </summary>
+		[Obsolete(message: "This is no longer used.", error: false)]
+		public int PublishMode { get; } = 0;
 
 		public string Skin { get; set; } = string.Empty;
 
 		public string BodyCssClass { get; set; } = string.Empty;
-		
+
 		public string MenuCssClass { get; set; } = string.Empty;
 
 		public string AuthorizedRoles { get; set; } = string.Empty;
@@ -120,7 +122,7 @@ namespace mojoPortal.Business
 		public string CreateChildPageRoles { get; set; } = string.Empty;
 
 		public string CreateChildDraftRoles { get; set; } = string.Empty;
-		
+
 		public bool RequireSsl { get; set; } = false;
 
 		public bool AllowBrowserCache { get; set; } = true;
@@ -141,7 +143,7 @@ namespace mojoPortal.Business
 		public bool UseUrl { get; set; } = true;
 
 		public string Url { get; set; } = string.Empty;
-		
+
 		public string UnmodifiedUrl { get; set; } = string.Empty;
 
 		public bool OpenInNewWindow { get; set; } = false;
@@ -180,7 +182,7 @@ namespace mojoPortal.Business
 		public bool IncludeInSiteMap { get; set; } = true;
 
 		public bool ExpandOnSiteMap { get; set; } = true;
-			   
+
 		public bool IsClickable { get; set; } = true;
 
 		public bool ShowHomeCrumb { get; set; } = false;
@@ -217,13 +219,13 @@ namespace mojoPortal.Business
 
 		#region IComparable
 
-		public int CompareTo(object value) 
+		public int CompareTo(object value)
 		{
 
 			if (value == null) return 1;
 
 			int compareOrder = ((PageSettings)value).PageOrder;
-            
+
 			if (this.PageOrder == compareOrder) return 0;
 			if (this.PageOrder < compareOrder) return -1;
 			if (this.PageOrder > compareOrder) return 1;
@@ -234,247 +236,247 @@ namespace mojoPortal.Business
 
 		#region Private Methods
 
-        
+
 
 		private void GetPage(int siteId, int pageId)
 		{
-            using(IDataReader reader = DBPageSettings.GetPage(siteId, pageId))
-            {
-                LoadFromReader(reader);
+			using (IDataReader reader = DBPageSettings.GetPage(siteId, pageId))
+			{
+				LoadFromReader(reader);
 
-                
-            }
-            
+
+			}
+
 		}
 
-        private void GetPage(Guid pageGuid)
-        {
-            using (IDataReader reader = DBPageSettings.GetPage(pageGuid))
-            {
-                LoadFromReader(reader);
+		private void GetPage(Guid pageGuid)
+		{
+			using (IDataReader reader = DBPageSettings.GetPage(pageGuid))
+			{
+				LoadFromReader(reader);
 
-            }
-        }
+			}
+		}
 
-        private void LoadFromReader(IDataReader reader)
-        {
-           
-            if (reader.Read())
-            {
-                this.PageId = int.Parse(reader["PageID"].ToString());
-                this.ParentId = int.Parse(reader["ParentID"].ToString());
-                this.SiteId = int.Parse(reader["SiteID"].ToString());
-                this.PageOrder = int.Parse(reader["PageOrder"].ToString());
-                this.PageName = reader["PageName"].ToString();
-                this.PageTitle = reader["PageTitle"].ToString();
-                this.MenuImage = reader["MenuImage"].ToString();
-                this.Skin = reader["Skin"].ToString();
-                this.AuthorizedRoles = reader["AuthorizedRoles"].ToString();
-                this.EditRoles = reader["EditRoles"].ToString();
-                this.DraftEditOnlyRoles = reader["DraftEditRoles"].ToString();
-                this.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
-                this.CreateChildPageRoles = reader["CreateChildPageRoles"].ToString();
-                this.CreateChildDraftRoles = reader["CreateChildDraftRoles"].ToString();
+		private void LoadFromReader(IDataReader reader)
+		{
 
-                this.RequireSsl = Convert.ToBoolean(reader["RequireSSL"]);
-                this.AllowBrowserCache = Convert.ToBoolean(reader["AllowBrowserCache"]);
-                this.ShowBreadcrumbs = Convert.ToBoolean(reader["ShowBreadcrumbs"]);
-                this.ShowChildPageBreadcrumbs = Convert.ToBoolean(reader["ShowChildBreadCrumbs"]);
-                this.UseUrl = Convert.ToBoolean(reader["UseUrl"]);
-                this.Url = reader["Url"].ToString();
-                if (UseUrl)
-                {
-                    UnmodifiedUrl = reader["Url"].ToString();
-                }
-                else
-                {
-                    UnmodifiedUrl = "~/Default.aspx?pageid=" + PageId.ToString(CultureInfo.InvariantCulture);
-                }
-                this.OpenInNewWindow = Convert.ToBoolean(reader["OpenInNewWindow"]);
-                this.ShowChildPageMenu = Convert.ToBoolean(reader["ShowChildPageMenu"]);
-                this.HideMainMenu = Convert.ToBoolean(reader["HideMainMenu"]);
+			if (reader.Read())
+			{
+				this.PageId = int.Parse(reader["PageID"].ToString());
+				this.ParentId = int.Parse(reader["ParentID"].ToString());
+				this.SiteId = int.Parse(reader["SiteID"].ToString());
+				this.PageOrder = int.Parse(reader["PageOrder"].ToString());
+				this.PageName = reader["PageName"].ToString();
+				this.PageTitle = reader["PageTitle"].ToString();
+				this.MenuImage = reader["MenuImage"].ToString();
+				this.Skin = reader["Skin"].ToString();
+				this.AuthorizedRoles = reader["AuthorizedRoles"].ToString();
+				this.EditRoles = reader["EditRoles"].ToString();
+				this.DraftEditOnlyRoles = reader["DraftEditRoles"].ToString();
+				this.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
+				this.CreateChildPageRoles = reader["CreateChildPageRoles"].ToString();
+				this.CreateChildDraftRoles = reader["CreateChildDraftRoles"].ToString();
 
-                this.PageMetaKeyWords = reader["PageKeyWords"].ToString();
-                this.PageMetaDescription = reader["PageDescription"].ToString();
-                //this.PageMetaEncoding = reader["PageEncoding"].ToString();
-                //this.PageMetaAdditional = reader["AdditionalMetaTags"].ToString();
-                this.IncludeInMenu = Convert.ToBoolean(reader["IncludeInMenu"]);
+				this.RequireSsl = Convert.ToBoolean(reader["RequireSSL"]);
+				this.AllowBrowserCache = Convert.ToBoolean(reader["AllowBrowserCache"]);
+				this.ShowBreadcrumbs = Convert.ToBoolean(reader["ShowBreadcrumbs"]);
+				this.ShowChildPageBreadcrumbs = Convert.ToBoolean(reader["ShowChildBreadCrumbs"]);
+				this.UseUrl = Convert.ToBoolean(reader["UseUrl"]);
+				this.Url = reader["Url"].ToString();
+				if (UseUrl)
+				{
+					UnmodifiedUrl = reader["Url"].ToString();
+				}
+				else
+				{
+					UnmodifiedUrl = "~/Default.aspx?pageid=" + PageId.ToString(CultureInfo.InvariantCulture);
+				}
+				this.OpenInNewWindow = Convert.ToBoolean(reader["OpenInNewWindow"]);
+				this.ShowChildPageMenu = Convert.ToBoolean(reader["ShowChildPageMenu"]);
+				this.HideMainMenu = Convert.ToBoolean(reader["HideMainMenu"]);
 
-                string changeFreq = reader["ChangeFrequency"].ToString();
-                switch (changeFreq)
-                {
-                    case "Always":
-                        this.ChangeFrequency = PageChangeFrequency.Always;
-                        break;
+				this.PageMetaKeyWords = reader["PageKeyWords"].ToString();
+				this.PageMetaDescription = reader["PageDescription"].ToString();
+				//this.PageMetaEncoding = reader["PageEncoding"].ToString();
+				//this.PageMetaAdditional = reader["AdditionalMetaTags"].ToString();
+				this.IncludeInMenu = Convert.ToBoolean(reader["IncludeInMenu"]);
 
-                    case "Hourly":
-                        this.ChangeFrequency = PageChangeFrequency.Hourly;
-                        break;
+				string changeFreq = reader["ChangeFrequency"].ToString();
+				switch (changeFreq)
+				{
+					case "Always":
+						this.ChangeFrequency = PageChangeFrequency.Always;
+						break;
 
-                    case "Daily":
-                        this.ChangeFrequency = PageChangeFrequency.Daily;
-                        break;
+					case "Hourly":
+						this.ChangeFrequency = PageChangeFrequency.Hourly;
+						break;
 
-                    case "Monthly":
-                        this.ChangeFrequency = PageChangeFrequency.Monthly;
-                        break;
+					case "Daily":
+						this.ChangeFrequency = PageChangeFrequency.Daily;
+						break;
 
-                    case "Yearly":
-                        this.ChangeFrequency = PageChangeFrequency.Yearly;
-                        break;
+					case "Monthly":
+						this.ChangeFrequency = PageChangeFrequency.Monthly;
+						break;
 
-                    case "Never":
-                        this.ChangeFrequency = PageChangeFrequency.Never;
-                        break;
+					case "Yearly":
+						this.ChangeFrequency = PageChangeFrequency.Yearly;
+						break;
 
-                    case "Weekly":
-                    default:
-                        this.ChangeFrequency = PageChangeFrequency.Weekly;
-                        break;
+					case "Never":
+						this.ChangeFrequency = PageChangeFrequency.Never;
+						break;
 
-
-                }
-
-                string smp = reader["SiteMapPriority"].ToString().Trim();
-                if (smp.Length > 0) this.SiteMapPriority = smp;
-
-                if (reader["LastModifiedUTC"] != DBNull.Value)
-                {
-                    this.LastModifiedUtc = Convert.ToDateTime(reader["LastModifiedUTC"]);
-                }
-
-                this.PageGuid = new Guid(reader["PageGuid"].ToString());
-                this.ParentGuid = new Guid(reader["ParentGuid"].ToString());
-                this.HideAfterLogin = Convert.ToBoolean(reader["HideAfterLogin"]);
-                this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-                this.CompiledMeta = reader["CompiledMeta"].ToString();
-                if (reader["CompiledMetaUtc"] != DBNull.Value)
-                {
-                    this.CompiledMetaUtc = Convert.ToDateTime(reader["CompiledMetaUtc"]);
-                }
-
-                this.IncludeInSiteMap = Convert.ToBoolean(reader["IncludeInSiteMap"]);
-                this.IsClickable = Convert.ToBoolean(reader["IsClickable"]);
-                this.ShowHomeCrumb = Convert.ToBoolean(reader["ShowHomeCrumb"]);
-                this.IsPending = Convert.ToBoolean(reader["IsPending"]);
-
-                this.IncludeInSearchMap = Convert.ToBoolean(reader["IncludeInSearchMap"]);
-                this.CanonicalOverride = reader["CanonicalOverride"].ToString();
-                this.EnableComments = Convert.ToBoolean(reader["EnableComments"]);
-
-                this.PubTeamId = new Guid(reader["PubTeamId"].ToString());
-                this.IncludeInChildSiteMap = Convert.ToBoolean(reader["IncludeInChildSiteMap"]);
-                this.ExpandOnSiteMap = Convert.ToBoolean(reader["ExpandOnSiteMap"]);
-
-                this.BodyCssClass = reader["BodyCssClass"].ToString();
-                this.MenuCssClass = reader["MenuCssClass"].ToString();
-
-                this.PublishMode = Convert.ToInt32(reader["PublishMode"].ToString());
-
-                if (reader["PCreatedUtc"] != DBNull.Value)
-                {
-                    this.CreatedUtc = Convert.ToDateTime(reader["PCreatedUtc"]);
-                }
-
-                if (reader["PCreatedBy"] != DBNull.Value)
-                {
-                    string pcg = reader["PCreatedBy"].ToString();
-                    if (pcg.Length == 36)
-                    {
-                        this.CreatedBy = new Guid(pcg);
-                    }
-
-                }
-
-                this.CreatedFromIp = reader["PCreatedFromIp"].ToString();
-
-                if (reader["PLastModUtc"] != DBNull.Value)
-                {
-                    this.LastModUtc = Convert.ToDateTime(reader["PLastModUtc"]);
-                }
-
-                if (reader["PLastModBy"] != DBNull.Value)
-                {
-                    string pcg = reader["PLastModBy"].ToString();
-                    if (pcg.Length == 36)
-                    {
-                        this.LastModBy = new Guid(pcg);
-                    }
-                    
-                }
-
-                this.LastModFromIp = reader["PLastModFromIp"].ToString();
-
-                this.CreatedByName = reader["CreatedByName"].ToString();
-                this.CreatedByEmail = reader["CreatedByEmail"].ToString();
-                this.CreatedByFirstName = reader["CreatedByFirstName"].ToString();
-                this.CreatedByLastName = reader["CreatedByLastName"].ToString();
-                this.LastModByName = reader["LastModByName"].ToString();
-                this.LastModByEmail = reader["LastModByEmail"].ToString();
-                this.LastModByFirstName = reader["LastModByFirstName"].ToString();
-                this.LastModByLastName = reader["LastModByLastName"].ToString();
-                this.MenuDescription = reader["MenuDesc"].ToString();
-
-                if (reader["PubDateUtc"] != DBNull.Value)
-                {
-                    this.PubDateUtc = Convert.ToDateTime(reader["PubDateUtc"]);
-                }
-
-                this.ShowPageHeading = Convert.ToBoolean(reader["ShowPageHeading"]);
-                this.LinkRel = reader["LinkRel"].ToString();
-                this.PageHeading = reader["PageHeading"].ToString();
+					case "Weekly":
+					default:
+						this.ChangeFrequency = PageChangeFrequency.Weekly;
+						break;
 
 
-            }
-           
+				}
 
-        }
+				string smp = reader["SiteMapPriority"].ToString().Trim();
+				if (smp.Length > 0) this.SiteMapPriority = smp;
 
-		private IDataReader GetChildPages() 
+				if (reader["LastModifiedUTC"] != DBNull.Value)
+				{
+					this.LastModifiedUtc = Convert.ToDateTime(reader["LastModifiedUTC"]);
+				}
+
+				this.PageGuid = new Guid(reader["PageGuid"].ToString());
+				this.ParentGuid = new Guid(reader["ParentGuid"].ToString());
+				this.HideAfterLogin = Convert.ToBoolean(reader["HideAfterLogin"]);
+				this.SiteGuid = new Guid(reader["SiteGuid"].ToString());
+				this.CompiledMeta = reader["CompiledMeta"].ToString();
+				if (reader["CompiledMetaUtc"] != DBNull.Value)
+				{
+					this.CompiledMetaUtc = Convert.ToDateTime(reader["CompiledMetaUtc"]);
+				}
+
+				this.IncludeInSiteMap = Convert.ToBoolean(reader["IncludeInSiteMap"]);
+				this.IsClickable = Convert.ToBoolean(reader["IsClickable"]);
+				this.ShowHomeCrumb = Convert.ToBoolean(reader["ShowHomeCrumb"]);
+				this.IsPending = Convert.ToBoolean(reader["IsPending"]);
+
+				this.IncludeInSearchMap = Convert.ToBoolean(reader["IncludeInSearchMap"]);
+				this.CanonicalOverride = reader["CanonicalOverride"].ToString();
+				this.EnableComments = Convert.ToBoolean(reader["EnableComments"]);
+
+				this.PubTeamId = new Guid(reader["PubTeamId"].ToString());
+				this.IncludeInChildSiteMap = Convert.ToBoolean(reader["IncludeInChildSiteMap"]);
+				this.ExpandOnSiteMap = Convert.ToBoolean(reader["ExpandOnSiteMap"]);
+
+				this.BodyCssClass = reader["BodyCssClass"].ToString();
+				this.MenuCssClass = reader["MenuCssClass"].ToString();
+
+				//this.PublishMode = Convert.ToInt32(reader["PublishMode"].ToString());
+
+				if (reader["PCreatedUtc"] != DBNull.Value)
+				{
+					this.CreatedUtc = Convert.ToDateTime(reader["PCreatedUtc"]);
+				}
+
+				if (reader["PCreatedBy"] != DBNull.Value)
+				{
+					string pcg = reader["PCreatedBy"].ToString();
+					if (pcg.Length == 36)
+					{
+						this.CreatedBy = new Guid(pcg);
+					}
+
+				}
+
+				this.CreatedFromIp = reader["PCreatedFromIp"].ToString();
+
+				if (reader["PLastModUtc"] != DBNull.Value)
+				{
+					this.LastModUtc = Convert.ToDateTime(reader["PLastModUtc"]);
+				}
+
+				if (reader["PLastModBy"] != DBNull.Value)
+				{
+					string pcg = reader["PLastModBy"].ToString();
+					if (pcg.Length == 36)
+					{
+						this.LastModBy = new Guid(pcg);
+					}
+
+				}
+
+				this.LastModFromIp = reader["PLastModFromIp"].ToString();
+
+				this.CreatedByName = reader["CreatedByName"].ToString();
+				this.CreatedByEmail = reader["CreatedByEmail"].ToString();
+				this.CreatedByFirstName = reader["CreatedByFirstName"].ToString();
+				this.CreatedByLastName = reader["CreatedByLastName"].ToString();
+				this.LastModByName = reader["LastModByName"].ToString();
+				this.LastModByEmail = reader["LastModByEmail"].ToString();
+				this.LastModByFirstName = reader["LastModByFirstName"].ToString();
+				this.LastModByLastName = reader["LastModByLastName"].ToString();
+				this.MenuDescription = reader["MenuDesc"].ToString();
+
+				if (reader["PubDateUtc"] != DBNull.Value)
+				{
+					this.PubDateUtc = Convert.ToDateTime(reader["PubDateUtc"]);
+				}
+
+				this.ShowPageHeading = Convert.ToBoolean(reader["ShowPageHeading"]);
+				this.LinkRel = reader["LinkRel"].ToString();
+				this.PageHeading = reader["PageHeading"].ToString();
+
+
+			}
+
+
+		}
+
+		private IDataReader GetChildPages()
 		{
 			return DBPageSettings.GetChildPages(this.SiteId, this.ParentId);
 		}
 
-        private DataTable GetChildPageIds()
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("PageID", typeof(int));
-            using (IDataReader reader = GetChildPages())
-            {
-                while (reader.Read())
-                {
-                    DataRow row = dt.NewRow();
-                    row["PageID"] = reader["PageID"];
+		private DataTable GetChildPageIds()
+		{
+			DataTable dt = new DataTable();
+			dt.Columns.Add("PageID", typeof(int));
+			using (IDataReader reader = GetChildPages())
+			{
+				while (reader.Read())
+				{
+					DataRow row = dt.NewRow();
+					row["PageID"] = reader["PageID"];
 
-                    dt.Rows.Add(row);
-                }
-            }
-            
-            return dt;
+					dt.Rows.Add(row);
+				}
+			}
 
-        }
+			return dt;
+
+		}
 
 		private bool Create()
-		{ 
+		{
 			int newID = -1;
 
-            if (this.PageGuid == Guid.Empty) this.PageGuid = Guid.NewGuid();
-			
+			if (this.PageGuid == Guid.Empty) this.PageGuid = Guid.NewGuid();
+
 			newID = DBPageSettings.Create(
 				this.SiteId,
 				this.ParentId,
 				this.PageName,
-                this.PageTitle,
+				this.PageTitle,
 				this.Skin,
 				this.PageOrder,
 				this.AuthorizedRoles,
 				this.EditRoles,
-                this.DraftEditOnlyRoles,
-                this.DraftApprovalRoles,
+				this.DraftEditOnlyRoles,
+				this.DraftApprovalRoles,
 				this.CreateChildPageRoles,
-                this.CreateChildDraftRoles,
+				this.CreateChildDraftRoles,
 				this.RequireSsl,
-                this.AllowBrowserCache,
+				this.AllowBrowserCache,
 				this.ShowBreadcrumbs,
 				this.ShowChildPageBreadcrumbs,
 				this.PageMetaKeyWords,
@@ -486,48 +488,48 @@ namespace mojoPortal.Business
 				this.OpenInNewWindow,
 				this.ShowChildPageMenu,
 				this.HideMainMenu,
-                this.IncludeInMenu,
-                this.MenuImage,
-                this.ChangeFrequency.ToString(),
-                this.SiteMapPriority,
-                this.PageGuid,
-                this.ParentGuid,
-                this.HideAfterLogin,
-                this.SiteGuid,
-                this.CompiledMeta,
-                this.CompiledMetaUtc,
-                this.IncludeInSiteMap,
-                this.IsClickable,
-                this.ShowHomeCrumb,
-                this.IsPending,
-                this.CanonicalOverride,
-                this.IncludeInSearchMap,
-                this.EnableComments,
-                this.IncludeInChildSiteMap,
-                this.ExpandOnSiteMap,
-                this.PubTeamId,
-                this.BodyCssClass,
-                this.MenuCssClass,
-                this.PublishMode,
-                this.CreatedBy,
-                this.CreatedFromIp,
-                this.MenuDescription,
-                this.LinkRel,
-                this.PageHeading,
-                this.ShowPageHeading,
-                this.PubDateUtc);
+				this.IncludeInMenu,
+				this.MenuImage,
+				this.ChangeFrequency.ToString(),
+				this.SiteMapPriority,
+				this.PageGuid,
+				this.ParentGuid,
+				this.HideAfterLogin,
+				this.SiteGuid,
+				this.CompiledMeta,
+				this.CompiledMetaUtc,
+				this.IncludeInSiteMap,
+				this.IsClickable,
+				this.ShowHomeCrumb,
+				this.IsPending,
+				this.CanonicalOverride,
+				this.IncludeInSearchMap,
+				this.EnableComments,
+				this.IncludeInChildSiteMap,
+				this.ExpandOnSiteMap,
+				this.PubTeamId,
+				this.BodyCssClass,
+				this.MenuCssClass,
+				this.PublishMode,
+				this.CreatedBy,
+				this.CreatedFromIp,
+				this.MenuDescription,
+				this.LinkRel,
+				this.PageHeading,
+				this.ShowPageHeading,
+				this.PubDateUtc);
 
 			this.PageId = newID;
 
-            bool result = (newID > -1);
+			bool result = (newID > -1);
 
-            
-            if (result)
-            {
-                PageCreatedEventArgs e = new PageCreatedEventArgs();
-                OnPageCreated(e);
-            }
-					
+
+			if (result)
+			{
+				PageCreatedEventArgs e = new PageCreatedEventArgs();
+				OnPageCreated(e);
+			}
+
 			return result;
 		}
 
@@ -539,17 +541,17 @@ namespace mojoPortal.Business
 				this.PageId,
 				this.ParentId,
 				this.PageName,
-                this.PageTitle,
+				this.PageTitle,
 				this.Skin,
 				this.PageOrder,
 				this.AuthorizedRoles,
 				this.EditRoles,
-                this.DraftEditOnlyRoles,
-                this.DraftApprovalRoles,
+				this.DraftEditOnlyRoles,
+				this.DraftApprovalRoles,
 				this.CreateChildPageRoles,
-                this.CreateChildDraftRoles,
+				this.CreateChildDraftRoles,
 				this.RequireSsl,
-                this.AllowBrowserCache,
+				this.AllowBrowserCache,
 				this.ShowBreadcrumbs,
 				this.ShowChildPageBreadcrumbs,
 				this.PageMetaKeyWords,
@@ -561,46 +563,46 @@ namespace mojoPortal.Business
 				this.OpenInNewWindow,
 				this.ShowChildPageMenu,
 				this.HideMainMenu,
-                this.IncludeInMenu,
-                this.MenuImage,
-                this.ChangeFrequency.ToString(),
-                this.SiteMapPriority,
-                this.ParentGuid,
-                this.HideAfterLogin,
-                this.CompiledMeta,
-                this.CompiledMetaUtc,
-                this.IncludeInSiteMap,
-                this.IsClickable,
-                this.ShowHomeCrumb,
-                this.IsPending,
-                this.CanonicalOverride,
-                this.IncludeInSearchMap,
-                this.EnableComments,
-                this.IncludeInChildSiteMap,
-                this.ExpandOnSiteMap,
-                this.PubTeamId,
-                this.BodyCssClass,
-                this.MenuCssClass,
-                this.PublishMode,
-                this.CreatedUtc,
-                this.CreatedBy,
-                this.LastModBy,
-                this.LastModFromIp,
-                this.MenuDescription,
-                this.LinkRel,
-                this.PageHeading,
-                this.ShowPageHeading,
-                this.PubDateUtc);
+				this.IncludeInMenu,
+				this.MenuImage,
+				this.ChangeFrequency.ToString(),
+				this.SiteMapPriority,
+				this.ParentGuid,
+				this.HideAfterLogin,
+				this.CompiledMeta,
+				this.CompiledMetaUtc,
+				this.IncludeInSiteMap,
+				this.IsClickable,
+				this.ShowHomeCrumb,
+				this.IsPending,
+				this.CanonicalOverride,
+				this.IncludeInSearchMap,
+				this.EnableComments,
+				this.IncludeInChildSiteMap,
+				this.ExpandOnSiteMap,
+				this.PubTeamId,
+				this.BodyCssClass,
+				this.MenuCssClass,
+				this.PublishMode,
+				this.CreatedUtc,
+				this.CreatedBy,
+				this.LastModBy,
+				this.LastModFromIp,
+				this.MenuDescription,
+				this.LinkRel,
+				this.PageHeading,
+				this.ShowPageHeading,
+				this.PubDateUtc);
 		}
 
 
-        public void RefreshModules()
-        {
-            this.Modules.Clear();
-            using (IDataReader reader = Module.GetPageModules(this.PageId))
-            {
-                while (reader.Read())
-                {
+		public void RefreshModules()
+		{
+			this.Modules.Clear();
+			using (IDataReader reader = Module.GetPageModules(this.PageId))
+			{
+				while (reader.Read())
+				{
 					Module m = new Module();
 					m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
 					m.SiteId = Convert.ToInt32(reader["SiteID"]);
@@ -637,7 +639,7 @@ namespace mojoPortal.Business
 					m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
 					m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
 					m.HeadElement = reader["HeadElement"].ToString();
-					m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
+					//m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
 					m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
 
 					m.PageId = Convert.ToInt32(reader["PageID"]);
@@ -646,22 +648,22 @@ namespace mojoPortal.Business
 					m.ControlSource = reader["ControlSrc"].ToString();
 
 					this.Modules.Add(m);
-                }
-            }
+				}
+			}
 
 
-        }
+		}
 
-		
+
 		#endregion
 
 		#region Public Methods
 
-		
+
 
 		public bool Save()
 		{
-			if(this.PageId > -1)
+			if (this.PageId > -1)
 			{
 				return Update();
 			}
@@ -669,27 +671,27 @@ namespace mojoPortal.Business
 			{
 				return Create();
 			}
-			
+
 		}
 
 
-        public void MoveToTop()
-        {
-            this.PageOrder = 0;
-            PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
-            //now get all children of my parent id and reset sort using current order
-            ResortPages(); 
+		public void MoveToTop()
+		{
+			this.PageOrder = 0;
+			PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
+			//now get all children of my parent id and reset sort using current order
+			ResortPages();
 
-        }
+		}
 
-        public void MoveToBottom()
-        {
-            this.PageOrder = 999999;
-            PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
-            //now get all children of my parent id and reset sort using current order
-            ResortPages();
+		public void MoveToBottom()
+		{
+			this.PageOrder = 999999;
+			PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
+			//now get all children of my parent id and reset sort using current order
+			ResortPages();
 
-        }
+		}
 
 
 
@@ -700,26 +702,26 @@ namespace mojoPortal.Business
 			//all children of my parent by 2 starting from 1
 
 			//no need to look up whther pages above me, assume yes if my sort is > 1
-			if(this.PageOrder > 1)
+			if (this.PageOrder > 1)
 			{
 				//pages exist above me so update my page order
 				this.PageOrder -= 3;
 				PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 				//now get all children of my parent id and reset sort using current order
 				ResortPages();
-				
+
 			}
 			else
 			{
-				if(this.PageOrder < 1)
+				if (this.PageOrder < 1)
 				{
 					this.PageOrder = 1;
 					PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 					ResortPages();
-					
+
 				}
 				//else must be equal to 1 no need to do anything
-				
+
 			}
 
 		}
@@ -730,199 +732,199 @@ namespace mojoPortal.Business
 			PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 			//now get all children of my parent id and reset sort using current order
 			ResortPages();
-				
+
 		}
 
 		public void ResortPages()
 		{
 			int i = 1;
-            DataTable table = GetChildPageIds();
+			DataTable table = GetChildPageIds();
 
-			foreach(DataRow row in table.Rows)
+			foreach (DataRow row in table.Rows)
 			{
 				int pageID = Convert.ToInt32(row["PageID"]);
 				PageSettings.UpdatePageOrder(pageID, i);
 				i += 2;
-			}	
+			}
 		}
 
-        public void ResortPagesAlphabetically()
-        {
-            int i = 1;
-            DataTable dataTable = new DataTable();
-            using (IDataReader reader = PageSettings.GetChildPagesSortedAlphabetic(SiteId, PageId))
-            {
-                dataTable.Load(reader);
-            }
+		public void ResortPagesAlphabetically()
+		{
+			int i = 1;
+			DataTable dataTable = new DataTable();
+			using (IDataReader reader = PageSettings.GetChildPagesSortedAlphabetic(SiteId, PageId))
+			{
+				dataTable.Load(reader);
+			}
 
-            foreach (DataRow row in dataTable.Rows)
-            {
-                int pageID = Convert.ToInt32(row["PageID"]);
-                PageSettings.UpdatePageOrder(pageID, i);
-                i += 2;
-            }
-        }
+			foreach (DataRow row in dataTable.Rows)
+			{
+				int pageID = Convert.ToInt32(row["PageID"]);
+				PageSettings.UpdatePageOrder(pageID, i);
+				i += 2;
+			}
+		}
 
-        public bool ContainsModule(int moduleId)
-        {
-            bool result = false;
-            
-            foreach (Module m in Modules)
-            {
-                if (m.ModuleId == moduleId) result = true;
-            }
+		public bool ContainsModule(int moduleId)
+		{
+			bool result = false;
 
-            return result;
-        }
+			foreach (Module m in Modules)
+			{
+				if (m.ModuleId == moduleId) result = true;
+			}
 
-        public bool ContainsModuleInProgress()
-        {
-            int count = ContentWorkflow.GetWorkInProgressCountByPage(this.PageGuid);
-            return (count > 0);
-        }
+			return result;
+		}
 
-        [Obsolete("This method is obsolete, use SiteUtils.GetCurrentPageUrl() instead")]
-        public string ResolveUrl(SiteSettings siteSettings)
-        {
-            if (siteSettings == null) return Url;
-            string resolvedUrl;
-            if (this.UseUrl)
-            {
-                if((this.Url.StartsWith("~/"))&&(this.Url.EndsWith(".aspx")))
-                {
-                    if (UrlHasBeenAdjustedForFolderSites)
-                    {
-                        resolvedUrl = Url.Replace("~/", "/");
-                    }
-                    else
-                    {
-                        resolvedUrl = siteSettings.SiteRoot
-                            + Url.Replace("~/", "/");
-                    }
+		public bool ContainsModuleInProgress()
+		{
+			int count = ContentWorkflow.GetWorkInProgressCountByPage(this.PageGuid);
+			return (count > 0);
+		}
 
-                }
-                else
-                {
-                    resolvedUrl = Url;
-                }
+		[Obsolete("This method is obsolete, use SiteUtils.GetCurrentPageUrl() instead")]
+		public string ResolveUrl(SiteSettings siteSettings)
+		{
+			if (siteSettings == null) return Url;
+			string resolvedUrl;
+			if (this.UseUrl)
+			{
+				if ((this.Url.StartsWith("~/")) && (this.Url.EndsWith(".aspx")))
+				{
+					if (UrlHasBeenAdjustedForFolderSites)
+					{
+						resolvedUrl = Url.Replace("~/", "/");
+					}
+					else
+					{
+						resolvedUrl = siteSettings.SiteRoot
+							+ Url.Replace("~/", "/");
+					}
 
-            }
-            else
-            {
-                resolvedUrl = siteSettings.SiteRoot 
-                    + "/Default.aspx?pageid=" 
-                    + this.PageId.ToString();
-            }
+				}
+				else
+				{
+					resolvedUrl = Url;
+				}
 
-            return resolvedUrl;
+			}
+			else
+			{
+				resolvedUrl = siteSettings.SiteRoot
+					+ "/Default.aspx?pageid="
+					+ this.PageId.ToString();
+			}
 
-        }
+			return resolvedUrl;
 
-        public bool UpdateLastModifiedTime()
-        {
-            if (this.PageId == -1) return false;
-            return UpdateTimestamp(this.PageId, DateTime.UtcNow);
+		}
 
-        }
+		public bool UpdateLastModifiedTime()
+		{
+			if (this.PageId == -1) return false;
+			return UpdateTimestamp(this.PageId, DateTime.UtcNow);
+
+		}
 
 		#endregion
 
 		#region Static Methods
 
-        public static IDataReader GetPageList(int siteId)
-        {
-            return DBPageSettings.GetPageList(siteId);
-        }
+		public static IDataReader GetPageList(int siteId)
+		{
+			return DBPageSettings.GetPageList(siteId);
+		}
 
-        public static int GetCountChildPages(int parentPageId, bool includePending)
-        {
-            return DBPageSettings.GetCountChildPages(parentPageId, includePending);
-        }
+		public static int GetCountChildPages(int parentPageId, bool includePending)
+		{
+			return DBPageSettings.GetCountChildPages(parentPageId, includePending);
+		}
 
-        public static IDataReader GetChildPagesSortedAlphabetic(int siteId, int parentId)
-        {
-            return DBPageSettings.GetChildPagesSortedAlphabetic(siteId, parentId);
-        }
+		public static IDataReader GetChildPagesSortedAlphabetic(int siteId, int parentId)
+		{
+			return DBPageSettings.GetChildPagesSortedAlphabetic(siteId, parentId);
+		}
 
-        public static IDataReader GetPendingPageListPage(Guid siteGuid, int pageNumber, int pageSize, out int totalPages)
-        {
-            return DBPageSettings.GetPendingPageListPage(siteGuid, pageNumber, pageSize, out totalPages);
-        }
+		public static IDataReader GetPendingPageListPage(Guid siteGuid, int pageNumber, int pageSize, out int totalPages)
+		{
+			return DBPageSettings.GetPendingPageListPage(siteGuid, pageNumber, pageSize, out totalPages);
+		}
 
 		public static bool UpdatePageOrder(int pageId, int pageOrder)
 		{
-			return DBPageSettings.UpdatePageOrder(pageId,pageOrder);
+			return DBPageSettings.UpdatePageOrder(pageId, pageOrder);
 		}
 
-        public static bool UpdateTimestamp(
-            int pageId,
-            DateTime lastModifiedUtc)
-        {
-            return DBPageSettings.UpdateTimestamp(pageId, lastModifiedUtc);
-        }
+		public static bool UpdateTimestamp(
+			int pageId,
+			DateTime lastModifiedUtc)
+		{
+			return DBPageSettings.UpdateTimestamp(pageId, lastModifiedUtc);
+		}
 
 		public static bool DeletePage(int pageId)
 		{
-			bool result =  DBPageSettings.DeletePage(pageId);
-            DBPageSettings.CleanupOrphans();
-            return result;
+			bool result = DBPageSettings.DeletePage(pageId);
+			DBPageSettings.CleanupOrphans();
+			return result;
 		}
 
-        public static int GetCountOfPages(int siteId)
-        {
-            return GetCount(siteId, true);
-            
-        }
+		public static int GetCountOfPages(int siteId)
+		{
+			return GetCount(siteId, true);
 
-        public static int GetCount(int siteId, bool includePending)
-        {
-            return DBPageSettings.GetCount(siteId, includePending);
-        }
+		}
 
-        
-        
-		public static int GetNextPageOrder(int siteId, int parentId) 
+		public static int GetCount(int siteId, bool includePending)
+		{
+			return DBPageSettings.GetCount(siteId, includePending);
+		}
+
+
+
+		public static int GetNextPageOrder(int siteId, int parentId)
 		{
 			return DBPageSettings.GetNextPageOrder(siteId, parentId);
 		}
 
-        //public static IDataReader GetChildPagesByPageId(int pageId) 
-        //{
-        //    return DBPageSettings.GetChildPages(pageId);
-        //}
+		//public static IDataReader GetChildPagesByPageId(int pageId) 
+		//{
+		//    return DBPageSettings.GetChildPages(pageId);
+		//}
 
-        public static bool Exists(Guid pageGuid)
-        {
-            bool result = false;
-            using (IDataReader reader = DBPageSettings.GetPage(pageGuid))
-            {
-                if (reader.Read())
-                {
-                    result = true;
-                }
-            }
+		public static bool Exists(Guid pageGuid)
+		{
+			bool result = false;
+			using (IDataReader reader = DBPageSettings.GetPage(pageGuid))
+			{
+				if (reader.Read())
+				{
+					result = true;
+				}
+			}
 
-            return result;
+			return result;
 
-        }
+		}
 
-        
+
 
 		#endregion
 
-        #region Events
+		#region Events
 
-        public event PageCreatedEventHandler PageCreated;
+		public event PageCreatedEventHandler PageCreated;
 
-        protected void OnPageCreated(PageCreatedEventArgs e)
-        {
-            if (PageCreated != null)
-            {
-                PageCreated(this, e);
-            }
-        }
+		protected void OnPageCreated(PageCreatedEventArgs e)
+		{
+			if (PageCreated != null)
+			{
+				PageCreated(this, e);
+			}
+		}
 
-        #endregion
+		#endregion
 
-    }
+	}
 }

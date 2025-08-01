@@ -62,7 +62,11 @@ namespace mojoPortal.Business
 
 		public int ModuleOrder { get; set; } = 999;
 
-		public int PublishMode { get; set; } = 0;
+        /// <summary>
+        /// Used to set whether the module should show on "Desktop/Web" (1), "Mobile" (2), both (0).
+        /// </summary>
+        [Obsolete(message: "This is no longer used.", error: false)]
+        public int PublishMode { get; } = 0;
 
 		public string PaneName { get; set; } = String.Empty;
 
@@ -165,7 +169,7 @@ namespace mojoPortal.Business
                 this.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
                 this.HeadElement = reader["HeadElement"].ToString();
 
-                this.PublishMode = Convert.ToInt32(reader["PublishMode"]);
+                //this.PublishMode = Convert.ToInt32(reader["PublishMode"]);
             }
 
         }

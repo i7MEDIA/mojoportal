@@ -767,7 +767,7 @@ public static class CacheHelper
 				IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]),
 				IsGlobal = Convert.ToBoolean(reader["IsGlobal"]),
 				HeadElement = reader["HeadElement"].ToString(),
-				PublishMode = Convert.ToInt32(reader["PublishMode"]),
+				//PublishMode = Convert.ToInt32(reader["PublishMode"]),
 				DraftApprovalRoles = reader["DraftApprovalRoles"].ToString(),
 				PageId = Convert.ToInt32(reader["PageID"]),
 				PaneName = reader["PaneName"].ToString(),
@@ -890,7 +890,7 @@ public static class CacheHelper
 					BodyCssClass = reader["BodyCssClass"].ToString(),
 					MenuCssClass = reader["MenuCssClass"].ToString(),
 
-					PublishMode = Convert.ToInt32(reader["PublishMode"])
+					//PublishMode = Convert.ToInt32(reader["PublishMode"])
 				};
 
 				if (reader["PubDateUtc"] != DBNull.Value)

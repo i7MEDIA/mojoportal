@@ -78,11 +78,11 @@
 								</mp:SiteLabel>
 								<asp:TextBox ID="txtTitleElement" runat="server" EnableViewState="false" CssClass="forminput smalltextbox"></asp:TextBox>
 							</div>
-							<div class="settingrow">
+<%--							<div class="settingrow">
 								<mp:SiteLabel ID="SiteLabel15" runat="server" CssClass="settinglabel" ConfigKey="PublishMode"></mp:SiteLabel>
 								<portal:PublishType ID="publishType" runat="server" />
 								<portal:mojoHelpLink ID="MojoHelpLink38" runat="server" HelpKey="module-settings-publish-mode-help" />
-							</div>
+							</div>--%>
 							<div id="divIncludeInSearch" runat="server" visible="false" class="settingrow">
 								<mp:SiteLabel ID="SiteLabel12" runat="server" ForControl="chkIncludeInSearch" CssClass="settinglabel"
 									ConfigKey="IncludeInSearchSetting">

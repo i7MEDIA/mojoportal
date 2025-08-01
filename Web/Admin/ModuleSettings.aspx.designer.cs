@@ -321,33 +321,6 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.TextBox txtTitleElement;
 
 		/// <summary>
-		/// SiteLabel15 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel15;
-
-		/// <summary>
-		/// publishType control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.PublishTypeSetting publishType;
-
-		/// <summary>
-		/// MojoHelpLink38 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink38;
-
-		/// <summary>
 		/// divIncludeInSearch control.
 		/// </summary>
 		/// <remarks>
