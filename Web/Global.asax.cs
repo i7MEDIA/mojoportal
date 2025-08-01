@@ -136,6 +136,18 @@ public class Global : HttpApplication
 
 	protected void Application_BeginRequest(object sender, EventArgs e)
 	{
+		//fixes issue with form action property being set to empty value when default document is used
+		//https://www.mojoportal.com/Forums/Thread.aspx?pageid=5&t=15168~1
+		//https://learn.microsoft.com/en-us/aspnet/whitepapers/aspnet4/breaking-changes#0.1__Toc256770154
+		//https://stackoverflow.com/questions/7228344/postback-doesnt-work-with-aspx-page-as-default-document
+		var app = (HttpApplication)sender;
+		if (app.Context.Request.Url.LocalPath.EndsWith("/"))
+		{
+			app.Context.RewritePath(
+					 string.Concat(app.Context.Request.Url.LocalPath, "default.aspx"));
+		}
+		//end fix for form action property
+
 		var siteCount = CacheManager.Cache.GetOrSetItem("SiteCount", SiteSettings.SiteCount);
 
 		//http://stackoverflow.com/questions/1340643/how-to-enable-ip-address-logging-with-log4net
