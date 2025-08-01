@@ -48,7 +48,7 @@ public class RecentContentRss : Page
 
 		LoadSettings();
 
-		if (siteSettings == null)
+		if (siteSettings is null)
 		{
 			WebUtils.SetupRedirect(this, SiteUtils.GetNavigationSiteRoot());
 			return;
@@ -61,7 +61,7 @@ public class RecentContentRss : Page
 	{
 		siteSettings = CacheHelper.GetCurrentSiteSettings();
 
-		if (siteSettings == null)
+		if (siteSettings is null)
 		{
 			return;
 		}
@@ -85,13 +85,11 @@ public class RecentContentRss : Page
 		redirectUrl = SiteUtils.GetNavigationSiteRoot();
 
 		shouldRender = !SiteUtils.DisableRecentContentFeed(siteSettings);
-
 	}
-
 
 	private void RenderFeed()
 	{
-		if (siteSettings == null)
+		if (siteSettings is null)
 		{
 			return;
 		}
@@ -105,10 +103,7 @@ public class RecentContentRss : Page
 		var recentContent = GetData(); // gets the data and initilizes the channel params
 
 		var mediaFolder = WebConfigSettings.SiteLogoUseMediaFolder ? "media/" : string.Empty;
-		var siteLogo = new Uri(
-			Invariant($"Data/Sites/{siteSettings.SiteId}/{mediaFolder}logos/{siteSettings.Logo}")
-			.ToLinkBuilder().ToString()
-			);
+		var siteLogo = Invariant($"Data/Sites/{siteSettings.SiteId}/{mediaFolder}logos/{siteSettings.Logo}").ToLinkBuilder().ToUri();
 
 		var channel = new RssChannel
 		{
@@ -135,7 +130,7 @@ public class RecentContentRss : Page
 
 		if (recentContent != null)
 		{
-			foreach (IndexItem indexItem in recentContent)
+			foreach (var indexItem in recentContent)
 			{
 				var item = new RssItem
 				{
@@ -254,7 +249,6 @@ public class RecentContentRss : Page
 		return recentContent;
 	}
 
-
 	private List<IndexItem> GetRecentContent()
 	{
 		List<IndexItem> recentContent = null;
@@ -305,7 +299,6 @@ public class RecentContentRss : Page
 
 		return recentContent;
 	}
-
 
 	private Module GetModule()
 	{
