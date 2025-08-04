@@ -1,9 +1,9 @@
 (function() {
 	// This code assumes that jQuery and the Bootstrap 3.4.1 Modal plugin are on the page.
 	function addModal(e) {
-		const link = e.target.closest('a[data-modal]');
+		const target = e.target.closest('a[data-modal]');
 
-		if (!link) {
+		if (!target) {
 			return;
 		}
 
@@ -18,14 +18,14 @@
 		const closeBtn = modal.querySelector('.close');
 		const customCloseBtn = modal.querySelector('.modal-footer .btn[data-dismiss="modal"]');
 	
-		modalTitle.textContent = link.title;
-		closeBtn.title = link.dataset.closeText;
-		customCloseBtn.textContent = link.dataset.closeText;
+		modalTitle.textContent = target.title ?? target.dataset.title;
+		closeBtn.title = target.dataset.closeText;
+		customCloseBtn.textContent = target.dataset.closeText;
 
-		if (typeof(link.dataset.size) !== 'undefined' && link.dataset.size.trim() !== '') {
+		if (typeof(target.dataset.size) !== 'undefined' && target.dataset.size.trim() !== '') {
 			const modalDialog = modal.querySelector('.modal-dialog');
 
-			switch (link.dataset.size.toLowerCase()) {
+			switch (target.dataset.size.toLowerCase()) {
 				default:
 					break;
 				case 'large':
@@ -55,8 +55,8 @@
 			}
 		}
 
-		if (typeof (link.dataset.height) !== 'undefined' && link.dataset.height.trim() !== '') {
-			switch (link.dataset.height.toLowerCase()) {
+		if (typeof (target.dataset.height) !== 'undefined' && target.dataset.height.trim() !== '') {
+			switch (target.dataset.height.toLowerCase()) {
 				default:
 					break;
 				case 'full':
@@ -65,35 +65,32 @@
 			}
 		}
 
-		if (link.dataset.modalType === 'iframe' && link.href?.trim() !== '') {
+		if (target.dataset.modalType === 'iframe' && target.href?.trim() !== '') {
 			const iframe = document.createElement('iframe');
 	
-			iframe.src = link.href;
+			iframe.src = target.href;
 			iframe.setAttribute('frameborder', 0);
-			iframe.title = link.title;
+			iframe.title = target.title;
 			iframe.style.width = '100%';
 			//iframe.style.minHeight = '400px';
 	
 			modalBody.innerHTML = '';
 			modalBody.append(iframe);
 		}
-		else if (link.dataset.modalType === 'encodedHtml') {
-			modalBody.innerHTML = link.dataset.content;
-		}
-		else if (link.dataset.modalType === 'customFunction') {
-			new Function('modalBody', 'modalFooter', link.dataset.content)(modalBody, modalFooter);
+		else if (target.dataset.modalType === 'encodedHtml') {
+			modalBody.innerHTML = target.dataset.content;
 		}
 		else {
-			modalBody.append(link.dataset.content);
+			modalBody.append(target.dataset.content);
 		}
 		
 		document.body.append(modal);
 	
 		$(modal).modal('show');
 
-		if (link.dataset.callback) {
+		if (target.dataset.callback) {
 			$(modal).on('hidden.bs.modal', function () {
-				eval(link.dataset.callback);
+				eval(target.dataset.callback);
 			});
 		}
 
