@@ -37,6 +37,10 @@
 	transition: background-color 150ms ease;
 }
 
+.social-links__title {
+	display: block;
+}
+
 .social-links__edit-link {
 	display: inline-block;
 	font-size: 14px;

@@ -9,16 +9,17 @@
 	}
 
 	<ul class="social-links__items" id="social-links-@(Model.Module.Id)">
-		@foreach (var item in Model.Items)
+		@foreach (dynamic item in Model.Items)
 		{
 			<li class="social-links__item">
-				<a class=" fa fa-@item.mediatype" href="@item.url" title="@item.title"></a>
+				<a class=" fa fa-@item.mediatype" href="@item.url" title="@item.title">
+					<span class="social-links__title visually-hidden">@item.title</span>
+				</a>
 
 				@if (item.IsEditable)
 				{
 					<a class="social-links__edit-link ModuleEditLink flexi-item-edit" href="@item.EditUrl">
 						<span class="fa fa-edit"></span>
-						<span class="visually-hidden">@item.title</span>
 					</a>
 				}
 			</li>
