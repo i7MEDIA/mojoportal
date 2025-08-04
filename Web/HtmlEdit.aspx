@@ -60,7 +60,9 @@
 							<ContentTemplate>
 								<asp:Panel ID="pnlHistory" runat="server" Visible="false">
 									<h2 class="heading versionheading">
-										<asp:Literal ID="litVersionHistory" runat="server" EnableViewState="false" /></h2>
+										<asp:Literal ID="litVersionHistory" runat="server" EnableViewState="false" />
+									</h2>
+
 									<mp:mojoGridView ID="grdHistory" runat="server" CssClass="" AutoGenerateColumns="false" DataKeyNames="Guid">
 										<Columns>
 											<asp:TemplateField>
@@ -70,29 +72,52 @@
 													<asp:Literal ID="litUserName" runat="server" EnableViewState="false" Text='<%# Eval("UserName") %>' />
 												</ItemTemplate>
 											</asp:TemplateField>
+
 											<asp:TemplateField>
 												<ItemTemplate>
 													<asp:Literal ID="litHxDate" runat="server" EnableViewState="false" Text='<%# DateTimeHelper.Format(Convert.ToDateTime(Eval("HistoryUtc")), timeZone, "g", timeOffset) %>' />
 												</ItemTemplate>
 											</asp:TemplateField>
+
 											<asp:TemplateField>
 												<ItemTemplate>
-													<asp:HyperLink ID="lnkcompare" runat="server" CssClass="cblink" EnableViewState="false" NavigateUrl='<%# SiteRoot + "/HtmlCompare.aspx?pageid=" + pageId + "&mid=" + moduleId + "&h=" + Eval("Guid") %>'
-														Text='<%$ Resources:Resource, HtmlCompareHistoryToCurrentLink %>' ToolTip='<%$ Resources:Resource, HtmlCompareHistoryToCurrentLink %>' />
-													<asp:Button ID="btnRestoreToEditor" runat="server" Text='<%$ Resources:Resource, RestoreToEditorButton %>'
+													<asp:HyperLink runat="server"
+														ID="lnkcompare"
+														CssClass=""
+														EnableViewState="false"
+														NavigateUrl='<%# SiteRoot + "/HtmlCompare.aspx?pageid=" + pageId + "&mid=" + moduleId + "&h=" + Eval("Guid") %>'
+														Text='<%$ Resources:Resource, HtmlCompareHistoryToCurrentLink %>'
+														ToolTip='<%$ Resources:Resource, HtmlCompareHistoryToCurrentLink %>'
+														data-modal=""
+														data-size="fluid-xlarge"
+														data-close-text="<%$ Resources:Resource, CloseDialogButton %>"
+														data-modal-type="iframe"
+														data-height="full" />
+
+													<asp:Button runat="server"
+														ID="btnRestoreToEditor"
+														Text='<%$ Resources:Resource, RestoreToEditorButton %>'
 														CommandName="RestoreToEditor" CommandArgument='<%# Eval("Guid") %>' />
-													<asp:Button ID="btnDelete" runat="server" CommandName="DeleteHistory" CommandArgument='<%# Eval("Guid") %>'
-														Visible='<%# isAdmin %>' Text='<%$ Resources:Resource, DeleteHistoryButton %>' />
+
+													<asp:Button runat="server"
+														ID="btnDelete"
+														CommandName="DeleteHistory"
+														CommandArgument='<%# Eval("Guid") %>'
+														Visible='<%# isAdmin %>'
+														Text='<%$ Resources:Resource, DeleteHistoryButton %>' />
 												</ItemTemplate>
 											</asp:TemplateField>
 										</Columns>
+
 										<EmptyDataTemplate>
 											<p class="nodata">
 												<asp:Literal ID="litempty" runat="server" EnableViewState="false" Text="<%$ Resources:Resource, GridViewNoData %>" />
 											</p>
 										</EmptyDataTemplate>
 									</mp:mojoGridView>
+
 									<portal:mojoCutePager ID="pgrHistory" runat="server" />
+
 									<div id="divHistoryDelete" runat="server" class="settingrow">
 										<portal:mojoButton ID="btnDeleteHistory" runat="server" Text="" />
 									</div>
