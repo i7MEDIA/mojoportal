@@ -6254,7 +6254,7 @@
   </data>
   <data name="SecurityAdvisorMachineKeyWrong" xml:space="preserve">
     <value>You are not using a custom machine key! &lt;br/&gt;
-Copy the machine key below to your site's configuration by following &lt;a href='https://www.mojoportal.com/use-a-custom-machine-key?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=securityadvisor'&gt;these instructions&lt;/a&gt;.</value>
+We've generated a new key for you. Copy the key below into your site's configuration by following &lt;a href='https://www.mojoportal.com/use-a-custom-machine-key?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=securityadvisor'&gt;these instructions&lt;/a&gt;.</value>
   </data>
   <data name="SecurityAdvisorNeedsAttention" xml:space="preserve">
     <value>Security Advisor &lt;small&gt;Needs Attention&lt;/small&gt;</value>

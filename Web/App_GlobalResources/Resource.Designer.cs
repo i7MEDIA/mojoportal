@@ -14903,7 +14903,7 @@ namespace Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to You are not using a custom machine key! &lt;br/&gt;
-        ///Copy the machine key below to your site&apos;s configuration by following &lt;a href=&apos;https://www.mojoportal.com/use-a-custom-machine-key?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=securityadvisor&apos;&gt;these instructions&lt;/a&gt;..
+        ///We&apos;ve generated a new key for you. Copy the key below into your site&apos;s configuration by following &lt;a href=&apos;https://www.mojoportal.com/use-a-custom-machine-key?utm_source=usersite&amp;utm_medium=referral&amp;utm_campaign=securityadvisor&apos;&gt;these instructions&lt;/a&gt;..
         /// </summary>
         internal static string SecurityAdvisorMachineKeyWrong {
             get {
