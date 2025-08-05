@@ -2121,7 +2121,7 @@ namespace mojoPortal.Business
 			dataTable.Columns.Add("ViewRoles", typeof(string));
 			dataTable.Columns.Add("IncludeInSearch", typeof(bool));
 			dataTable.Columns.Add("ExcludeFromRecentContent", typeof(bool));
-
+			dataTable.Columns.Add("IsPublished", typeof(bool));
 			dataTable.Columns.Add("Name", typeof(string));
 			dataTable.Columns.Add("FirstName", typeof(string));
 			dataTable.Columns.Add("LastName", typeof(string));
@@ -2167,6 +2167,7 @@ namespace mojoPortal.Business
 					row["MetaDescription"] = reader["MetaDescription"];
 					row["MetaKeywords"] = reader["MetaKeywords"];
 					row["ViewRoles"] = reader["ViewRoles"];
+
 					if (reader["IncludeInSearch"] != DBNull.Value)
 					{
 						row["IncludeInSearch"] = Convert.ToBoolean(reader["IncludeInSearch"]);
@@ -2174,6 +2175,15 @@ namespace mojoPortal.Business
 					else
 					{
 						row["IncludeInSearch"] = true;
+					}
+
+					if (reader["IsPublished"] != DBNull.Value)
+					{
+						row["IsPublished"] = Convert.ToBoolean(reader["IsPublished"]);
+					}
+					else
+					{
+						row["IsPublished"] = true;
 					}
 
 					if (reader["ExcludeFromRecentContent"] != DBNull.Value)

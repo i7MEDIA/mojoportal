@@ -47,8 +47,13 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 
 		foreach (DataRow row in dataTable.Rows)
 		{
-			bool includeInSearch = Convert.ToBoolean(row["IncludeInSearch"], CultureInfo.InvariantCulture) || !Convert.ToBoolean(row["IsPublished"], CultureInfo.InvariantCulture);
-			if (!includeInSearch) { continue; }
+			bool includeInSearch = Convert.ToBoolean(row["IncludeInSearch"], CultureInfo.InvariantCulture) &&
+				Convert.ToBoolean(row["IsPublished"], CultureInfo.InvariantCulture);
+
+			if (!includeInSearch)
+			{
+				continue;
+			}
 
 			DateTime postEndDate = DateTime.MaxValue;
 			if (row["EndDate"] != DBNull.Value)
@@ -66,13 +71,13 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 
 			string authorName = row["Name"].ToString();
 			string authorFirstName = row["FirstName"].ToString();
-			string authorLastName = row["LastName"].ToString(); 
+			string authorLastName = row["LastName"].ToString();
 			if ((authorFirstName.Length > 0) && (authorLastName.Length > 0))
 			{
 				authorName = string.Format(CultureInfo.InvariantCulture,
 					BlogResources.FirstLastFormat, authorFirstName, authorLastName);
 			}
-			
+
 			string viewPage = row["ItemUrl"].ToString().Replace("~/", string.Empty);
 			if ((!WebConfigSettings.UseUrlReWriting) || (!BlogConfiguration.UseFriendlyUrls(moduleId)))
 			{
