@@ -21,7 +21,7 @@ public static class DatabaseHelper
 	/// Maintained/updated in code to make Setup run the new version upgrade script
 	/// </summary>
 	/// <returns>Version</returns>
-	public static Version AppCodeVersion() => new(2, 9, 1, 0);
+	public static Version AppCodeVersion() => new(2, 9, 2, 0);
 
 	public static Version SchemaVersion()
 	{
