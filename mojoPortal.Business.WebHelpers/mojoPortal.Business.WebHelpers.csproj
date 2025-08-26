@@ -206,9 +206,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CsvHelper">
-      <Version>33.0.1</Version>
-    </PackageReference>
     <PackageReference Include="log4net">
       <Version>3.0.3</Version>
     </PackageReference>
