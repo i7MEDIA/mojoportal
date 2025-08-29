@@ -297,7 +297,14 @@ public class mojoRoleProvider : RoleProvider
 			return [];
 		}
 
-		var userRoles = Role.GetRolesByUsername(HttpContext.Current.User.Identity.Name, siteSettings.SiteId);
+		var roleSiteId = siteSettings.SiteId;
+
+		if (WebConfigSettings.UseRelatedSiteMode)
+		{
+			roleSiteId = WebConfigSettings.RelatedSiteID;
+		}
+
+		var userRoles = Role.GetRolesByUsername(HttpContext.Current.User.Identity.Name, roleSiteId);
 		var resultRoles = userRoles.Select(x => x.RoleName);
 		var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
 
