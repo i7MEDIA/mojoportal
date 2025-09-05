@@ -1,5 +1,14 @@
-﻿using log4net;
-using Microsoft.CSharp;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Dynamic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.UI;
+using System.Xml;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
@@ -8,18 +17,6 @@ using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
 using SuperFlexiBusiness;
-using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Dynamic;
-using System.IO;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Xml;
 
 namespace SuperFlexiUI
 {
@@ -278,44 +275,47 @@ namespace SuperFlexiUI
 					continue;
 				}
 
+				var script = new MarkupScript { };
+
 				XmlAttributeCollection childAttrs = child.Attributes;
-				var position = childAttrs["position"]?.Value ?? "inBody";
-				var scriptName = childAttrs["name"]?.Value ?? string.Empty;
 
-
-				if (childAttrs["src"] != null)
+				foreach (XmlAttribute attr in childAttrs)
 				{
-					var script = new MarkupScript
+					if (attr is null)
 					{
-						Url = childAttrs["src"].Value,
-						Position = position
-					};
-
-					if (!string.IsNullOrWhiteSpace(scriptName))
-					{
-						script.ScriptName = scriptName;
+						continue;
 					}
 
-					workingMarkupScripts.Add(script);
+					switch (attr.Name)
+					{
+						case "src":
+							script.Url = attr.Value;
+							break;
+						case "position":
+							script.Position = attr.Value;
+							break;
+						case "name":
+							script.ScriptName = attr.Value;
+							break;
+						default:
+							script.Attributes.Add(attr.Name, attr.Value);
+							break;
+					}
+				}
 
+				// if neither src or inner text is specified, skip it
+				if (string.IsNullOrWhiteSpace(script.Url) && string.IsNullOrWhiteSpace(child.InnerText))
+				{
 					continue;
 				}
 
-				if (!string.IsNullOrWhiteSpace(child.InnerText))
+				// if no src is specified, but there is inner text, assume it's raw script
+				if (string.IsNullOrWhiteSpace(script.Url) && !string.IsNullOrWhiteSpace(child.InnerText))
 				{
-					var raw = new MarkupScript
-					{
-						RawScript = child.InnerText.Trim(),
-						Position = position
-					};
-
-					if (!string.IsNullOrWhiteSpace(scriptName))
-					{
-						raw.ScriptName = scriptName;
-					}
-
-					workingMarkupScripts.Add(raw);
+					script.RawScript = child.InnerText.Trim();
 				}
+
+				workingMarkupScripts.Add(script);
 			}
 
 			return workingMarkupScripts;
@@ -357,8 +357,8 @@ namespace SuperFlexiUI
 			Page page,
 			Control control)
 		{
-			string scriptRefFormat = "\n<script type=\"text/javascript\" src=\"{0}\" data-name=\"{1}\"></script>";
-			string rawScriptFormat = "\n<script type=\"text/javascript\" data-name=\"{1}\">\n{0}\n</script>";
+			string scriptRefFormat = "\n<script src=\"{0}\" data-name=\"{1}\" {2}></script>";
+			string rawScriptFormat = "\n<script data-name=\"{1}\" {2}>\n{0}\n</script>";
 
 			foreach (MarkupScript script in markupScripts)
 			{
@@ -368,18 +368,24 @@ namespace SuperFlexiUI
 				sbScriptName.Append(string.IsNullOrWhiteSpace(script.ScriptName) ? clientID + "flexiScript_" + markupScripts.IndexOf(script) : "flexiScript_" + script.ScriptName);
 				ReplaceStaticTokens(sbScriptName, config, isEditable, displaySettings, module, pageSettings, siteSettings, out sbScriptName);
 
+				var attributesString = new StringBuilder();
+				foreach (string key in script.Attributes.Keys)
+				{
+					attributesString.Append($"{key}=\"{script.Attributes[key]}\" ");
+				}
+
 				string scriptName = sbScriptName.ToString();
 				if (!string.IsNullOrWhiteSpace(script.Url))
 				{
 					string scriptUrl = GetPathToFile(config, script.Url, WebConfigSettings.SslisAvailable);
-					sbScriptText.Append(string.Format(scriptRefFormat, scriptUrl, scriptName));
+					sbScriptText.Append(string.Format(scriptRefFormat, scriptUrl, scriptName, attributesString));
 				}
 				else if (!string.IsNullOrWhiteSpace(script.RawScript))
 				{
-					sbScriptText.Append(string.Format(rawScriptFormat, script.RawScript, scriptName));
+					sbScriptText.Append(string.Format(rawScriptFormat, script.RawScript, scriptName, attributesString));
 				}
 
-				ReplaceStaticTokens(sbScriptText, config, isEditable, displaySettings, module, pageSettings, siteSettings, out sbScriptName);
+				ReplaceStaticTokens(sbScriptText, config, isEditable, displaySettings, module, pageSettings, siteSettings, out sbScriptText);
 
 				// script position options
 				// inHead
@@ -487,20 +493,33 @@ namespace SuperFlexiUI
 			Page page,
 			Control control)
 		{
-			string styleLinkFormat = "\n<link rel=\"stylesheet\" href=\"{0}\" media=\"{2}\" data-name=\"{1}\">";
-			string rawCSSFormat = "\n<style type=\"text/css\" data-name=\"{1}\" media=\"{2}\">\n{0}\n</style>";
+			string styleLinkFormat = "\n<link rel=\"stylesheet\" href=\"{0}\" media=\"{2}\" data-name=\"{1}\" {3}>";
+			string rawCSSFormat = "\n<style data-name=\"{1}\" media=\"{2}\" {3}>\n{0}\n</style>";
 
-			foreach (MarkupCss style in markupCss)
+			foreach (var style in markupCss)
 			{
-				StringBuilder sbStyleText = new StringBuilder();
-				StringBuilder sbStyleName = new StringBuilder();
+				var sbStyleText = new StringBuilder();
+				var sbStyleName = new StringBuilder();
 
 				sbStyleName.Append(string.IsNullOrWhiteSpace(style.Name) ? clientID + "flexiStyle_" + markupCss.IndexOf(style) : "flexiStyle_" + style.Name);
 				ReplaceStaticTokens(sbStyleName, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleName);
 				string styleName = sbStyleName.ToString();
+
+				var attributesString = new StringBuilder();
+				foreach (string key in style.Attributes.Keys)
+				{
+					string keyValueMarkup = string.Empty;
+					if (!string.IsNullOrWhiteSpace(style.Attributes[key]))
+					{
+						keyValueMarkup = $"=\"{style.Attributes[key]}\"";
+					}
+
+					attributesString.Append($"{key}{keyValueMarkup} ");
+				}
+
 				if (!string.IsNullOrWhiteSpace(style.Url))
 				{
-					string styleUrl = string.Empty;
+					string styleUrl;
 
 					if (style.Url.StartsWith("/") ||
 						style.Url.StartsWith("http://") ||
@@ -512,79 +531,105 @@ namespace SuperFlexiUI
 					{
 						styleUrl = WebUtils.ResolveServerUrl(style.Url, siteSettings.UseSslOnAllPages);
 					}
-					else if (style.Url.StartsWith("$_SitePath_$"))
-					{
-						styleUrl = style.Url.Replace("$_SitePath_$", "/Data/Sites/" + CacheHelper.GetCurrentSiteSettings().SiteId.ToString() + "/");
-					}
+					//else if (style.Url.StartsWith("$_SitePath_$"))
+					//{
+					//	styleUrl = style.Url.Replace("$_SitePath_$", $"/Data/Sites/{CacheHelper.GetCurrentSiteSettings().SiteId}/");
+					//}
 					else
 					{
 						styleUrl = new Uri(config.SolutionLocationUrl, style.Url).ToString();
 					}
 
-					sbStyleText.Append(string.Format(styleLinkFormat, styleUrl, styleName, style.Media));
+					sbStyleText.Append(string.Format(styleLinkFormat, styleUrl, styleName, style.Media, attributesString));
 				}
 				else if (!string.IsNullOrWhiteSpace(style.CSS))
 				{
-					sbStyleText.Append(string.Format(rawCSSFormat, style.CSS, styleName, style.Media));
+					sbStyleText.Append(string.Format(rawCSSFormat, style.CSS, styleName, style.Media, attributesString));
 				}
 
 				ReplaceStaticTokens(sbStyleText, config, false, displaySettings, module, pageSettings, siteSettings, out sbStyleText);
 
-				LiteralControl theLiteral = new LiteralControl();
-				theLiteral.Text = sbStyleText.ToString();
+				var styleElement = new LiteralControl
+				{
+					Text = sbStyleText.ToString()
+				};
 
-				StyleSheetCombiner ssc = (StyleSheetCombiner)page.Header.FindControl("StyleSheetCombiner");
+				var ssc = (StyleSheetCombiner)page.Header.FindControl("StyleSheetCombiner");
 
 				if (ssc != null)
 				{
-					int sscIndex = page.Header.Controls.IndexOf(ssc);
+					var sscIndex = page.Header.Controls.IndexOf(ssc);
 					if (style.RenderAboveSSC)
 					{
-						page.Header.Controls.AddAt(sscIndex, theLiteral);
+						page.Header.Controls.AddAt(sscIndex, styleElement);
 					}
 					else
 					{
-						page.Header.Controls.AddAt(sscIndex + 1, theLiteral);
+						page.Header.Controls.AddAt(sscIndex + 1, styleElement);
 					}
 				}
 				else
 				{
-					page.Header.Controls.AddAt(0, theLiteral);
+					page.Header.Controls.AddAt(0, styleElement);
 				}
 			}
 		}
 
 		internal static List<MarkupCss> ParseCssFromXmlNode(XmlNode childNode)
 		{
-			List<MarkupCss> markupCss = new List<MarkupCss>();
-			if (childNode.Name != "Styles") return markupCss;
+			var markupCss = new List<MarkupCss>();
+
+			if (childNode.Name != "Styles")
+			{
+				return markupCss;
+			}
+
 			foreach (XmlNode child in childNode)
 			{
 				if (child.Name == "Style")
 				{
+					var style = new MarkupCss();
+
 					XmlAttributeCollection childAttrs = child.Attributes;
-					string name = string.Empty;
-					string media = "all";
-					if (childAttrs["name"] != null) { name = childAttrs["name"].Value; }
-					if (childAttrs["media"] != null) { media = childAttrs["media"].Value; }
-					if (childAttrs["href"] != null)
+
+					foreach (XmlAttribute attr in childAttrs)
 					{
-						MarkupCss style = new MarkupCss();
-						style.Url = childAttrs["href"].Value;
-						style.Media = media;
-						if (childAttrs["renderAboveSSC"] != null) { style.RenderAboveSSC = Convert.ToBoolean(childAttrs["renderAboveSSC"].Value); }
-						if (!string.IsNullOrWhiteSpace(name)) { style.Name = name; }
-						markupCss.Add(style);
+						if (attr == null)
+						{
+							continue;
+						}
+
+						switch (attr.Name)
+						{
+							case "href":
+								style.Url = attr.Value;
+								break;
+							case "name":
+								style.Name = attr.Value;
+								break;
+							case "media":
+								style.Media = attr.Value;
+								break;
+							case "renderAboveSSC":
+								style.RenderAboveSSC = Convert.ToBoolean(attr.Value);
+								break;
+							default:
+								style.Attributes.Add(attr.Name, attr.Value);
+								break;
+						}
+					}
+
+					if (string.IsNullOrWhiteSpace(style.Url) && string.IsNullOrWhiteSpace(child.InnerText))
+					{
 						continue;
 					}
-					if (!string.IsNullOrWhiteSpace(child.InnerText))
+
+					if (string.IsNullOrWhiteSpace(style.Url) && !string.IsNullOrWhiteSpace(child.InnerText))
 					{
-						MarkupCss raw = new MarkupCss();
-						raw.CSS = child.InnerText.Trim();
-						raw.Media = media;
-						if (!string.IsNullOrWhiteSpace(name)) { raw.Name = name; }
-						markupCss.Add(raw);
+						style.CSS = child.InnerText.Trim();
 					}
+
+					markupCss.Add(style);
 				}
 			}
 

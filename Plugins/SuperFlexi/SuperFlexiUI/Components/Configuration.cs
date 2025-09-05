@@ -7,7 +7,6 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
-using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using Resources;
 using SuperFlexiBusiness;
@@ -557,6 +556,8 @@ public class MarkupScript
 	///		<para>inHead</para>
 	/// </summary>
 	public string Position { get; set; } = "inBody";
+
+	public Dictionary<string, string> Attributes { get; set; } = [];
 }
 
 public class MarkupCss
@@ -564,8 +565,9 @@ public class MarkupCss
 	public string Url { get; set; } = string.Empty;
 	public string CSS { get; set; } = string.Empty;
 	public string Name { get; set; } = string.Empty;
-	public string Media { get; set; } = string.Empty;
+	public string Media { get; set; } = "all";
 	public bool RenderAboveSSC { get; set; } = true;
+	public Dictionary<string, string> Attributes { get; set; } = [];
 }
 
 

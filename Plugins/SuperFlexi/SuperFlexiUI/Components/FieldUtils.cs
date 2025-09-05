@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Xml;
-using System.Xml.Linq;
 using log4net;
 using mojoPortal.FileSystem;
 using mojoPortal.Web;
-using mojoPortal.Web.Framework;
 using SuperFlexiBusiness;
 using Core = mojoPortal.Core;
 
@@ -413,7 +411,7 @@ public class FieldUtils
 		foreach (string attribute in attributes)
 		{
 			List<string> attr = attribute.SplitOnCharAndTrim('|');
-			if (attr.Count < 2 )
+			if (attr.Count < 2)
 			{
 				//no value so we set the value equal to the name
 				attr.Add(attr[0]);

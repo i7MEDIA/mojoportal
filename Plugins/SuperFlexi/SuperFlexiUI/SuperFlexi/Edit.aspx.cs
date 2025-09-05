@@ -11,7 +11,6 @@ using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.SearchIndex;
 using mojoPortal.Web;
 using mojoPortal.Web.Components;
@@ -1196,7 +1195,7 @@ public partial class EditItems : NonCmsBasePage
 		return rfv;
 	}
 
-	private static CompareValidator CreateDateValidator (Control theControl, Field field)
+	private static CompareValidator CreateDateValidator(Control theControl, Field field)
 	{
 		var valDate = new CompareValidator
 		{

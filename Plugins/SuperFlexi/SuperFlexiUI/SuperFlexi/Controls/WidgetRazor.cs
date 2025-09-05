@@ -253,7 +253,7 @@ public class WidgetRazor : WebControl
 
 	protected override void RenderContents(HtmlTextWriter writer)
 	{
-		prepareModel();	
+		prepareModel();
 		writer.Write(getViewContent());
 	}
 
