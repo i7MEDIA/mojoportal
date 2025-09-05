@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("mojoPortal is a Content Management System for the ASP.NET Framework")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("i7MEDIA, LLC")]
-[assembly: AssemblyProduct("mojoPortal CMS")]
-[assembly: AssemblyCopyright("Eclipse Public License 1.0 (EPL)")]
+//[assembly: AssemblyProduct("mojoPortal CMS")]
+[assembly: AssemblyCopyright("i7MEDIA")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -61,4 +61,4 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyFileVersion("2.9.2.1")]
+// [assembly: AssemblyFileVersion("2.8.0.7")]
