@@ -76,6 +76,7 @@ public class CaptchaControl : Panel
 
 					Controls.Clear();
 					Controls.Add(captcha.GetControl());
+					var foo = "bar";
 				}
 			}
 		}

@@ -1,12 +1,12 @@
 using System.Web;
 using System.Web.UI;
+using Subkismet.Captcha;
 
 namespace mojoPortal.Web.Controls.Captcha;
 
 public class SubkismetCaptchaAdapter : ICaptcha
 {
 	private readonly Subkismet.Captcha.CaptchaControl captchaControl = new();
-
 
 	#region Properties
 
@@ -56,9 +56,6 @@ public class SubkismetCaptchaAdapter : ICaptcha
 		{
 			return;
 		}
-
-		captchaControl.InstructionText = "Enter the code shown above:";
-		captchaControl.ErrorMessage = "Incorrect, try again";
 
 		try
 		{

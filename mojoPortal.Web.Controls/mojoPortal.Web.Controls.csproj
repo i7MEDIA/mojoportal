@@ -128,13 +128,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MetaDataExtractor, Version=2.3.0.38010, Culture=neutral, PublicKeyToken=null">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\MetaDataExtractor.dll</HintPath>
-    </Reference>
-    <Reference Include="Subkismet, Version=1.0.3.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\_libs\Subkismet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -157,6 +150,13 @@
     <Compile Include="AdRotator\AdCreatedEventArgs.cs" />
     <Compile Include="AdRotator\AdCreatedEventHandler.cs" />
     <Compile Include="AdRotator\AdRotator.cs" />
+    <Compile Include="Captcha\Subkismet\CaptchaBase.cs" />
+    <Compile Include="Captcha\Subkismet\CaptchaControl.cs" />
+    <Compile Include="Captcha\Subkismet\CaptchaExpiredException.cs" />
+    <Compile Include="Captcha\Subkismet\CaptchaImage.cs" />
+    <Compile Include="Captcha\Subkismet\CaptchaImageHandler.cs" />
+    <Compile Include="Captcha\Subkismet\HoneypotCaptcha.cs" />
+    <Compile Include="Captcha\Subkismet\InvisibleCaptcha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -193,15 +193,6 @@
     <Compile Include="EventCalendar\ItemTemplates.cs" />
     <Compile Include="EventCalendar\DayNumberDiv.cs" />
     <Compile Include="EventCalendar\EventCalendar.cs" />
-    <Compile Include="FolderGallery\AlbumControl.cs" />
-    <Compile Include="FolderGallery\AlbumFolderInfo.cs" />
-    <Compile Include="FolderGallery\AlbumHandlerMode.cs" />
-    <Compile Include="FolderGallery\AlbumNavigationMode.cs" />
-    <Compile Include="FolderGallery\AlbumPageInfo.cs" />
-    <Compile Include="FolderGallery\AlbumTemplateContainer.cs" />
-    <Compile Include="FolderGallery\ImageCacheLocation.cs" />
-    <Compile Include="FolderGallery\ImageHelper.cs" />
-    <Compile Include="FolderGallery\ImageInfo.cs" />
     <Compile Include="google\Analytics\AnalyticsTransaction.cs">
       <SubType>Code</SubType>
     </Compile>
