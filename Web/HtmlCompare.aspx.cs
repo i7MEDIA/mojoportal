@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Helpers;
+using HtmlDiff;
 using mojoPortal.Business;
 using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
@@ -71,7 +71,7 @@ public partial class HtmlCompare : mojoDialogBasePage
 
 		if ((HtmlConfiguration.UseHtmlDiff) && (highlightDiff))
 		{
-			HtmlDiff diffHelper = new HtmlDiff(history.ContentText, html.Body);
+			var diffHelper = new HtmlDiff.HtmlDiff(history.ContentText, html.Body);
 			litCurrentVersion.Text = diffHelper.Build();
 		}
 		else
@@ -100,7 +100,7 @@ public partial class HtmlCompare : mojoDialogBasePage
 
 		if (HtmlConfiguration.UseHtmlDiff && highlightDiff)
 		{
-			var diffHelper = new HtmlDiff(html.Body, draftContent.ContentText);
+			var diffHelper = new HtmlDiff.HtmlDiff(html.Body, draftContent.ContentText);
 			litCurrentVersion.Text = diffHelper.Build();
 		}
 		else

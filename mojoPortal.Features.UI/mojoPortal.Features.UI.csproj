@@ -115,21 +115,17 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Argotic.Common, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\argotic\Argotic.Common.dll</HintPath>
+    <Reference Include="Argotic.Common, Version=3001.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Argotic.Common.3001.0.0\lib\netstandard2.0\Argotic.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Argotic.Core, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\argotic\Argotic.Core.dll</HintPath>
+    <Reference Include="Argotic.Core, Version=3001.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Argotic.Core.3001.0.0\lib\netstandard2.0\Argotic.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Argotic.Extensions, Version=2008.0.2.0, Culture=neutral, PublicKeyToken=84b2ce808fb02469, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\argotic\Argotic.Extensions.dll</HintPath>
+    <Reference Include="Argotic.Extensions, Version=3001.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Argotic.Extensions.3001.0.0\lib\netstandard2.0\Argotic.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlDiff, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_libs\HtmlDiff.dll</HintPath>
+    <Reference Include="HtmlDiff, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\htmldiff.net.1.5.0\lib\net462\HtmlDiff.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.3.0.3\lib\net462\log4net.dll</HintPath>
@@ -150,6 +146,9 @@
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.6.0\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration.ConfigurationManager, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.9.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -729,25 +728,6 @@
     </Compile>
     <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
       <DependentUpon>FeedManagerModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="FolderGallery\Components\FolderGalleryConfiguration.cs" />
-    <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
-    <Compile Include="FolderGallery\Edit.aspx.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FolderGallery\Edit.aspx.designer.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FolderGallery\FolderGalleryModule.ascx.cs">
-      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FolderGallery\FolderGalleryModule.ascx.designer.cs">
-      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="FolderGallery\upload.ashx.cs">
-      <DependentUpon>upload.ashx</DependentUpon>
     </Compile>
     <Compile Include="Forums\Components\FeedParameterParser.cs" />
     <Compile Include="Forums\Components\ForumConfiguration.cs" />
@@ -1456,10 +1436,6 @@
     <Content Include="Setup\ProviderConfig\indexbuilders\sharedfilesindexbuilder.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FolderGallery\Edit.aspx" />
-    <Content Include="FolderGallery\FolderGalleryModule.ascx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_GlobalResources\FolderGalleryResources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>FolderGalleryResources.Designer.cs</LastGenOutput>
@@ -1655,7 +1631,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
     <Folder Include="Setup\applications\blog\SchemaInstallScripts\mssql\" />
-    <Folder Include="Setup\applications\contactform\SchemaInstallScripts\mssql\" />
     <Folder Include="Setup\applications\eventcalendar\SchemaInstallScripts\mssql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mssql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mysql\" />
@@ -1710,9 +1685,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageGallery\upload.ashx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FolderGallery\upload.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="XmlXsl\uploader.ashx" />

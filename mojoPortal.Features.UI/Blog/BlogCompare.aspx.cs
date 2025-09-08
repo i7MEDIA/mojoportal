@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using Helpers;
+using HtmlDiff;
 using mojoPortal.Business;
 using mojoPortal.Web.Framework;
 using Resources;
@@ -56,7 +56,7 @@ public partial class BlogCompare : mojoDialogBasePage
 
 		if (BlogConfiguration.UseHtmlDiff)
 		{
-			HtmlDiff diffHelper = new HtmlDiff(history.ContentText, blog.Description);
+			var diffHelper = new HtmlDiff.HtmlDiff(history.ContentText, blog.Description);
 			litCurrentVersion.Text = diffHelper.Build();
 		}
 		else
