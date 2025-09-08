@@ -76,9 +76,9 @@ public class LdapUser
 
 	public LdapUser(LdapEntry entry)
 	{
-		dn = entry.DN;
+		dn = entry.Dn;
 
-		foreach (LdapAttribute a in entry.getAttributeSet())
+		foreach (LdapAttribute a in entry.GetAttributeSet())
 		{
 			switch (a.Name)
 			{

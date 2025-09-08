@@ -1,8 +1,9 @@
+using System.DirectoryServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 using log4net;
 using mojoPortal.Core.Configuration;
 using Novell.Directory.Ldap;
-using System.DirectoryServices;
-using System.Security.Cryptography.X509Certificates;
 
 namespace mojoPortal.Business;
 
@@ -17,21 +18,17 @@ public sealed class LdapHelper
 
 	private static LdapConnection GetConnection(LdapSettings ldapSettings)
 	{
-		var conn = new LdapConnection();
+		var ldapOptions = new LdapConnectionOptions();
+		ldapOptions.ConfigureRemoteCertificateValidationCallback((sender, certificate, chain, sslPolicyErrors) => LdapSSLHandler(certificate, null));
 
-		if (ConfigHelper.GetBoolProperty("UseSslForLdap", false))
+		var conn = new LdapConnection(ldapOptions)
 		{
-			// make this support ssl/tls
-			// http://stackoverflow.com/questions/386982/novell-ldap-c-novell-directory-ldap-has-anybody-made-it-work
-			conn.SecureSocketLayer = true;
-			conn.UserDefinedServerCertValidationDelegate += new CertificateValidationCallback(LdapSSLHandler);
-		}
+			SecureSocketLayer = ConfigHelper.GetBoolProperty("UseSslForLdap", false)
+		};
 
-		conn.Connect(ldapSettings.Server, ldapSettings.Port);
-
+		conn.ConnectAsync(ldapSettings.Server, ldapSettings.Port).Wait();
 		return conn;
 	}
-
 
 	public static bool LdapSSLHandler(X509Certificate certificate, int[] certificateErrors)
 	{
@@ -63,16 +60,16 @@ public sealed class LdapHelper
 	{
 		var constraints = new LdapSearchConstraints();
 
-		LdapSearchQueue queue = null;
-		queue = conn.Search(
+		var queue = Task.Run(() => conn.SearchAsync(
 			ldapSettings.RootDN,
-			LdapConnection.SCOPE_SUB,
+			LdapConnection.ScopeSub,
 			$"{ldapSettings.UserDNKey}={search}",
 			null,
 			false,
 			null,
 			null
-		);
+		)).Result;
+		
 
 		LdapEntry entry = null;
 
@@ -81,7 +78,7 @@ public sealed class LdapHelper
 			return entry;
 		}
 
-		LdapMessage message = queue.getResponse();
+		LdapMessage message = queue.GetResponse();
 
 		if (message != null && message is LdapSearchResult result)
 		{
@@ -134,7 +131,7 @@ public sealed class LdapHelper
 				if (entry != null)
 				{
 					var authConn = GetConnection(ldapSettings);
-					authConn.Bind(entry.DN, password);
+					authConn.BindAsync(entry.Dn, password);
 					authConn.Disconnect();
 					success = true;
 				}
