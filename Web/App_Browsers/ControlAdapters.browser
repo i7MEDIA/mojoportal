@@ -36,9 +36,6 @@
 
 			<adapter controlType="mojoPortal.Web.Controls.mojoGridView"
 					 adapterType="mojoPortal.Web.GridViewAdapter" />
-
-			<adapter controlType="mojoPortal.Web.UI.mojoDataList"
-					 adapterType="CSSFriendly.DataListAdapter" />
 		</controlAdapters>
 	</browser>
 </browsers>

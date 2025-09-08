@@ -710,6 +710,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="LICENSE.md" />
+    <Content Include="App_Browsers\ControlAdapters.browser" />
     <None Include="Properties\PublishProfiles\MSSQL.pubxml" />
     <None Include="Properties\PublishProfiles\MySQL.pubxml" />
     <None Include="Properties\PublishProfiles\PGSQL.pubxml" />
@@ -2738,9 +2739,6 @@
       <SubType>Designer</SubType>
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Resource.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_Browsers\CSSFriendlyAdapters.browser">
-      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Browsers\w3cvalidator.browser" />
     <Content Include="log4net.config">
