@@ -8,7 +8,6 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.SearchIndex;
-using mojoPortal.Web;
 using mojoPortal.Web.BlogUI;
 using Resources;
 
@@ -36,14 +35,17 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 		//don't index pending/unpublished pages
 		if (pageSettings.IsPending) { return; }
 
-		log.Info($"{BlogResources.BlogFeatureName} indexing page - {pageSettings.PageName}");
-
 		Guid blogFeatureGuid = new("026cbead-2b80-4491-906d-b83e37179ccf");
 		ModuleDefinition blogFeature = new(blogFeatureGuid);
 
 		List<PageModule> pageModules = PageModule.GetPageModulesByPage(pageSettings.PageId);
 
 		DataTable dataTable = Blog.GetBlogsByPage(pageSettings.SiteId, pageSettings.PageId);
+
+		if (dataTable.Rows.Count > 0)
+		{
+			log.Info($"{BlogResources.BlogFeatureName} indexing page - {pageSettings.PageName}");
+		}
 
 		foreach (DataRow row in dataTable.Rows)
 		{

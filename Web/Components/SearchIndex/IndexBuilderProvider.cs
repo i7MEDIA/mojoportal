@@ -20,14 +20,10 @@ namespace mojoPortal.SearchIndex
     /// </summary>
     public abstract class IndexBuilderProvider : ProviderBase
     {
-        public abstract void RebuildIndex(
-            PageSettings pageSettings,
-            string indexPath);
+        public abstract void RebuildIndex(PageSettings pageSettings, string indexPath);
 
 
-        public abstract void ContentChangedHandler(
-            object sender,
-            ContentChangedEventArgs e);
+        public abstract void ContentChangedHandler(object sender, ContentChangedEventArgs e);
        
     }
 }

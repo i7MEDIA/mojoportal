@@ -20,10 +20,11 @@ using log4net;
 using Lucene.Net.Analysis;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
-using FSDirectory = Lucene.Net.Store.FSDirectory;
+using Lucene.Net.Util;
+using mojoPortal.Business;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
-using mojoPortal.Business;
+using FSDirectory = Lucene.Net.Store.FSDirectory;
 
 
 
@@ -178,53 +179,42 @@ namespace mojoPortal.SearchIndex
             try
             {
 
-                using (Lucene.Net.Store.Directory searchDirectory = IndexHelper.GetDirectory(siteId))
-                {
+				using Lucene.Net.Store.Directory searchDirectory = IndexHelper.GetDirectory(siteId);
+				using var indexWriter = IndexHelper.GetIndexWriter(siteId, searchDirectory);
 
-                    using (IndexReader reader = IndexReader.Open(searchDirectory, false))
-                    {
+				foreach (DataRow row in q.Rows)
+				{
+					Term term = new Term("Key", row["ItemKey"].ToString());
+					try
+					{
+						indexWriter.DeleteDocuments(term);
+						log.Debug("reader.DeleteDocuments(term) for Key " + row["ItemKey"].ToString());
+					}
+					catch (Exception ge)
+					{
+						// TODO: monitor what real exceptions if any occur and then
+						// change this catch to catch only the expected ones
+						// instead of non specific exception
+						log.Error(ge);
+					}
 
-                        foreach (DataRow row in q.Rows)
-                        {
-                            Term term = new Term("Key", row["ItemKey"].ToString());
-                            try
-                            {
-                                reader.DeleteDocuments(term);
-                                log.Debug("reader.DeleteDocuments(term) for Key " + row["ItemKey"].ToString());
-                            }
-                            catch (Exception ge)
-                            {
-                                // TODO: monitor what real exceptions if any occur and then
-                                // change this catch to catch only the expected ones
-                                // instead of non specific exception
-                                log.Error(ge);
-                            }
+					bool removeOnly = Convert.ToBoolean(row["RemoveOnly"]);
+					if (removeOnly)
+					{
+						Int64 rowId = Convert.ToInt64(row["RowId"]);
+						IndexingQueue.Delete(rowId);
 
-                            bool removeOnly = Convert.ToBoolean(row["RemoveOnly"]);
-                            if (removeOnly)
-                            {
-                                Int64 rowId = Convert.ToInt64(row["RowId"]);
-                                IndexingQueue.Delete(rowId);
+					}
 
-                            }
-
-
-                            if (DateTime.UtcNow > nextStatusUpdateTime)
-                            {
-                                // don't mark as complete because there may be more qu items 
-                                //for different index paths in a multi site installation
-                                bool markAsComplete = false;
-                                ReportStatus(markAsComplete);
-                            }
-
-                        }
-
-                    }
-
-                }
-
-                
-            }
+					if (DateTime.UtcNow > nextStatusUpdateTime)
+					{
+						// don't mark as complete because there may be more qu items 
+						//for different index paths in a multi site installation
+						bool markAsComplete = false;
+						ReportStatus(markAsComplete);
+					}
+				}
+			}
             catch (System.IO.IOException ex)
             {
                 log.Info("IndexWriter swallowed exception this is expected if building or rebuilding the search index ",ex);
@@ -236,77 +226,74 @@ namespace mojoPortal.SearchIndex
                 errorCount += 1;
             }
 
-
             // next add items with writer
             using (Lucene.Net.Store.Directory searchDirectory = IndexHelper.GetDirectory(siteId))
             {
-                using (IndexWriter indexWriter = GetWriter(siteId, searchDirectory))
-                {
-                    if (indexWriter == null)
-                    {
-                        log.Error("failed to get IndexWriter for path: " + indexPath);
-                        errorCount += 1;
-                        return;
-                    }
+				using IndexWriter indexWriter = IndexHelper.GetIndexWriter(siteId, searchDirectory);
+				if (indexWriter == null)
+				{
+					log.Error($"failed to get IndexWriter for path: {indexPath}");
+					errorCount += 1;
+					return;
+				}
 
-                    foreach (DataRow row in q.Rows)
-                    {
-                        bool removeOnly = Convert.ToBoolean(row["RemoveOnly"]);
-                        if (!removeOnly)
-                        {
-                            try
-                            {
-                                IndexItem indexItem
-                                        = (IndexItem)SerializationHelper.DeserializeFromString(typeof(IndexItem), row["SerializedItem"].ToString());
-                                // if the content is locked down to only admins it is a special case
-                                // we just won't add it to the search index
-                                // because at search time we avoid the role check for all admins, content admins and siteeditors
-                                // we don't have a good way to prevent content admins and site editors from seeing the content
-                                // in search
-                                if ((indexItem.ViewRoles != "Admins;") && (indexItem.ModuleViewRoles != "Admins;"))
-                                {
+				foreach (DataRow row in q.Rows)
+				{
+					bool removeOnly = Convert.ToBoolean(row["RemoveOnly"]);
+					if (!removeOnly)
+					{
+						try
+						{
+							var indexItem
+									= (IndexItem)SerializationHelper.DeserializeFromString(typeof(IndexItem), row["SerializedItem"].ToString());
+							// if the content is locked down to only admins it is a special case
+							// we just won't add it to the search index
+							// because at search time we avoid the role check for all admins, content admins and siteeditors
+							// we don't have a good way to prevent content admins and site editors from seeing the content
+							// in search
+							if ((indexItem.ViewRoles != "Admins;") && (indexItem.ModuleViewRoles != "Admins;"))
+							{
 
-                                    if (indexItem.ViewPage.Length > 0)
-                                    {
-                                        Document doc = GetDocument(indexItem);
-                                        WriteToIndex(doc, indexWriter);
-                                        log.Debug("called WriteToIndex(doc, indexWriter) for key " + indexItem.Key);
-                                    }
-                                }
+								if (indexItem.ViewPage.Length > 0)
+								{
+									Document doc = GetDocument(indexItem);
+									WriteToIndex(doc, indexWriter);
+									log.Debug($"called WriteToIndex(doc, indexWriter) for key {indexItem.Key}");
+								}
+							}
 
-                                Int64 rowId = Convert.ToInt64(row["RowId"]);
-                                IndexingQueue.Delete(rowId);
+							Int64 rowId = Convert.ToInt64(row["RowId"]);
+							IndexingQueue.Delete(rowId);
 
-                            }
-                            catch (Exception ex)
-                            {
-                                log.Error(ex);
-                            }
+						}
+						catch (Exception ex)
+						{
+							log.Error(ex);
+						}
+					}
 
+					if (DateTime.UtcNow > nextStatusUpdateTime)
+					{
+						// don't mark as complete because there may be more qu items 
+						//for different index paths in a multi site installation
+						bool markAsComplete = false;
+						ReportStatus(markAsComplete);
+					}
+				}
 
-                        }
+    //            indexWriter.Dispose();
+				//searchDirectory.Dispose();
 
-                        if (DateTime.UtcNow > nextStatusUpdateTime)
-                        {
-                            // don't mark as complete because there may be more qu items 
-                            //for different index paths in a multi site installation
-                            bool markAsComplete = false;
-                            ReportStatus(markAsComplete);
-                        }
-
-                    }
-
-                    try
-                    {
-                        indexWriter.Optimize();
-                    }
-                    catch (System.IO.IOException ex)
-                    {
-                        log.Error(ex);
-                    }
-                }
-            }
-        }
+				//try
+				//{
+				//    indexWriter.Optimize();
+				//}
+				//catch (System.IO.IOException ex)
+				//{
+				//    log.Error(ex);
+				//}
+			}
+		}
 
         private void WriteToIndex(Document doc, IndexWriter indexWriter)
         {
@@ -319,7 +306,6 @@ namespace mojoPortal.SearchIndex
                 log.Error(ex);
             }
         }
-
 
         private Document GetDocument(IndexItem indexItem)
         {
@@ -356,41 +342,9 @@ namespace mojoPortal.SearchIndex
             
             doc.Add(new Field("PublishBeginDate", indexItem.PublishBeginDate.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("PublishEndDate", indexItem.PublishEndDate.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            //doc.Add(new Field("IndexedUtc", DateTime.UtcNow.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-            //doc.Add(new NumericField("PubBeginDate", Field.Store.YES, true).SetLongValue(indexItem.PublishBeginDate.Ticks));
-            //doc.Add(new NumericField("PubEndDate", Field.Store.YES, true).SetLongValue(indexItem.PublishEndDate.Ticks));
-
-            //2013-01-08 adding created and lastmod date and storage to Numeric field for sorting and range queries
-            //http://stackoverflow.com/questions/2685490/lucene-net-sorting-by-int
-
-            //if (indexItem.CreatedUtc > DateTime.MinValue)
-            //{
-            //    doc.Add(new NumericField("CreatedUtc", Field.Store.YES, true).SetLongValue(indexItem.CreatedUtc.Ticks));
-            //}
-            //else
-            //{
-            //    doc.Add(new NumericField("CreatedUtc", Field.Store.YES, true).SetLongValue(DateTime.UtcNow.Ticks));
-            //}
-
-            //if (indexItem.LastModUtc > DateTime.MinValue)
-            //{
-            //    doc.Add(new NumericField("LastModUtc", Field.Store.YES, true).SetLongValue(indexItem.LastModUtc.Ticks));
-            //}
-            //else
-            //{
-            //    doc.Add(new NumericField("LastModUtc", Field.Store.YES, true).SetLongValue(DateTime.UtcNow.Ticks));
-            //}
 
             doc.Add(new Field("CreatedUtc", indexItem.CreatedUtc.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("LastModUtc", indexItem.LastModUtc.ToString("s"), Field.Store.YES, Field.Index.NOT_ANALYZED));
-
-            //doc.Add(new NumericField("CreatedUtc", Field.Store.YES, true).SetIntValue(indexItem.CreatedUtc.ToDateInteger()));
-            //doc.Add(new NumericField("LastModUtc", Field.Store.YES, true).SetIntValue(indexItem.LastModUtc.ToDateInteger()));
-
-            
-
-
 
             doc.Add(new Field("PageName", indexItem.PageName, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
             doc.Add(new Field("ModuleTitle", indexItem.ModuleTitle, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
@@ -416,104 +370,26 @@ namespace mojoPortal.SearchIndex
             }
 
             doc.Add(new Field("Intro", introContent, Field.Store.YES, Field.Index.NOT_ANALYZED));
-            
-            //doc.Add(new Field("Intro",
-            //   (textContent.Length < WebConfigSettings.SearchResultsFragmentSize ? textContent : (UIHelper.CreateExcerpt(textContent, (WebConfigSettings.SearchResultsFragmentSize -3)) + "..."))
-            //   , Field.Store.YES, Field.Index.NOT_ANALYZED
-            //   )
-            //   );
 
             // for display in recent content features, html is allowed here
             if (indexItem.ContentAbstract.Length == 0) { indexItem.ContentAbstract = introContent; }
             doc.Add(new Field("Abstract", indexItem.ContentAbstract, Field.Store.YES, Field.Index.NO));
 
-            //// other content is optional, used for blog comments
-            //// could be used elsewhere
-            //if (storeContentForResultsHighlighting)
-            //{
-
             // this is the main searched field
-            doc.Add(new Field("contents", ConvertToText(indexItem.Content) + " "
-                    + ConvertToText(indexItem.OtherContent), Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
+            doc.Add(new TextField("contents", ConvertToText(indexItem.Content) + " "
+                    + ConvertToText(indexItem.OtherContent), Field.Store.YES));
 
-            //}
-            //else
-            //{
-            //    doc.Add(new Field("contents", textContent + " "
-            //        + ConvertToText(indexItem.OtherContent), Field.Store.NO, Field.Index.ANALYZED, Field.TermVector.YES));
-            //}
-
-           
             //unsearchable fields
-            doc.Add(new Field("Feature", indexItem.FeatureName, Field.Store.YES, Field.Index.NO));
-            doc.Add(new Field("FeatureResourceFile", indexItem.FeatureResourceFile, Field.Store.YES, Field.Index.NO));
-            doc.Add(new Field("PageNumber", indexItem.PageNumber.ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NO));
-            doc.Add(new Field("ViewPage", indexItem.ViewPage, Field.Store.YES, Field.Index.NO));
-            doc.Add(new Field("UseQueryStringParams", indexItem.UseQueryStringParams.ToString(), Field.Store.YES, Field.Index.NO));
-            doc.Add(new Field("QueryStringAddendum", indexItem.QueryStringAddendum, Field.Store.YES, Field.Index.NO));
-
-            doc.Add(new Field("ExcludeFromRecentContent", indexItem.ExcludeFromRecentContent.ToString().ToLower(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            
+            doc.Add(new StringField("Feature", indexItem.FeatureName, Field.Store.YES));
+            doc.Add(new StringField("FeatureResourceFile", indexItem.FeatureResourceFile, Field.Store.YES));
+            doc.Add(new StringField("PageNumber", indexItem.PageNumber.ToString(CultureInfo.InvariantCulture), Field.Store.YES));
+            doc.Add(new StringField("ViewPage", indexItem.ViewPage, Field.Store.YES));
+            doc.Add(new StringField("UseQueryStringParams", indexItem.UseQueryStringParams.ToString(), Field.Store.YES));
+            doc.Add(new StringField("QueryStringAddendum", indexItem.QueryStringAddendum, Field.Store.YES));
+            doc.Add(new StringField("ExcludeFromRecentContent", indexItem.ExcludeFromRecentContent.ToString().ToLower(), Field.Store.YES));
 
             return doc;
-
         }
-
-        
-
-        private IndexWriter GetWriter(int siteId, Lucene.Net.Store.Directory indexDirectory)
-        {
-            IndexWriter indexWriter = null;
-            LuceneSettingsProvider provider =  LuceneSettingsManager.Providers[IndexHelper.GetSiteProviderName(siteId)];
-            if (provider == null)
-            {
-                log.Error("LuceneSettingsProvider could not be obtained");
-                return null;
-            }
-
-            Analyzer analyzer = provider.GetAnalyzer();
-            
-            if (!IndexReader.IndexExists(indexDirectory))
-            {
-                try
-                {
-  
-                    indexWriter = new IndexWriter(indexDirectory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED);
-                    
-                }
-                catch (System.IO.IOException ex)
-                {
-                    log.Error(ex);
-                    try
-                    {
-                        indexWriter = new IndexWriter(indexDirectory, analyzer, false, IndexWriter.MaxFieldLength.UNLIMITED);
-                    }
-                    catch (System.IO.FileNotFoundException ex2)
-                    {
-                        log.Error(ex2);
-
-                    }
-
-                }
-            }
-            else
-            {
-                try
-                {
-                    indexWriter = new IndexWriter(indexDirectory, analyzer, false, IndexWriter.MaxFieldLength.UNLIMITED);
-                }
-                catch (System.IO.FileNotFoundException ex2)
-                {
-                    log.Error(ex2);
-
-                }
-
-            }
-
-            return indexWriter;
-
-        }
-
 
         private void ReportStatus()
         {
@@ -523,7 +399,6 @@ namespace mojoPortal.SearchIndex
 
         private void ReportStatus(bool markAsComplete)
         {
-
             TaskQueue task = new TaskQueue(this.taskGuid);
 
             if (markAsComplete)
@@ -544,12 +419,10 @@ namespace mojoPortal.SearchIndex
                 task.Status = statusCompleteMessage;
 
                 if (task.CompleteUTC == DateTime.MinValue)
-                    task.CompleteUTC = DateTime.UtcNow;
-
-
-
-
-            }
+				{
+					task.CompleteUTC = DateTime.UtcNow;
+				}
+			}
             else
             {
                 task.Status = string.Format(
@@ -559,13 +432,10 @@ namespace mojoPortal.SearchIndex
                     rowsToProcess);
             }
 
-
             task.LastStatusUpdateUTC = DateTime.UtcNow;
             task.Save();
 
             nextStatusUpdateTime = DateTime.UtcNow.AddSeconds(actualUpdateFrequency);
-
-
         }
 
         private void MarkAsComplete()
@@ -576,8 +446,6 @@ namespace mojoPortal.SearchIndex
             task.LastStatusUpdateUTC = DateTime.UtcNow;
             task.CompleteUTC = DateTime.UtcNow;
             task.Save();
-
-
         }
 
         private bool IsAlreadyRunning()
@@ -597,15 +465,10 @@ namespace mojoPortal.SearchIndex
                     task.CompleteUTC = DateTime.UtcNow;
                     task.Status = this.statusCompleteMessage;
                     task.Save();
-
                 }
                 else
                 {
-
-                    if (
-                        (t.FullName == taskType.FullName)
-                        && (task.Guid != this.taskGuid)
-                        )
+                    if (t.FullName == taskType.FullName && task.Guid != this.taskGuid)
                     {
                         if (TaskQueue.IsStalled(task))
                         {

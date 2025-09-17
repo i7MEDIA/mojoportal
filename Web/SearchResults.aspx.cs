@@ -376,10 +376,13 @@ public partial class SearchResults : NonCmsBasePage
 
 	private void InitIndexIfNeeded()
 	{
-		if (indexVerified) { return; }
+		if (indexVerified)
+		{
+			return;
+		}
 
 		indexVerified = true;
-		if (!IndexHelper.VerifySearchIndex(siteSettings))
+		if (!IndexHelper.VerifySearchIndex(SiteId))
 		{
 			lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
 			Thread.Sleep(5000); //wait 5 seconds
@@ -451,13 +454,8 @@ public partial class SearchResults : NonCmsBasePage
 
 	void btnRebuildSearchIndex_Click(object sender, EventArgs e)
 	{
-		IndexingQueue.DeleteAll();
-		IndexHelper.DeleteSearchIndex(siteSettings);
-		IndexHelper.VerifySearchIndex(siteSettings);
-
+		IndexHelper.RebuildSearchIndex(SiteId);
 		lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
-		Thread.Sleep(5000); //wait 5 seconds
-		SiteUtils.QueueIndexing();
 	}
 
 	private void SetupScript()

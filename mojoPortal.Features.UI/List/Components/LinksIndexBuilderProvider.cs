@@ -45,8 +45,6 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info(LinkResources.FeatureName + " indexing page - " + pageSettings.PageName);
-
             try
             {
                 Guid linksFeatureGuid = new Guid("74bdbcc2-0e79-47ff-bcd4-a159270bf36e");
@@ -58,7 +56,12 @@ namespace mojoPortal.Features
                 DataTable dataTable = Link.GetLinksByPage(
                     pageSettings.SiteId, pageSettings.PageId);
 
-                foreach (DataRow row in dataTable.Rows)
+                if (dataTable.Rows.Count > 0)
+                {
+					log.Info(LinkResources.FeatureName + " indexing page - " + pageSettings.PageName);
+				}
+
+				foreach (DataRow row in dataTable.Rows)
                 {
                     mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
                     indexItem.SiteId = pageSettings.SiteId;

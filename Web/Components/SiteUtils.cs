@@ -1297,6 +1297,36 @@ namespace mojoPortal.Web
 			}
 		}
 
+		public static int ParseSiteIdFromPath(string str)
+		{
+			int parsedId;
+
+			str = str.ToLower();
+			if (str.IndexOf("data/sites/") != -1)
+			{
+				try
+				{
+					str = str.Substring(str.IndexOf("/sites/") + 7);
+					var strId = str.Substring(0, str.IndexOf("/"));
+					int.TryParse(strId, NumberStyles.Integer, CultureInfo.InvariantCulture, out parsedId);
+
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					return -1;
+				}
+
+				var siteSettings = new SiteSettings(parsedId);
+
+				if (siteSettings is not null)
+				{
+					return siteSettings.SiteId;
+				}
+			}
+
+			return -1;
+		}
+
 		public static int ParseSiteIdFromSkinRequestUrl()
 		{
 			int siteId = -1;

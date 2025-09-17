@@ -17,9 +17,7 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 	public ForumThreadIndexBuilderProvider()
 	{ }
 
-	public override void RebuildIndex(
-		PageSettings pageSettings,
-		string indexPath)
+	public override void RebuildIndex(PageSettings pageSettings, string indexPath)
 	{
 		if (WebConfigSettings.DisableSearchIndex) { return; }
 
@@ -36,8 +34,6 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 			return;
 		}
 
-		log.Info($"{Resources.ForumResources.ForumsFeatureName} indexing page - {pageSettings.PageName}");
-
 		try
 		{
 			var pageModules = PageModule.GetPageModulesByPage(pageSettings.PageId);
@@ -51,6 +47,11 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 			if (ForumConfiguration.AggregateSearchIndexPerThread)
 			{
 				DataTable threads = ForumThread.GetThreadsByPage(pageSettings.SiteId, pageSettings.PageId);
+
+				if (threads.Rows.Count > 0)
+				{
+					log.Info($"{Resources.ForumResources.ForumsFeatureName} indexing page - {pageSettings.PageName}");
+				}
 
 				foreach (DataRow row in threads.Rows)
 				{

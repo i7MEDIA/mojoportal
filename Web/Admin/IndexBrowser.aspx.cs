@@ -337,13 +337,9 @@ public partial class IndexBrowser : NonCmsBasePage
 
 	protected void btnRebuildSearchIndex_Click(object sender, EventArgs e)
 	{
-		IndexingQueue.DeleteAll();
-		IndexHelper.DeleteSearchIndex(siteSettings);
-		IndexHelper.VerifySearchIndex(siteSettings);
+		IndexHelper.RebuildSearchIndex(SiteId);
 		rptResults.Visible = false;
 		lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
-		Thread.Sleep(5000); //wait 1 seconds
-		SiteUtils.QueueIndexing();
 	}
 
 

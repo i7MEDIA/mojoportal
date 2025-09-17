@@ -33,11 +33,14 @@ public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 		//don't index pending/unpublished pages
 		if (pageSettings.IsPending) { return; }
 
-		log.InfoFormat(Resources.SuperFlexiResources.FeatureName + " indexing page [{0}]", pageSettings.PageName);
-
 		try
 		{
 			DataTable dataTable = Item.GetByCMSPage(pageSettings.SiteGuid, pageSettings.PageId);
+
+			if (dataTable.Rows.Count > 0)
+			{
+				log.InfoFormat(Resources.SuperFlexiResources.FeatureName + " indexing page [{0}]", pageSettings.PageName);
+			}
 
 			foreach (DataRow row in dataTable.Rows)
 			{

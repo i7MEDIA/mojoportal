@@ -39,8 +39,6 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info(Resources.GalleryResources.ImageGalleryFeatureName + " indexing page - " + pageSettings.PageName);
-
             try
             {
                 Guid galleryFeatureGuid = new Guid("d572f6b4-d0ed-465d-ad60-60433893b401");
@@ -51,7 +49,12 @@ namespace mojoPortal.Features
 
                 DataTable dataTable = GalleryImage.GetImagesByPage(pageSettings.SiteId, pageSettings.PageId);
 
-                foreach (DataRow row in dataTable.Rows)
+                if (dataTable.Rows.Count > 0)
+                {
+					log.Info(Resources.GalleryResources.ImageGalleryFeatureName + " indexing page - " + pageSettings.PageName);
+				}
+
+				foreach (DataRow row in dataTable.Rows)
                 {
                     mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
                     indexItem.SiteId = pageSettings.SiteId;

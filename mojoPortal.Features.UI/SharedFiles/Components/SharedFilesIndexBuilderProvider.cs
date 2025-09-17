@@ -46,8 +46,6 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info(Resources.SharedFileResources.SharedFilesFeatureName + " indexing page - " + pageSettings.PageName);
-
             try
             {
                 Guid sharedFilesFeatureGuid = new Guid("dc873d76-5bf2-4ac5-bff7-434a87a3fc8e");
@@ -58,7 +56,12 @@ namespace mojoPortal.Features
 
                 DataTable dataTable = SharedFile.GetSharedFilesByPage(pageSettings.SiteId, pageSettings.PageId);
 
-                foreach (DataRow row in dataTable.Rows)
+                if (dataTable.Rows.Count > 0)
+                {
+					log.Info(Resources.SharedFileResources.SharedFilesFeatureName + " indexing page - " + pageSettings.PageName);
+				}
+
+				foreach (DataRow row in dataTable.Rows)
                 {
                     mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
                     indexItem.SiteId = pageSettings.SiteId;

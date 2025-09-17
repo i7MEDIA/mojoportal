@@ -44,8 +44,6 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info(Resources.EventCalResources.EventCalendarFeatureName + " indexing page - " + pageSettings.PageName);
-
             try
             {
                 Guid calendarFeatureGuid = new Guid("c5e6a5df-ac2a-43d3-bb7f-9739bc47194e");
@@ -56,7 +54,12 @@ namespace mojoPortal.Features
 
                 DataTable dataTable = CalendarEvent.GetEventsByPage(pageSettings.SiteId, pageSettings.PageId);
 
-                foreach (DataRow row in dataTable.Rows)
+                if (dataTable.Rows.Count > 0)
+                {
+					log.Info(Resources.EventCalResources.EventCalendarFeatureName + " indexing page - " + pageSettings.PageName);
+				}
+
+				foreach (DataRow row in dataTable.Rows)
                 {
                     mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
                     indexItem.SiteId = pageSettings.SiteId;
