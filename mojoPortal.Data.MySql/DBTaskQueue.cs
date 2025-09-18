@@ -19,6 +19,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Threading.Tasks;
 
 namespace mojoPortal.Data
 {
@@ -577,10 +578,10 @@ namespace mojoPortal.Data
             sqlCommand.Append("CompleteUTC IS NULL ");
             sqlCommand.Append(";");
 
-            return MySqlHelper.ExecuteReader(
+            return Task.Run(async () => await MySqlHelper.ExecuteReaderAsync(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
-                null);
+                null)).Result;
         }
 
 

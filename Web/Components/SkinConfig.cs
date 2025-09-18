@@ -40,8 +40,13 @@ public class Display
 	public bool ShowSearchInputOnSiteSettings { get; set; } = WebConfigSettings.ShowSearchInputOnSiteSettings;
 	public bool ShowModuleTitlesByDefault { get; set; } = WebConfigSettings.ShowModuleTitlesByDefault;
 	public bool EnableEditingModuleTitleElement { get; set; } = WebConfigSettings.EnableEditingModuleTitleElement;
-	public string ModuleTitleTag { get; set; } = WebConfigSettings.ModuleTitleTag;
-
+	public string ModuleTitleElement { get; set; } = WebConfigSettings.ModuleTitleTag;
+	public string[] ModuleTitleElementOptions { get; set; } = ["h2", "h3", "h4", "h5", "h6"];
+	/// <summary>
+	/// Gets or sets a value indicating whether the module title should include the module ID (id="moduleX").
+	/// When false, the module ID will be included on the OuterWrapperPanel of the module.
+	/// </summary>
+	public bool UseIdOnModuleTitle { get; set; } = true;
 }
 
 public class SkinContentTemplate

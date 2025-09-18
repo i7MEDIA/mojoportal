@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using mojoPortal.Business;
@@ -20,11 +21,36 @@ public partial class PageContentWizard : UserControl
 
 		if (!Page.IsPostBack)
 		{
-			BindFeatureList();
+			PopulateControls();
 		}
 	}
 
+	private void PopulateControls()
+	{
+		BindFeatureList();
 
+		chkShowTitle.Checked = Global.SkinConfig.Display.ShowModuleTitlesByDefault;
+
+		divTitleElement.Visible = Global.SkinConfig.Display.EnableEditingModuleTitleElement
+			&& Global.SkinConfig.Display.ModuleTitleElementOptions.Count() > 1;
+
+		if (divTitleElement.Visible)
+		{
+			ddlTitleElements.DataSource = Global.SkinConfig.Display.ModuleTitleElementOptions;
+			if (!string.IsNullOrWhiteSpace(Global.SkinConfig.Display.ModuleTitleElement)
+				&& Global.SkinConfig.Display.ModuleTitleElementOptions.Contains(Global.SkinConfig.Display.ModuleTitleElement))
+			{
+				ddlTitleElements.SelectedValue = Global.SkinConfig.Display.ModuleTitleElement;
+			}
+			ddlTitleElements.DataBind();
+		}
+
+		ddlViewRoles.Items.Clear();
+		ddlViewRoles.Items.Add(new ListItem(Resource.InheritFromPage, "inherit") { Selected = true });
+		//ddlViewRoles.Items.Add(new ListItem(Resource.DefaultRootPageViewRoles, "default"));
+		ddlViewRoles.Items.Add(new ListItem(Resource.Role_Administrators, "admins"));
+		ddlViewRoles.Items.Add(new ListItem(Resource.Role_ContentAdministrators, "contentadmins"));
+	}
 	private void BindFeatureList()
 	{
 		if (siteSettings == null)
@@ -33,19 +59,18 @@ public partial class PageContentWizard : UserControl
 		}
 
 		using IDataReader reader = ModuleDefinition.GetUserModules(siteSettings.SiteId);
-		ListItem listItem;
+
 		while (reader.Read())
 		{
 			string allowedRoles = reader["AuthorizedRoles"].ToString();
 			if (WebUser.IsInRoles(allowedRoles))
 			{
-				listItem = new ListItem(
+				moduleType.Items.Add(new ListItem(
 					ResourceHelper.GetResourceString(
 					reader["ResourceFile"].ToString(),
 					reader["FeatureName"].ToString()),
-					reader["ModuleDefID"].ToString());
-
-				moduleType.Items.Add(listItem);
+					reader["ModuleDefID"].ToString())
+					);
 			}
 		}
 	}
@@ -59,8 +84,25 @@ public partial class PageContentWizard : UserControl
 		}
 
 		int moduleDefID = int.Parse(moduleType.SelectedItem.Value);
-		ModuleDefinition moduleDefinition = new ModuleDefinition(moduleDefID);
-		PageSettings CurrentPage = CacheHelper.GetCurrentPage();
+		var moduleDefinition = new ModuleDefinition(moduleDefID);
+		var CurrentPage = CacheHelper.GetCurrentPage();
+		var rolesString = ddlViewRoles.SelectedValue switch
+		{
+			"inherit" => CurrentPage.AuthorizedRoles,
+			"default" => siteSettings.DefaultRootPageViewRoles,
+			"admins" => "Admins;",
+			_ => string.Empty, //empty means all roles
+		};
+
+		string moduleTitleElement = Global.SkinConfig.Display.ModuleTitleElement;
+		if (divTitleElement.Visible)
+		{
+			moduleTitleElement = ddlTitleElements.SelectedValue;
+		}
+		else if (string.IsNullOrWhiteSpace(moduleTitleElement))
+		{
+			moduleTitleElement = WebConfigSettings.ModuleTitleTag;
+		}
 
 		var m = new Module
 		{
@@ -73,16 +115,19 @@ public partial class PageContentWizard : UserControl
 			PageId = CurrentPage.PageId,
 			ModuleTitle = moduleTitle.Text,
 			ShowTitle = chkShowTitle.Checked,
-			PaneName = "contentpane"
+			HeadElement = moduleTitleElement,
+			PaneName = "contentpane",
+			ViewRoles = rolesString,
 		};
 		//m.AuthorizedEditRoles = "Admins";
-		SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
-		if (currentUser != null)
+		//var currentUser = SiteUtils.GetCurrentSiteUser();
+		if (SiteUtils.GetCurrentSiteUser() is SiteUser currentUser)
 		{
 			m.CreatedByUserId = currentUser.UserId;
 		}
+
 		//m.ShowTitle = WebConfigSettings.ShowModuleTitlesByDefault;
-		m.HeadElement = WebConfigSettings.ModuleTitleTag;
+		//m.HeadElement = WebConfigSettings.ModuleTitleTag;
 		m.Save();
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
@@ -100,7 +145,6 @@ public partial class PageContentWizard : UserControl
 	private void LoadSettings()
 	{
 		siteSettings = CacheHelper.GetCurrentSiteSettings();
-		chkShowTitle.Checked = WebConfigSettings.ShowModuleTitlesByDefault;
 	}
 
 	protected override void OnInit(EventArgs e)
