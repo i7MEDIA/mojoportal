@@ -1,5 +1,7 @@
 ﻿using mojoPortal.Web.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -34,7 +36,7 @@ public class BasePanel : Panel
 	public string OutsideTopMarkup { get; set; } = string.Empty;
 	public string OutsideBottomMarkup { get; set; } = string.Empty;
 	public bool DetectSideColumn { get; set; } = false;
-	public string SideColumnxtraCssClasses { get; set; } = string.Empty;
+	public string SideColumnExtraCssClasses { get; set; } = string.Empty;
 	public string SideColumnLiteralExtraTopContent { get; set; } = string.Empty;
 	public string SideColumnLiteralExtraBottomContent { get; set; } = string.Empty;
 	public virtual bool RenderId { get; set; } = true;
@@ -44,6 +46,8 @@ public class BasePanel : Panel
 
 	private int countOfVisibleWebControls = 0;
 	private string columnId = UIHelper.CenterColumnId;
+
+	//public Dictionary<string, string> Attribs = new Dictionary<string, string>();
 
 
 	protected override void OnPreRender(EventArgs e)
@@ -66,7 +70,7 @@ public class BasePanel : Panel
 			{
 				case UIHelper.LeftColumnId:
 				case UIHelper.RightColumnId:
-					ExtraCssClasses = SideColumnxtraCssClasses;
+					ExtraCssClasses = SideColumnExtraCssClasses;
 					InsideTopMarkup = SideColumnLiteralExtraTopContent;
 					InsideBottomMarkup = SideColumnLiteralExtraBottomContent;
 
@@ -82,24 +86,18 @@ public class BasePanel : Panel
 			base.OnPreRender(e);
 		}
 
-		if (ExtraCssClasses.Length > 0)
-		{
-			if (CssClass.Length > 0)
-			{
-				if (!CssClass.Contains(ExtraCssClasses))
-				{
-					CssClass = CssClass + " " + ExtraCssClasses;
-				}
-			}
-			else
-			{
-				CssClass = ExtraCssClasses;
-			}
-		}
+		CssClass = CssClass.Union(ExtraCssClasses, ' ');
 	}
 
 	protected override void Render(HtmlTextWriter writer)
 	{
+		if (this is OuterWrapperPanel 
+			&& this.Parent is SiteModuleControl parent 
+			&& !Global.SkinConfig.Display.UseIdOnModuleTitle)
+		{
+			ID = Invariant($"module{parent.ModuleConfiguration.ModuleId}");
+			ClientIDMode = ClientIDMode.Static;
+		}
 		if (HttpContext.Current == null)
 		{
 			writer.Write($"[{ID}]");
@@ -135,6 +133,11 @@ public class BasePanel : Panel
 			{
 				writer.AddAttribute(HtmlTextWriterAttribute.Class, CssClass);
 			}
+
+			//foreach (var attrib in Attribs)
+			//{
+			//	writer.AddAttribute(attrib.Key, attrib.Value);
+			//}
 
 			writer.RenderBeginTag(Element);
 		}

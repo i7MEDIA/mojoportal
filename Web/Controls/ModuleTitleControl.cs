@@ -63,31 +63,18 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 	#endregion
 
-	private string headingTag = "h2";
-
-	/// <summary>
-	/// only used when UseModuleHeading is false
-	/// </summary>
-	public string Element { get; set; } = "h2";
+	private string element = "h2";
 
 	/// <summary>
 	/// only used when UseModuleHeadingOnSideColumns is false
 	/// </summary>
 	public string SideColumnElement { get; set; } = "h2";
 
-
-
 	private string topContent = string.Empty;
 	private string bottomContent = string.Empty;
 	private string cssClassToUse = string.Empty;
 
 	public bool DetectSideColumn { get; set; } = false;
-
-	/// <summary>
-	/// if true (default is true) use the heading element defined on the module
-	/// else use the themeable property on this control
-	/// </summary>
-	public bool UseModuleHeading { get; set; } = true;
 
 	/// <summary>
 	/// if true (default is true) use the heading element defined on the module
@@ -176,17 +163,17 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			writer.Write(topContent);
 		}
 
-		if (!UseHeading && ModuleInstance is not null)
+		if (!UseHeading && ModuleInstance is not null && Global.SkinConfig.Display.UseIdOnModuleTitle)
 		{
 			// only need this when not rendering a heading element
 			writer.Write(Invariant($"<a id=\"module{ModuleInstance.ModuleId}\" class=\"moduleanchor\"></a>"));
 		}
 
-		if (UseHeading && !string.IsNullOrWhiteSpace(headingTag))
+		if (UseHeading && !string.IsNullOrWhiteSpace(element))
 		{
-			writer.WriteBeginTag(headingTag);
+			writer.WriteBeginTag(element);
 
-			if (ModuleInstance is not null)
+			if (ModuleInstance is not null && Global.SkinConfig.Display.UseIdOnModuleTitle)
 			{
 				writer.WriteAttribute("id", Invariant($"module{ModuleInstance.ModuleId}"));
 			}
@@ -290,9 +277,9 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			}
 		}
 
-		if (UseHeading && !string.IsNullOrWhiteSpace(headingTag))
+		if (UseHeading && !string.IsNullOrWhiteSpace(element))
 		{
-			writer.WriteEndTag(headingTag);
+			writer.WriteEndTag(element);
 		}
 
 		if (UseHeading && !string.IsNullOrWhiteSpace(bottomContent))
@@ -405,7 +392,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			return;
 		}
 
-		headingTag = WebConfigSettings.ModuleTitleTag;
+		element = Global.SkinConfig.Display.ModuleTitleElement;
 
 		Initialize();
 
@@ -426,7 +413,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 					if (!UseModuleHeadingOnSideColumns)
 					{
-						headingTag = SideColumnElement;
+						element = SideColumnElement;
 					}
 					break;
 
@@ -437,10 +424,6 @@ public class ModuleTitleControl : WebControl, INamingContainer
 					bottomContent = LiteralExtraBottomContent;
 					cssClassToUse = ExtraCssClasses;
 
-					if (!UseModuleHeading)
-					{
-						headingTag = Element;
-					}
 					break;
 			}
 		}
@@ -449,10 +432,6 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			topContent = LiteralExtraTopContent;
 			bottomContent = LiteralExtraBottomContent;
 			cssClassToUse = ExtraCssClasses;
-			if (!UseModuleHeading)
-			{
-				headingTag = Element;
-			}
 		}
 	}
 
@@ -481,7 +460,11 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 		if (ModuleInstance is not null)
 		{
-			headingTag = ModuleInstance.HeadElement;
+			if (Global.SkinConfig.Display.EnableEditingModuleTitleElement)
+			{
+				element = ModuleInstance.HeadElement;
+			}
+
 			if (ModuleInstance.ShowTitle)
 			{
 				litModuleTitle.Text = Page.Server.HtmlEncode(ModuleInstance.ModuleTitle);
