@@ -1,11 +1,3 @@
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.PageEventHandlers;
-using mojoPortal.Core.Extensions;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,6 +6,13 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.PageEventHandlers;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
 
 namespace mojoPortal.Web.AdminUI
 {
@@ -326,7 +325,7 @@ namespace mojoPortal.Web.AdminUI
 					listItem.Selected = true;
 				}
 
-				lnkEditContent.NavigateUrl = SiteRoot + "/Admin/PageLayout.aspx?pageid=" + pageId.ToInvariantString();
+				lnkEditContent.NavigateUrl = "Admin/PageLayout.aspx".ToLinkBuilder().PageId(pageId).ToString();
 
 				heading.Text = string.Format(CultureInfo.InvariantCulture, Resource.SettingsForPageFormat, pageSettings.PageName);
 
@@ -362,7 +361,7 @@ namespace mojoPortal.Web.AdminUI
 				chkUseUrl.Checked = pageSettings.UseUrl;
 				txtUrl.Text = pageSettings.Url;
 				chkNewWindow.Checked = pageSettings.OpenInNewWindow;
-				
+
 				chkIsClickable.Checked = pageSettings.IsClickable;
 
 				chkShowChildMenu.Checked = pageSettings.ShowChildPageMenu;
@@ -394,11 +393,11 @@ namespace mojoPortal.Web.AdminUI
 
 					if (WebConfigSettings.AlwaysUrlEncode)
 					{
-						txtUrl.Text = "~/" + Server.UrlEncode(friendlyUrl);
+						txtUrl.Text = $"~/{Server.UrlEncode(friendlyUrl)}";
 					}
 					else
 					{
-						txtUrl.Text = "~/" + friendlyUrl;
+						txtUrl.Text = $"~/{friendlyUrl}";
 					}
 				}
 			}
@@ -492,26 +491,35 @@ namespace mojoPortal.Web.AdminUI
 						continue;
 					}
 
-					ListItem listItem = new ListItem();
+					var listItem = new ListItem
+					{
+						Text = reader["DisplayName"].ToString(),
+						Value = reader["RoleName"].ToString()
+					};
 
-					listItem.Text = reader["DisplayName"].ToString();
-					listItem.Value = reader["RoleName"].ToString();
+					var editItem = new ListItem
+					{
+						Text = reader["DisplayName"].ToString(),
+						Value = reader["RoleName"].ToString()
+					};
 
-					ListItem editItem = new ListItem();
-					editItem.Text = reader["DisplayName"].ToString();
-					editItem.Value = reader["RoleName"].ToString();
+					var draftItem = new ListItem
+					{
+						Text = reader["DisplayName"].ToString(),
+						Value = reader["RoleName"].ToString()
+					};
 
-					ListItem draftItem = new ListItem();
-					draftItem.Text = reader["DisplayName"].ToString();
-					draftItem.Value = reader["RoleName"].ToString();
+					var draftApprovalItem = new ListItem
+					{
+						Text = reader["DisplayName"].ToString(),
+						Value = reader["RoleName"].ToString()
+					};
 
-					ListItem draftApprovalItem = new ListItem();
-					draftApprovalItem.Text = reader["DisplayName"].ToString();
-					draftApprovalItem.Value = reader["RoleName"].ToString();
-
-					ListItem childItem = new ListItem();
-					childItem.Text = reader["DisplayName"].ToString();
-					childItem.Value = reader["RoleName"].ToString();
+					var childItem = new ListItem
+					{
+						Text = reader["DisplayName"].ToString(),
+						Value = reader["RoleName"].ToString()
+					};
 
 					if (pageSettings.AuthorizedRoles == "Admins;")
 					{
@@ -544,7 +552,7 @@ namespace mojoPortal.Web.AdminUI
 							editItem.Selected = true;
 						}
 					}
-					
+
 					if (pageSettings.DraftEditOnlyRoles.LastIndexOf(draftItem.Value + ";") > -1)
 					{
 						draftItem.Selected = true;
@@ -555,7 +563,7 @@ namespace mojoPortal.Web.AdminUI
 					{
 						draftApprovalItem.Selected = true;
 					}
-					
+
 					if (pageSettings.CreateChildPageRoles == "Admins;")
 					{
 						rbCreateChildAdminOnly.Checked = true;
@@ -577,7 +585,7 @@ namespace mojoPortal.Web.AdminUI
 					chkDraftEditRoles.Items.Add(draftItem);
 					if (WebConfigSettings.Use3LevelContentWorkflow)
 					{
-						chkDraftApprovalRoles.Items.Add(draftApprovalItem); 
+						chkDraftApprovalRoles.Items.Add(draftApprovalItem);
 					}
 
 					chkListCreateChildPageRoles.Items.Add(childItem);
@@ -590,7 +598,7 @@ namespace mojoPortal.Web.AdminUI
 				chkListEditRoles.Enabled = false;
 				chkListCreateChildPageRoles.Enabled = false;
 				chkDraftEditRoles.Enabled = false;
-				chkDraftApprovalRoles.Enabled = false; 
+				chkDraftApprovalRoles.Enabled = false;
 			}
 		}
 
@@ -899,7 +907,7 @@ namespace mojoPortal.Web.AdminUI
 						pageSettings.EditRoles = parentPage.EditRoles;
 						pageSettings.CreateChildPageRoles = parentPage.CreateChildPageRoles;
 						pageSettings.DraftEditOnlyRoles = parentPage.DraftEditOnlyRoles;
-						pageSettings.DraftApprovalRoles = parentPage.DraftApprovalRoles; 
+						pageSettings.DraftApprovalRoles = parentPage.DraftApprovalRoles;
 
 						if (WebUser.IsInRoles(parentPage.EditRoles))
 						{
@@ -1223,7 +1231,7 @@ namespace mojoPortal.Web.AdminUI
 
 			GridView grid = (GridView)sender;
 			string sGuid = e.CommandArgument.ToString();
-			
+
 			if (sGuid.Length != 36)
 			{
 				return;
@@ -1290,7 +1298,7 @@ namespace mojoPortal.Web.AdminUI
 			grid.EditIndex = e.NewEditIndex;
 
 			BindMeta();
-			
+
 			Button btnDeleteMeta = (Button)grid.Rows[e.NewEditIndex].Cells[1].FindControl("btnDeleteMeta");
 
 			if (btnDeleteMeta != null)
@@ -1466,7 +1474,7 @@ namespace mojoPortal.Web.AdminUI
 			{
 				return;
 			}
-			
+
 			if (pageSettings.PageGuid == Guid.Empty)
 			{
 				return;
@@ -1884,7 +1892,7 @@ namespace mojoPortal.Web.AdminUI
 			divIsClickable.Visible = Global.SkinConfig.MenuOptions.UnclickableLinks || StyleCombiner.EnableNonClickablePageLinks;
 			ScriptConfig.IncludeColorBox = true;
 			timeZone = SiteUtils.GetUserTimeZone();
-			
+
 			h3DraftRoles.Visible = useWorkFlow;
 			divIsPending.Visible = useWorkFlow;
 			divDraftRoles.Visible = useWorkFlow;
