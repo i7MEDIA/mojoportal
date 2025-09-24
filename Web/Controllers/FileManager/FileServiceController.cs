@@ -13,7 +13,6 @@ using Ionic.Zip;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Mappers;
 using mojoPortal.FileSystem;
 using mojoPortal.Web.Dtos;
 using mojoPortal.Web.Framework;
@@ -73,41 +72,20 @@ public class FileServiceController : ApiController
 			request.Items = request.Items.Select(s => s.Replace(localizedUserFolder, fileSystem.Permission.UserFolder)).ToList();
 		}
 
-		switch (request.Action)
+		return request.Action switch
 		{
-			case "list":
-			default:
-				return ListAllFilesFolders(request.Path);
-
-			case "rename":
-				return RenameItem(request.Item, request.NewItemPath);
-
-			case "move":
-				return MoveItem(request.Items, request.NewPath, returnMessages, returnErrors);
-
-			case "copy":
-				return CopyItem(request.Items, request.SingleFileName, request.NewPath, returnMessages, returnErrors);
-
-			case "remove":
-				return RemoveItem(request.Items, returnMessages, returnErrors);
-
-			case "edit":
-				return EditItem(request.Item, request.Content);
-
-			case "getContent":
-				return GetFileContent(request.Item);
-
-			case "createFolder":
-				return CreateFolder(request.NewPath);
-
+			"rename" => RenameItem(request.Item, request.NewItemPath),
+			"move" => MoveItem(request.Items, request.NewPath, returnMessages, returnErrors),
+			"copy" => CopyItem(request.Items, request.SingleFileName, request.NewPath, returnMessages, returnErrors),
+			"remove" => RemoveItem(request.Items, returnMessages, returnErrors),
+			"edit" => EditItem(request.Item, request.Content),
+			"getContent" => GetFileContent(request.Item),
+			"createFolder" => CreateFolder(request.NewPath),
 			// There is no infrastructure to edit permissions... yet.
 			//case "changePermissions":
-
-			case "compress":
-				return CompressItems(request.Items, request.Destination, request.CompressedFilename);
-
-			case "extract":
-				return ExtractItems(request.Item, request.Destination, request.FolderName);
+			"compress" => CompressItems(request.Items, request.Destination, request.CompressedFilename),
+			"extract" => ExtractItems(request.Item, request.Destination, request.FolderName),
+			_ => ListAllFilesFolders(request.Path),
 		};
 	}
 
@@ -191,10 +169,11 @@ public class FileServiceController : ApiController
 
 		if (WebConfigSettings.LogAllFileServiceRequests)
 		{
-			StringBuilder message = new StringBuilder();
+			var message = new StringBuilder();
 
 			message.AppendLine("\nFile Manager Activity:");
 			message.AppendFormat("Request Action: {0}\n", request.Action);
+
 			if (request.CompressedFilename != null)
 				message.AppendFormat("CompressedFilename: {0}\n", request.CompressedFilename);
 			if (request.Content != null)
@@ -234,10 +213,9 @@ public class FileServiceController : ApiController
 	private dynamic ListAllFilesFolders(string requestPath)
 	{
 		var filePath = FilePath(requestPath);
-		var files = fileSystem.GetFileList(filePath).Select(AutoMapperAdapter.Mapper.Map<WebFile, FileServiceDto>).ToList();
-		var folders = fileSystem.GetFolderList(filePath).Select(AutoMapperAdapter.Mapper.Map<WebFolder, FileServiceDto>).ToList();
+		var files = fileSystem.GetFileList(filePath).Select(x => x.ToDto()).ToList();
+		var folders = fileSystem.GetFolderList(filePath).Select(x => x.ToDto()).ToList();
 		var allowedFiles = new List<FileServiceDto>();
-
 
 		if (
 			requestPath == "/" &&
@@ -245,40 +223,36 @@ public class FileServiceController : ApiController
 			fileSystem.Permission.UserFolder != fileSystem.VirtualRoot
 		)
 		{
-			var userFolder = new List<WebFolder>() {
-				new WebFolder {
-					VirtualPath = fileSystem.Permission.UserFolder,
-					Path = fileSystem.Permission.UserFolder,
-					Created = DateTime.Now,
-					Modified = DateTime.Now,
-					Name = Resource.UserFolder
-				}
-			};
-
-			folders.AddRange(userFolder.Select(AutoMapperAdapter.Mapper.Map<WebFolder, FileServiceDto>).ToList());
+			folders.Add(new WebFolder
+			{
+				VirtualPath = fileSystem.Permission.UserFolder,
+				Path = fileSystem.Permission.UserFolder,
+				Created = DateTime.Now,
+				Modified = DateTime.Now,
+				Name = Resource.UserFolder
+			}.ToDto());
 		}
 
 		var type = WebUtils.ParseStringFromQueryString("type", "file");
 
-		foreach (var folder in folders)
-		{
-			folder.ContentType = "dir";
-		}
-
 		foreach (var file in files)
 		{
-			if ((type == "image") && !file.IsWebImageFile())
-			{ continue; }
-			if ((type == "media" || type == "audio" || type == "video") && !file.IsAllowedMediaFile())
-			{ continue; }
-			if ((type == "audio") && !file.IsAllowedFileType(WebConfigSettings.AudioFileExtensions))
-			{ continue; }
-			if ((type == "video") && !file.IsAllowedFileType(WebConfigSettings.VideoFileExtensions))
-			{ continue; }
-			if ((type == "file") && !file.IsAllowedFileType(allowedExtensions))
-			{ continue; }
+			// Elijah Fowler - 2025-08-24
+			// I believe that this is if the listing function needs to filter files based on their type.
+			// E.g. I need a list of all PDFs only.
+			// If there's no "type" specified in the query params, all files are shown.
+			// TODO: Not sure if this is good, we should re-evaluate at at later time.
+			if (
+				type == "image" && !file.IsWebImageFile() ||
+				(type == "media" || type == "audio" || type == "video") && !file.IsAllowedMediaFile() ||
+				type == "audio" && !file.IsAllowedFileType(WebConfigSettings.AudioFileExtensions) ||
+				type == "video" && !file.IsAllowedFileType(WebConfigSettings.VideoFileExtensions) ||
+				type == "file" && !file.IsAllowedFileType(allowedExtensions)
+			)
+			{
+				continue;
+			}
 
-			file.ContentType = "file";
 			allowedFiles.Add(file);
 		}
 

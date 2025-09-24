@@ -205,9 +205,6 @@
     <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.13.2\lib\net45\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="CSSFriendly, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_libs\CSSFriendly.dll</HintPath>
@@ -1006,7 +1003,6 @@
     <Compile Include="App_MasterPages\BaseDisplaySettings.cs" />
     <Compile Include="App_MasterPages\CoreDisplaySettings.cs" />
     <Compile Include="App_MasterPages\LayoutDisplaySettings.cs" />
-    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="BingSearch.aspx.cs">
       <DependentUpon>BingSearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

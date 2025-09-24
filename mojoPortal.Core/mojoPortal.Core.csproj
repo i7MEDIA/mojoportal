@@ -62,14 +62,10 @@
     <Compile Include="Helpers\XElementWithContext.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Helpers\XmlSanitizer.cs" />
-    <Compile Include="Mappers\AutoMapperAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializers\Newtonsoft.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper">
-      <Version>10.1.1</Version>
-    </PackageReference>
     <PackageReference Include="log4net">
       <Version>3.0.3</Version>
     </PackageReference>
