@@ -95,7 +95,7 @@
 									</mp:SiteLabel>
 									<portal:mojoHelpLink ID="MojoHelpLink18" runat="server" HelpKey="pagesettingsrequiresslhelp" />
 								</div>
-<%--								<div class="settingrow">
+								<%--								<div class="settingrow">
 									<mp:SiteLabel ID="SiteLabel30" runat="server" CssClass="settinglabel" ConfigKey="PublishMode"></mp:SiteLabel>
 									<portal:PublishType ID="publishType" runat="server" />
 									<portal:mojoHelpLink ID="MojoHelpLink38" runat="server" HelpKey="page-settings-publish-mode-help" />
@@ -236,7 +236,12 @@
 									</mp:SiteLabel>
 									<portal:mojoHelpLink ID="MojoHelpLink32" runat="server" HelpKey="pagesettings-enablecomments-help" />
 								</asp:Panel>
-
+								<div id="divStyleSets" runat="server" class="settingrow">
+									<mp:SiteLabel runat="server" ForControl="cblStyleSets" CssClass="settinglabel" ConfigKey="PageSettingsStyleSet" />
+									<button id="styleSetsAnchor" popovertarget='<%= cblStyleSets.ClientID %>' type="button" class="styleSet_list">Style Sets</button>
+									<asp:CheckBoxList runat="server" ID="cblStyleSets" CssClass="forminput" ViewStateMode="Enabled" EnableViewState="true" popover />
+									<output id="styleSetResult" for="StyleSets" class="form-control"></output>
+								</div>
 								<div id="divBodyCss" runat="server" class="settingrow">
 									<mp:SiteLabel ID="SiteLabel27" runat="server" ForControl="txtBodyCssClass" CssClass="settinglabel"
 										ConfigKey="PageSettingsBodyCssClass">

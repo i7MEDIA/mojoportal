@@ -11770,7 +11770,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Child Pages Site Map?.
+        ///   Looks up a localized string similar to Show Child Page Menu.
         /// </summary>
         internal static string PageLayoutShowChildMenuLabel {
             get {
@@ -12288,6 +12288,15 @@ namespace Resources {
         internal static string PageSettingsSSLTab {
             get {
                 return ResourceManager.GetString("PageSettingsSSLTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Style Set.
+        /// </summary>
+        internal static string PageSettingsStyleSet {
+            get {
+                return ResourceManager.GetString("PageSettingsStyleSet", resourceCulture);
             }
         }
         

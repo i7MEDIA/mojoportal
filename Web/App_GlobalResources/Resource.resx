@@ -1318,7 +1318,7 @@
     <value>Show Child Page Breadcrumbs?</value>
   </data>
   <data name="PageLayoutShowChildMenuLabel" xml:space="preserve">
-    <value>Show Child Pages Site Map?</value>
+    <value>Show Child Page Menu</value>
   </data>
   <data name="PageLayoutUrlLabel" xml:space="preserve">
     <value>URL</value>
@@ -6786,5 +6786,8 @@ We've generated a new key for you. Copy the key below into your site's configura
   </data>
   <data name="InheritFromPage" xml:space="preserve">
     <value>Inherit from Page</value>
+  </data>
+  <data name="PageSettingsStyleSet" xml:space="preserve">
+    <value>Style Set</value>
   </data>
 </root>
