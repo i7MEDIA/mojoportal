@@ -1,7 +1,6 @@
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.App_Start;
 using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
@@ -97,8 +96,6 @@ public class Global : HttpApplication
 			HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
 			RegisteredVirtualThemes = true;
 		}
-
-		AutoMapperConfig.Configure();
 
 		AreaRegistration.RegisterAllAreas();
 		GlobalConfiguration.Configure(WebApiConfig.Register);

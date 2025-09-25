@@ -3,7 +3,6 @@ using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using AutoMapper.Internal;
 using Newtonsoft.Json;
 
 namespace mojoPortal.Web;
@@ -62,7 +61,7 @@ public class BaseDisplaySettings : WebControl
 
 			foreach (var prop in props)
 			{
-				if (!prop.CanBeSet())
+				if (!prop.CanWrite)
 				{
 					continue;
 				}
