@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Web;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -27,6 +28,8 @@ public class SkinConfig
 	public Display Display { get; set; } = new Display();
 	public MenuOptions MenuOptions { get; set; } = new MenuOptions();
 	public MenuOptions PageMenuOptions { get; set; } = new MenuOptions();
+	public List<StyleSet> PageStyleSets { get; set; } = [];
+	public List<StyleSet> StyleSets { get; set; } = [];
 	public List<SkinContentTemplate> Templates { get; set; } = [];
 	public List<EditorStyle> EditorStyles { get; set; } = [];
 	public Dictionary<string, EditorConfig> EditorConfig { get; set; } = new(StringComparer.InvariantCultureIgnoreCase);
@@ -210,6 +213,7 @@ public class SkinConfigManager
 			skinConfig.HelpLinkScriptPath = resolveFilePath(skinConfig, skinConfig.HelpLinkScriptPath, skinUrlPath, defaultSkinConfig.HelpLinkScriptPath);
 			skinConfig.ModalScriptPath = resolveFilePath(skinConfig, skinConfig.ModalScriptPath, skinUrlPath, defaultSkinConfig.ModalScriptPath);
 			skinConfig.ModalTemplatePath = resolveFilePath(skinConfig, skinConfig.ModalTemplatePath, skinUrlPath, defaultSkinConfig.ModalTemplatePath);
+			skinConfig.PageStyleSets = [.. skinConfig.PageStyleSets.Where(x => x.ApplyTo == "Page")];
 		}
 		else
 		{
