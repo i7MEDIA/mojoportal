@@ -298,7 +298,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Statistics\MembershipStatistics.cs" />
-    <Compile Include="StyleSet.cs" />
     <Compile Include="SystemInfo.cs" />
     <Compile Include="SystemLog.cs" />
     <Compile Include="Tag\Tag.cs" />
