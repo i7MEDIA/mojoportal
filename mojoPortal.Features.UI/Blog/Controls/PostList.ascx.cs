@@ -133,7 +133,7 @@ public partial class PostList : UserControl
 					out totalPages
 				);
 
-				pageUrl = "Blog/ViewCategory.aspx".ToLinkBuilder().AddParams(commonUrlParams).ToString();
+				pageUrl = "Blog/ViewCategory.aspx".ToLinkBuilder().AddParams(commonUrlParams).AddParam("cat", categoryId).ToString();
 				break;
 
 			case "ByMonth":
