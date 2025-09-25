@@ -2392,10 +2392,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("AND	(?ModuleID = -1 OR m.ModuleID = ?ModuleID) ");
 			sqlCommand.Append("AND	(?ItemID = -1 OR f.ItemID = ?ItemID) ");
 			sqlCommand.Append("AND	(?ThreadID = -1 OR ft.ThreadID = ?ThreadID) ");
-			//sqlCommand.Append("AND	(?MaximumDays = -1 OR datediff('dd', now(), fp.PostDate) <= ?MaximumDays) ");
-
-			sqlCommand.Append("AND	( (?MaximumDays = -1) OR  ((now() - ?MaximumDays) >= fp.PostDate )) ");
-
+			sqlCommand.Append("AND	( (?MaximumDays = -1) OR  (fp.PostDate >= DATE_SUB(NOW(), INTERVAL ?MaximumDays DAY)))  ");
 
 			sqlCommand.Append("ORDER BY	fp.PostDate DESC ; ");
 
