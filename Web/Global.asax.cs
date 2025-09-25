@@ -3,6 +3,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.Helpers;
 using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
 using mojoPortal.Web.Security;
@@ -247,7 +248,7 @@ public class Global : HttpApplication
 		// unless we have to for security checks
 		if (HttpContext.Current.Items["CurrentUser"] != null)
 		{
-			SiteUtils.TrackUserActivity();
+			SiteUserHelper.TrackActivity();
 		}
 	}
 

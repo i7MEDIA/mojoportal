@@ -13,6 +13,7 @@ using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Controls;
+using mojoPortal.Web.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -291,13 +292,7 @@ public partial class Register : NonCmsBasePage
 			}
 		}
 
-		// track user ip address
-		var userLocation = new UserLocation(siteUser.UserGuid, SiteUtils.GetIP4Address())
-		{
-			SiteGuid = siteSettings.SiteGuid,
-			Hostname = Page.Request.UserHostName
-		};
-		userLocation.Save();
+		siteUser.TrackUserActivity();
 
 		CacheHelper.ClearMembershipStatisticsCache();
 

@@ -22,6 +22,7 @@ using mojoPortal.Business.WebHelpers.UserSignInHandlers;
 using mojoPortal.Net;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Controls;
+using mojoPortal.Web.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
 using System;
@@ -261,14 +262,9 @@ namespace mojoPortal.Web.UI
 							return;
 						}
 					}
-
 				}
-
 			}
 		}
-
-
-
 
 		protected void SiteLogin_LoggedIn(object sender, EventArgs e)
 		{
@@ -289,23 +285,10 @@ namespace mojoPortal.Web.UI
 
 			if (siteUser.UserGuid == Guid.Empty) return;
 
-			// track user ip address
-			try
-			{
-				UserLocation userLocation = new UserLocation(siteUser.UserGuid, SiteUtils.GetIP4Address());
-				userLocation.SiteGuid = siteSettings.SiteGuid;
-				userLocation.Hostname = Page.Request.UserHostName;
-				userLocation.Save();
-			}
-			catch (Exception ex)
-			{
-				log.Error(SiteUtils.GetIP4Address(), ex);
-			}
-
+			siteUser.TrackUserActivity();
 
 			UserSignInEventArgs u = new UserSignInEventArgs(siteUser);
 			OnUserSignIn(u);
-
 		}
 
 		#region Events

@@ -23,6 +23,7 @@ using mojoPortal.SearchIndex;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Editor;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.Helpers;
 using mojoPortal.Web.UI;
 using Resources;
 
@@ -580,7 +581,7 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			var url = "AccessDenied.aspx".ToLinkBuilder(); 
+			var url = "AccessDenied.aspx".ToLinkBuilder();
 			if (!string.IsNullOrWhiteSpace(returnUrl))
 			{
 				url.ReturnUrl(returnUrl);
@@ -1106,8 +1107,8 @@ namespace mojoPortal.Web
 
 			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
 			{
-			return Invariant($"/Data/Sites/{siteSettings.SiteId}/skins/{skinName}/");
-		}
+				return Invariant($"/Data/Sites/{siteSettings.SiteId}/skins/{skinName}/");
+			}
 
 			return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/";
 
@@ -1192,7 +1193,7 @@ namespace mojoPortal.Web
 				if (AppConfig.IncludeVersionInCssUrl)
 				{
 					urlParams.Add("v", DatabaseHelper.AppCodeVersion().ToString());
-		}
+				}
 
 				return "csshandler.ashx".ToLinkBuilder().AddParams(urlParams).ToString();
 			}
@@ -1222,7 +1223,7 @@ namespace mojoPortal.Web
 				if (!string.IsNullOrWhiteSpace(skinCssUrl))
 				{
 					cssPaths.Insert(0, skinCssUrl);
-			}
+				}
 			}
 
 			return string.Join(",", cssPaths);
@@ -2078,48 +2079,16 @@ namespace mojoPortal.Web
 
 		#region Current User
 
+		[Obsolete("This overload is obsolete. Use SiteUserHelper.GetCurrentSiteUser() instead. Scheduled for removal in v3.0.")]
 		public static SiteUser GetCurrentSiteUser()
 		{
-			bool bypassAuthCheck = false;
-
-			SiteUser currentUser = GetCurrentSiteUser(bypassAuthCheck);
-
-			if ((currentUser is not null) && currentUser.IsLockedOut)
-			{
-				RedirectToSignOut();
-				return null;
-			}
-
-			return currentUser;
+			return SiteUserHelper.GetCurrent();
 		}
 
+		[Obsolete("This overload is obsolete. Use SiteUserHelper.GetCurrentSiteUser(bypassAuthCheck) instead. Scheduled for removal in v3.0.")]
 		public static SiteUser GetCurrentSiteUser(bool bypassAuthCheck)
 		{
-			if (HttpContext.Current is null)
-			{
-				return null;
-			}
-
-			if (bypassAuthCheck || HttpContext.Current.Request.IsAuthenticated)
-			{
-				if (HttpContext.Current.Items["CurrentUser"] is not null)
-				{
-					return (SiteUser)HttpContext.Current.Items["CurrentUser"];
-				}
-
-				SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-				if (siteSettings is not null)
-				{
-					SiteUser siteUser = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
-					if (siteUser.UserId > -1)
-					{
-						HttpContext.Current.Items["CurrentUser"] = siteUser;
-						return siteUser;
-					}
-				}
-			}
-
-			return null;
+			return SiteUserHelper.GetCurrent(bypassAuthCheck);
 		}
 
 		public static string SuggestLoginNameFromEmail(int siteId, string email)
@@ -2135,164 +2104,22 @@ namespace mojoPortal.Web
 			return login;
 		}
 
+		[Obsolete("This is obsolete. Use SiteUserHelper.CreateMinimalUser() instead. Scheduled for removal in v3.0.")]
 		public static SiteUser CreateMinimalUser(SiteSettings siteSettings, string email, bool includeInMemberList, string adminComments)
 		{
-			if (siteSettings is null)
-			{
-				throw new ArgumentException("a valid siteSettings object is required for this method");
-			}
-			if (string.IsNullOrEmpty(email))
-			{
-				throw new ArgumentException("a valid email address is required for this method");
-			}
-
-			if (!Email.IsValidEmailAddressSyntax(email))
-			{
-				throw new ArgumentException("a valid email address is required for this method");
-			}
-
-			//first make sure he doesn't exist
-			SiteUser siteUser = SiteUser.GetByEmail(siteSettings, email);
-			if (siteUser is not null && siteUser.UserGuid != Guid.Empty)
-			{
-				return siteUser;
-			}
-
-			string login = SuggestLoginNameFromEmail(siteSettings.SiteId, email);
-
-			siteUser = new SiteUser(siteSettings)
-			{
-				Email = email,
-				LoginName = login,
-				Name = login,
-				Password = SiteUser.CreateRandomPassword(siteSettings.MinRequiredPasswordLength + 2, WebConfigSettings.PasswordGeneratorChars),
-				ProfileApproved = true,
-				DisplayInMemberList = includeInMemberList,
-				PasswordQuestion = Resource.ManageUsersDefaultSecurityQuestion,
-				PasswordAnswer = Resource.ManageUsersDefaultSecurityAnswer,
-				Comment = adminComments
-			};
-
-			if (Membership.Provider is mojoMembershipProvider m)
-			{
-				siteUser.Password = m.EncodePassword(siteSettings, siteUser, siteUser.Password);
-			}
-
-			siteUser.Save();
-
-			Role.AddUserToDefaultRoles(siteUser);
-
-			return siteUser;
+			return SiteUserHelper.CreateMinimalUser(siteSettings, email, includeInMemberList, adminComments);
 		}
 
+		[Obsolete("This is obsolete. Use SiteUserHelper.UserIsSiteEditor() instead. Scheduled for removal in v3.0.")]
 		public static bool UserIsSiteEditor()
 		{
-			if (WebUser.IsAdmin) { return true; }
-
-			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-			if (siteSettings is not null)
-			{
-				return WebConfigSettings.UseRelatedSiteMode && WebUser.IsInRoles(siteSettings.SiteRootEditRoles);
-			}
-
-			return false;
+			return SiteUserHelper.UserIsSiteEditor();
 		}
 
+		[Obsolete("This is obsolete. Use SiteUserHelper.UserCanEditModule(moduleId) instead. Scheduled for removal in v3.0.")]
 		public static bool UserCanEditModule(int moduleId)
 		{
-			if (HttpContext.Current is null)
-			{
-				return false;
-			}
-
-			if (!HttpContext.Current.Request.IsAuthenticated)
-			{
-				return false;
-			}
-
-			if (WebUser.IsAdminOrContentAdmin)
-			{
-				return true;
-			}
-
-			PageSettings currentPage = CacheHelper.GetCurrentPage();
-			if (currentPage is null)
-			{
-				return false;
-			}
-
-			bool moduleFoundOnPage = false;
-			foreach (Module m in currentPage.Modules)
-			{
-				if (m.ModuleId == moduleId)
-				{
-					moduleFoundOnPage = true;
-				}
-			}
-
-			if (!moduleFoundOnPage)
-			{
-				return false;
-			}
-
-			if (WebUser.IsInRoles(currentPage.EditRoles))
-			{
-				return true;
-			}
-
-			SiteUser currentUser = GetCurrentSiteUser();
-			if (currentUser is null)
-			{
-				return false;
-			}
-
-			foreach (Module m in currentPage.Modules)
-			{
-				if (m.ModuleId == moduleId)
-				{
-					if (m.EditUserId == currentUser.UserId)
-					{
-						return true;
-					}
-
-					if (WebUser.IsInRoles(m.AuthorizedEditRoles))
-					{
-						return true;
-					}
-				}
-			}
-
-			return false;
-		}
-
-		public static void TrackUserActivity()
-		{
-			if (HttpContext.Current is null) { return; }
-			if (HttpContext.Current.Request is null) { return; }
-			if (!HttpContext.Current.User.Identity.IsAuthenticated) { return; }
-			if (!WebConfigSettings.TrackAuthenticatedRequests) { return; }
-
-			bool bypassAuthCheck = false;
-			if ((GetCurrentSiteUser(bypassAuthCheck) is SiteUser siteUser) && (siteUser.UserId > -1))
-			{
-				siteUser.UpdateLastActivityTime();
-				if (debugLog) { log.Debug($"Tracked user activity for request {HttpContext.Current.Request.RawUrl}"); }
-
-				if (WebConfigSettings.TrackIPForAuthenticatedRequests)
-				{
-
-					if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
-					{
-						// track user ip address
-						var userLocation = new UserLocation(siteUser.UserGuid, GetIP4Address())
-						{
-							SiteGuid = siteSettings.SiteGuid,
-							Hostname = HttpContext.Current.Request.UserHostName
-						};
-						userLocation.Save();
-					}
-				}
-			}
+			return SiteUserHelper.UserCanEditModule(moduleId);
 		}
 
 		#endregion

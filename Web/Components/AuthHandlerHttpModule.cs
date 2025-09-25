@@ -1,16 +1,17 @@
 ﻿#nullable enable
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.Security;
 using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Security;
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.Helpers;
+using mojoPortal.Web.Security;
 
 namespace mojoPortal.Web;
 
@@ -208,23 +209,8 @@ public class AuthHandlerHttpModule : IHttpModule
 					SiteUtils.SetSkinCookie(siteUser);
 				}
 
-				// track user ip address
-				try
-				{
-					var userLocation = new UserLocation(siteUser.UserGuid, SiteUtils.GetIP4Address())
-					{
-						SiteGuid = siteSettings.SiteGuid,
-						Hostname = app.Request.UserHostName
-					};
+				SiteUserHelper.TrackActivity();
 
-					userLocation.Save();
-
-					log.Info($"Set UserLocation : {app.Request.UserHostName}:{SiteUtils.GetIP4Address()}");
-				}
-				catch (Exception ex)
-				{
-					log.Error(SiteUtils.GetIP4Address(), ex);
-				}
 			}
 			//End-Added by Benedict Chan
 		}

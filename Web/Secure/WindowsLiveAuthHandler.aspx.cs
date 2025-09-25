@@ -4,6 +4,7 @@ using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.UserSignInHandlers;
 using mojoPortal.Net;
 using mojoPortal.Web.Components;
+using mojoPortal.Web.Extensions;
 using mojoPortal.Web.Framework;
 using System;
 using System.Globalization;
@@ -354,15 +355,7 @@ public partial class WindowsLiveAuthHandler : Page
 				SiteUtils.SetSkinCookie(user);
 			}
 
-			user.UpdateLastLoginTime();
-
-			// track user ip address
-			var userLocation = new UserLocation(user.UserGuid, SiteUtils.GetIP4Address())
-			{
-				SiteGuid = siteSettings.SiteGuid,
-				Hostname = Page.Request.UserHostName
-			};
-			userLocation.Save();
+			user.TrackUserActivity();
 
 			string redirectUrl = GetRedirectPath();
 			CookieHelper.ExpireCookie(returnUrlCookieName);

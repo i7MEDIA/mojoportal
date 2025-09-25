@@ -1023,6 +1023,7 @@
     <Compile Include="Components\BundleConfig.cs" />
     <Compile Include="Components\EventHandlers\SiteCreated\UpdateSiteCountCacheEventHandler.cs" />
     <Compile Include="Components\EventHandlers\SitePreDelete\UpdateSiteCountCacheEventHandler.cs" />
+    <Compile Include="Extensions\SiteUserExtensions.cs" />
     <Compile Include="Components\FileSystem\FileSystemHelper.cs" />
     <Compile Include="Components\GlobalUsings.cs" />
     <Compile Include="Components\ICustomField.cs" />
@@ -1801,6 +1802,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Helpers\CustomHtmlHelper.cs" />
+    <Compile Include="Helpers\SiteUserHelper.cs" />
     <Compile Include="MemberListDisplaySettings.cs" />
     <Compile Include="Models\ExternalLoginErrorModel.cs" />
     <Compile Include="Modules\HtmlDisplaySettings.cs" />
