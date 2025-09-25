@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -66,6 +67,15 @@ public partial class CmsPage : mojoBasePage
 		if (CurrentPage.BodyCssClass.Length > 0)
 		{
 			AddClassToBody(CurrentPage.BodyCssClass);
+		}
+
+		if (CurrentPage.StyleSets.Count() > 0)
+		{
+			foreach (var styleSet in CurrentPage.StyleSets)
+			{
+				var skinStyleSet = Global.SkinConfig.PageStyleSets.Where(x => x.Name == styleSet).FirstOrDefault();
+				AddClassToBody(skinStyleSet?.CssClasses);
+			}
 		}
 
 		// solves background problems with some skin in WLW
