@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using mojoPortal.Data;
 
 namespace mojoPortal.Business;
@@ -23,6 +22,7 @@ public class PageSettings : IComparable
 		{
 			return;
 		}
+
 		if (pageGuid == Guid.Empty)
 		{
 			return;
@@ -107,7 +107,7 @@ public class PageSettings : IComparable
 
 	public string MenuCssClass { get; set; } = string.Empty;
 
-	public List<StyleSet> PageStyleSets { get; set; } = [];
+	public List<string> StyleSets { get; set; } = [];
 
 	public string AuthorizedRoles { get; set; } = string.Empty;
 
@@ -220,13 +220,28 @@ public class PageSettings : IComparable
 	public int CompareTo(object value)
 	{
 
-		if (value == null) return 1;
+		if (value == null)
+		{
+			return 1;
+		}
 
 		int compareOrder = ((PageSettings)value).PageOrder;
 
-		if (this.PageOrder == compareOrder) return 0;
-		if (this.PageOrder < compareOrder) return -1;
-		if (this.PageOrder > compareOrder) return 1;
+		if (this.PageOrder == compareOrder)
+		{
+			return 0;
+		}
+
+		if (this.PageOrder < compareOrder)
+		{
+			return -1;
+		}
+
+		if (this.PageOrder > compareOrder)
+		{
+			return 1;
+		}
+
 		return 0;
 	}
 
@@ -234,31 +249,20 @@ public class PageSettings : IComparable
 
 	#region Private Methods
 
-
-
 	private void GetPage(int siteId, int pageId)
 	{
-		using (IDataReader reader = DBPageSettings.GetPage(siteId, pageId))
-		{
-			LoadFromReader(reader);
-
-
-		}
-
+		using IDataReader reader = DBPageSettings.GetPage(siteId, pageId);
+		LoadFromReader(reader);
 	}
 
 	private void GetPage(Guid pageGuid)
 	{
-		using (IDataReader reader = DBPageSettings.GetPage(pageGuid))
-		{
-			LoadFromReader(reader);
-
-		}
+		using IDataReader reader = DBPageSettings.GetPage(pageGuid);
+		LoadFromReader(reader);
 	}
 
 	private void LoadFromReader(IDataReader reader)
 	{
-
 		if (reader.Read())
 		{
 			this.PageId = int.Parse(reader["PageID"].ToString());
@@ -275,21 +279,22 @@ public class PageSettings : IComparable
 			this.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
 			this.CreateChildPageRoles = reader["CreateChildPageRoles"].ToString();
 			this.CreateChildDraftRoles = reader["CreateChildDraftRoles"].ToString();
-
 			this.RequireSsl = Convert.ToBoolean(reader["RequireSSL"]);
 			this.AllowBrowserCache = Convert.ToBoolean(reader["AllowBrowserCache"]);
 			this.ShowBreadcrumbs = Convert.ToBoolean(reader["ShowBreadcrumbs"]);
 			this.ShowChildPageBreadcrumbs = Convert.ToBoolean(reader["ShowChildBreadCrumbs"]);
 			this.UseUrl = Convert.ToBoolean(reader["UseUrl"]);
 			this.Url = reader["Url"].ToString();
+
 			if (UseUrl)
 			{
 				UnmodifiedUrl = reader["Url"].ToString();
 			}
 			else
 			{
-				UnmodifiedUrl = "~/Default.aspx?pageid=" + PageId.ToString(CultureInfo.InvariantCulture);
+				UnmodifiedUrl = Invariant($"~/Default.aspx?pageid={PageId}");
 			}
+
 			this.OpenInNewWindow = Convert.ToBoolean(reader["OpenInNewWindow"]);
 			this.ShowChildPageMenu = Convert.ToBoolean(reader["ShowChildPageMenu"]);
 			this.HideMainMenu = Convert.ToBoolean(reader["HideMainMenu"]);
@@ -301,42 +306,21 @@ public class PageSettings : IComparable
 			this.IncludeInMenu = Convert.ToBoolean(reader["IncludeInMenu"]);
 
 			string changeFreq = reader["ChangeFrequency"].ToString();
-			switch (changeFreq)
+			this.ChangeFrequency = changeFreq switch
 			{
-				case "Always":
-					this.ChangeFrequency = PageChangeFrequency.Always;
-					break;
-
-				case "Hourly":
-					this.ChangeFrequency = PageChangeFrequency.Hourly;
-					break;
-
-				case "Daily":
-					this.ChangeFrequency = PageChangeFrequency.Daily;
-					break;
-
-				case "Monthly":
-					this.ChangeFrequency = PageChangeFrequency.Monthly;
-					break;
-
-				case "Yearly":
-					this.ChangeFrequency = PageChangeFrequency.Yearly;
-					break;
-
-				case "Never":
-					this.ChangeFrequency = PageChangeFrequency.Never;
-					break;
-
-				case "Weekly":
-				default:
-					this.ChangeFrequency = PageChangeFrequency.Weekly;
-					break;
-
-
-			}
-
+				"Always" => PageChangeFrequency.Always,
+				"Hourly" => PageChangeFrequency.Hourly,
+				"Daily" => PageChangeFrequency.Daily,
+				"Monthly" => PageChangeFrequency.Monthly,
+				"Yearly" => PageChangeFrequency.Yearly,
+				"Never" => PageChangeFrequency.Never,
+				_ => PageChangeFrequency.Weekly,
+			};
 			string smp = reader["SiteMapPriority"].ToString().Trim();
-			if (smp.Length > 0) this.SiteMapPriority = smp;
+			if (smp.Length > 0)
+			{
+				this.SiteMapPriority = smp;
+			}
 
 			if (reader["LastModifiedUTC"] != DBNull.Value)
 			{
@@ -383,7 +367,6 @@ public class PageSettings : IComparable
 				{
 					this.CreatedBy = new Guid(pcg);
 				}
-
 			}
 
 			this.CreatedFromIp = reader["PCreatedFromIp"].ToString();
@@ -400,7 +383,6 @@ public class PageSettings : IComparable
 				{
 					this.LastModBy = new Guid(pcg);
 				}
-
 			}
 
 			this.LastModFromIp = reader["PLastModFromIp"].ToString();
@@ -423,42 +405,37 @@ public class PageSettings : IComparable
 			this.ShowPageHeading = Convert.ToBoolean(reader["ShowPageHeading"]);
 			this.LinkRel = reader["LinkRel"].ToString();
 			this.PageHeading = reader["PageHeading"].ToString();
-
-
+			this.StyleSets = reader["StyleSets"].ToString().SplitOnCharAndTrim(',');
 		}
-
-
 	}
 
-	private IDataReader GetChildPages()
-	{
-		return DBPageSettings.GetChildPages(this.SiteId, this.ParentId);
-	}
+	private IDataReader GetChildPages() => DBPageSettings.GetChildPages(this.SiteId, this.ParentId);
 
 	private DataTable GetChildPageIds()
 	{
-		DataTable dt = new DataTable();
+		var dt = new DataTable();
 		dt.Columns.Add("PageID", typeof(int));
 		using (IDataReader reader = GetChildPages())
 		{
 			while (reader.Read())
 			{
-				DataRow row = dt.NewRow();
+				var row = dt.NewRow();
 				row["PageID"] = reader["PageID"];
-
 				dt.Rows.Add(row);
 			}
 		}
 
 		return dt;
-
 	}
 
 	private bool Create()
 	{
 		int newID = -1;
 
-		if (this.PageGuid == Guid.Empty) this.PageGuid = Guid.NewGuid();
+		if (this.PageGuid == Guid.Empty)
+		{
+			this.PageGuid = Guid.NewGuid();
+		}
 
 		newID = DBPageSettings.Create(
 			this.SiteId,
@@ -479,8 +456,6 @@ public class PageSettings : IComparable
 			this.ShowChildPageBreadcrumbs,
 			this.PageMetaKeyWords,
 			this.PageMetaDescription,
-			this.PageMetaEncoding,
-			this.PageMetaAdditional,
 			this.UseUrl,
 			this.Url,
 			this.OpenInNewWindow,
@@ -508,14 +483,15 @@ public class PageSettings : IComparable
 			this.PubTeamId,
 			this.BodyCssClass,
 			this.MenuCssClass,
-			this.PublishMode,
 			this.CreatedBy,
 			this.CreatedFromIp,
 			this.MenuDescription,
 			this.LinkRel,
 			this.PageHeading,
 			this.ShowPageHeading,
-			this.PubDateUtc);
+			this.PubDateUtc,
+			string.Join(",", this.StyleSets)
+			);
 
 		this.PageId = newID;
 
@@ -524,17 +500,14 @@ public class PageSettings : IComparable
 
 		if (result)
 		{
-			PageCreatedEventArgs e = new PageCreatedEventArgs();
+			var e = new PageCreatedEventArgs();
 			OnPageCreated(e);
 		}
 
 		return result;
 	}
 
-	private bool Update()
-	{
-
-		return DBPageSettings.UpdatePage(
+	private bool Update() => DBPageSettings.UpdatePage(
 			this.SiteId,
 			this.PageId,
 			this.ParentId,
@@ -554,8 +527,6 @@ public class PageSettings : IComparable
 			this.ShowChildPageBreadcrumbs,
 			this.PageMetaKeyWords,
 			this.PageMetaDescription,
-			this.PageMetaEncoding,
-			this.PageMetaAdditional,
 			this.UseUrl,
 			this.Url,
 			this.OpenInNewWindow,
@@ -581,83 +552,60 @@ public class PageSettings : IComparable
 			this.PubTeamId,
 			this.BodyCssClass,
 			this.MenuCssClass,
-			this.PublishMode,
-			this.CreatedUtc,
-			this.CreatedBy,
 			this.LastModBy,
 			this.LastModFromIp,
 			this.MenuDescription,
 			this.LinkRel,
 			this.PageHeading,
 			this.ShowPageHeading,
-			this.PubDateUtc);
-	}
+			this.PubDateUtc,
+			string.Join(",", this.StyleSets)
+			);
 
 
 	public void RefreshModules()
 	{
 		this.Modules.Clear();
-		using (IDataReader reader = Module.GetPageModules(this.PageId))
+		using IDataReader reader = Module.GetPageModules(this.PageId);
+		while (reader.Read())
 		{
-			while (reader.Read())
+			var m = new Module
 			{
-				Module m = new Module();
-				m.ModuleId = Convert.ToInt32(reader["ModuleID"]);
-				m.SiteId = Convert.ToInt32(reader["SiteID"]);
-				m.ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]);
-				m.ModuleTitle = reader["ModuleTitle"].ToString();
-				m.AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString();
-				m.CacheTime = Convert.ToInt32(reader["CacheTime"]);
-				string showTitle = reader["ShowTitle"].ToString();
-				m.ShowTitle = (showTitle == "True" || showTitle == "1");
-				if (reader["EditUserID"] != DBNull.Value)
-				{
-					m.EditUserId = Convert.ToInt32(reader["EditUserID"]);
-				}
-				//m.AvailableForMyPage = Convert.ToBoolean(reader["AvailableForMyPage"]);
-				//m.AllowMultipleInstancesOnMyPage = Convert.ToBoolean(reader["AllowMultipleInstancesOnMyPage"]);
-				//m.Icon = reader["Icon"].ToString();
-				m.CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]);
-				if (reader["CreatedDate"] != DBNull.Value)
-				{
-					m.CreatedDate = Convert.ToDateTime(reader["CreatedDate"]);
-				}
-				//m.CountOfUseOnMyPage
-				m.ModuleGuid = new Guid(reader["Guid"].ToString());
-				m.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
-				m.SiteGuid = new Guid(reader["SiteGuid"].ToString());
-				if (reader["EditUserGuid"] != DBNull.Value)
-				{
-					m.EditUserGuid = new Guid(reader["EditUserGuid"].ToString());
-				}
-				m.HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]);
-				m.HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]);
-				m.ViewRoles = reader["ViewRoles"].ToString();
-				m.DraftEditRoles = reader["DraftEditRoles"].ToString();
-				m.IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]);
-				m.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
-				m.HeadElement = reader["HeadElement"].ToString();
-				//m.PublishMode = Convert.ToInt32(reader["PublishMode"]);
-				m.DraftApprovalRoles = reader["DraftApprovalRoles"].ToString();
+				ModuleId = Convert.ToInt32(reader["ModuleID"]),
+				SiteId = Convert.ToInt32(reader["SiteID"]),
+				ModuleDefId = Convert.ToInt32(reader["ModuleDefID"]),
+				ModuleTitle = reader["ModuleTitle"].ToString(),
+				AuthorizedEditRoles = reader["AuthorizedEditRoles"].ToString(),
+				CacheTime = Convert.ToInt32(reader["CacheTime"]),
+				ShowTitle = Convert.ToBoolean(reader["ShowTitle"].ToString()),
+				CreatedByUserId = Convert.ToInt32(reader["CreatedByUserID"]),
+				ModuleGuid = new Guid(reader["Guid"].ToString()),
+				FeatureGuid = new Guid(reader["FeatureGuid"].ToString()),
+				SiteGuid = new Guid(reader["SiteGuid"].ToString()),
+				HideFromUnauthenticated = Convert.ToBoolean(reader["HideFromUnAuth"]),
+				HideFromAuthenticated = Convert.ToBoolean(reader["HideFromAuth"]),
+				ViewRoles = reader["ViewRoles"].ToString(),
+				DraftEditRoles = reader["DraftEditRoles"].ToString(),
+				IncludeInSearch = Convert.ToBoolean(reader["IncludeInSearch"]),
+				IsGlobal = Convert.ToBoolean(reader["IsGlobal"]),
+				HeadElement = reader["HeadElement"].ToString(),
+				DraftApprovalRoles = reader["DraftApprovalRoles"].ToString(),
+				PageId = Convert.ToInt32(reader["PageID"]),
+				PaneName = reader["PaneName"].ToString(),
+				ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]),
+				ControlSource = reader["ControlSrc"].ToString()
+			};
 
-				m.PageId = Convert.ToInt32(reader["PageID"]);
-				m.PaneName = reader["PaneName"].ToString();
-				m.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
-				m.ControlSource = reader["ControlSrc"].ToString();
+			m.EditUserId = reader["EditUserID"] != DBNull.Value ? Convert.ToInt32(reader["EditUserID"]) : m.EditUserId;
+			m.CreatedDate = reader["CreatedDate"] != DBNull.Value ? Convert.ToDateTime(reader["CreatedDate"]) : m.CreatedDate;
+			m.EditUserGuid = reader["EditUserGuid"] != DBNull.Value ? new Guid(reader["EditUserGuid"].ToString()) : m.EditUserGuid;
 
-				this.Modules.Add(m);
-			}
+			this.Modules.Add(m);
 		}
-
-
 	}
-
-
 	#endregion
 
 	#region Public Methods
-
-
 
 	public bool Save()
 	{
@@ -669,9 +617,7 @@ public class PageSettings : IComparable
 		{
 			return Create();
 		}
-
 	}
-
 
 	public void MoveToTop()
 	{
@@ -679,7 +625,6 @@ public class PageSettings : IComparable
 		PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 		//now get all children of my parent id and reset sort using current order
 		ResortPages();
-
 	}
 
 	public void MoveToBottom()
@@ -688,10 +633,7 @@ public class PageSettings : IComparable
 		PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 		//now get all children of my parent id and reset sort using current order
 		ResortPages();
-
 	}
-
-
 
 	public void MoveUp()
 	{
@@ -707,7 +649,6 @@ public class PageSettings : IComparable
 			PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 			//now get all children of my parent id and reset sort using current order
 			ResortPages();
-
 		}
 		else
 		{
@@ -716,12 +657,9 @@ public class PageSettings : IComparable
 				this.PageOrder = 1;
 				PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 				ResortPages();
-
 			}
 			//else must be equal to 1 no need to do anything
-
 		}
-
 	}
 
 	public void MoveDown()
@@ -730,7 +668,6 @@ public class PageSettings : IComparable
 		PageSettings.UpdatePageOrder(this.PageId, this.PageOrder);
 		//now get all children of my parent id and reset sort using current order
 		ResortPages();
-
 	}
 
 	public void ResortPages()
@@ -749,7 +686,7 @@ public class PageSettings : IComparable
 	public void ResortPagesAlphabetically()
 	{
 		int i = 1;
-		DataTable dataTable = new DataTable();
+		var dataTable = new DataTable();
 		using (IDataReader reader = PageSettings.GetChildPagesSortedAlphabetic(SiteId, PageId))
 		{
 			dataTable.Load(reader);
@@ -769,7 +706,10 @@ public class PageSettings : IComparable
 
 		foreach (Module m in Modules)
 		{
-			if (m.ModuleId == moduleId) result = true;
+			if (m.ModuleId == moduleId)
+			{
+				result = true;
+			}
 		}
 
 		return result;
@@ -781,85 +721,31 @@ public class PageSettings : IComparable
 		return (count > 0);
 	}
 
-	[Obsolete("This method is obsolete, use SiteUtils.GetCurrentPageUrl() instead")]
-	public string ResolveUrl(SiteSettings siteSettings)
-	{
-		if (siteSettings == null) return Url;
-		string resolvedUrl;
-		if (this.UseUrl)
-		{
-			if ((this.Url.StartsWith("~/")) && (this.Url.EndsWith(".aspx")))
-			{
-				if (UrlHasBeenAdjustedForFolderSites)
-				{
-					resolvedUrl = Url.Replace("~/", "/");
-				}
-				else
-				{
-					resolvedUrl = siteSettings.SiteRoot
-						+ Url.Replace("~/", "/");
-				}
-
-			}
-			else
-			{
-				resolvedUrl = Url;
-			}
-
-		}
-		else
-		{
-			resolvedUrl = siteSettings.SiteRoot
-				+ "/Default.aspx?pageid="
-				+ this.PageId.ToString();
-		}
-
-		return resolvedUrl;
-
-	}
-
 	public bool UpdateLastModifiedTime()
 	{
-		if (this.PageId == -1) return false;
-		return UpdateTimestamp(this.PageId, DateTime.UtcNow);
+		if (this.PageId == -1)
+		{
+			return false;
+		}
 
+		return UpdateTimestamp(this.PageId, DateTime.UtcNow);
 	}
 
 	#endregion
 
 	#region Static Methods
 
-	public static IDataReader GetPageList(int siteId)
-	{
-		return DBPageSettings.GetPageList(siteId);
-	}
+	public static IDataReader GetPageList(int siteId) => DBPageSettings.GetPageList(siteId);
 
-	public static int GetCountChildPages(int parentPageId, bool includePending)
-	{
-		return DBPageSettings.GetCountChildPages(parentPageId, includePending);
-	}
+	public static int GetCountChildPages(int parentPageId, bool includePending) => DBPageSettings.GetCountChildPages(parentPageId, includePending);
 
-	public static IDataReader GetChildPagesSortedAlphabetic(int siteId, int parentId)
-	{
-		return DBPageSettings.GetChildPagesSortedAlphabetic(siteId, parentId);
-	}
+	public static IDataReader GetChildPagesSortedAlphabetic(int siteId, int parentId) => DBPageSettings.GetChildPagesSortedAlphabetic(siteId, parentId);
 
-	public static IDataReader GetPendingPageListPage(Guid siteGuid, int pageNumber, int pageSize, out int totalPages)
-	{
-		return DBPageSettings.GetPendingPageListPage(siteGuid, pageNumber, pageSize, out totalPages);
-	}
+	public static IDataReader GetPendingPageListPage(Guid siteGuid, int pageNumber, int pageSize, out int totalPages) => DBPageSettings.GetPendingPageListPage(siteGuid, pageNumber, pageSize, out totalPages);
 
-	public static bool UpdatePageOrder(int pageId, int pageOrder)
-	{
-		return DBPageSettings.UpdatePageOrder(pageId, pageOrder);
-	}
+	public static bool UpdatePageOrder(int pageId, int pageOrder) => DBPageSettings.UpdatePageOrder(pageId, pageOrder);
 
-	public static bool UpdateTimestamp(
-		int pageId,
-		DateTime lastModifiedUtc)
-	{
-		return DBPageSettings.UpdateTimestamp(pageId, lastModifiedUtc);
-	}
+	public static bool UpdateTimestamp(int pageId, DateTime lastModifiedUtc) => DBPageSettings.UpdateTimestamp(pageId, lastModifiedUtc);
 
 	public static bool DeletePage(int pageId)
 	{
@@ -868,28 +754,11 @@ public class PageSettings : IComparable
 		return result;
 	}
 
-	public static int GetCountOfPages(int siteId)
-	{
-		return GetCount(siteId, true);
+	public static int GetCountOfPages(int siteId) => GetCount(siteId, true);
 
-	}
+	public static int GetCount(int siteId, bool includePending) => DBPageSettings.GetCount(siteId, includePending);
 
-	public static int GetCount(int siteId, bool includePending)
-	{
-		return DBPageSettings.GetCount(siteId, includePending);
-	}
-
-
-
-	public static int GetNextPageOrder(int siteId, int parentId)
-	{
-		return DBPageSettings.GetNextPageOrder(siteId, parentId);
-	}
-
-	//public static IDataReader GetChildPagesByPageId(int pageId) 
-	//{
-	//    return DBPageSettings.GetChildPages(pageId);
-	//}
+	public static int GetNextPageOrder(int siteId, int parentId) => DBPageSettings.GetNextPageOrder(siteId, parentId);
 
 	public static bool Exists(Guid pageGuid)
 	{
@@ -903,10 +772,7 @@ public class PageSettings : IComparable
 		}
 
 		return result;
-
 	}
-
-
 
 	#endregion
 
