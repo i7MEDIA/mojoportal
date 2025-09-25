@@ -42,12 +42,12 @@ public static class CollectionExtensions
 
 
 	/// <summary>
-	/// Creates a delimited string from a ListItemCollection
+	/// Creates a delimited string from the selected items in a ListItemCollection
 	/// </summary>
 	/// <param name="list"></param>
 	/// <param name="itemDelimiter"></param>
 	/// <param name="addTrailingDelimiter"></param>
-	/// <returns>A delimited string of values from the collection passed to it.</returns>
+	/// <returns>A delimited string of selected values from the collection passed to it.</returns>
 	public static string ToDelimitedString(this ListItemCollection list, string itemDelimiter = ",", bool addTrailingDelimiter = false)
 	{
 		if (list is null)
@@ -60,6 +60,39 @@ public static class CollectionExtensions
 		return string.Join(itemDelimiter, listItems.Where(x => x.Selected).Select(x => x.Value.ToString())) + (addTrailingDelimiter ? itemDelimiter : string.Empty);
 	}
 
+	/// <summary>
+	/// Creates a string[] from the selected items in a ListItemCollection
+	/// </summary>
+	/// <param name="list"></param>
+	/// <returns>A string array of the selected values from the collection passed to it.</returns>
+	public static string[] ToArray(this ListItemCollection list)
+	{
+		if (list is null)
+		{
+			return null;
+		}
+
+		IEnumerable<ListItem> listItems = list.Cast<ListItem>().ToList();
+
+		return [.. listItems.Where(x => x.Selected).Select(x => x.Value.ToString())];
+	}
+
+	/// <summary>
+	/// Creates a List<string> from the selected items in a ListItemCollection
+	/// </summary>
+	/// <param name="list"></param>
+	/// <returns>A List<string> of selected values from the collection passed to it.</returns>
+	public static List<string> ToList(this ListItemCollection list)
+	{
+		if (list is null)
+		{
+			return null;
+		}
+
+		IEnumerable<ListItem> listItems = list.Cast<ListItem>().ToList();
+
+		return [.. listItems.Where(x => x.Selected).Select(x => x.Value.ToString())];
+	}
 
 	public static DataTable ToDataTable<T>(this List<T> items)
 	{
