@@ -32,6 +32,7 @@ public class CheckBoxListAdapter : WebControlAdapter
 		if (!string.IsNullOrWhiteSpace(base.Control.CssClass))
 		{
 			writer.AddAttribute(HtmlTextWriterAttribute.Class, base.Control.CssClass);
+			base.Control.Attributes.AddAttributes(writer);
 		}
 
 		writer.RenderBeginTag(HtmlTextWriterTag.Ul);
@@ -114,6 +115,7 @@ public class CheckBoxListAdapter : WebControlAdapter
 	private void RenderCheckBoxListLabel(HtmlTextWriter writer, CheckBoxList checkList, ListItem li)
 	{
 		writer.AddAttribute("for", AdapterHelpers.GetListItemClientID(checkList, li));
+		li.Attributes.AddAttributes(writer);
 		writer.RenderBeginTag(HtmlTextWriterTag.Label);
 
 		if (RenderCheckboxInsideLabel)
