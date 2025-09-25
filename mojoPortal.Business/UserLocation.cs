@@ -57,11 +57,17 @@ public class UserLocation
 	/// Gets an instance of UserLocation.
 	/// </summary>
 	/// <param name="rowID"> rowID </param>
-	private void GetUserLocation(Guid rowID) => PopulateFromReader(DBUserLocation.GetOne(rowID));
+	private void GetUserLocation(Guid rowID)
+	{
+		using var reader = DBUserLocation.GetOne(rowID);
+		PopulateFromReader(reader);
+	}
 
-
-	private void GetUserLocation(Guid userGuid, long iPAddressLong) => PopulateFromReader(DBUserLocation.GetOne(userGuid, iPAddressLong));
-
+	private void GetUserLocation(Guid userGuid, long iPAddressLong)
+	{
+		using var reader = DBUserLocation.GetOne(userGuid, iPAddressLong);
+		PopulateFromReader(reader);
+	}
 
 	private void PopulateFromReader(IDataReader reader)
 	{
@@ -180,7 +186,7 @@ public class UserLocation
 
 	private static List<UserLocation> LoadListFromReader(IDataReader reader)
 	{
-		List<UserLocation> userLocationList = new List<UserLocation>();
+		var userLocationList = new List<UserLocation>();
 
 		try
 		{
@@ -221,13 +227,21 @@ public class UserLocation
 	/// Gets an IList with all instances of UserLocation for the user.
 	/// </summary>
 	/// <param name="userGuid"> userGuid </param>
-	public static List<UserLocation> GetByUser(Guid userGuid) => LoadListFromReader(DBUserLocation.GetByUser(userGuid));
+	public static List<UserLocation> GetByUser(Guid userGuid)
+	{
+		using var reader = DBUserLocation.GetByUser(userGuid);
+		return LoadListFromReader(reader);
+	}
 
 	/// <summary>
 	/// Gets an IList with all instances of UserLocation for the site.
 	/// </summary>
 	/// <param name="siteGuid"> siteGuid </param>
-	public static List<UserLocation> GetBySite(Guid siteGuid) => LoadListFromReader(DBUserLocation.GetBySite(siteGuid));
+	public static List<UserLocation> GetBySite(Guid siteGuid)
+	{
+		using var reader = DBUserLocation.GetBySite(siteGuid);
+		return LoadListFromReader(reader);
+	}
 
 	/// <summary>
 	/// Gets an IList with page of instances of UserLocation.
@@ -240,7 +254,11 @@ public class UserLocation
 		Guid userGuid,
 		int pageNumber,
 		int pageSize,
-		out int totalPages) => LoadListFromReader(DBUserLocation.GetPageByUser(userGuid, pageNumber, pageSize, out totalPages));
+		out int totalPages)
+	{
+		using var reader = DBUserLocation.GetPageByUser(userGuid, pageNumber, pageSize, out totalPages);
+		return LoadListFromReader(reader);
+	}
 
 	/// <summary>
 	/// Gets an IList with page of instances of UserLocation.
@@ -253,7 +271,11 @@ public class UserLocation
 		Guid siteGuid,
 		int pageNumber,
 		int pageSize,
-		out int totalPages) => LoadListFromReader(DBUserLocation.GetPageBySite(siteGuid, pageNumber, pageSize, out totalPages));
+		out int totalPages)
+	{
+		using var reader = DBUserLocation.GetPageBySite(siteGuid, pageNumber, pageSize, out totalPages);
+		return LoadListFromReader(reader);
+	}
 
 	/// <summary>
 	/// Gets an IDataReader with rows from the mp_Users table which have the passed in IP Address
