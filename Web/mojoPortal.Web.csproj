@@ -2765,6 +2765,7 @@
     <Content Include="Views\Shared\_DebugInfo.cshtml" />
     <Content Include="Views\ExternalLogin\Error.cshtml" />
     <Content Include="Views\SearchResults\Results.cshtml" />
+    <Content Include="Views\SearchResults\_SearchResultsFallback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />

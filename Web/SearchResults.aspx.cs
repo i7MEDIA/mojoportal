@@ -1,3 +1,4 @@
+#nullable enable
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -8,10 +9,9 @@ using mojoPortal.Web.Models;
 using Resources;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Globalization;
-using System.Text;
 using System.Threading;
+using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -19,31 +19,29 @@ namespace mojoPortal.Web.UI.Pages;
 
 public partial class SearchResults : NonCmsBasePage
 {
+	private static readonly ILog _log = LogManager.GetLogger(typeof(SearchResults));
 
-	private static readonly ILog log = LogManager.GetLogger(typeof(SearchResults));
+	private readonly bool _isSiteEditor = WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor();
+	private readonly bool _showModuleTitleInResultLink = WebConfigSettings.ShowModuleTitleInSearchResultLink;
+	private readonly int _pageSize = WebConfigSettings.SearchResultsPageSize;
 
-	private string query = string.Empty;
-	private int pageNumber = 1;
-	private int pageSize = WebConfigSettings.SearchResultsPageSize;
-	private int totalHits = 0;
-	private int totalPages = 1;
-	private bool indexVerified = false;
-	private bool showModuleTitleInResultLink = WebConfigSettings.ShowModuleTitleInSearchResultLink;
-	private bool isSiteEditor = false;
-	private Guid featureGuid = Guid.Empty;
-	private bool queryErrorOccurred = false;
-	private DateTime modifiedBeginDate = DateTime.MinValue;
-	private DateTime modifiedEndDate = DateTime.MaxValue;
-	private TimeZoneInfo timeZone = null;
+	private string _queryText = string.Empty;
+	private int _pageNumber = 1;
+	private int _totalHits = 0;
+	private bool _indexVerified = false;
+	private Guid _featureGuid = Guid.Empty;
+	private bool _queryErrorOccurred = false;
+	private DateTime _modifiedBeginDate = DateTime.MinValue;
+	private DateTime _modifiedEndDate = DateTime.MaxValue;
+	private TimeZoneInfo? _timeZone = null;
 
 
 	#region OnInit
+
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
 		Load += new EventHandler(Page_Load);
-		btnDoSearch.Click += new EventHandler(btnDoSearch_Click);
-		btnRebuildSearchIndex.Click += new EventHandler(btnRebuildSearchIndex_Click);
 
 		SuppressMenuSelection();
 		SuppressPageMenu();
@@ -51,19 +49,19 @@ public partial class SearchResults : NonCmsBasePage
 		if (WebConfigSettings.ShowLeftColumnOnSearchResults) { StyleCombiner.AlwaysShowLeftColumn = true; }
 		if (WebConfigSettings.ShowRightColumnOnSearchResults) { StyleCombiner.AlwaysShowRightColumn = true; }
 	}
+
 	#endregion
+
 
 	private void Page_Load(object sender, EventArgs e)
 	{
 		LoadSettings();
 
-		query = string.Empty;
-
 		siteSettings ??= CacheHelper.GetCurrentSiteSettings();
 
 		PopulateLabels();
 
-		string primarySearchProvider = SiteUtils.GetPrimarySearchProvider();
+		var primarySearchProvider = SiteUtils.GetPrimarySearchProvider();
 
 		switch (primarySearchProvider)
 		{
@@ -99,94 +97,81 @@ public partial class SearchResults : NonCmsBasePage
 		}
 	}
 
+
 	private void SetupInternalSearch()
 	{
-
 		SetupScript();
-		ShowNoResults();
 
 		if (SiteUtils.ShowAlternateSearchIfConfigured())
 		{
-			string bingApiId = SiteUtils.GetBingApiId();
-			string googleCustomSearchId = SiteUtils.GetGoogleCustomSearchId();
-			if ((bingApiId.Length > 0) || (googleCustomSearchId.Length > 0)) { spnAltSearchLinks.Visible = true; }
+			var bingApiId = SiteUtils.GetBingApiId();
+			var googleCustomSearchId = SiteUtils.GetGoogleCustomSearchId();
 
-			lnkBingSearch.Visible = (bingApiId.Length > 0);
-			lnkGoogleSearch.Visible = (googleCustomSearchId.Length > 0);
-		}
-
-		if (!WebConfigSettings.DisableSearchFeatureFilters && displaySettings.ShowFeatureFilter)
-		{
-			if (!Page.IsPostBack)
+			if (bingApiId.Length > 0 || googleCustomSearchId.Length > 0)
 			{
-				BindFeatureList();
-				ddFeatureList.Items.Insert(0, new ListItem(Resource.SearchAllContentItem, Guid.Empty.ToString()));
-				if (ddFeatureList.Items.Count > 0)
-				{
-					ListItem item = ddFeatureList.Items.FindByValue(featureGuid.ToString());
-					if (item != null)
-					{
-						ddFeatureList.ClearSelection();
-						item.Selected = true;
-					}
-				}
-				else
-				{
-					ddFeatureList.Visible = false;
-				}
+				spnAltSearchLinks.Visible = true;
 			}
+
+			lnkBingSearch.Visible = !string.IsNullOrWhiteSpace(bingApiId);
+			lnkGoogleSearch.Visible = !string.IsNullOrWhiteSpace(googleCustomSearchId);
 		}
-		else
+
+		if (Page is mojoBasePage basePage)
 		{
-			ddFeatureList.Visible = false;
+			basePage.EnsureDefaultModal();
 		}
+
+		IndexItemCollection? results;
 
 		//got here by a cross page postback from another page if Page.PreviousPage is not null
 		// this occurs when the search input is used in the skin rather than the search link
 		if (Page.PreviousPage != null)
 		{
-			HandleCrossPagePost();
+			results = HandleCrossPagePost();
 		}
 		else
 		{
-			DoSearch();
+			results = GetSearchResults();
 		}
 
-		txtSearchInput.Focus();
+		SetupViewModel(results);
 	}
 
-	private void HandleCrossPagePost()
-	{
 
-		var previousPageSearchInput = (SearchInput)PreviousPage.Master.FindControl("SearchInput1");
-		// try in page if not found in masterpage
-		previousPageSearchInput ??= (SearchInput)PreviousPage.FindControl("SearchInput1");
+	private IndexItemCollection? HandleCrossPagePost()
+	{
+		var previousPageSearchInput = PreviousPage.Master.FindControl("SearchInput1") as SearchInput;
+
+		// try in page if not found in master page
+		previousPageSearchInput ??= PreviousPage.FindControl("SearchInput1") as SearchInput;
 
 		if (previousPageSearchInput is not null)
 		{
-			TextBox prevSearchTextBox = (TextBox)previousPageSearchInput.FindControl("txtSearch");
-			if (prevSearchTextBox?.Text.Length > 0)
+			var prevSearchTextBox = previousPageSearchInput.FindControl("txtSearch") as TextBox;
+
+			if (prevSearchTextBox is not null && !string.IsNullOrWhiteSpace(prevSearchTextBox.Text))
 			{
-				WebUtils.SetupRedirect(this, SiteRoot + "/SearchResults.aspx?q=" + Server.UrlEncode(prevSearchTextBox.Text));
-				return;
+				WebUtils.SetupRedirect(this, "~/SearchResults.aspx?".ToLinkBuilder().AddParam("q", prevSearchTextBox.Text).ToString());
+				return null;
 			}
 		}
 
-		DoSearch();
+		return GetSearchResults();
 	}
 
 
 	private List<string> GetUserRoles()
 	{
-		List<string> userRoles = new List<string>();
+		List<string> userRoles = ["All Users"];
 
-		userRoles.Add("All Users");
 		if (Request.IsAuthenticated)
 		{
-			SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
+			var currentUser = SiteUtils.GetCurrentSiteUser();
+
 			if (currentUser is not null)
 			{
-				using IDataReader reader = SiteUser.GetRolesByUser(siteSettings.SiteId, currentUser.UserId);
+				using var reader = SiteUser.GetRolesByUser(siteSettings.SiteId, currentUser.UserId);
+
 				while (reader.Read())
 				{
 					userRoles.Add(reader["RoleName"].ToString());
@@ -198,78 +183,72 @@ public partial class SearchResults : NonCmsBasePage
 	}
 
 
-	private void DoSearch()
+	private IndexItemCollection? GetSearchResults()
 	{
-		if (Page.IsPostBack || Request.QueryString.Get("q") == null)
+		if (Page.IsPostBack || string.IsNullOrWhiteSpace(_queryText))
 		{
-			return;
+			return null;
 		}
 
-		query = Request.QueryString.Get("q").RemoveMarkup();
-
-		if (query.Length == 0) { return; }
-
-		txtSearchInput.Text = query;
-
-
-		// this is only to make sure its initialized
+		// this is only to make sure it's initialized
 		// before indexing is queued on a thread
 		// because there is no HttpContext on
 		// external threads and HttpContext is needed to initialize
 		// once initialized it's cached
-
+		// Ideally this should be done on app startup.
 		_ = IndexBuilderManager.Providers;
-
-		queryErrorOccurred = false;
 
 		var searchResults = IndexHelper.Search(
 			siteSettings.SiteId,
-			isSiteEditor,
+			_isSiteEditor,
 			GetUserRoles(),
-			featureGuid,
-			modifiedBeginDate,
-			modifiedEndDate,
-			query,
+			_featureGuid,
+			_modifiedBeginDate,
+			_modifiedEndDate,
+			_queryText,
 			WebConfigSettings.EnableSearchResultsHighlighting,
 			WebConfigSettings.SearchResultsFragmentSize,
-			pageNumber,
-			pageSize,
+			_pageNumber,
+			_pageSize,
 			WebConfigSettings.SearchMaxClauseCount,
-			out totalHits,
-			out queryErrorOccurred);
+			out _totalHits,
+			out _queryErrorOccurred
+		);
 
-		if (searchResults.Count == 0)
+		if ((searchResults?.Count ?? 0) == 0)
 		{
-			//ShowNoResults();
 			InitIndexIfNeeded();
-			return;
+			return null;
 		}
 
-		if (searchResults.Count > 0)
-		{
-			var duration = searchResults.ExecutionTime * 0.0000001F;
-			lblDuration.Visible = true;
-			lblDuration.Text = duration.ToString();
-			lblSeconds.Visible = true;
-		}
+		return searchResults;
+	}
 
-		//if problems with encoding of query, swap 'query' out with Server.UrlEncode(query)
-		var pagerUrlFormat = "SearchResults.aspx"
+
+	private void SetupViewModel(IndexItemCollection? searchResults = null)
+	{
+		var pageUrlFormat = "~/SearchResults.aspx"
 			.ToLinkBuilder()
-			.AddParams(GetSearchParams(query))
+			.AddParams(GetSearchParams())
 			.AddParam("p", "{0}")
 			.ToString();
 
 		var model = SearchResultsViewModel.Create(
-			pageNumber,
-			pageSize,
-			totalHits,
-			showModuleTitleInResultLink,
-			pagerUrlFormat,
-			query,
-			timeZone,
-			searchResults,
-			displaySettings
+			Resource.SearchPageTitle,
+			_pageNumber,
+			_pageSize,
+			_totalHits,
+			_showModuleTitleInResultLink,
+			pageUrlFormat,
+			_queryText,
+			_timeZone,
+			items: searchResults,
+			displaySettings,
+			duration: searchResults?.ExecutionTime * 0.0000001F,
+			featureList: GetFeatureList(),
+			dateStart: _modifiedBeginDate,
+			dateEnd: _modifiedEndDate,
+			_queryErrorOccurred
 		);
 
 		try
@@ -278,188 +257,135 @@ public partial class SearchResults : NonCmsBasePage
 		}
 		catch (Exception e)
 		{
-			log.Error("There was an issue rendering the search results page.", e);
+			litSearchResults.Text = RazorBridge.RenderPartialToString("_SearchResultsFallback", null, "SearchResults");
+			_log.Error("There was an issue rendering the search results page.", e);
 		}
 	}
 
 
-	private Dictionary<string, object> GetSearchParams(string query)
+	private Dictionary<string, object> GetSearchParams()
 	{
 		var searchParams = new Dictionary<string, object>
 		{
-			{ "q", Server.UrlEncode(query) }
+			{ "q", Server.UrlEncode(_queryText) }
 		};
 
-		if (modifiedBeginDate.Date != DateTime.MinValue.Date && displaySettings.ShowModifiedDateFilters)
+		if (_modifiedBeginDate.Date != DateTime.MinValue.Date && displaySettings.ShowModifiedDateFilters)
 		{
-			searchParams.Add("bd", $"{modifiedBeginDate.Date:s}");
+			searchParams.Add("bd", $"{_modifiedBeginDate.Date:s}");
 		}
 
-		if (modifiedEndDate.Date != DateTime.MaxValue.Date && displaySettings.ShowModifiedDateFilters)
+		if (_modifiedEndDate.Date != DateTime.MaxValue.Date && displaySettings.ShowModifiedDateFilters)
 		{
-			searchParams.Add("ed", $"{modifiedEndDate.Date:s}");
+			searchParams.Add("ed", $"{_modifiedEndDate.Date:s}");
 		}
 
-		if (featureGuid != Guid.Empty)
+		if (_featureGuid != Guid.Empty)
 		{
-			searchParams.Add("f", featureGuid);
+			searchParams.Add("f", _featureGuid);
 		}
 
 		return searchParams;
 	}
 
 
-	private void BindFeatureList()
+	private List<SelectListItem> GetFeatureList()
 	{
-		using IDataReader reader = ModuleDefinition.GetSearchableModules(siteSettings.SiteId);
-		ListItem listItem;
+		using var reader = ModuleDefinition.GetSearchableModules(siteSettings.SiteId);
+
+		var items = new List<SelectListItem>
+		{
+			new()
+			{
+				Text = Resource.SearchAllContentItem,
+				Value = Guid.Empty.ToString()
+			}
+		};
 
 		// this flag tells it to look first for a web config setting for the resource string
 		// corresponding to SearchListName value
 		// it allows you to customize searchlist names whereas by default they are just localized
 		// no actually implemented as of 20250305 - jmd0
-		bool useConfigOverrides = true;
+		var useConfigOverrides = true;
 
 		while (reader.Read())
 		{
 			var featureId = reader["Guid"].ToString();
 
-			if (!WebConfigSettings.SearchableFeatureGuidsToExclude.Contains(featureId))
+			if (!WebConfigSettings.SearchableFeatureGuidsToExclude.Contains(featureId, StringComparison.InvariantCultureIgnoreCase))
 			{
-				listItem = new ListItem(
-					ResourceHelper.GetResourceString(
-					reader["ResourceFile"].ToString(),
-					reader["SearchListName"].ToString(),
-					useConfigOverrides),
-					featureId);
-
-				ddFeatureList.Items.Add(listItem);
+				items.Add(new SelectListItem
+				{
+					Text = ResourceHelper.GetResourceString(
+						reader["ResourceFile"].ToString(),
+						reader["SearchListName"].ToString(),
+						useConfigOverrides
+					),
+					Value = featureId,
+					Selected = _featureGuid.ToString() == featureId
+				});
 			}
 		}
+
+		return items;
 	}
 
 
 	private void InitIndexIfNeeded()
 	{
-		if (indexVerified)
+		if (_indexVerified)
 		{
 			return;
 		}
 
-		indexVerified = true;
+		_indexVerified = true;
 
 		if (!IndexHelper.VerifySearchIndex(siteSettings))
 		{
-			lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
-
 			Thread.Sleep(5000); //wait 5 seconds
 			SiteUtils.QueueIndexing();
 		}
 	}
 
 
-	private void ShowNoResults()
-	{
-		if (queryErrorOccurred)
-		{
-			//lblNoResults.Text = Resource.SearchQueryInvalid;
-		}
-		//divResults.Visible = false;
-		//pnlNoResults.Visible = txtSearchInput.Text.Length > 0;
-	}
-
-
-	private void btnDoSearch_Click(object sender, EventArgs e)
-	{
-		if (dpBeginDate.Text.Length > 0)
-		{
-			DateTime.TryParse(dpBeginDate.Text, out modifiedBeginDate);
-		}
-		else
-		{
-			modifiedBeginDate = DateTime.MinValue;
-		}
-
-		if (dpEndDate.Text.Length > 0)
-		{
-			DateTime.TryParse(dpEndDate.Text, out modifiedEndDate);
-		}
-		else
-		{
-			modifiedEndDate = DateTime.MaxValue;
-		}
-
-		if (displaySettings.ShowFeatureFilter)
-		{
-			if (ddFeatureList.SelectedValue.Length == 36)
-			{
-				featureGuid = new Guid(ddFeatureList.SelectedValue);
-			}
-		}
-
-		//string redirectUrl = $"{SiteRoot}/SearchResults.aspx?q={Server.UrlEncode(txtSearchInput.Text)}{GetModBeginDateParam(false)}{GetModEndDateParam(false)}{GetFeatureParam(false)}";
-
-		//if problems with encoding of query, swap 'txtSearchInput.Text' out with Server.UrlEncode(txtSearchInput.Text)
-		string redirectUrl = "SearchResults.aspx".ToLinkBuilder().AddParams(GetSearchParams(txtSearchInput.Text)).ToString();
-
-		WebUtils.SetupRedirect(this, redirectUrl);
-	}
-
-	void btnRebuildSearchIndex_Click(object sender, EventArgs e)
-	{
-		IndexingQueue.DeleteAll();
-		IndexHelper.DeleteSearchIndex(siteSettings);
-		IndexHelper.VerifySearchIndex(siteSettings);
-
-		lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
-		Thread.Sleep(5000); //wait 5 seconds
-		SiteUtils.QueueIndexing();
-	}
-
 	private void SetupScript()
 	{
-		if (WebConfigSettings.DisablejQuery) { return; }
-		if (!WebConfigSettings.OpenSearchDownloadLinksInNewWindow) { return; }
+		if (!WebConfigSettings.OpenSearchDownloadLinksInNewWindow)
+		{
+			return;
+		}
 
 		// make shared files download links open in a new window
-		var script = new StringBuilder();
-		script.Append("\n<script data-loader=\"SearchResults.aspx\">");
-		script.Append("$(\"a[href*='Download.aspx']\")");
-		script.Append(".bind('click', function(){window.open(this.href,'_blank');return false;}); ");
-		script.Append("\n</script>");
+		var script = """
+			<script data-loader="SearchResults.aspx">
+				const downloadLinks = document.querySelectorAll('a[href*="Download.aspx"]');
 
-		Page.ClientScript.RegisterStartupScript(typeof(Page), "searchpage", script.ToString());
+				function onClick() {
+					window.open(this.href,'_blank'); return false;
+				}
+				
+				downloadLinks.forEach(x => x.addEventListener('click', onClick));
+			</script>
+			""";
+
+		Page.ClientScript.RegisterStartupScript(typeof(Page), "searchpage", script);
 	}
+
 
 	private void LoadSettings()
 	{
-		isSiteEditor = WebUser.IsAdminOrContentAdmin || (SiteUtils.UserIsSiteEditor());
-
-		pageNumber = WebUtils.ParseInt32FromQueryString("p", true, 1);
-		featureGuid = WebUtils.ParseGuidFromQueryString("f", featureGuid);
-		modifiedBeginDate = WebUtils.ParseDateFromQueryString("bd", DateTime.MinValue).Date;
-		modifiedEndDate = WebUtils.ParseDateFromQueryString("ed", DateTime.MaxValue).Date;
-
-		if (!IsPostBack)
-		{
-			if (modifiedBeginDate.Date > DateTime.MinValue.Date)
-			{
-				dpBeginDate.Text = modifiedBeginDate.ToShortDateString();
-			}
-
-			if (modifiedEndDate.Date < DateTime.MaxValue.Date)
-			{
-				dpEndDate.Text = modifiedEndDate.ToShortDateString();
-			}
-		}
-
-		spnDateRange.Visible = displaySettings.ShowModifiedDateFilters;
+		_queryText = WebUtils.ParseStringFromQueryString("q", string.Empty);
+		_pageNumber = WebUtils.ParseInt32FromQueryString("p", true, 1);
+		_featureGuid = WebUtils.ParseGuidFromQueryString("f", _featureGuid);
+		_modifiedBeginDate = WebUtils.ParseDateFromQueryString("bd", DateTime.MinValue).Date;
+		_modifiedEndDate = WebUtils.ParseDateFromQueryString("ed", DateTime.MaxValue).Date;
 
 		if (displaySettings.ShowCreatedDate || displaySettings.ShowLastModDate)
 		{
-			timeZone = SiteUtils.GetUserTimeZone();
+			_timeZone = SiteUtils.GetUserTimeZone();
 		}
 	}
+
 
 	private void PopulateLabels()
 	{
@@ -474,27 +400,11 @@ public partial class SearchResults : NonCmsBasePage
 
 		MetaDescription = string.Format(CultureInfo.InvariantCulture, Resource.MetaDescriptionSearchFormat, siteSettings.SiteName);
 
-		lblMessage.Text = string.Empty;
-		//divResults.Visible = true;
-
-		btnDoSearch.Text = Resource.SearchButtonText;
-		SiteUtils.SetButtonAccessKey(btnDoSearch, AccessKeys.SearchButtonTextAccessKey);
-
-		btnRebuildSearchIndex.Text = Resource.SearchRebuildIndexButton;
-		UIHelper.AddConfirmationDialog(btnRebuildSearchIndex, Resource.SearchRebuildIndexWarning);
-
-		divDelete.Visible = (WebConfigSettings.ShowRebuildSearchIndexButtonToAdmins && WebUser.IsAdmin);
-
-		//lblNoResults.Text = Resource.SearchResultsNotFound;
-
 		litAltSearchMessage.Text = Resource.AltSearchPrompt;
 		lnkBingSearch.Text = Resource.SearchThisSiteWithBing;
 		lnkBingSearch.NavigateUrl = $"{SiteRoot}/BingSearch.aspx";
 		lnkGoogleSearch.Text = Resource.SearchThisSiteWithGoogle;
 		lnkGoogleSearch.NavigateUrl = $"{SiteRoot}/GoogleSearch.aspx";
-
-		litDatePreamble.Text = Resource.SearchDateFilterPreamble;
-		litAnd.Text = Resource.and;
 
 		//this page has no content other than nav
 		SiteUtils.AddNoIndexFollowMeta(Page);
