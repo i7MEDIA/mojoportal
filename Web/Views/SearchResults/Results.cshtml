@@ -2,22 +2,76 @@
 
 @using Resources
 
-<div class="settingrow searchresultsummary">
-	@Resource.SearchResultsLabel
-	@Model.Results.From - @Model.Results.To
-	@Resource.SearchResultsOfLabel
-	@Model.Results.Total
-	@Resource.SearchResultsForLabel
-	@Model.Results.Query
+<div class="settingrow searchcontrols">
+	<a href="@Model.HelpLink.Href"
+	   class="mhelp"
+	   data-modal
+	   data-close-text="@Model.HelpLink.CloseButtonText"
+	   data-modal-type="iframe"
+	   data-size="fluid-large"
+	   data-height="full"
+	   title="@Model.HelpLink.Text">
+		<span class="sr-only">@Model.HelpLink.Text</span>
+	</a>
+
+	<input type="text" id="searchInput" class="form-control" value="@Model.Controls.SearchInput.Value" maxlength="255" autofocus autocomplete="on" placeholder="enter search terms" />
+
+	@if (Model.Filters.Features.Show)
+	{
+		<select id="featureList" class="searchfeatures form-control">
+			@foreach (var option in Model.Filters.Features.Options)
+			{
+				<option value="@option.Value" @(option.Selected ? "selected" : string.Empty)>@option.Text</option>
+			}
+		</select>
+	}
+
+	@if (Model.Filters.DateRange.Show)
+	{
+		<span class="s-datefilters" id="spnDateRange">
+			<br class="s-datefilterbreak" />
+			@Model.Filters.DateRange.Preamble
+			<input id="dateStart" class="form-control" type="date" value="@Model.Filters.DateRange.DateStart" />
+			@Model.Filters.DateRange.AndText
+			<input id="dateEnd" class="form-control" type="date" value="@Model.Filters.DateRange.DateEnd" />
+		</span>
+	}
+
+	<button id="btnSearch" class="btn btn-primary" type="button">@Model.Controls.SearchButton.Text</button>
+
+	@if (Model.ResultsMessage.Duration is not null)
+	{
+		<span class="searchduration">
+			<span class="duration">@Model.ResultsMessage.Duration</span>
+			<span class="duration">@Model.ResultsMessage.DurationText</span>
+		</span>
+	}
 </div>
+
+
+@if (Model.Results.ShowResults)
+{
+	<div class="settingrow searchresultsummary">
+		@Model.ResultsMessage.Preamble
+		<span class="text-bold">@Model.ResultsMessage.From</span>
+		<span>-</span>
+		<span class="text-bold">@Model.ResultsMessage.To</span>
+		@Model.ResultsMessage.ToText
+		<span class="text-bold">@Model.ResultsMessage.Total</span>
+		@Model.ResultsMessage.ForText
+		<span class="text-bold">"@Model.ResultsMessage.Query"</span>
+	</div>
+}
+
 
 @Html.Partial("_Pager", Model.Pagination)
 
-@if (Model.Items.Count > 0)
+
+@if (Model.Results.ShowResults)
 {
 	<div class="settingrow searchresults">
 		<ol class="searchresultlist">
-			@foreach (var result in Model.Items)
+			@foreach (var result in Model.Results.Items)
 			{
 				<li class="searchresult">
 					<h3><a href="@result.Link.Href">@result.Link.Text</a></h3>
@@ -54,12 +108,47 @@
 		</ol>
 	</div>
 }
-else
+
+@if (Model.Results.ShowNoResults)
 {
 	<div class="settingrow searchresults searchresults--empty">
-		@Resource.SearchResultsNotFound
+		@Model.Results.NoResultsText
 	</div>
 }
 
 
 @Html.Partial("_Pager", Model.Pagination)
+
+
+<script type="module">
+	const searchInput = document.getElementById('searchInput');
+	const featureList = document.getElementById('featureList');
+	const btnSearch = document.getElementById('btnSearch');
+
+	function onSubmit(e) {
+		const url = new URL(location);
+
+		url.searchParams.delete('q');
+		url.searchParams.delete('f');
+
+		if (searchInput.value.trim() !== '') {
+			url.searchParams.set('q', searchInput.value.trim());
+		}
+
+		if (featureList.value !== '@Guid.Empty.ToString()') {
+			url.searchParams.set('f', featureList.value);
+		}
+
+		location = url.toString();
+	}
+
+	function onKeydown(e) {
+		if (e.key === 'Enter') {
+			e.preventDefault();
+			onSubmit(e);
+		}
+	}
+
+	searchInput.addEventListener('keydown', onKeydown);
+	btnSearch.addEventListener('click', onSubmit);
+</script>

@@ -583,6 +583,34 @@ public class IndexItem : IComparable
 		set => ItemImage = Encoding.Unicode.GetString(value);
 	}
 
+
+	private string _sku = string.Empty;
+	private bool _isSkuLoaded = false;
+
+	[XmlIgnore]
+	public string Sku
+	{
+		get
+		{
+			if (luceneDoc is not null && !_isSkuLoaded)
+			{
+				_sku = luceneDoc.Get("Sku");
+				_isSkuLoaded = true;
+			}
+
+			return _sku;
+		}
+		set => _sku = value;
+	}
+
+
+	[XmlElement(ElementName = "Sku", DataType = "base64Binary")]
+	public byte[] SkuSerialization
+	{
+		get => Encoding.Unicode.GetBytes(Sku);
+		set => Sku = Encoding.Unicode.GetString(value);
+	}
+
 	#endregion
 
 

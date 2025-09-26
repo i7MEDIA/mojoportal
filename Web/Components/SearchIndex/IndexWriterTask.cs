@@ -374,6 +374,7 @@ public class IndexWriterTask : ITaskQueueTask
 		doc.Add(new Field("ExcludeFromRecentContent", indexItem.ExcludeFromRecentContent.ToString().ToLower(), Field.Store.YES, Field.Index.NOT_ANALYZED));
 
 		doc.Add(new Field("ItemImage", indexItem.ItemImage, Field.Store.YES, Field.Index.NO));
+		doc.Add(new Field("Sku", indexItem.Sku, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
 
 		return doc;
 	}
