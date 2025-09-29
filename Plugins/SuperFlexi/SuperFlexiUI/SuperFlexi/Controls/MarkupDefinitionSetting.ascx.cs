@@ -31,14 +31,24 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		SecurityHelper.DisableBrowserCache();
-
+		btnEnableChange.Text = SuperFlexiResources.MarkupDefinitionChangeButton;
+		btnEnableChange.ToolTip = SuperFlexiResources.MarkupDefinitionChangeButtonToolTip;
+		UIHelper.AddConfirmationDialog(btnEnableChange, SuperFlexiResources.MarkupDefinitionChangeButtonConfirm);
 	}
 
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
 		if (HttpContext.Current == null) { return; }
+		btnEnableChange.Click += new EventHandler(btnEnableChange_Click);
 		EnsureItems();
+	}
+
+	private void btnEnableChange_Click(object sender, EventArgs e)
+	{
+		ddDefinitions.Enabled = true;
+		pnlDefinitions.Update();
+		return;
 	}
 
 	private void EnsureItems()
@@ -223,9 +233,13 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 			{
 				ddDefinitions.ClearSelection();
 				item.Selected = true;
+
+				btnEnableChange.Visible = true;
+				ddDefinitions.Enabled = false;
 			}
 		}
 	}
+
 	#endregion
 	class SolutionFileLocation
 	{

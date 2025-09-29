@@ -430,6 +430,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Solution.
+        /// </summary>
+        internal static string MarkupDefinitionChangeButton {
+            get {
+                return ResourceManager.GetString("MarkupDefinitionChangeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to change the Solution? This can cause irreversible damage to your data. Only proceed if you know for sure what you&apos;re doing and you have a good database backup..
+        /// </summary>
+        internal static string MarkupDefinitionChangeButtonConfirm {
+            get {
+                return ResourceManager.GetString("MarkupDefinitionChangeButtonConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing the Solution can cause irreversible damage to your data. Only do this if you know what you&apos;re doing and have a proper database backup..
+        /// </summary>
+        internal static string MarkupDefinitionChangeButtonToolTip {
+            get {
+                return ResourceManager.GetString("MarkupDefinitionChangeButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solution.
         /// </summary>
         internal static string MarkupDefinitionFile {
