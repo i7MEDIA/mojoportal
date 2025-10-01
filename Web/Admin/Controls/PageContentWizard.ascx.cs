@@ -29,18 +29,18 @@ public partial class PageContentWizard : UserControl
 	{
 		BindFeatureList();
 
-		chkShowTitle.Checked = Global.SkinConfig.Display.ShowModuleTitlesByDefault;
+		chkShowTitle.Checked = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_ShowByDefault;
 
-		divTitleElement.Visible = Global.SkinConfig.Display.EnableEditingModuleTitleElement
-			&& Global.SkinConfig.Display.ModuleTitleElementOptions.Count() > 1;
+		divTitleElement.Visible = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_AllowEditing
+			&& Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Count() > 1;
 
 		if (divTitleElement.Visible)
 		{
-			ddlTitleElements.DataSource = Global.SkinConfig.Display.ModuleTitleElementOptions;
-			if (!string.IsNullOrWhiteSpace(Global.SkinConfig.Display.ModuleTitleElement)
-				&& Global.SkinConfig.Display.ModuleTitleElementOptions.Contains(Global.SkinConfig.Display.ModuleTitleElement))
+			ddlTitleElements.DataSource = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options;
+			if (!string.IsNullOrWhiteSpace(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element)
+				&& Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Contains(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element))
 			{
-				ddlTitleElements.SelectedValue = Global.SkinConfig.Display.ModuleTitleElement;
+				ddlTitleElements.SelectedValue = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
 			}
 			ddlTitleElements.DataBind();
 		}
@@ -94,7 +94,7 @@ public partial class PageContentWizard : UserControl
 			_ => string.Empty, //empty means all roles
 		};
 
-		string moduleTitleElement = Global.SkinConfig.Display.ModuleTitleElement;
+		string moduleTitleElement = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
 		if (divTitleElement.Visible)
 		{
 			moduleTitleElement = ddlTitleElements.SelectedValue;

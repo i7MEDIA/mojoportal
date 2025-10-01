@@ -52,8 +52,8 @@ public class Global : HttpApplication
 	#region Public Methods
 
 	public static bool RegisteredVirtualThemes { get; private set; } = false;
-	public static SkinConfigManager SkinConfigManager { get; private set; }
-	public static SkinConfig SkinConfig { get; private set; }
+	public static Theming.SkinConfigManager SkinConfigManager { get; private set; }
+	public static Theming.SkinConfig SkinConfig { get; private set; }
 	public static ConcurrentDictionary<string, int> SiteHostMap { get; } = [];
 	// this changes everytime the app starts and is used for rss feed autodiscovery links so it will notredirect to feedburner
 	// after each app restart the variable will change so that after the user is subscribed it will begin redirecting to feedburner if using feedburner
@@ -175,7 +175,7 @@ public class Global : HttpApplication
 		{
 			if (siteCount > 0)
 			{
-				SkinConfigManager ??= new SkinConfigManager();
+				SkinConfigManager ??= new Theming.SkinConfigManager();
 				SkinConfig = SkinConfigManager.GetConfig();
 			}
 		}
