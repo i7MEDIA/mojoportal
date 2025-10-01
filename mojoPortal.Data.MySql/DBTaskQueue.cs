@@ -578,10 +578,10 @@ namespace mojoPortal.Data
             sqlCommand.Append("CompleteUTC IS NULL ");
             sqlCommand.Append(";");
 
-            return Task.Run(async () => await MySqlHelper.ExecuteReaderAsync(
+            return MySqlHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
-                null)).Result;
+                null);
         }
 
 
