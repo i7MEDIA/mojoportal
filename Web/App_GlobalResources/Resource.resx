@@ -6785,6 +6785,9 @@ We've generated a new key for you. Copy the key below into your site's configura
     <value>Inherit from Parent Page</value>
   </data>
   <data name="InheritFromPage" xml:space="preserve">
-    <value>Inherit from Page</value>
+    <value>Inherit from page</value>
+  </data>
+  <data name="CopyFromPage" xml:space="preserve">
+    <value>Copy from page</value>
   </data>
 </root>

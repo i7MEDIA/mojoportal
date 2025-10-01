@@ -2977,6 +2977,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy from page.
+        /// </summary>
+        internal static string CopyFromPage {
+            get {
+                return ResourceManager.GetString("CopyFromPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy New Skins.
         /// </summary>
         internal static string CopyNewSkinsButton {
@@ -6703,7 +6712,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inherit from Page.
+        ///   Looks up a localized string similar to Inherit from page.
         /// </summary>
         internal static string InheritFromPage {
             get {
