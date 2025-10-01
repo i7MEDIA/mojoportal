@@ -5293,7 +5293,7 @@
     <value>Choose a parent page.</value>
   </data>
   <data name="ModuleSettingsTitleElement" xml:space="preserve">
-    <value>HTML Element For Title</value>
+    <value>Title Element</value>
   </data>
   <data name="DownloadSkinFormat" xml:space="preserve">
     <value>Download {0}</value>
@@ -6774,5 +6774,20 @@ We've generated a new key for you. Copy the key below into your site's configura
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User not found</value>
+  </data>
+  <data name="Role_ContentAdministrators" xml:space="preserve">
+    <value>Content Administrators</value>
+  </data>
+  <data name="Role_Administrators" xml:space="preserve">
+    <value>Administrators</value>
+  </data>
+  <data name="InheritFromParentPage" xml:space="preserve">
+    <value>Inherit from Parent Page</value>
+  </data>
+  <data name="InheritFromPage" xml:space="preserve">
+    <value>Inherit from page</value>
+  </data>
+  <data name="CopyFromPage" xml:space="preserve">
+    <value>Copy from page</value>
   </data>
 </root>

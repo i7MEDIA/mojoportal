@@ -140,7 +140,41 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 			moduleTitle.Text = module.ModuleTitle;
 			cacheTime.Text = module.CacheTime.ToString();
 			chkShowTitle.Checked = module.ShowTitle;
-			txtTitleElement.Text = module.HeadElement;
+
+			if (divTitleElement.Visible)
+			{
+				ddlTitleElements.DataSource = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options;
+				if (!string.IsNullOrWhiteSpace(module.HeadElement)
+					&& Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Contains(module.HeadElement, StringComparer.InvariantCultureIgnoreCase))
+				{
+					//this setting was an open text field in the past so we need to catch if the value is not in the list
+					try
+					{
+						ddlTitleElements.SelectedValue = module.HeadElement;
+					}
+					catch (ArgumentOutOfRangeException)
+					{
+						setTitleElementDefault();
+					}
+				}
+				else
+				{
+					setTitleElementDefault();
+				}
+
+				ddlTitleElements.DataBind();
+				
+				void setTitleElementDefault()
+				{
+					if (!string.IsNullOrWhiteSpace(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element)
+					   && Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Contains(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element))
+					{
+						ddlTitleElements.SelectedValue = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
+					}
+				}
+			}
+
+
 			//publishType.SetValue(module.PublishMode.ToString(CultureInfo.InvariantCulture));
 			chkIncludeInSearch.Checked = module.IncludeInSearch;
 			chkHideFromAuth.Checked = module.HideFromAuthenticated;
@@ -835,7 +869,17 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 					if (divTitleElement.Visible)
 					{
-						module.HeadElement = txtTitleElement.Text;
+						var moduleTitleElement = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
+						if (divTitleElement.Visible)
+						{
+							moduleTitleElement = ddlTitleElements.SelectedValue;
+						}
+						else if (string.IsNullOrWhiteSpace(moduleTitleElement))
+						{
+							moduleTitleElement = WebConfigSettings.ModuleTitleTag;
+						}
+
+						module.HeadElement = moduleTitleElement;
 					}
 
 					module.ShowTitle = chkShowTitle.Checked;
@@ -1261,7 +1305,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 		divIncludeInSearch.Visible = module.FeatureGuid == HtmlContent.FeatureGuid;
 
-		divTitleElement.Visible = WebConfigSettings.EnableEditingModuleTitleElement && WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins);
+		divTitleElement.Visible = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_AllowEditing && Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Count() > 1;
 
 		useSeparatePagesForRoles = Role.CountOfRoles(siteSettings.SiteId) >= WebConfigSettings.TooManyRolesForModuleSettings;
 		divRoles.Visible = !useSeparatePagesForRoles;

@@ -2977,6 +2977,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy from page.
+        /// </summary>
+        internal static string CopyFromPage {
+            get {
+                return ResourceManager.GetString("CopyFromPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy New Skins.
         /// </summary>
         internal static string CopyNewSkinsButton {
@@ -6703,6 +6712,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inherit from page.
+        /// </summary>
+        internal static string InheritFromPage {
+            get {
+                return ResourceManager.GetString("InheritFromPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inherit from Parent Page.
+        /// </summary>
+        internal static string InheritFromParentPage {
+            get {
+                return ResourceManager.GetString("InheritFromParentPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Instance ID.
         /// </summary>
         internal static string InstanceId {
@@ -9241,7 +9268,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HTML Element For Title.
+        ///   Looks up a localized string similar to Title Element.
         /// </summary>
         internal static string ModuleSettingsTitleElement {
             get {
@@ -14322,6 +14349,24 @@ namespace Resources {
         internal static string RoleSystemNameRequired {
             get {
                 return ResourceManager.GetString("RoleSystemNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Administrators.
+        /// </summary>
+        internal static string Role_Administrators {
+            get {
+                return ResourceManager.GetString("Role_Administrators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content Administrators.
+        /// </summary>
+        internal static string Role_ContentAdministrators {
+            get {
+                return ResourceManager.GetString("Role_ContentAdministrators", resourceCulture);
             }
         }
         

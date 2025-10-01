@@ -19,6 +19,7 @@ using System.Configuration;
 using System.Globalization;
 using System.IO;
 using MySql.Data.MySqlClient;
+using System.Threading.Tasks;
 
 namespace mojoPortal.Data
 {
