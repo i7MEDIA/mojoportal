@@ -106,6 +106,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Data.SQLite\mojoPortal.Data.SQLite.csproj">
       <Project>{C224A35B-AB21-4476-A411-CA5BA406598B}</Project>
       <Name>mojoPortal.Data.SQLite</Name>

@@ -13,6 +13,7 @@
 // Note moved into separate class file from dbPortal 2007-11-03
 
 
+using mojoPortal.Core.Extensions;
 using Mono.Data.Sqlite;
 using System;
 using System.Configuration;
@@ -1952,11 +1953,17 @@ namespace mojoPortal.Data
             sqlCommand.Append("u.LastName, ");
             sqlCommand.Append("u.LoginName, ");
             sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl ");
+            sqlCommand.Append("u.AvatarUrl, ");
+			sqlCommand.Append($"group_concat(c.Category, '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS Categories ");
 
-            sqlCommand.Append("FROM	mp_Blogs b ");
+			sqlCommand.Append("FROM	mp_Blogs b ");
 
-            sqlCommand.Append("JOIN	mp_Modules m ");
+			sqlCommand.AppendLine("""
+                join mp_BlogItemCategories ic on ic.ItemID = b.ItemID 
+                join mp_BlogCategories c on c.CategoryID = ic.CategoryID 
+                """);
+
+			sqlCommand.Append("JOIN	mp_Modules m ");
             sqlCommand.Append("ON b.ModuleID = m.ModuleID ");
 
             sqlCommand.Append("JOIN	mp_ModuleDefinitions md ");
@@ -1974,6 +1981,76 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE ");
             sqlCommand.Append("p.SiteID = :SiteID ");
             sqlCommand.Append("AND pm.PageID = :PageID ");
+            sqlCommand.AppendLine("""
+                GROUP BY 	
+                b.ItemID,
+                b.ModuleID,
+                b.CreatedByUser,
+                b.CreatedDate,
+                b.Title,
+                b.StartDate,
+                b.IsInNewsletter,
+                b.Description,
+                b.CommentCount,
+                b.TrackBackCount,
+                b.IncludeInFeed,
+                b.AllowCommentsForDays,
+                b.BlogGuid,
+                b.ModuleGuid,
+                b.Location,
+                b.UserGuid,
+                b.LastModUserGuid,
+                b.LastModUtc,
+                b.ItemUrl,
+                b.Heading,
+                b.MetaKeywords,
+                b.MetaDescription,
+                b.Abstract,
+                b.CompiledMeta,
+                b.IsPublished,
+                b.EndDate,
+                b.Approved,
+                b.ApprovedBy,
+                b.ApprovedDate,
+                b.SubTitle,
+                b.ShowAuthorName,
+                b.ShowAuthorAvatar,
+                b.ShowAuthorBio,
+                b.IncludeInSearch,
+                b.IncludeInSiteMap,
+                b.UseBingMap,
+                b.MapHeight,
+                b.MapWidth,
+                b.ShowMapOptions,
+                b.ShowZoomTool,
+                b.ShowLocationInfo,
+                b.UseDrivingDirections,
+                b.MapType,
+                b.MapZoom,
+                b.ShowDownloadLink,
+                b.ExcludeFromRecentContent,
+                b.IncludeInNews,
+                b.PubName,
+                b.PubLanguage,
+                b.PubAccess,
+                b.PubGenres,
+                b.PubKeyWords,
+                b.PubGeoLocations,
+                b.PubStockTickers,
+                b.HeadlineImageUrl,
+                b.IncludeImageInExcerpt,
+                b.IncludeImageInPost,
+                m.ModuleTitle,
+                m.ViewRoles,
+                md.FeatureName,
+                u.Name,
+                u.LoginName,
+                u.FirstName,
+                u.LastName,
+                u.Email,
+                u.AvatarUrl,
+                u.AuthorBio;
+                """);
             //sqlCommand.Append("AND pm.PublishBeginDate < datetime('now','localtime') ");
             //sqlCommand.Append("AND (pm.PublishEndDate IS NULL OR pm.PublishEndDate > datetime('now','localtime'))  ;"); 
             sqlCommand.Append(" ; ");
@@ -2077,31 +2154,100 @@ namespace mojoPortal.Data
             sqlCommand.Append("(SELECT b4.Title FROM mp_Blogs b4 WHERE b4.IsPublished = 1 AND b4.StartDate <= :CurrentTime AND (b4.EndDate IS NULL OR b4.EndDate > :CurrentTime) AND b4.StartDate > b.StartDate AND b4.ModuleID = b.ModuleID AND b4.ItemUrl IS NOT NULL AND b4.ItemUrl <> '' ORDER BY b4.StartDate LIMIT 1 ) AS NextPostTitle, ");
             sqlCommand.Append("COALESCE((SELECT b6.ItemID FROM mp_Blogs b6 WHERE b6.IsPublished = 1 AND b6.StartDate <= :CurrentTime AND (b6.EndDate IS NULL OR b6.EndDate > :CurrentTime) AND b6.StartDate > b.StartDate AND b6.ModuleID = b.ModuleID  ORDER BY b6.StartDate LIMIT 1 ),-1) AS NextItemID, ");
 
-
-
             sqlCommand.Append(" (SELECT b3.ItemUrl FROM mp_Blogs b3 WHERE b3.IsPublished = 1 AND b3.StartDate <= :CurrentTime AND (b3.EndDate IS NULL OR b3.EndDate > :CurrentTime) AND b3.StartDate < b.StartDate AND b3.ModuleID = b.ModuleID AND b3.ItemUrl IS NOT NULL AND b3.ItemUrl <> '' ORDER BY b3.StartDate DESC LIMIT 1 ) AS PreviousPost, ");
             sqlCommand.Append(" (SELECT b5.Title FROM mp_Blogs b5 WHERE b5.IsPublished = 1 AND b5.StartDate <= :CurrentTime AND (b5.EndDate IS NULL OR b5.EndDate > :CurrentTime) AND b5.StartDate < b.StartDate AND b5.ModuleID = b.ModuleID AND b5.ItemUrl IS NOT NULL AND b5.ItemUrl <> '' ORDER BY b5.StartDate DESC LIMIT 1 ) AS PreviousPostTitle,  ");
 
             sqlCommand.Append(" COALESCE((SELECT b7.ItemID FROM mp_Blogs b7 WHERE b7.IsPublished = 1 AND b7.StartDate <= :CurrentTime AND (b7.EndDate IS NULL OR b7.EndDate > :CurrentTime) AND b7.StartDate < b.StartDate AND b7.ModuleID = b.ModuleID  ORDER BY b7.StartDate DESC LIMIT 1 ),-1) AS PreviousItemID,  ");
 
-
             sqlCommand.Append("COALESCE(u.UserID, -1) AS UserID, ");
             sqlCommand.Append("u.Name, ");
+            sqlCommand.Append("u.LoginName, ");
             sqlCommand.Append("u.FirstName, ");
             sqlCommand.Append("u.LastName, ");
-            sqlCommand.Append("u.LoginName, ");
             sqlCommand.Append("u.Email, ");
             sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
+            sqlCommand.Append("u.AuthorBio, ");
+			sqlCommand.Append($"group_concat(c.Category, '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS Categories ");
 
-            sqlCommand.Append("FROM	mp_Blogs b ");
+			sqlCommand.Append("FROM	mp_Blogs b ");
 
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
+			sqlCommand.Append("""
+                join mp_BlogItemCategories ic on ic.ItemID = b.ItemID 
+                join mp_BlogCategories c on c.CategoryID = ic.CategoryID 
+                """);
+
+			sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
             sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
 
-            sqlCommand.Append("WHERE b.ItemID = :ItemID ; ");
-
-            SqliteParameter[] arParams = new SqliteParameter[2];
+            sqlCommand.Append("WHERE b.ItemID = :ItemID  ");
+			sqlCommand.AppendLine("""
+                GROUP BY 	
+                b.ItemID,
+                b.ModuleID,
+                b.CreatedByUser,
+                b.CreatedDate,
+                b.Title,
+                b.StartDate,
+                b.IsInNewsletter,
+                b.Description,
+                b.CommentCount,
+                b.TrackBackCount,
+                b.IncludeInFeed,
+                b.AllowCommentsForDays,
+                b.BlogGuid,
+                b.ModuleGuid,
+                b.Location,
+                b.UserGuid,
+                b.LastModUserGuid,
+                b.LastModUtc,
+                b.ItemUrl,
+                b.Heading,
+                b.MetaKeywords,
+                b.MetaDescription,
+                b.Abstract,
+                b.CompiledMeta,
+                b.IsPublished,
+                b.EndDate,
+                b.Approved,
+                b.ApprovedBy,
+                b.ApprovedDate,
+                b.SubTitle,
+                b.ShowAuthorName,
+                b.ShowAuthorAvatar,
+                b.ShowAuthorBio,
+                b.IncludeInSearch,
+                b.IncludeInSiteMap,
+                b.UseBingMap,
+                b.MapHeight,
+                b.MapWidth,
+                b.ShowMapOptions,
+                b.ShowZoomTool,
+                b.ShowLocationInfo,
+                b.UseDrivingDirections,
+                b.MapType,
+                b.MapZoom,
+                b.ShowDownloadLink,
+                b.ExcludeFromRecentContent,
+                b.IncludeInNews,
+                b.PubName,
+                b.PubLanguage,
+                b.PubAccess,
+                b.PubGenres,
+                b.PubKeyWords,
+                b.PubGeoLocations,
+                b.PubStockTickers,
+                b.HeadlineImageUrl,
+                b.IncludeImageInExcerpt,
+                b.IncludeImageInPost,
+                u.Name,
+                u.LoginName,
+                u.FirstName,
+                u.LastName,
+                u.Email,
+                u.AvatarUrl,
+                u.AuthorBio;
+                """);
+			SqliteParameter[] arParams = new SqliteParameter[2];
 
             arParams[0] = new SqliteParameter(":ItemID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
