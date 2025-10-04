@@ -434,7 +434,7 @@ public class ModuleConfiguration
 	#endregion private methods
 
 	#region properties
-	public Guid FeatureGuid { get; private set; } = Guid.Parse("4FF93793-1187-4022-899C-C3E9096A855F");
+	public static Guid FeatureGuid { get; private set; } = Guid.Parse("4FF93793-1187-4022-899C-C3E9096A855F");
 	public bool DeleteOrphanedFieldValues => mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SuperFlexi:DeleteOrphanedFieldValues", false);
 	public bool AlwaysLoadMarkupDefinitionFromDisk => mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SuperFlexi:AlwaysLoadMarkupDefinitionFromDisk", false);
 
