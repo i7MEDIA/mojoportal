@@ -1626,4 +1626,41 @@ public static class IndexHelper
 		}
 		return s;
 	}
+
+	/// <summary>
+	/// Queues a task to index content for search functionality if indexing is enabled and conditions are met.
+	/// </summary>
+	/// <remarks>This method checks several preconditions before queuing the indexing task: <list type="bullet">
+	/// <item>If search indexing is disabled via configuration, the method exits without performing any action.</item>
+	/// <item>If the current node is not designated for search indexing, the method exits without performing any
+	/// action.</item> <item>If an indexing task is already running, the method exits without queuing a new task.</item>
+	/// </list> If all conditions are met, the method initializes an <see cref="IndexWriterTask"/>, configures it based on
+	/// application settings,  queues the task, and ensures that the task manager is started or resumed.</remarks>
+	public static void QueueIndexing()
+	{
+		if (WebConfigSettings.DisableSearchIndex) { return; }
+
+		if (!WebConfigSettings.IsSearchIndexingNode) { return; }
+
+		if (IndexWriterTask.IsRunning()) { return; }
+
+		IndexWriterTask indexWriter = new IndexWriterTask();
+
+		indexWriter.StoreContentForResultsHighlighting = WebConfigSettings.EnableSearchResultsHighlighting;
+
+		// Commented out 2009-01-24
+		// seems to cause errors for some languages if we localize this
+		// perhaps because the background thread is not running on the same culture as the
+		// web ui which is driven by browser language preferecne.
+		// if we do localize it we should localize to the site default culture, not the user's
+		//indexWriter.TaskName = Resource.IndexWriterTaskName;
+		//indexWriter.StatusCompleteMessage = Resource.IndexWriterTaskCompleteMessage;
+		//indexWriter.StatusQueuedMessage = Resource.IndexWriterTaskQueuedMessage;
+		//indexWriter.StatusStartedMessage = Resource.IndexWriterTaskStartedMessage;
+		//indexWriter.StatusRunningMessage = Resource.IndexWriterTaskRunningFormatString;
+
+		indexWriter.QueueTask();
+
+		WebTaskManager.StartOrResumeTasks();
+	}
 }
