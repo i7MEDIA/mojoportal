@@ -159,6 +159,7 @@
 												<strong><%# Resources.Resource.AdminIndexBrowserModuleViewRoles %>:</strong> <%# FormatProperty(Eval("ModuleViewRoles").ToString()) %><br />
 												<strong><%# Resources.Resource.AdminIndexBrowserPageMetaDesc %>:</strong> <%# FormatProperty(Eval("PageMetaDescription").ToString()) %><br />
 												<strong><%# Resources.Resource.AdminIndexBrowserPageMetaKeywords %>:</strong> <%# FormatProperty(Eval("PageMetaKeywords").ToString()) %><br />
+												<strong><%# Resources.Resource.AdminIndexBrowserCategories %>:</strong> <%# FormatList(Eval("Categories").ToString()) %><br />
 												<strong><%# Resources.Resource.AdminIndexBrowserCreatedDate %>:</strong> <%# FormatProperty(Eval("CreatedUtc").ToString()) %><br />
 												<strong><%# Resources.Resource.AdminIndexBrowserModifiedDate %>:</strong> <%# FormatProperty(Eval("LastModUtc").ToString()) %><br />
 												<portal:mojoButton ID="btnDelete" runat="server" Text="Delete" CommandName="delete" CommandArgument='<%# Eval("DocKey").ToString() %>' SkinID="DeleteButton" />

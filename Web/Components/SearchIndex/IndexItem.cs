@@ -2,7 +2,10 @@
 using Lucene.Net.Documents;
 using mojoPortal.Web;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -40,6 +43,7 @@ public class IndexItem : IComparable
 
 		Author = luceneDoc.GetNullSafeString("Author");
 		ItemImage = luceneDoc.GetNullSafeString(nameof(ItemImage));
+		Categories = luceneDoc.GetValues("Category").JoinUnitSeparator();
 	}
 
 	#endregion
@@ -54,8 +58,6 @@ public class IndexItem : IComparable
 	public string DocKey { get; set; } = string.Empty;
 	public string Key => $"{SiteId}~{PageId}~{ModuleId}~{ItemKey}{QueryStringAddendum}";
 	public int SiteId { get; set; } = -1;
-
-
 	private int pageID = -1;
 	private bool isPageIdLoaded = false;
 
@@ -337,6 +339,8 @@ public class IndexItem : IComparable
 	[XmlIgnore]
 	public string Categories { get; set; } = string.Empty;
 
+	[XmlIgnore]
+	public List<string> CategoriesList => [.. Categories.SplitUnitSeparator()];
 
 	[XmlElement(ElementName = "categories", DataType = "base64Binary")]
 	public byte[] CategoriesSerialization
@@ -504,9 +508,16 @@ public class IndexItem : IComparable
 		set => ModuleViewRoles = Encoding.Unicode.GetString(value);
 	}
 
+	private string viewPage = "/";
 
 	[XmlIgnore]
-	public string ViewPage { get; set; } = "Default.aspx";
+	public string ViewPage 
+	{
+		// ensure never null or empty
+		get => viewPage.Coalesce("/");
+
+		set => viewPage = value; 
+	}
 
 
 	[XmlElement(ElementName = "viewPage", DataType = "base64Binary")]
@@ -612,7 +623,6 @@ public class IndexItem : IComparable
 	}
 
 	#endregion
-
 
 	public int CompareTo(object obj)
 	{

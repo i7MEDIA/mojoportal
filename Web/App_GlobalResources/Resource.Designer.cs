@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        internal static string AdminIndexBrowserCategories {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Filter.
         /// </summary>
         internal static string AdminIndexBrowserClearFilter {
