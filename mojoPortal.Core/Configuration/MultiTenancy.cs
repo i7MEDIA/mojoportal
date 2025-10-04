@@ -22,7 +22,20 @@ public class MultiTenancy
 	public RelatedSitesMode RelatedSites => new();
 
 
-	public string DisallowedFolderNames => ConfigHelper.GetStringProperty("MultiTenancy:DisallowedFolderNames", "Admin;ClientScript;Controls;Data;Modules;NeatHtml;NeatUpload;Secure;Services;Setup;SuperFlexi;WebStore");
+	public string DisallowedFolderNames
+	{
+		get
+		{
+			//legacy support
+			var configValue = ConfigHelper.GetStringProperty("DisallowedVirtualFolderNames", null);
+			if (string.IsNullOrWhiteSpace(configValue))
+			{
+				configValue = ConfigHelper.GetStringProperty("MultiTenancy:DisallowedFolderNames", "Admin;ClientScript;Controls;Data;Modules;NeatHtml;NeatUpload;Secure;Services;Setup;SuperFlexi;WebStore");
+			}
+
+			return configValue;
+		}
+	}
 
 	public bool AllowDeletingSites
 	{
@@ -62,7 +75,7 @@ public class MultiTenancy
 			if (!configValue)
 			{
 				//legacy support
-				configValue = ConfigHelper.GetBoolProperty("AllowFileManagerInChildSites", false);
+				configValue = ConfigHelper.GetBoolProperty("AllowFileManagerInChildSites", true);
 			}
 			return configValue;
 		}
@@ -147,7 +160,7 @@ public class MultiTenancy
 		{
 			get
 			{
-				var configValue = ConfigHelper.GetBoolProperty("MultiTenancy:EnableRelatedSiteMode", false);
+				var configValue = ConfigHelper.GetBoolProperty("MultiTenancy:RelatedSiteMode", false);
 				if (!configValue)
 				{
 					//legacy support
@@ -187,7 +200,7 @@ public class MultiTenancy
 					return false;
 				}
 
-				var configValue = ConfigHelper.GetBoolProperty("MultiTenancy:ShareContentFOlder", false);
+				var configValue = ConfigHelper.GetBoolProperty("MultiTenancy:RelatedSiteMode:ShareContentFolder", false);
 				if (!configValue)
 				{
 					//legacy support
@@ -212,11 +225,11 @@ public class MultiTenancy
 					return false;
 				}
 
-				var configValue = ConfigHelper.GetBoolProperty("MultiTenancy:AllowRoleManager", true);
+				var configValue = ConfigHelper.GetBoolProperty("MultiTenancy:RelatedSiteMode:AllowRoleManager", false);
 				if (!configValue)
 				{
 					//legacy support
-					configValue = ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true);
+					configValue = !ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true);
 				}
 				return configValue;
 			}
