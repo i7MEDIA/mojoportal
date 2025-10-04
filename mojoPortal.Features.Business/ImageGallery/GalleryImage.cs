@@ -23,10 +23,11 @@ namespace mojoPortal.Business
     /// </summary>
     public class GalleryImage : IIndexableContent
     {
+		public static Guid FeatureGuid = new Guid("d572f6b4-d0ed-465d-ad60-60433893b401");
 
-        #region Constructors
+		#region Constructors
 
-        public GalleryImage()
+		public GalleryImage()
         {
             this.imageFile = ModuleId.ToString() + "mfull" + Guid.NewGuid().ToString() + ".jpg";
             this.webImageFile = ModuleId.ToString() + "mweb" + Guid.NewGuid().ToString() + ".jpg";
