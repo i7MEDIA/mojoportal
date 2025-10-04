@@ -19,7 +19,7 @@ public partial class EditHeaderPage : NonCmsBasePage
 	{
 		LoadParams();
 
-		if (!UserCanEditModule(moduleId, config.FeatureGuid))
+		if (!UserCanEditModule(moduleId, ModuleConfiguration.FeatureGuid))
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;

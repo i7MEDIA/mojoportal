@@ -175,7 +175,7 @@ public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 		}
 
         var displaySettings = new SuperFlexiDisplaySettings();
-		var flexiFeature = new ModuleDefinition(config.FeatureGuid);
+		var flexiFeature = new ModuleDefinition(ModuleConfiguration.FeatureGuid);
 
 		var indexItem = new IndexItem
 		{
@@ -184,7 +184,7 @@ public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 			PageName = pageSettings.PageName,
 			ViewRoles = pageSettings.AuthorizedRoles,
 			ModuleViewRoles = module.ViewRoles,
-			FeatureId = flexiFeature.FeatureGuid.ToString(),
+			FeatureId = ModuleConfiguration.FeatureGuid.ToString(),
 			FeatureName = featureName,
 			FeatureResourceFile = flexiFeature.ResourceFile,
 			ItemId = item.ItemID,

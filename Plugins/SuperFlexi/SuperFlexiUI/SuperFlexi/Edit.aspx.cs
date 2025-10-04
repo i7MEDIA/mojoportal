@@ -88,7 +88,7 @@ public partial class EditItems : NonCmsBasePage
 		LoadParams();
 		LoadSettings();
 
-		if (!UserCanEditModule(moduleId, config.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles) && !WebUser.IsInRoles(item.EditRoles))
+		if (!UserCanEditModule(moduleId, ModuleConfiguration.FeatureGuid) && !WebUser.IsInRoles(module.AuthorizedEditRoles) && !WebUser.IsInRoles(item.EditRoles))
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;
@@ -1313,7 +1313,7 @@ public partial class EditItems : NonCmsBasePage
 		if (item.ItemID == -1)
 		{
 			item.SiteGuid = siteSettings.SiteGuid;
-			item.FeatureGuid = config.FeatureGuid;
+			item.FeatureGuid = ModuleConfiguration.FeatureGuid;
 			item.ModuleGuid = module.ModuleGuid;
 			item.ModuleID = module.ModuleId;
 			item.DefinitionGuid = config.FieldDefinitionGuid;
