@@ -107,7 +107,7 @@ public partial class CssEditorPage : NonCmsBasePage
 			&& IOHelper.IsDecendentDirectory(skinBasePath, chosenSkinPath) 
 			&& IOHelper.IsDecendentFile(chosenSkinPath, chosenSkinPath + cssFile) 
 			&& WebConfigSettings.AllowEditingSkins 
-			&& (WebConfigSettings.AllowEditingSkinsInChildSites || siteSettings.IsServerAdminSite);
+			&& (AppConfig.MultiTenancy.AllowEditingSkins || siteSettings.IsServerAdminSite);
 
 		if (WebConfigSettings.DisableEditAreaForCssEditor) { edCss.Disable = true; }
 

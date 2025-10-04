@@ -343,7 +343,7 @@ public partial class WindowsLiveAuthHandler : Page
 				}
 			}
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				var cookieName = $"siteguid{siteSettings.SiteGuid}";
 				CookieHelper.SetCookie(cookieName, user.UserGuid.ToString(), persistCookie);

@@ -231,7 +231,8 @@ public class AuthHandlerHttpModule : IHttpModule
 		// End-Added by Haluk Eryuksel
 
 
-		if (WebConfigSettings.UseFolderBasedMultiTenants && !WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.UseFolders
+			&& !AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 			// replace GenericPrincipal with custom one
 			//string roles = string.Empty;

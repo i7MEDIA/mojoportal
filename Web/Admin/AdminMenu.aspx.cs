@@ -73,7 +73,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		}
 
 		//Site List
-		if (WebConfigSettings.AllowMultipleSites && siteSettings.IsServerAdminSite && IsAdmin)
+		if (AppConfig.MultiTenancy.Enabled && siteSettings.IsServerAdminSite && IsAdmin)
 		{
 			model.Links.Add(new()
 			{
@@ -107,7 +107,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		{
 			var addLink = true;
 
-			if (WebConfigSettings.UseRelatedSiteMode && WebConfigSettings.RelatedSiteModeHideRoleManagerInChildSites && siteSettings.SiteId != WebConfigSettings.RelatedSiteID)
+			if (AppConfig.MultiTenancy.RelatedSites.AllowRoleManager && siteSettings.SiteId != AppConfig.MultiTenancy.RelatedSites.ParentSiteId)
 			{
 				addLink = false;
 			}
@@ -347,7 +347,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 			});
 
 			//System Info
-			if (siteSettings.IsServerAdminSite || WebConfigSettings.ShowSystemInformationInChildSiteAdminMenu)
+			if (siteSettings.IsServerAdminSite || AppConfig.MultiTenancy.ShowSystemInfo)
 			{
 				model.Links.Add(new ()
 				{

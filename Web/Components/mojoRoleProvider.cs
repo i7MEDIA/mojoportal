@@ -299,9 +299,9 @@ public class mojoRoleProvider : RoleProvider
 
 		var roleSiteId = siteSettings.SiteId;
 
-		if (WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
-			roleSiteId = WebConfigSettings.RelatedSiteID;
+			roleSiteId = AppConfig.MultiTenancy.RelatedSites.ParentSiteId;
 		}
 
 		var userRoles = Role.GetRolesByUsername(HttpContext.Current.User.Identity.Name, roleSiteId);

@@ -87,7 +87,7 @@ public partial class ConfirmRegistration : NonCmsBasePage
 				siteUser.LoginName, liveUser.UsePersistentCookie);
 		}
 
-		if (WebConfigSettings.UseFolderBasedMultiTenants)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			string cookieName = "siteguid" + siteSettings.SiteGuid;
 			CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), liveUser.UsePersistentCookie);

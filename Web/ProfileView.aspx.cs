@@ -104,7 +104,7 @@ public partial class ProfileView : NonCmsBasePage
 				}
 			}
 
-			if (WebConfigSettings.UseRelatedSiteMode)
+			if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 			{
 				// this can't be used in related site mode
 				// because we can't assume forum posts were in this site.

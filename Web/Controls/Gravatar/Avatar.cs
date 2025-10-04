@@ -289,9 +289,9 @@ public class Avatar : WebControl
 
 		string userSiteId = SiteId.ToInvariantString();
 
-		if (WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
-			userSiteId = WebConfigSettings.RelatedSiteID.ToInvariantString();
+			userSiteId = AppConfig.MultiTenancy.RelatedSites.ParentSiteId.ToInvariantString();
 		}
 
 		return Page.ResolveUrl($"~/Data/Sites/{userSiteId}/useravatars/{AvatarFile}");

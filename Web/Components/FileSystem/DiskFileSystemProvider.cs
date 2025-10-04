@@ -99,9 +99,9 @@ public class DiskFileSystemProvider : FileSystemProvider
 			siteId = siteSettings.SiteId;
 		}
 
-		if (siteId == -1 && WebConfigSettings.UseRelatedSiteMode && WebConfigSettings.UseSameContentFolderForRelatedSiteMode)
+		if (siteId == -1 && AppConfig.MultiTenancy.RelatedSites.ShareContentFolder)
 		{
-			siteId = WebConfigSettings.RelatedSiteID;
+			siteId = AppConfig.MultiTenancy.RelatedSites.ParentSiteId;
 		}
 
 		var virtualPath = Invariant($"~/Data/Sites/{siteId}/media/");
@@ -155,9 +155,9 @@ public class DiskFileSystemProvider : FileSystemProvider
 
 		if (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles))
 		{
-			if (siteId == -1 && WebConfigSettings.UseRelatedSiteMode && WebConfigSettings.UseSameContentFolderForRelatedSiteMode)
+			if (siteId == -1 && AppConfig.MultiTenancy.RelatedSites.ShareContentFolder)
 			{
-				siteId = WebConfigSettings.RelatedSiteID;
+				siteId = AppConfig.MultiTenancy.RelatedSites.ParentSiteId;
 			}
 
 			var currentUser = SiteUtils.GetCurrentSiteUser();

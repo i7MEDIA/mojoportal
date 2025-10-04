@@ -45,12 +45,10 @@ public class mojoIdentity : MarshalByRefObject, IIdentity
 		{
 			if (!_alreadyChecked)
 			{
-				var useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
-
 				if (
 					_isAuthenticated &&
-					!WebConfigSettings.UseRelatedSiteMode &&
-					useFolderForSiteDetection
+					!AppConfig.MultiTenancy.RelatedSites.Enabled &&
+					AppConfig.MultiTenancy.UseFolders
 				)
 				{
 					var siteSettings = CacheHelper.GetCurrentSiteSettings();

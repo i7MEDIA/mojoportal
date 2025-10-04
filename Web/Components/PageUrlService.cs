@@ -95,7 +95,7 @@ public static class PageUrlService
 			IsRedirectableFromLogin(link) &&
 			(
 				siteSettings.IsServerAdminSite ||
-				!WebConfigSettings.UseFolderBasedMultiTenants ||
+				!AppConfig.MultiTenancy.UseFolders ||
 				!WebConfigSettings.AppendDefaultPageToFolderRootUrl
 			)
 		)

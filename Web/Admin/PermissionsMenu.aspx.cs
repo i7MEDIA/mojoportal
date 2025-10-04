@@ -53,7 +53,7 @@ public partial class PermissionsMenuPage : NonCmsBasePage
 
 		var permissionsUrl = $"{WebConfigSettings.AdminDirectoryLocation}/PermissionEdit.aspx".ToLinkBuilder().SiteId(selectedSite.SiteId);
 
-		liSiteEditorRoles.Visible = WebConfigSettings.UseRelatedSiteMode && (selectedSite.SiteId != siteSettings.SiteId);
+		liSiteEditorRoles.Visible = AppConfig.MultiTenancy.RelatedSites.Enabled && (selectedSite.SiteId != siteSettings.SiteId);
 		lnkSiteEditorRoles.Text = Resource.SiteEditRolesLabel;
 		lnkSiteEditorRoles.NavigateUrl = permissionsUrl.SetParam("p", CorePermission.SiteEditor).ToString();
 
@@ -112,7 +112,7 @@ public partial class PermissionsMenuPage : NonCmsBasePage
 		lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
 		lnkAdminMenu.NavigateUrl = $"{WebConfigSettings.AdminDirectoryLocation}/AdminMenu.aspx".ToLinkBuilder().ToString();
 
-		lnkSiteList.Visible = WebConfigSettings.AllowMultipleSites && (siteSettings.IsServerAdminSite);
+		lnkSiteList.Visible = AppConfig.MultiTenancy.Enabled && (siteSettings.IsServerAdminSite);
 		lnkSiteList.Text = Resource.SiteList;
 		lnkSiteList.NavigateUrl = $"{WebConfigSettings.AdminDirectoryLocation}/SiteList.aspx".ToLinkBuilder().ToString();
 		litSiteListLinkSeparator.Visible = lnkSiteList.Visible;

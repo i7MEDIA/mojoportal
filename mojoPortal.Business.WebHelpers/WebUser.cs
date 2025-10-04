@@ -289,7 +289,7 @@ public static class WebUser
 		var siteSettings = (SiteSettings)HttpContext.Current?.Items["SiteSettings"];
 		if (siteSettings is not null)
 		{
-			return AppConfig.RelatedSiteModeEnabled && IsInRoles(siteSettings.SiteRootEditRoles);
+			return AppConfig.MultiTenancy.RelatedSites.Enabled && IsInRoles(siteSettings.SiteRootEditRoles);
 		}
 
 		return false;
