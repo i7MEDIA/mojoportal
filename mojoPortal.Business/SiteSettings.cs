@@ -2,6 +2,7 @@ using System.Configuration;
 using System.Data;
 using System.Globalization;
 using log4net;
+using mojoPortal.Core.Configuration;
 using mojoPortal.Data;
 
 namespace mojoPortal.Business;
@@ -2166,6 +2167,11 @@ public class SiteSettings
 
 	private bool Create()
 	{
+		if (!AppConfig.MultiTenancy.Enabled)
+		{
+			return false;
+		}
+
 		this.siteGuid = Guid.NewGuid();
 
 		int newID = DBSiteSettings.Create(
@@ -2537,8 +2543,6 @@ public class SiteSettings
 					result = new Guid(reader["SiteGuid"].ToString());
 					break;
 				}
-
-
 			}
 		}
 
@@ -2563,17 +2567,6 @@ public class SiteSettings
 		return siteCount;
 	}
 
-
-	//public static DataSet GetPageListForAdmin(int siteID) 
-	//{
-	//    return dbSiteSettings.PageSettings_GetPageTree(siteID);
-	//}
-
-	//public static IDataReader GetPageListForAdminReader(int siteID)
-	//{
-	//    return dbSiteSettings.PageSettings_GetPageTreeReader(siteID);
-	//}
-
 	public static void AddFeature(Guid siteGuid, Guid featureGuid)
 	{
 		DBSiteSettings.AddFeature(siteGuid, featureGuid);
@@ -2589,19 +2582,6 @@ public class SiteSettings
 		return DBSiteSettings.GetHostList(siteId);
 	}
 
-	//public static List<KeyValuePair<string, Guid>> GetHostList()
-	//{
-	//	List<KeyValuePair<string, Guid>> hostList = new List<KeyValuePair<string, Guid>>();
-	//	using (IDataReader reader = DBSiteSettings.GetHostList())
-	//	{
-	//		while (reader.Read())
-	//		{
-	//			hostList.Add(new KeyValuePair<reader["HostName"].ToString(), Guid.Parse(reader["SiteGuid"].ToString()));
-	//		}
-
-	//	}
-	//}
-
 	public static void AddHost(Guid siteGuid, int siteId, string hostName)
 	{
 		DBSiteSettings.AddHost(siteGuid, siteId, hostName);
@@ -2612,61 +2592,28 @@ public class SiteSettings
 		DBSiteSettings.DeleteHost(hostId);
 	}
 
-	//public static SiteSettings GetCurrent()
-	//{
-	//    //if (HttpContext.Current != null)
-	//    //{
-	//    //    if (HttpContext.Current.Items["SiteSettings"] != null)
-	//    //    {
-	//    //        return (SiteSettings)HttpContext.Current.Items["SiteSettings"];
-	//    //    }
-	//    //}
-
-
-	//    //return null;
-
-	//    return CacheHelper.GetCurrentSiteSettings();
-
-	//}
-
-
-	//public static int GetCurrentSiteID()
-	//{
-	//    int siteID = -1;
-
-	//    SiteSettings siteSettings = GetCurrent();
-	//    if (siteSettings != null)
-	//    {
-	//        siteID = siteSettings.SiteID;
-	//    }
-
-	//    return siteID;
-
-	//}
-
-	//public static int CreateNewSite()
-	//{
-	//	return CreateNewSite("mojoPortal");
-
-	//}
-
 	public static int CreateNewSite(String siteName)
 	{
-		//dbSiteSettings.CreateDefaultData(this.siteID);
-		var newSite = new SiteSettings
+		if (AppConfig.MultiTenancy.Enabled)
 		{
-			SiteName = siteName
-		};
-		newSite.Save();
-		//CreateDefaultData(newSite.SiteID);
+			var newSite = new SiteSettings
+			{
+				SiteName = siteName
+			};
+			newSite.Save();
 
-		return newSite.SiteId;
+			return newSite.SiteId;
+		}
+		return -1;
 
 	}
 
 	public static void Delete(int siteId)
 	{
-		DBSiteSettings.Delete(siteId);
+		if (AppConfig.MultiTenancy.AllowDeletingSites)
+		{
+			DBSiteSettings.Delete(siteId);
+		}
 	}
 
 	public static int GetCountOfOtherSites(int currentSiteId)

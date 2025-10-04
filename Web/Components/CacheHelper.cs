@@ -381,11 +381,10 @@ public static class CacheHelper
 
 	private static SiteSettings GetSiteSettingsFromCache()
 	{
-		bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 		string cachekey;
 		int siteId;
 
-		if (useFolderForSiteDetection)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			string siteFolderName = VirtualFolderEvaluator.VirtualFolderName();
 			if (siteFolderName.Length == 0)
@@ -443,10 +442,9 @@ public static class CacheHelper
 
 		try
 		{
-			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 
 			string siteFolderName = string.Empty;
-			if (useFolderForSiteDetection)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				siteFolderName = VirtualFolderEvaluator.VirtualFolderName();
 				Guid siteGuid = SiteFolder.GetSiteGuid(siteFolderName);
@@ -461,7 +459,7 @@ public static class CacheHelper
 			{
 				siteSettings.ReloadExpandoProperties();
 				siteSettings.SiteRoot = WebUtils.GetSiteRoot();
-				if (useFolderForSiteDetection)
+				if (AppConfig.MultiTenancy.UseFolders)
 				{
 					siteSettings.SiteFolderName = siteFolderName;
 				}
@@ -698,10 +696,9 @@ public static class CacheHelper
 			return null;
 		}
 
-		bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 		string virtualFolder;
 
-		if (useFolderForSiteDetection)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
 		}
@@ -718,7 +715,7 @@ public static class CacheHelper
 			currentPage = new PageSettings(siteSettings.SiteId, siteSettings.HomePageOverride);
 		}
 
-		if (useFolderForSiteDetection
+		if (AppConfig.MultiTenancy.UseFolders
 			&& !string.IsNullOrWhiteSpace(virtualFolder)
 			&& currentPage.Url.StartsWith("~/"))
 		{
@@ -726,7 +723,7 @@ public static class CacheHelper
 			currentPage.UrlHasBeenAdjustedForFolderSites = true;
 		}
 
-		if (useFolderForSiteDetection
+		if (AppConfig.MultiTenancy.UseFolders
 			&& !string.IsNullOrWhiteSpace(virtualFolder)
 			&& !currentPage.UseUrl
 			)
@@ -825,10 +822,9 @@ public static class CacheHelper
 			return menuPages;
 		}
 
-		bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 		string virtualFolder = string.Empty;
 
-		if (useFolderForSiteDetection)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
 		}
@@ -898,7 +894,7 @@ public static class CacheHelper
 					pageDetails.PubDateUtc = Convert.ToDateTime(reader["PubDateUtc"]);
 				}
 
-				if (useFolderForSiteDetection
+				if (AppConfig.MultiTenancy.UseFolders
 					&& !string.IsNullOrWhiteSpace(virtualFolder)
 					&& pageDetails.Url.StartsWith("~/")
 					)
@@ -907,7 +903,7 @@ public static class CacheHelper
 					pageDetails.UrlHasBeenAdjustedForFolderSites = true;
 				}
 
-				if (useFolderForSiteDetection
+				if (AppConfig.MultiTenancy.UseFolders
 					&& !string.IsNullOrWhiteSpace(virtualFolder)
 					&& !pageDetails.UseUrl
 					)

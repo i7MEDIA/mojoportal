@@ -32,7 +32,7 @@ public class mojoPrincipal : IPrincipal
 			result = _innerPrincipal.IsInRole(role);
 		}
 
-		if (WebConfigSettings.UseFolderBasedMultiTenants)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			var virtualFolder = VirtualFolderEvaluator.VirtualFolderName();
 

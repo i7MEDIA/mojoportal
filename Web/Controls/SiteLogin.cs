@@ -276,7 +276,7 @@ namespace mojoPortal.Web.UI
 
 			SiteUser siteUser = new SiteUser(siteSettings, UserName);
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				string cookieName = "siteguid" + siteSettings.SiteGuid;
 				CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), RememberMeSet);
@@ -356,7 +356,7 @@ namespace mojoPortal.Web.UI
 			string defaultRedirect = siteRoot;
 			if (
 				(!siteSettings.IsServerAdminSite)
-				&& (WebConfigSettings.UseFolderBasedMultiTenants)
+				&& (AppConfig.MultiTenancy.UseFolders)
 				&& (WebConfigSettings.AppendDefaultPageToFolderRootUrl)
 				)
 			{

@@ -191,7 +191,7 @@ public partial class ServerInformation : NonCmsBasePage
 	private void LoadSettings()
 	{
 
-		if (WebConfigSettings.ShowSystemInformationInChildSiteAdminMenu || siteSettings.IsServerAdminSite && (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor()))
+		if (AppConfig.MultiTenancy.ShowSystemInfo || siteSettings.IsServerAdminSite && (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor()))
 		{
 			shouldAllow = true;
 		}

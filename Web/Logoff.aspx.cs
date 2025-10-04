@@ -42,7 +42,7 @@ public partial class Logoff : Page
 		// https://www.mojoportal.com/Forums/EditPost.aspx?thread=13195&forumid=2&mid=34&pageid=5&pagenumber=1
 		CookieHelper.ExpireCookie("siteguid" + siteSettings.SiteGuid);
 
-		if (WebConfigSettings.UseFolderBasedMultiTenants && !WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.UseFolders && !AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 			var siteCookieName = $"siteguid{siteSettings.SiteGuid}";
 

@@ -58,14 +58,6 @@ public static class AppConfig
 
 	public static string DefaultAdminSecurityAnswer => ConfigHelper.GetStringProperty("DefaultAdminSecurityPassword", "admin");
 
-	public static bool RelatedSiteModeEnabled => ConfigHelper.GetBoolProperty("UseRelatedSiteMode", false);
-
-	public static bool RelatedSiteModeShareContentFolder => ConfigHelper.GetBoolProperty("UseSameContentFolderForRelatedSiteMode", false);
-
-	public static int RelatedSiteID => ConfigHelper.GetIntProperty("RelatedSiteID", 1);
-
-	public static bool RelatedSiteModeHideRoleManagerInChildSites => ConfigHelper.GetBoolProperty("RelatedSiteModeHideRoleManagerInChildSites", true);
-
 	public static bool SanitizeQueryStrings => ConfigHelper.GetBoolProperty("SanitizeQueryStrings", true);
 
 	public static string CssHandlerUrlRegEx => ConfigHelper.GetStringProperty("CssHandlerRegEx", """url\((\"|\')?(?<path>(.*?))?(\"|\')?\)""");
@@ -138,6 +130,7 @@ public static class AppConfig
 
 	public static string LogoutLink => ConfigHelper.GetStringProperty("LogoutLink", null);
 
+	public static MultiTenancy MultiTenancy => new();
 
 	public static OAuthConfiguration OAuth => new();
 

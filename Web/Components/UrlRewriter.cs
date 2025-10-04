@@ -80,7 +80,7 @@ public class UrlRewriter : IHttpModule
 			return; 
 		}
 
-		if (WebConfigSettings.UseFolderBasedMultiTenants)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			virtualFolderName = VirtualFolderEvaluator.VirtualFolderName();
 			if (virtualFolderName.Length > 0)
@@ -130,7 +130,7 @@ public class UrlRewriter : IHttpModule
 		string targetUrl = requestPath.Substring(appRoot.Length + 1);
 		//if (targetUrl.Length == 0) return;
 		if (targetUrl.IsCaseInsensitiveMatch("default.aspx")) return;
-		if (WebConfigSettings.UseFolderBasedMultiTenants)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			if (!targetUrl.StartsWith("/")) targetUrl = "/" + targetUrl;
 
@@ -181,7 +181,7 @@ public class UrlRewriter : IHttpModule
 
 		FriendlyUrl friendlyUrl = null;
 
-		if (WebConfigSettings.UseFolderBasedMultiTenants && (virtualFolderName.Length > 0))
+		if (AppConfig.MultiTenancy.UseFolders && (virtualFolderName.Length > 0))
 		{
 			friendlyUrl = new FriendlyUrl(siteSettings.SiteId, targetUrl);
 		}
@@ -222,7 +222,7 @@ public class UrlRewriter : IHttpModule
 		if (friendlyUrl == null || !friendlyUrl.FoundFriendlyUrl)
 		{
 			if (
-			(WebConfigSettings.UseFolderBasedMultiTenants)
+			(AppConfig.MultiTenancy.UseFolders)
 			&& (virtualFolderName.Length > 0)
 			&& (requestPath.Contains(virtualFolderName + "/"))
 			)

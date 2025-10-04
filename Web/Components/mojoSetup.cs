@@ -254,7 +254,7 @@ public sealed class mojoSetup
 		int countOfSites = SiteSettings.SiteCount();
 		string siteDifferentiator = string.Empty;
 
-		if (countOfSites >= 1 && WebConfigSettings.UseRelatedSiteMode)
+		if (countOfSites >= 1 && AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 			siteDifferentiator = siteSettings.SiteId.ToInvariantString();
 		}

@@ -141,7 +141,7 @@ public partial class PasswordResetPage : NonCmsBasePage
 		{
 			redirectUrl = SiteRoot;
 			if (!siteSettings.IsServerAdminSite
-				&& WebConfigSettings.UseFolderBasedMultiTenants
+				&& AppConfig.MultiTenancy.UseFolders
 				&& WebConfigSettings.AppendDefaultPageToFolderRootUrl
 				)
 			{

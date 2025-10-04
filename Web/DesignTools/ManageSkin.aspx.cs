@@ -109,7 +109,7 @@ public partial class ManageSkinPage : NonCmsBasePage
 		skinName = WebUtils.ParseStringFromQueryString("s", string.Empty);
 
 		allowEditing = WebConfigSettings.AllowEditingSkins
-			&& (WebConfigSettings.AllowEditingSkinsInChildSites || siteSettings.IsServerAdminSite);
+			&& (AppConfig.MultiTenancy.AllowEditingSkins || siteSettings.IsServerAdminSite);
 
 		AddClassToBody("administration");
 		AddClassToBody("designtools");

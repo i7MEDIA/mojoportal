@@ -95,11 +95,11 @@ public partial class SiteSettingsPage : NonCmsBasePage
 
 	private void PopulateControls()
 	{
-		if (IsServerAdmin && WebConfigSettings.AllowMultipleSites)
+		if (IsServerAdmin && AppConfig.MultiTenancy.Enabled)
 		{
 			PopulateMultiSiteControls();
 		}
-		else if (!WebConfigSettings.AllowMultipleSites)
+		else if (!AppConfig.MultiTenancy.Enabled)
 		{
 			litHostListHeader.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOffLabel, string.Empty);
 			litHostMessage.Text = string.Format(adminDisplaySettings.PanelHeadingMarkup, Resource.SiteSettingsMultiTenancyTurnedOff, string.Empty);
@@ -107,6 +107,11 @@ public partial class SiteSettingsPage : NonCmsBasePage
 			pnlAddHostName.Visible = false;
 			rptFolderNames.Visible = false;
 			rptHosts.Visible = false;
+		}
+		else
+		{
+			liSiteMappings.Visible = false;
+			tabSiteMappings.Visible = false;
 		}
 
 		if (selectedSiteID == -1)
@@ -495,7 +500,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		if (siteSettings.IsServerAdminSite
 			&& (!selectedSite.IsServerAdminSite)
 			&& isAdmin
-			&& WebConfigSettings.AllowDeletingChildSites
+			&& AppConfig.MultiTenancy.AllowDeletingSites
 			)
 		{
 			btnDelete.Visible = true;
@@ -529,11 +534,11 @@ public partial class SiteSettingsPage : NonCmsBasePage
 			txtPreferredHostName.Enabled = false;
 		}
 
-		if (WebConfigSettings.UseRelatedSiteMode
-			&& (selectedSite.SiteId != WebConfigSettings.RelatedSiteID) || (selectedSiteID == -1)
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled
+			&& (selectedSite.SiteId != AppConfig.MultiTenancy.RelatedSites.ParentSiteId) || (selectedSiteID == -1)
 			)
 		{
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				liGeneralSecurity.Visible = false;
 				tabGeneralSecurity.Visible = false;
@@ -685,7 +690,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		if (countOfOtherSites > 0 || selectedSiteID == -1)
 		{
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				PopulateFolderList();
 				litHostMessage.Text = string.Format(displaySettings.AlertNoticeMarkup, Resource.SiteSettingsHostNamesTurnedOff);
@@ -1160,8 +1165,8 @@ public partial class SiteSettingsPage : NonCmsBasePage
 				}
 			}
 
-			if (WebConfigSettings.UseRelatedSiteMode
-			&& selectedSite.SiteId != WebConfigSettings.RelatedSiteID && (selectedSiteID != -1)
+			if (AppConfig.MultiTenancy.RelatedSites.Enabled
+			&& selectedSite.SiteId != AppConfig.MultiTenancy.RelatedSites.ParentSiteId && (selectedSiteID != -1)
 			)
 			{
 				//don't change this on child sites in related sites mode
@@ -1203,7 +1208,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 				}
 			}
 
-			if (WebConfigSettings.UseRelatedSiteMode && selectedSite.SiteId != WebConfigSettings.RelatedSiteID && selectedSiteID != -1)
+			if (AppConfig.MultiTenancy.RelatedSites.Enabled && selectedSite.SiteId != AppConfig.MultiTenancy.RelatedSites.ParentSiteId && selectedSiteID != -1)
 			{
 				tabLDAP.Visible = false;
 			}
@@ -1255,7 +1260,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 				selectedSite.ReallyDeleteUsers = chkReallyDeleteUsers.Checked;
 			}
 
-			if (WebConfigSettings.UseRelatedSiteMode && selectedSite.SiteId != WebConfigSettings.RelatedSiteID && selectedSiteID != -1)
+			if (AppConfig.MultiTenancy.RelatedSites.Enabled && selectedSite.SiteId != AppConfig.MultiTenancy.RelatedSites.ParentSiteId && selectedSiteID != -1)
 			{
 				//don't change this on child sites in related sites mode
 			}
@@ -1340,19 +1345,19 @@ public partial class SiteSettingsPage : NonCmsBasePage
 			CacheHelper.ResetThemeCache();
 		}
 
-		if (WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 			// need to propagate any security changes to all child sites
 			// reset the sitesettings cache for each site
 			if (creatingNewSite)
 			{
-				SiteSettings masterSite = CacheHelper.GetSiteSettings(WebConfigSettings.RelatedSiteID);
+				SiteSettings masterSite = CacheHelper.GetSiteSettings(AppConfig.MultiTenancy.RelatedSites.ParentSiteId);
 				// siteSettings is the master site we need some permissions from it synced to the new site
-				SiteSettings.SyncRelatedSites(masterSite, WebConfigSettings.UseFolderBasedMultiTenants);
+				SiteSettings.SyncRelatedSites(masterSite, AppConfig.MultiTenancy.UseFolders);
 			}
 			else
 			{
-				SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFolderBasedMultiTenants);
+				SiteSettings.SyncRelatedSites(selectedSite, AppConfig.MultiTenancy.UseFolders);
 			}
 
 			// reset the sitesettings cache for each site
@@ -1644,7 +1649,8 @@ public partial class SiteSettingsPage : NonCmsBasePage
 			SiteFolder siteFolder = new SiteFolder
 			{
 				SiteGuid = selectedSite.SiteGuid,
-				FolderName = txtFolderName.Text
+				FolderName = txtFolderName.Text,
+				SiteId = selectedSite.SiteId
 			};
 			siteFolder.Save();
 
@@ -1702,30 +1708,29 @@ public partial class SiteSettingsPage : NonCmsBasePage
 
 	void btnDelete_Click(object sender, EventArgs e)
 	{
-		if (WebConfigSettings.AllowDeletingChildSites)
-		{
-			if ((selectedSite != null) && !selectedSite.IsServerAdminSite)
-			{
-				try
-				{
-					DeleteSiteContent(selectedSite.SiteId);
-					CommentRepository commentRepository = new CommentRepository();
-					commentRepository.DeleteBySite(selectedSite.SiteGuid);
-				}
-				catch (Exception ex)
-				{
-					log.Error("error deleting site content ", ex);
-				}
 
-				SiteSettings.Delete(selectedSite.SiteId);
-				WebUtils.SetupRedirect(this, SiteRoot + "/Admin/SiteList.aspx");
+		if (AppConfig.MultiTenancy.AllowDeletingSites && selectedSite != null && !selectedSite.IsServerAdminSite)
+		{
+			try
+			{
+				DeleteSiteContent(selectedSite.SiteId);
+				CommentRepository commentRepository = new CommentRepository();
+				commentRepository.DeleteBySite(selectedSite.SiteGuid);
 			}
+			catch (Exception ex)
+			{
+				log.Error("error deleting site content ", ex);
+			}
+
+			SiteSettings.Delete(selectedSite.SiteId);
+			WebUtils.SetupRedirect(this, SiteRoot + "/Admin/SiteList.aspx");
 		}
+		
 	}
 
 	private void DeleteSiteContent(int siteId)
 	{
-		if (siteId == -1)
+		if (siteId == -1 || !AppConfig.MultiTenancy.AllowDeletingSites)
 		{
 			return;
 		}
@@ -1742,7 +1747,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 			}
 		}
 
-		if (WebConfigSettings.DeleteSiteFolderWhenDeletingSites)
+		if (AppConfig.MultiTenancy.DeleteSiteFolder)
 		{
 			var task = new FolderDeleteTask
 			{
@@ -1920,14 +1925,17 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		lnkCountryAdmin.Text = Resource.CountryAdministrationLink;
 		lnkCountryAdmin.NavigateUrl = "~/Admin/AdminCountry.aspx";
 		lnkCountryAdmin.Target = "_blank";
+		lnkCountryAdmin.Visible = IsServerAdmin;
 
 		lnkStateAdmin.Text = Resource.GeoZoneAdministrationLink;
 		lnkStateAdmin.NavigateUrl = "~/Admin/AdminGeoZone.aspx";
 		lnkStateAdmin.Target = "_blank";
+		lnkStateAdmin.Visible = IsServerAdmin;
 
 		lnkCurrencyAdmin.Text = Resource.CurrencyAdministrationLink;
 		lnkCurrencyAdmin.NavigateUrl = "~/Admin/AdminCurrency.aspx";
 		lnkCurrencyAdmin.Target = "_blank";
+		lnkCurrencyAdmin.Visible = IsServerAdmin;
 
 		litCompanyInfoTab.Text = Resource.CompanyInfo;
 
@@ -1953,7 +1961,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
 		lnkAdminMenu.NavigateUrl = SiteRoot + "/Admin/AdminMenu.aspx";
 
-		lnkSiteList.Visible = WebConfigSettings.AllowMultipleSites && IsServerAdmin && isAdmin;
+		lnkSiteList.Visible = AppConfig.MultiTenancy.Enabled && IsServerAdmin && isAdmin;
 		lnkSiteList.Text = Resource.SiteList;
 		lnkSiteList.NavigateUrl = SiteRoot + "/Admin/SiteList.aspx";
 		litLinkSeparator2.Visible = lnkSiteList.Visible;
@@ -2056,7 +2064,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		lblErrorMessage.Text = String.Empty;
 		isAdmin = WebUser.IsAdmin;
 		isContentAdmin = WebUser.IsContentAdmin || SiteUtils.UserIsSiteEditor();
-		useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
+		useFolderForSiteDetection = AppConfig.MultiTenancy.UseFolders;
 		fgpShowPasswordStrength.Visible = WebConfigSettings.EnableAjaxControlPasswordStrength;
 
 		fgpTimeZone.Visible = true;
@@ -2122,12 +2130,12 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		allowPasswordFormatChange
 			= (IsServerAdmin && WebConfigSettings.AllowPasswordFormatChange) || (IsServerAdmin && (selectedSiteID == -1));
 
-		if ((!IsServerAdmin) && (!WebConfigSettings.AllowPasswordFormatChangeInChildSites))
+		if ((!IsServerAdmin) && (!AppConfig.MultiTenancy.AllowPasswordFormatChange))
 		{
 			allowPasswordFormatChange = false;
 		}
 
-		if (!WebConfigSettings.AllowMultipleSites)
+		if (!AppConfig.MultiTenancy.Enabled)
 		{
 			this.IsServerAdmin = false;
 		}
@@ -2143,7 +2151,7 @@ public partial class SiteSettingsPage : NonCmsBasePage
 		}
 
 		// prevent users from changing the mobile skin on the demo site
-		ddMobileSkin.Enabled = siteSettings.IsServerAdminSite || WebConfigSettings.AllowSettingMobileSkinInChildSites || WebConfigSettings.MobilePhoneSkin.Length > 0;
+		ddMobileSkin.Enabled = siteSettings.IsServerAdminSite  || WebConfigSettings.MobilePhoneSkin.Length > 0;
 
 		AddClassToBody("administration");
 		AddClassToBody("sitesettings");

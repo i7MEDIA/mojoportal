@@ -1438,7 +1438,7 @@ namespace mojoPortal.Web
 
 			var folderTenant = string.Empty;
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				folderTenant = GetRelativeNavigationSiteRoot();
 			}
@@ -1481,7 +1481,7 @@ namespace mojoPortal.Web
 			}
 
 			string navigationRoot = WebUtils.GetSiteRoot();
-			bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
+			bool useFolderForSiteDetection = AppConfig.MultiTenancy.UseFolders;
 
 			if (useFolderForSiteDetection)
 			{
@@ -1526,7 +1526,7 @@ namespace mojoPortal.Web
 
 			var navigationRoot = WebUtils.GetRelativeSiteRoot();
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants
+			if (AppConfig.MultiTenancy.UseFolders
 				&& CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings
 				&& siteSettings.SiteFolderName.Length > 0)
 			{
@@ -1552,7 +1552,7 @@ namespace mojoPortal.Web
 
 			var navigationRoot = WebUtils.GetSecureSiteRoot();
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants
+			if (AppConfig.MultiTenancy.UseFolders
 				&& CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings
 				&& siteSettings.SiteFolderName.Length > 0)
 			{
@@ -1578,7 +1578,7 @@ namespace mojoPortal.Web
 
 			var navigationRoot = WebUtils.GetInSecureSiteRoot();
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants && CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && siteSettings.SiteFolderName.Length > 0)
+			if (AppConfig.MultiTenancy.UseFolders && CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings && siteSettings.SiteFolderName.Length > 0)
 			{
 				navigationRoot = $"{navigationRoot}/{siteSettings.SiteFolderName}";
 			}
@@ -2044,7 +2044,7 @@ namespace mojoPortal.Web
 		public static string GetRoleCookieName(SiteSettings siteSettings)
 		{
 			string hostName = WebUtils.GetHostName();
-			if (WebConfigSettings.UseRelatedSiteMode)
+			if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 			{
 				return $"{hostName}portalroles";
 			}
@@ -2192,7 +2192,7 @@ namespace mojoPortal.Web
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			if (siteSettings is not null)
 			{
-				return WebConfigSettings.UseRelatedSiteMode && WebUser.IsInRoles(siteSettings.SiteRootEditRoles);
+				return AppConfig.MultiTenancy.RelatedSites.Enabled && WebUser.IsInRoles(siteSettings.SiteRootEditRoles);
 			}
 
 			return false;

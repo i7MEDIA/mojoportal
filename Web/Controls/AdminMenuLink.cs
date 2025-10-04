@@ -54,19 +54,23 @@ public class AdminMenuLink : HyperLink
 			}
 		}
 
-		if (WebUser.IsAdminOrContentAdminOrRoleAdmin) {
+		if (WebUser.IsAdminOrContentAdminOrRoleAdmin) 
+		{
 			return true;
 		}
 
-		if (basePage.CurrentPage == null) {
+		if (basePage.CurrentPage == null) 
+		{
 			return false;
 		}
 
-		if (!WebConfigSettings.UseRelatedSiteMode) {
+		if (!AppConfig.MultiTenancy.RelatedSites.Enabled) 
+		{
 			return false;
 		}
 
-		if (basePage.SiteInfo == null) {
+		if (basePage.SiteInfo == null) 
+		{
 			return false;
 		}
 

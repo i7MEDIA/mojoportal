@@ -304,8 +304,6 @@ public static class WebConfigSettings
 
 	public static bool AllowDirectEntryOfUserIdForEditPermission => ConfigHelper.GetBoolProperty("AllowDirectEntryOfUserIdForEditPermission", false);
 
-	public static bool AllowMultipleSites => ConfigHelper.GetBoolProperty("AllowMultipleSites", true);
-
 	public static bool AppendDefaultPageToFolderRootUrl => ConfigHelper.GetBoolProperty("AppendDefaultPageToFolderRootUrl", true);
 
 	public static bool ShowSiteGuidInSiteSettings => ConfigHelper.GetBoolProperty("ShowSiteGuidInSiteSettings", false);
@@ -379,14 +377,8 @@ public static class WebConfigSettings
 
 	public static int SystemLogApplicationStartDeleteOlderThanDays => ConfigHelper.GetIntProperty("SystemLogApplicationStartDeleteOlderThanDays", 10);
 
-	public static bool AllowDeletingChildSites => ConfigHelper.GetBoolProperty("AllowDeletingChildSites", false);
-
-	public static bool DeleteSiteFolderWhenDeletingSites => ConfigHelper.GetBoolProperty("DeleteSiteFolderWhenDeletingSites", false);
-
 	public static bool ShowSkinRestoreButtonInSiteSettings => ConfigHelper.GetBoolProperty("ShowSkinRestoreButtonInSiteSettings", true);
 	public static bool ShowCopyNewSkinsButtonInSiteSettings => ConfigHelper.GetBoolProperty("ShowCopyNewSkinsButtonInSiteSettings", true);
-
-	public static bool AllowFileManagerInChildSites => ConfigHelper.GetBoolProperty("AllowFileManagerInChildSites", false);
 
 	public static bool AllowClosingSites => ConfigHelper.GetBoolProperty("AllowClosingSites", true);
 
@@ -464,8 +456,6 @@ public static class WebConfigSettings
 		// getting the admin user locked out
 		=> ConfigHelper.GetIntProperty("InitialSitePasswordFormat", 0);
 
-	public static bool AllowPasswordFormatChangeInChildSites => ConfigHelper.GetBoolProperty("AllowPasswordFormatChangeInChildSites", false);
-
 	public static bool CheckMD5PasswordHashAsFallback => ConfigHelper.GetBoolProperty("CheckMD5PasswordHashAsFallback", true);
 
 	public static bool CheckAllPasswordFormatsOnAuthFailure => ConfigHelper.GetBoolProperty("CheckAllPasswordFormatsOnAuthFailure", false);
@@ -481,8 +471,6 @@ public static class WebConfigSettings
 	public static bool AllowNewRegistrationToActivateDeletedAccountWithSameEmail => ConfigHelper.GetBoolProperty("MembershipProvider:AllowNewRegistrationToActivateDeletedAccountWithSameEmail", true);
 
 	public static string PasswordGeneratorChars => ConfigHelper.GetStringProperty("PasswordGeneratorChars", "abcdefgijkmnopqrstwxyzABCDEFGHJKLMNPQRSTWXYZ23456789*$");
-
-	public static bool ShowSystemInformationInChildSiteAdminMenu => ConfigHelper.GetBoolProperty("ShowSystemInformationInChildSiteAdminMenu", true);
 
 	public static bool ShowConnectionErrorOnSetup => ConfigHelper.GetBoolProperty("ShowConnectionErrorOnSetup", false);
 
@@ -518,19 +506,7 @@ public static class WebConfigSettings
 
 	public static string WindowsAuthDomainExtension => ConfigHelper.GetStringProperty("WindowsAuthDomainExtension", ".com");
 
-	public static bool UseFolderBasedMultiTenants => ConfigurationManager.AppSettings["UseFoldersInsteadOfHostnamesForMultipleSites"] != null
-				? ConfigHelper.GetBoolProperty("UseFoldersInsteadOfHostnamesForMultipleSites", false)
-				: ConfigHelper.GetBoolProperty("UseFolderBasedMultiTenants", false);
-
 	public static bool UseSiteNameForRootBreadcrumb => ConfigHelper.GetBoolProperty("UseSiteNameForRootBreadcrumb", false);
-
-	public static bool UseRelatedSiteMode => AppConfig.RelatedSiteModeEnabled;
-
-	public static bool UseSameContentFolderForRelatedSiteMode => AppConfig.RelatedSiteModeShareContentFolder;
-
-	public static int RelatedSiteID => AppConfig.RelatedSiteID;
-
-	public static bool RelatedSiteModeHideRoleManagerInChildSites => AppConfig.RelatedSiteModeHideRoleManagerInChildSites;
 
 	public static bool UseUrlReWriting => ConfigHelper.GetBoolProperty("UseUrlReWriting", true);
 
@@ -1191,19 +1167,11 @@ public static class WebConfigSettings
 
 	public static bool UseFailSafeMasterPageOnError => ConfigHelper.GetBoolProperty("UseFailSafeMasterPageOnError", true);
 
-	public static bool AllowEditingSkinsInChildSites => ConfigHelper.GetBoolProperty("AllowEditingSkinsInChildSites", true);
-
 	public static bool CheckFishyReferrer => ConfigHelper.GetBoolProperty("CheckFishyReferer", true);
 
 	public static bool LogFishyReferrer => ConfigHelper.GetBoolProperty("LogFishyReferer", true);
 
-	/// <summary>
-	/// this is mainly needed so I can prevent people from changing the mobile skin on the demo site
-	/// </summary>
-	public static bool AllowSettingMobileSkinInChildSites => ConfigHelper.GetBoolProperty("AllowSettingMobileSkinInChildSites", true);
-
 	public static string DefaultInitialSkin => ConfigHelper.GetStringProperty("DefaultInitialSkin", "framework");
-
 
 	public static string AllowedSkinFileExtensions => ConfigHelper.GetStringProperty("AllowedSkinFileExtensions", ".master|.skin|.css|.jpg|.jpeg|.png|.gif|.ico|.txt|.config|.js|.webm|.weba|.webp|.html|.xml|.less|.eot|.otf|.woff|.ttf|.svg|.cshtml");
 

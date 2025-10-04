@@ -224,10 +224,10 @@ public partial class PermissionEditPage : NonCmsBasePage
 		selectedSite.Save();
 
 
-		if (WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 
-			SiteSettings.SyncRelatedSites(selectedSite, WebConfigSettings.UseFolderBasedMultiTenants);
+			SiteSettings.SyncRelatedSites(selectedSite, AppConfig.MultiTenancy.UseFolders);
 
 			// reset the sitesettings cache for each site
 			CacheHelper.ClearRelatedSiteCache(-1);
@@ -371,7 +371,7 @@ public partial class PermissionEditPage : NonCmsBasePage
 		lnkAdminMenu.ToolTip = Resource.AdminMenuLink;
 		lnkAdminMenu.NavigateUrl = "Admin/AdminMenu.aspx".ToLinkBuilder().ToString();
 
-		lnkSiteList.Visible = WebConfigSettings.AllowMultipleSites && siteSettings.IsServerAdminSite;
+		lnkSiteList.Visible = AppConfig.MultiTenancy.Enabled && siteSettings.IsServerAdminSite;
 		lnkSiteList.Text = Resource.SiteList;
 		lnkSiteList.NavigateUrl = "Admin/SiteList.aspx".ToLinkBuilder().ToString();
 		litSiteListLinkSeparator.Visible = lnkSiteList.Visible;
