@@ -50,13 +50,7 @@ public partial class IndexBrowser : NonCmsBasePage
 		}
 		LoadSettings();
 
-		if (!WebUser.IsAdminOrContentAdmin || !SiteUtils.UserIsSiteEditor() || (WebConfigSettings.DisableLoginInfo))
-		{
-			SiteUtils.RedirectToAccessDeniedPage(this);
-			return;
-		}
-
-		if (SiteUtils.IsFishyPost(this))
+		if (!WebUser.IsAdminOrContentAdmin || !SiteUtils.UserIsSiteEditor() || SiteUtils.IsFishyPost(this))
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;
@@ -232,18 +226,18 @@ public partial class IndexBrowser : NonCmsBasePage
 			featureGuid = new Guid(ddFeatureList.SelectedValue);
 		}
 
-		string searchUrl = SiteRoot
-				+ "/Admin/IndexBrowser.aspx?p=1"
-				+ "&bd=" + modifiedBeginDate.Date.ToString("s")
-				+ "&ed=" + modifiedEndDate.Date.ToString("s")
-				+ "&f=" + featureGuid.ToString();
+		string searchUrl = "Admin/IndexBrowser.aspx?p=1".ToLinkBuilder().AddParams(
+			new System.Collections.Generic.Dictionary<string, object>()
+				{
+					{"bd",  modifiedBeginDate.Date.ToString("s")},
+					{"ed",  modifiedEndDate.Date.ToString("s")},
+					{"f",  featureGuid},
+
+				}).ToString();
 
 		WebUtils.SetupRedirect(this, searchUrl);
 
 	}
-
-
-
 
 	protected string FormatItemTitle(string pageName, string moduleTitle, string itemTitle, string separator = "\\")
 	{
@@ -285,16 +279,11 @@ public partial class IndexBrowser : NonCmsBasePage
 		string value;
 		if (indexItem.UseQueryStringParams)
 		{
-			value = $"/{indexItem.ViewPage.TrimStart('/')}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
+			value = indexItem.ViewPage.ToLinkBuilder().PageId(indexItem.PageId).ModuleId(indexItem.ModuleId).ItemId(indexItem.ItemId).ToString() + indexItem.QueryStringAddendum;
 		}
 		else
 		{
-			value = $"/{indexItem.ViewPage.TrimStart('/')}";
-		}
-
-		if (value.StartsWith("/"))
-		{
-			value = $"{SiteRoot}{value}";
+			value = indexItem.ViewPage.ToLinkBuilder().ToString();
 		}
 
 		return value;
@@ -311,7 +300,6 @@ public partial class IndexBrowser : NonCmsBasePage
 
 		// get out of postback and refresh the list
 		WebUtils.SetupRedirect(this, Request.RawUrl);
-
 	}
 
 	protected void btnRebuildSearchIndex_Click(object sender, EventArgs e)
@@ -322,16 +310,32 @@ public partial class IndexBrowser : NonCmsBasePage
 		rptResults.Visible = false;
 		lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
 		Thread.Sleep(5000); //wait 1 seconds
-		SiteUtils.QueueIndexing();
+		IndexHelper.QueueIndexing();
 	}
-
-
 
 	protected string FormatProperty(string propVal)
 	{
-		if (string.IsNullOrWhiteSpace(propVal)) { return Resource.NotApplicable; }
+		if (string.IsNullOrWhiteSpace(propVal)) 
+		{ 
+			return Resource.NotApplicable; 
+		}
 
 		return propVal;
+	}
+
+	protected string FormatList(string list)
+	{
+		if (string.IsNullOrWhiteSpace(list))
+		{
+			return Resource.NotApplicable;
+		}
+
+		var returnValue = string.Empty;
+		foreach (var s in list.SplitUnitSeparator())
+		{ 
+			returnValue += $"<span class=\"label label-info\">{s}</span> ";
+		}
+		return returnValue;
 	}
 
 	protected void rptResults_ItemDataBound(object sender, RepeaterItemEventArgs e)

@@ -321,7 +321,7 @@ public class IndexWriterTask : ITaskQueueTask
 		doc.Add(new Field("Title", indexItem.Title, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
 		doc.Add(new Field("PageMetaDesc", indexItem.PageMetaDescription, Field.Store.YES, Field.Index.ANALYZED, Field.TermVector.YES));
 
-		var categories = indexItem.Categories.SplitOnCharAndTrim(',');
+		var categories = indexItem.CategoriesList;
 
 		foreach (var category in categories)
 		{

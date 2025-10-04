@@ -6793,4 +6793,7 @@ We've generated a new key for you. Copy the key below into your site's configura
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
+  <data name="AdminIndexBrowserCategories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
 </root>

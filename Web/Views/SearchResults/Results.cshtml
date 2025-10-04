@@ -102,6 +102,16 @@
 						{
 							<span class="s-item s-modified"><b>@Resource.LastModified:</b> @result.ModifiedDate</span>
 						}
+
+						@if (result.Categories.Count > 0)
+						{ 
+							<span class="s-item s-category">
+								@foreach (var category in result.Categories)
+								{
+									<span class="label label-info">@category</span>
+								}
+							</span>
+						}
 					</div>
 				</li>
 			}
