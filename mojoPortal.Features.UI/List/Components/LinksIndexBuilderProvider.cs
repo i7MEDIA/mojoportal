@@ -45,15 +45,19 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info(LinkResources.FeatureName + " indexing page - " + pageSettings.PageName);
+			var pageModules = PageModule.GetPageModules(pageSettings.PageId, Link.FeatureGuid);
+
+			//only index pages with this feature
+			if (pageModules.Count == 0)
+			{
+				return;
+			}
+
+			log.Info(LinkResources.FeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {
-                Guid linksFeatureGuid = new Guid("74bdbcc2-0e79-47ff-bcd4-a159270bf36e");
-                ModuleDefinition linksFeature = new ModuleDefinition(linksFeatureGuid);
-
-                List<PageModule> pageModules
-                        = PageModule.GetPageModulesByPage(pageSettings.PageId);
+                ModuleDefinition linksFeature = new ModuleDefinition(Link.FeatureGuid);
 
                 DataTable dataTable = Link.GetLinksByPage(
                     pageSettings.SiteId, pageSettings.PageId);
@@ -82,7 +86,7 @@ namespace mojoPortal.Features
                         indexItem.UseQueryStringParams = false;
                     }
 
-                    indexItem.FeatureId = linksFeatureGuid.ToString();
+                    indexItem.FeatureId = Link.FeatureGuid.ToString();
                     indexItem.FeatureName = linksFeature.FeatureName;
                     indexItem.FeatureResourceFile = linksFeature.ResourceFile;
 
@@ -160,8 +164,7 @@ namespace mojoPortal.Features
 
             if (link == null) return;
 
-            Guid linksFeatureGuid = new Guid("74bdbcc2-0e79-47ff-bcd4-a159270bf36e");
-            ModuleDefinition linksFeature = new ModuleDefinition(linksFeatureGuid);
+            ModuleDefinition linksFeature = new ModuleDefinition(Link.FeatureGuid);
             Module module = new Module(link.ModuleId);
 
             // get list of pages where this module is published
@@ -184,7 +187,7 @@ namespace mojoPortal.Features
                 indexItem.PageName = pageSettings.PageName;
                 indexItem.ViewRoles = pageSettings.AuthorizedRoles;
                 indexItem.ModuleViewRoles = module.ViewRoles;
-                indexItem.FeatureId = linksFeatureGuid.ToString();
+                indexItem.FeatureId = Link.FeatureGuid.ToString();
                 indexItem.FeatureName = linksFeature.FeatureName;
                 indexItem.FeatureResourceFile = linksFeature.ResourceFile;
 

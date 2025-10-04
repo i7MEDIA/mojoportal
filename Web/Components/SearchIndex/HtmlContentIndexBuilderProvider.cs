@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
+using System.Net.Http;
 using System.Threading;
 using log4net;
 using mojoPortal.Business;
@@ -15,7 +16,6 @@ public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(HtmlContentIndexBuilderProvider));
 	private static bool debugLog = log.IsDebugEnabled;
-	private static Guid htmlFeatureGuid = new("881e4e00-93e4-444c-b7b0-6672fb55de10");
 	private static bool disableSearchIndex = ConfigHelper.GetBoolProperty("DisableSearchIndex", false);
 
 	public HtmlContentIndexBuilderProvider()
@@ -40,14 +40,18 @@ public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
 			return;
 		}
 
+		var pageModules = PageModule.GetPageModules(pageSettings.PageId, HtmlContent.FeatureGuid);
+		//only index pages with this feature
+		if (pageModules.Count == 0)
+		{
+			return;
+		}
+
 		log.Info($"{Resource.HtmlContentFeatureName} indexing page - {pageSettings.PageName}");
 
 		try
 		{
-			//var htmlFeatureGuid = new Guid("881e4e00-93e4-444c-b7b0-6672fb55de10");
-			var htmlFeature = new ModuleDefinition(htmlFeatureGuid);
-
-			var pageModules = PageModule.GetPageModulesByPage(pageSettings.PageId);
+			var htmlFeature = new ModuleDefinition(HtmlContent.FeatureGuid);
 
 			var repository = new HtmlRepository();
 
@@ -64,7 +68,7 @@ public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
 					SiteId = pageSettings.SiteId,
 					PageId = pageSettings.PageId,
 					PageName = pageSettings.PageName,
-					FeatureId = htmlFeatureGuid.ToString(),
+					FeatureId = HtmlContent.FeatureGuid.ToString(),
 					FeatureName = htmlFeature.FeatureName,
 					FeatureResourceFile = htmlFeature.ResourceFile,
 					ItemId = Convert.ToInt32(row["ItemID"]),
@@ -192,10 +196,13 @@ public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
 
 	private static bool canIndex(object o) => !ConfigHelper.GetBoolProperty("DisableSearchIndex", false) && o is HtmlContent;
 
-	private static void IndexItem(object o) => IndexItem((HtmlContent)o);
-		
-	private static void IndexItem(HtmlContent content)
+	private static void IndexItem(object o)
 	{
+		if (o is not HtmlContent content)
+		{
+			return;
+		}
+
 		if (!canIndex(content))
 		{
 			return;
@@ -203,7 +210,7 @@ public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
 
 		var module = new Module(content.ModuleId);
 
-		var htmlFeature = new ModuleDefinition(htmlFeatureGuid);
+		var htmlFeature = new ModuleDefinition(HtmlContent.FeatureGuid);
 
 		// get list of pages where this module is published
 		var pageModules = PageModule.GetPageModulesByModule(content.ModuleId);
@@ -226,13 +233,13 @@ public class HtmlContentIndexBuilderProvider : IndexBuilderProvider
 				PageName = pageSettings.PageName,
 				ViewRoles = pageSettings.AuthorizedRoles,
 				ModuleViewRoles = module.ViewRoles,
-				FeatureId = htmlFeatureGuid.ToString(),
+				FeatureId = HtmlContent.FeatureGuid.ToString(),
 				FeatureName = htmlFeature.FeatureName,
 				FeatureResourceFile = htmlFeature.ResourceFile,
 				ItemId = content.ItemId,
 				ModuleId = content.ModuleId,
 				ModuleTitle = module.ModuleTitle,
-				Title = content.Title,
+				Title = string.IsNullOrWhiteSpace(content.Title) ? module.ModuleTitle : content.Title,
 				Content = content.Body.RemoveMarkup(),
 				PublishBeginDate = pageModule.PublishBeginDate,
 				PublishEndDate = pageModule.PublishEndDate,

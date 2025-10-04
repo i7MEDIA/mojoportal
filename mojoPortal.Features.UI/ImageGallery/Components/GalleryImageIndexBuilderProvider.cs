@@ -39,21 +39,25 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info(Resources.GalleryResources.ImageGalleryFeatureName + " indexing page - " + pageSettings.PageName);
+			var pageModules = PageModule.GetPageModules(pageSettings.PageId, GalleryImage.FeatureGuid);
+
+			//only index pages with this feature
+			if (pageModules.Count == 0)
+			{
+				return;
+			}
+
+			log.Info(Resources.GalleryResources.ImageGalleryFeatureName + " indexing page - " + pageSettings.PageName);
 
             try
             {
-                Guid galleryFeatureGuid = new Guid("d572f6b4-d0ed-465d-ad60-60433893b401");
-                ModuleDefinition galleryFeature = new ModuleDefinition(galleryFeatureGuid);
-
-                List<PageModule> pageModules
-                        = PageModule.GetPageModulesByPage(pageSettings.PageId);
+                ModuleDefinition galleryFeature = new ModuleDefinition(GalleryImage.FeatureGuid);
 
                 DataTable dataTable = GalleryImage.GetImagesByPage(pageSettings.SiteId, pageSettings.PageId);
 
                 foreach (DataRow row in dataTable.Rows)
                 {
-                    mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
+					IndexItem indexItem = new IndexItem();
                     indexItem.SiteId = pageSettings.SiteId;
                     indexItem.PageId = pageSettings.PageId;
                     indexItem.PageName = pageSettings.PageName;
@@ -65,7 +69,7 @@ namespace mojoPortal.Features
                         indexItem.ViewPage = pageSettings.Url.Replace("~/", string.Empty);
                         indexItem.UseQueryStringParams = false;
                     }
-                    indexItem.FeatureId = galleryFeatureGuid.ToString();
+                    indexItem.FeatureId = GalleryImage.FeatureGuid.ToString();
                     indexItem.FeatureName = galleryFeature.FeatureName;
                     indexItem.FeatureResourceFile = galleryFeature.ResourceFile;
 
@@ -152,8 +156,7 @@ namespace mojoPortal.Features
                 return;
             }
 
-            Guid galleryFeatureGuid = new Guid("d572f6b4-d0ed-465d-ad60-60433893b401");
-            ModuleDefinition galleryFeature = new ModuleDefinition(galleryFeatureGuid);
+            ModuleDefinition galleryFeature = new ModuleDefinition(GalleryImage.FeatureGuid);
             Module module = new Module(galleryImage.ModuleId);
 
             // get list of pages where this module is published
@@ -170,17 +173,18 @@ namespace mojoPortal.Features
                 //don't index pending/unpublished pages
                 if (pageSettings.IsPending) { continue; }
 
-                mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
+				IndexItem indexItem = new IndexItem();
                 indexItem.SiteId = siteSettings.SiteId;
                 indexItem.PageId = pageSettings.PageId;
                 indexItem.PageName = pageSettings.PageName;
                 indexItem.ViewRoles = pageSettings.AuthorizedRoles;
                 indexItem.ModuleViewRoles = module.ViewRoles;
-                indexItem.FeatureId = galleryFeatureGuid.ToString();
+                indexItem.FeatureId = GalleryImage.FeatureGuid.ToString();
                 indexItem.FeatureName = galleryFeature.FeatureName;
                 indexItem.FeatureResourceFile = galleryFeature.ResourceFile;
                 indexItem.CreatedUtc = galleryImage.UploadDate;
                 indexItem.LastModUtc = galleryImage.UploadDate;
+                indexItem.ItemImage = galleryImage.ThumbnailFile;
 
                 indexItem.ItemId = galleryImage.ItemId;
                 indexItem.ModuleId = galleryImage.ModuleId;
@@ -195,7 +199,7 @@ namespace mojoPortal.Features
                 indexItem.PublishBeginDate = pageModule.PublishBeginDate;
                 indexItem.PublishEndDate = pageModule.PublishEndDate;
 
-                mojoPortal.SearchIndex.IndexHelper.RebuildIndex(indexItem);
+                IndexHelper.RebuildIndex(indexItem);
 
                 if (debugLog) log.Debug("Indexed " + galleryImage.Caption);
             }
@@ -211,7 +215,7 @@ namespace mojoPortal.Features
         {
             if (WebConfigSettings.DisableSearchIndex) { return; }
 
-            mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
+			IndexItem indexItem = new IndexItem();
             indexItem.SiteId = siteId;
             indexItem.PageId = pageId;
             indexItem.ModuleId = moduleId;
