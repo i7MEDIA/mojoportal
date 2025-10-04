@@ -2128,7 +2128,7 @@ namespace mojoPortal.Data
 					r.SiteID,
 					r.SiteGuid
 				FROM mp_UserRoles AS ur
-				INNER JOIN mp_Users AS u ON ur.UserID = mp_Users.UserID
+				INNER JOIN mp_Users AS u ON ur.UserID = u.UserID
 				INNER JOIN mp_Roles AS r ON ur.RoleID = r.RoleID
 				WHERE u.SiteID = :SiteID
 				AND u.UserID = :UserID;
