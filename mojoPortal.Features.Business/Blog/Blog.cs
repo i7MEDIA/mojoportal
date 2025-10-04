@@ -1,8 +1,9 @@
 //using log4net;
-using mojoPortal.Data;
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Globalization;
+using mojoPortal.Data;
 
 namespace mojoPortal.Business
 {
@@ -2134,12 +2135,6 @@ namespace mojoPortal.Business
 				while (reader.Read())
 				{
 					var row = dataTable.NewRow();
-					//var dataType = reader.GetDataTypeName(68);
-					string categories = reader.GetString(68);
-					//var catName = reader.GetName(68);
-					//string categories2 = reader[catName] as string;
-					//var categories3 = reader[catName];
-					//var categories4 = reader[68];
 					row["ItemID"] = reader["ItemID"];
 					row["ModuleID"] = reader["ModuleID"];
 					row["CommentCount"] = reader["CommentCount"];
@@ -2153,7 +2148,7 @@ namespace mojoPortal.Business
 					row["Name"] = reader["Name"];
 					row["FirstName"] = reader["FirstName"];
 					row["LastName"] = reader["LastName"];
-					row["Categories"] = categories;
+					row["Categories"] = reader["Categories"];
 					if (reader["EndDate"] != DBNull.Value)
 					{
 						row["EndDate"] = Convert.ToDateTime(reader["EndDate"]);
@@ -2202,7 +2197,7 @@ namespace mojoPortal.Business
 					{
 						row["ExcludeFromRecentContent"] = false;
 					}
-					
+
 					dataTable.Rows.Add(row);
 				}
 			}
