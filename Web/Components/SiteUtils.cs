@@ -2297,33 +2297,13 @@ namespace mojoPortal.Web
 
 		#endregion
 
-		public static void QueueIndexing()
-		{
-			if (WebConfigSettings.DisableSearchIndex) { return; }
-
-			if (!WebConfigSettings.IsSearchIndexingNode) { return; }
-
-			if (IndexWriterTask.IsRunning()) { return; }
-
-			IndexWriterTask indexWriter = new IndexWriterTask();
-
-			indexWriter.StoreContentForResultsHighlighting = WebConfigSettings.EnableSearchResultsHighlighting;
-
-			// Commented out 2009-01-24
-			// seems to cause errors for some languages if we localize this
-			// perhaps because the background thread is not running on the same culture as the
-			// web ui which is driven by browser language preferecne.
-			// if we do localize it we should localize to the site default culture, not the user's
-			//indexWriter.TaskName = Resource.IndexWriterTaskName;
-			//indexWriter.StatusCompleteMessage = Resource.IndexWriterTaskCompleteMessage;
-			//indexWriter.StatusQueuedMessage = Resource.IndexWriterTaskQueuedMessage;
-			//indexWriter.StatusStartedMessage = Resource.IndexWriterTaskStartedMessage;
-			//indexWriter.StatusRunningMessage = Resource.IndexWriterTaskRunningFormatString;
-
-			indexWriter.QueueTask();
-
-			WebTaskManager.StartOrResumeTasks();
-		}
+		/// <summary>
+		/// Queues the indexing operation to be processed asynchronously.
+		/// </summary>
+		/// <remarks>This method delegates the indexing operation to the <see cref="IndexHelper.QueueIndexing"/>
+		/// method. It is typically used to schedule indexing tasks without blocking the calling thread.</remarks>
+		[Obsolete("Use IndexHelper.QueueIndexing() instead. This method will be removed in future versions.")]
+		public static void QueueIndexing() => IndexHelper.QueueIndexing();
 
 		public static string GetFullPathToThemeFile()
 		{
