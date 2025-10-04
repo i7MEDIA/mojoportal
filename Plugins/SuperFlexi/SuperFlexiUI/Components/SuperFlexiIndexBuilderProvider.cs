@@ -31,7 +31,18 @@ public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 		}
 
 		//don't index pending/unpublished pages
-		if (pageSettings.IsPending) { return; }
+		if (pageSettings.IsPending)
+		{
+			return;
+		}
+
+		var pageModules = PageModule.GetPageModules(pageSettings.PageId, ModuleConfiguration.FeatureGuid);
+
+		//only index pages with this feature
+		if (pageModules.Count == 0)
+		{
+			return;
+		}
 
 		log.InfoFormat(Resources.SuperFlexiResources.FeatureName + " indexing page [{0}]", pageSettings.PageName);
 
@@ -170,11 +181,11 @@ public class SuperFlexiIndexBuilderProvider : IndexBuilderProvider
 		{
 			if (new PageSettings(pageSettings.SiteId, config.RelatedSearchPage) is PageSettings pageToUse)
 			{
-				pageSettings = pageToUse; 
+				pageSettings = pageToUse;
 			}
 		}
 
-        var displaySettings = new SuperFlexiDisplaySettings();
+		var displaySettings = new SuperFlexiDisplaySettings();
 		var flexiFeature = new ModuleDefinition(ModuleConfiguration.FeatureGuid);
 
 		var indexItem = new IndexItem

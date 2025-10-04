@@ -433,16 +433,6 @@ namespace mojoPortal.Business
 			return globalContents;
 		}
 
-        public static IDataReader GetMyPageModules(int siteId)
-        {
-            return DBModule.GetMyPageModules(siteId);
-        }
-
-        public static bool UpdateCountOfUseOnMyPage(int moduleId, int increment)
-        {
-            return DBModule.UpdateCountOfUseOnMyPage(moduleId, increment);
-        }
-
         public static IDataReader GetModulesForSite(int siteId, Guid featureGuid)
         {
             return DBModule.GetModulesForSite(siteId, featureGuid);

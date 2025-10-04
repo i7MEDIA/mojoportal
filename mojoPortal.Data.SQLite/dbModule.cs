@@ -672,6 +672,7 @@ WHERE ModuleID = :ModuleID AND PageID = :PageID;";
 SELECT
 	pm.*,
 	m.ModuleTitle,
+	m.FeatureGuid,
 	p.PageName,
 	p.UseUrl,
 	p.Url
@@ -699,17 +700,19 @@ WHERE pm.ModuleID = :ModuleID;";
 
 		public static IDataReader PageModuleGetReaderByPage(int pageId)
 		{
-			var commandText = @"
-SELECT
-	pm.*,
-	m.ModuleTitle,
-	p.PageName,
-	p.UseUrl,
-	p.Url
-FROM mp_PageModules pm
-JOIN mp_Modules m ON pm.ModuleID = m.ModuleID
-JOIN mp_Pages p ON pm.PageID = p.PageID
-WHERE pm.PageID = :PageID;";
+			var commandText = """
+				SELECT
+					pm.*,
+					m.ModuleTitle,
+					m.FeatureGuid,
+					p.PageName,
+					p.UseUrl,
+					p.Url
+				FROM mp_PageModules pm
+				JOIN mp_Modules m ON pm.ModuleID = m.ModuleID
+				JOIN mp_Pages p ON pm.PageID = p.PageID
+				WHERE pm.PageID = :PageID;
+				""";
 
 			var commandParameters = new SqliteParameter[]
 			{
@@ -727,6 +730,43 @@ WHERE pm.PageID = :PageID;";
 			);
 		}
 
+		public static IDataReader GetPageModules(int pageId, Guid featureGuid)
+		{
+			var commandText = """
+				SELECT
+					pm.*,
+					m.ModuleTitle,
+					m.FeatureGuid,
+					p.PageName,
+					p.UseUrl,
+					p.Url
+				FROM mp_PageModules pm
+				JOIN mp_Modules m ON pm.ModuleID = m.ModuleID
+				JOIN mp_Pages p ON pm.PageID = p.PageID
+				WHERE pm.PageID = :PageID
+				AND m.FeatureGuid = :FeatureGuid;
+				""";
+
+			var commandParameters = new SqliteParameter[]
+			{
+				new(":PageID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageId
+				},
+				new(":FeatureGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = featureGuid.ToString()
+				}
+			};
+
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				commandText,
+				commandParameters
+			);
+		}
 
 		public static bool Publish(
 			Guid pageGuid,
@@ -1639,44 +1679,6 @@ ORDER BY pm.ModuleOrder;";
 				commandParameters
 			);
 		}
-
-
-		public static IDataReader GetMyPageModules(int siteId)
-		{
-			var commandText = @"
-SELECT
-	m.ModuleID As ModuleID,
-	m.SiteID As SiteID,
-	m.ModuleDefID As ModuleDefID,
-	m.ModuleTitle As ModuleTitle,
-	m.AllowMultipleInstancesOnMyPage As AllowMultipleInstancesOnMyPage,
-	m.Icon As ModuleIcon,
-	m.IncludeInSearch As IncludeInSearch,
-	md.Icon As FeatureIcon,
-	md.FeatureName As FeatureName,
-	md.ResourceFile As ResourceFile
-FROM mp_Modules m
-	JOIN mp_ModuleDefinitions md ON m.ModuleDefID = md.ModuleDefID
-WHERE m.SiteID = :SiteID
-AND m.AvailableForMyPage = 1
-ORDER BY m.ModuleTitle;";
-
-			var commandParameters = new SqliteParameter[]
-			{
-				new SqliteParameter(":SiteID", DbType.Int32)
-				{
-					Direction = ParameterDirection.Input,
-					Value = siteId
-				}
-			};
-
-			return SqliteHelper.ExecuteReader(
-				GetConnectionString(),
-				commandText,
-				commandParameters
-			);
-		}
-
 
 		public static IDataReader GetModulesForSite(int siteId, Guid featureGuid)
 		{

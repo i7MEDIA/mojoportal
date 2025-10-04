@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using log4net;
@@ -33,15 +34,23 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 			return;
 		}
 
-		//don't index pending/unpublished pages
-		if (pageSettings.IsPending) { return; }
+		//only index published pages
+		if (pageSettings.IsPending)
+		{
+			return;
+		}
+
+		var pageModules = PageModule.GetPageModules(pageSettings.PageId, Blog.FeatureGuid);
+		//only index pages with this feature
+		if (pageModules.Count == 0)
+		{
+			return;
+		}
 
 		log.Info($"{BlogResources.BlogFeatureName} indexing page - {pageSettings.PageName}");
 
-		Guid blogFeatureGuid = new("026cbead-2b80-4491-906d-b83e37179ccf");
-		ModuleDefinition blogFeature = new(blogFeatureGuid);
+		ModuleDefinition blogFeature = new(Blog.FeatureGuid);
 
-		List<PageModule> pageModules = PageModule.GetPageModulesByPage(pageSettings.PageId);
 
 		DataTable dataTable = Blog.GetBlogsByPage(pageSettings.SiteId, pageSettings.PageId);
 
@@ -82,7 +91,6 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 			if ((!WebConfigSettings.UseUrlReWriting) || (!BlogConfiguration.UseFriendlyUrls(moduleId)))
 			{
 				viewPage = "Blog/ViewPost.aspx".ToLinkBuilder(false).SiteId(-1).PageId(pageSettings.PageId).ModuleId(moduleId).ItemId(itemId).ToString();
-				//viewPage = $"Blog/ViewPost.aspx?pageid={pageSettings.PageId.ToInvariantString()}&mid={moduleId.ToInvariantString()}&ItemID={itemId.ToInvariantString()}";
 			}
 
 			var indexItem = new IndexItem
@@ -93,7 +101,7 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 				PageName = pageSettings.PageName,
 				ViewRoles = pageSettings.AuthorizedRoles,
 				ModuleViewRoles = row["ViewRoles"].ToString(),
-				FeatureId = blogFeatureGuid.ToString(),
+				FeatureId = Blog.FeatureGuid.ToString(),
 				FeatureName = blogFeature.FeatureName,
 				FeatureResourceFile = blogFeature.ResourceFile,
 				ItemId = itemId,
@@ -115,7 +123,7 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 			int commentCount = Convert.ToInt32(row["CommentCount"]);
 			if (commentCount > 0)
 			{   // index comments
-				StringBuilder stringBuilder = new StringBuilder();
+				var stringBuilder = new StringBuilder();
 				DataTable comments = Blog.GetBlogCommentsTable(indexItem.ModuleId, indexItem.ItemId);
 
 				foreach (DataRow commentRow in comments.Rows)
@@ -123,12 +131,13 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 					stringBuilder.Append($"  {commentRow["Comment"]}");
 					stringBuilder.Append($"  {commentRow["Name"]}");
 
-					if (debugLog) log.Debug("BlogIndexBuilderProvider.RebuildIndex add comment ");
-
+					if (debugLog)
+					{
+						log.Debug("BlogIndexBuilderProvider.RebuildIndex add comment ");
+					}
 				}
 
 				indexItem.OtherContent = stringBuilder.ToString();
-
 			}
 
 			// lookup publish dates
@@ -141,15 +150,22 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 				}
 			}
 
-			if (blogStart > indexItem.PublishBeginDate) { indexItem.PublishBeginDate = blogStart; }
-			if (postEndDate < indexItem.PublishEndDate) { indexItem.PublishEndDate = postEndDate; }
+			if (blogStart > indexItem.PublishBeginDate)
+			{
+				indexItem.PublishBeginDate = blogStart;
+			}
 
-
+			if (postEndDate < indexItem.PublishEndDate)
+			{
+				indexItem.PublishEndDate = postEndDate;
+			}
 
 			IndexHelper.RebuildIndex(indexItem, indexPath);
 
-			if (debugLog) log.Debug("Indexed " + indexItem.Title);
-
+			if (debugLog)
+			{
+				log.Debug($"Indexed {indexItem.Title}");
+			}
 		}
 	}
 
@@ -200,7 +216,7 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 	private static void IndexItem(object o)
 	{
 		if (WebConfigSettings.DisableSearchIndex) { return; }
-		if (o is null) return;
+
 		if (o is not Blog) return;
 
 		Blog content = o as Blog;
@@ -224,8 +240,8 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 		if (!blog.IncludeInSearch) { return; }
 
 		var module = new Module(blog.ModuleId);
-		var blogFeatureGuid = new Guid("026cbead-2b80-4491-906d-b83e37179ccf");
-		var blogFeature = new ModuleDefinition(blogFeatureGuid);
+
+		var blogFeature = new ModuleDefinition(Blog.FeatureGuid);
 
 		// get comments so  they can be indexed too
 		var stringBuilder = new StringBuilder();
@@ -266,7 +282,7 @@ public class BlogIndexBuilderProvider : IndexBuilderProvider
 				Title = blog.Title,
 				Content = $"{blog.Description} {blog.MetaDescription} {blog.MetaKeywords}",
 				ContentAbstract = blog.Excerpt,
-				FeatureId = blogFeatureGuid.ToString(),
+				FeatureId = Blog.FeatureGuid.ToString(),
 				FeatureName = blogFeature.FeatureName,
 				FeatureResourceFile = blogFeature.ResourceFile,
 				OtherContent = stringBuilder.ToString(),
