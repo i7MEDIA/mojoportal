@@ -119,8 +119,6 @@ public partial class BlogEdit : NonCmsBasePage
 		PopulateLabels();
 		SetupScripts();
 
-
-
 		if ((!Page.IsPostBack) && (!Page.IsCallback))
 		{
 			if ((Request.UrlReferrer != null) && (hdnReturnUrl.Value.Length == 0))
@@ -138,7 +136,6 @@ public partial class BlogEdit : NonCmsBasePage
 			BindMetaLinks();
 		}
 	}
-
 	protected virtual void PopulateControls()
 	{
 		if (blog != null)
@@ -721,6 +718,8 @@ public partial class BlogEdit : NonCmsBasePage
 			blog.CreateHistory(siteSettings.SiteGuid);
 		}
 
+		blog.Save();
+
 		Blog.DeleteItemCategories(blog.ItemId);
 
 		// Mono doesn't see this in update panel
@@ -744,9 +743,8 @@ public partial class BlogEdit : NonCmsBasePage
 				}
 			}
 		}
-		blog.Categories = string.Join(",", chkCategories.Items.Cast<ListItem>().Where(c => c.Selected).Select(c => c.Text).ToList());
-
-		blog.Save();
+		// this doesn't save to the db, just gets set here so the item has the info when it's serialized for the SearchIndex
+		blog.Categories = chkCategories.Items.Cast<ListItem>().Where(c => c.Selected).Select(c => c.Text).JoinUnitSeparator();
 
 		// Check to see if this post is being created or edited
 		if (itemId == -1)
@@ -776,7 +774,6 @@ public partial class BlogEdit : NonCmsBasePage
 					PageGuid = blog.BlogGuid,
 					Url = friendlyUrlString,
 					RealUrl = "Blog/ViewPost.aspx".ToLinkBuilder(false).SiteId(-1).PageId(pageId).ModuleId(blog.ModuleId).ItemId(blog.ItemId).ToString()
-					//$"~/Blog/ViewPost.aspx?pageid={pageId.ToInvariantString()}&mid={blog.ModuleId.ToInvariantString()}&ItemID={blog.ItemId.ToInvariantString()}"
 				};
 
 				newFriendlyUrl.Save();
