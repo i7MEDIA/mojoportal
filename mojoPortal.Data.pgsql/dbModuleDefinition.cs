@@ -706,25 +706,29 @@ md.FeatureName";
 
 		public static IDataReader GetSearchableModules(int siteId)
 		{
-			var sqlCommand = @"SELECT md.* 
-				FROM	mp_moduledefinitions md 
-				JOIN	mp_sitemoduledefinitions smd  
-							ON md.moduledefid = smd.moduledefid  
-				WHERE smd.siteid = :siteid 
-					AND md.isadmin = false 
-					AND md.issearchable = true 
-				ORDER BY md.sortorder, md.searchlistname ;";
+			var sqlCommand = """
+				SELECT md.*
+				FROM mp_moduledefinitions md
+				JOIN mp_sitemoduledefinitions smd ON md.moduledefid = smd.moduledefid
+				WHERE smd.siteid = :siteid
+				AND md.issearchable = true
+				ORDER BY md.sortorder, md.searchlistname;
+				""";
 
-			var sqlParams = new List<NpgsqlParameter>()
-			{
-				new NpgsqlParameter(":siteid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = siteId }
-			};
+			NpgsqlParameter[] sqlParams =
+			[
+				new NpgsqlParameter(":siteid", NpgsqlDbType.Integer)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				}
+			];
 
 			return NpgsqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
 				CommandType.Text,
 				sqlCommand,
-				sqlParams.ToArray()
+				sqlParams
 			);
 		}
 

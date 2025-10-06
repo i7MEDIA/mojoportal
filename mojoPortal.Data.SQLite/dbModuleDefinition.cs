@@ -675,29 +675,31 @@ md.FeatureName";
 
 		public static IDataReader GetSearchableModules(int siteId)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT md.* ");
-			sqlCommand.Append("FROM	mp_ModuleDefinitions md ");
+			var sqlCommand = """
+				SELECT md.*
+				FROM mp_ModuleDefinitions md
+				JOIN mp_SiteModuleDefinitions smd
+				ON md.ModuleDefID = smd.ModuleDefID
+				WHERE smd.SiteID = :SiteID
+				AND md.IsSearchable = 1
+				ORDER BY md.SortOrder, md.SearchListName;
+				""";
 
-			sqlCommand.Append("JOIN	mp_SiteModuleDefinitions smd  ");
-			sqlCommand.Append("ON md.ModuleDefID = smd.ModuleDefID  ");
-
-			sqlCommand.Append("WHERE smd.SiteID = :SiteID AND md.IsAdmin = 0 AND md.IsSearchable = 1 ");
-			sqlCommand.Append("ORDER BY md.SortOrder, md.SearchListName ;");
-
-			SqliteParameter[] arParams = new SqliteParameter[1];
-
-			arParams[0] = new SqliteParameter(":SiteID", DbType.Int32);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = siteId;
+			SqliteParameter[] arParams =
+			[
+				new SqliteParameter(":SiteID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+			];
 
 			return SqliteHelper.ExecuteReader(
 				GetConnectionString(),
 				sqlCommand.ToString(),
-				arParams);
+				arParams
+			);
 		}
-
-
 
 
 		public static bool UpdateModuleDefinitionSetting(
