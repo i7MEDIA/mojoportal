@@ -64,6 +64,10 @@
     <Compile Include="Survey\DBSurveyResponse.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
       <Project>{6DDFE292-37AA-4A02-B2F0-BA7968A026EF}</Project>
       <Name>mojoPortal.Data.MSSQL</Name>
