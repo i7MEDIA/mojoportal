@@ -656,7 +656,7 @@ namespace SuperFlexiUI
 					searchDef = new SearchDef();
 					searchDef.FieldDefinitionGuid = fieldDefinitionGuid;
 					searchDef.SiteGuid = siteGuid;
-					searchDef.FeatureGuid = config.FeatureGuid;
+					searchDef.FeatureGuid = ModuleConfiguration.FeatureGuid;
 				}
 
 				foreach (XmlNode childNode in searchNode)

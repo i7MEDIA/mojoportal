@@ -13,14 +13,11 @@
 /// Note moved into separate class file from dbPortal 2007-11-03
 
 using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.Text;
+using MySql.Data.MySqlClient;
 
 namespace mojoPortal.Data
 {
@@ -1965,28 +1962,30 @@ namespace mojoPortal.Data
 
         }
 
-
         public static int GetSiteIdByHostName(string hostName)
         {
             int siteId = -1;
 
-            StringBuilder sqlCommand = new StringBuilder();
+            MySqlParameter[] arParams =
+			[
+				new MySqlParameter("?HostName", MySqlDbType.VarChar, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = hostName
+				},
+			];
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+			var sqlCommand = """
+                SELECT COALESCE(
+                	(SELECT SiteID FROM mp_SiteHosts WHERE HostName = ?HostName LIMIT 1),
+                	(SELECT SiteID FROM mp_Sites WHERE IsServerAdminSite = 1 ORDER BY SiteID LIMIT 1),
+                	(SELECT SiteID FROM mp_Sites ORDER BY SiteID LIMIT 1)
+                ) AS SiteID
+                """;
 
-            arParams[0] = new MySqlParameter("?HostName", MySqlDbType.VarChar, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = hostName;
-
-            
-
-            sqlCommand.Append("SELECT SiteID ");
-            sqlCommand.Append("FROM mp_SiteHosts ");
-            sqlCommand.Append("WHERE HostName = ?HostName ;");
-
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = MySqlHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
+                sqlCommand,
                 arParams))
             {
                 if (reader.Read())
@@ -1995,56 +1994,38 @@ namespace mojoPortal.Data
                 }
             }
 
-            if (siteId == -1)
-            {
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("SELECT SiteID ");
-                sqlCommand.Append("FROM	mp_Sites ");
-                
-                sqlCommand.Append("ORDER BY	SiteID ");
-                sqlCommand.Append("LIMIT 1 ;");
-
-                using (IDataReader reader = MySqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null))
-                {
-                    if (reader.Read())
-                    {
-                        siteId = Convert.ToInt32(reader["SiteID"]);
-                    }
-                }
-
-            }
-
             return siteId;
-
         }
 
-        public static int GetSiteIdByFolder(string folderName)
+        public static int GetSiteIdByFolder(string folderName, bool legacy = false)
         {
             int siteId = -1;
 
-            StringBuilder sqlCommand = new StringBuilder();
+			MySqlParameter[] arParams =
+			[
+				new MySqlParameter("?FolderName", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = folderName }
+			];
 
-            MySqlParameter[] arParams = new MySqlParameter[1];
+            var siteFoldersSelect = "SELECT SiteID FROM mp_SiteFolders WHERE FolderName = ?FolderName LIMIT 1";
 
-            arParams[0] = new MySqlParameter("?FolderName", MySqlDbType.VarChar, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = folderName;
+            if (legacy)
+            {
+                siteFoldersSelect = """
+                    	SELECT s.SiteID FROM mp_SiteFolders sf
+                            JOIN mp_Sites s ON s.SiteGuid = sf.SiteGuid
+                            WHERE sf.FolderName = ?FolderName LIMIT 1
+                    """;
+			}
 
+			var sqlCommand = $"""
+                SELECT COALESCE(
+                	({siteFoldersSelect}),
+                	(SELECT SiteID FROM mp_Sites WHERE IsServerAdminSite = 1 ORDER BY SiteID LIMIT 1),
+                	(SELECT SiteID FROM mp_Sites ORDER BY SiteID LIMIT 1)
+                ) AS SiteID
+                """;
 
-
-            sqlCommand.Append("SELECT COALESCE(s.SiteID, -1) AS SiteID ");
-            sqlCommand.Append("FROM mp_SiteFolders sf ");
-            sqlCommand.Append("JOIN mp_Sites s ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("sf.SiteGuid = s.SiteGuid ");
-            sqlCommand.Append("WHERE sf.FolderName = ?FolderName ");
-            sqlCommand.Append("ORDER BY s.SiteID ");
-            sqlCommand.Append(";");
-
-            using (IDataReader reader = MySqlHelper.ExecuteReader(
+			using (IDataReader reader = MySqlHelper.ExecuteReader(
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -2055,30 +2036,7 @@ namespace mojoPortal.Data
                 }
             }
 
-            if (siteId == -1)
-            {
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("SELECT SiteID ");
-                sqlCommand.Append("FROM	mp_Sites ");
-
-                sqlCommand.Append("ORDER BY	SiteID ");
-                sqlCommand.Append("LIMIT 1 ;");
-
-                using (IDataReader reader = MySqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                sqlCommand.ToString(),
-                null))
-                {
-                    if (reader.Read())
-                    {
-                        siteId = Convert.ToInt32(reader["SiteID"]);
-                    }
-                }
-
-            }
-
             return siteId;
-
         }
 
 		public static bool HostNameExists(string hostName)

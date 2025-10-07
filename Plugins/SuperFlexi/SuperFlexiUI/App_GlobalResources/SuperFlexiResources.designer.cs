@@ -430,6 +430,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change Solution.
+        /// </summary>
+        internal static string MarkupDefinitionChangeButton {
+            get {
+                return ResourceManager.GetString("MarkupDefinitionChangeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to change the Solution? This can cause irreversible damage to your data. Only proceed if you know for sure what you&apos;re doing and you have a good database backup..
+        /// </summary>
+        internal static string MarkupDefinitionChangeButtonConfirm {
+            get {
+                return ResourceManager.GetString("MarkupDefinitionChangeButtonConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changing the Solution can cause irreversible damage to your data. Only do this if you know what you&apos;re doing and have a proper database backup..
+        /// </summary>
+        internal static string MarkupDefinitionChangeButtonToolTip {
+            get {
+                return ResourceManager.GetString("MarkupDefinitionChangeButtonToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solution.
         /// </summary>
         internal static string MarkupDefinitionFile {
@@ -484,6 +511,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page for Search Index.
+        /// </summary>
+        internal static string RelatedSearchPage {
+            get {
+                return ResourceManager.GetString("RelatedSearchPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Image.
         /// </summary>
         internal static string RemoveImage {
@@ -529,6 +565,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Settings.
+        /// </summary>
+        internal static string SearchSettings {
+            get {
+                return ResourceManager.GetString("SearchSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string SettingsLinkLabel {
@@ -543,6 +588,15 @@ namespace Resources {
         internal static string SolutionDropDownPleaseSelect {
             get {
                 return ResourceManager.GetString("SolutionDropDownPleaseSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Friendly Name.
+        /// </summary>
+        internal static string SolutionSearchFriendlyName {
+            get {
+                return ResourceManager.GetString("SolutionSearchFriendlyName", resourceCulture);
             }
         }
         

@@ -63,15 +63,24 @@ public class UrlRewriter : IHttpModule
 
 	private static void RewriteUrl(HttpApplication app)
 	{
-		if (app == null) return;
+		if (app == null)
+		{
+			return;
+		}
 
 		string requestPath = app.Request.Path;
 
-		bool useFolderForSiteDetection = WebConfigSettings.UseFolderBasedMultiTenants;
 		string virtualFolderName;
 		bool setClientFilePath = true;
 
-		if (useFolderForSiteDetection)
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		//this will happen on a new installation
+		if (siteSettings == null) 
+		{ 
+			return; 
+		}
+
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			virtualFolderName = VirtualFolderEvaluator.VirtualFolderName();
 			if (virtualFolderName.Length > 0)
@@ -121,7 +130,7 @@ public class UrlRewriter : IHttpModule
 		string targetUrl = requestPath.Substring(appRoot.Length + 1);
 		//if (targetUrl.Length == 0) return;
 		if (targetUrl.IsCaseInsensitiveMatch("default.aspx")) return;
-		if (useFolderForSiteDetection)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			if (!targetUrl.StartsWith("/")) targetUrl = "/" + targetUrl;
 
@@ -171,11 +180,8 @@ public class UrlRewriter : IHttpModule
 
 
 		FriendlyUrl friendlyUrl = null;
-		SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-		//this will happen on a new installation
-		if (siteSettings == null) { return; }
 
-		if (useFolderForSiteDetection && (virtualFolderName.Length > 0))
+		if (AppConfig.MultiTenancy.UseFolders && (virtualFolderName.Length > 0))
 		{
 			friendlyUrl = new FriendlyUrl(siteSettings.SiteId, targetUrl);
 		}
@@ -194,7 +200,7 @@ public class UrlRewriter : IHttpModule
 
 			if (WebConfigSettings.AlwaysUrlEncode)
 			{
-				friendlyUrl = new FriendlyUrl(WebUtils.GetHostName(), HttpUtility.UrlEncode(targetUrl));
+				friendlyUrl = new FriendlyUrl(siteSettings.SiteId, HttpUtility.UrlEncode(targetUrl));
 
 				//in case existing pages are not url encoded since this setting was added 2009-11-15, try again without encoding
 
@@ -202,21 +208,21 @@ public class UrlRewriter : IHttpModule
 				{
 					if (WebConfigSettings.RetryUnencodedOnUrlNotFound)
 					{
-						friendlyUrl = new FriendlyUrl(WebUtils.GetHostName(), targetUrl);
+						friendlyUrl = new FriendlyUrl(siteSettings.SiteId, targetUrl);
 					}
 				}
 
 			}
 			else
 			{
-				friendlyUrl = new FriendlyUrl(WebUtils.GetHostName(), targetUrl);
+				friendlyUrl = new FriendlyUrl(siteSettings.SiteId, targetUrl);
 			}
 		}
 
 		if (friendlyUrl == null || !friendlyUrl.FoundFriendlyUrl)
 		{
 			if (
-			(useFolderForSiteDetection)
+			(AppConfig.MultiTenancy.UseFolders)
 			&& (virtualFolderName.Length > 0)
 			&& (requestPath.Contains(virtualFolderName + "/"))
 			)

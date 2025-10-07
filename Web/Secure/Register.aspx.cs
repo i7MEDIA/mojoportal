@@ -314,7 +314,7 @@ public partial class Register : NonCmsBasePage
 				FormsAuthentication.SetAuthCookie(siteUser.LoginName, false);
 			}
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				string cookieName = $"siteguid{siteSettings.SiteGuid}";
 				CookieHelper.SetCookie(cookieName, siteUser.UserGuid.ToString(), false);

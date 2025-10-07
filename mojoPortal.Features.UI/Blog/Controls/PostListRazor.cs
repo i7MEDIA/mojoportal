@@ -159,7 +159,7 @@ public class PostListRazor : WebControl
 			useFriendlyUrls = false;
 		}
 
-		if (WebConfigSettings.UseFolderBasedMultiTenants)
+		if (AppConfig.MultiTenancy.UseFolders)
 		{
 			navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
 			ImageSiteRoot = WebUtils.GetSiteRoot();

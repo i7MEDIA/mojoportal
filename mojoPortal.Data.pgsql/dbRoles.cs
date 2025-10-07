@@ -264,7 +264,7 @@ FROM mp_userroles ur
 INNER JOIN mp_users u ON ur.userid = u.userid
 INNER JOIN mp_roles r ON ur.roleid = r.roleid
 WHERE u.siteid = :siteid
-AND (u.name = :username OR u.email = :username);";
+AND (u.loginname = :username OR u.email = :username);";
 
 			var arParams = new NpgsqlParameter[]
 			{

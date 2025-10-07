@@ -44,23 +44,31 @@ namespace mojoPortal.Features
             }
 
             //don't index pending/unpublished pages
-            if (pageSettings.IsPending) { return; }
+            if (pageSettings.IsPending) 
+            { 
+                return; 
+            }
 
-            log.Info(Resources.SharedFileResources.SharedFilesFeatureName + " indexing page - " + pageSettings.PageName);
+			var pageModules = PageModule.GetPageModules(pageSettings.PageId, SharedFile.FeatureGuid);
+			//only index pages with this feature
+			if (pageModules.Count == 0)
+			{
+				return;
+			}
+
+
+			log.Info($"{Resources.SharedFileResources.SharedFilesFeatureName} indexing page - {pageSettings.PageName}");
 
             try
             {
-                Guid sharedFilesFeatureGuid = new Guid("dc873d76-5bf2-4ac5-bff7-434a87a3fc8e");
-                ModuleDefinition sharedFilesFeature = new ModuleDefinition(sharedFilesFeatureGuid);
+                ModuleDefinition sharedFilesFeature = new ModuleDefinition(SharedFile.FeatureGuid);
 
-                List<PageModule> pageModules
-                        = PageModule.GetPageModulesByPage(pageSettings.PageId);
 
                 DataTable dataTable = SharedFile.GetSharedFilesByPage(pageSettings.SiteId, pageSettings.PageId);
 
                 foreach (DataRow row in dataTable.Rows)
                 {
-                    mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
+					IndexItem indexItem = new IndexItem();
                     indexItem.SiteId = pageSettings.SiteId;
                     indexItem.PageId = pageSettings.PageId;
                     indexItem.PageName = pageSettings.PageName;
@@ -83,7 +91,7 @@ namespace mojoPortal.Features
                     //    indexItem.UseQueryStringParams = false;
                     //}
 
-                    indexItem.FeatureId = sharedFilesFeatureGuid.ToString();
+                    indexItem.FeatureId = SharedFile.FeatureGuid.ToString();
                     indexItem.FeatureName = sharedFilesFeature.FeatureName;
                     indexItem.FeatureResourceFile = sharedFilesFeature.ResourceFile;
 
@@ -111,7 +119,7 @@ namespace mojoPortal.Features
                         }
                     }
 
-                    mojoPortal.SearchIndex.IndexHelper.RebuildIndex(indexItem, indexPath);
+					IndexHelper.RebuildIndex(indexItem, indexPath);
 
                     if (debugLog) log.Debug("Indexed " + indexItem.Title);
 
@@ -121,13 +129,9 @@ namespace mojoPortal.Features
             {
                 log.Error(ex);
             }
-            
-           
         }
 
-        public override void ContentChangedHandler(
-            object sender,
-            ContentChangedEventArgs e)
+        public override void ContentChangedHandler(object sender, ContentChangedEventArgs e)
         {
             if (WebConfigSettings.DisableSearchIndex) { return; }
 
@@ -135,12 +139,11 @@ namespace mojoPortal.Features
             if (e.IsDeleted)
             {
                 // get list of pages where this module is published
-                List<PageModule> pageModules
-                    = PageModule.GetPageModulesByModule(sharedFile.ModuleId);
+                var pageModules = PageModule.GetPageModulesByModule(sharedFile.ModuleId);
 
                 foreach (PageModule pageModule in pageModules)
                 {
-                    mojoPortal.SearchIndex.IndexHelper.RemoveIndexItem(
+					IndexHelper.RemoveIndexItem(
                         pageModule.PageId,
                         sharedFile.ModuleId,
                         sharedFile.ItemId);
@@ -155,68 +158,63 @@ namespace mojoPortal.Features
 
         private static void IndexItem(SharedFile sharedFile)
         {
-            if (WebConfigSettings.DisableSearchIndex) { return; }
+            if (WebConfigSettings.DisableSearchIndex) 
+            { 
+                return; 
+            }
 
-            SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-            if (
-                (sharedFile == null)
-                || (siteSettings == null)
-                )
+            if ((sharedFile is null) || (CacheHelper.GetCurrentSiteSettings() is not SiteSettings siteSettings))
             {
                 return;
             }
 
-            Guid sharedFilesFeatureGuid = new Guid("dc873d76-5bf2-4ac5-bff7-434a87a3fc8e");
-            ModuleDefinition sharedFilesFeature = new ModuleDefinition(sharedFilesFeatureGuid);
+            var sharedFilesFeature = new ModuleDefinition(SharedFile.FeatureGuid);
 
-            Module module = new Module(sharedFile.ModuleId);
+            var module = new Module(sharedFile.ModuleId);
 
             // get list of pages where this module is published
-            List<PageModule> pageModules
-                = PageModule.GetPageModulesByModule(sharedFile.ModuleId);
+            var pageModules = PageModule.GetPageModulesByModule(sharedFile.ModuleId);
 
             foreach (PageModule pageModule in pageModules)
             {
-                PageSettings pageSettings
-                    = new PageSettings(
-                    siteSettings.SiteId,
-                    pageModule.PageId);
+                var pageSettings = new PageSettings(siteSettings.SiteId, pageModule.PageId);
 
                 //don't index pending/unpublished pages
                 if (pageSettings.IsPending) { continue; }
 
-                mojoPortal.SearchIndex.IndexItem indexItem = new mojoPortal.SearchIndex.IndexItem();
-                indexItem.SiteId = siteSettings.SiteId;
-                indexItem.PageId = pageSettings.PageId;
-                indexItem.PageName = pageSettings.PageName;
-                indexItem.ViewRoles = pageSettings.AuthorizedRoles;
-                indexItem.ModuleViewRoles = module.ViewRoles;
-                indexItem.FeatureId = sharedFilesFeatureGuid.ToString();
-                indexItem.FeatureName = sharedFilesFeature.FeatureName;
-                indexItem.FeatureResourceFile = sharedFilesFeature.ResourceFile;
-                indexItem.CreatedUtc = sharedFile.UploadDate;
-                indexItem.LastModUtc = sharedFile.UploadDate;
-
-                indexItem.ItemId = sharedFile.ItemId;
-                indexItem.ModuleId = sharedFile.ModuleId;
-                indexItem.ModuleTitle = module.ModuleTitle;
-                indexItem.Title = sharedFile.FriendlyName.Replace("_", " ").Replace("-", " ").Replace(".", " ") ;
-                indexItem.Content = sharedFile.Description;
-                indexItem.PublishBeginDate = pageModule.PublishBeginDate;
-                indexItem.PublishEndDate = pageModule.PublishEndDate;
-                // make the search results a download link
-                indexItem.ViewPage = "SharedFiles/Download.aspx?pageid=" + indexItem.PageId.ToInvariantString()
+				var indexItem = new IndexItem
+				{
+					SiteId = siteSettings.SiteId,
+					PageId = pageSettings.PageId,
+					PageName = pageSettings.PageName,
+					ViewRoles = pageSettings.AuthorizedRoles,
+					ModuleViewRoles = module.ViewRoles,
+					FeatureId = SharedFile.FeatureGuid.ToString(),
+					FeatureName = sharedFilesFeature.FeatureName,
+					FeatureResourceFile = sharedFilesFeature.ResourceFile,
+					CreatedUtc = sharedFile.UploadDate,
+					LastModUtc = sharedFile.UploadDate,
+					ItemId = sharedFile.ItemId,
+					ModuleId = sharedFile.ModuleId,
+					ModuleTitle = module.ModuleTitle,
+					Title = sharedFile.FriendlyName.Replace("_", " ").Replace("-", " ").Replace(".", " "),
+					Content = sharedFile.Description,
+					PublishBeginDate = pageModule.PublishBeginDate,
+					PublishEndDate = pageModule.PublishEndDate
+				};
+				indexItem.ViewPage = "SharedFiles/Download.aspx?pageid=" + indexItem.PageId.ToInvariantString()
                     + "&fileid=" + indexItem.ItemId.ToInvariantString()
                     + "&mid=" + indexItem.ModuleId.ToInvariantString();
                 indexItem.UseQueryStringParams = false;
 
-                mojoPortal.SearchIndex.IndexHelper.RebuildIndex(indexItem);
+				IndexHelper.RebuildIndex(indexItem);
             }
 
-            if (debugLog) log.Debug("Indexed "  + sharedFile.FriendlyName);
-            
-        }
+			if (debugLog)
+			{
+				log.Debug($"Indexed {sharedFile.FriendlyName}");
+			}
+		}
 
     }
 }

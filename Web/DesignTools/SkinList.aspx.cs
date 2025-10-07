@@ -114,7 +114,7 @@ public partial class SkinListPage : NonCmsBasePage
 	private void LoadSettings()
 	{
 		regexZipFile.ValidationExpression = SecurityHelper.GetRegexValidationForAllowedExtensions(".zip");
-		allowEditing = WebConfigSettings.AllowEditingSkins && (WebConfigSettings.AllowEditingSkinsInChildSites || siteSettings.IsServerAdminSite);
+		allowEditing = WebConfigSettings.AllowEditingSkins && (AppConfig.MultiTenancy.AllowEditingSkins || siteSettings.IsServerAdminSite);
 		ScriptConfig.IncludeColorBox = true;
 		divUpload.Visible = allowEditing;
 

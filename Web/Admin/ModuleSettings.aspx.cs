@@ -143,9 +143,9 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 			if (divTitleElement.Visible)
 			{
-				ddlTitleElements.DataSource = Global.SkinConfig.Display.ModuleTitleElementOptions;
+				ddlTitleElements.DataSource = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options;
 				if (!string.IsNullOrWhiteSpace(module.HeadElement)
-					&& Global.SkinConfig.Display.ModuleTitleElementOptions.Contains(module.HeadElement, StringComparer.InvariantCultureIgnoreCase))
+					&& Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Contains(module.HeadElement, StringComparer.InvariantCultureIgnoreCase))
 				{
 					//this setting was an open text field in the past so we need to catch if the value is not in the list
 					try
@@ -166,10 +166,10 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				
 				void setTitleElementDefault()
 				{
-					if (!string.IsNullOrWhiteSpace(Global.SkinConfig.Display.ModuleTitleElement)
-					   && Global.SkinConfig.Display.ModuleTitleElementOptions.Contains(Global.SkinConfig.Display.ModuleTitleElement))
+					if (!string.IsNullOrWhiteSpace(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element)
+					   && Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Contains(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element))
 					{
-						ddlTitleElements.SelectedValue = Global.SkinConfig.Display.ModuleTitleElement;
+						ddlTitleElements.SelectedValue = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
 					}
 				}
 			}
@@ -869,7 +869,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 					if (divTitleElement.Visible)
 					{
-						var moduleTitleElement = Global.SkinConfig.Display.ModuleTitleElement;
+						var moduleTitleElement = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
 						if (divTitleElement.Visible)
 						{
 							moduleTitleElement = ddlTitleElements.SelectedValue;
@@ -1305,7 +1305,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 		divIncludeInSearch.Visible = module.FeatureGuid == HtmlContent.FeatureGuid;
 
-		divTitleElement.Visible = Global.SkinConfig.Display.EnableEditingModuleTitleElement && Global.SkinConfig.Display.ModuleTitleElementOptions.Count() > 1;
+		divTitleElement.Visible = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_AllowEditing && Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Count() > 1;
 
 		useSeparatePagesForRoles = Role.CountOfRoles(siteSettings.SiteId) >= WebConfigSettings.TooManyRolesForModuleSettings;
 		divRoles.Visible = !useSeparatePagesForRoles;

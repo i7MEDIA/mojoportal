@@ -772,6 +772,184 @@ public class PageSettings : IComparable
 		}
 
 		return result;
+		public void ResortPagesAlphabetically()
+		{
+			int i = 1;
+			DataTable dataTable = new DataTable();
+			using (IDataReader reader = PageSettings.GetChildPagesSortedAlphabetic(SiteId, PageId))
+			{
+				dataTable.Load(reader);
+			}
+
+			foreach (DataRow row in dataTable.Rows)
+			{
+				int pageID = Convert.ToInt32(row["PageID"]);
+				PageSettings.UpdatePageOrder(pageID, i);
+				i += 2;
+			}
+		}
+
+		public bool ContainsModule(int moduleId)
+		{
+			bool result = false;
+
+			foreach (Module m in Modules)
+			{
+				if (m.ModuleId == moduleId) result = true;
+			}
+
+			return result;
+		}
+
+		public bool ContainsModuleInProgress()
+		{
+			int count = ContentWorkflow.GetWorkInProgressCountByPage(this.PageGuid);
+			return (count > 0);
+		}
+
+		[Obsolete("This method is obsolete, use SiteUtils.GetCurrentPageUrl() instead", error: true)]
+		public string ResolveUrl(SiteSettings siteSettings)
+		{
+			if (siteSettings == null) return Url;
+			string resolvedUrl;
+			if (this.UseUrl)
+			{
+				if ((this.Url.StartsWith("~/")) && (this.Url.EndsWith(".aspx")))
+				{
+					if (UrlHasBeenAdjustedForFolderSites)
+					{
+						resolvedUrl = Url.Replace("~/", "/");
+					}
+					else
+					{
+						resolvedUrl = siteSettings.SiteRoot
+							+ Url.Replace("~/", "/");
+					}
+
+				}
+				else
+				{
+					resolvedUrl = Url;
+				}
+
+			}
+			else
+			{
+				resolvedUrl = siteSettings.SiteRoot
+					+ "/Default.aspx?pageid="
+					+ this.PageId.ToString();
+			}
+
+			return resolvedUrl;
+
+		}
+
+		public bool UpdateLastModifiedTime()
+		{
+			if (this.PageId == -1) return false;
+			return UpdateTimestamp(this.PageId, DateTime.UtcNow);
+
+		}
+
+		#endregion
+
+		#region Static Methods
+
+		public static IDataReader GetPageList(int siteId)
+		{
+			return DBPageSettings.GetPageList(siteId);
+		}
+
+		public static int GetCountChildPages(int parentPageId, bool includePending)
+		{
+			return DBPageSettings.GetCountChildPages(parentPageId, includePending);
+		}
+
+		public static IDataReader GetChildPagesSortedAlphabetic(int siteId, int parentId)
+		{
+			return DBPageSettings.GetChildPagesSortedAlphabetic(siteId, parentId);
+		}
+
+		public static IDataReader GetPendingPageListPage(Guid siteGuid, int pageNumber, int pageSize, out int totalPages)
+		{
+			return DBPageSettings.GetPendingPageListPage(siteGuid, pageNumber, pageSize, out totalPages);
+		}
+
+		public static bool UpdatePageOrder(int pageId, int pageOrder)
+		{
+			return DBPageSettings.UpdatePageOrder(pageId, pageOrder);
+		}
+
+		public static bool UpdateTimestamp(
+			int pageId,
+			DateTime lastModifiedUtc)
+		{
+			return DBPageSettings.UpdateTimestamp(pageId, lastModifiedUtc);
+		}
+
+		public static bool DeletePage(int pageId)
+		{
+			bool result = DBPageSettings.DeletePage(pageId);
+			DBPageSettings.CleanupOrphans();
+			return result;
+		}
+
+		public static int GetCountOfPages(int siteId)
+		{
+			return GetCount(siteId, true);
+
+		}
+
+		public static int GetCount(int siteId, bool includePending)
+		{
+			return DBPageSettings.GetCount(siteId, includePending);
+		}
+
+
+
+		public static int GetNextPageOrder(int siteId, int parentId)
+		{
+			return DBPageSettings.GetNextPageOrder(siteId, parentId);
+		}
+
+		//public static IDataReader GetChildPagesByPageId(int pageId) 
+		//{
+		//    return DBPageSettings.GetChildPages(pageId);
+		//}
+
+		public static bool Exists(Guid pageGuid)
+		{
+			bool result = false;
+			using (IDataReader reader = DBPageSettings.GetPage(pageGuid))
+			{
+				if (reader.Read())
+				{
+					result = true;
+				}
+			}
+
+			return result;
+
+		}
+
+
+
+		#endregion
+
+		#region Events
+
+		public event PageCreatedEventHandler PageCreated;
+
+		protected void OnPageCreated(PageCreatedEventArgs e)
+		{
+			if (PageCreated != null)
+			{
+				PageCreated(this, e);
+			}
+		}
+
+		#endregion
+
 	}
 
 	#endregion

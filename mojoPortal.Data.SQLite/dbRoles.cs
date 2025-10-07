@@ -315,7 +315,7 @@ FROM mp_UserRoles ur
 INNER JOIN mp_Users u ON ur.UserID = u.UserID
 INNER JOIN mp_Roles r ON ur.RoleID = r.RoleID
 WHERE u.SiteID = :SiteID
-AND (u.Name = :Username OR u.Email = :Username);";
+AND (u.LoginName = :Username OR u.Email = :Username);";
 
 			var arParams = new SqliteParameter[]
 			{

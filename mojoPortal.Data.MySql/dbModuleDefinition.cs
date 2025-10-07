@@ -655,28 +655,31 @@ md.FeatureName";
 
 		public static IDataReader GetSearchableModules(int siteId)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT md.* ");
-			sqlCommand.Append("FROM	mp_ModuleDefinitions md ");
+			var sqlCommand = """
+				SELECT md.*
+				FROM mp_ModuleDefinitions md
+				JOIN mp_SiteModuleDefinitions smd ON md.ModuleDefID = smd.ModuleDefID
+				WHERE smd.SiteID = ?SiteID
+				AND md.IsSearchable = 1
+				ORDER BY md.SortOrder, md.SearchListName;
+				""";
 
-			sqlCommand.Append("JOIN	mp_SiteModuleDefinitions smd  ");
-			sqlCommand.Append("ON md.ModuleDefID = smd.ModuleDefID  ");
-
-			sqlCommand.Append("WHERE smd.SiteID = ?SiteID AND md.IsAdmin = 0 AND md.IsSearchable = 1 ");
-			sqlCommand.Append("ORDER BY md.SortOrder, md.SearchListName ;");
-
-			MySqlParameter[] arParams = new MySqlParameter[1];
-
-			arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = siteId;
+			MySqlParameter[] arParams =
+			[
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+			];
 
 			return MySqlHelper.ExecuteReader(
 				ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString(),
-				arParams);
-
+				sqlCommand,
+				arParams
+			);
 		}
+
 
 		//public static void SyncDefinitions()
 		//{

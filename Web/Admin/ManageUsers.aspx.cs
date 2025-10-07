@@ -1242,13 +1242,10 @@ public partial class ManageUsers : NonCmsBasePage
 			txtPassword.TextMode = TextBoxMode.Password;
 		}
 
-
-
-		if (WebConfigSettings.UseRelatedSiteMode)
-		{
-			divTotalPosts.Visible = false;
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled || displaySettings.HidePostCount) 
+		{ 
+			divTotalPosts.Visible = false; 
 		}
-		if (displaySettings.HidePostCount) { divTotalPosts.Visible = false; }
 
 		commerceConfig = SiteUtils.GetCommerceConfig();
 		if (!commerceConfig.IsConfigured)

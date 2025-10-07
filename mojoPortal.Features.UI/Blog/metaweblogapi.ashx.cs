@@ -64,7 +64,7 @@ public class metaweblogapi : IHttpHandler
 				throw new MetaWeblogException("11", MetaweblogResources.MetaweblogApiDisabled);
 			}
 
-			if (WebConfigSettings.UseFolderBasedMultiTenants)
+			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
 				imageSiteRoot = WebUtils.GetSiteRoot();
@@ -1870,7 +1870,7 @@ public class metaweblogapi : IHttpHandler
 
 		if ((!isAdmin) && (!isContentAdmin))
 		{
-			if (WebConfigSettings.UseRelatedSiteMode)
+			if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 			{
 				isSiteEditor = siteUser.IsInRoles(siteSettings.SiteRootEditRoles);
 			}

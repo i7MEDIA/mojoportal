@@ -158,24 +158,26 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			return;
 		}
 
+		var moduleIdRenderString = string.Format(Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderFormat, ModuleInstance.ModuleId);
+
 		if (UseHeading && !string.IsNullOrWhiteSpace(topContent))
 		{
 			writer.Write(topContent);
 		}
 
-		if (!UseHeading && ModuleInstance is not null && Global.SkinConfig.Display.UseIdOnModuleTitle)
+		if (!UseHeading && ModuleInstance is not null && Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderLocation == Theming.ModuleDisplayOptions.ModuleIdRenderLocations.TitleElement)
 		{
 			// only need this when not rendering a heading element
-			writer.Write(Invariant($"<a id=\"module{ModuleInstance.ModuleId}\" class=\"moduleanchor\"></a>"));
+			writer.Write(Invariant($"<a id=\"{moduleIdRenderString}\" class=\"moduleanchor\"></a>"));
 		}
 
 		if (UseHeading && !string.IsNullOrWhiteSpace(element))
 		{
 			writer.WriteBeginTag(element);
 
-			if (ModuleInstance is not null && Global.SkinConfig.Display.UseIdOnModuleTitle)
+			if (ModuleInstance is not null && Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderLocation == Theming.ModuleDisplayOptions.ModuleIdRenderLocations.TitleElement)
 			{
-				writer.WriteAttribute("id", Invariant($"module{ModuleInstance.ModuleId}"));
+				writer.WriteAttribute("id", moduleIdRenderString);
 			}
 
 			writer.WriteAttribute("class", $"{cssClassToUse} moduletitle");
@@ -392,7 +394,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			return;
 		}
 
-		element = Global.SkinConfig.Display.ModuleTitleElement;
+		element = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
 
 		Initialize();
 
@@ -460,7 +462,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 
 		if (ModuleInstance is not null)
 		{
-			if (Global.SkinConfig.Display.EnableEditingModuleTitleElement)
+			if (Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_AllowEditing)
 			{
 				element = ModuleInstance.HeadElement;
 			}

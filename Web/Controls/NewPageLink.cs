@@ -67,7 +67,7 @@ public class NewPageLink : HyperLink
 			return true;
 		}
 
-		if (WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 			if (basePage.SiteInfo == null)
 			{

@@ -1,9 +1,10 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Text;
+using mojoPortal.Core.Extensions;
+using MySql.Data.MySqlClient;
 
 
 namespace mojoPortal.Data
@@ -1893,9 +1894,15 @@ namespace mojoPortal.Data
             sqlCommand.Append("u.LastName, ");
             sqlCommand.Append("u.LoginName, ");
             sqlCommand.Append("u.Email, ");
-            sqlCommand.Append("u.AvatarUrl ");
+            sqlCommand.Append("u.AvatarUrl, ");
+            sqlCommand.Append($"GROUP_CONCAT(c.Category SEPARATOR '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS Categories ");
 
-            sqlCommand.Append("FROM	mp_Blogs b ");
+			sqlCommand.Append("FROM	mp_Blogs b ");
+
+            sqlCommand.Append("""
+                join mp_BlogItemCategories ic on ic.ItemID = b.ItemID
+                join mp_BlogCategories c on c.CategoryID = ic.CategoryID
+                """);
 
             sqlCommand.Append("JOIN	mp_Modules m ");
             sqlCommand.Append("ON b.ModuleID = m.ModuleID ");
@@ -1915,9 +1922,78 @@ namespace mojoPortal.Data
             sqlCommand.Append("WHERE ");
             sqlCommand.Append("p.SiteID = ?SiteID ");
             sqlCommand.Append("AND pm.PageID = ?PageID ");
+			sqlCommand.AppendLine("""
+                GROUP BY 	
+                b.ItemID,
+                b.ModuleID,
+                b.CreatedByUser,
+                b.CreatedDate,
+                b.Title,
+                b.StartDate,
+                b.IsInNewsletter,
+                b.Description,
+                b.CommentCount,
+                b.TrackBackCount,
+                b.IncludeInFeed,
+                b.AllowCommentsForDays,
+                b.BlogGuid,
+                b.ModuleGuid,
+                b.Location,
+                b.UserGuid,
+                b.LastModUserGuid,
+                b.LastModUtc,
+                b.ItemUrl,
+                b.Heading,
+                b.MetaKeywords,
+                b.MetaDescription,
+                b.Abstract,
+                b.CompiledMeta,
+                b.IsPublished,
+                b.EndDate,
+                b.Approved,
+                b.ApprovedBy,
+                b.ApprovedDate,
+                b.SubTitle,
+                b.ShowAuthorName,
+                b.ShowAuthorAvatar,
+                b.ShowAuthorBio,
+                b.IncludeInSearch,
+                b.IncludeInSiteMap,
+                b.UseBingMap,
+                b.MapHeight,
+                b.MapWidth,
+                b.ShowMapOptions,
+                b.ShowZoomTool,
+                b.ShowLocationInfo,
+                b.UseDrivingDirections,
+                b.MapType,
+                b.MapZoom,
+                b.ShowDownloadLink,
+                b.ExcludeFromRecentContent,
+                b.IncludeInNews,
+                b.PubName,
+                b.PubLanguage,
+                b.PubAccess,
+                b.PubGenres,
+                b.PubKeyWords,
+                b.PubGeoLocations,
+                b.PubStockTickers,
+                b.HeadlineImageUrl,
+                b.IncludeImageInExcerpt,
+                b.IncludeImageInPost,
+                m.ModuleTitle,
+                m.ViewRoles,
+                md.FeatureName,
+                u.Name,
+                u.LoginName,
+                u.FirstName,
+                u.LastName,
+                u.Email,
+                u.AvatarUrl,
+                u.AuthorBio
+                """);
 
-            
-            sqlCommand.Append(" ; ");
+			sqlCommand.Append(" ; ");
 
             MySqlParameter[] arParams = new MySqlParameter[2];
 
@@ -1999,8 +2075,6 @@ ORDER BY
 
 		public static IDataReader GetSingleBlog(int itemId, DateTime currentTime)
         {
-            
-
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT  b.*, ");
 
@@ -2022,16 +2096,91 @@ ORDER BY
             sqlCommand.Append("u.LoginName, ");
             sqlCommand.Append("u.Email, ");
             sqlCommand.Append("u.AvatarUrl, ");
-            sqlCommand.Append("u.AuthorBio ");
+            sqlCommand.Append("u.AuthorBio, ");
+			sqlCommand.Append($"GROUP_CONCAT(c.Category SEPARATOR '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS Categories ");
 
             sqlCommand.Append("FROM	mp_Blogs b ");
 
-            sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
+			sqlCommand.Append("""
+                join mp_BlogItemCategories ic on ic.ItemID = b.ItemID 
+                join mp_BlogCategories c on c.CategoryID = ic.CategoryID 
+                """);
+
+			sqlCommand.Append("LEFT OUTER JOIN	mp_Users u ");
             sqlCommand.Append("ON b.UserGuid = u.UserGuid ");
 
-            sqlCommand.Append("WHERE b.ItemID = ?ItemID ; ");
-
-            MySqlParameter[] arParams = new MySqlParameter[2];
+            sqlCommand.Append("WHERE b.ItemID = ?ItemID  ");
+			sqlCommand.AppendLine("""
+                GROUP BY 	
+                b.ItemID,
+                b.ModuleID,
+                b.CreatedByUser,
+                b.CreatedDate,
+                b.Title,
+                b.StartDate,
+                b.IsInNewsletter,
+                b.Description,
+                b.CommentCount,
+                b.TrackBackCount,
+                b.IncludeInFeed,
+                b.AllowCommentsForDays,
+                b.BlogGuid,
+                b.ModuleGuid,
+                b.Location,
+                b.UserGuid,
+                b.LastModUserGuid,
+                b.LastModUtc,
+                b.ItemUrl,
+                b.Heading,
+                b.MetaKeywords,
+                b.MetaDescription,
+                b.Abstract,
+                b.CompiledMeta,
+                b.IsPublished,
+                b.EndDate,
+                b.Approved,
+                b.ApprovedBy,
+                b.ApprovedDate,
+                b.SubTitle,
+                b.ShowAuthorName,
+                b.ShowAuthorAvatar,
+                b.ShowAuthorBio,
+                b.IncludeInSearch,
+                b.IncludeInSiteMap,
+                b.UseBingMap,
+                b.MapHeight,
+                b.MapWidth,
+                b.ShowMapOptions,
+                b.ShowZoomTool,
+                b.ShowLocationInfo,
+                b.UseDrivingDirections,
+                b.MapType,
+                b.MapZoom,
+                b.ShowDownloadLink,
+                b.ExcludeFromRecentContent,
+                b.IncludeInNews,
+                b.PubName,
+                b.PubLanguage,
+                b.PubAccess,
+                b.PubGenres,
+                b.PubKeyWords,
+                b.PubGeoLocations,
+                b.PubStockTickers,
+                b.HeadlineImageUrl,
+                b.IncludeImageInExcerpt,
+                b.IncludeImageInPost,
+                m.ModuleTitle,
+                m.ViewRoles,
+                md.FeatureName,
+                u.Name,
+                u.LoginName,
+                u.FirstName,
+                u.LastName,
+                u.Email,
+                u.AvatarUrl,
+                u.AuthorBio;
+                """);
+			MySqlParameter[] arParams = new MySqlParameter[2];
 
             arParams[0] = new MySqlParameter("?ItemID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;

@@ -49,6 +49,7 @@
     <Compile Include="Caching.cs" />
     <Compile Include="Configuration\AppConfig.cs" />
     <Compile Include="Configuration\ConfigHelper.cs" />
+    <Compile Include="Configuration\MultiTenancy.cs" />
     <Compile Include="ExpressionBuilder.cs" />
     <Compile Include="Extensions\CollectionExtensions.cs" />
     <Compile Include="Extensions\HashtableExtensions.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\RoleStringHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Extensions\UnitSeparatorExtensions.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Helpers\XElementWithContext.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />

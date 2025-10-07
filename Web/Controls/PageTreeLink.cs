@@ -101,11 +101,13 @@ namespace mojoPortal.Web.UI
 
 			ToolTip = Resource.PageTreeTitle;
 
-			if (WebUser.IsAdminOrContentAdminOrRoleAdmin) {
+			if (WebUser.IsAdminOrContentAdminOrRoleAdmin) 
+			{
 				return true;
 			}
 
-			if (basePage.CurrentPage == null) {
+			if (basePage.CurrentPage == null) 
+			{
 				return false;
 			}
 
@@ -114,16 +116,19 @@ namespace mojoPortal.Web.UI
 				return true;
 			}
 
-			if (!WebConfigSettings.UseRelatedSiteMode) {
+			if (!AppConfig.MultiTenancy.RelatedSites.Enabled) 
+			{
 				return false;
 			}
 
-			if (basePage.SiteInfo == null) {
+			if (basePage.SiteInfo == null) 
+			{
 				return false;
 			}
 
 			// in related sites mode usersin site editors role can edit
-			if (WebUser.IsInRoles(basePage.SiteInfo.SiteRootEditRoles)) {
+			if (WebUser.IsInRoles(basePage.SiteInfo.SiteRootEditRoles)) 
+			{
 				return true;
 			}
 

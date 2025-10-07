@@ -37,7 +37,7 @@ namespace SuperFlexiUI
 			LoadParams();
 			LoadSettings();
 
-			if (!UserCanEditModule(moduleId, config.FeatureGuid) || !config.AllowImport)
+			if (!UserCanEditModule(moduleId, ModuleConfiguration.FeatureGuid) || !config.AllowImport)
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
 
@@ -139,7 +139,7 @@ namespace SuperFlexiUI
 							importedItem = new Item
 							{
 								SiteGuid = siteSettings.SiteGuid,
-								FeatureGuid = config.FeatureGuid,
+								FeatureGuid = ModuleConfiguration.FeatureGuid,
 								ModuleGuid = module.ModuleGuid,
 								ModuleID = module.ModuleId,
 								DefinitionGuid = config.FieldDefinitionGuid,

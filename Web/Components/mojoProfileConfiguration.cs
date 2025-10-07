@@ -327,7 +327,7 @@ public class mojoProfileConfiguration
 	{
 		var configFileName = string.Empty;
 
-		if (!WebConfigSettings.UseRelatedSiteMode)
+		if (!AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 
@@ -352,7 +352,7 @@ public class mojoProfileConfiguration
 	{
 		var cacheKey = "mojoProfileConfig";
 
-		if (!WebConfigSettings.UseRelatedSiteMode)
+		if (!AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
 			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
 			cacheKey += siteSettings.SiteId.ToInvariantString();

@@ -1,18 +1,7 @@
-// Author:
-// Created:       2007-11-03
-// Last Modified: 2017-07-18
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
 using System;
 using System.Data;
 using System.Globalization;
+using mojoPortal.Core.Extensions;
 
 namespace mojoPortal.Data
 {
@@ -38,10 +27,12 @@ namespace mojoPortal.Data
             DateTime beginDate,
             DateTime currentTime)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Blog_Select", 3);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Blog_Select", 4);
             sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
             sph.DefineSqlParameter("@BeginDate", SqlDbType.DateTime, ParameterDirection.Input, beginDate);
             sph.DefineSqlParameter("@CurrentTime", SqlDbType.DateTime, ParameterDirection.Input, currentTime);
+			sph.DefineSqlParameter("@UnitSeparator", SqlDbType.NVarChar, 1, ParameterDirection.Input, UnitSeparatorExtensions.UNIT_SEPARATOR);
+
             return sph.ExecuteReader();
         }
 
@@ -449,9 +440,10 @@ namespace mojoPortal.Data
 
         public static IDataReader GetBlogsByPage(int siteId, int pageId)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Blog_SelectByPage", 2);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Blog_SelectByPage", 3);
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
             sph.DefineSqlParameter("@PageID", SqlDbType.Int, ParameterDirection.Input, pageId);
+            sph.DefineSqlParameter("@UnitSeparator", SqlDbType.NVarChar, 1, ParameterDirection.Input, UnitSeparatorExtensions.UNIT_SEPARATOR);
             return sph.ExecuteReader();
         }
 

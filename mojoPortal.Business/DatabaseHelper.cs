@@ -2,6 +2,7 @@ using System.Collections;
 using System.Data;
 using System.Data.Common;
 using System.IO;
+using System.Runtime.CompilerServices;
 using log4net;
 using mojoPortal.Data;
 
@@ -21,7 +22,7 @@ public static class DatabaseHelper
 	/// Maintained/updated in code to make Setup run the new version upgrade script
 	/// </summary>
 	/// <returns>Version</returns>
-	public static Version AppCodeVersion() => new(2, 9, 2, 0);
+	public static Version AppCodeVersion() => new(2, 9, 2, 2);
 
 	public static Version SchemaVersion()
 	{
@@ -314,9 +315,9 @@ public static class DatabaseHelper
 
 	public static Guid GetApplicationId(string applicationName)
 	{
-		if (string.Equals(applicationName, "mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
+		if (string.Equals(applicationName, GetApplicationName(), StringComparison.InvariantCultureIgnoreCase))
 		{
-			return new Guid("077e4857-f583-488e-836e-34a4b04be855");
+			return GetApplicationId();
 		}
 
 		var appID = Guid.NewGuid();

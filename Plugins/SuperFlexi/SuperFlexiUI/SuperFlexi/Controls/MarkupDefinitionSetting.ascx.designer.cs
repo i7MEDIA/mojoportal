@@ -7,18 +7,38 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SuperFlexiUI {
-    
-    
-    public partial class MarkupDefinitionSetting {
-        
-        /// <summary>
-        /// ddDefinitions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddDefinitions;
-    }
+namespace SuperFlexiUI
+{
+
+
+	public partial class MarkupDefinitionSetting
+	{
+
+		/// <summary>
+		/// pnlDefinitions control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.UpdatePanel pnlDefinitions;
+
+		/// <summary>
+		/// ddDefinitions control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.DropDownList ddDefinitions;
+
+		/// <summary>
+		/// btnEnableChange control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnEnableChange;
+	}
 }

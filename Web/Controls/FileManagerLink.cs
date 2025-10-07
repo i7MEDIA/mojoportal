@@ -108,7 +108,7 @@ namespace mojoPortal.Web.UI
 				return false;
 			}
 
-			if ((!CacheHelper.GetCurrentSiteSettings().IsServerAdminSite) && (!WebConfigSettings.AllowFileManagerInChildSites))
+			if ((!CacheHelper.GetCurrentSiteSettings().IsServerAdminSite) && (!AppConfig.MultiTenancy.AllowFileManager))
 			{
 				return false;
 			}

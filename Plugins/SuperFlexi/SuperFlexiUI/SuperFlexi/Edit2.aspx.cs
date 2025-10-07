@@ -106,7 +106,7 @@ namespace SuperFlexiUI
 			LoadParams();
             LoadSettings();
 
-            if (!UserCanEditModule(moduleId, config.FeatureGuid))
+            if (!UserCanEditModule(moduleId, ModuleConfiguration.FeatureGuid))
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
 				return;
@@ -1291,7 +1291,7 @@ namespace SuperFlexiUI
 			if (item.ItemID == -1)
 			{
 				item.SiteGuid = siteSettings.SiteGuid;
-				item.FeatureGuid = config.FeatureGuid;
+				item.FeatureGuid = ModuleConfiguration.FeatureGuid;
 				item.ModuleGuid = module.ModuleGuid;
 				item.ModuleID = module.ModuleId;
 				item.DefinitionGuid = config.FieldDefinitionGuid;

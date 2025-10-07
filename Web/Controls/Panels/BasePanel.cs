@@ -91,11 +91,10 @@ public class BasePanel : Panel
 
 	protected override void Render(HtmlTextWriter writer)
 	{
-		if (this is OuterWrapperPanel 
-			&& this.Parent is SiteModuleControl parent 
-			&& !Global.SkinConfig.Display.UseIdOnModuleTitle)
+		if (this.Parent is SiteModuleControl parent 
+			&& Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderLocation == Theming.ModuleDisplayOptions.ModuleIdRenderLocations.WrappingDiv)
 		{
-			ID = Invariant($"module{parent.ModuleConfiguration.ModuleId}");
+			ID = Invariant($"{string.Format(Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderFormat, parent.ModuleConfiguration.ModuleId)}");
 			ClientIDMode = ClientIDMode.Static;
 		}
 		if (HttpContext.Current == null)

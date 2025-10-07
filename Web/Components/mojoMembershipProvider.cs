@@ -43,9 +43,9 @@ public class mojoMembershipProvider : MembershipProvider
 
 	private static SiteSettings GetSiteSettings()
 	{
-		if (WebConfigSettings.UseRelatedSiteMode)
+		if (AppConfig.MultiTenancy.RelatedSites.Enabled)
 		{
-			return CacheHelper.GetSiteSettings(WebConfigSettings.RelatedSiteID);
+			return CacheHelper.GetSiteSettings(AppConfig.MultiTenancy.RelatedSites.ParentSiteId);
 		}
 
 		return CacheHelper.GetCurrentSiteSettings();

@@ -44,15 +44,20 @@ namespace mojoPortal.Features
             //don't index pending/unpublished pages
             if (pageSettings.IsPending) { return; }
 
-            log.Info(Resources.EventCalResources.EventCalendarFeatureName + " indexing page - " + pageSettings.PageName);
+			var pageModules = PageModule.GetPageModules(pageSettings.PageId, CalendarEvent.FeatureGuid);
+
+			//only index pages with this feature
+			if (pageModules.Count == 0)
+			{
+				return;
+			}
+
+			log.Info($"{Resources.EventCalResources.EventCalendarFeatureName} indexing page - {pageSettings.PageName}");
 
             try
             {
-                Guid calendarFeatureGuid = new Guid("c5e6a5df-ac2a-43d3-bb7f-9739bc47194e");
-                ModuleDefinition calendarFeature = new ModuleDefinition(calendarFeatureGuid);
+                ModuleDefinition calendarFeature = new ModuleDefinition(CalendarEvent.FeatureGuid);
 
-                List<PageModule> pageModules
-                        = PageModule.GetPageModulesByPage(pageSettings.PageId);
 
                 DataTable dataTable = CalendarEvent.GetEventsByPage(pageSettings.SiteId, pageSettings.PageId);
 
@@ -62,10 +67,9 @@ namespace mojoPortal.Features
                     indexItem.SiteId = pageSettings.SiteId;
                     indexItem.PageId = pageSettings.PageId;
                     indexItem.PageName = pageSettings.PageName;
-                    indexItem.PageIndex = pageSettings.PageIndex;
                     indexItem.ViewRoles = pageSettings.AuthorizedRoles;
                     indexItem.ModuleViewRoles = row["ViewRoles"].ToString();
-                    indexItem.FeatureId = calendarFeatureGuid.ToString();
+                    indexItem.FeatureId = CalendarEvent.FeatureGuid.ToString();
                     indexItem.FeatureName = calendarFeature.FeatureName;
                     indexItem.FeatureResourceFile = calendarFeature.ResourceFile;
 
@@ -172,8 +176,8 @@ namespace mojoPortal.Features
                 //}
 
                 Module module = new Module(calendarEvent.ModuleId);
-                Guid calendarFeatureGuid = new Guid("c5e6a5df-ac2a-43d3-bb7f-9739bc47194e");
-                ModuleDefinition calendarFeature = new ModuleDefinition(calendarFeatureGuid);
+
+                ModuleDefinition calendarFeature = new ModuleDefinition(CalendarEvent.FeatureGuid);
 
                 // get list of pages where this module is published
                 List<PageModule> pageModules
@@ -202,7 +206,7 @@ namespace mojoPortal.Features
                     indexItem.ItemId = calendarEvent.ItemId;
                     indexItem.ModuleId = calendarEvent.ModuleId;
                     indexItem.ViewPage = "EventCalendar/EventDetails.aspx";
-                    indexItem.FeatureId = calendarFeatureGuid.ToString();
+                    indexItem.FeatureId = CalendarEvent.FeatureGuid.ToString();
                     indexItem.FeatureName = calendarFeature.FeatureName;
                     indexItem.FeatureResourceFile = calendarFeature.ResourceFile;
                     indexItem.ModuleTitle = module.ModuleTitle;

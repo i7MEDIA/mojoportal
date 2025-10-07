@@ -1,157 +1,119 @@
-// Author:					
-// Created:				    2007-09-01
-// Last Modified:			2009-07-19
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software. 
-
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
 using mojoPortal.Data;
 
-namespace mojoPortal.Business
+namespace mojoPortal.Business;
+
+/// <summary>
+/// This class represents an instance of a ContentModule published on
+/// a page. It is a bridge between page class and module class and corresponds
+/// to the mp_PageModules table
+/// </summary>
+public class PageModule
 {
-    /// <summary>
-    /// This class represents an instance of a ContentModule published on
-    /// a page. It is abridge between page class and module class and corresponds
-    /// to the mp_PageModules table
-    /// </summary>
-    public class PageModule
-    {
-        private int moduleID = -1;
-        private int pageID = -1;
-        private int moduleOrder = 999;
-        private string paneName = String.Empty;
-        private DateTime publishBeginDate = DateTime.MinValue;
-        private DateTime publishEndDate = DateTime.MaxValue;
-        private string moduleTitle = string.Empty;
-        private string pageName = string.Empty;
-        private string pageUrl = string.Empty;
+	public int ModuleId { get; private set; } = -1;
 
-        public int ModuleId
-        {
-            get { return moduleID; }
-        }
+	public Guid FeatureGuid { get; private set; } = Guid.Empty;
 
-        public int PageId
-        {
-            get { return pageID; }
-        }
+	public int PageId { get; private set; } = -1;
 
-        public int ModuleOrder
-        {
-            get { return moduleOrder; }
-        }
-        public string PaneName
-        {
-            get { return paneName; }
-        }
+	public int ModuleOrder { get; private set; } = 999;
+	public string PaneName { get; private set; } = String.Empty;
 
-        public DateTime PublishBeginDate
-        {
-            get { return publishBeginDate; }
+	public DateTime PublishBeginDate { get; private set; } = DateTime.MinValue;
 
-        }
+	public DateTime PublishEndDate { get; private set; } = DateTime.MaxValue;
 
-        public DateTime PublishEndDate
-        {
-            get { return publishEndDate; }
+	public string ModuleTitle { get; } = string.Empty;
 
-        }
+	public string PageName { get; private set; } = string.Empty;
 
-        public string ModuleTitle
-        {
-            get { return moduleTitle; }
-        }
+	public string PageUrl { get; private set; } = string.Empty;
 
-        public string PageName
-        {
-            get { return pageName; }
-        }
+	private static List<PageModule> LoadListFromReader(IDataReader reader)
+	{
+		List<PageModule> pageModules = new List<PageModule>();
 
-        public string PageUrl
-        {
-            get { return pageUrl; }
-        }
+		while (reader.Read())
+		{
+			var pageModule = new PageModule();
+			pageModule.ModuleId = Convert.ToInt32(reader["ModuleID"]);
+			pageModule.FeatureGuid = new Guid(reader["FeatureGuid"].ToString());
+			pageModule.PageId = Convert.ToInt32(reader["PageID"]);
+			pageModule.PaneName = reader["PaneName"].ToString();
+			pageModule.ModuleOrder = Convert.ToInt32(reader["ModuleOrder"]);
 
-        private static List<PageModule> LoadListFromReader(IDataReader reader)
-        {
-            List<PageModule> pageModules = new List<PageModule>();
+			if (reader["PublishBeginDate"] != DBNull.Value)
+			{
+				pageModule.PublishBeginDate
+					= Convert.ToDateTime(reader["PublishBeginDate"]);
+			}
 
-            while (reader.Read())
-            {
-                PageModule pageModule = new PageModule();
-                pageModule.moduleID = Convert.ToInt32(reader["ModuleID"]);
-                pageModule.pageID = Convert.ToInt32(reader["PageID"]);
-                pageModule.paneName = reader["PaneName"].ToString();
-                pageModule.moduleOrder = Convert.ToInt32(reader["ModuleOrder"]);
-                if (reader["PublishBeginDate"] != DBNull.Value)
-                {
-                    pageModule.publishBeginDate
-                        = Convert.ToDateTime(reader["PublishBeginDate"]);
-                }
+			if (reader["PublishEndDate"] != DBNull.Value)
+			{
+				pageModule.PublishEndDate
+					= Convert.ToDateTime(reader["PublishEndDate"]);
+			}
 
-                if (reader["PublishEndDate"] != DBNull.Value)
-                {
-                    pageModule.publishEndDate
-                        = Convert.ToDateTime(reader["PublishEndDate"]);
-                }
+			pageModule.PageName = reader["PageName"].ToString();
+			bool useUrl = Convert.ToBoolean(reader["UseUrl"]);
+			if (useUrl)
+			{
+				pageModule.PageUrl = reader["Url"].ToString();
+			}
+			else
+			{
+				pageModule.PageUrl = Invariant($"~/Default.aspx?pageid={pageModule.PageId}");
+			}
 
-                pageModule.pageName = reader["PageName"].ToString();
-                bool useUrl = Convert.ToBoolean(reader["UseUrl"]);
-                if (useUrl)
-                {
-                    pageModule.pageUrl = reader["Url"].ToString();
-                }
-                else
-                {
-                    pageModule.pageUrl = "~/Default.aspx?pageid=" + pageModule.pageID.ToString(CultureInfo.InvariantCulture);
-                }
+			pageModules.Add(pageModule);
+		}
 
-                pageModules.Add(pageModule);
-            }
-            
-            return pageModules;
-        }
+		return pageModules;
+	}
 
 
-        /// <summary>
-        /// Returns all PageModules for the given pageID
-        /// including un published ones
-        /// </summary>
-        public static List<PageModule> GetPageModulesByPage(int pageId)
-        {
-            List<PageModule> pageModules = new List<PageModule>();
+	/// <summary>
+	/// Returns all PageModules for the given pageId
+	/// including un published ones
+	/// </summary>
+	public static List<PageModule> GetPageModulesByPage(int pageId)
+	{
+		var pageModules = new List<PageModule>();
 
-            using (IDataReader reader = DBModule.PageModuleGetReaderByPage(pageId))
-            {
-                pageModules = LoadListFromReader(reader);
-            }
+		using (IDataReader reader = DBModule.PageModuleGetReaderByPage(pageId))
+		{
+			pageModules = LoadListFromReader(reader);
+		}
 
-            return pageModules;
-        }
+		return pageModules;
+	}
 
-        public static List<PageModule> GetPageModulesByModule(int moduleId)
-        {
-            List<PageModule> pageModules = new List<PageModule>();
+	/// <summary>
+	/// Returns all PageModules for the given pageId and featureGuid
+	/// including un published ones
+	/// </summary>
+	public static List<PageModule> GetPageModules(int pageId, Guid featureGuid)
+	{
+		var pageModules = new List<PageModule>();
 
-            using (IDataReader reader = DBModule.PageModuleGetReaderByModule(moduleId))
-            {
-                pageModules = LoadListFromReader(reader);
-                
-            }
+		using (IDataReader reader = DBModule.GetPageModules(pageId, featureGuid))
+		{
+			pageModules = LoadListFromReader(reader);
+		}
 
-            return pageModules;
-        }
+		return pageModules;
+	}
 
+	public static List<PageModule> GetPageModulesByModule(int moduleId)
+	{
+		var pageModules = new List<PageModule>();
 
+		using (IDataReader reader = DBModule.PageModuleGetReaderByModule(moduleId))
+		{
+			pageModules = LoadListFromReader(reader);
+		}
 
-    }
+		return pageModules;
+	}
 }

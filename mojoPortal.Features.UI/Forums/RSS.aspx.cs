@@ -240,7 +240,7 @@ namespace mojoPortal.Web.ForumUI
 
             //baseUrl = Request.Url.ToString().Replace("RSS.aspx", "Thread.aspx");
 
-            if (WebConfigSettings.UseFolderBasedMultiTenants)
+            if (AppConfig.MultiTenancy.UseFolders)
             {
                 navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
                 imageSiteRoot = WebUtils.GetSiteRoot();

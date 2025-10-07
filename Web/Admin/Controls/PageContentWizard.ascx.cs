@@ -13,7 +13,10 @@ namespace mojoPortal.Web.UI;
 public partial class PageContentWizard : UserControl
 {
 	private SiteSettings siteSettings = null;
-
+	private const string ROLES_ADMINISTRATORS = "admins";
+	private const string ROLES_CONTENTADMINISTRATORS = "contentadmins";
+	private const string ROLES_INHERITFROMPAGE = "inherit";
+	private const string ROLES_COPYFROMPAGE = "copy";
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		LoadSettings();
@@ -29,27 +32,28 @@ public partial class PageContentWizard : UserControl
 	{
 		BindFeatureList();
 
-		chkShowTitle.Checked = Global.SkinConfig.Display.ShowModuleTitlesByDefault;
+		chkShowTitle.Checked = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_ShowByDefault;
 
-		divTitleElement.Visible = Global.SkinConfig.Display.EnableEditingModuleTitleElement
-			&& Global.SkinConfig.Display.ModuleTitleElementOptions.Count() > 1;
+		divTitleElement.Visible = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_AllowEditing
+			&& Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Count() > 1;
 
 		if (divTitleElement.Visible)
 		{
-			ddlTitleElements.DataSource = Global.SkinConfig.Display.ModuleTitleElementOptions;
-			if (!string.IsNullOrWhiteSpace(Global.SkinConfig.Display.ModuleTitleElement)
-				&& Global.SkinConfig.Display.ModuleTitleElementOptions.Contains(Global.SkinConfig.Display.ModuleTitleElement))
+			ddlTitleElements.DataSource = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options;
+			if (!string.IsNullOrWhiteSpace(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element)
+				&& Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element_Options.Contains(Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element))
 			{
-				ddlTitleElements.SelectedValue = Global.SkinConfig.Display.ModuleTitleElement;
+				ddlTitleElements.SelectedValue = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
 			}
 			ddlTitleElements.DataBind();
 		}
 
 		ddlViewRoles.Items.Clear();
-		ddlViewRoles.Items.Add(new ListItem(Resource.InheritFromPage, "inherit") { Selected = true });
+		ddlViewRoles.Items.Add(new ListItem(Resource.InheritFromPage, ROLES_INHERITFROMPAGE) { Selected = true });
+		ddlViewRoles.Items.Add(new ListItem(Resource.CopyFromPage, ROLES_COPYFROMPAGE));
 		//ddlViewRoles.Items.Add(new ListItem(Resource.DefaultRootPageViewRoles, "default"));
-		ddlViewRoles.Items.Add(new ListItem(Resource.Role_Administrators, "admins"));
-		ddlViewRoles.Items.Add(new ListItem(Resource.Role_ContentAdministrators, "contentadmins"));
+		ddlViewRoles.Items.Add(new ListItem(Resource.Role_Administrators, ROLES_ADMINISTRATORS));
+		ddlViewRoles.Items.Add(new ListItem(Resource.Role_ContentAdministrators, ROLES_CONTENTADMINISTRATORS));
 	}
 	private void BindFeatureList()
 	{
@@ -88,13 +92,13 @@ public partial class PageContentWizard : UserControl
 		var CurrentPage = CacheHelper.GetCurrentPage();
 		var rolesString = ddlViewRoles.SelectedValue switch
 		{
-			"inherit" => CurrentPage.AuthorizedRoles,
-			"default" => siteSettings.DefaultRootPageViewRoles,
-			"admins" => "Admins;",
-			_ => string.Empty, //empty means all roles
+			ROLES_COPYFROMPAGE => CurrentPage.AuthorizedRoles,
+			ROLES_ADMINISTRATORS => $"{Role.AdministratorsRole};",
+			ROLES_CONTENTADMINISTRATORS => $"{Role.ContentAdministratorsRole};",
+			_ => new Module().ViewRoles, //get default from module definition
 		};
 
-		string moduleTitleElement = Global.SkinConfig.Display.ModuleTitleElement;
+		string moduleTitleElement = Global.SkinConfig.ModuleDisplayOptions.ModuleTitle_Element;
 		if (divTitleElement.Visible)
 		{
 			moduleTitleElement = ddlTitleElements.SelectedValue;

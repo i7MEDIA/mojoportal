@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categories.
+        /// </summary>
+        internal static string AdminIndexBrowserCategories {
+            get {
+                return ResourceManager.GetString("AdminIndexBrowserCategories", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear Filter.
         /// </summary>
         internal static string AdminIndexBrowserClearFilter {
@@ -939,6 +948,15 @@ namespace Resources {
         internal static string AttributeNotApplied {
             get {
                 return ResourceManager.GetString("AttributeNotApplied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        internal static string Author {
+            get {
+                return ResourceManager.GetString("Author", resourceCulture);
             }
         }
         
@@ -2973,6 +2991,15 @@ namespace Resources {
         internal static string ContentWizardInstructions {
             get {
                 return ResourceManager.GetString("ContentWizardInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy from page.
+        /// </summary>
+        internal static string CopyFromPage {
+            get {
+                return ResourceManager.GetString("CopyFromPage", resourceCulture);
             }
         }
         
@@ -6703,7 +6730,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inherit from Page.
+        ///   Looks up a localized string similar to Inherit from page.
         /// </summary>
         internal static string InheritFromPage {
             get {
@@ -14731,7 +14758,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For.
+        ///   Looks up a localized string similar to for.
         /// </summary>
         internal static string SearchResultsForLabel {
             get {
