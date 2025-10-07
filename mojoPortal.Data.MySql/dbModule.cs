@@ -687,6 +687,7 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.ModuleTitle, ");
+			sqlCommand.Append("m.FeatureGuid,");
 			sqlCommand.Append("p.PageName, ");
 			sqlCommand.Append("p.UseUrl, ");
 			sqlCommand.Append("p.Url ");
@@ -723,6 +724,7 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.ModuleTitle, ");
+			sqlCommand.Append("m.FeatureGuid,");
 			sqlCommand.Append("p.PageName, ");
 			sqlCommand.Append("p.UseUrl, ");
 			sqlCommand.Append("p.Url ");

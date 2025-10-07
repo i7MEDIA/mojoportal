@@ -613,6 +613,7 @@ namespace mojoPortal.Data
 
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.moduletitle, ");
+			sqlCommand.Append("m.featureguid, ");
 			sqlCommand.Append("p.pagename, ");
 			sqlCommand.Append("p.useurl, ");
 			sqlCommand.Append("p.url ");
@@ -652,6 +653,7 @@ namespace mojoPortal.Data
 
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.moduletitle, ");
+			sqlCommand.Append("m.featureguid, ");
 			sqlCommand.Append("p.pagename, ");
 			sqlCommand.Append("p.useurl, ");
 			sqlCommand.Append("p.url ");
