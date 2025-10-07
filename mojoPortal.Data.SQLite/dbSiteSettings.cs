@@ -1,25 +1,9 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2019-04-04
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Web;
-using Mono.Data.Sqlite;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Text;
+using Mono.Data.Sqlite;
 
 namespace mojoPortal.Data
 {
@@ -2017,18 +2001,24 @@ namespace mojoPortal.Data
         {
             int siteId = -1;
 
-            StringBuilder sqlCommand = new StringBuilder();
-            SqliteParameter[] arParams = new SqliteParameter[1];
+			SqliteParameter[] arParams =
+			[
+				new SqliteParameter(":HostName", DbType.String, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = hostName
+				},
+			];
 
-            arParams[0] = new SqliteParameter(":HostName", DbType.String, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = hostName;
+			var sqlCommand = """
+                SELECT COALESCE(
+                	(SELECT SiteID FROM mp_SiteHosts WHERE HostName = :HostName LIMIT 1),
+                	(SELECT SiteID FROM mp_Sites WHERE IsServerAdminSite = 1 ORDER BY SiteID LIMIT 1),
+                	(SELECT SiteID FROM mp_Sites ORDER BY SiteID LIMIT 1)
+                ) AS SiteID
+                """;
 
-            sqlCommand.Append("SELECT mp_SiteHosts.SiteID As SiteID ");
-            sqlCommand.Append("FROM mp_SiteHosts ");
-            sqlCommand.Append("WHERE mp_SiteHosts.HostName = :HostName ;");
-
-            using (IDataReader reader = SqliteHelper.ExecuteReader(
+			using (IDataReader reader = SqliteHelper.ExecuteReader(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -2037,55 +2027,40 @@ namespace mojoPortal.Data
                 {
                     siteId = Convert.ToInt32(reader["SiteID"]);
                 }
-            }
-
-            if (siteId == -1)
-            {
-
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("SELECT SiteID ");
-                sqlCommand.Append("FROM	mp_Sites ");
-                sqlCommand.Append("ORDER BY	SiteID ");
-                sqlCommand.Append("LIMIT 1 ;");
-
-                using (IDataReader reader = SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                null))
-                {
-                    if (reader.Read())
-                    {
-                        siteId = Convert.ToInt32(reader["SiteID"]);
-                    }
-                }
-
             }
 
             return siteId;
-
         }
 
-        public static int GetSiteIdByFolder(string folderName)
+        public static int GetSiteIdByFolder(string folderName, bool legacy = false)
         {
             int siteId = -1;
 
-            StringBuilder sqlCommand = new StringBuilder();
-            SqliteParameter[] arParams = new SqliteParameter[1];
+			SqliteParameter[] arParams =
+			[
+				new(":FolderName", DbType.String, 255) { Direction = ParameterDirection.Input, Value = folderName }
+            ];
 
-            arParams[0] = new SqliteParameter(":FolderName", DbType.String, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = folderName;
+			var siteFoldersSelect = "SELECT SiteID FROM mp_SiteFolders WHERE FolderName = :FolderName LIMIT 1";
 
-            sqlCommand.Append("SELECT COALESCE(s.SiteID, -1) As SiteID ");
-            sqlCommand.Append("FROM mp_SiteFolders sf ");
-            sqlCommand.Append("JOIN mp_Sites s ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("sf.SiteGuid = s.SiteGuid ");
-            sqlCommand.Append("WHERE sf.FolderName = :FolderName ");
-            sqlCommand.Append("ORDER BY s.SiteID ");
-            sqlCommand.Append(";");
+			if (legacy)
+			{
+				siteFoldersSelect = """
+                    	SELECT s.SiteID FROM mp_SiteFolders sf
+                            JOIN mp_Sites s ON s.SiteGuid = sf.SiteGuid
+                            WHERE sf.FolderName = :FolderName LIMIT 1
+                    """;
+			}
 
-            using (IDataReader reader = SqliteHelper.ExecuteReader(
+			var sqlCommand = $"""
+                SELECT COALESCE(
+                	({siteFoldersSelect}),
+                	(SELECT SiteID FROM mp_Sites WHERE IsServerAdminSite = 1 ORDER BY SiteID LIMIT 1),
+                	(SELECT SiteID FROM mp_Sites ORDER BY SiteID LIMIT 1)
+                ) AS SiteID
+                """;
+
+			using (IDataReader reader = SqliteHelper.ExecuteReader(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams))
@@ -2094,28 +2069,6 @@ namespace mojoPortal.Data
                 {
                     siteId = Convert.ToInt32(reader["SiteID"]);
                 }
-            }
-
-            if (siteId == -1)
-            {
-
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("SELECT SiteID ");
-                sqlCommand.Append("FROM	mp_Sites ");
-                sqlCommand.Append("ORDER BY	SiteID ");
-                sqlCommand.Append("LIMIT 1 ;");
-
-                using (IDataReader reader = SqliteHelper.ExecuteReader(
-                GetConnectionString(),
-                sqlCommand.ToString(),
-                null))
-                {
-                    if (reader.Read())
-                    {
-                        siteId = Convert.ToInt32(reader["SiteID"]);
-                    }
-                }
-
             }
 
             return siteId;
@@ -2139,31 +2092,31 @@ namespace mojoPortal.Data
 				sqlCommand.ToString(),
 				arParams));
 
-			return (count > 0);
-
+			return count > 0;
 		}
 
 		public static void UpdateSkinVersionGuidForAllSites()
 		{
-			var sqlCommand = $@"UPDATE mp_SiteSettingsEx
-				SET KeyValue = :NewGuid
-				WHERE KeyName = 'SkinVersion'
-				AND GroupName = 'Settings';";
+			var sqlCommand = """
+				UPDATE mp_SiteSettingsEx
+					SET KeyValue = :NewGuid
+					WHERE KeyName = 'SkinVersion'
+					AND GroupName = 'Settings';
+				""";
 
-			List<SqliteParameter> sqlParams = new List<SqliteParameter>
-			{
-				new SqliteParameter(":NewGuid", DbType.String, 36)
+			SqliteParameter[] sqlParams = 
+			[
+				new (":NewGuid", DbType.String, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = Guid.NewGuid().ToString()
 				}
-			};
+			];
 
 			SqliteHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
-				sqlParams.ToArray());
+				sqlParams);
 		}
-
 	}
 }

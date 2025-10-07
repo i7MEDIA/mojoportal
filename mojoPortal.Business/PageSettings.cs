@@ -783,7 +783,7 @@ namespace mojoPortal.Business
 			return (count > 0);
 		}
 
-		[Obsolete("This method is obsolete, use SiteUtils.GetCurrentPageUrl() instead")]
+		[Obsolete("This method is obsolete, use SiteUtils.GetCurrentPageUrl() instead", error: true)]
 		public string ResolveUrl(SiteSettings siteSettings)
 		{
 			if (siteSettings == null) return Url;

@@ -1,31 +1,11 @@
 using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
 using System.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Web;
+using System.Data;
+using System.Text;
 using Mono.Data.Sqlite;
 
 namespace mojoPortal.Data
 {
-    // <summary>
-    /// Author:					
-    /// Created:				2007-11-03
-    /// Last Modified:			2008-02-02
-    /// 
-    /// The use and distribution terms for this software are covered by the 
-    /// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-    /// which can be found in the file CPL.TXT at the root of this distribution.
-    /// By using this software in any fashion, you are agreeing to be bound by 
-    /// the terms of this license.
-    ///
-    /// You must not remove this notice, or any other, from this software.
-    /// 
-    /// Note moved into separate class file from dbPortal 2007-11-03
-    /// 
-    /// </summary>
     public static class DBSiteFolder
     {
         
@@ -46,83 +26,74 @@ namespace mojoPortal.Data
             return connectionString;
         }
 
-        
-
-        public static int Add(
-            Guid guid,
-            Guid siteGuid,
-            string folderName)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_SiteFolders (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("FolderName )");
-
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append(":Guid, ");
-            sqlCommand.Append(":SiteGuid, ");
-            sqlCommand.Append(":FolderName );");
-
-            SqliteParameter[] arParams = new SqliteParameter[3];
-
-            arParams[0] = new SqliteParameter(":Guid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            arParams[1] = new SqliteParameter(":SiteGuid", DbType.String, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
-
-            arParams[2] = new SqliteParameter(":FolderName", DbType.String, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = folderName;
 
 
-            int rowsAffected = 0;
-            rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-            return rowsAffected;
+		public static int Add(Guid guid, Guid siteGuid, int siteId, string folderName)
+		{
+			SqliteParameter[] arParams =
+			[
+				new SqliteParameter(":Guid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = guid.ToString()
+				},
+				new SqliteParameter(":SiteGuid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				},
+				new SqliteParameter(":FolderName", DbType.String, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = folderName
+				},
+				new SqliteParameter(":SiteID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+			];
 
-        }
+			var sqlCommand = """
+                INSERT INTO mp_SiteFolders (Guid, SiteGuid, FolderName, SiteID)
+                VALUES (:Guid, :SiteGuid, :FolderName, :SiteID);
+            """;
 
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
 
-        public static bool Update(
-            Guid guid,
-            Guid siteGuid,
-            string folderName)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("UPDATE mp_SiteFolders ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("SiteGuid = :SiteGuid, ");
-            sqlCommand.Append("FolderName = :FolderName ");
-
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("Guid = :Guid ;");
-
-            SqliteParameter[] arParams = new SqliteParameter[3];
-
-            arParams[0] = new SqliteParameter(":Guid", DbType.String, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            arParams[1] = new SqliteParameter(":SiteGuid", DbType.String, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
-
-            arParams[2] = new SqliteParameter(":FolderName", DbType.String, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = folderName;
-
-
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
-            return (rowsAffected > -1);
-
-        }
+			return rowsAffected;
+		}
 
 
-        public static bool Delete(Guid guid)
+		public static bool Update(Guid guid, string folderName)
+		{
+			SqliteParameter[] arParams =
+			[
+				new SqliteParameter(":Guid", DbType.String, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = guid.ToString()
+				},
+				new SqliteParameter(":FolderName", DbType.String, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = folderName
+				},
+			];
+
+			var sqlCommand = """
+                UPDATE mp_SiteFolders 
+                SET FolderName = :FolderName
+                WHERE Guid = :Guid ;
+                """;
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(GetConnectionString(), sqlCommand.ToString(), arParams);
+
+			return (rowsAffected > -1);
+		}
+
+
+		public static bool Delete(Guid guid)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("DELETE FROM mp_SiteFolders ");

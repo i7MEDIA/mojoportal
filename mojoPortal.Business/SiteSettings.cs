@@ -1,5 +1,6 @@
 using System.Configuration;
 using System.Data;
+using System.Data.Common;
 using System.Globalization;
 using log4net;
 using mojoPortal.Core.Configuration;
@@ -670,7 +671,7 @@ public class SiteSettings
 			{
 				return siteRoot.EndsWith("/")
 						   ? siteRoot + siteFolderName
-						   : siteRoot + "/" + siteFolderName;
+						   : siteRoot + "/" + siteFolderName;	
 			}
 			return siteRoot;
 		}
@@ -2735,7 +2736,19 @@ public class SiteSettings
 
 	public static int GetSiteIdByFolder(string folderName)
 	{
-		return DBSiteSettings.GetSiteIdByFolder(folderName);
+		//mojo 2.9.2.2 included updates to more efficiently retrieve the SiteId of sites from the mp_SiteFolders table.
+		//this change required changes to the table itself but mojo needs the information from table when the site first starts
+		//and it's not there until after setup has ran. So, we will catch the error and use the legacy sql statment, which joins the
+		//mp_Sites table. Once setup has ran, the schema will be available and the error will not reoccur. An alternative work-around
+		//would be for the site owner to set MultiTenancy:Mode=HostName in the user.config, run setup, and then set MultiTenancy:Mode=Folder.
+		try
+		{
+			return DBSiteSettings.GetSiteIdByFolder(folderName, legacy: false);
+		}
+		catch (DbException)
+		{
+			return DBSiteSettings.GetSiteIdByFolder(folderName, legacy: true);
+		}
 	}
 
 	public static bool HostNameExists(string hostName)

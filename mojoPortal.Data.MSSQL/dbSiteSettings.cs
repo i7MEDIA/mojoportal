@@ -1,31 +1,10 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2019-01-07
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
-
 using System;
-using System.IO;
-using System.Text;
 using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Configuration;
-
 
 namespace mojoPortal.Data
-{
-    
+{    
     public static class DBSiteSettings
     {
-
         public static int Create(
             Guid siteGuid,
             String siteName,
@@ -535,13 +514,31 @@ namespace mojoPortal.Data
 
         }
 
-        public static int GetSiteIdByFolder(string folderName)
+        public static int GetSiteIdByFolder(string folderName, bool legacy = false)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_SiteFolders_SelectSiteIdByFolder", 1);
-            sph.DefineSqlParameter("@FolderName", SqlDbType.NVarChar, 255, ParameterDirection.Input, folderName);
+			var siteFoldersSelect = "SELECT TOP(1) SiteID FROM mp_SiteFolders WHERE FolderName = @FolderName";
 
-            return Convert.ToInt32(sph.ExecuteScalar());
+			if (legacy)
+			{
+				siteFoldersSelect = """
+                    	SELECT TOP(1) s.SiteID FROM mp_SiteFolders sf
+                            JOIN mp_Sites s ON s.SiteGuid = sf.SiteGuid
+                            WHERE sf.FolderName = @FolderName 
+                    """;
+			}
 
+			var sqlCommand = $"""
+                SELECT COALESCE(
+                	({siteFoldersSelect}),
+                	(SELECT TOP(1) SiteID FROM mp_Sites WHERE IsServerAdminSite = 1 ORDER BY SiteID),
+                	(SELECT TOP(1) SiteID FROM mp_Sites ORDER BY SiteID)
+                ) AS SiteID
+                """;
+
+			var sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), sqlCommand, CommandType.Text, 1);
+			sph.DefineSqlParameter("@FolderName", SqlDbType.NVarChar, 255, ParameterDirection.Input, folderName);
+			
+			return Convert.ToInt32(sph.ExecuteScalar());
         }
 
 		public static bool HostNameExists(string hostName)

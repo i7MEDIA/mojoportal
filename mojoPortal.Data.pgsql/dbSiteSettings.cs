@@ -1352,165 +1352,131 @@ namespace mojoPortal.Data
 
         }
 
-        public static int GetSiteIdByHostName(string hostName)
-        {
-            int siteId = -1;
+		public static int GetSiteIdByHostName(string hostName)
+		{
+			int siteId = -1;
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT siteid ");
-            sqlCommand.Append("FROM	mp_sitehosts ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("hostname = :hostname ");
-            sqlCommand.Append(";");
-
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-            arParams[0] = new NpgsqlParameter(":hostname", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = hostName;
-
-            using (IDataReader reader = NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                arParams))
-            {
-                if (reader.Read())
+			NpgsqlParameter[] arParams =
+            [
+                new NpgsqlParameter(":hostname", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
                 {
-                    siteId = Convert.ToInt32(reader["SiteID"]);
-                }
+	                Direction = ParameterDirection.Input,
+	                Value = hostName
+                },
+			];
 
+			var sqlCommand = """
+                select coalesce(
+                	(select siteid from mp_sitehosts where hostname = :hostname limit 1),
+                	(select siteid from mp_sites where isserveradminsite = true order by siteid limit 1),
+                	(select siteid from mp_sites order by siteid limit 1)
+                ) as siteid
+                """;
+
+				using (IDataReader reader = NpgsqlHelper.ExecuteReader(
+	                ConnectionString.GetReadConnectionString(),
+	                CommandType.Text,
+	                sqlCommand,
+	                arParams))
+				{
+					if (reader.Read())
+					{
+						siteId = Convert.ToInt32(reader["SiteID"]);
+					}
+				}
+
+			return siteId;
+		}
+
+		public static int GetSiteIdByFolder(string folderName, bool legacy = false)
+		{
+			int siteId = -1;
+
+    		NpgsqlParameter[] arParams =
+			[
+				new NpgsqlParameter(":foldername", NpgsqlTypes.NpgsqlDbType.Varchar, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = folderName
+				},
+			];
+
+            var siteFoldersSelect = "SELECT siteid FROM mp_sitefolders WHERE foldername = :foldername LIMIT 1";
+
+            if (legacy)
+            {
+				siteFoldersSelect = """
+                    	SELECT s.siteid FROM mp_siteFolders sf
+                            JOIN mp_sites s ON s.siteguid = sf.siteguid
+                            WHERE sf.foldername = :foldername LIMIT 1
+                    """;
             }
 
-            if (siteId == -1)
-            {
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("SELECT siteid ");
-                sqlCommand.Append("FROM	mp_sites ");
+			var sqlCommand = $"""
+                SELECT COALESCE(
+                	({siteFoldersSelect}),
+                	(SELECT siteid FROM mp_sites WHERE isserveradminsite = true ORDER BY siteid LIMIT 1),
+                	(SELECT siteid FROM mp_sites ORDER BY siteid LIMIT 1)
+                ) AS siteid
+                """;
 
-                sqlCommand.Append("ORDER BY	siteid ");
-                sqlCommand.Append("LIMIT 1 ;");
+			using (IDataReader reader = NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				arParams))
+			{
+				if (reader.Read())
+				{
+					siteId = Convert.ToInt32(reader["SiteID"]);
+				}
+			}
 
-                using (IDataReader reader = NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                null))
-                {
-                    if (reader.Read())
-                    {
-                        siteId = Convert.ToInt32(reader["SiteID"]);
-                    }
+			return siteId;
+		}
 
-                }
-
-            }
-
-
-            return siteId;
-        }
-
-        public static int GetSiteIdByFolder(string folderName)
-        {
-            int siteId = -1;
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("SELECT COALESCE(s.siteid, -1) AS siteid ");
-            sqlCommand.Append("FROM	mp_sitefolders sf ");
-            
-            sqlCommand.Append("JOIN mp_sites s ");
-            sqlCommand.Append("ON ");
-            sqlCommand.Append("sf.siteguid = s.siteguid ");
-            sqlCommand.Append("WHERE ");
-            sqlCommand.Append("sf.foldername = :foldername ");
-            sqlCommand.Append("ORDER BY s.siteid ");
-            sqlCommand.Append(";");
-
-            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-            arParams[0] = new NpgsqlParameter(":foldername", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = folderName;
-
-            using (IDataReader reader = NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                arParams))
-            {
-                if (reader.Read())
-                {
-                    siteId = Convert.ToInt32(reader["SiteID"]);
-                }
-
-            }
-
-            if (siteId == -1)
-            {
-                sqlCommand = new StringBuilder();
-                sqlCommand.Append("SELECT siteid ");
-                sqlCommand.Append("FROM	mp_sites ");
-
-                sqlCommand.Append("ORDER BY	siteid ");
-                sqlCommand.Append("LIMIT 1 ;");
-
-                using (IDataReader reader = NpgsqlHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.Text,
-                sqlCommand.ToString(),
-                null))
-                {
-                    if (reader.Read())
-                    {
-                        siteId = Convert.ToInt32(reader["SiteID"]);
-                    }
-
-                }
-
-            }
-
-            return siteId;
-        }
 		public static bool HostNameExists(string hostName)
 		{
-			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-			arParams[0] = new NpgsqlParameter(":hostname", NpgsqlTypes.NpgsqlDbType.Text, 50);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = hostName;
-
+			NpgsqlParameter[] arParams =
+			[
+				new NpgsqlParameter(":hostname", NpgsqlTypes.NpgsqlDbType.Text, 50)
+				{
+					Direction = ParameterDirection.Input,
+					Value = hostName
+				},
+			];
 			int count = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
 				ConnectionString.GetReadConnectionString(),
 				CommandType.StoredProcedure,
 				"mp_sitehosts_exists(:hostname)",
 				arParams));
 
-			return (count > 0);
-
+			return count > 0;
 		}
 
 		public static void UpdateSkinVersionGuidForAllSites()
 		{
-			var sqlCommand = $@"UPDATE mp_sitesettingsex
-				SET keyvalue = :newguid
-				WHERE keyname = 'SkinVersion'
-				AND groupname = 'Settings';";
+			var sqlCommand = """
+				UPDATE mp_sitesettingsex
+					SET keyvalue = :newguid
+					WHERE keyname = 'SkinVersion'
+					AND groupname = 'Settings';
+				""";
 
-			List<NpgsqlParameter> sqlParams = new List<NpgsqlParameter>
-			{
-				new NpgsqlParameter(":newguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
+			NpgsqlParameter[] sqlParams = 
+			[
+				new(":newguid", NpgsqlTypes.NpgsqlDbType.Char, 36)
 				{
 					Direction = ParameterDirection.Input,
 					Value = Guid.NewGuid().ToString()
 				}
-			};
+			];
 
 			NpgsqlHelper.ExecuteScalar(
 				ConnectionString.GetWriteConnectionString(),
 				CommandType.Text,
 				sqlCommand,
-				sqlParams.ToArray());
+				sqlParams);
 		}
-
 	}
 }
