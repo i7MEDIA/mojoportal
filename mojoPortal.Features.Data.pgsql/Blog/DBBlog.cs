@@ -1,23 +1,10 @@
-﻿// Author:					
-// Created:				    2007-11-03
-// Last Modified:			2017-06-07
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 
-// Note moved into separate class file from dbPortal 2007-11-03
-
-using Npgsql;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.Text;
+using mojoPortal.Core.Extensions;
+using Npgsql;
 
 namespace mojoPortal.Data
 {
@@ -1895,11 +1882,15 @@ namespace mojoPortal.Data
             sqlCommand.Append("u.lastname, ");
             sqlCommand.Append("u.loginname, ");
             sqlCommand.Append("u.email, ");
-            sqlCommand.Append("u.avatarurl ");
+            sqlCommand.Append("u.avatarurl, ");
+			sqlCommand.Append($"string_agg(c.category, '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS categories ");
 
             sqlCommand.Append("FROM	mp_blogs b ");
-
-            sqlCommand.Append("JOIN	mp_modules m ");
+			sqlCommand.Append("""
+                join mp_blogitemcategories ic on ic.itemid = b.itemid 
+                join mp_blogcategories c on c.categoryid = ic.categoryid 
+                """);
+			sqlCommand.Append("JOIN	mp_modules m ");
             sqlCommand.Append("ON b.moduleid = m.moduleid ");
 
             sqlCommand.Append("JOIN	mp_moduledefinitions md ");
@@ -1995,9 +1986,14 @@ namespace mojoPortal.Data
             sqlCommand.Append("u.loginname, ");
             sqlCommand.Append("u.email, ");
             sqlCommand.Append("u.avatarurl, ");
-            sqlCommand.Append("u.authorbio ");
+            sqlCommand.Append("u.authorbio, ");
+			sqlCommand.Append($"string_agg(c.category, '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS categories ");
 
             sqlCommand.Append("FROM	mp_blogs b ");
+			sqlCommand.Append("""
+                join mp_blogitemcategories ic on ic.itemid = b.itemid 
+                join mp_blogcategories c on c.categoryid = ic.categoryid 
+                """);
 
             sqlCommand.Append("LEFT OUTER JOIN	mp_users u ");
             sqlCommand.Append("ON b.userguid = u.userguid ");

@@ -1,25 +1,10 @@
-﻿// Author:					
-// Created:				    2007-11-03
-// Last Modified:			2017-06-07
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-// 
-// Note moved into separate class file from dbPortal 2007-11-03
-
-
-using mojoPortal.Core.Extensions;
-using Mono.Data.Sqlite;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.Text;
+using mojoPortal.Core.Extensions;
+using Mono.Data.Sqlite;
 
 namespace mojoPortal.Data
 {
