@@ -36,14 +36,19 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 			return;
 		}
 
+		var pageModules = PageModule.GetPageModules(pageSettings.PageId, Forum.FeatureGuid);
+
+		//only index pages with this feature
+		if (pageModules.Count == 0)
+		{
+			return;
+		}
+
 		log.Info($"{Resources.ForumResources.ForumsFeatureName} indexing page - {pageSettings.PageName}");
 
 		try
 		{
-			var pageModules = PageModule.GetPageModulesByPage(pageSettings.PageId);
-
-			var forumFeatureGuid = new Guid("38aa5a84-9f5c-42eb-8f4c-105983d419fb");
-			var forumFeature = new ModuleDefinition(forumFeatureGuid);
+			var forumFeature = new ModuleDefinition(Forum.FeatureGuid);
 
 			// new implementation 2012-05-22: get threads by page, then for each thread concat the posts into one item for indexing
 			// previously were indexing individual posts but this makes multiple results in search results for the same thread
@@ -74,7 +79,7 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 						PageName = pageSettings.PageName,
 						ViewRoles = pageSettings.AuthorizedRoles,
 						ModuleViewRoles = row["ViewRoles"].ToString(),
-						FeatureId = forumFeatureGuid.ToString(),
+						FeatureId = Forum.FeatureGuid.ToString(),
 						FeatureName = forumFeature.FeatureName,
 						FeatureResourceFile = forumFeature.ResourceFile,
 						ItemId = Convert.ToInt32(row["ItemID"]),
@@ -136,7 +141,7 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 						PageName = pageSettings.PageName,
 						ViewRoles = pageSettings.AuthorizedRoles,
 						ModuleViewRoles = row["ViewRoles"].ToString(),
-						FeatureId = forumFeatureGuid.ToString(),
+						FeatureId = Forum.FeatureGuid.ToString(),
 						FeatureName = forumFeature.FeatureName,
 						FeatureResourceFile = forumFeature.ResourceFile,
 						ItemId = Convert.ToInt32(row["ItemID"]),
@@ -235,8 +240,7 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 
 		var forum = new Forum(forumThread.ForumId);
 		var module = new Module(forum.ModuleId);
-		var forumFeatureGuid = new Guid("38aa5a84-9f5c-42eb-8f4c-105983d419fb");
-		var forumFeature = new ModuleDefinition(forumFeatureGuid);
+		var forumFeature = new ModuleDefinition(Forum.FeatureGuid);
 
 		// get list of pages where this module is published
 		var pageModules = PageModule.GetPageModulesByModule(forum.ModuleId);
@@ -265,7 +269,7 @@ public class ForumThreadIndexBuilderProvider : IndexBuilderProvider
 				ItemId = forumThread.ForumId,
 				ModuleId = forum.ModuleId,
 				ModuleTitle = module.ModuleTitle,
-				FeatureId = forumFeatureGuid.ToString(),
+				FeatureId = Forum.FeatureGuid.ToString(),
 				FeatureName = forumFeature.FeatureName,
 				FeatureResourceFile = forumFeature.ResourceFile,
 				Title = forumThread.Subject,

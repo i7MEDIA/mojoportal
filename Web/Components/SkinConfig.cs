@@ -10,7 +10,7 @@ using mojoPortal.Web.Controls.Editors;
 using mojoPortal.Web.Editor;
 using Newtonsoft.Json;
 
-namespace mojoPortal.Web;
+namespace mojoPortal.Web.Theming;
 
 public class SkinConfig
 {
@@ -19,12 +19,12 @@ public class SkinConfig
 	public string Author { get; set; } = string.Empty;
 	public string License { get; set; } = "EPL";
 	public string SupportUrl { get; set; } = "https://www.mojoportal.com";
+	public string[] CompatibleVersions { get; set; } = ["2.9.0.0+"];
 	public string HelpLinkScriptPath { get; set; } = "~/ClientScript/mojoHelpLinkScript.js";
 	public string ModalTemplatePath { get; set; } = "~/Content/Templates/mojoModal.html";
 	public string ModalScriptPath { get; set; } = "~/ClientScript/mojoModalScript.js";
-	public string CompatibleWith { get; set; } = "n/a";
 	public string RuntimeNotes { get; set; } = string.Empty;
-	public Display Display { get; set; } = new Display();
+	public ModuleDisplayOptions ModuleDisplayOptions { get; set; } = new ModuleDisplayOptions();
 	public MenuOptions MenuOptions { get; set; } = new MenuOptions();
 	public MenuOptions PageMenuOptions { get; set; } = new MenuOptions();
 	public List<SkinContentTemplate> Templates { get; set; } = [];
@@ -34,14 +34,26 @@ public class SkinConfig
 	public ConcurrentDictionary<string, dynamic> DisplaySettings { get; set; } = [];
 }
 
-public class Display
+public class  ModuleDisplayOptions
 {
-	public bool ShowSkinSearchInputOnSearchResults { get; set; } = WebConfigSettings.ShowSkinSearchInputOnSearchResults;
-	public bool ShowSearchInputOnSiteSettings { get; set; } = WebConfigSettings.ShowSearchInputOnSiteSettings;
-	public bool ShowModuleTitlesByDefault { get; set; } = WebConfigSettings.ShowModuleTitlesByDefault;
-	public bool EnableEditingModuleTitleElement { get; set; } = WebConfigSettings.EnableEditingModuleTitleElement;
-	public string ModuleTitleTag { get; set; } = WebConfigSettings.ModuleTitleTag;
+	public bool ModuleTitle_ShowByDefault { get; set; } = WebConfigSettings.ShowModuleTitlesByDefault;
+	public string ModuleTitle_Element { get; set; } = WebConfigSettings.ModuleTitleTag;
+	public bool ModuleTitle_Element_AllowEditing { get; set; } = WebConfigSettings.EnableEditingModuleTitleElement;
+	public string[] ModuleTitle_Element_Options { get; set; } = ["h2", "h3", "h4", "h5", "h6"];
 
+	public string ModuleId_RenderFormat { get; } = "module{0}"; //not sure we want to allow this to be changed via config
+	/// <summary>
+	/// Gets or sets a value indicating whether the module title should include the module ID (id="moduleX").
+	/// When false, the module ID will be included on the OuterWrapperPanel of the module.
+	/// </summary>
+	public ModuleIdRenderLocations ModuleId_RenderLocation { get; set; } = ModuleIdRenderLocations.WrappingDiv;
+
+	public enum ModuleIdRenderLocations
+	{
+		None = 0,
+		WrappingDiv = 1,
+		TitleElement = 2,
+	}
 }
 
 public class SkinContentTemplate

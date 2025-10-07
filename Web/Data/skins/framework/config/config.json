@@ -12,7 +12,16 @@
 		"ShowSearchInputOnSiteSettings": false,
 		"ShowModuleTitlesByDefault": true,
 		"EnableEditingModuleTitleElement": true,
-		"ModuleTitleTag": "h3"
+		"ModuleTitleElement": "h3",
+		"ModuleTitleElementOptions": [
+			"h2",
+			"h3",
+			"h4",
+			"h5",
+			"h6",
+			"div",
+			"span"
+		]
 	},
 	"EditorConfig": {
 		"all": {

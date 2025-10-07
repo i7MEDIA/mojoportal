@@ -91,7 +91,9 @@ public class ModuleConfiguration
 		ModuleCssClass = WebUtils.ParseStringFromHashtable(settings, "ExtraCssClassSetting", ModuleCssClass).ToString().Trim();
 		IsGlobalView = WebUtils.ParseBoolFromHashtable(settings, "IsGlobalView", IsGlobalView);
 		IncludeInSearch = WebUtils.ParseBoolFromHashtable(settings, "IncludeInSearch", IncludeInSearch);
+		SearchFriendlyName = WebUtils.ParseStringFromHashtable(settings, "SolutionSearchFriendlyName", SearchFriendlyName);
 		ModuleFriendlyName = WebUtils.ParseStringFromHashtable(settings, "ModuleFriendlyName", ModuleFriendlyName);
+		RelatedSearchPage = WebUtils.ParseInt32FromHashtable(settings, "RelatedSearchPage", RelatedSearchPage);
 		GlobalViewSortOrder = WebUtils.ParseInt32FromHashtable(settings, "GlobalViewSortOrder", GlobalViewSortOrder);
 		DescendingSort = WebUtils.ParseBoolFromHashtable(settings, "DescendingSortOrder", DescendingSort);
 		InstanceFeaturedImage = WebUtils.ParseStringFromHashtable(settings, "InstanceFeaturedImage", InstanceFeaturedImage);
@@ -432,7 +434,7 @@ public class ModuleConfiguration
 	#endregion private methods
 
 	#region properties
-	public Guid FeatureGuid { get; private set; } = Guid.Parse("4FF93793-1187-4022-899C-C3E9096A855F");
+	public static Guid FeatureGuid { get; private set; } = Guid.Parse("4FF93793-1187-4022-899C-C3E9096A855F");
 	public bool DeleteOrphanedFieldValues => mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SuperFlexi:DeleteOrphanedFieldValues", false);
 	public bool AlwaysLoadMarkupDefinitionFromDisk => mojoPortal.Core.Configuration.ConfigHelper.GetBoolProperty("SuperFlexi:AlwaysLoadMarkupDefinitionFromDisk", false);
 
@@ -523,6 +525,8 @@ public class ModuleConfiguration
 	public int GlobalViewSortOrder { get; private set; } = 0;
 	public bool IsGlobalView { get; private set; } = false;
 	public bool IncludeInSearch { get; private set; } = false;
+	public string SearchFriendlyName { get; private set; } = string.Empty;
+	public int RelatedSearchPage { get; private set; } = -1;
 	public SearchDef SearchDefinition { get; set; } = [];
 	public string ItemEditRoles { get; private set; } = string.Empty;
 	public string ItemCreateRoles { get; private set; } = string.Empty;

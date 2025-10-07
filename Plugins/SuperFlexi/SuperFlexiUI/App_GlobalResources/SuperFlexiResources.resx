@@ -303,4 +303,13 @@
   <data name="MarkupDefinitionChangeButtonConfirm" xml:space="preserve">
     <value>Are you sure you want to change the Solution? This can cause irreversible damage to your data. Only proceed if you know for sure what you're doing and you have a good database backup.</value>
   </data>
+  <data name="SolutionSearchFriendlyName" xml:space="preserve">
+    <value>Search Friendly Name</value>
+  </data>
+  <data name="SearchSettings" xml:space="preserve">
+    <value>Search Settings</value>
+  </data>
+  <data name="RelatedSearchPage" xml:space="preserve">
+    <value>Page for Search Index</value>
+  </data>
 </root>

@@ -76,7 +76,7 @@
 								<mp:SiteLabel ID="SiteLabel14" runat="server" ForControl="txtTitleElement" CssClass="settinglabel"
 									ConfigKey="ModuleSettingsTitleElement">
 								</mp:SiteLabel>
-								<asp:TextBox ID="txtTitleElement" runat="server" EnableViewState="false" CssClass="forminput smalltextbox"></asp:TextBox>
+								<asp:DropDownList runat="server" ID="ddlTitleElements" />
 							</div>
 <%--							<div class="settingrow">
 								<mp:SiteLabel ID="SiteLabel15" runat="server" CssClass="settinglabel" ConfigKey="PublishMode"></mp:SiteLabel>

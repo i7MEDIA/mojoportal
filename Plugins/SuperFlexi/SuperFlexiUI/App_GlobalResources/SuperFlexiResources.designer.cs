@@ -511,6 +511,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Page for Search Index.
+        /// </summary>
+        internal static string RelatedSearchPage {
+            get {
+                return ResourceManager.GetString("RelatedSearchPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Image.
         /// </summary>
         internal static string RemoveImage {
@@ -556,6 +565,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Settings.
+        /// </summary>
+        internal static string SearchSettings {
+            get {
+                return ResourceManager.GetString("SearchSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string SettingsLinkLabel {
@@ -570,6 +588,15 @@ namespace Resources {
         internal static string SolutionDropDownPleaseSelect {
             get {
                 return ResourceManager.GetString("SolutionDropDownPleaseSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Friendly Name.
+        /// </summary>
+        internal static string SolutionSearchFriendlyName {
+            get {
+                return ResourceManager.GetString("SolutionSearchFriendlyName", resourceCulture);
             }
         }
         

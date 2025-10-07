@@ -33,7 +33,7 @@ namespace SuperFlexiUI
 			LoadParams();
 			LoadSettings();
 
-			if (!UserCanEditModule(moduleId, config.FeatureGuid) || !config.AllowExport)
+			if (!UserCanEditModule(moduleId, ModuleConfiguration.FeatureGuid) || !config.AllowExport)
 			{
 				SiteUtils.RedirectToAccessDeniedPage(this);
 

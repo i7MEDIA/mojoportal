@@ -50,13 +50,7 @@ public partial class IndexBrowser : NonCmsBasePage
 		}
 		LoadSettings();
 
-		if (!WebUser.IsAdminOrContentAdmin || !SiteUtils.UserIsSiteEditor() || (WebConfigSettings.DisableLoginInfo))
-		{
-			SiteUtils.RedirectToAccessDeniedPage(this);
-			return;
-		}
-
-		if (SiteUtils.IsFishyPost(this))
+		if (!WebUser.IsAdminOrContentAdmin || !SiteUtils.UserIsSiteEditor() || SiteUtils.IsFishyPost(this))
 		{
 			SiteUtils.RedirectToAccessDeniedPage(this);
 			return;
@@ -146,61 +140,40 @@ public partial class IndexBrowser : NonCmsBasePage
 
 	private void BindIndex()
 	{
-
-		IndexItemCollection searchResults = IndexHelper.Browse(
+		var searchResults = IndexHelper.Browse(
 			siteSettings.SiteId,
 			featureGuid,
 			modifiedBeginDate,
 			modifiedEndDate,
 			pageNumber,
 			pageSize,
-			out totalHits);
+			out totalHits
+		);
 
-		totalPages = 1;
+		totalPages = (int)Math.Ceiling((double)totalHits / pageSize);
 
-		if (pageSize > 0) { totalPages = totalHits / pageSize; }
-
-		if (totalHits <= pageSize)
-		{
-			totalPages = 1;
-		}
-		else
-		{
-			Math.DivRem(totalHits, pageSize, out int remainder);
-			if (remainder > 0)
-			{
-				totalPages += 1;
-			}
-		}
-
-		string searchUrl = SiteRoot
-				+ "/Admin/IndexBrowser.aspx?p={0}"
-				+ "&amp;bd=" + modifiedBeginDate.Date.ToString("s")
-				+ "&amp;ed=" + modifiedEndDate.Date.ToString("s")
-				+ "&amp;f=" + featureGuid.ToString();
+		var searchUrl = $"{SiteRoot}/Admin/IndexBrowser.aspx?p={{0}}&amp;bd={modifiedBeginDate.Date:s}&amp;ed={modifiedEndDate.Date:s}&amp;f={featureGuid}";
 
 		pgrTop.PageURLFormat = searchUrl;
 		pgrTop.ShowFirstLast = true;
 		pgrTop.CurrentIndex = pageNumber;
 		pgrTop.PageSize = pageSize;
 		pgrTop.PageCount = totalPages;
-		pgrTop.Visible = (totalPages > 1);
+		pgrTop.Visible = totalPages > 1;
 
 		pgrBottom.PageURLFormat = searchUrl;
 		pgrBottom.ShowFirstLast = true;
 		pgrBottom.CurrentIndex = pageNumber;
 		pgrBottom.PageSize = pageSize;
 		pgrBottom.PageCount = totalPages;
-		pgrBottom.Visible = (totalPages > 1);
+		pgrBottom.Visible = totalPages > 1;
 
 		if (searchResults.Count > 0 && searchResults.ItemCount > 0)
 		{
 			rptResults.Visible = true;
 			rptResults.DataSource = searchResults;
 			rptResults.DataBind();
-
 		}
-
 	}
 
 	private void BindFeatureList()
@@ -253,18 +226,18 @@ public partial class IndexBrowser : NonCmsBasePage
 			featureGuid = new Guid(ddFeatureList.SelectedValue);
 		}
 
-		string searchUrl = SiteRoot
-				+ "/Admin/IndexBrowser.aspx?p=1"
-				+ "&bd=" + modifiedBeginDate.Date.ToString("s")
-				+ "&ed=" + modifiedEndDate.Date.ToString("s")
-				+ "&f=" + featureGuid.ToString();
+		string searchUrl = "Admin/IndexBrowser.aspx?p=1".ToLinkBuilder().AddParams(
+			new System.Collections.Generic.Dictionary<string, object>()
+				{
+					{"bd",  modifiedBeginDate.Date.ToString("s")},
+					{"ed",  modifiedEndDate.Date.ToString("s")},
+					{"f",  featureGuid},
+
+				}).ToString();
 
 		WebUtils.SetupRedirect(this, searchUrl);
 
 	}
-
-
-
 
 	protected string FormatItemTitle(string pageName, string moduleTitle, string itemTitle, string separator = "\\")
 	{
@@ -306,16 +279,11 @@ public partial class IndexBrowser : NonCmsBasePage
 		string value;
 		if (indexItem.UseQueryStringParams)
 		{
-			value = $"/{indexItem.ViewPage}?pageid={indexItem.PageId.ToInvariantString()}&mid={indexItem.ModuleId.ToInvariantString()}&ItemID={indexItem.ItemId.ToInvariantString()}{indexItem.QueryStringAddendum}";
+			value = indexItem.ViewPage.ToLinkBuilder().PageId(indexItem.PageId).ModuleId(indexItem.ModuleId).ItemId(indexItem.ItemId).ToString() + indexItem.QueryStringAddendum;
 		}
 		else
 		{
-			value = $"/{indexItem.ViewPage}";
-		}
-
-		if (value.StartsWith("/"))
-		{
-			value = $"{SiteRoot}{value}";
+			value = indexItem.ViewPage.ToLinkBuilder().ToString();
 		}
 
 		return value;
@@ -332,7 +300,6 @@ public partial class IndexBrowser : NonCmsBasePage
 
 		// get out of postback and refresh the list
 		WebUtils.SetupRedirect(this, Request.RawUrl);
-
 	}
 
 	protected void btnRebuildSearchIndex_Click(object sender, EventArgs e)
@@ -343,16 +310,32 @@ public partial class IndexBrowser : NonCmsBasePage
 		rptResults.Visible = false;
 		lblMessage.Text = Resource.SearchResultsBuildingIndexMessage;
 		Thread.Sleep(5000); //wait 1 seconds
-		SiteUtils.QueueIndexing();
+		IndexHelper.QueueIndexing();
 	}
-
-
 
 	protected string FormatProperty(string propVal)
 	{
-		if (string.IsNullOrWhiteSpace(propVal)) { return Resource.NotApplicable; }
+		if (string.IsNullOrWhiteSpace(propVal)) 
+		{ 
+			return Resource.NotApplicable; 
+		}
 
 		return propVal;
+	}
+
+	protected string FormatList(string list)
+	{
+		if (string.IsNullOrWhiteSpace(list))
+		{
+			return Resource.NotApplicable;
+		}
+
+		var returnValue = string.Empty;
+		foreach (var s in list.SplitUnitSeparator())
+		{ 
+			returnValue += $"<span class=\"label label-info\">{s}</span> ";
+		}
+		return returnValue;
 	}
 
 	protected void rptResults_ItemDataBound(object sender, RepeaterItemEventArgs e)

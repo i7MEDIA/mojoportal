@@ -1026,6 +1026,7 @@
     <Compile Include="Components\FileSystem\FileSystemHelper.cs" />
     <Compile Include="Components\GlobalUsings.cs" />
     <Compile Include="Components\ICustomField.cs" />
+    <Compile Include="Components\IsExternalInit.cs" />
     <Compile Include="Components\PageUrlService.cs" />
     <Compile Include="Components\MenuItem.cs" />
     <Compile Include="Components\mojoViewEngine.cs" />
@@ -1803,6 +1804,7 @@
     <Compile Include="Helpers\CustomHtmlHelper.cs" />
     <Compile Include="MemberListDisplaySettings.cs" />
     <Compile Include="Models\ExternalLoginErrorModel.cs" />
+    <Compile Include="Models\SearchResultsViewModel.cs" />
     <Compile Include="Modules\HtmlDisplaySettings.cs" />
     <Compile Include="Modules\LoginModuleDisplaySettings.cs" />
     <Compile Include="Modules\RecentContentDisplaySettings.cs" />
@@ -2762,6 +2764,8 @@
     <Content Include="Views\Controls\DropDownList.cshtml" />
     <Content Include="Views\Shared\_DebugInfo.cshtml" />
     <Content Include="Views\ExternalLogin\Error.cshtml" />
+    <Content Include="Views\SearchResults\Results.cshtml" />
+    <Content Include="Views\SearchResults\_SearchResultsFallback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\FriendlyUrlSuggestXml.aspx" />

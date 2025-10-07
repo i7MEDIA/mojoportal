@@ -113,6 +113,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Data.pgsql\mojoPortal.Data.pgSQL.csproj">
       <Project>{B528429F-7155-496A-86B3-8B23219C10D4}</Project>
       <Name>mojoPortal.Data.pgSQL</Name>

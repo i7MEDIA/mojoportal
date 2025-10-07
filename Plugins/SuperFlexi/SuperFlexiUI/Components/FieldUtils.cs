@@ -462,7 +462,7 @@ public class FieldUtils
 
 		if (savedFields == null || fieldsChanged)
 		{
-			FieldUtils.SaveFieldsToDB(definedFields, siteGuid, config.FeatureGuid, deleteOrphanedFieldValues);
+			FieldUtils.SaveFieldsToDB(definedFields, siteGuid, ModuleConfiguration.FeatureGuid, deleteOrphanedFieldValues);
 			savedFields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
 		}
 

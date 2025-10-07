@@ -312,13 +312,13 @@ namespace mojoPortal.Web.AdminUI
 		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel14;
 
 		/// <summary>
-		/// txtTitleElement control.
+		/// ddlTitleElements control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.TextBox txtTitleElement;
+		protected global::System.Web.UI.WebControls.DropDownList ddlTitleElements;
 
 		/// <summary>
 		/// divIncludeInSearch control.

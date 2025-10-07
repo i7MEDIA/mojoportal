@@ -632,7 +632,7 @@ namespace SuperFlexiData
 
             var sqlParams = new List<SqliteParameter>
             {
-                new SqliteParameter(":SiteGuid", DbType.Int32) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
                 new SqliteParameter(":PageId", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageId }
             };
 
