@@ -1,116 +1,82 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2012-07-20
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-/// 
-/// Note moved into separate class file from dbPortal 2007-11-03
-
 using System;
-using System.Text;
 using System.Data;
-using System.Data.Common;
-using System.Configuration;
-using System.Globalization;
-using System.IO;
+using System.Text;
 using MySql.Data.MySqlClient;
+
 
 namespace mojoPortal.Data
 {
     public static class DBSiteFolder
     {
-       
-        public static int Add(
-            Guid guid,
-            Guid siteGuid,
-            string folderName)
-        {
+		public static int Add(Guid guid, Guid siteGuid, int siteId, string folderName)
+		{
+			var sqlCommand = """
+                INSERT INTO mp_SiteFolders (Guid, SiteGuid, FolderName, SiteID)
+                VALUES (?Guid, ?SiteGuid, ?FolderName, ?SiteID);
+            """;
 
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_SiteFolders (");
-            sqlCommand.Append("Guid, ");
-            sqlCommand.Append("SiteGuid, ");
-            sqlCommand.Append("FolderName )");
+			MySqlParameter[] arParams =
+			[
+				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = guid.ToString()
+				},
+				new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteGuid.ToString()
+				},
+				new MySqlParameter("?FolderName", MySqlDbType.VarChar, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = folderName
+				},
+				new MySqlParameter("?SiteID", MySqlDbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = siteId
+				},
+			];
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams);
 
-            sqlCommand.Append(" VALUES (");
-            sqlCommand.Append("?Guid, ");
-            sqlCommand.Append("?SiteGuid, ");
-            sqlCommand.Append("?FolderName );");
+			return rowsAffected;
+		}
 
+		public static bool Update(Guid guid, string folderName)
+		{
+			MySqlParameter[] arParams =
+			[
+				new MySqlParameter("?Guid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = guid.ToString()
+				},
+				new MySqlParameter("?FolderName", MySqlDbType.VarChar, 255)
+				{
+					Direction = ParameterDirection.Input,
+					Value = folderName
+				},
+			];
 
-            MySqlParameter[] arParams = new MySqlParameter[3];
+			var sqlCommand = """
+                UPDATE mp_SiteFolders 
+                SET FolderName = ?FolderName
+                WHERE Guid = ?Guid ;
+                """;
 
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
+			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
+				arParams);
 
-            arParams[1] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
+			return rowsAffected > 0;
+		}
 
-            arParams[2] = new MySqlParameter("?FolderName", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = folderName;
-
-
-            int rowsAffected = 0;
-            rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams);
-            return rowsAffected;
-
-        }
-
-
-        public static bool Update(
-            Guid guid,
-            Guid siteGuid,
-            string folderName)
-        {
-
-            StringBuilder sqlCommand = new StringBuilder();
-
-            sqlCommand.Append("UPDATE mp_SiteFolders ");
-            sqlCommand.Append("SET  ");
-            sqlCommand.Append("SiteGuid = ?SiteGuid, ");
-            sqlCommand.Append("FolderName = ?FolderName ");
-
-            sqlCommand.Append("WHERE  ");
-            sqlCommand.Append("Guid = ?Guid ;");
-
-            MySqlParameter[] arParams = new MySqlParameter[3];
-
-            arParams[0] = new MySqlParameter("?Guid", MySqlDbType.VarChar, 36);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = guid.ToString();
-
-            arParams[1] = new MySqlParameter("?SiteGuid", MySqlDbType.VarChar, 36);
-            arParams[1].Direction = ParameterDirection.Input;
-            arParams[1].Value = siteGuid.ToString();
-
-            arParams[2] = new MySqlParameter("?FolderName", MySqlDbType.VarChar, 255);
-            arParams[2].Direction = ParameterDirection.Input;
-            arParams[2].Value = folderName;
-
-
-            int rowsAffected = MySqlHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(), 
-                sqlCommand.ToString(), 
-                arParams);
-
-            return (rowsAffected > -1);
-
-        }
-
-
-        public static bool Delete(Guid guid)
+		public static bool Delete(Guid guid)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("DELETE FROM mp_SiteFolders ");
@@ -130,9 +96,7 @@ namespace mojoPortal.Data
                 arParams);
 
             return (rowsAffected > 0);
-
         }
-
 
         public static IDataReader GetOne(Guid guid)
         {
@@ -152,7 +116,6 @@ namespace mojoPortal.Data
                 ConnectionString.GetReadConnectionString(),
                 sqlCommand.ToString(),
                 arParams);
-
         }
 
         public static IDataReader GetBySite(Guid siteGuid)
@@ -225,11 +188,9 @@ namespace mojoPortal.Data
                         siteGuid = new Guid(reader["SiteGuid"].ToString());
                     }
                 }
-
             }
 
             return siteGuid;
-
         }
 
         public static bool Exists(string folderName)
@@ -253,10 +214,5 @@ namespace mojoPortal.Data
             return (count > 0);
 
         }
-
-
-        
-
-
     }
 }

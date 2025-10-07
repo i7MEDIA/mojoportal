@@ -10,29 +10,19 @@ namespace mojoPortal.Business;
 /// </summary>
 public class SiteFolder
 {
-
-	#region Constructors
-
-	public SiteFolder()
-	{ }
-
-
-	public SiteFolder(Guid guid)
-	{
-		GetSiteFolder(guid);
-	}
-
-	#endregion
-
-	#region Public Properties
+	public SiteFolder() { }
+	public SiteFolder(Guid guid) => GetSiteFolder(guid);
 
 	public Guid @Guid { get; set; } = Guid.Empty;
 	public Guid SiteGuid { get; set; } = Guid.Empty;
+	public int SiteId { get; set; } = -1;
 	public string FolderName { get; set; } = string.Empty;
 
-	#endregion
-
 	#region Private Methods
+
+	private bool Create() => DBSiteFolder.Add(Guid.NewGuid(), SiteGuid, SiteId, FolderName) > 0;
+
+	private bool Update() => DBSiteFolder.Update(Guid,FolderName);
 
 	private void GetSiteFolder(Guid guid)
 	{
@@ -41,28 +31,18 @@ public class SiteFolder
 		{
 			Guid = new Guid(reader["Guid"].ToString());
 			SiteGuid = new Guid(reader["SiteGuid"].ToString());
+			SiteId = Convert.ToInt32(reader["SiteID"]);
 			FolderName = reader["FolderName"].ToString();
 		}
 	}
-
-	private bool Create() => DBSiteFolder.Add(Guid.NewGuid(), SiteGuid, FolderName) > 0;
-
-	private bool Update() => DBSiteFolder.Update(Guid, SiteGuid, FolderName);
-
 
 	#endregion
 
 	#region Public Methods
 
-
 	public bool Save()
 	{
-		if (!IsAllowedFolder(FolderName))
-		{
-			throw new ArgumentException("Invalid Folder Name");
-		}
-
-		if (HasInvalidChars(FolderName))
+		if (!IsAllowedFolder(FolderName) || HasInvalidChars(FolderName))
 		{
 			throw new ArgumentException("Invalid Folder Name");
 		}
@@ -137,7 +117,8 @@ public class SiteFolder
 				{
 					Guid = new Guid(reader["Guid"].ToString()),
 					SiteGuid = new Guid(reader["SiteGuid"].ToString()),
-					FolderName = reader["FolderName"].ToString()
+					FolderName = reader["FolderName"].ToString(),
+					SiteId = Convert.ToInt32(reader["SiteID"])
 				};
 				siteFolderList.Add(siteFolder);
 			}
