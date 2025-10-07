@@ -348,15 +348,15 @@ namespace mojoPortal.Data
             return sph.ExecuteReader();
         }
 
-        
-        public static IDataReader GetMyPageModules(int siteId)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Modules_SelectForMyPage", 1);
-            sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
-            return sph.ExecuteReader();
-        }
+		public static IDataReader GetPageModules(int pageId, Guid featureGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Modules_SelectByPageAndFeature", 2);
+			sph.DefineSqlParameter("@PageID", SqlDbType.Int, ParameterDirection.Input, pageId);
+            sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
+			return sph.ExecuteReader();
+		}
 
-        public static IDataReader GetModulesForSite(int siteId, Guid featureGuid)
+		public static IDataReader GetModulesForSite(int siteId, Guid featureGuid)
         {
             SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "mp_Modules_SelectBySite", 2);
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);

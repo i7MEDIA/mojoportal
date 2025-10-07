@@ -75,7 +75,7 @@ public class PageModule
 
 	/// <summary>
 	/// Returns all PageModules for the given pageId
-	/// including un published ones
+	/// including unpublished ones
 	/// </summary>
 	public static List<PageModule> GetPageModulesByPage(int pageId)
 	{
@@ -91,7 +91,7 @@ public class PageModule
 
 	/// <summary>
 	/// Returns all PageModules for the given pageId and featureGuid
-	/// including un published ones
+	/// including unpublished ones
 	/// </summary>
 	public static List<PageModule> GetPageModules(int pageId, Guid featureGuid)
 	{
