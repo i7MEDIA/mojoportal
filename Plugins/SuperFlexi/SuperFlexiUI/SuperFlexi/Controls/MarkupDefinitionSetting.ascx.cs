@@ -17,8 +17,8 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 {
 
 	private static readonly ILog log = LogManager.GetLogger(typeof(MarkupDefinitionSetting));
-	private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-	private static string originalValue = string.Empty;
+	private SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+	private string originalValue = string.Empty;
 
 	//private int roleID = -1;
 	//private SiteUser siteUser;
@@ -53,14 +53,7 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 
 	private void EnsureItems()
 	{
-		FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-		if (p is null)
-		{
-			log.Error("File System Provider Could Not Be Loaded.");
-			return;
-		}
-		IFileSystem fileSystem = p.GetFileSystem();
-		if (fileSystem is null)
+		if (FileSystemHelper.LoadFileSystem() is not IFileSystem fileSystem)
 		{
 			log.Error("File System Could Not Be Loaded.");
 			return;
