@@ -1,12 +1,12 @@
-﻿using System;
+﻿using log4net;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Extensions;
+using mojoPortal.SearchIndex;
+using mojoPortal.Web.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using log4net;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.SearchIndex;
-using mojoPortal.Web.Framework;
-using Resources;
 
 namespace mojoPortal.Web.ContentUI;
 

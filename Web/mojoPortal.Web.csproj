@@ -696,7 +696,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Modules\LoginModule.ascx" />
-    <Content Include="Modules\RecentContentModule.ascx" />
     <Content Include="Modules\SiteSearchModule.ascx" />
     <Content Include="ProfileView.aspx">
       <SubType>ASPXCodeBehind</SubType>
@@ -1807,7 +1806,6 @@
     <Compile Include="Models\SearchResultsViewModel.cs" />
     <Compile Include="Modules\HtmlDisplaySettings.cs" />
     <Compile Include="Modules\LoginModuleDisplaySettings.cs" />
-    <Compile Include="Modules\RecentContentDisplaySettings.cs" />
     <Compile Include="Modules\SearchModuleDisplaySettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -2514,13 +2512,6 @@
     </Compile>
     <Compile Include="Modules\NewsLetterSubscribeModule.ascx.designer.cs">
       <DependentUpon>NewsLetterSubscribeModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\RecentContentModule.ascx.cs">
-      <DependentUpon>RecentContentModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\RecentContentModule.ascx.designer.cs">
-      <DependentUpon>RecentContentModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="Modules\SiteSearchModule.ascx.cs">
       <DependentUpon>SiteSearchModule.ascx</DependentUpon>
