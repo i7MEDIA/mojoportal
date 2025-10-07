@@ -17,8 +17,8 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 {
 
 	private static readonly ILog log = LogManager.GetLogger(typeof(MarkupDefinitionSetting));
-	private static SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
-	private static string originalValue = string.Empty;
+	private SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+	private string originalValue = string.Empty;
 
 	//private int roleID = -1;
 	//private SiteUser siteUser;
@@ -31,26 +31,29 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		SecurityHelper.DisableBrowserCache();
-
+		btnEnableChange.Text = SuperFlexiResources.MarkupDefinitionChangeButton;
+		btnEnableChange.ToolTip = SuperFlexiResources.MarkupDefinitionChangeButtonToolTip;
+		UIHelper.AddConfirmationDialog(btnEnableChange, SuperFlexiResources.MarkupDefinitionChangeButtonConfirm);
 	}
 
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
 		if (HttpContext.Current == null) { return; }
+		btnEnableChange.Click += new EventHandler(btnEnableChange_Click);
 		EnsureItems();
+	}
+
+	private void btnEnableChange_Click(object sender, EventArgs e)
+	{
+		ddDefinitions.Enabled = true;
+		pnlDefinitions.Update();
+		return;
 	}
 
 	private void EnsureItems()
 	{
-		FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
-		if (p is null)
-		{
-			log.Error("File System Provider Could Not Be Loaded.");
-			return;
-		}
-		IFileSystem fileSystem = p.GetFileSystem();
-		if (fileSystem is null)
+		if (FileSystemHelper.LoadFileSystem() is not IFileSystem fileSystem)
 		{
 			log.Error("File System Could Not Be Loaded.");
 			return;
@@ -223,9 +226,13 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 			{
 				ddDefinitions.ClearSelection();
 				item.Selected = true;
+
+				btnEnableChange.Visible = true;
+				ddDefinitions.Enabled = false;
 			}
 		}
 	}
+
 	#endregion
 	class SolutionFileLocation
 	{
