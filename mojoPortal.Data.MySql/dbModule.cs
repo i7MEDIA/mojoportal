@@ -687,6 +687,7 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.ModuleTitle, ");
+			sqlCommand.Append("m.FeatureGuid,");
 			sqlCommand.Append("p.PageName, ");
 			sqlCommand.Append("p.UseUrl, ");
 			sqlCommand.Append("p.Url ");
@@ -723,6 +724,7 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.ModuleTitle, ");
+			sqlCommand.Append("m.FeatureGuid,");
 			sqlCommand.Append("p.PageName, ");
 			sqlCommand.Append("p.UseUrl, ");
 			sqlCommand.Append("p.Url ");
@@ -752,6 +754,91 @@ namespace mojoPortal.Data
 				ConnectionString.GetReadConnectionString(),
 				sqlCommand.ToString(),
 				arParams);
+		}
+
+		public static IDataReader GetPageModules(int pageId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("SELECT   ");
+			sqlCommand.Append("m.*, ");
+
+			sqlCommand.Append("pm.PageID,   ");
+			sqlCommand.Append("pm.ModuleOrder,   ");
+			sqlCommand.Append("pm.PaneName,   ");
+			sqlCommand.Append("pm.PublishBeginDate,   ");
+			sqlCommand.Append("pm.PublishEndDate,   ");
+			sqlCommand.Append("md.ControlSrc, ");
+			sqlCommand.Append("md.FeatureName, ");
+			sqlCommand.Append("md.Guid AS FeatureGuid ");
+
+			sqlCommand.Append("FROM	mp_Modules m ");
+
+			sqlCommand.Append("JOIN	mp_ModuleDefinitions md ");
+			sqlCommand.Append("ON m.ModuleDefID = md.ModuleDefID ");
+
+			sqlCommand.Append("JOIN	mp_PageModules pm ");
+			sqlCommand.Append("ON m.ModuleID = pm.ModuleID ");
+
+			sqlCommand.Append("WHERE pm.PageID = ?PageID ");
+
+			sqlCommand.Append("AND pm.PublishBeginDate <= ?NowDate ");
+			sqlCommand.Append("AND (pm.PublishEndDate IS NULL OR pm.PublishEndDate > ?NowDate) ");
+
+			sqlCommand.Append("ORDER BY pm.ModuleOrder ;");
+
+			MySqlParameter[] arParams = new MySqlParameter[2];
+
+			arParams[0] = new MySqlParameter("?PageID", MySqlDbType.Int32);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = pageId;
+
+			arParams[1] = new MySqlParameter("?NowDate", MySqlDbType.DateTime);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = DateTime.UtcNow;
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				sqlCommand.ToString(),
+				arParams);
+
+		}
+
+		public static IDataReader GetPageModules(int pageId, Guid featureGuid)
+		{
+			var commandText = """
+				SELECT
+					pm.*,
+					m.ModuleTitle,
+					m.FeatureGuid,
+					p.PageName,
+					p.UseUrl,
+					p.Url
+				FROM mp_PageModules pm
+				JOIN mp_Modules m ON pm.ModuleID = m.ModuleID
+				JOIN mp_Pages p ON pm.PageID = p.PageID
+				WHERE pm.PageID = ?PageID
+				AND m.FeatureGuid = ?FeatureGuid;
+				""";
+
+			var commandParameters = new MySqlParameter[]
+			{
+				new("?PageID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageId
+				},
+				new("?FeatureGuid", MySqlDbType.VarChar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = featureGuid.ToString()
+				}
+			};
+
+			return MySqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				commandText,
+				commandParameters
+			);
 		}
 
 		public static bool Publish(
@@ -1513,89 +1600,6 @@ namespace mojoPortal.Data
 				arParams);
 
 		}
-
-		public static IDataReader GetPageModules(int pageId)
-		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT   ");
-			sqlCommand.Append("m.*, ");
-
-			sqlCommand.Append("pm.PageID,   ");
-			sqlCommand.Append("pm.ModuleOrder,   ");
-			sqlCommand.Append("pm.PaneName,   ");
-			sqlCommand.Append("pm.PublishBeginDate,   ");
-			sqlCommand.Append("pm.PublishEndDate,   ");
-			sqlCommand.Append("md.ControlSrc, ");
-			sqlCommand.Append("md.FeatureName, ");
-			sqlCommand.Append("md.Guid AS FeatureGuid ");
-
-			sqlCommand.Append("FROM	mp_Modules m ");
-
-			sqlCommand.Append("JOIN	mp_ModuleDefinitions md ");
-			sqlCommand.Append("ON m.ModuleDefID = md.ModuleDefID ");
-
-			sqlCommand.Append("JOIN	mp_PageModules pm ");
-			sqlCommand.Append("ON m.ModuleID = pm.ModuleID ");
-
-			sqlCommand.Append("WHERE pm.PageID = ?PageID ");
-
-			sqlCommand.Append("AND pm.PublishBeginDate <= ?NowDate ");
-			sqlCommand.Append("AND (pm.PublishEndDate IS NULL OR pm.PublishEndDate > ?NowDate) ");
-
-
-			sqlCommand.Append("ORDER BY pm.ModuleOrder ;");
-
-			MySqlParameter[] arParams = new MySqlParameter[2];
-
-			arParams[0] = new MySqlParameter("?PageID", MySqlDbType.Int32);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = pageId;
-
-			arParams[1] = new MySqlParameter("?NowDate", MySqlDbType.DateTime);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = DateTime.UtcNow;
-
-			return MySqlHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString(),
-				arParams);
-
-		}
-
-		public static IDataReader GetMyPageModules(int siteId)
-		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("SELECT   ");
-			sqlCommand.Append("m.ModuleID, ");
-			sqlCommand.Append("m.SiteID, ");
-			sqlCommand.Append("m.ModuleDefID, ");
-			sqlCommand.Append("m.ModuleTitle, ");
-			sqlCommand.Append("m.HideFromAuth, ");
-			sqlCommand.Append("m.HideFromUnAuth, ");
-			sqlCommand.Append("m.AllowMultipleInstancesOnMyPage, ");
-			sqlCommand.Append("m.Icon As ModuleIcon, ");
-			sqlCommand.Append("md.Icon As FeatureIcon, ");
-			sqlCommand.Append("md.FeatureName ");
-			sqlCommand.Append("FROM	mp_Modules m ");
-			sqlCommand.Append("JOIN	mp_ModuleDefinitions md ");
-			sqlCommand.Append("ON m.ModuleDefID = md.ModuleDefID ");
-
-			sqlCommand.Append("WHERE m.SiteID = ?SiteID AND m.AvailableForMyPage = 1 ");
-			sqlCommand.Append("ORDER BY m.ModuleTitle ;");
-
-			MySqlParameter[] arParams = new MySqlParameter[1];
-
-			arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = siteId;
-
-			return MySqlHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
-				sqlCommand.ToString(),
-				arParams);
-
-		}
-
 
 		public static IDataReader GetModulesForSite(int siteId, Guid featureGuid)
 		{

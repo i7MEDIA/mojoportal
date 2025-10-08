@@ -730,6 +730,47 @@ WHERE pm.ModuleID = :ModuleID;";
 			);
 		}
 
+		public static IDataReader GetPageModules(int pageId)
+		{
+			var commandText = @"
+SELECT
+	m.*,
+	pm.PageID As PageID,
+	pm.ModuleOrder As ModuleOrder,
+	pm.PaneName As PaneName,
+	pm.PublishBeginDate As PublishBeginDate,
+	pm.PublishEndDate As PublishEndDate,
+	md.ControlSrc As ControlSrc,
+	md.FeatureName AS FeatureName,
+	md.Guid AS FeatureGuid
+FROM mp_Modules m
+JOIN mp_ModuleDefinitions md ON m.ModuleDefID = md.ModuleDefID
+JOIN mp_PageModules pm ON m.ModuleID = pm.ModuleID
+WHERE pm.PageID = :PageID
+AND pm.PublishBeginDate <= :CurrentDate
+ORDER BY pm.ModuleOrder;";
+
+			var commandParameters = new SqliteParameter[]
+			{
+				new SqliteParameter(":PageID", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageId
+				},
+				new SqliteParameter(":CurrentDate", DbType.DateTime)
+				{
+					Direction = ParameterDirection.Input,
+					Value = DateTime.UtcNow
+				}
+			};
+
+			return SqliteHelper.ExecuteReader(
+				GetConnectionString(),
+				commandText,
+				commandParameters
+			);
+		}
+
 		public static IDataReader GetPageModules(int pageId, Guid featureGuid)
 		{
 			var commandText = """
@@ -1628,48 +1669,6 @@ AND m.ModuleID = :ModuleID;";
 				{
 					Direction = ParameterDirection.Input,
 					Value = pageId
-				}
-			};
-
-			return SqliteHelper.ExecuteReader(
-				GetConnectionString(),
-				commandText,
-				commandParameters
-			);
-		}
-
-
-		public static IDataReader GetPageModules(int pageId)
-		{
-			var commandText = @"
-SELECT
-	m.*,
-	pm.PageID As PageID,
-	pm.ModuleOrder As ModuleOrder,
-	pm.PaneName As PaneName,
-	pm.PublishBeginDate As PublishBeginDate,
-	pm.PublishEndDate As PublishEndDate,
-	md.ControlSrc As ControlSrc,
-	md.FeatureName AS FeatureName,
-	md.Guid AS FeatureGuid
-FROM mp_Modules m
-JOIN mp_ModuleDefinitions md ON m.ModuleDefID = md.ModuleDefID
-JOIN mp_PageModules pm ON m.ModuleID = pm.ModuleID
-WHERE pm.PageID = :PageID
-AND pm.PublishBeginDate <= :CurrentDate
-ORDER BY pm.ModuleOrder;";
-
-			var commandParameters = new SqliteParameter[]
-			{
-				new SqliteParameter(":PageID", DbType.Int32)
-				{
-					Direction = ParameterDirection.Input,
-					Value = pageId
-				},
-				new SqliteParameter(":CurrentDate", DbType.DateTime)
-				{
-					Direction = ParameterDirection.Input,
-					Value = DateTime.UtcNow
 				}
 			};
 

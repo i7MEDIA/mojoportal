@@ -420,6 +420,93 @@ namespace mojoPortal.Data
 			return rowsAffected > -1;
 		}
 
+		public static IDataReader GetPageModules(int pageId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+
+			sqlCommand.Append("SELECT   ");
+			sqlCommand.Append("m.*, ");
+			sqlCommand.Append("pm.pageid,   ");
+			sqlCommand.Append("pm.moduleorder,   ");
+			sqlCommand.Append("pm.panename,   ");
+			sqlCommand.Append("pm.publishbeginDate,   ");
+			sqlCommand.Append("pm.publishendDate,   ");
+			sqlCommand.Append("md.controlsrc, ");
+			sqlCommand.Append("md.featurename, ");
+			sqlCommand.Append("md.guid AS featureguid ");
+
+			sqlCommand.Append("FROM	mp_modules m ");
+
+			sqlCommand.Append("JOIN	mp_moduledefinitions md ");
+			sqlCommand.Append("ON m.moduledefid = md.moduledefid ");
+
+			sqlCommand.Append("JOIN	mp_pagemodules pm ");
+			sqlCommand.Append("ON m.moduleid = pm.moduleid ");
+
+			sqlCommand.Append("WHERE pm.pageid = :pageid ");
+
+			sqlCommand.Append("AND pm.publishbegindate <= :nowdate ");
+			sqlCommand.Append("AND (pm.publishenddate IS NULL OR pm.publishenddate > :nowdate) ");
+
+
+			sqlCommand.Append("ORDER BY pm.moduleorder;");
+
+			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+			arParams[0].Direction = ParameterDirection.Input;
+			arParams[0].Value = pageId;
+
+			arParams[1] = new NpgsqlParameter(":nowdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = DateTime.UtcNow;
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				sqlCommand.ToString(),
+				arParams
+			);
+		}
+
+		public static IDataReader GetPageModules(int pageId, Guid featureGuid)
+		{
+			var commandText = """
+				SELECT
+					pm.*,
+					m.moduletitle,
+					m.featureguid,
+					p.pagename,
+					p.useurl,
+					p.url
+				FROM mp_pagemodules pm
+				JOIN mp_modules m ON pm.moduleid = m.moduleid
+				JOIN mp_pages p ON pm.pageid = p.pageid
+				WHERE pm.pageid = :pageid
+				AND m.featureguid = :featureguid;
+				""";
+
+			var commandParameters = new NpgsqlParameter[]
+			{
+				new(":pageid", DbType.Int32)
+				{
+					Direction = ParameterDirection.Input,
+					Value = pageId
+				},
+				new(":featureguid", NpgsqlTypes.NpgsqlDbType.Varchar, 36)
+				{
+					Direction = ParameterDirection.Input,
+					Value = featureGuid.ToString()
+				}
+			};
+
+			return NpgsqlHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.Text,
+				commandText,
+				commandParameters
+			);
+		}
 
 		public static bool Publish(
 			Guid pageGuid,
@@ -526,6 +613,7 @@ namespace mojoPortal.Data
 
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.moduletitle, ");
+			sqlCommand.Append("m.featureguid, ");
 			sqlCommand.Append("p.pagename, ");
 			sqlCommand.Append("p.useurl, ");
 			sqlCommand.Append("p.url ");
@@ -565,6 +653,7 @@ namespace mojoPortal.Data
 
 			sqlCommand.Append("SELECT  pm.*, ");
 			sqlCommand.Append("m.moduletitle, ");
+			sqlCommand.Append("m.featureguid, ");
 			sqlCommand.Append("p.pagename, ");
 			sqlCommand.Append("p.useurl, ");
 			sqlCommand.Append("p.url ");
@@ -927,74 +1016,6 @@ namespace mojoPortal.Data
 				arParams
 			);
 		}
-
-
-		public static IDataReader GetPageModules(int pageId)
-		{
-			StringBuilder sqlCommand = new StringBuilder();
-
-			sqlCommand.Append("SELECT   ");
-			sqlCommand.Append("m.*, ");
-			sqlCommand.Append("pm.pageid,   ");
-			sqlCommand.Append("pm.moduleorder,   ");
-			sqlCommand.Append("pm.panename,   ");
-			sqlCommand.Append("pm.publishbeginDate,   ");
-			sqlCommand.Append("pm.publishendDate,   ");
-			sqlCommand.Append("md.controlsrc, ");
-			sqlCommand.Append("md.featurename, ");
-			sqlCommand.Append("md.guid AS featureguid ");
-
-			sqlCommand.Append("FROM	mp_modules m ");
-
-			sqlCommand.Append("JOIN	mp_moduledefinitions md ");
-			sqlCommand.Append("ON m.moduledefid = md.moduledefid ");
-
-			sqlCommand.Append("JOIN	mp_pagemodules pm ");
-			sqlCommand.Append("ON m.moduleid = pm.moduleid ");
-
-			sqlCommand.Append("WHERE pm.pageid = :pageid ");
-
-			sqlCommand.Append("AND pm.publishbegindate <= :nowdate ");
-			sqlCommand.Append("AND (pm.publishenddate IS NULL OR pm.publishenddate > :nowdate) ");
-
-
-			sqlCommand.Append("ORDER BY pm.moduleorder;");
-
-			NpgsqlParameter[] arParams = new NpgsqlParameter[2];
-
-			arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = pageId;
-
-			arParams[1] = new NpgsqlParameter(":nowdate", NpgsqlTypes.NpgsqlDbType.Timestamp);
-			arParams[1].Direction = ParameterDirection.Input;
-			arParams[1].Value = DateTime.UtcNow;
-
-			return NpgsqlHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
-				CommandType.Text,
-				sqlCommand.ToString(),
-				arParams
-			);
-		}
-
-
-		public static IDataReader GetMyPageModules(int siteId)
-		{
-			NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-			arParams[0] = new NpgsqlParameter(":siteid", NpgsqlTypes.NpgsqlDbType.Integer);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = siteId;
-
-			return NpgsqlHelper.ExecuteReader(
-				ConnectionString.GetReadConnectionString(),
-				CommandType.StoredProcedure,
-				"mp_modules_selectformypage(:siteid)",
-				arParams
-			);
-		}
-
 
 		public static IDataReader GetModulesForSite(int siteId, Guid featureGuid)
 		{
