@@ -12319,15 +12319,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Style Set.
-        /// </summary>
-        internal static string PageSettingsStyleSet {
-            get {
-                return ResourceManager.GetString("PageSettingsStyleSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hide This Page From Authenticated Users?.
         /// </summary>
         internal static string PageSettingstHideAfterLoginLabel {
@@ -17905,6 +17896,15 @@ namespace Resources {
         internal static string StyleNameRequiredMessage {
             get {
                 return ResourceManager.GetString("StyleNameRequiredMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Style Sets.
+        /// </summary>
+        internal static string StyleSets {
+            get {
+                return ResourceManager.GetString("StyleSets", resourceCulture);
             }
         }
         

@@ -6796,4 +6796,7 @@ We've generated a new key for you. Copy the key below into your site's configura
   <data name="AdminIndexBrowserCategories" xml:space="preserve">
     <value>Categories</value>
   </data>
+  <data name="StyleSets" xml:space="preserve">
+    <value>Style Sets</value>
+  </data>
 </root>

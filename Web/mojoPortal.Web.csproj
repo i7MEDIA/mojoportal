@@ -500,6 +500,7 @@
     <Content Include="Admin\ContentPublishDialog.aspx" />
     <Content Include="Admin\ContentValidation.aspx" />
     <Content Include="Admin\Controls\PageContentWizard.ascx" />
+    <Content Include="Admin\Controls\StyleSetsControl.ascx" />
     <Content Include="Admin\Controls\UserRoles.ascx" />
     <Content Include="Admin\EditLoginInfo.aspx" />
     <Content Include="Admin\EditRegistrationAgreement.aspx" />
@@ -884,6 +885,13 @@
     </Compile>
     <Compile Include="Admin\Controls\PageContentWizard.ascx.designer.cs">
       <DependentUpon>PageContentWizard.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Controls\StyleSetsControl.ascx.cs">
+      <DependentUpon>StyleSetsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Controls\StyleSetsControl.ascx.designer.cs">
+      <DependentUpon>StyleSetsControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Controls\UserRoles.ascx.cs">
       <DependentUpon>UserRoles.ascx</DependentUpon>
