@@ -367,8 +367,6 @@ public static class DBPageSettings
 			new ("?PLastModUtc", MySqlDbType.DateTime) { Direction = ParameterDirection.Input, Value = DateTime.UtcNow },
 		];
 
-
-
 		int rowsAffected = MySqlHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
 			sqlCommand,

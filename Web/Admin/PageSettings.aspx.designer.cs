@@ -1041,13 +1041,13 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStyleSets;
 
 		/// <summary>
-		/// cblStyleSets control.
+		/// styleSetList control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.CheckBoxList cblStyleSets;
+		protected global::mojoPortal.Web.AdminUI.StyleSetsControl styleSetList;
 
 		/// <summary>
 		/// divBodyCss control.

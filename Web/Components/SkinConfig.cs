@@ -29,7 +29,7 @@ public class SkinConfig
 	public MenuOptions MenuOptions { get; set; } = new MenuOptions();
 	public MenuOptions PageMenuOptions { get; set; } = new MenuOptions();
 	public List<StyleSet> PageStyleSets { get; set; } = [];
-	public List<StyleSet> StyleSets { get; set; } = [];
+	public List<StyleSet> ModuleStyleSets { get; set; } = [];
 	public List<SkinContentTemplate> Templates { get; set; } = [];
 	public List<EditorStyle> EditorStyles { get; set; } = [];
 	public Dictionary<string, EditorConfig> EditorConfig { get; set; } = new(StringComparer.InvariantCultureIgnoreCase);
@@ -37,7 +37,7 @@ public class SkinConfig
 	public ConcurrentDictionary<string, dynamic> DisplaySettings { get; set; } = [];
 }
 
-public class  ModuleDisplayOptions
+public class ModuleDisplayOptions
 {
 	public bool ModuleTitle_ShowByDefault { get; set; } = WebConfigSettings.ShowModuleTitlesByDefault;
 	public string ModuleTitle_Element { get; set; } = WebConfigSettings.ModuleTitleTag;
@@ -220,7 +220,8 @@ public class SkinConfigManager
 			skinConfig.HelpLinkScriptPath = resolveFilePath(skinConfig, skinConfig.HelpLinkScriptPath, skinUrlPath, defaultSkinConfig.HelpLinkScriptPath);
 			skinConfig.ModalScriptPath = resolveFilePath(skinConfig, skinConfig.ModalScriptPath, skinUrlPath, defaultSkinConfig.ModalScriptPath);
 			skinConfig.ModalTemplatePath = resolveFilePath(skinConfig, skinConfig.ModalTemplatePath, skinUrlPath, defaultSkinConfig.ModalTemplatePath);
-			skinConfig.PageStyleSets = [.. skinConfig.PageStyleSets.Where(x => x.ApplyTo == "Page")];
+			//skinConfig.PageStyleSets = [.. skinConfig.StyleSets.Where(x => x.ApplyTo.Count() == 1 && x.ApplyTo.Contains("Page"))];
+			//skinConfig.ModuleStyleSets = [.. skinConfig.StyleSets.Where(x => (x.ApplyTo.Count() != 1 && !x.ApplyTo.Contains("Page")))];
 		}
 		else
 		{

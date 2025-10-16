@@ -266,6 +266,9 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 			cblViewRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;
 			authEditRoles.Enabled = isAdmin || isContentAdmin || isSiteEditor;
+
+			styleSetList.StyleSets = Global.SkinConfig.ModuleStyleSets;
+			styleSetList.SelectedStyleSetNames = module.StyleSets;
 		}
 	}
 
@@ -1228,10 +1231,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		use3LevelWorkFlow = WebConfigSettings.EnableContentWorkflow && WebConfigSettings.Use3LevelContentWorkflow && siteSettings.EnableContentWorkflow;
 
 		divCacheTimeout.Visible = !WebConfigSettings.DisableContentCache;
-		h2DraftEditRoles.Visible = WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow;
-		divDraftEditRoles.Visible = h2DraftEditRoles.Visible;
-
-		h2DraftApprovalRoles.Visible = use3LevelWorkFlow;
+		divDraftEditRoles.Visible = WebConfigSettings.EnableContentWorkflow && siteSettings.EnableContentWorkflow;
 		divDraftApprovalRoles.Visible = use3LevelWorkFlow;
 		liApproverRoles.Visible = use3LevelWorkFlow;
 

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -11,7 +10,9 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Business.WebHelpers.PageEventHandlers;
+using mojoPortal.SearchIndex;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.Services;
 using mojoPortal.Web.UI;
 using Resources;
 
@@ -69,8 +70,6 @@ public partial class PageProperties : NonCmsBasePage
 		Load += new EventHandler(Page_Load);
 		applyBtn.Click += new EventHandler(Apply_Click);
 		btnDelete.Click += new EventHandler(btnDelete_Click);
-		//btnAddStyleSet.Click += new EventHandler(btnAddStyleSet_Click);
-		//btnRemoveStyleSet.Click += new EventHandler(btnRemoveStyleSet_Click);
 
 		grdContentMeta.RowCommand += new GridViewCommandEventHandler(grdContentMeta_RowCommand);
 		grdContentMeta.RowEditing += new GridViewEditEventHandler(grdContentMeta_RowEditing);
@@ -88,12 +87,8 @@ public partial class PageProperties : NonCmsBasePage
 		grdMetaLinks.RowDataBound += new GridViewRowEventHandler(grdMetaLinks_RowDataBound);
 		btnAddMetaLink.Click += new EventHandler(btnAddMetaLink_Click);
 
-		//ScriptConfig.IncludeYuiTabs = true;
-		//IncludeYuiTabsCss = true;
-
 		SuppressPageMenu();
 
-		//JQueryUIThemeName = "base";
 		ScriptConfig.IncludeJQTable = true;
 	}
 
@@ -238,7 +233,7 @@ public partial class PageProperties : NonCmsBasePage
 		}
 
 		PopulateLabels();
-		SetupScripts();
+		SetupFriendlyUrlScripts();
 
 		if (!Page.IsPostBack)
 		{
@@ -252,7 +247,9 @@ public partial class PageProperties : NonCmsBasePage
 	{
 		PopulatePageList();
 		PopulateChangeFrequencyDropdown();
-		PopulateStyleSets();
+		styleSetList.StyleSets = Global.SkinConfig.PageStyleSets;
+		styleSetList.SelectedStyleSetNames = pageSettings.StyleSets;
+
 		ListItem listItem;
 
 		if (ddPages.Visible)
@@ -444,9 +441,16 @@ public partial class PageProperties : NonCmsBasePage
 			divHideMenu.Visible = false;
 		}
 
-		fbMenuImage.TextBoxClientId = txtMenuImage.ClientID;
-		fbMenuImage.PreviewImageClientId = imgMenuImagePreview.ClientID;
-		fbMenuImage.Text = Resource.Browse;
+		if (divMenuImage.Visible)
+		{
+			fbMenuImage.TextBoxClientId = txtMenuImage.ClientID;
+			fbMenuImage.PreviewImageClientId = imgMenuImagePreview.ClientID;
+			fbMenuImage.Text = Resource.Browse;
+		}
+		else
+		{
+			fbMenuImage.Enabled = false;
+		}
 
 		BindRoles(pageSettings);
 	}
@@ -645,46 +649,6 @@ public partial class PageProperties : NonCmsBasePage
 		]);
 	}
 
-	private void PopulateStyleSets()
-	{
-		if (divStyleSets.Visible)
-		{
-			cblStyleSets.Items.Clear();
-			foreach (var styleSet in Global.SkinConfig.PageStyleSets)
-			{
-				var listItem = new ListItem(styleSet.Name, styleSet.Name);
-				listItem.Attributes.Add("title", styleSet.Description);
-				if (pageSettings.StyleSets.Contains(styleSet.Name))
-				{
-					listItem.Selected = true;
-				}
-				cblStyleSets.Items.Add(listItem);
-			}
-
-			//lstAvailableStyleSets.Items.Clear();
-			//lstSelectedStyleSets.Items.Clear();
-
-			//foreach (var styleSet in Global.SkinConfig.PageStyleSets)
-			//{
-			//	var listItem = new ListItem(styleSet.Name, styleSet.Name);
-			//	listItem.Attributes.Add("title", styleSet.Description);
-
-			//	if (pageSettings.StyleSets.Contains(styleSet.Name))
-			//	{
-
-			//		lstSelectedStyleSets.Items.Add(listItem);
-			//		continue;
-			//	}
-			//	else
-			//	{
-			//		lstAvailableStyleSets.Items.Add(listItem);
-			//	}
-			//}
-			//btnAddStyleSet.Enabled = lstAvailableStyleSets.Items.Count > 0;
-			//btnRemoveStyleSet.Enabled = lstSelectedStyleSets.Items.Count > 0;
-		}
-	}
-
 	private void PopulatePageList()
 	{
 		if (!ddPages.Visible)
@@ -775,43 +739,6 @@ public partial class PageProperties : NonCmsBasePage
 		}
 	}
 
-	//private void btnAddStyleSet_Click(object sender, EventArgs e)
-	//{
-
-	//	if (lstAvailableStyleSets.SelectedIndex > -1)
-	//	{
-	//		foreach (ListItem item in lstAvailableStyleSets.Items)
-	//		{
-	//			if (item.Selected)
-	//			{
-	//				lstSelectedStyleSets.Items.Add(item);
-	//				lstAvailableStyleSets.Items.Remove(item);
-	//			}
-	//		}
-	//		PopulateStyleSets();
-
-	//		upStyleSets.Update();
-	//	}
-	//}
-
-	//private void btnRemoveStyleSet_Click(object sender, EventArgs e)
-	//{
-	//	if (lstSelectedStyleSets.SelectedIndex > -1)
-	//	{
-	//		foreach (ListItem item in lstSelectedStyleSets.Items)
-	//		{
-	//			if (item.Selected)
-	//			{
-	//				lstSelectedStyleSets.Items.Remove(item);
-	//				lstAvailableStyleSets.Items.Add(item);
-	//			}
-	//		}
-
-	//		PopulateStyleSets();
-	//		upStyleSets.Update();
-	//	}
-	//}
-
 	void btnDelete_Click(object sender, EventArgs e)
 	{
 		if (pageSettings == null)
@@ -836,7 +763,7 @@ public partial class PageProperties : NonCmsBasePage
 		PageSettings.DeletePage(pageSettings.PageId);
 		FriendlyUrl.DeleteByPageGuid(pageSettings.PageGuid);
 
-		SearchIndex.IndexHelper.ClearPageIndexAsync(pageSettings);
+		IndexHelper.ClearPageIndexAsync(pageSettings);
 		CacheHelper.ResetSiteMapCache(siteSettings.SiteId);
 
 		WebUtils.SetupRedirect(this, "/".ToLinkBuilder().ToString());
@@ -980,7 +907,7 @@ public partial class PageProperties : NonCmsBasePage
 
 		pageSettings.PageName = txtPageName.Text.RemoveMarkup();
 		pageSettings.PageTitle = txtPageTitle.Text;
-		pageSettings.StyleSets = cblStyleSets.Items.ToList();
+		pageSettings.StyleSets = styleSetList.SelectedStyleSetNames;
 
 		if (divPageHeading.Visible)
 		{
@@ -1205,12 +1132,12 @@ public partial class PageProperties : NonCmsBasePage
 		if (saved && reIndexPage)
 		{
 			pageSettings.PageIndex = CurrentPage.PageIndex;
-			SearchIndex.IndexHelper.RebuildPageIndexAsync(pageSettings);
-			SiteUtils.QueueIndexing();
+			IndexHelper.RebuildPageIndexAsync(pageSettings);
+			IndexHelper.QueueIndexing();
 		}
 		else if (saved && clearIndex)
 		{
-			SearchIndex.IndexHelper.ClearPageIndexAsync(pageSettings);
+			IndexHelper.ClearPageIndexAsync(pageSettings);
 		}
 
 		return result;
@@ -1866,79 +1793,53 @@ public partial class PageProperties : NonCmsBasePage
 
 	private void SetupRoleToggleScript()
 	{
-		StringBuilder script = new StringBuilder();
+		var script = $$"""
+			<script data-loader={{nameof(PageSettings)}}>
+			function DeSelectRoles(chkBoxContainer) {
+			$(chkBoxContainer).find('input[type=checkbox]').each(function(){this.checked = false; }); 
+			} 
+			$(document).ready(function() {
+			$('#{{rbViewAdminOnly.ClientID}}').change(function(){
+			var selectedVal = $('#{{rbViewAdminOnly.ClientID}}').attr('checked'); 
+			if(selectedVal === 'checked'){
+			DeSelectRoles('#{{chkListAuthRoles.ClientID}}');}
+			});
+			$('#{{rbEditAdminOnly.ClientID}}').change(function(){
+			var selectedVal = $('#{{rbEditAdminOnly.ClientID}}').attr('checked'); 
+			if(selectedVal === 'checked'){
+			DeSelectRoles('#{{chkListEditRoles.ClientID}}');}
+			});
+			$('#{{rbCreateChildAdminOnly.ClientID}}').change(function(){
+			var selectedVal = $('#{{rbCreateChildAdminOnly.ClientID}}').attr('checked'); 
+			if(selectedVal === 'checked'){
+			DeSelectRoles('#{{chkListCreateChildPageRoles.ClientID}}');}
+			});
+			}); 
+			</script>
 
-		script.Append("\n<script type='text/javascript'>");
-		script.Append("function DeSelectRoles(chkBoxContainer) {");
-		script.Append("$(chkBoxContainer).find('input[type=checkbox]').each(function(){this.checked = false; }); ");
-		script.Append("} ");
-		script.Append("$(document).ready(function() {");
-		script.Append("$('#" + rbViewAdminOnly.ClientID + "').change(function(){");
-		script.Append("var selectedVal = $('#" + rbViewAdminOnly.ClientID + "').attr('checked'); ");
-		script.Append("if(selectedVal === 'checked'){");
-		script.Append("DeSelectRoles('#" + chkListAuthRoles.ClientID + "');}");
-		script.Append("});");
+			""";
 
-		script.Append("$('#" + rbEditAdminOnly.ClientID + "').change(function(){");
-		script.Append("var selectedVal = $('#" + rbEditAdminOnly.ClientID + "').attr('checked'); ");
-		script.Append("if(selectedVal === 'checked'){");
-		script.Append("DeSelectRoles('#" + chkListEditRoles.ClientID + "');}");
-		script.Append("});");
 
-		script.Append("$('#" + rbCreateChildAdminOnly.ClientID + "').change(function(){");
-		script.Append("var selectedVal = $('#" + rbCreateChildAdminOnly.ClientID + "').attr('checked'); ");
-		script.Append("if(selectedVal === 'checked'){");
-		script.Append("DeSelectRoles('#" + chkListCreateChildPageRoles.ClientID + "');}");
-		script.Append("});");
-
-		script.Append("}); ");
-
-		script.Append("</script>");
 
 		Page.ClientScript.RegisterStartupScript(typeof(Page), "roletoggle", script.ToString());
 	}
 
 	private void SetupParentPageSelectorScript()
 	{
-		StringBuilder script = new StringBuilder();
-
-		script.Append("\n<script type='text/javascript'>");
-		script.Append("function SetPage(pageId, pageName) {");
-
-		script.Append("var hdnUI = document.getElementById('" + hdnParentPageId.ClientID + "'); ");
-		script.Append("hdnUI.value = pageId; ");
-
-		script.Append("var lbl = document.getElementById('" + lblParentPageName.ClientID + "');  ");
-		script.Append("lbl.innerHTML = pageName; ");
-
-		script.Append("$.colorbox.close(); ");
-
-		script.Append("}");
-		script.Append("</script>");
-
-		Page.ClientScript.RegisterStartupScript(typeof(Page), "SelectPrentPageHandler", script.ToString());
-	}
-
-	public void SetupStyleSetScript()
-	{
 		var script = $$"""
-			const styleSets = document.querySelectorAll('#{{cblStyleSets.ClientID}} input[type="checkbox"]');
-
-			function setOutput() {
-				const output = document.querySelector('#styleSetResult');
-
-				output.value = Array.from(styleSets)
-					.filter(x => x.checked)
-					.map(x => x.value)
-					.join(', ');
+			<script data-loader="{{nameof(PageSettings)}}">
+			function SetPage(pageId, pageName) {
+				var hdnUI = document.getElementById("{{hdnParentPageId.ClientID}}"); 
+				hdnUI.value = pageId; 
+				var lbl = document.getElementById("{{lblParentPageName.ClientID}}");  
+				lbl.innerHTML = pageName; 
+				$.colorbox.close(); 
 			}
-
-			styleSets.forEach(x => x.addEventListener('change', setOutput));
-
-			setOutput();
+			</script>
 			""";
-		Page.ClientScript.RegisterStartupScript(typeof(Page), "SelectStyleSetHandler", script, true);
+		Page.ClientScript.RegisterStartupScript(typeof(Page), "SelectParentPageHandler", script);
 	}
+	
 
 	private void LoadSettings()
 	{
@@ -1973,9 +1874,7 @@ public partial class PageProperties : NonCmsBasePage
 			divBodyCss.Visible = true;
 			divMenuCss.Visible = true;
 			divStyleSets.Visible = true;
-			SetupStyleSetScript();
 		}
-
 
 		AddClassToBody("administration");
 		AddClassToBody("pagesettings");
@@ -2061,37 +1960,36 @@ public partial class PageProperties : NonCmsBasePage
 		}
 	}
 
-
-	private void SetupScripts()
+	private void SetupFriendlyUrlScripts()
 	{
-		if (
-			autosuggestFriendlyUrls &&
-			((pageId == -1) || WebConfigSettings.AutoSuggestFriendlyUrlsOnPageNameChanges)
-		)
+		if (autosuggestFriendlyUrls
+			&& (pageId == -1 || WebConfigSettings.AutoSuggestFriendlyUrlsOnPageNameChanges))
 		{
-			if (!Page.ClientScript.IsClientScriptBlockRegistered("friendlyurlsuggest"))
+			if (!Page.ClientScript.IsClientScriptBlockRegistered(nameof(FriendlyUrlSuggestXml)))
 			{
 				Page.ClientScript.RegisterClientScriptBlock(
 					GetType(),
-					"friendlyurlsuggest", "<script type=\"text/javascript\" src=\"" + ResolveUrl(WebConfigSettings.FriendlyUrlSuggestScript) + "\"></script>"
+					nameof(FriendlyUrlSuggestXml), 
+					$"<script data-loader=\"{nameof(PageSettings)}\" src=\"{ResolveUrl(WebConfigSettings.FriendlyUrlSuggestScript)}\"></script>"
 				);
 			}
 
-			string hookupInputScript = "<script type=\"text/javascript\">"
-				+ "new UrlHelper( "
-				+ "document.getElementById('" + txtPageName.ClientID + "'),  "
-				+ "document.getElementById('" + txtUrl.ClientID + "'), "
-				+ "document.getElementById('" + hdnPageName.ClientID + "'), "
-				+ "document.getElementById('" + spnUrlWarning.ClientID + "'), "
-				+ "\"" + SiteRoot + "/Services/FriendlyUrlSuggestXml.aspx" + "\""
-				+ ");</script>";
+			string hookupInputScript = $"""
+				<script data-loader="{nameof(PageSettings)}">
+					new UrlHelper( 
+						document.getElementById('{txtPageName.ClientID}'), 
+						document.getElementById('{txtUrl.ClientID}'), 
+						document.getElementById('{hdnPageName.ClientID}'), 
+						document.getElementById('{spnUrlWarning.ClientID}'), 
+						"{SiteRoot}/Services/FriendlyUrlSuggestXml.aspx"
+					);
+				</script>
+				""";
 
-			if (!Page.ClientScript.IsStartupScriptRegistered(UniqueID + "urlscript"))
+			var scriptKey = $"{UniqueID}_urlscript";
+			if (!Page.ClientScript.IsStartupScriptRegistered(scriptKey))
 			{
-				Page.ClientScript.RegisterStartupScript(
-					GetType(),
-					UniqueID + "urlscript", hookupInputScript
-				);
+				Page.ClientScript.RegisterStartupScript(GetType(), scriptKey, hookupInputScript);
 			}
 		}
 	}

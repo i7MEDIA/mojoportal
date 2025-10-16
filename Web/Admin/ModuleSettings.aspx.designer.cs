@@ -114,31 +114,22 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.Literal litSecurityLink;
 
 		/// <summary>
-		/// divWebParts control.
+		/// fgpCustomSettings control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWebParts;
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpCustomSettings;
 
 		/// <summary>
-		/// SiteLabel4 control.
+		/// litCustomSettingsHeader control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel4;
-
-		/// <summary>
-		/// ddWebParts control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.DropDownList ddWebParts;
+		protected global::System.Web.UI.WebControls.Literal litCustomSettingsHeader;
 
 		/// <summary>
 		/// pnlcustomSettings control.
@@ -148,6 +139,105 @@ namespace mojoPortal.Web.AdminUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.Panel pnlcustomSettings;
+
+		/// <summary>
+		/// fgpGenericDisplaySettings control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.FormGroupPanel fgpGenericDisplaySettings;
+
+		/// <summary>
+		/// litGenericDisplaySettings control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litGenericDisplaySettings;
+
+		/// <summary>
+		/// lblModuleName control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.SiteLabel lblModuleName;
+
+		/// <summary>
+		/// moduleTitle control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox moduleTitle;
+
+		/// <summary>
+		/// lblShowTitle control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.SiteLabel lblShowTitle;
+
+		/// <summary>
+		/// chkShowTitle control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.CheckBox chkShowTitle;
+
+		/// <summary>
+		/// divTitleElement control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTitleElement;
+
+		/// <summary>
+		/// SiteLabel14 control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel14;
+
+		/// <summary>
+		/// ddlTitleElements control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.DropDownList ddlTitleElements;
+
+		/// <summary>
+		/// divStyleSets control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divStyleSets;
+
+		/// <summary>
+		/// styleSetList control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.AdminUI.StyleSetsControl styleSetList;
 
 		/// <summary>
 		/// tabGeneralSettings control.
@@ -231,24 +321,6 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.DropDownList ddPages;
 
 		/// <summary>
-		/// lblModuleName control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel lblModuleName;
-
-		/// <summary>
-		/// moduleTitle control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.TextBox moduleTitle;
-
-		/// <summary>
 		/// divCacheTimeout control.
 		/// </summary>
 		/// <remarks>
@@ -276,51 +348,6 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.TextBox cacheTime;
 
 		/// <summary>
-		/// lblShowTitle control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel lblShowTitle;
-
-		/// <summary>
-		/// chkShowTitle control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.CheckBox chkShowTitle;
-
-		/// <summary>
-		/// divTitleElement control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTitleElement;
-
-		/// <summary>
-		/// SiteLabel14 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel14;
-
-		/// <summary>
-		/// ddlTitleElements control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.DropDownList ddlTitleElements;
-
-		/// <summary>
 		/// divIncludeInSearch control.
 		/// </summary>
 		/// <remarks>
@@ -346,42 +373,6 @@ namespace mojoPortal.Web.AdminUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.CheckBox chkIncludeInSearch;
-
-		/// <summary>
-		/// SiteLabel6 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel6;
-
-		/// <summary>
-		/// chkHideFromAuth control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.CheckBox chkHideFromAuth;
-
-		/// <summary>
-		/// SiteLabel7 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel7;
-
-		/// <summary>
-		/// chkHideFromUnauth control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.CheckBox chkHideFromUnauth;
 
 		/// <summary>
 		/// tabSecurity control.
@@ -429,6 +420,42 @@ namespace mojoPortal.Web.AdminUI
 		protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink2;
 
 		/// <summary>
+		/// SiteLabel6 control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel6;
+
+		/// <summary>
+		/// chkHideFromAuth control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.CheckBox chkHideFromAuth;
+
+		/// <summary>
+		/// SiteLabel7 control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel7;
+
+		/// <summary>
+		/// chkHideFromUnauth control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.CheckBox chkHideFromUnauth;
+
+		/// <summary>
 		/// divRoles control.
 		/// </summary>
 		/// <remarks>
@@ -436,15 +463,6 @@ namespace mojoPortal.Web.AdminUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRoles;
-
-		/// <summary>
-		/// h3ViewRoles control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl h3ViewRoles;
 
 		/// <summary>
 		/// lblAuthorizedRoles control.
@@ -492,15 +510,6 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.CheckBoxList cblViewRoles;
 
 		/// <summary>
-		/// h1 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl h1;
-
-		/// <summary>
 		/// SiteLabel8 control.
 		/// </summary>
 		/// <remarks>
@@ -546,13 +555,13 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.CheckBoxList authEditRoles;
 
 		/// <summary>
-		/// h2DraftEditRoles control.
+		/// divDraftEditRoles control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl h2DraftEditRoles;
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDraftEditRoles;
 
 		/// <summary>
 		/// SiteLabel16 control.
@@ -564,15 +573,6 @@ namespace mojoPortal.Web.AdminUI
 		protected global::mojoPortal.Web.Controls.SiteLabel SiteLabel16;
 
 		/// <summary>
-		/// divDraftEditRoles control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDraftEditRoles;
-
-		/// <summary>
 		/// draftEditRoles control.
 		/// </summary>
 		/// <remarks>
@@ -582,13 +582,13 @@ namespace mojoPortal.Web.AdminUI
 		protected global::System.Web.UI.WebControls.CheckBoxList draftEditRoles;
 
 		/// <summary>
-		/// h2DraftApprovalRoles control.
+		/// divDraftApprovalRoles control.
 		/// </summary>
 		/// <remarks>
 		/// Auto-generated field.
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl h2DraftApprovalRoles;
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDraftApprovalRoles;
 
 		/// <summary>
 		/// lblDraftApprovalRoles control.
@@ -598,15 +598,6 @@ namespace mojoPortal.Web.AdminUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::mojoPortal.Web.Controls.SiteLabel lblDraftApprovalRoles;
-
-		/// <summary>
-		/// divDraftApprovalRoles control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDraftApprovalRoles;
 
 		/// <summary>
 		/// draftApprovalRoles control.

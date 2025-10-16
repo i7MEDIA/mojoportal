@@ -1,23 +1,7 @@
-/// Author:					
-/// Created:				2007-11-03
-/// Last Modified:			2013-12-13
-/// 
-/// The use and distribution terms for this software are covered by the 
-/// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-/// which can be found in the file CPL.TXT at the root of this distribution.
-/// By using this software in any fashion, you are agreeing to be bound by 
-/// the terms of this license.
-///
-/// You must not remove this notice, or any other, from this software.
-
 using System;
-using System.Text;
-using System.Data;
-using System.Data.Common;
 using System.Configuration;
-using System.Globalization;
-using System.IO;
-using System.Web;
+using System.Data;
+using System.Text;
 using Mono.Data.Sqlite;
 
 namespace mojoPortal.Data
@@ -39,8 +23,6 @@ namespace mojoPortal.Data
             return connectionString;
         }
 
-
-
         public static int Create(
             int siteId,
             int parentId,
@@ -60,8 +42,6 @@ namespace mojoPortal.Data
             bool showChildPageBreadcrumbs,
             string pageKeyWords,
             string pageDescription,
-            string pageEncoding,
-            string additionalMetaTags,
             bool useUrl,
             string url,
             bool openInNewWindow,
@@ -89,15 +69,15 @@ namespace mojoPortal.Data
             Guid pubTeamId,
             string bodyCssClass,
             string menuCssClass,
-            int publishMode,
             Guid createdBy,
             string createdFromIp,
             string menuDescription,
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc
-            )
+            DateTime pubDateUtc,
+            string styleSets
+			)
         {
 
             #region byte conversion
@@ -267,8 +247,6 @@ namespace mojoPortal.Data
             sqlCommand.Append("ShowBreadcrumbs, ");
             sqlCommand.Append("PageKeyWords, ");
             sqlCommand.Append("PageDescription, ");
-            sqlCommand.Append("PageEncoding, ");
-            sqlCommand.Append("AdditionalMetaTags, ");
             sqlCommand.Append("UseUrl, ");
             sqlCommand.Append("Url, ");
             sqlCommand.Append("OpenInNewWindow, ");
@@ -297,7 +275,6 @@ namespace mojoPortal.Data
             sqlCommand.Append("ExpandOnSiteMap, ");
 
             sqlCommand.Append("PubTeamId, ");
-            sqlCommand.Append("PublishMode, ");
             sqlCommand.Append("BodyCssClass, ");
             sqlCommand.Append("MenuCssClass, ");
             sqlCommand.Append("SiteGuid, ");
@@ -315,9 +292,10 @@ namespace mojoPortal.Data
             sqlCommand.Append("PCreatedFromIp, ");
             sqlCommand.Append("PLastModUtc, ");
             sqlCommand.Append("PLastModBy, ");
-            sqlCommand.Append("PLastModFromIp ");
+            sqlCommand.Append("PLastModFromIp, ");
+            sqlCommand.Append("StyleSets ");
 
-            sqlCommand.Append(")");
+			sqlCommand.Append(")");
 
             sqlCommand.Append("VALUES (");
             sqlCommand.Append(" :SiteID , ");
@@ -365,7 +343,6 @@ namespace mojoPortal.Data
             sqlCommand.Append(":IncludeInChildSiteMap, ");
             sqlCommand.Append(":ExpandOnSiteMap, ");
             sqlCommand.Append(":PubTeamId, ");
-            sqlCommand.Append(":PublishMode, ");
             sqlCommand.Append(":BodyCssClass, ");
             sqlCommand.Append(":MenuCssClass, ");
 
@@ -385,8 +362,9 @@ namespace mojoPortal.Data
             sqlCommand.Append(":PLastModUtc, ");
             sqlCommand.Append(":PLastModBy, ");
             sqlCommand.Append(":PLastModFromIp ");
+            sqlCommand.Append(":StyleSets ");
 
-            sqlCommand.Append(")");
+			sqlCommand.Append(")");
             sqlCommand.Append(";");
 
             sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
@@ -429,14 +407,6 @@ namespace mojoPortal.Data
             arParams[8] = new SqliteParameter(":PageDescription", DbType.String, 255);
             arParams[8].Direction = ParameterDirection.Input;
             arParams[8].Value = pageDescription;
-
-            arParams[9] = new SqliteParameter(":PageEncoding", DbType.String, 255);
-            arParams[9].Direction = ParameterDirection.Input;
-            arParams[9].Value = pageEncoding;
-
-            arParams[10] = new SqliteParameter(":AdditionalMetaTags", DbType.String, 255);
-            arParams[10].Direction = ParameterDirection.Input;
-            arParams[10].Value = additionalMetaTags;
 
             arParams[11] = new SqliteParameter(":UseUrl", DbType.Int32);
             arParams[11].Direction = ParameterDirection.Input;
@@ -582,10 +552,6 @@ namespace mojoPortal.Data
             arParams[46].Direction = ParameterDirection.Input;
             arParams[46].Value = intExpandOnSiteMap;
 
-            arParams[47] = new SqliteParameter(":PublishMode", DbType.Int32);
-            arParams[47].Direction = ParameterDirection.Input;
-            arParams[47].Value = publishMode;
-
             arParams[48] = new SqliteParameter(":PCreatedUtc", DbType.DateTime);
             arParams[48].Direction = ParameterDirection.Input;
             arParams[48].Value = DateTime.UtcNow;
@@ -641,8 +607,11 @@ namespace mojoPortal.Data
                 arParams[59].Value = pubDateUtc;
             }
 
+			arParams[60] = new SqliteParameter(":StyleSets", DbType.String, 255);
+			arParams[60].Direction = ParameterDirection.Input;
+			arParams[60].Value = styleSets;
 
-            int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
+			int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams).ToString());
@@ -671,8 +640,6 @@ namespace mojoPortal.Data
             bool showChildPageBreadcrumbs,
             string pageKeyWords,
             string pageDescription,
-            string pageEncoding,
-            string additionalMetaTags,
             bool useUrl,
             string url,
             bool openInNewWindow,
@@ -698,16 +665,14 @@ namespace mojoPortal.Data
             Guid pubTeamId,
             string bodyCssClass,
             string menuCssClass,
-            int publishMode,
-            DateTime createdUtc,
-            Guid createdBy,
             Guid lastModBy,
             string lastModFromIp,
             string menuDescription,
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string styleSets)
         {
 
             #region byte conversion
@@ -878,8 +843,6 @@ namespace mojoPortal.Data
             sqlCommand.Append("ShowBreadcrumbs = :ShowBreadcrumbs, ");
             sqlCommand.Append("PageKeyWords = :PageKeyWords , ");
             sqlCommand.Append("PageDescription = :PageDescription , ");
-            sqlCommand.Append("PageEncoding = :PageEncoding , ");
-            sqlCommand.Append("AdditionalMetaTags = :AdditionalMetaTags,  ");
             sqlCommand.Append("UseUrl = :UseUrl,  ");
             sqlCommand.Append("Url = :Url,  ");
             sqlCommand.Append("OpenInNewWindow = :OpenInNewWindow,  ");
@@ -901,7 +864,6 @@ namespace mojoPortal.Data
 
             sqlCommand.Append("IncludeInChildSiteMap = :IncludeInChildSiteMap, ");
             sqlCommand.Append("PubTeamId = :PubTeamId, ");
-            sqlCommand.Append("PublishMode = :PublishMode, ");
             sqlCommand.Append("BodyCssClass = :BodyCssClass, ");
             sqlCommand.Append("MenuCssClass = :MenuCssClass, ");
 
@@ -920,13 +882,12 @@ namespace mojoPortal.Data
             sqlCommand.Append("ShowPageHeading = :ShowPageHeading, ");
             sqlCommand.Append("PubDateUtc = :PubDateUtc, ");
 
-            sqlCommand.Append("PCreatedUtc = :PCreatedUtc, ");
-            sqlCommand.Append("PCreatedBy = :PCreatedBy, ");
             sqlCommand.Append("PLastModUtc = :PLastModUtc, ");
             sqlCommand.Append("PLastModBy = :PLastModBy, ");
-            sqlCommand.Append("PLastModFromIp = :PLastModFromIp "); 
+            sqlCommand.Append("PLastModFromIp = :PLastModFromIp, "); 
+            sqlCommand.Append("StyleSets = :StyleSets ");
 
-            sqlCommand.Append("WHERE PageID = :PageID ;");
+			sqlCommand.Append("WHERE PageID = :PageID ;");
 
             SqliteParameter[] arParams = new SqliteParameter[57];
 
@@ -957,14 +918,6 @@ namespace mojoPortal.Data
             arParams[6] = new SqliteParameter(":PageDescription", DbType.String, 255);
             arParams[6].Direction = ParameterDirection.Input;
             arParams[6].Value = pageDescription;
-
-            arParams[7] = new SqliteParameter(":PageEncoding", DbType.String, 255);
-            arParams[7].Direction = ParameterDirection.Input;
-            arParams[7].Value = pageEncoding;
-
-            arParams[8] = new SqliteParameter(":AdditionalMetaTags", DbType.String, 255);
-            arParams[8].Direction = ParameterDirection.Input;
-            arParams[8].Value = additionalMetaTags;
 
             arParams[9] = new SqliteParameter(":RequireSSL", DbType.Int32);
             arParams[9].Direction = ParameterDirection.Input;
@@ -1110,19 +1063,6 @@ namespace mojoPortal.Data
             arParams[44].Direction = ParameterDirection.Input;
             arParams[44].Value = intExpandOnSiteMap;
 
-            arParams[45] = new SqliteParameter(":PublishMode", DbType.Int32);
-            arParams[45].Direction = ParameterDirection.Input;
-            arParams[45].Value = publishMode;
-
-
-            arParams[46] = new SqliteParameter(":PCreatedUtc", DbType.DateTime);
-            arParams[46].Direction = ParameterDirection.Input;
-            arParams[46].Value = createdUtc;
-
-            arParams[47] = new SqliteParameter(":PCreatedBy", DbType.String, 36);
-            arParams[47].Direction = ParameterDirection.Input;
-            arParams[47].Value = createdBy.ToString();
-
             arParams[48] = new SqliteParameter(":PLastModUtc", DbType.DateTime);
             arParams[48].Direction = ParameterDirection.Input;
             arParams[48].Value = DateTime.UtcNow;
@@ -1165,10 +1105,13 @@ namespace mojoPortal.Data
             {
                 arParams[56].Value = pubDateUtc;
             }
-            
 
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
+			arParams[54] = new SqliteParameter(":StyleSets", DbType.String, 255);
+			arParams[54].Direction = ParameterDirection.Input;
+			arParams[54].Value = styleSets;
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
                 GetConnectionString(),
                 sqlCommand.ToString(),
                 arParams);

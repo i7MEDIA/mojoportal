@@ -108,6 +108,8 @@ namespace mojoPortal.Business
 
 		public bool IsGlobal { get; set; } = false;
 
+        public List<string> StyleSets { get; set; } = [];
+
 		#endregion
 
 		#region Private Methods
@@ -169,10 +171,12 @@ namespace mojoPortal.Business
                 this.IsGlobal = Convert.ToBoolean(reader["IsGlobal"]);
                 this.HeadElement = reader["HeadElement"].ToString();
 
-                //this.PublishMode = Convert.ToInt32(reader["PublishMode"]);
-            }
+				//this.PublishMode = Convert.ToInt32(reader["PublishMode"]);
+				this.StyleSets = reader["StyleSets"].ToString().SplitOnCharAndTrim(',');
 
-        }
+			}
+
+		}
 
         private void GetModule(Guid moduleGuid)
         {
@@ -251,8 +255,6 @@ namespace mojoPortal.Business
                 this.DraftApprovalRoles,
 				this.CacheTime, 
 				this.ShowTitle,
-                this.AvailableForMyPage,
-                this.AllowMultipleInstancesOnMyPage,
                 this.Icon,
                 this.CreatedByUserId,
                 DateTime.UtcNow,
@@ -261,7 +263,7 @@ namespace mojoPortal.Business
                 this.HideFromAuthenticated,
                 this.HideFromUnauthenticated,
                 this.HeadElement,
-                this.PublishMode); 
+				string.Join(",", this.StyleSets)); 
 			
 			this.ModuleId = newID;
 			created = (newID > -1);
@@ -288,16 +290,14 @@ namespace mojoPortal.Business
 				this.CacheTime, 
 				this.ShowTitle,
 				this.EditUserId,
-                this.AvailableForMyPage,
-                this.AllowMultipleInstancesOnMyPage,
                 this.Icon,
                 this.HideFromAuthenticated,
                 this.HideFromUnauthenticated,
                 this.IncludeInSearch,
                 this.IsGlobal,
                 this.HeadElement,
-                this.PublishMode); 
-				
+				string.Join(",", this.StyleSets)); 
+
 		}
 		
 		#endregion
