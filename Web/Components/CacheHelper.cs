@@ -942,4 +942,32 @@ public static class CacheHelper
 	#endregion
 
 	public static string GetPathToWebConfigFile() => HostingEnvironment.MapPath("~/web.config");
+
+	public static Guid GetSkinCacheGuid(int siteId = -1)
+	{
+		var failSafeGuid = Guid.Parse("0000000A-0004-0012-0000-000000000000");
+		if (siteId == -1)
+		{
+			if (GetCurrentSiteSettings() is SiteSettings siteSettings)
+			{
+				return siteSettings.SkinVersion;
+			}
+			else
+			{
+				return failSafeGuid;
+			}
+		}
+		else
+		{
+			var siteSettings = GetSiteSettings(siteId);
+			if (siteSettings.SiteId > 0)
+			{
+				return siteSettings.SkinVersion;
+			}
+			else
+			{
+				return failSafeGuid;
+			}
+		}
+	}
 }
