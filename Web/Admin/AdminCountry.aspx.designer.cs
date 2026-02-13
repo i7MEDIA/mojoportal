@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Web.AdminUI {
-    
-    
-    public partial class AdminCountryPage {
-        
+namespace mojoPortal.Web.AdminUI
+{
+
+
+    public partial class AdminCountryPage
+    {
+
         /// <summary>
         /// pnlAdminCrumbs control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.AdminCrumbContainer pnlAdminCrumbs;
-        
+
         /// <summary>
         /// lnkAdminMenu control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkAdminMenu;
-        
+
         /// <summary>
         /// AdminCrumbSeparator1 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.AdminCrumbSeparator AdminCrumbSeparator1;
-        
+
         /// <summary>
         /// lnkCoreData control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkCoreData;
-        
+
         /// <summary>
         /// AdminCrumbSeparator2 control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.AdminCrumbSeparator AdminCrumbSeparator2;
-        
+
         /// <summary>
         /// lnkCurrentPage control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink lnkCurrentPage;
-        
+
         /// <summary>
         /// pnlOuterWrap control.
         /// </summary>
@@ -74,16 +76,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.OuterWrapperPanel pnlOuterWrap;
-        
-        /// <summary>
-        /// ctop1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        
-        
+
         /// <summary>
         /// pnlInnerWrap control.
         /// </summary>
@@ -92,7 +85,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.InnerWrapperPanel pnlInnerWrap;
-        
+
         /// <summary>
         /// heading control.
         /// </summary>
@@ -101,7 +94,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.HeadingControl heading;
-        
+
         /// <summary>
         /// pnlOuterBody control.
         /// </summary>
@@ -110,7 +103,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.OuterBodyPanel pnlOuterBody;
-        
+
         /// <summary>
         /// pnlInnerBody control.
         /// </summary>
@@ -119,7 +112,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.InnerBodyPanel pnlInnerBody;
-        
+
         /// <summary>
         /// grdCountry control.
         /// </summary>
@@ -128,7 +121,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.Controls.mojoGridView grdCountry;
-        
+
         /// <summary>
         /// btnAddNew control.
         /// </summary>
@@ -137,7 +130,7 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoButton btnAddNew;
-        
+
         /// <summary>
         /// pgrCountry control.
         /// </summary>
@@ -146,32 +139,5 @@ namespace mojoPortal.Web.AdminUI {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::mojoPortal.Web.UI.mojoCutePager pgrCountry;
-        
-        /// <summary>
-        /// divCleared1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        
-        
-        /// <summary>
-        /// divCleared control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        
-        
-        /// <summary>
-        /// cbottom1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        
     }
 }
