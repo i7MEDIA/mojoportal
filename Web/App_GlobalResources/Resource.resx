@@ -6796,4 +6796,10 @@ We've generated a new key for you. Copy the key below into your site's configura
   <data name="AdminIndexBrowserCategories" xml:space="preserve">
     <value>Categories</value>
   </data>
+  <data name="AddRolesToUserApprovalPromptMessage" xml:space="preserve">
+    <value>Enter your password to continue:</value>
+  </data>
+  <data name="AddRoleToUseApprovalPromptTitle" xml:space="preserve">
+    <value>Add User to Role?</value>
+  </data>
 </root>
