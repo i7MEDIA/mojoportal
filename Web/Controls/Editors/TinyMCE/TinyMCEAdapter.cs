@@ -1,3 +1,8 @@
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Core.Serializers.Newtonsoft;
+using mojoPortal.Web.Controls.Editors;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,11 +11,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Serializers.Newtonsoft;
-using mojoPortal.Web.Controls.Editors;
-using Newtonsoft.Json;
 
 namespace mojoPortal.Web.Editor;
 
@@ -18,291 +18,252 @@ public class TinyMceEditorAdapter : IWebEditor
 {
 	#region Constructors
 
-	public TinyMceEditorAdapter()
-	{
-		InitializeEditor();
-	}
+	public TinyMceEditorAdapter() => InitializeEditor();
 
 	#endregion
+
 
 	#region Private Properties
 
-	private TinyMceEditor Editor = new TinyMceEditor();
-	private string scriptBaseUrl = string.Empty;
-	private Unit editorWidth = Unit.Percentage(98);
-	private Unit editorHeight = Unit.Pixel(350);
-	private string editorCSSUrl = string.Empty;
-	private Direction textDirection = Direction.LeftToRight;
-	private ToolBar toolBar = ToolBar.AnonymousUser;
-	private bool setFocusOnStart = false;
-	private TinyMceConfiguration config = null;
-	private TinyMceSettings editorSettings = null;
+	private readonly TinyMceEditor _editor = new();
+	private TinyMceConfiguration _config = null;
+	private TinyMceSettings _editorSettings = null;
 
 	#endregion
+
 
 	#region Public Properties
 
 	public string ControlID
 	{
-		get
-		{
-			return Editor.ID;
-		}
-		set
-		{
-			Editor.ID = value;
-		}
+		get => _editor.ID;
+		set => _editor.ID = value;
 	}
 
-	public string ClientID
-	{
-		get
-		{
-			return Editor.ClientID;
-		}
-
-	}
+	public string ClientID => _editor.ClientID;
 
 	public string Text
 	{
-		get { return Editor.Text; }
-		set { Editor.Text = value; }
+		get => _editor.Text;
+		set => _editor.Text = value;
 	}
 
 	public string ScriptBaseUrl
 	{
-		get => scriptBaseUrl;
+		get => field;
 		set
 		{
-			scriptBaseUrl = value;
-			Editor.BasePath = ConfigHelper.GetStringProperty("TinyMCE:BasePath", $"{scriptBaseUrl}/tiny_mce/");
+			field = value;
+			_editor.BasePath = ConfigHelper.GetStringProperty("TinyMCE:BasePath", $"{field}/tiny_mce/");
 		}
-	}
+	} = string.Empty;
 
 	public string SiteRoot { get; set; } = string.Empty;
-
 	public string SkinName { get; set; } = string.Empty;
 
 	public string EditorCSSUrl
 	{
-		get => editorCSSUrl;
+		get => field;
 		set
 		{
-			editorCSSUrl = value;
-			if (editorCSSUrl.Length > 0)
+			field = value;
+
+			if (field.Length > 0)
 			{
-				Editor.EditorAreaCSS = editorCSSUrl;
+				_editor.EditorAreaCSS = field;
 			}
 		}
-	}
+	} = string.Empty;
 
 	public Unit Width
 	{
-		get => editorWidth;
+		get;
 		set
 		{
-			editorWidth = value;
-			Editor.Width = editorWidth;
+			field = value;
+			_editor.Width = field;
 		}
-	}
+	} = Unit.Percentage(98);
 
 	public Unit Height
 	{
-		get => editorHeight;
+		get;
 		set
 		{
-			editorHeight = value;
-			Editor.Height = editorHeight;
+			field = value;
+			_editor.Height = field;
 
 		}
-	}
+	} = Unit.Pixel(350);
 
 	public Direction TextDirection
 	{
-		get => textDirection;
+		get;
 		set
 		{
-			textDirection = value;
+			field = value;
+
 			if (value == Direction.RightToLeft)
 			{
-				Editor.TextDirection = "rtl";
+				_editor.TextDirection = "rtl";
 			}
 
 		}
-	}
+	} = Direction.LeftToRight;
 
 	public ToolBar ToolBar
 	{
-		get => toolBar;
+		get;
 		set
 		{
-			toolBar = value;
+			field = value;
 			SetToolBar();
 		}
-	}
+	} = ToolBar.AnonymousUser;
 
 	public bool SetFocusOnStart
 	{
-		get => setFocusOnStart;
+		get;
 		set
 		{
-			setFocusOnStart = value;
-			Editor.AutoFocus = setFocusOnStart;
+			field = value;
+			_editor.AutoFocus = field;
 		}
-	}
+	} = false;
 
 	public bool FullPageMode { get; set; } = false;
-
 	public bool UseFullyQualifiedUrlsForResources { get; set; } = false;
 
 	#endregion
 
+
 	#region Private Methods
-
-
 
 	private void InitializeEditor()
 	{
+		_config = TinyMceConfiguration.GetConfig();
+		_editor.EmotionsBaseUrl = _editor.ResolveUrl("~/Data/SiteImages/emoticons/tinymce/");
+		_editor.Height = Height;
+		_editor.Width = Width;
 
-
-		config = TinyMceConfiguration.GetConfig();
-		Editor.EmotionsBaseUrl = Editor.ResolveUrl("~/Data/SiteImages/emoticons/tinymce/");
-
-		Editor.Height = editorHeight;
-		Editor.Width = editorWidth;
-
-		if (setFocusOnStart)
+		if (SetFocusOnStart)
 		{
-			Editor.AutoFocus = true;
+			_editor.AutoFocus = true;
 		}
 
-		Editor.BasePath = ConfigHelper.GetStringProperty("TinyMCE:BasePath", Editor.BasePath);
+		_editor.BasePath = ConfigHelper.GetStringProperty("TinyMCE:BasePath", _editor.BasePath);
 
 		SetToolBar();
 	}
 
+
 	private void SetToolBar()
 	{
 		var fileManagerUrl = WebConfigSettings.FileDialogRelativeUrl.ToLinkBuilder().ToString();
+		var imageUploadUrl = "~/Services/FileService.ashx"
+			.ToLinkBuilder()
+			.AddParam("cmd", "uploadfromeditor")
+			.AddParam("rz", "true")
+			.AddParam("ko", WebConfigSettings.KeepFullSizeImagesDroppedInEditor)
+			.AddParam("t", Global.FileSystemToken)
+			.ToString();
 
-		var imageUploadUrl = "Services/FileService.ashx".ToLinkBuilder().AddParams(
-			new Dictionary<string, object> {
-				{ "cmd", "uploadfromeditor" },
-				{ "rz", "true" },
-				{ "ko", WebConfigSettings.KeepFullSizeImagesDroppedInEditor },
-				{ "t", Global.FileSystemToken }
-			}).ToString();
-
-		switch (toolBar)
+		switch (ToolBar)
 		{
 			case ToolBar.Full:
-
-				editorSettings = config.GetEditorSettings("Full");
-				Editor.FileManagerUrl = fileManagerUrl;
-				Editor.ImagesUploadUrl = imageUploadUrl;
-				Editor.StyleFormats = BuildTinyMceStyleJson();
+				_editorSettings = _config.GetEditorSettings("Full");
+				_editor.FileManagerUrl = fileManagerUrl;
+				_editor.ImagesUploadUrl = imageUploadUrl;
+				_editor.StyleFormats = BuildTinyMceStyleJson();
 
 				break;
 
 			case ToolBar.FullWithTemplates:
 
-				editorSettings = config.GetEditorSettings("FullWithTemplates");
-				Editor.FileManagerUrl = fileManagerUrl;
-				Editor.ImagesUploadUrl = imageUploadUrl;
-				Editor.StyleFormats = BuildTinyMceStyleJson();
-				Editor.TemplatesUrl = "Services/TinyMceTemplates.ashx".ToLinkBuilder().AddParam("cb", Guid.NewGuid()).ToString(); //cache busting guid
+				_editorSettings = _config.GetEditorSettings("FullWithTemplates");
+				_editor.FileManagerUrl = fileManagerUrl;
+				_editor.ImagesUploadUrl = imageUploadUrl;
+				_editor.StyleFormats = BuildTinyMceStyleJson();
+				_editor.TemplatesUrl = "~/Services/TinyMceTemplates.ashx"
+					.ToLinkBuilder()
+					.AddParam("cb", Guid.NewGuid().ToString("N")) //cache busting guid
+					.ToString();
 
 				break;
 
 			case ToolBar.Newsletter:
-
-				editorSettings = config.GetEditorSettings("Newsletter");
-
-				string snRoot = SiteUtils.GetNavigationSiteRoot();
-				Editor.FileManagerUrl = snRoot + WebConfigSettings.FileDialogRelativeUrl;
-
+				_editorSettings = _config.GetEditorSettings("Newsletter");
+				_editor.FileManagerUrl = WebConfigSettings.FileDialogRelativeUrl.ToLinkBuilder().ToString();
 
 				break;
 
 			case ToolBar.ForumWithImages:
-
-				editorSettings = config.GetEditorSettings("ForumWithImages");
-
-				Editor.FileManagerUrl = SiteUtils.GetNavigationSiteRoot() + WebConfigSettings.FileDialogRelativeUrl;
-				//Editor.EnableFileBrowser = true;
+				_editorSettings = _config.GetEditorSettings("ForumWithImages");
+				_editor.FileManagerUrl = WebConfigSettings.FileDialogRelativeUrl.ToLinkBuilder().ToString();
 
 				break;
 
 			case ToolBar.Forum:
-
-				editorSettings = config.GetEditorSettings("Forum");
+				_editorSettings = _config.GetEditorSettings("Forum");
 
 				break;
 
 			case ToolBar.AnonymousUser:
-
-				editorSettings = config.GetEditorSettings("Anonymous");
+				_editorSettings = _config.GetEditorSettings("Anonymous");
 
 				break;
 
 			case ToolBar.SimpleWithSource:
-
-				Editor.Plugins = "paste,searchreplace,fullscreen,emoticons,directionality,table,image";
-
-				Editor.Toolbar1Buttons = "code,cut,copy,pastetext,separator,blockquote,bold,italic,separator,bullist,numlist,separator,link,unlink,emoticons";
-
-				Editor.Toolbar2Buttons = "";
-
-				Editor.Toolbar3Buttons = "";
-
-				Editor.DisableMenuBar = true;
+				_editor.Plugins = "paste,searchreplace,fullscreen,emoticons,directionality,table,image";
+				_editor.Toolbar1Buttons = "code,cut,copy,pastetext,separator,blockquote,bold,italic,separator,bullist,numlist,separator,link,unlink,emoticons";
+				_editor.Toolbar2Buttons = "";
+				_editor.Toolbar3Buttons = "";
+				_editor.DisableMenuBar = true;
 
 				break;
 		}
 
-		Editor.Plugins = editorSettings.Plugins;
-		Editor.Toolbar1Buttons = editorSettings.Toolbar1Buttons;
-		Editor.Toolbar2Buttons = editorSettings.Toolbar2Buttons;
-		Editor.Toolbar3Buttons = editorSettings.Toolbar3Buttons;
-		Editor.ExtendedValidElements = editorSettings.ExtendedValidElements;
-		Editor.ForcePasteAsPlainText = editorSettings.ForcePasteAsPlainText;
-		Editor.DisableMenuBar = editorSettings.DisableMenuBar;
-		Editor.Menubar = editorSettings.Menubar;
-		Editor.UnDoLevels = editorSettings.UnDoLevels;
-		Editor.EnableObjectResizing = editorSettings.EnableObjectResizing;
-		Editor.Theme = editorSettings.Theme;
-		Editor.Skin = editorSettings.Skin;
-		Editor.AutoLocalize = editorSettings.AutoLocalize;
-		Editor.Language = editorSettings.Language;
-		Editor.TextDirection = editorSettings.TextDirection;
-		Editor.EnableBrowserSpellCheck = editorSettings.EnableBrowserSpellCheck;
-		Editor.EditorBodyCssClass = editorSettings.EditorBodyCssClass;
-		Editor.NoWrap = editorSettings.NoWrap;
-		Editor.RemovedMenuItems = editorSettings.RemovedMenuItems;
-		Editor.FileDialogWidth = editorSettings.FileDialogWidth;
-		Editor.FileDialogHeight = editorSettings.FileDialogHeight;
-		Editor.EnableImageAdvancedTab = editorSettings.EnableImageAdvancedTab;
-		Editor.ShowStatusbar = editorSettings.ShowStatusbar;
-
+		_editor.Plugins = _editorSettings.Plugins;
+		_editor.Toolbar1Buttons = _editorSettings.Toolbar1Buttons;
+		_editor.Toolbar2Buttons = _editorSettings.Toolbar2Buttons;
+		_editor.Toolbar3Buttons = _editorSettings.Toolbar3Buttons;
+		_editor.ExtendedValidElements = _editorSettings.ExtendedValidElements;
+		_editor.ForcePasteAsPlainText = _editorSettings.ForcePasteAsPlainText;
+		_editor.DisableMenuBar = _editorSettings.DisableMenuBar;
+		_editor.Menubar = _editorSettings.Menubar;
+		_editor.UnDoLevels = _editorSettings.UnDoLevels;
+		_editor.EnableObjectResizing = _editorSettings.EnableObjectResizing;
+		_editor.Theme = _editorSettings.Theme;
+		_editor.Skin = _editorSettings.Skin;
+		_editor.AutoLocalize = _editorSettings.AutoLocalize;
+		_editor.Language = _editorSettings.Language;
+		_editor.TextDirection = _editorSettings.TextDirection;
+		_editor.EnableBrowserSpellCheck = _editorSettings.EnableBrowserSpellCheck;
+		_editor.EditorBodyCssClass = _editorSettings.EditorBodyCssClass;
+		_editor.NoWrap = _editorSettings.NoWrap;
+		_editor.RemovedMenuItems = _editorSettings.RemovedMenuItems;
+		_editor.FileDialogWidth = _editorSettings.FileDialogWidth;
+		_editor.FileDialogHeight = _editorSettings.FileDialogHeight;
+		_editor.EnableImageAdvancedTab = _editorSettings.EnableImageAdvancedTab;
+		_editor.ShowStatusbar = _editorSettings.ShowStatusbar;
 	}
-
 
 	#endregion
 
+
 	#region Public Methods
+
 	public static string BuildTinyMceStyleJson()
 	{
-		SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
 
 		if (siteSettings == null)
 		{
 			return string.Empty;
 		}
 
-
-		string skinRootFolder = SiteUtils.GetSiteSkinFolderPath();
-		string currentSkin = siteSettings.Skin;
-
+		var skinRootFolder = SiteUtils.GetSiteSkinFolderPath();
+		var currentSkin = siteSettings.Skin;
 		var currentPage = CacheHelper.GetCurrentPage();
 
 		if (currentPage != null && !string.IsNullOrEmpty(currentPage.Skin))
@@ -310,25 +271,28 @@ public class TinyMceEditorAdapter : IWebEditor
 			currentSkin = currentPage.Skin;
 		}
 
-		FileInfo skinStylesFile = new($"{skinRootFolder + currentSkin}\\config\\editorstyles.json"); ;
-		FileInfo systemStylesFile = new(HttpContext.Current.Server.MapPath("~/data/style/editorstyles.json")); ;
+		var skinStylesFile = new FileInfo($"""{skinRootFolder + currentSkin}\config\editorstyles.json""");
+		var systemStylesFile = new FileInfo(HttpContext.Current.Server.MapPath("~/data/style/editorstyles.json")); ;
 
-		List<EditorStyle> styles = new();
+		var styles = new List<EditorStyle>();
 
 		if (WebConfigSettings.AddSystemStyleTemplatesAboveSiteTemplates && systemStylesFile.Exists)
 		{
 			styles.AddRange(EditorStyle.GetEditorStyles(systemStylesFile));
 		}
 
-		using (IDataReader reader = ContentStyle.GetAllActive(siteSettings.SiteGuid))
+		using (var reader = ContentStyle.GetAllActive(siteSettings.SiteGuid))
 		{
 			while (reader.Read())
 			{
-				styles.Add(new EditorStyle
+				styles.Add(new()
 				{
 					Name = reader["Name"].ToString(),
 					Element = [reader["Element"].ToString()],
-					Attributes = new Dictionary<string, string>() { { "class", reader["CssClass"].ToString() } }
+					Attributes = new Dictionary<string, string>()
+					{
+						{ "class", reader["CssClass"].ToString() }
+					}
 				});
 			}
 		}
@@ -343,11 +307,15 @@ public class TinyMceEditorAdapter : IWebEditor
 			styles.AddRange(EditorStyle.GetEditorStyles(systemStylesFile));
 		}
 
-		List<ITinyMceStyleBase> collection = [];
+		var collection = new List<ITinyMceStyleBase>();
 
 		if (styles.Any(x => x.Group?.Count > 0))
 		{
-			List<string> groupNames = styles.Where(x => x.Group?.Count > 0).SelectMany(x => x.Group).Distinct().ToList();
+			var groupNames = styles
+				.Where(x => x.Group?.Count > 0)
+				.SelectMany(x => x.Group)
+				.Distinct()
+				.ToList();
 
 			foreach (var group in groupNames)
 			{
@@ -360,7 +328,10 @@ public class TinyMceEditorAdapter : IWebEditor
 				{
 					Title = group
 				};
-				var groupStyles = styles.Where(x => x.Group?.Count > 0).Where(x => x.Group.Contains(group)).ToList();
+				var groupStyles = styles
+					.Where(x => x.Group?.Count > 0)
+					.Where(x => x.Group.Contains(group))
+					.ToList();
 
 				processStyles(groupStyles, col);
 
@@ -372,78 +343,77 @@ public class TinyMceEditorAdapter : IWebEditor
 		{
 			var iStyles = styles.Where(x => x.Group == null).ToList();
 			var tCol = new TinyMceStyleCollection { Title = "empty" };
+
 			processStyles(iStyles, tCol);
 
 			collection.AddRange(tCol.Items);
 		}
 
-		void processStyles(List<EditorStyle> styles, TinyMceStyleCollection col)
+		static void processStyles(List<EditorStyle> editorStyles, TinyMceStyleCollection col)
 		{
-			foreach (var style in styles)
+			foreach (var editorStyle in editorStyles)
 			{
-				var tStyle = new TinyMceStyle
+				var style = new TinyMceStyle
 				{
-					Title = style.Name,
+					Title = editorStyle.Name,
 				};
-				if (style.ShouldSerializeElement())
+
+				if (editorStyle.ShouldSerializeElement())
 				{
-					if (style.ShouldSerializeAttributes())
+					if (editorStyle.ShouldSerializeAttributes())
 					{
-						tStyle.Classes = string.Join(" ", style.Attributes.Where(a => a.Key == "class").Select(a => a.Value).ToList());
+						var classList = editorStyle.Attributes
+							.Where(a => a.Key == "class")
+							.Select(a => a.Value)
+							.ToList();
+
+						style.Classes = string.Join(" ", classList);
 					}
-					if (style.Element.Count == 1)
+
+					if (editorStyle.Element.Count == 1)
 					{
-						tStyle.Selector = style.Element[0];
-						col.Items.Add(tStyle);
+						style.Selector = editorStyle.Element[0];
+						col.Items.Add(style);
 					}
 					else
 					{
-						foreach (var elem in style.Element)
+						editorStyle.Element.ForEach(element => col.Items.Add(new()
 						{
-							var nestedStyle = new TinyMceStyle
-							{
-								Title = style.Name,
-								Selector = elem,
-								Classes = tStyle.Classes
-							};
-							col.Items.Add(nestedStyle);
-						}
+							Title = editorStyle.Name,
+							Selector = element,
+							Classes = style.Classes
+						}));
 					}
 				}
 			}
 		}
 
-		var json = JsonConvert.SerializeObject(collection, Formatting.None);
-
-		return json;
+		return JsonConvert.SerializeObject(collection, Formatting.None);
 	}
 
-	public Control GetEditorControl()
-	{
-		return Editor;
-	}
+
+	public Control GetEditorControl() => _editor;
 
 	#endregion
-
 }
+
 
 public interface ITinyMceStyleBase
-{
+{ }
 
-}
 
 public class TinyMceStyleCollection : ITinyMceStyleBase
 {
 	[JsonProperty(PropertyName = "title")]
 	public string Title { get; set; }
+
 	[JsonProperty(PropertyName = "items")]
 	public List<TinyMceStyle> Items { get; set; }
 
-	public TinyMceStyleCollection()
-	{
-		Items = new List<TinyMceStyle>();
-	}
+
+	public TinyMceStyleCollection() => Items = [];
 }
+
 
 public class TinyMceStyle : ITinyMceStyleBase
 {
@@ -463,22 +433,10 @@ public class TinyMceStyle : ITinyMceStyleBase
 	[JsonConverter(typeof(SingleOrArrayConverter<string>))]
 	public List<string> Group { get; set; }
 
-
 	[JsonProperty(PropertyName = "classes")]
 	public string Classes { get; set; }
 
-	public bool ShouldSerializeType()
-	{
-		return Type != null;
-	}
-
-	public bool ShouldSerializeWidget()
-	{
-		return Widget != null;
-	}
-
-	public bool ShouldSerializeGroup()
-	{
-		return Group != null;
-	}
+	public bool ShouldSerializeType() => Type != null;
+	public bool ShouldSerializeWidget() => Widget != null;
+	public bool ShouldSerializeGroup() => Group != null;
 }

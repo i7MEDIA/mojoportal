@@ -1,4 +1,5 @@
 namespace mojoPortal.Web.Editor;
+
 public enum ToolBar
 {
 	Full,

@@ -9,9 +9,8 @@ public class TextAreaProvider : EditorProvider
 		return new TextAreaAdapter();
 	}
 
-	public override void Initialize(
-		string name,
-		NameValueCollection config)
+
+	public override void Initialize(string name, NameValueCollection config)
 	{
 		base.Initialize(name, config);
 		// don't read anything from config
