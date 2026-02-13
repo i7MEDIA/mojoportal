@@ -5,6 +5,7 @@
 @using mojoPortal.Web.Framework;
 @using mojoPortal.Web;
 @using Resources;
+@using mojoPortal.Core.Configuration;
 
 @model mojoPortal.Web.Models.MemberListModel
 
@@ -37,7 +38,7 @@
 	var showJoinDate = displaySettings.ShowJoinDate;
 
 	// this can't be used in related site mode because we can't assume forum posts were in this site.
-	var showForumPostColumn = WebConfigSettings.ShowForumPostsInMemberList && displaySettings.ShowForumPosts && !WebConfigSettings.UseRelatedSiteMode;
+	var showForumPostColumn = WebConfigSettings.ShowForumPostsInMemberList && displaySettings.ShowForumPosts && !AppConfig.MultiTenancy.RelatedSites.Enabled;
 
 	var showWebSiteColumn = false;
 	mojoProfileConfiguration profileConfig = mojoProfileConfiguration.GetConfig();
