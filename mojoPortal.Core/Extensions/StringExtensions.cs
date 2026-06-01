@@ -256,7 +256,7 @@ public static class StringExtensions
 
 		if (useRegex)
 		{
-			return _multiSpaceRegex.Replace(value, " ").Trim();
+			return _multiSpaceRegex.Replace(value, " ");
 		}
 
 		var sb = new StringBuilder(value.Length);
