@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using log4net;
-using Microsoft.CodeAnalysis;
+﻿using log4net;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using SuperFlexiBusiness;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Westwind.Scripting;
 
 namespace SuperFlexiUI;
@@ -68,20 +67,22 @@ public class ClassBuilder
 		}
 
 		var className = $"_{_defGuid:N}";
-		var classCode = $@"
-                    using System;
-                    using System.Collections.Generic;
-                    /// <summary>
-                    /// Dynamically generated class for {_defName}
-                    /// </summary>
-                    public class {className} {{
-                        public int Id {{get;set;}}
-                        public Guid Guid {{get;set;}}
-                        public int SortOrder {{get;set;}}
-                        public string EditUrl {{get;set;}}
-                        public bool IsEditable {{get;set;}}
-                        {getFields()}                        
-                    }}";
+		var classCode = $$"""
+					using System;
+					using System.Collections.Generic;
+
+					/// <summary>
+					/// Dynamically generated class for {{_defName}}
+					/// </summary>
+					public class {{className}} {
+						public int Id { get; set; }
+						public Guid Guid { get; set; }
+						public int SortOrder { get; set; }
+						public string EditUrl { get; set; }
+						public bool IsEditable { get; set; }
+						{{getFields()}}
+					}
+					""";
 
 		string getFields()
 		{
