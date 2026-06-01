@@ -360,7 +360,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="log4net">
-      <Version>3.0.3</Version>
+      <Version>3.3.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">
       <Version>10.0.2</Version>
@@ -390,7 +390,7 @@
       <Version>4.6.3</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
-      <Version>4.6.1</Version>
+      <Version>4.6.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

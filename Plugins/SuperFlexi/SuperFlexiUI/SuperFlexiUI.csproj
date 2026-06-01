@@ -100,8 +100,8 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=3.0.3.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\log4net.3.0.3\lib\net462\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.3.3.1\lib\net462\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.CodeAnalysis.Common.5.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.dll</HintPath>
@@ -152,6 +152,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
@@ -168,6 +169,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
@@ -199,8 +201,8 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Westwind.Scripting, Version=1.6.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Westwind.Scripting.1.6.4.1\lib\net472\Westwind.Scripting.dll</HintPath>
+    <Reference Include="Westwind.Scripting, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Westwind.Scripting.1.8.0\lib\net472\Westwind.Scripting.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +280,7 @@
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\pgsql\0.0.2.6.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\sqlite\0.0.2.6.config" />
     <Content Include="Setup\applications\SuperFlexi\SchemaUpgradeScripts\mssql\0.0.2.7.config" />
+    <Content Include="SuperFlexi\iCalProxy.ashx" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
@@ -509,7 +512,7 @@ xcopy /s /y "$(ProjectDir)Views\*" "$(SolutionDir)Web\Views\"</PostBuildEvent>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
-    <Error Condition="!Exists('..\..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+    <Error Condition="!Exists('..\..\..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -522,5 +525,5 @@ xcopy /s /y "$(ProjectDir)Views\*" "$(SolutionDir)Web\Views\"</PostBuildEvent>
     <RemoveDir Directories="$(TargetDir)" />
     <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
   </Target> -->
-  <Import Project="..\..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Import Project="..\..\..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets" Condition="Exists('..\..\..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" />
 </Project>
