@@ -267,7 +267,7 @@ public partial class SearchResults : NonCmsBasePage
 	{
 		var searchParams = new Dictionary<string, object>
 		{
-			{ "q", Server.UrlEncode(_queryText) }
+			{ "q", _queryText }
 		};
 
 		if (_modifiedBeginDate.Date != DateTime.MinValue.Date && displaySettings.ShowModifiedDateFilters)

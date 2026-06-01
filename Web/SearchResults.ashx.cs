@@ -371,27 +371,24 @@ public class SearchResultsHandler : IHttpHandler
 
 		userRoles.Add("All Users");
 
-		if ((context.Request.IsAuthenticated) && (siteSettings != null))
+		if (context.Request.IsAuthenticated && siteSettings != null)
 		{
-			SiteUser currentUser = SiteUtils.GetCurrentSiteUser();
+			var currentUser = SiteUtils.GetCurrentSiteUser();
+
 			if (currentUser != null)
 			{
-				using (IDataReader reader = SiteUser.GetRolesByUser(siteSettings.SiteId, currentUser.UserId))
+				using IDataReader reader = SiteUser.GetRolesByUser(siteSettings.SiteId, currentUser.UserId);
+
+				while (reader.Read())
 				{
-					while (reader.Read())
-					{
-						userRoles.Add(reader["RoleName"].ToString());
-					}
-
+					userRoles.Add(reader["RoleName"].ToString());
 				}
-
 			}
-
-
 		}
 
 		return userRoles;
 	}
+
 
 	public bool IsReusable
 	{
