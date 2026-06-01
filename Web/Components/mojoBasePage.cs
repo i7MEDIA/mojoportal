@@ -1611,12 +1611,14 @@ public class mojoBasePage : Page
 		if (WebConfigSettings.UseAjaxFormActionUpdateScript) //possibly may want to remove this in future versions of .NET
 		{
 			//this keeps the form action correct during ajax postbacks
-			string formActionScript = @"<script data-loader=""mojoBasepage"">
-Sys.Application.add_load(function() {
-	var form = Sys.WebForms.PageRequestManager.getInstance()._form;
-	form._initialAction = form.action = window.location.href;
-});
-</script>";
+			var formActionScript = """
+				<script data-loader="mojoBasepage">
+					Sys.Application.add_load(function() {
+						var form = Sys.WebForms.PageRequestManager.getInstance()._form;
+						form._initialAction = form.action = window.location.href;
+					});
+				</script>
+				""";
 
 			Page.ClientScript.RegisterStartupScript(GetType(), "formactionset", formActionScript);
 		}
