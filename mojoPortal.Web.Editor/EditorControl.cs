@@ -1,5 +1,4 @@
 using log4net;
-using mojoPortal.Core.Extensions;
 using System;
 using System.Web;
 using System.Web.UI;
@@ -25,8 +24,8 @@ public class EditorControl : Panel
 
 	public string Text
 	{
-		get => ProcessText(WebEditor.Text);
-		set => WebEditor.Text = ProcessText(value);
+		get => WebEditor.Text;
+		set => WebEditor.Text = value;
 	}
 
 	/// <summary>
@@ -140,14 +139,6 @@ public class EditorControl : Panel
 			_log.Error(ex);
 		}
 	}
-
-
-	private string ProcessText(string text) =>
-		// Prevent non-admins from including script in the content.
-		(Context?.User?.Identity?.IsAuthenticated ?? false) &&
-		(Context?.User?.IsInRole("Admins") ?? false) ?
-			text :
-			text?.SanitizeMarkup();
 
 	#endregion
 }
