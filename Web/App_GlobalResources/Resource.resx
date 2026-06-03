@@ -6802,4 +6802,10 @@ We've generated a new key for you. Copy the key below into your site's configura
   <data name="AddRoleToUseApprovalPromptTitle" xml:space="preserve">
     <value>Add User to Role?</value>
   </data>
+  <data name="SecurityPasswordRequired" xml:space="preserve">
+    <value>Password is required</value>
+  </data>
+  <data name="SecurityPasswordIncorrect" xml:space="preserve">
+    <value>Password was incorrect, please try again.</value>
+  </data>
 </root>

@@ -4,11 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace mojoPortal.Core.Extensions;
 

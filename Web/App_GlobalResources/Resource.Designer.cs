@@ -15128,6 +15128,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password was incorrect, please try again..
+        /// </summary>
+        internal static string SecurityPasswordIncorrect {
+            get {
+                return ResourceManager.GetString("SecurityPasswordIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required.
+        /// </summary>
+        internal static string SecurityPasswordRequired {
+            get {
+                return ResourceManager.GetString("SecurityPasswordRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role Membership:.
         /// </summary>
         internal static string SecurityRolesTitle {

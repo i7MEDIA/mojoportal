@@ -7,72 +7,92 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mojoPortal.Web.UI {
-    
-    
-    public partial class UserRolesDialog {
-        
-        /// <summary>
-        /// litStyleLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litStyleLink;
-        
-        /// <summary>
-        /// divRoles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRoles;
-        
-        /// <summary>
-        /// allRoles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList allRoles;
-        
-        /// <summary>
-        /// addExisting control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoButton addExisting;
-        
-        /// <summary>
-        /// lnkRolesDialog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkRolesDialog;
-        
-        /// <summary>
-        /// divUserRoles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUserRoles;
-        
-        /// <summary>
-        /// userRoles control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::mojoPortal.Web.UI.mojoDataList userRoles;
-    }
+namespace mojoPortal.Web.UI
+{
+
+
+	public partial class UserRolesDialog
+	{
+
+		/// <summary>
+		/// litStyleLink control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Literal litStyleLink;
+
+		/// <summary>
+		/// divRoles control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRoles;
+
+		/// <summary>
+		/// hdnUserPassword control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HiddenField hdnUserPassword;
+
+		/// <summary>
+		/// allRoles control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.DropDownList allRoles;
+
+		/// <summary>
+		/// addExisting control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoButton addExisting;
+
+		/// <summary>
+		/// lblPasswordError control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Label lblPasswordError;
+
+		/// <summary>
+		/// lnkRolesDialog control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.HyperLink lnkRolesDialog;
+
+		/// <summary>
+		/// divUserRoles control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.HtmlControls.HtmlGenericControl divUserRoles;
+
+		/// <summary>
+		/// userRoles control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoDataList userRoles;
+	}
 }

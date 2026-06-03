@@ -3,22 +3,58 @@
 <asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server">
 	<asp:Literal ID="litStyleLink" runat="server" />
 </asp:Content>
+
 <asp:Content ContentPlaceHolderID="phMain" ID="MainContent" runat="server">
-	<div id="divRoles" runat="server" class="settingrow">
-		<asp:DropDownList ID="allRoles" runat="server" DataValueField="RoleID" DataTextField="DisplayName" CssClass="forminput" />
-		&nbsp;<portal:mojoButton ID="addExisting" runat="server" Text="<%# Resources.Resource.ManageUsersAddToRoleButton %>" CausesValidation="false" />
+	<div runat="server" id="divRoles" class="settingrow">
+		<asp:HiddenField runat="server" ID="hdnUserPassword" />
+
+		<asp:DropDownList runat="server"
+			ID="allRoles"
+			DataValueField="RoleID"
+			DataTextField="DisplayName"
+			CssClass="forminput" />
+
+		<portal:mojoButton runat="server"
+			ID="addExisting"
+			Text="<%# Resources.Resource.ManageUsersAddToRoleButton %>"
+			CausesValidation="false"
+			hidden="hidden"
+			style="display: none;" />
+
+			<button
+				id="enterPasswordBtn"
+				onclick="EnterPassword();"
+				type="button"
+				class="btn btn-default">
+				<%= Resources.Resource.ManageUsersAddToRoleButton %>
+			</button>
+			<asp:Label runat="server" ID="lblPasswordError" Visible="false" CssClass="text-danger" />
 	</div>
+
 	<asp:HyperLink ID="lnkRolesDialog" runat="server" Visible="false" CssClass="cblink lnkRolesDialog" EnableViewState="false" />
-	<div id="divUserRoles" runat="server" class="settingrow">
-		<portal:mojoDataList ID="userRoles" runat="server" DataKeyField="RoleID" RepeatColumns="2">
+
+	<div runat="server" id="divUserRoles" class="settingrow">
+		<portal:mojoDataList runat="server"
+			ID="userRoles"
+			DataKeyField="RoleID"
+			RepeatColumns="2">
+			
 			<ItemTemplate>
-				<asp:ImageButton ImageUrl='<%# DeleteLinkImage %>' CommandName="delete" CausesValidation="false"
-					AlternateText='<%# Resources.Resource.ManageUsersRemoveFromRoleButton %>' runat="server"
+				<asp:ImageButton runat="server"
+					ImageUrl='<%# DeleteLinkImage %>'
+					CommandName="delete"
+					CausesValidation="false"
+					AlternateText='<%# Resources.Resource.ManageUsersRemoveFromRoleButton %>'
 					ToolTip='<%# Resources.Resource.ManageUsersRemoveFromRoleButton %>'
-					ID="btnRemoveRole" Visible='<%# CanDeleteUserFromRole(Eval("RoleName").ToString()) %>' />
-				<asp:Label Text='<%# DataBinder.Eval(Container.DataItem, "DisplayName") %>' runat="server" ID="Label1" />
+					ID="btnRemoveRole"
+					Visible='<%# CanDeleteUserFromRole(Eval("RoleName").ToString()) %>' />
+
+				<asp:Label runat="server"
+					ID="Label1"
+					Text='<%# DataBinder.Eval(Container.DataItem, "DisplayName") %>' />
 				&nbsp;&nbsp;&nbsp;
 			</ItemTemplate>
+
 		</portal:mojoDataList>
 	</div>
 </asp:Content>
