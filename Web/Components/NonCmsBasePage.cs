@@ -1,5 +1,6 @@
 ﻿using mojoPortal.Business.WebHelpers;
 using System;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -36,16 +37,18 @@ public class NonCmsBasePage : mojoBasePage
 	// HTML Sanitization for textarea fields if the author isn't an Admin, otherwise anything goes.
 	private void EncodeTextboxControls(Control parent)
 	{
+		if (!AppConfig.SanitizationEnabled)
+		{
+			return;
+		}
+
 		foreach (Control control in parent.Controls)
 		{
 			if (control is TextBox textbox)
 			{
-				if (
-					textbox.TextMode == TextBoxMode.MultiLine &&
-					!textbox.ID.Contains("RawScript") // Make an allowance for the Custom Script Module's Raw Script textarea
-				)
+				if (textbox.TextMode == TextBoxMode.MultiLine)
 				{
-					if (!WebUser.IsAdmin)
+					if (!WebUser.IsAdmin && !AppConfig.IsFieldExcludedFromSanitization(textbox.ID))
 					{
 						textbox.Text = textbox.Text.SanitizeMarkup();
 					}

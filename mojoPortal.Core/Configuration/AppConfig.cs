@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Configuration;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Core.Configuration;
 
@@ -133,6 +136,46 @@ public static class AppConfig
 	public static MultiTenancy MultiTenancy => new();
 
 	public static OAuthConfiguration OAuth => new();
+
+
+	#region Sanitization Settings
+
+	public static bool SanitizationEnabled => ConfigHelper.GetBoolProperty("SanitizationEnabled", true);
+
+	/// <summary>
+	/// Returns a list of field IDs to exclude from sanitization.
+	/// </summary>
+	public static List<string> SanitizationFieldExclutions
+	{
+		get
+		{
+			List<string> systemItems = [
+				"RawScript",
+				"txtHeaderContent",
+				"txtFooterContent",
+				"txtHeaderAdminContent",
+				"txtFooterAdminContent",
+			];
+
+			var customItemsString = ConfigHelper.GetStringProperty("SanitizationFieldExceptions", string.Empty);
+			var customItems = customItemsString.Split([',', ';'], StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
+
+			return [.. systemItems, .. customItems];
+		}
+	}
+
+	/// <summary>
+	/// Method checks if field is to be excluded from sanitization
+	/// </summary>
+	/// <param name="fieldId">The control ID of the field.</param>
+	/// <returns>Returns true if field is to be excluded from sanitization</returns>
+	public static bool IsFieldExcludedFromSanitization(string fieldId) =>
+		// StartsWith(x) is included to handle ModuleSettings fields, as they are
+		// the ID of the control with the module ID appended to the end.
+		SanitizationFieldExclutions.Any(x => fieldId.Equals(x) || fieldId.StartsWith(x));
+
+	#endregion
+
 
 	#region Types
 
