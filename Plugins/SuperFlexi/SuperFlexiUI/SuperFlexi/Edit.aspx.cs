@@ -1,13 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -20,6 +10,17 @@ using mojoPortal.Web.UI;
 using mojoPortal.Web.UI.Razor;
 using Resources;
 using SuperFlexiBusiness;
+using SuperFlexiUI.Components;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace SuperFlexiUI;
 
@@ -1328,7 +1329,7 @@ public partial class EditItems : NonCmsBasePage
 			List<Field> fields = null;
 			if (config.FieldDefinitionGuid != Guid.Empty)
 			{
-				fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+				fields = SuperFlexiCache.GetFields(config.FieldDefinitionGuid);
 			}
 			else
 			{

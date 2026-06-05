@@ -134,10 +134,7 @@ public partial class ServerInformation : NonCmsBasePage
 				return;
 			}
 
-			List<MediaTypeFormatter> formatters = [new JsonMediaTypeFormatter()];
-
-			var currentVersionResponse = await response.Content.ReadAsAsync<CurrentVersion>(formatters);
-			var currentVersionUrl = currentVersionResponse.Url;
+			var currentVersionResponse = await response.Content.ReadAsAsync<CurrentVersion>();
 
 			if (string.IsNullOrWhiteSpace(currentVersionResponse.Version))
 			{
@@ -151,6 +148,8 @@ public partial class ServerInformation : NonCmsBasePage
 			{
 				return;
 			}
+
+			var currentVersionUrl = currentVersionResponse.Url;
 
 			if (string.IsNullOrWhiteSpace(currentVersionUrl))
 			{

@@ -596,75 +596,63 @@ public partial class PostList : UserControl
 	}
 
 
-	protected string FormatBlogEntry(string blogHtml, string excerpt, string url, int itemId, string imageUrl, bool useImageExcerpt, bool useImagePost, string title)
+	protected string FormatBlogEntry(
+		string blogHtml,
+		string excerpt,
+		string url,
+		int itemId,
+		string imageUrl,
+		bool useImageExcerpt,
+		bool useImagePost,
+		string title)
 	{
 		if (useExcerpt)
 		{
 			//if excerpt is populated just use it
-			if ((excerpt.Length > 0) && (excerpt != "<p>&#160;</p>")) // this was added by the editor(s) when content was empty
+			if (!string.IsNullOrWhiteSpace(excerpt) && excerpt != "<p>&#160;</p>") // this was added by the editor(s) when content was empty
 			{
-				return excerpt + Config.ExcerptSuffix + " <a href='" + FormatBlogUrl(url, itemId) + "' class='morelink'>" + Config.MoreLinkText + "</a><div>&nbsp;</div>";
+				var result = $"{excerpt}{Config.ExcerptSuffix} <a href='{FormatBlogUrl(url, itemId)}' class='morelink'>{Config.MoreLinkText}</a><div>&nbsp;</div>";
+
+				return AddImageMarkupToResult(useImageExcerpt, result, imageUrl, title);
 			}
 
-			// no excerpt so need to generate one
-			string result = string.Empty;
-
-			if ((blogHtml.Length > Config.ExcerptLength) && (Config.MoreLinkText.Length > 0))
+			if (blogHtml.Length > Config.ExcerptLength && Config.MoreLinkText.Length > 0)
 			{
-				result = UIHelper.CreateExcerpt(blogHtml, Config.ExcerptLength, Config.ExcerptSuffix);
-				result += " <a href='" + FormatBlogTitleUrl(url, itemId) + "' class='morelink'>" + Config.MoreLinkText + "</a><div class='paddiv'>&nbsp;</div>";
-
-				if (useImageExcerpt && imageUrl.Length > 0)
-				{
-					string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
-
-					if (displaySettings.FeaturedImageAbovePost)
-					{
-						return imageMarkup + result;
-					}
-					else
-					{
-						return result + imageMarkup;
-					}
-				}
-
-				return result;
+				// no excerpt so need to generate one
+				var result = UIHelper.CreateExcerpt(blogHtml, Config.ExcerptLength, Config.ExcerptSuffix);
+				result += $" <a href='{FormatBlogTitleUrl(url, itemId)}' class='morelink'>{Config.MoreLinkText}</a><div class='paddiv'>&nbsp;</div>";
+				return AddImageMarkupToResult(useImageExcerpt, result, imageUrl, title);
 			}
 			else
 			{ // full post is shorter than excerpt length
-				if (useImageExcerpt && imageUrl.Length > 0)
-				{
-					string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
-
-					if (displaySettings.FeaturedImageAbovePost)
-					{
-						return imageMarkup + blogHtml;
-					}
-					else
-					{
-						return blogHtml + imageMarkup;
-					}
-				}
+				return AddImageMarkupToResult(useImageExcerpt, blogHtml, imageUrl, title);
 			}
 		}
 		else
 		{
-			if (useImagePost && imageUrl.Length > 0)
-			{
-				string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
-
-				if (displaySettings.FeaturedImageAbovePost)
-				{
-					return imageMarkup + blogHtml;
-				}
-				else
-				{
-					return blogHtml + imageMarkup;
-				}
-			}
+			blogHtml = AddImageMarkupToResult(useImagePost, blogHtml, imageUrl, title);
 		}
 
 		return blogHtml;
+	}
+
+	private string AddImageMarkupToResult(bool condition, string result, string imageUrl, string title)
+	{
+		if (condition && !string.IsNullOrWhiteSpace(imageUrl))
+		{
+			string imageMarkup = string.Format(CultureInfo.InvariantCulture, displaySettings.FeaturedImageFormat, ResolveUrl(imageUrl), title);
+
+			if (displaySettings.FeaturedImageAbovePost)
+			{
+				return imageMarkup + result;
+			}
+			else
+			{
+				return result + imageMarkup;
+			}
+		}
+
+		return result;
 	}
 
 	protected string FormatBlogDate(DateTime startDate)

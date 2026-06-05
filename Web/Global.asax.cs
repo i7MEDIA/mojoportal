@@ -2,6 +2,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Caching;
+using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
 using mojoPortal.Web.Routing;
@@ -54,6 +55,8 @@ public class Global : HttpApplication
 	public static Theming.SkinConfigManager SkinConfigManager { get; private set; }
 	public static Theming.SkinConfig SkinConfig { get; private set; }
 	public static ConcurrentDictionary<string, int> SiteHostMap { get; } = [];
+	public static CacheServiceContainer CacheServicesContainer = CacheServiceContainer.Init();
+
 	// this changes everytime the app starts and is used for rss feed autodiscovery links so it will notredirect to feedburner
 	// after each app restart the variable will change so that after the user is subscribed it will begin redirecting to feedburner if using feedburner
 	public static Guid FeedRedirectBypassToken { get; } = Guid.NewGuid();

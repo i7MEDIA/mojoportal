@@ -1,59 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using log4net;
-using Microsoft.CodeAnalysis;
+﻿using log4net;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
+using mojoPortal.Web.Components;
 using SuperFlexiBusiness;
-using Westwind.Scripting;
+using SuperFlexiUI.Components;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace SuperFlexiUI;
 
 public class ClassBuilder
 {
-	private static readonly ILog log = LogManager.GetLogger(typeof(ClassBuilder));
+	#region Fields
+
+	private static readonly ILog _log = LogManager.GetLogger(typeof(ClassBuilder));
+
+	private string _classname = string.Empty;
 	private string _defName;
 	private Guid _defGuid;
 	private List<Field> _fields;
 	private object _item;
-	private List<ItemWithValues> ItemsWithValues { get; set; }
+	private List<ItemWithValues> _itemsWithValues;
+
+	#endregion
+
+
+	#region Properties
 
 	public Type Class { get; private set; }
-	public List<object> Items { get; private set; } = new List<object>();
+	public List<dynamic> Items { get; private set; } = [];
 	public bool IsEditable { get; set; }
 	public int PageId { get; set; }
 
-	public ClassBuilder(List<ItemWithValues> items)
-	{
-		ItemsWithValues = items;
-		Class = CreateSolutionClass();
-	}
+	#endregion
 
-	public ClassBuilder(int itemId)
-	{
-		var list = new List<ItemWithValues> {
-			new(itemId)
-		};
 
-		ItemsWithValues = list;
-		Class = CreateSolutionClass();
-	}
+	#region Constructors
 
-	public ClassBuilder Init()
+	// Must use Init
+	private ClassBuilder(
+		List<ItemWithValues> items,
+		bool isEditable,
+		int pageId
+	)
 	{
+		_itemsWithValues = items;
+		IsEditable = isEditable;
+		PageId = pageId;
+		Class = GetSolutionClassFromCache();
 
 		PopulateItemValues();
-		return this;
 	}
+
+	#endregion
+
+
+	#region Factory Methods
+
+	public static ClassBuilder Init(List<ItemWithValues> items, bool isEditable, int pageId) =>
+		new(items, isEditable, pageId);
+
+	#endregion
+
+
+	#region Public Methods
+
+	public static string GetClassName(Guid fieldDefinitionGuid)
+	{
+		return $"SuperFlexiSolution_{fieldDefinitionGuid:N}";
+	}
+
 
 	public Type CreateSolutionClass()
 	{
-
-		if (ItemsWithValues is not null && ItemsWithValues.Count > 0)
+		if (_itemsWithValues is not null && _itemsWithValues.Count > 0)
 		{
-			_fields = ItemsWithValues[0].Fields;
+			_fields = _itemsWithValues[0].Fields;
 		}
 
 		if (_fields is not null && _fields.Count > 0)
@@ -62,128 +86,125 @@ public class ClassBuilder
 			_defGuid = _fields[0].DefinitionGuid;
 		}
 
-		if (ItemsWithValues is null || _fields is null)
+		if (_itemsWithValues is null || _fields is null)
 		{
-			return this.GetType();
+			return GetType();
 		}
 
-		var className = $"_{_defGuid:N}";
-		var classCode = $@"
-                    using System;
-                    using System.Collections.Generic;
-                    /// <summary>
-                    /// Dynamically generated class for {_defName}
-                    /// </summary>
-                    public class {className} {{
-                        public int Id {{get;set;}}
-                        public Guid Guid {{get;set;}}
-                        public int SortOrder {{get;set;}}
-                        public string EditUrl {{get;set;}}
-                        public bool IsEditable {{get;set;}}
-                        {getFields()}                        
-                    }}";
+		var dynamicType = DynamicTypeGenerator
+			.Init(_classname)
+			.AddProperties(new()
+			{
+				["Id"] = typeof(int),
+				["Guid"] = typeof(Guid),
+				["SortOrder"] = typeof(int),
+				["EditUrl"] = typeof(string),
+				["IsEditable"] = typeof(bool),
+			});
 
-		string getFields()
+		foreach (var field in _fields)
 		{
-			var sb = new StringBuilder();
-			var sbConstructor = new StringBuilder();
-			sbConstructor.AppendLine($"public {className}(){{");
+			var fieldName = field.Name.Replace(" ", string.Empty);
 
-			foreach (Field field in _fields)
+			switch (field.ControlType)
 			{
-				var fieldName = field.Name.Replace(" ", string.Empty);
-
-				switch (field.ControlType)
-				{
-					case "CheckBox":
-						if (field.CheckBoxReturnBool)
-						{
-							sb.AppendLine($"public bool {fieldName} {{get;set;}}");
-						}
-						else
-						{
-							goto default;
-						}
-						break;
-					case "List":
-					case "CheckBoxList":
-					case "DynamicCheckBoxList":
-						sb.AppendLine($"public List<{field.DataType}> {fieldName} {{get;set;}}");
-						sbConstructor.AppendLine($"{fieldName} = new List<{field.DataType}>();");
-						break;
-					case "DateTime":
-					case "Date":
-						sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)} {{get;set;}}");
-						sb.AppendLine($"public DateTime {field.Name.Replace(" ", string.Empty)}UTC {{get;set;}}");
-						break;
-					case "TextBox":
-					default:
-						if (field.IsDateField) goto case "Date";
-						if (field.IsList) goto case "List";
-						sb.AppendLine($"public {field.DataType} {fieldName} {{get;set;}}");
-						break;
-				}
+				case "CheckBox":
+					if (field.CheckBoxReturnBool)
+					{
+						dynamicType.AddProperty(fieldName, typeof(bool));
+					}
+					else
+					{
+						goto default;
+					}
+					break;
+				case "List":
+				case "CheckBoxList":
+				case "DynamicCheckBoxList":
+					dynamicType.AddProperty(fieldName, GetTypeFromName(field.DataType, isList: true));
+					break;
+				case "DateTime":
+				case "Date":
+					dynamicType.AddProperty(fieldName, typeof(DateTime));
+					dynamicType.AddProperty(fieldName + "UTC", typeof(DateTime));
+					break;
+				case "TextBox":
+				default:
+					if (field.IsDateField) goto case "Date";
+					if (field.IsList) goto case "List";
+					dynamicType.AddProperty(fieldName, GetTypeFromName(field.DataType));
+					break;
 			}
-			if (sbConstructor.Length > 1)
-			{
-				sbConstructor.AppendLine("}");
-				sb.AppendLine(sbConstructor.ToString());
-			}
-			return sb.ToString();
 		}
 
-		log.Debug(classCode);
-
-		var script = new CSharpScriptExecution()
-		{
-			SaveGeneratedCode = true,
-			GeneratedClassName = className,
-			GeneratedNamespace = "SuperFlexiUI.Solutions",
-		};
-		script.AddDefaultReferencesAndNamespaces();
-		script.AddAssembly("SuperFlexiUI.dll");
-		script.AddAssembly("mojoPortal.Web.dll");
-		return script.CompileClassToType(classCode);
-		// CodeDom Compiler
-
-		//var options = new CompilerParameters
-		//{
-		//	GenerateExecutable = false,
-		//	GenerateInMemory = true,
-
-		//};
-		//options.ReferencedAssemblies.Add(System.Reflection.Assembly.GetExecutingAssembly().CodeBase.Substring(8));
-		//options.ReferencedAssemblies.Add(System.Reflection.Assembly.GetAssembly(typeof(Global)).CodeBase.Substring(8));
-		//var provider = new CSharpCodeProvider();
-		//var compile = provider.CompileAssemblyFromSource(options, classCode);
-		//var path = compile.PathToAssembly;
-		//var v = compile.CompiledAssembly;
-		//if (compile is not null)
-		//{
-		//	if (compile.Errors.Count > 0)
-		//	{
-		//		log.Error(compile.Errors);
-		//	}
-		//	type = compile.CompiledAssembly.GetType(className);
-		//	return type;
-		//}
-		//else
-		//{
-		//	log.Error("could not compile");
-		//	return null;
-		//}
+		return dynamicType.CreateType();
 	}
 
-	internal void SetItemClassProperty(string propName, object propValue)
+	#endregion
+
+
+	#region Private Methods
+
+	private Type GetSolutionClassFromCache()
+	{
+		if (_itemsWithValues is { Count: > 0 })
+		{
+			_fields = SuperFlexiCache.GetFields(_itemsWithValues[0].Item.DefinitionGuid);
+		}
+
+		if (_fields is { Count: > 0 })
+		{
+			_defName = _fields[0].DefinitionName;
+			_defGuid = _fields[0].DefinitionGuid;
+		}
+
+		_classname = GetClassName(_defGuid);
+
+		if (SuperFlexiCache.ClassCache.TryGetValue(_classname, out Type cachedType))
+		{
+			return cachedType;
+		}
+		else
+		{
+			var newType = CreateSolutionClass();
+
+			if (newType is not null)
+			{
+				SuperFlexiCache.ClassCache.TryAdd(_classname, newType);
+
+				return newType;
+			}
+			else
+			{
+				_log.Error($"failed to create class for {_classname}");
+
+				throw new InvalidOperationException($"failed to create class for {_defName} [FieldDefinitionGuid: {_defGuid}]");
+			}
+		}
+	}
+
+
+	private static Type GetTypeFromName(string typeName, bool isList = false) => typeName switch
+	{
+		var _ when isList => typeof(List<>).MakeGenericType(GetTypeFromName(typeName)),
+		"int" => typeof(int),
+		"bool" or "boolean" => typeof(bool),
+		"DateTime" => typeof(DateTime),
+		"string" or _ => typeof(string),
+	};
+
+
+	private void SetItemClassProperty(string propName, object propValue)
 	{
 		_item.GetType()
-			.GetProperty(propName, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+			.GetProperty(propName, BindingFlags.Public | BindingFlags.Instance)
 			.SetValue(_item, propValue);
 	}
 
-	internal void PopulateItemValues()
+
+	private void PopulateItemValues()
 	{
-		foreach (var iwv in ItemsWithValues)
+		foreach (var iwv in _itemsWithValues)
 		{
 
 			bool itemIsEditable = IsEditable || WebUser.IsInRoles(iwv.Item.EditRoles);
@@ -283,4 +304,32 @@ public class ClassBuilder
 			Items.Add(_item);
 		}
 	}
+
+
+	// Someday move to this, it would allow us to automatically update the cache based on the fields
+
+	//var properties = newType
+	//	.GetProperties()
+	//	.Select(x => new KeyValuePair<string, Type>(x.Name, x.GetType()))
+	//	.ToDictionary(x => x.Key, x => x.Value);
+	//var cacheName = GenerateCacheKey(_classname, properties);
+
+	//private static string GenerateCacheKey(string baseClassName, Dictionary<string, Type> properties)
+	//{
+	//	// Sort properties by name to ensure the same schema always produces the same key
+	//	var sortedProperties = properties.OrderBy(p => p.Key);
+
+	//	var sb = new StringBuilder();
+
+	//	sb.Append(baseClassName).Append('|');
+
+	//	foreach (var prop in sortedProperties)
+	//	{
+	//		sb.Append($"{prop.Key}:{prop.Value.FullName};");
+	//	}
+
+	//	return sb.ToString();
+	//}
+
+	#endregion
 }

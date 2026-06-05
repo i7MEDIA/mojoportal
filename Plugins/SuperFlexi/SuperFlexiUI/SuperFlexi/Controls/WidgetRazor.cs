@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using log4net;
+﻿using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using SuperFlexiBusiness;
+using SuperFlexiUI.Components;
 using SuperFlexiUI.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace SuperFlexiUI;
 
@@ -201,7 +202,7 @@ public class WidgetRazor : WebControl
 
 		if (Config.GetDynamicListsInRazor)
 		{
-			dynamicLists = Field.GetAllForDefinition(Config.FieldDefinitionGuid).Where(f => f.IsDynamicListField).ToList();
+			dynamicLists = SuperFlexiCache.GetFields(Config.FieldDefinitionGuid).Where(f => f.IsDynamicListField).ToList();
 
 			if (totalPages > 1 && dynamicLists.Count > 0)
 			{
@@ -263,11 +264,7 @@ public class WidgetRazor : WebControl
 
 		featuredImageUrl = string.IsNullOrWhiteSpace(Config.InstanceFeaturedImage) ? featuredImageUrl : SiteUtils.GetNavigationSiteRoot() + Config.InstanceFeaturedImage;
 
-		var superFlexiItemClass = new ClassBuilder(itemsWithValues)
-		{
-			IsEditable = IsEditable,
-			PageId = PageId
-		}.Init();
+		var superFlexiItemClass = ClassBuilder.Init(itemsWithValues, IsEditable, PageId);
 
 		model = new WidgetModel()
 		{

@@ -8,18 +8,24 @@ public class EditorProviderCollection : ProviderCollection
 	public override void Add(ProviderBase provider)
 	{
 		if (provider == null)
+		{
 			throw new ArgumentNullException("The provider parameter cannot be null.");
+		}
 
-		if (!(provider is EditorProvider))
+		if (provider is not EditorProvider)
+		{
 			throw new ArgumentException("The provider parameter must be of type EditorProvider.");
+		}
 
 		base.Add(provider);
 	}
+
 
 	new public EditorProvider this[string name]
 	{
 		get { return (EditorProvider)base[name]; }
 	}
+
 
 	public void CopyTo(EditorProvider[] array, int index)
 	{

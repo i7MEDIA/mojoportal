@@ -19,7 +19,7 @@ namespace Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option or rebuild the Visual Studio project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Web.Application.StronglyTypedResourceProxyBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resource {
@@ -165,6 +165,24 @@ namespace Resources {
         internal static string AddPageTooltip {
             get {
                 return ResourceManager.GetString("AddPageTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your password to continue:.
+        /// </summary>
+        internal static string AddRolesToUserApprovalPromptMessage {
+            get {
+                return ResourceManager.GetString("AddRolesToUserApprovalPromptMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add User to Role?.
+        /// </summary>
+        internal static string AddRoleToUseApprovalPromptTitle {
+            get {
+                return ResourceManager.GetString("AddRoleToUseApprovalPromptTitle", resourceCulture);
             }
         }
         
@@ -15106,6 +15124,24 @@ namespace Resources {
         internal static string SecurityFinishedEditingButton {
             get {
                 return ResourceManager.GetString("SecurityFinishedEditingButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password was incorrect, please try again..
+        /// </summary>
+        internal static string SecurityPasswordIncorrect {
+            get {
+                return ResourceManager.GetString("SecurityPasswordIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required.
+        /// </summary>
+        internal static string SecurityPasswordRequired {
+            get {
+                return ResourceManager.GetString("SecurityPasswordRequired", resourceCulture);
             }
         }
         

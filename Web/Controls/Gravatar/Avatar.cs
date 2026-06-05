@@ -375,10 +375,10 @@ public class Avatar : WebControl
 			output.AddAttribute(HtmlTextWriterAttribute.Href, GetLinkUrl());
 			output.AddAttribute(HtmlTextWriterAttribute.Title, LinkTitle);
 
-			if (CssClass.Length > 0)
-			{
-				output.AddAttribute(HtmlTextWriterAttribute.Class, CssClass);
-			}
+			//if (CssClass.Length > 0)
+			//{
+			//	output.AddAttribute(HtmlTextWriterAttribute.Class, CssClass);
+			//}
 
 			if (Target.Length > 0)
 			{

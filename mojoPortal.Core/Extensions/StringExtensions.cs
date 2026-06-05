@@ -1,4 +1,5 @@
-﻿using mojoPortal.Core.Helpers;
+﻿using Ganss.Xss;
+using mojoPortal.Core.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -11,6 +12,36 @@ namespace mojoPortal.Core.Extensions;
 
 public static class StringExtensions
 {
+	private static readonly Regex _multiSpaceRegex = new(@" {2,}", RegexOptions.Compiled);
+	private static readonly HtmlSanitizer _sanitizer;
+	private static readonly HtmlSanitizer _markupRemover;
+
+
+	static StringExtensions()
+	{
+		_sanitizer = new HtmlSanitizer
+		{
+			AllowDataAttributes = true,
+			AllowCssCustomProperties = true
+		};
+
+		_sanitizer.AllowedAttributes.Add("class");
+		_sanitizer.AllowedSchemes.Add("mailto");
+		_sanitizer.AllowedSchemes.Add("tel");
+
+
+		var markupRemoverOptions = new HtmlSanitizerOptions
+		{
+			AllowedTags = new HashSet<string>()
+		};
+
+		_markupRemover = new HtmlSanitizer(markupRemoverOptions)
+		{
+			KeepChildNodes = true,
+		};
+	}
+
+
 	public static string ToInvariantString(this int i, string format = null) => format is null ? i.ToString(CultureInfo.InvariantCulture) : i.ToString(format, CultureInfo.InvariantCulture);
 
 	public static string ToInvariantString(this float i, string format = null) => format is null ? i.ToString(CultureInfo.InvariantCulture) : i.ToString(format, CultureInfo.InvariantCulture);
@@ -35,7 +66,7 @@ public static class StringExtensions
 		return s.Substring(0, 4) + "-" + s.Substring(4, 2) + "-" + s.Substring(6, 2);
 	}
 
-	public static string EncodeHtml(this string s) => s?.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&");
+	public static string EncodeHtml(this string s) => HttpUtility.HtmlDecode(s ?? string.Empty);
 
 	public static string HtmlEscapeQuotes(this string s) => s?.Replace("'", "&#39;").Replace("\"", "&#34;");
 
@@ -43,9 +74,9 @@ public static class StringExtensions
 
 	public static string CsvEscapeQuotes(this string s) => s.Replace("\"", "\"\"");
 
-	public static string RemoveAngleBrackets(this string s) => s.Remove(["<", ">"]);
+	public static string RemoveAngleBrackets(this string s) => s.Remove(['<', '>']);
 
-	public static string RemovePunctuation(this string s) => s.Remove(".", ",", ":", "?", "!", ";", "&", "{", "}", "[", "]");
+	public static string RemovePunctuation(this string s) => s.Remove('.', ',', ':', '?', '!', ';', '&', '{', '}', '[', ']');
 
 	public static string Remove(this string s, string str) => s.Remove([str]);
 
@@ -214,46 +245,59 @@ public static class StringExtensions
 	/// <summary>
 	/// Removes Sequential Spaces in a string. RegEx isn't necessarily faster.
 	/// </summary>
-	/// <param name="s"></param>
-	/// <param name="UseRegEx"></param>
+	/// <param name="value"></param>
+	/// <param name="useRegex"></param>
 	/// <returns></returns>
-	public static string RemoveMultipleSpaces(this string s, bool UseRegEx = false)
+	public static string RemoveMultipleSpaces(this string value, bool useRegex = false)
 	{
-		if (string.IsNullOrWhiteSpace(s)) { return s; }
+		if (string.IsNullOrWhiteSpace(value)) { return value; }
 
-		if (UseRegEx)
+		if (useRegex)
 		{
-			var regex = new Regex("[ ]{2,}", RegexOptions.None);
-			return regex.Replace(s, " ");
+			return _multiSpaceRegex.Replace(value, " ");
 		}
 
-		var sb = new StringBuilder(s.Length);
+		var sb = new StringBuilder(value.Length);
+		var lastCharWasSpace = false;
 
-		int i = 0;
-		foreach (char c in s)
+		foreach (char c in value)
 		{
-			if (c != ' ' || i == 0 || s[i - 1] != ' ')
+			if (c == ' ')
+			{
+				if (!lastCharWasSpace)
+				{
+					sb.Append(c);
+				}
+
+				lastCharWasSpace = true;
+			}
+			else
 			{
 				sb.Append(c);
+				lastCharWasSpace = false;
 			}
-			i++;
 		}
-		return sb.ToString();
+
+		return sb.ToString().Trim();
 	}
 
-	public static string RemoveMarkup(this string s)
+	public static string RemoveMarkup(this string value)
 	{
-		if (string.IsNullOrEmpty(s))
+		if (string.IsNullOrWhiteSpace(value))
 		{
-			return s;
+			return value;
 		}
 
-		s = s.Replace("javascript", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty);
-		s = Regex.Replace(s, @"&nbsp;", " ", RegexOptions.IgnoreCase);
-		return Regex.Replace(s.Replace("  ", " "), @"<.+?>", "", RegexOptions.Singleline);
+		return _markupRemover
+			.Sanitize(value)
+			.RemoveMultipleSpaces();
 	}
 
-	public static string RemoveQuotes(this string input) => input.Remove(["\"", "'"]);
+	public static string SanitizeMarkup(this string value) =>
+		_sanitizer.Sanitize(value ?? string.Empty);
+
+	public static string RemoveQuotes(this string input) =>
+		input.Remove(['"', '\'']);
 
 
 	public static string EscapeXml(this string s)

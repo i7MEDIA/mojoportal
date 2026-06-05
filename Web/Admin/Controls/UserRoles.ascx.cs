@@ -1,95 +1,95 @@
-﻿using System;
-using System.Data;
-using System.Globalization;
-using System.Text;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using mojoPortal.Business;
+﻿using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Data;
+using System.Globalization;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.AdminUI;
 
 public partial class UserRoles : UserControl
 {
-	private SiteSettings siteSettings = null;
-	private bool useSeparatePagesForRoles = false;
+	private SiteSettings _siteSettings = null;
+	private bool _useSeparatePagesForRoles = false;
+
 	protected string DeleteLinkImage = "~/Data/SiteImages/" + WebConfigSettings.DeleteLinkImage;
 
-	private string siteRoot = string.Empty;
-	public string SiteRoot
-	{
-		get { return siteRoot; }
-		set { siteRoot = value; }
-	}
-
-	private int userId = -1;
-
-	public int UserId
-	{
-		get { return userId; }
-		set { userId = value; }
-	}
+	public string SiteRoot { get; set; } = string.Empty;
+	public int UserId { get; set; } = -1;
 
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		LoadSettings();
 		PopulateLabels();
-		if (useSeparatePagesForRoles)
+
+		if (_useSeparatePagesForRoles)
 		{
 			divRoles.Visible = false;
 			lnkRolesDialog.Visible = true;
-			SetupDialogScript();
 
+			SetupDialogScript();
+		}
+		else
+		{
+			SetupScripts();
 		}
 
 		if (!IsPostBack)
 		{
 			BindRoles();
 		}
-
-
 	}
 
 
 	private void BindRoles()
 	{
-		if (userId == -1) { return; }
-		if (siteSettings == null) { return; }
+		if (UserId == -1 || _siteSettings is null)
+		{
+			return;
+		}
 
-		using (IDataReader reader = SiteUser.GetRolesByUser(siteSettings.SiteId, userId))
+		using (IDataReader reader = SiteUser.GetRolesByUser(_siteSettings.SiteId, UserId))
 		{
 			userRoles.DataSource = reader;
 			userRoles.DataBind();
 		}
 
-		if (!useSeparatePagesForRoles)
+		if (!_useSeparatePagesForRoles)
 		{
-			using (IDataReader reader = Role.GetRolesUserIsNotIn(siteSettings.SiteId, userId))
-			{
-				if (WebUser.IsAdmin)
-				{
-					allRoles.DataSource = reader;
-					allRoles.DataBind();
-				}
-				else
-				{
-					while (reader.Read())
-					{
-						string roleName = reader["RoleName"].ToString();
-						// only admins can add users to Admins role or Role Admins role
-						if ((roleName != "Admins") && (roleName != "Role Admins"))
-						{
-							if ((roleName != "Content Administrators") || (WebConfigSettings.AllowRoleAdminsToCreateContentManagers))
-							{
-								ListItem item = new ListItem(reader["DisplayName"].ToString(), reader["RoleID"].ToString());
-								allRoles.Items.Add(item);
-							}
-						}
+			using IDataReader reader = Role.GetRolesUserIsNotIn(_siteSettings.SiteId, UserId);
 
+			if (WebUser.IsAdmin)
+			{
+				allRoles.DataSource = reader;
+				allRoles.DataBind();
+			}
+			else
+			{
+				while (reader.Read())
+				{
+					string roleName = reader["RoleName"].ToString();
+
+					// only admins can add users to Admins role or Role Admins role
+					if (
+						roleName != "Admins" &&
+						roleName != "Role Admins" &&
+						(
+							roleName != "Content Administrators" ||
+							WebConfigSettings.AllowRoleAdminsToCreateContentManagers
+						)
+					)
+					{
+						var item = new ListItem(
+							reader["DisplayName"].ToString(),
+							reader["RoleID"].ToString()
+						);
+
+						allRoles.Items.Add(item);
 					}
 				}
 			}
@@ -99,40 +99,64 @@ public partial class UserRoles : UserControl
 				allRoles.Enabled = false;
 				addExisting.Enabled = false;
 				addExisting.Text = Resource.ManageUsersUserIsInAllRolesMessage;
-
 			}
 		}
-
 	}
 
-	private void AddRole_Click(Object sender, EventArgs e)
+
+	private void AddRole_Click(object sender, EventArgs e)
 	{
-		if ((userId > -1) && (siteSettings != null))
+		if (string.IsNullOrWhiteSpace(hdnUserPassword.Value))
 		{
-			SiteUser user = new SiteUser(siteSettings, userId);
-			int roleID = int.Parse(allRoles.SelectedItem.Value, CultureInfo.InvariantCulture);
-			Role role = new Role(roleID);
-			Role.AddUser(roleID, userId, role.RoleGuid, user.UserGuid);
+			lblPasswordError.Text = Resource.SecurityPasswordRequired;
+			lblPasswordError.Visible = true;
+
+			return;
+		}
+
+		if (UserId > -1 && _siteSettings != null)
+		{
+			var user = new SiteUser(_siteSettings, UserId);
+			var membershipProvider = Membership.Provider as mojoMembershipProvider;
+			var isValidRequest = membershipProvider.ValidateUser(Page.User.Identity.Name, hdnUserPassword.Value);
+
+			if (!isValidRequest)
+			{
+				hdnUserPassword.Value = string.Empty;
+				lblPasswordError.Text = Resource.SecurityPasswordIncorrect;
+				lblPasswordError.Visible = true;
+
+				return;
+			}
+
+			var roleID = int.Parse(allRoles.SelectedItem.Value, CultureInfo.InvariantCulture);
+			var role = new Role(roleID);
+
+			Role.AddUser(roleID, UserId, role.RoleGuid, user.UserGuid);
+
 			user.RolesChanged = true;
+
 			user.Save();
 
 			BindRoles();
 
 			upRoles.Update();
-
 		}
 
-		//WebUtils.SetupRedirect(this, Request.RawUrl);
+		hdnUserPassword.Value = string.Empty;
+		lblPasswordError.Visible = false;
 	}
 
 
 	private void UserRoles_ItemCommand(object sender, DataListCommandEventArgs e)
 	{
-		int roleID = Convert.ToInt32(userRoles.DataKeys[e.Item.ItemIndex]);
-		SiteUser user = new SiteUser(siteSettings, userId);
+		var roleID = Convert.ToInt32(userRoles.DataKeys[e.Item.ItemIndex]);
+		var user = new SiteUser(_siteSettings, UserId);
 
-		Role.RemoveUser(roleID, userId);
+		Role.RemoveUser(roleID, UserId);
+
 		userRoles.EditItemIndex = -1;
+
 		if (user.UserId > -1)
 		{
 			user.RolesChanged = true;
@@ -142,20 +166,16 @@ public partial class UserRoles : UserControl
 		BindRoles();
 
 		upRoles.Update();
-
-		//WebUtils.SetupRedirect(this, Request.RawUrl);
-		//return;
-
 	}
 
 
-	void userRoles_ItemDataBound(object sender, DataListItemEventArgs e)
+	void UserRoles_ItemDataBound(object sender, DataListItemEventArgs e)
 	{
 		ImageButton btnRemoveRole = e.Item.FindControl("btnRemoveRole") as ImageButton;
 		UIHelper.AddConfirmationDialog(btnRemoveRole, Resource.ManageUsersRemoveRoleWarning);
 	}
 
-	void btnRefreshRoles_Click(object sender, ImageClickEventArgs e)
+	void BtnRefreshRoles_Click(object sender, ImageClickEventArgs e)
 	{
 		BindRoles();
 		upRoles.Update();
@@ -166,75 +186,117 @@ public partial class UserRoles : UserControl
 	{
 		if (WebUser.IsAdmin) { return true; }
 
-		if (roleName == "Admins") { return false; }
-		if (roleName == "Role Admins") { return false; }
+		if (roleName is "Admins" or "Role Admins") { return false; }
 
 		return true;
 	}
+
 
 	private void PopulateLabels()
 	{
 		addExisting.Text = Resource.ManageUsersAddToRoleButton;
 		addExisting.ToolTip = Resource.ManageUsersAddToRoleButton;
+
 		SiteUtils.SetButtonAccessKey(addExisting, AccessKeys.ManageUsersAddToRoleButtonAccessKey);
 
 		lnkRolesDialog.Text = Resource.ManageUserRoles;
 		lnkRolesDialog.ToolTip = Resource.ManageUserRoles;
-		lnkRolesDialog.NavigateUrl = siteRoot + "/Dialog/UserRolesDialog.aspx?u=" + userId.ToInvariantString();
+		lnkRolesDialog.NavigateUrl = "~/Dialog/UserRolesDialog.aspx"
+			.ToLinkBuilder()
+			.AddParam("u", UserId)
+			.ToString();
 		btnRefreshRoles.ImageUrl = Page.ResolveUrl("~/Data/SiteImages/1x1.gif");
 		btnRefreshRoles.Attributes.Add("tabIndex", "-1");
 	}
 
+
 	private void SetupDialogScript()
 	{
-		mojoBasePage basePage = Page as mojoBasePage;
-		basePage.ScriptConfig.IncludeColorBox = true;
+		var script = $$"""
+			<script>
+				function RefreshRoles(){
+					document.getElementById('{{btnRefreshRoles.ClientID}}').click();
+				}
+			</script>
+			""";
 
-		StringBuilder script = new StringBuilder();
-
-		script.Append("\nfunction RefreshRoles(){");
-
-		script.Append("var btn = document.getElementById('" + btnRefreshRoles.ClientID + "');  ");
-		script.Append("btn.click(); ");
-
-		script.Append("}\n");
-
-		ScriptManager.RegisterClientScriptBlock(this, typeof(Page),
-			   "refreshroles", "\n<script type=\"text/javascript\" >"
-			   + script.ToString() + "</script>", false);
-
-		script = new StringBuilder();
-
-		script.Append("\n$('#" + lnkRolesDialog.ClientID + "').colorbox(");
-		script.Append("{width:'85%', height:'85%', iframe:true, onClosed:RefreshRoles}");
-
-		script.Append(");");
-
-		ScriptManager.RegisterStartupScript(this, typeof(Page),
-			   "userrolesdialog", "\n<script type=\"text/javascript\" >"
-			   + script.ToString() + "</script>", false);
-
-
+		ScriptManager.RegisterClientScriptBlock(
+			this,
+			typeof(Page),
+			"refreshroles",
+			script,
+			false);
 	}
+
 
 	private void LoadSettings()
 	{
-		siteSettings = CacheHelper.GetCurrentSiteSettings();
-		useSeparatePagesForRoles = (Role.CountOfRoles(siteSettings.SiteId) >= WebConfigSettings.TooManyRolesForModuleSettings);
-
+		_siteSettings = CacheHelper.GetCurrentSiteSettings();
+		_useSeparatePagesForRoles = (Role.CountOfRoles(_siteSettings.SiteId) >= WebConfigSettings.TooManyRolesForModuleSettings);
 	}
+
+
+	private void SetupScripts()
+	{
+		var mojoPromptScriptName = "mojoDialog";
+
+		if (!Page.ClientScript.IsStartupScriptRegistered(mojoPromptScriptName))
+		{
+			ScriptManager.RegisterStartupScript(
+				Page,
+				typeof(Page),
+				mojoPromptScriptName,
+				$"<script src=\"{ResolveUrl($"~/ClientScript/mojo-prompt.js?v={_siteSettings.SkinVersion}")}\"></script>",
+				false);
+
+			var script = $$"""
+				<script>
+					const enterPasswordBtn = document.getElementById('enterPasswordBtn');
+
+					enterPasswordBtn.addEventListener('keydown', (e) => {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							e.target.click();
+						}
+					});
+
+					function EnterPassword() {
+						mojoPrompt(
+							'{{Resource.AddRolesToUserApprovalPromptMessage}}',
+							(userPassword) => addRole(userPassword),
+							'{{Resource.AddRoleToUseApprovalPromptTitle}}',
+							'password'
+						);
+				
+						function addRole(password) {
+							if (password === null) {
+								return;
+							}
+				
+							document.getElementById('{{hdnUserPassword.ClientID}}').value = password;
+							document.getElementById('{{addExisting.ClientID}}').click();
+						}
+					}
+				</script>
+				""";
+
+			ScriptManager.RegisterStartupScript(
+				Page,
+				typeof(Page),
+				"EnterPasswordForRoleChange",
+				script,
+				false);
+		}
+	}
+
 
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
 		Load += new EventHandler(Page_Load);
 		addExisting.Click += new EventHandler(AddRole_Click);
-		btnRefreshRoles.Click += new ImageClickEventHandler(btnRefreshRoles_Click);
-		userRoles.ItemDataBound += new DataListItemEventHandler(userRoles_ItemDataBound);
+		btnRefreshRoles.Click += new ImageClickEventHandler(BtnRefreshRoles_Click);
+		userRoles.ItemDataBound += new DataListItemEventHandler(UserRoles_ItemDataBound);
 		userRoles.ItemCommand += new DataListCommandEventHandler(UserRoles_ItemCommand);
 	}
-
-
-
-
 }

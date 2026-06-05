@@ -5,73 +5,61 @@ namespace mojoPortal.Web.Editor;
 
 public class TextAreaAdapter : IWebEditor
 {
-	public TextAreaAdapter() { }
-
-	private TextAreaEditorControl Editor = new TextAreaEditorControl();
-	private Unit editorWidth = Unit.Percentage(98);
-	private Unit editorHeight = Unit.Pixel(350);
+	private readonly TextAreaEditorControl _editor = new();
+	private Unit _editorWidth = Unit.Percentage(98);
+	private Unit _editorHeight = Unit.Pixel(350);
 
 	public string ControlID
 	{
-		get { return Editor.ID; }
-		set { Editor.ID = value; }
+		get => _editor.ID;
+		set => _editor.ID = value;
 	}
 
-	public string ClientID
-	{
-		get { return Editor.ClientID; }
-	}
+	public string ClientID => _editor.ClientID;
 
 	public string Text
 	{
-		get { return Editor.Text; }
-		set { Editor.Text = value; }
+		get => _editor.Text;
+		set => _editor.Text = value;
 	}
 
 	public Unit Width
 	{
-		get { return editorWidth; }
+		get => _editorWidth;
 		set
 		{
-			editorWidth = value;
-			Editor.Width = editorWidth;
+			_editorWidth = value;
+			_editor.Width = _editorWidth;
 		}
 	}
 
 	public Unit Height
 	{
-		get { return editorHeight; }
+		get => _editorHeight;
 		set
 		{
-			editorHeight = value;
-			Editor.Height = editorHeight;
-
+			_editorHeight = value;
+			_editor.Height = _editorHeight;
 		}
-	}
-	public Control GetEditorControl()
-	{
-		return Editor;
 	}
 
 	#region Unused Properties - these exist only for compatibility with the editor plug in model
 
 	public string ScriptBaseUrl { get; set; } = string.Empty;
-
 	public string SiteRoot { get; set; } = string.Empty;
-
 	public string SkinName { get; set; } = string.Empty;
-
 	public string EditorCSSUrl { get; set; } = string.Empty;
-
 	public Direction TextDirection { get; set; } = Direction.LeftToRight;
-
 	public ToolBar ToolBar { get; set; } = ToolBar.AnonymousUser;
-
 	public bool SetFocusOnStart { get; set; } = false;
-
 	public bool FullPageMode { get; set; } = false;
-
 	public bool UseFullyQualifiedUrlsForResources { get; set; } = false;
 
 	#endregion
+
+
+	public TextAreaAdapter() { }
+
+
+	public Control GetEditorControl() => _editor;
 }

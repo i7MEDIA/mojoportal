@@ -1,10 +1,11 @@
-﻿using System;
-using System.Data;
-using System.Web.UI.WebControls;
-using mojoPortal.Business;
+﻿using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Core.Extensions;
 using mojoPortal.Web.Framework;
+using Resources;
+using System;
+using System.Data;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.AdminUI;
 
@@ -18,9 +19,25 @@ public partial class RoleUserSelectDialog : mojoDialogBasePage
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		LoadSettings();
+		SetupScripts();
 		if (!IsPostBack)
 		{
 			PopulateControls();
+		}
+	}
+
+	private void SetupScripts()
+	{
+		var mojoPromptScriptName = "mojoDialog";
+
+		if (!Page.ClientScript.IsStartupScriptRegistered(mojoPromptScriptName))
+		{
+			ScriptManager.RegisterStartupScript(
+				Page,
+				typeof(Page),
+				mojoPromptScriptName,
+				$"<script src=\"{ResolveUrl($"~/ClientScript/mojo-prompt.js?v={siteSettings.SkinVersion}")}\"></script>",
+				false);
 		}
 	}
 
@@ -51,7 +68,10 @@ public partial class RoleUserSelectDialog : mojoDialogBasePage
 
 		}
 
-		string pageUrl = $"{SiteRoot}/Dialog/RoleUserSelectDialog.aspx?r={roleId.ToInvariantString()}&amp;pagenumber={{0}}";
+		var pageUrl = $"~/Dialog/RoleUserSelectDialog.aspx".ToLinkBuilder()
+			.AddParam("r", roleId)
+			.AddParam("pagenumber", "{0}")
+			.ToString();
 
 		pgrMembers.PageURLFormat = pageUrl;
 		pgrMembers.ShowFirstLast = true;
@@ -64,17 +84,19 @@ public partial class RoleUserSelectDialog : mojoDialogBasePage
 		rptUsers.DataBind();
 	}
 
-	void rptUsers_ItemDataBound(object sender, RepeaterItemEventArgs e)
+	private void RptUsers_ItemDataBound(object sender, RepeaterItemEventArgs e)
 	{
-		Button btnSelect = (Button)e.Item.FindControl("btnSelect");
-		if (btnSelect is null) { return; }
+		if (e.Item.FindControl("btnSelect") is not Button btnSelect)
+		{
+			return;
+		}
 
 		btnSelect.Attributes.Add("onclick", GetClientScriptForButton(btnSelect.CommandArgument));
 	}
 
 	private string GetClientScriptForButton(string userId)
 	{
-		return $"top.window.SelectUser({userId});  return false;";
+		return $$"""mojoPrompt('{{Resource.AddRolesToUserApprovalPromptMessage}}', (userPassword) => {if (userPassword) top.window.SelectUser({{userId}}, userPassword)}, '{{Resource.AddRoleToUseApprovalPromptTitle}}', 'password'); return false;""";
 	}
 
 
@@ -89,6 +111,6 @@ public partial class RoleUserSelectDialog : mojoDialogBasePage
 	{
 		base.OnInit(e);
 		Load += new EventHandler(Page_Load);
-		rptUsers.ItemDataBound += new RepeaterItemEventHandler(rptUsers_ItemDataBound);
+		rptUsers.ItemDataBound += new RepeaterItemEventHandler(RptUsers_ItemDataBound);
 	}
 }
