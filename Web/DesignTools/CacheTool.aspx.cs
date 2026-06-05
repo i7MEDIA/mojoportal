@@ -71,6 +71,7 @@ public partial class CacheToolPage : NonCmsBasePage
 		CacheHelper.ClearHttpRuntimeCache();
 		TinyMceConfiguration.ClearCache();
 		Global.SkinConfigManager.ClearAll();
+		Global.CacheServicesContainer.ClearAll();
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
 	}

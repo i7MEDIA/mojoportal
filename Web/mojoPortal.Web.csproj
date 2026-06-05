@@ -1025,6 +1025,7 @@
       <DependentUpon>closed.aspx</DependentUpon>
     </Compile>
     <Compile Include="Components\BundleConfig.cs" />
+    <Compile Include="Components\CacheServiceContainer.cs" />
     <Compile Include="Components\EventHandlers\SiteCreated\UpdateSiteCountCacheEventHandler.cs" />
     <Compile Include="Components\EventHandlers\SitePreDelete\UpdateSiteCountCacheEventHandler.cs" />
     <Compile Include="Components\FileSystem\FileSystemHelper.cs" />
