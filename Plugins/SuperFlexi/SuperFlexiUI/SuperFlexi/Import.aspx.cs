@@ -5,6 +5,7 @@ using mojoPortal.SearchIndex;
 using mojoPortal.Web;
 using mojoPortal.Web.Framework;
 using SuperFlexiBusiness;
+using SuperFlexiUI.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -172,7 +173,7 @@ namespace SuperFlexiUI
 
 							if (config.FieldDefinitionGuid != Guid.Empty)
 							{
-								fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+								fields = SuperFlexiCache.GetFields(config.FieldDefinitionGuid);
 							}
 							else
 							{

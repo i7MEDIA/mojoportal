@@ -201,9 +201,6 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Westwind.Scripting, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Westwind.Scripting.1.8.0\lib\net472\Westwind.Scripting.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="SuperFlexi\Controls\UrlSelector.ascx" />
@@ -314,6 +311,7 @@
     <Compile Include="Components\PopulatedItem.cs" />
     <Compile Include="Components\RouteRegistrar.cs" />
     <Compile Include="Components\SuperFlexiBase.cs" />
+    <Compile Include="Components\SuperFlexiCache.cs" />
     <Compile Include="Components\SuperFlexiHelpers.cs" />
     <Compile Include="Components\SuperFlexiIndexBuilderProvider.cs" />
     <Compile Include="Components\Configuration.cs" />

@@ -1,4 +1,14 @@
-﻿using System;
+﻿using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
+using mojoPortal.Web;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
+using SuperFlexiBusiness;
+using SuperFlexiUI.Components;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Dynamic;
@@ -8,15 +18,6 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Xml;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.FileSystem;
-using mojoPortal.Web;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
-using SuperFlexiBusiness;
 
 namespace SuperFlexiUI
 {
@@ -705,7 +706,7 @@ namespace SuperFlexiUI
 
 		public static ExpandoObject GetExpandoForItem(Item item)
 		{
-			var fields = Field.GetAllForDefinition(item.DefinitionGuid);
+			var fields = SuperFlexiCache.GetFields(item.DefinitionGuid);
 
 			if (fields == null || item == null)
 			{
@@ -742,7 +743,7 @@ namespace SuperFlexiUI
 		}
 		public static ExpandoObject GetExpandoForModuleItems(Module module, ModuleConfiguration config, bool allForDefinition = false)
 		{
-			var fields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+			var fields = SuperFlexiCache.GetFields(config.FieldDefinitionGuid);
 			List<Item> items;
 
 			if (allForDefinition)

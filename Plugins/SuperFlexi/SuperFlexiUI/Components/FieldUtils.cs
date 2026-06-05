@@ -8,6 +8,7 @@ using log4net;
 using mojoPortal.FileSystem;
 using mojoPortal.Web;
 using SuperFlexiBusiness;
+using SuperFlexiUI.Components;
 using Core = mojoPortal.Core;
 
 namespace SuperFlexiUI;
@@ -423,47 +424,60 @@ public class FieldUtils
 	public static bool EnsureFields(Guid siteGuid, ModuleConfiguration config, out List<Field> savedFields, bool deleteOrphanedFieldValues = false)
 	{
 		savedFields = null;
-		List<Field> definedFields = ParseFieldDefinitionXml(config, siteGuid);
-		FieldComparer fieldComp = new FieldComparer();
+
+		var definedFields = ParseFieldDefinitionXml(config, siteGuid);
+		var fieldComp = new FieldComparer();
+
 		if (config.FieldDefinitionGuid != Guid.Empty)
 		{
-			savedFields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+			if (
+				// No value
+				!SuperFlexiCache.FieldCache.TryGetValue(config.FieldDefinitionGuid, out savedFields) &&
+				// Unable to add
+				!SuperFlexiCache.FieldCache.TryAdd(config.FieldDefinitionGuid, Field.GetAllForDefinition(config.FieldDefinitionGuid))
+			)
+			{
+				return false;
+			}
+
+			// If the above if statement ran as such: [No value, but was able to add to the cache]
+			// then we need get those values at this point.
+			SuperFlexiCache.FieldCache.TryGetValue(config.FieldDefinitionGuid, out savedFields);
 		}
 		else
 		{
 			return false;
 		}
 
-		bool fieldsChanged = false;
+		var fieldsChanged = false;
 
-
-
-		if (savedFields != null)
+		if (savedFields is not null)
 		{
-
 			if (savedFields.Count != definedFields.Count)
 			{
 				fieldsChanged = true;
 			}
 			else
 			{
-				foreach (Field definedField in definedFields)
+				foreach (var definedField in definedFields)
 				{
 					if (!savedFields.Contains(definedField, fieldComp))
-
 					{
 						fieldsChanged = true;
 						break;
 					}
 				}
-
 			}
 		}
 
-		if (savedFields == null || fieldsChanged)
+		if (savedFields is null || fieldsChanged)
 		{
-			FieldUtils.SaveFieldsToDB(definedFields, siteGuid, ModuleConfiguration.FeatureGuid, deleteOrphanedFieldValues);
+			SaveFieldsToDB(definedFields, siteGuid, ModuleConfiguration.FeatureGuid, deleteOrphanedFieldValues);
+
 			savedFields = Field.GetAllForDefinition(config.FieldDefinitionGuid);
+
+			SuperFlexiCache.ClearFieldCache(config.FieldDefinitionGuid);
+			SuperFlexiCache.FieldCache.TryAdd(config.FieldDefinitionGuid, savedFields);
 		}
 
 		if (savedFields == null) return false;
