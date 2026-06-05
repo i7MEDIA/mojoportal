@@ -1,10 +1,9 @@
+using log4net;
+using mojoPortal.Data;
 using System.Collections;
 using System.Data;
 using System.Data.Common;
 using System.IO;
-using System.Runtime.CompilerServices;
-using log4net;
-using mojoPortal.Data;
 
 namespace mojoPortal.Business;
 
@@ -22,7 +21,7 @@ public static class DatabaseHelper
 	/// Maintained/updated in code to make Setup run the new version upgrade script
 	/// </summary>
 	/// <returns>Version</returns>
-	public static Version AppCodeVersion() => new(2, 9, 2, 3);
+	public static Version AppCodeVersion() => new(3, 0, 0, 0);
 
 	public static Version SchemaVersion()
 	{
