@@ -119,13 +119,13 @@ public class CheckBoxListAdapter : WebControlAdapter
 		{
 			if (checkList.TextAlign == TextAlign.Left)
 			{
-				writer.Write(li.Text);
+				writer.Write(li.Text + " ");
 				RenderCheckBoxListInput(writer, checkList, li);
 			}
 			else
 			{
 				RenderCheckBoxListInput(writer, checkList, li);
-				writer.Write(li.Text);
+				writer.Write(" " + li.Text);
 			}
 		}
 		else
