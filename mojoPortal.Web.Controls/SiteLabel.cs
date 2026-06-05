@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,10 +15,17 @@ public class SiteLabel : WebControl, INamingContainer
 	public string ForControl { get; set; } = string.Empty;
 	public bool ShowWarningOnMissingKey { get; set; } = true;
 
+	/// <summary>
+	/// Sets text alignment in relation to any child controls. TextAlign.Left would put the text before child controls. TextAlign.Right puts the text after child controls.
+	/// </summary>
+	public TextAlign TextAlign { get; set; } = TextAlign.Left;
+
+
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
 	}
+
 
 	protected override void OnLoad(EventArgs e)
 	{
@@ -27,26 +33,29 @@ public class SiteLabel : WebControl, INamingContainer
 		EnableViewState = false;
 	}
 
+
 	protected override void Render(HtmlTextWriter writer)
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			writer.Write("[" + ID + "]");
+
 			return;
 		}
+
 		if (string.IsNullOrWhiteSpace(ConfigKey))
 		{
 			return;
 		}
 
-		writer.Write(GetControlMarkup());
+		RenderLabel(writer);
 	}
 
-	private string GetControlMarkup()
-	{
-		if (string.IsNullOrEmpty(ConfigKey)) return string.Empty;
 
+	private void RenderLabel(HtmlTextWriter writer)
+	{
 		string text;
+
 		if (ConfigKey == "EmptyLabel" || ConfigKey == "spacer")
 		{
 			text = string.Empty;
@@ -54,41 +63,55 @@ public class SiteLabel : WebControl, INamingContainer
 		else
 		{
 			text = HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) as string;
-			text ??= ShowWarningOnMissingKey
-						   ? string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile)
-						   : ConfigKey;
+
+			text ??= ShowWarningOnMissingKey ?
+				string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile) :
+				ConfigKey;
 		}
 
-		string forString = string.Empty;
-		if (ForControl.Length > 0)
+		if (!string.IsNullOrWhiteSpace(ForControl) && NamingContainer.FindControl(ForControl) is Control c)
 		{
-			if (NamingContainer.FindControl(ForControl) is Control c)
-			{
-				forString = $" for='{c.ClientID}' ";
-			}
-
+			writer.AddAttribute(HtmlTextWriterAttribute.For, c.ClientID);
 		}
-
-		var attribs = new List<string>();
 
 		foreach (string key in Attributes.Keys)
 		{
-			attribs.Add($"{key}=\"{Attributes[key]}\"");
+			writer.AddAttribute(key, Attributes[key]);
 		}
 
-		var attribsString = string.Join(" ", attribs);
-		if (!string.IsNullOrWhiteSpace(attribsString))
-		{
-			attribsString = $" {attribsString}";
-		}
-
-		var cssString = string.Empty;
 		if (!string.IsNullOrWhiteSpace(CssClass))
 		{
-			cssString = $" class=\"{CssClass}\"";
+			writer.AddAttribute(HtmlTextWriterAttribute.Class, CssClass);
 		}
-		return UseLabelTag
-			? $"<label {forString}{cssString}{attribsString}>{text}</label>"
-			: string.IsNullOrWhiteSpace(CssClass) ? text : $"<span{cssString}{attribsString}>{text}</span>";
+
+		if (UseLabelTag)
+		{
+			writer.RenderBeginTag(HtmlTextWriterTag.Label);
+		}
+		else
+		{
+			writer.RenderBeginTag(HtmlTextWriterTag.Span);
+		}
+
+		if (TextAlign == TextAlign.Left)
+		{
+			writer.Write(text);
+
+			foreach (Control i in Controls)
+			{
+				i.RenderControl(writer);
+			}
+		}
+		else // TextAlign.Right
+		{
+			foreach (Control i in Controls)
+			{
+				i.RenderControl(writer);
+			}
+
+			writer.Write(text);
+		}
+
+		writer.RenderEndTag();
 	}
 }
