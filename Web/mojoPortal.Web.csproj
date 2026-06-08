@@ -1177,6 +1177,7 @@
     <Compile Include="Components\SMTP\SmtpSettings.cs" />
     <Compile Include="Components\SMTP\TrustAllCertificatePolicy.cs" />
     <Compile Include="Components\SystemLogAppender.cs" />
+    <Compile Include="Components\UrlSlugger.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FileManager\FileManagerController.cs" />
     <Compile Include="Controllers\FileManager\FileServiceController.cs" />
