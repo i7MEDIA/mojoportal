@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Web;
 using System.Web.UI;
 
@@ -320,10 +321,6 @@ public class LinkBuilder
 	{
 		var urlBase = string.Empty;
 
-		path = path
-			.Replace("../", string.Empty)
-			.Replace("..\\", string.Empty);
-
 		// double leading slashes causes Uri to create a file URI e.g.: "file://something", so trim leading slashes
 		if (Uri.TryCreate(path.TrimStart('/'), UriKind.Absolute, out var uri))
 		{
@@ -333,13 +330,32 @@ public class LinkBuilder
 			{
 				var index = path.IndexOf(path);
 
-				path = path.Remove(index, _urlBase.Length);
+				path = SanitizeRelativeUrl(path.Remove(index, _urlBase.Length));
 				urlBase = _urlBase;
 			}
+		}
+		else
+		{
+			path = SanitizeRelativeUrl(path);
 		}
 
 		return (urlBase, path.Split(['/', '\\', '~'], StringSplitOptions.RemoveEmptyEntries));
 	}
+
+
+	/// <summary>
+	/// Sanitizes a relative URL by converting it into an absolute URI and then returning the path
+	/// </summary>
+	/// <param name="url"></param>
+	/// <returns></returns>
+	private static string SanitizeRelativeUrl(string url)
+	{
+		Uri.TryCreate(url, UriKind.Relative, out var relativeUri);
+		Uri.TryCreate(new Uri("https://mojoportal.com"), relativeUri.OriginalString.TrimStart('/'), out var absoluteUri);
+
+		return absoluteUri.PathAndQuery;
+	}
+
 
 	/// <summary>
 	/// Turns a tuple of a base URL and a string array into a URL path.
