@@ -1,11 +1,12 @@
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using KenmarkBackdrops.UI.Components;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.UI;
 
@@ -158,7 +159,7 @@ public class ModuleTitleControl : WebControl, INamingContainer
 			return;
 		}
 
-		var moduleIdRenderString = string.Format(Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderFormat, ModuleInstance.ModuleId);
+		var moduleIdRenderString = Invariant($"{StringSlugger.ToSlug(ModuleInstance.ModuleTitle)}-{ModuleInstance.ModuleId}");
 
 		if (UseHeading && !string.IsNullOrWhiteSpace(topContent))
 		{

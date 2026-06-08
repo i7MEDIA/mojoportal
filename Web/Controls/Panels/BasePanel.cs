@@ -1,4 +1,5 @@
-﻿using mojoPortal.Web.Framework;
+﻿using KenmarkBackdrops.UI.Components;
+using mojoPortal.Web.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,13 +92,16 @@ public class BasePanel : Panel
 
 	protected override void Render(HtmlTextWriter writer)
 	{
-		if (this.Parent is SiteModuleControl parent 
-			&& Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderLocation == Theming.ModuleDisplayOptions.ModuleIdRenderLocations.WrappingDiv)
+		if (
+			Parent is SiteModuleControl parent &&
+			Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderLocation == Theming.ModuleDisplayOptions.ModuleIdRenderLocations.WrappingDiv)
 		{
-			ID = Invariant($"{string.Format(Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderFormat, parent.ModuleConfiguration.ModuleId)}");
+			ID = Invariant($"{StringSlugger.ToSlug(parent.ModuleConfiguration.ModuleTitle)}-{parent.ModuleConfiguration.ModuleId}"); ;
 			ClientIDMode = ClientIDMode.Static;
+			RenderId = true;
 		}
-		if (HttpContext.Current == null)
+
+		if (HttpContext.Current is null)
 		{
 			writer.Write($"[{ID}]");
 
