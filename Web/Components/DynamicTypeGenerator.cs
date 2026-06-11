@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 
 namespace mojoPortal.Web.Components;
 
@@ -65,8 +66,7 @@ public class DynamicTypeGenerator
 
 	public Type CreateType()
 	{
-		// Return from constructor
-		//_ctorIL.Emit(OpCodes.Ret);
+		_ctorIL.Emit(OpCodes.Ret); // Return from constructor
 		return _typeBuilder.CreateType();
 	}
 
@@ -93,9 +93,29 @@ public class DynamicTypeGenerator
 	}
 
 
+	//private void CreateConstructor()
+	//{
+	//	_typeBuilder.DefineDefaultConstructor(MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
+	//}
+
+
 	private void CreateConstructor()
 	{
-		_typeBuilder.DefineDefaultConstructor(MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
+		// Define a public, parameterless constructor
+		var ctorBuilder = _typeBuilder.DefineConstructor(
+			MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName,
+			CallingConventions.Standard,
+			Type.EmptyTypes
+		);
+
+		_ctorIL = ctorBuilder.GetILGenerator();
+
+		// 1. Call the base class (System.Object) constructor
+		var objectCtor = typeof(object).GetConstructor(Type.EmptyTypes);
+		_ctorIL.Emit(OpCodes.Ldarg_0);       // Load 'this'
+		_ctorIL.Emit(OpCodes.Call, objectCtor); // Call object..ctor()
+
+
 	}
 
 
@@ -156,6 +176,15 @@ public class DynamicTypeGenerator
 
 		propertyBuilder.SetGetMethod(getPropertyMethodBuilder);
 		propertyBuilder.SetSetMethod(setPropertyMethodBuilder);
+
+		if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>))
+		{
+			// Initialize property
+			var listStringCtor = type.GetConstructor(Type.EmptyTypes);
+			_ctorIL.Emit(OpCodes.Ldarg_0);                // Load 'this' (for the stfld operation later)
+			_ctorIL.Emit(OpCodes.Newobj, listStringCtor); // Create new object instance
+			_ctorIL.Emit(OpCodes.Stfld, fieldBuilder);    // Assign instance to backing field
+		}
 	}
 
 
