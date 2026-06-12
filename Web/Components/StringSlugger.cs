@@ -1,15 +1,15 @@
-﻿﻿using System.Globalization;
+﻿using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
 
-namespace KenmarkBackdrops.UI.Components;
+namespace mojoPortal.Web.Components;
 
 public static class StringSlugger
 {
-	static readonly Regex _wordDelimiters = new(@"[\s—–_]", RegexOptions.Compiled);
-	static readonly Regex _invalidChars = new(@"[^a-z0-9\-]", RegexOptions.Compiled);
-	static readonly Regex _multipleHyphens = new(@"-{2,}", RegexOptions.Compiled);
+	private static readonly Regex _wordDelimiters = new(@"[\s—–_]", RegexOptions.Compiled);
+	private static readonly Regex _invalidChars = new(@"[^a-z0-9\-]", RegexOptions.Compiled);
+	private static readonly Regex _multipleHyphens = new(@"-{2,}", RegexOptions.Compiled);
 
 	public static string ToSlug(string value)
 	{

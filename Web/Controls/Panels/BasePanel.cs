@@ -1,7 +1,6 @@
-﻿using KenmarkBackdrops.UI.Components;
+﻿using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -96,7 +95,7 @@ public class BasePanel : Panel
 			Parent is SiteModuleControl parent &&
 			Global.SkinConfig.ModuleDisplayOptions.ModuleId_RenderLocation == Theming.ModuleDisplayOptions.ModuleIdRenderLocations.WrappingDiv)
 		{
-			ID = Invariant($"{StringSlugger.ToSlug(parent.ModuleConfiguration.ModuleTitle)}-{parent.ModuleConfiguration.ModuleId}"); ;
+			ID = Invariant($"{StringSlugger.ToSlug(parent.ModuleConfiguration.ModuleTitle)}-{parent.ModuleConfiguration.ModuleId}");
 			ClientIDMode = ClientIDMode.Static;
 			RenderId = true;
 		}
