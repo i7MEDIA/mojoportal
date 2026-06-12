@@ -22,7 +22,7 @@ public class ClassBuilder
 	private Guid _defGuid;
 	private List<Field> _fields;
 	private object _item;
-	private List<ItemWithValues> _itemsWithValues;
+	private readonly List<ItemWithValues> _itemsWithValues;
 
 	#endregion
 

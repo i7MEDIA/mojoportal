@@ -271,6 +271,7 @@ public class WidgetRazor : WebControl
 			Module = new ModuleModel
 			{
 				Id = module.ModuleId,
+				FriendlyId = Invariant($"{StringSlugger.ToSlug(module.ModuleTitle)}-{module.ModuleId}"),
 				Guid = module.ModuleGuid,
 				IsEditable = IsEditable,
 				Pane = module.PaneName,

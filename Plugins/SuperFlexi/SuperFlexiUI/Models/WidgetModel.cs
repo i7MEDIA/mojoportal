@@ -6,7 +6,7 @@ namespace SuperFlexiUI.Models
 	{
 		public ModuleConfiguration Config { get; set; }
 		public Dictionary<string,List<string>> DynamicLists { get; set; }
-		public List<object> Items { get; set; }
+		public List<dynamic> Items { get; set; }
 		public ModuleModel Module { get; set; }
 		public PageModel Page { get; set; }
 		public PaginationModel Pagination { get; set; }

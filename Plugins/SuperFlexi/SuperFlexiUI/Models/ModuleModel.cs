@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace SuperFlexiUI.Models
 {
 	public class ModuleModel
 	{
 		public int Id { get; set; }
+		public string FriendlyId { get; set; }
 		public Guid Guid { get; set; }
 		public bool IsEditable { get; set; }
 		public string Pane { get; set; }
