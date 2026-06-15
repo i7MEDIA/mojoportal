@@ -13,7 +13,6 @@ function Event( event, params ) {
     return evt;
 }
 
-
 //
 // Toggle Edit Links
 // --------------------------------------------------

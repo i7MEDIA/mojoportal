@@ -164,6 +164,7 @@
 		@sm: @screen-sm-min;
 		@md: @screen-md-min;
 		@lg: @screen-lg-min;
+		@xl: @screen-xl-min;
 
 		@set-size: '@{class}';
 	}
@@ -231,13 +232,14 @@
 	.fb-grow   {flex-grow: 1;}
 	.fb-shrink {flex-shrink: 1;}
 }
-
+ 
 
 // Initialize
 .make-fb-grid(xs);
 .make-fb-grid(sm);
 .make-fb-grid(md);
 .make-fb-grid(lg);
+.make-fb-grid(xl); 
 
 
 // Fix bootstrap nav with flexbox styles applied

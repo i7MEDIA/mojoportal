@@ -1,0 +1,13 @@
+{
+	"DisableContentRating": "false",
+	"UseBottomContentRating": "true",
+	"UseHtml5Elements": "false",
+	"UseAuthorFirstAndLastName": "true",
+	"OverrideCreatedDateFormat": "<span class='datelabel'>Created: </span><span class='date'>{0}</span>",
+	"OverrideCreatedByUserFormat": "<span class='authorlabel'>Created By: </span><span class='authorname'>{0}</span>",
+	"OverrideModifiedDateFormat": "<span class='datelabel'>Last Modified: </span><span class='date'>{0}</span>",
+	"OverrideModifiedByUserFormat": "<span class='authorlabel'>Last Modified By: </span><span class='authorname'>{0}</span>",
+	"OverrideCreatedByUserDateFormat": "<span class='authorlabel'>Created by </span><span class='authorname'>{1} </span><span class='datelabel'>on </span><span class='date'>{0}</span>",
+	"OverrideModifiedByUserDateFormat": "<span class='authorlabel'>Last Modified by </span><span class='authorname'>{1} </span><span class='datelabel'>on </span><span class='date'>{0}</span>",
+	"DateFormat": "MMM dd, yyyy"
+}

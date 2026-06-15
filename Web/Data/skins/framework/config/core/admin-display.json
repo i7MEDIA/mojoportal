@@ -1,0 +1,9 @@
+{
+	"PanelHeadingMarkup": "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>",
+	"PanelBottomMarkup": "</div><!--end PanelBottomMarkup-->",
+	"SubPanelHeadingMarkup": "<div class='panel panel-info'><div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>",
+	"SubPanelBottomMarkup": "</div><!--end panel-body--></div><!--end panel><!--end SubPanelBottomMarkup-->",
+	"SubPanelHeadingMarkupCollapsible": "<div class='panel panel-info'><div class='panel-heading'><a href='#{2}' data-toggle='collapse'><h3 class='panel-title'>{0} <small>{1}</small></h3></a></div><div class='panel-collapse collapse' id='{2}'><div class='panel-body'>",
+	"SubPanelBottomMarkupCollapsible": "</div></div></div><!--end SubPanelBottomMarkupCollapsible-->",
+	"ModuleSettingsSettingControlClass": "form-control"
+}

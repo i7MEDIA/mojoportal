@@ -1,0 +1,143 @@
+// Page Not Found styles
+.pagebody.pagenotfound {
+
+	.main-content {
+
+		.container {
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+}
+
+.page-not-found-content-wrap {
+	max-width: 600px;
+	margin: 100px auto;
+}
+
+.page-not-found-intro {
+	background-color: @gray-lighter;
+	border-radius: 6px 6px 0 0;
+	padding: 200px 40px 40px;
+	position: relative;
+	text-align: center;
+
+	&::before {
+		background: url('../img/compass-icon.png') no-repeat center center / contain transparent;
+		content: "";
+		position: absolute;
+		top: 40px;
+		left: 50%;
+		width: 120px;
+		height: 120px;
+		opacity: 0.8;
+		transform: translateX(-50%);
+	}
+
+	h1 {
+		color: @brand-primary;
+		margin-top: 0;
+		font-weight: 800;
+		font-size: 32px;
+	}
+
+	p {
+		font-weight: 700;
+		font-size: 20px;
+	}
+}
+
+.page-not-found-options {
+	background-color: #fff;
+	border-radius: 0 0 6px 6px;
+	padding: 40px;
+    color: @gray-darker;
+    border: 2px solid @gray-lighter;
+
+	a {
+		color: @brand-primary;
+
+		&:hover {
+			color: darken(@brand-primary, 15%);
+			text-decoration: underline;
+		}
+	}
+
+	ol {
+		font-size: 18px;
+		font-weight: 300;
+		margin-bottom: 22px;
+		padding-left: 18px;
+
+		li {
+			margin-bottom: 10px;
+		}
+	}
+}
+
+.page-not-found-search {
+	display: flex;
+	flex-flow: row nowrap;
+
+	.pnfsinput {
+		background-color: #fff;
+		border: 1px solid @gray-lighter;
+		box-shadow: none;
+		border-radius: 6px 0 0 6px;
+		font-size: 18px;
+		padding: 10px 16px;
+		color: @text-color;
+		flex: 1 1 80%;
+		min-width: 188px;
+
+		&:focus {
+			outline: 0 none;
+			border: 1px solid @brand-primary;
+		}
+
+		&::placeholder {
+			color: #bfccd6;
+		}
+	}
+
+	.pnfsbtn {
+		font-family: FontAwesome;
+		border-radius: 0 6px 6px 0;
+		flex: 1 1 auto;
+		font-size: 20px;
+
+        i[class*="fa-"]::before {
+            font-style: normal;
+        }
+	}
+}
+
+@media (min-width: @screen-sm) {
+
+	.page-not-found-intro {
+		padding: 40px 40px 40px 200px;
+		text-align: left;
+
+		&::before {
+			left: 40px;
+			transform: translateX(0);
+		}
+
+		h1 {
+			font-size: 41px;
+		}
+	}
+
+	.page-not-found-options {
+		
+		ol {
+			font-size: 20px;
+			padding-left: 40px;
+			margin-bottom: 22px;
+
+			li {
+				margin-bottom: 10px;
+			}
+		}
+	}
+}

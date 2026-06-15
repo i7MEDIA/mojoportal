@@ -280,6 +280,19 @@
 	width: 1px;
 }
 
+.calendar-filter .filter-list label>span {
+    border-radius: 5px;
+    padding: 3px 3px;
+    font-size: small;
+    font-weight: normal;
+}
+
+.calendar-filter .filter-list input {
+    position: relative;
+    top: 2px;
+    margin-right: 3px;
+}
+
 .calendar-filter .filter-dates .fb-parent input {
 	width: 46%;
 }
@@ -312,6 +325,225 @@ li.ecp-category-item:first-child {
 
 li.ecp-category-item {
     padding-top: 10px;
+}
+
+// Hide continue payment button if it's disabled
+[id$="_pnlPaymentButtons"] [id$="_btnContinue"][disabled="disabled"] {
+	display: none;
+}
+
+// ecp funding
+
+[id$="_pnlCustomer"] {
+	.row {
+		margin: 0 !important;
+	}
+
+	.col-sm-6,
+	.col-md-6 {
+		width: 100% !important;
+		float: none !important;
+		padding: 0;
+	}
+
+	fieldset {
+		margin-top: 30px;
+
+		legend {
+			background-color: #f9f8f9;
+			padding: 15px;
+			margin-bottom: 30px;
+			
+			label {
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+input[type="submit"][id$="_btnSaveAndValidate"]:extend(.btn-info all) {
+	background-image: none;
+	text-shadow: none;
+}
+
+input[type="submit"][id$="_btnContinue"]:extend(.btn-success all) {
+	background-image: none;
+	text-shadow: none;
+}
+
+#aspnetForm[action*="/Events/PurchaseTicket.aspx"]:not([action*="returnurl"]) {
+
+	.eventmenu {
+		display: none;
+	}
+
+	.eventheading {
+		margin-top: 0;
+	}
+
+	.center-pane .panelwrapper {
+		border: 1px solid @gray-lighter;
+		border-top: 2px solid @brand-primary;
+		background-color: #fff;
+		margin: 50px auto;
+		padding: 40px 40px 20px;
+		max-width: 800px;
+	}
+}
+
+#aspnetForm[action*="/Events/Checkout.aspx?"]:not([action*="returnurl"]) {
+
+	.eventcalendar {
+		border: 1px solid @gray-lighter;
+		border-top: 2px solid @brand-primary;
+		background-color: #fff;
+		margin: 50px auto;
+		padding: 40px 40px 20px;
+
+		> .moduletitle {
+			margin-top: 0;
+		}
+
+		.outerbody {
+
+		}
+	}
+
+	.settinglabel:empty {
+		display: none;
+	}
+
+	@media (min-width: @screen-md) {
+		.outerbody .row {
+			display: flex;
+			flex-flow: row wrap;
+
+			[class*="col-"] {
+				width: 50%;
+				flex: 1 1 50%;
+			}
+		}
+	}
+
+	[id$="_pnlOrderSummary"] {
+
+		h3 {
+			font-family: @font-family-sans-serif;
+			font-size: 28px;
+			font-weight: 500;
+			line-height: 30.8px;
+			margin-top: 22px;
+			margin-bottom: 11px;
+			color: @text-color;
+		}
+	}
+
+	[id$="_frmCardInput"] {
+		&::before {
+			content: "Card Info";
+			display: block;
+			font-family: @font-family-sans-serif;
+			font-size: 28px;
+			font-weight: 500;
+			line-height: 30.8px;
+			margin-top: 22px;
+			margin-bottom: 11px;
+		}
+
+		[for$="_ddExpireMonth"] {
+			display: block;
+		}
+	
+		@media(min-width: @screen-sm) {
+			[for$="_ddExpireMonth"] {
+				display: inline-block;
+			}
+		}
+	
+		@media(min-width: @screen-md) {
+			[for$="_ddExpireMonth"] {
+				display: block;
+			}
+		}
+	
+		@media(min-width: @screen-xl) {
+			[for$="_ddExpireMonth"] {
+				display: inline-block;
+			}
+		}
+
+		[id$="_ddExpireMonth"],
+		[id$="_ddExpireYear"] {
+			max-width: 90px;
+    		display: inline-block;
+			vertical-align: middle;
+			width: 100%;
+			height: 36px;
+			padding: 6px 12px;
+			font-size: 16px;
+			line-height: 1.42857143;
+			color: #555555;
+			background-color: #fff;
+			background-image: none;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			box-shadow: inset 0 1px 1px ~"rgb(0 0 0 / 8%)";
+			transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		}
+		
+		input[type="submit"][id$="_btnMakePayment"]:extend(.btn-success) {
+			background-image: none;
+			text-shadow: none;
+		} 
+
+		[name$="$btnMakePayment"] {
+			text-shadow: none;
+			margin-left: 0;
+		}
+
+		.txterror {
+			font-weight: 700;
+		}
+	} 
+}
+
+#aspnetForm[action*="/Events/OrderDetail.aspx"][action*="orderid="]:not([action*="returnurl"]) {
+	
+	.page-header,
+	.eventmenu {
+		display: none;
+	}
+
+}
+
+.ecp-panel-ordersummary {
+	border: 1px solid @gray-lighter;
+	border-top: 2px solid @brand-success; 
+	background-color: #fff;
+	margin: 50px auto;
+	padding: 40px 40px 20px;
+	max-width: 100%;
+	width: 600px;
+
+	.moduletitle + .settingrow label {
+		display: none;
+	}
+
+	[id$="_lnkEvent"] {
+		font-size: 20px;
+		font-weight: 700;
+		display: block;
+	}
+
+	[id$="_lblOrderId"] {
+		display: block;
+		color: @brand-success;
+		font-weight: 700
+	}
+
+	.calexportlinks {
+		display: none;
+	}
 }
 
 

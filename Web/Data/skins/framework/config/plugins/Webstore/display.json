@@ -1,0 +1,15 @@
+{
+	"EmptyCartFormat": "<div class='row'><div class='col-xl-3 col-lg-4 col-md-5 col-xs-12'><div class='alert alert-info'>{0} <a class='alert-link' href='{1}'>{2}</a></div></div></div>",
+	"CartCheckoutDiscountDivCssClass": "settingrow discountcode store-cart-discountcode col-md-6",
+	"CartCheckoutLinksDivCssClass": "settingrow checkoutlinks store-cart-checkoutlinks",
+	"CartCheckoutLinksDivOutsideTopMarkup": "<div class='col-md-6'>",
+	"CartCheckoutLinksDivOutsideBottomMarkup": "",
+	"CartCheckoutLinksDivAnonymousOutsideTopMarkup": "<div class='col-md-6'>",
+	"CartCheckoutLinksDivAnonymousOutsideBottomMarkup": "</div>",
+	"CartPayPalDivCssClass": "settingrow paypalrow store-cart-paypal",
+	"CartPayPalDivOutsideBottomMarkup": "</div>",
+	"CartCheckoutActionsEmptyCartOutsideBottomMarkup": "</div>",
+	"CartCheckoutActionsDivClass": "row",
+	"CartTableCssClass": "cartgrid table table-bordered table-striped",
+	"OfferTableCssClass": "offergrid table table-bordered table-striped"
+}

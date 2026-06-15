@@ -88,9 +88,10 @@
 <%--
 	These are for Pro Modules
 	=========================
-	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
+	
 	<%@ Register TagPrefix="sts" Namespace="sts.Web.UI" Assembly="sts.Web.UI" %>
 	<%@ Register Namespace="sts.Events.Web.UI.Controls" Assembly="sts.Events.Web.UI" TagPrefix="ecp" %>
+	<%@ Register Namespace="sts.FormWizard.Web.UI" Assembly="sts.FormWizard.Web.UI" TagPrefix="stsfw" %>
 --%>
 
 <%--
@@ -199,6 +200,7 @@
 	ReorderTemplateCssClass="fwp-reorder-list__template panel panel-default panel-body"
 	ReorderTemplateJavaScript="<script>;function pageLoad(e,t){var o = document.getElementById('reorderPlaceholder');if(o!=undefined){o.parentNode.style.marginBottom=window.getComputedStyle(o).getPropertyValue('margin-bottom')}}</script>"
 />
+--%>
 
 <portal:BasePanel runat="server" SkinID="FWPOptionControls"
 	CssClass="btn-group-vertical"
@@ -241,7 +243,6 @@
 <portal:mojoButton runat="server" SkinID="FWPSubmitBtn"
 	CssClass="btn btn-success"
 />
---%>
 
 <%-- Main Content Layout Panels --%>
 <portal:LayoutPanel runat="server" SkinID="TopPane"
@@ -275,10 +276,10 @@
 	CssClass="form-control"
 />
 <asp:TextBox runat="server" SkinId="SliderInput"
-	CssClass="slider-input"
+	CssClass="range-w-output__range"
 />
 <asp:TextBox runat="server" SkinId="SliderOutput"
-	CssClass="slider-output"
+	CssClass="range-w-output__output"
 />
 <asp:TextBox runat="server" SkinId="regex"
 	CssClass="form-control pwd-regex"
@@ -349,17 +350,6 @@
 />
 
 
-<%-- Admin Areas --%>
-<portalAdmin:AdminDisplaySettings runat="server"
-	PanelHeadingMarkup = "<h3 class='setting-section-title'>{0} <small>{1}</small></h3><div class='setting-section-body'>"
-	PanelBottomMarkup = "</div><!--end PanelBottomMarkup-->"
-	SubPanelHeadingMarkup = "<div class='panel panel-info'><div class='panel-heading'><h3 class='panel-title'>{0} <small>{1}</small></h3></div><div class='panel-body'>"
-	SubPanelBottomMarkup="</div><!--end panel-body--></div><!--end panel><!--end SubPanelBottomMarkup-->"
-	SubPanelHeadingMarkupCollapsible = "<div class='panel panel-info'><div class='panel-heading'><a href='#{2}' data-toggle='collapse'><h3 class='panel-title'>{0} <small>{1}</small></h3></a></div><div class='panel-collapse collapse' id='{2}'><div class='panel-body'>"
-	SubPanelBottomMarkupCollapsible="</div></div></div><!--end SubPanelBottomMarkupCollapsible-->"
-	ModuleSettingsSettingControlClass="form-control" 
-/>
-
 <portal:FormGroupPanel runat="server" SkinID="ButtonPanel"
 	CssClass="settingrow button-row"
 	InsideTopMarkup="<label class='settinglabel'></label>"
@@ -400,13 +390,6 @@
 	CssClass="btn btn-success btn-sm"
 />
 
-<%-- these are settings for /Admin/PageLayout.aspx and /Admin/PageSettings.aspx --%>
-<portal:PageLayoutDisplaySettings  runat="server"
-	AdminLinksContainerDivCssClass="btn-group pagelayout-buttons"
-	AdminLinkSeparator=""
-	AdminLinkCssClass="btn btn-default"
-/>
-
 <portal:mojoHelpLink runat="server" 
 	UseImage="false" 
 	ModalScript=""
@@ -414,53 +397,7 @@
 	LinkCss=""
 />
 
-
-<%-- HTML Module Display Settings --%>
-<html:HtmlDisplaySettings runat="server"
-	DisableContentRating="false"
-	UseBottomContentRating="true"
-	UseHtml5Elements="false"
-	UseAuthorFirstAndLastName="true"
-	OverrideCreatedDateFormat="<span class='datelabel'>Created: </span><span class='date'>{0}</span>"
-	OverrideCreatedByUserFormat="<span class='authorlabel'>Created By: </span><span class='authorname'>{0}</span>"
-	OverrideModifiedDateFormat="<span class='datelabel'>Last Modified: </span><span class='date'>{0}</span>"
-	OverrideModifiedByUserFormat="<span class='authorlabel'>Last Modified By: </span><span class='authorname'>{0}</span>"
-	OverrideCreatedByUserDateFormat="<span class='authorlabel'>Created by </span><span class='authorname'>{1} </span><span class='datelabel'>on </span><span class='date'>{0}</span>"
-	OverrideModifiedByUserDateFormat="<span class='authorlabel'>Last Modified by </span><span class='authorname'>{1} </span><span class='datelabel'>on </span><span class='date'>{0}</span>"
-	DateFormat="MMM dd, yyyy"
-/>
-
-
 <%-- Blog Display Settings --%>
-<blog:BlogDisplaySettings runat="server"
-	ArchiveViewHideFeedbackLink="false"
-	BlogViewDivBlogExtraCss="col-md-9 col-lg-8 blog-center"
-	BlogViewHeaderLiteralTopContent="<header>"
-	BlogViewHeaderLiteralBottomContent="</header>"
-	BlogViewHideBottomPager="false"
-	BlogViewHideTopPager="true"
-	BlogViewInnerBodyExtraCss="clearfix"
-	BlogViewInnerWrapElement="article"
-	BlogViewUseBottomDate="true"
-	DetailViewDisableContentRating="false"
-	DisableShowArchives="false"
-	DisableShowCategories="false"
-	DisableShowStatistics="false"
-	HideBottomSideBar="false"
-	HideCalendar="true"
-	HideFeedLinks="true"
-	HideStats="false"
-	HideTopSideBar="false"
-	OverrideListItemHeadingElement="h2"
-	PostListDisableContentRating="true"
-	PostListExtraCss="col-md-9 col-lg-8 blog-center"
-	PostListForceExcerptMode="false"
-	PostListForceTitleOnly="false"
-	PostListUseBottomDate="true"
-	UseBottomContentRating="true"
-	UseBottomNavigation="true"
-/>
-
 <blog:BlogWrapperPanel runat="server"
 	ExtraCssClasses="row"
 	RenderId="false"
@@ -584,6 +521,7 @@ http://dev.w3.org/html5/spec/single-page.html#the-nav-element
 <portal:mojoButton runat="server" SkinID="LinkButton" CssClass="btn btn-link" />
 <portal:mojoButton runat="server" SkinID="TextButton" CssClass="btn btn-link" />
 <portal:mojoButton runat="server" SkinID="Text" CssClass="btn-text" />
+<portal:mojoButton runat="server" SkinID="CancelButton" CssClass="btn-text" />
 <asp:HyperLink runat="server" SkinID="TextButton" CssClass="btn btn-link"/>
 <asp:HyperLink runat="server" SkinID="TextButtonSmall" CssClass="btn btn-link btn-xs" />
 <asp:HyperLink runat="server" SkinID="CBTextButtonSmall" CssClass="cblink btn btn-link btn-xs" />
@@ -922,23 +860,6 @@ http://foundation.zurb.com/docs/ui.php
 	LastClause="&#xf101;"
 />
 
-<%-- Member List --%>
-
-<portal:MemberListDisplaySettings  runat="server"
-	TableCssClass="table table-condensed table-hover"
-	TableAttributes=""
-	ShowFirstAndLastName="true"
-	ShowEmail="false"
-	ShowJoinDate="true"
-	ShowUserId="false"
-	ShowForumPosts="true"
-	HideWebSiteColumn="true"
-	UseListForAlphaPager="true"
-	AlphaPagerContainerCssClass="member-list"
-	AlphaPagerCurrentPageCssClass="active"
-	AlphaPagerOtherPageCssClass=""
-	AllUsersLinkCssClass=""
-/>
 
 <%-- Search --%>
 
@@ -970,16 +891,6 @@ http://foundation.zurb.com/docs/ui.php
 	TableCssClass="table table-striped table-bordered table-condensed table-file-manager"
 	RenderCellSpacing="false"
 	RenderTableId="false"
-/>
-
-<%-- Shared Files --%>
-<sf:SharedFilesDisplaySettings runat="server"
-	HideDescription="false"
-	HideSize="false"
-	HideDownloadCount="false"
-	HideModified="true"
-	HideUploadedBy="true"
-	HideFirstColumnIfNotEditable="true"
 />
 
 <asp:TextBox runat="server" SkinID="SharedFilesNewFolderInput"

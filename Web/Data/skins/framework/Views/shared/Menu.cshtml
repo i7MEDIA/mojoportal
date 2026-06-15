@@ -1,0 +1,64 @@
+@model mojoPortal.Web.Models.MenuModel
+
+@using mojoPortal.Web
+@using mojoPortal.Web.UI
+
+@helper ShowTree(List<mojoMenuItem> items, int currentDepth = 0)
+{
+	currentDepth++;
+
+	if (Model.MaxDepth == -1 || currentDepth <= Model.MaxDepth)
+	{
+		var rootUlClass = currentDepth == 1 ?
+			"site-nav nav navbar-nav navbar-right" :
+			"dropdown-menu";
+
+		<ul @Html.FormatAttribute("class=\"{0}\"", rootUlClass)>
+			@foreach (var item in items)
+			{
+				var itemCssClass = item.CssClass ?? string.Empty;
+
+				if (item.Current) {
+					itemCssClass += " active";
+				}
+
+				if (item.Children.Any(x => x.Current))
+				{
+					itemCssClass += " active";
+				}
+
+				if (item.Children.Any())
+				{
+					itemCssClass += " dropdown-toggle";
+				}
+
+				var target = item.OpenInNewTab ? "target=\"_blank\"" : string.Empty;
+				var rel = @Html.FormatAttribute("rel=\"{0}\"", item.Rel);
+				var clickable = item.Clickable ? string.Empty : "class=\"unclickable\"";
+
+				<li @Html.FormatAttribute("class=\"{0}\"", itemCssClass.Trim())>
+					<a href="@item.URL" @Html.Raw(target) @rel @Html.Raw(clickable)>@Html.Raw(item.Name)</a>
+
+					@if (item.ShowImage)
+					{
+						<a href="@item.URL" @Html.Raw(target) @rel class="site-nav__image">
+							<img src="@item.Image" alt="@item.Name" />
+						</a>
+					}
+
+					@if (item.ShowDescription)
+					{
+						<span class="site-nav__description">@item.Description</span>
+					}
+
+					@if (item.Children.Any())
+					{
+						@ShowTree(item.Children, currentDepth)
+					}
+				</li>
+			}
+		</ul>
+	}
+}
+
+@ShowTree(Model.Menu)

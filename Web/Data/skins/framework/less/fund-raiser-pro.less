@@ -1,0 +1,780 @@
+// Home page load-in of FR Progress
+.fundr-progress {
+	display: block;
+	color: @text-color;
+	padding: 10px 10px 5px;
+	margin-left: -10px;
+	margin-right: -10px;
+	margin-bottom: (@grid-gutter-width / 2);
+
+	&:hover {
+		background-color: @gray-darker;
+		color: #fff;
+		text-decoration: none;
+		transition: all 150ms ease;
+	}
+
+
+}
+
+.frdaysleft {
+	display: none;
+}
+
+// Main column reorder for mobile
+@media (max-width: @screen-md) {
+
+	.outerwrap .FundRaiser > .row {
+		display: flex;
+		flex-flow: column wrap;
+
+		.fr-main {
+			flex: 1 1 100%;
+			order: 2;
+		}
+
+		.fr-sidebar {
+			flex: 1 1 100%;
+			order: 1;
+		}
+
+	}
+	
+}
+
+// Main FundRaiser Styles
+.fund-module, .FundRaiser {
+
+	.nav.nav-pills {
+		margin-bottom: 20px;
+
+		li {
+
+			a {
+				background-color: @gray-lighter;
+
+				&:hover {
+					background-color: @gray-light;
+					color: #fff;
+
+					.badge {
+						background-color: #fff;
+						color: @gray-light;
+					}
+				}
+			}
+
+			&.active a {
+				background-color: @brand-primary;
+				color: #fff;
+			}
+
+		}
+
+	}
+
+	.frmeter .meter > span {
+		overflow: hidden;
+	}
+
+	.meter:extend(.progress all) {
+		height: 12px;
+		margin-bottom: 10px;
+
+		.progress-bar:extend(.progress-bar-success all) {
+			line-height: 40px;
+			font-size: 0;
+			color: transparent;
+
+			&[style="width: 0%"],
+			&[style="width: 1%"],
+			&[style="width: 2%"],
+			&[style="width: 3%"],
+			&[style="width: 4%"],
+			&[style="width: 5%"],
+			&[style="width: 6%"],
+			&[style="width: 7%"],
+			&[style="width: 8%"],
+			&[style="width: 9%"],
+			&[style="width: 10%"],
+			&[style="width: 11%"],
+			&[style="width: 12%"],
+			&[style="width: 13%"],
+			&[style="width: 14%"],
+			&[style="width: 15%"],
+			&[style="width: 16%"],
+			&[style="width: 17%"],
+			&[style="width: 18%"],
+			&[style="width: 19%"] {
+				// Hide percentage value in taller bars this way, show it after it reaches a certain width
+			}
+
+		}
+
+	}
+
+	.progress-info {
+		margin-bottom: 10px;
+		font-size: 20px;
+
+		.fr-raised {
+			color: @brand-success;
+		}
+
+		.fr-goal {
+			color: @brand-info;
+		}
+
+		.fr-contribcount {
+			color: @brand-primary;
+		}
+	}
+
+	.fundlevellist .panel {
+		margin-bottom: @grid-gutter-width;
+
+		h3 {
+			background-color: @gray-lighter;
+			padding: 10px 0;
+			margin-top: 0;
+			margin-bottom: 0;
+			font-size: 28px;
+		}
+
+		.contrib-limits {
+			
+		} 
+
+		.btn[type="submit"]:extend(.btn-success all) {
+
+		}
+
+ 
+	}
+
+	.usercontrib {
+		background: #fff;
+		text-align: center;
+		border: 1px solid @gray-lighter;
+		border-radius: 20px;
+
+		fieldset {
+			
+			legend {
+				padding: 15px;
+			}
+
+			.fund-fields {
+
+				input[type="text"] {
+					border-radius: 8px;
+					max-width: 80%;
+					margin: 0 auto;
+				}
+
+				input[type="submit"]:extend(.btn-success all) {
+					margin: 15px auto 0;
+					display: block;
+					background-image: none;
+    				margin: 20px auto 0 !important;
+				}
+
+				span {
+					font-size: 14px;
+					padding: 15px;
+				}
+
+			}
+
+		}
+	}
+
+	.commentpanel .moduletitle,
+	.bcommentpanel .moduletitle {
+		display: none;
+	} 
+
+	h3.fundable {
+		display: none;
+	}
+
+	// Comments Panel
+	.blogcommentservice {
+		padding-top: 0;
+
+		&::before,
+		&::after {
+			display: none;
+			content: none;
+		}
+
+	}
+
+	.postlistwrap {
+
+		.postcontainer {
+			border: 2px solid @gray-lighter;
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		.postcontainer + .postcontainer {
+			border-top: 2px solid @gray-lighter;
+		}
+
+		.commenttitle h4 {
+			color: @brand-primary;
+			font-size: 18px;
+		}
+
+		// Large Desktop Styles
+		@media (min-width: @screen-lg) {
+			
+			.postcontainer {
+				margin-left: 0;
+			}
+
+			.postleft {
+				width: 25%;
+			}
+
+			.forumpostusername {
+				left: 25%;
+			}
+
+			.postright {
+				width: 75%;
+			}
+
+		}
+
+
+		// Extra Large Styles - overwriting forums.less
+		@media (min-width: @screen-lg) {
+
+			.postleft {
+				width: 25%;
+			}
+
+			.forumpostusername {
+				left: 25%;
+			}
+
+			.postright {
+				width: 75%;
+			}
+
+		}
+
+	}
+
+}
+
+// Comments Title for Mobile
+@media (max-width: @screen-md) {
+	.fundraiser-comments .fr-main .bcommentpanel {
+		padding-top: 80px;
+		margin-top: 20px;
+		position: relative;
+
+		&::before {
+			color: @text-color;
+		    content: "Comments";
+		    font-size: 24px;
+		    left: 50%;
+		    position: absolute;
+		    top: 0;
+		    -webkit-transform: translateX(-50%);
+		    transform: translateX(-50%);
+		}
+
+		&::after {
+		    background-color: @brand-success;
+		    content: "";
+		    display: block;
+		    height: 3px;
+		    left: 50%;
+		    position: absolute;
+		    top: 50px;
+		    -webkit-transform: translateX(-50%);
+		    transform: translateX(-50%);
+		    width: 60px;
+		}
+
+	}
+
+}
+
+
+// Comment Captcha
+[id$="commentEditor_pnlAntiSpam"] {
+	width: 50%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+[id$="commentEditor_pnlAntiSpam"] + .settingrow {
+	width: 49%;
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+}
+
+
+// Contributor List
+@media (max-width: @screen-md) {
+	.fund-contributors .fr-main {
+		padding-top: 80px;
+		margin-top: 20px;
+
+		&::before {
+			color: @text-color;
+		    content: "Contributors";
+		    font-size: 24px;
+		    left: 50%;
+		    position: absolute;
+		    top: 0;
+		    -webkit-transform: translateX(-50%);
+		    transform: translateX(-50%);
+		}
+
+		&::after {
+		    background-color: @brand-success;
+		    content: "";
+		    display: block;
+		    height: 3px;
+		    left: 50%;
+		    position: absolute;
+		    top: 50px;
+		    -webkit-transform: translateX(-50%);
+		    transform: translateX(-50%);
+		    width: 60px;
+		}
+
+	}
+
+}
+
+.contributor-item {
+	border: 2px solid @gray-lighter;
+	padding: 30px;
+	border-radius: 5px;
+	position: relative;
+
+	.contributoravatar {
+		float: left;
+		padding-right: 30px;
+
+		a.avatar {
+			display: inline-block;
+			border-radius: 50%;
+			overflow: hidden;
+			width: 80px;
+			height: 80px;
+		}
+
+		@media (max-width: @screen-sm) {
+			float: none;
+			padding-right: 0;
+			text-align: center;
+			margin: 0 auto 15px;
+		}
+
+	}
+
+	.contributorinfo {
+		color: #727272;
+		font-family: @font-family-serif;
+		letter-spacing: 1px;
+		float: left;
+
+		@media (max-width: @screen-sm) {
+			float: none;
+			padding-right: 0;
+			text-align: center;
+		}
+
+
+		[id$="_lnkEdit"] {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+
+		.contributor-name-group {
+			color: @brand-primary;
+			font-size: 22px;
+		}
+
+		.contributor-amount {
+			color: @brand-success;
+			font-size: 22px;
+
+			&::before {
+				content: "Amount: ";
+				color: @text-color;
+			}
+
+		}
+
+		&:first-child {
+
+			&::before {
+				display: block;
+			    float: left;
+			    width: 80px;
+			    height: 80px;
+			    content: "";
+			    background: url('img/anonymous.jpg') no-repeat scroll 0 0 @brand-primary;
+			    border-radius: 50%;
+			    margin-right: 30px;
+			}
+
+			@media (max-width: @screen-sm) {
+				&::before {
+					float: none;
+					margin: 0 auto 15px;
+				}
+			}
+
+			.contributorinfo-inner {
+				float: left;
+
+				@media (max-width: @screen-sm) {
+					float: none;
+					text-align: center;
+				}
+			}
+
+		}
+
+	}
+
+}
+
+
+// Fund raiser contribution info
+.fundraiser-new-contributor {
+
+	.center-pane > .outerwrap:first-child {
+		background-color: #fff;
+		max-width: 860px;
+		margin: 0 auto;
+		border: 1px solid @gray-lighter;
+		padding: 40px;
+	}
+
+	span.txterror {
+		display: block;
+	}
+
+	.fund-buttons-donorinfo {
+
+		.floatpanel {
+			font-size: 0;
+
+			.btn:extend(.btn-success all) {
+				background-image: none;
+				margin: 20px auto 0 !important;
+				display: block;
+			}
+
+		}
+
+	}
+
+}
+
+
+// Checkout Pages
+.pagebody.fundraiser-checkout,
+.pagebody.fundraiser-checkout-paypal {
+
+	[id$="_pnlSubTotal"] {
+		font-size: 22px;
+		color: @brand-success;
+		
+		.settinglabeltight {
+			color: @text-color;
+
+			&::before {
+				content: "Your ";
+			}
+
+			&::after {
+				content: ":";
+			}
+
+		}
+
+	}
+
+}
+
+.fund-checkout {
+	border-top: 1px solid @gray-lighter;
+	background-color: #fff;
+	margin: 100px auto 0;
+	padding: 40px 40px 20px;
+
+	.moduletitle {
+		font-weight: 700;
+	}
+}
+
+.fund-card-expires {
+
+	label {
+		display: block;
+	}
+
+	@media(min-width: @screen-sm) {
+		label {
+			display: inline-block;
+		}
+	}
+
+	@media(min-width: @screen-md) {
+		label {
+			display: block;
+		}
+	}
+
+	@media(min-width: @screen-xl) {
+		label {
+			display: inline-block;
+		}
+	}
+
+	select {
+		max-width: 90px;
+		display: inline-block;
+	}
+}
+
+// Checkout Address
+[id$="_pnlBillingAddress"] {
+	border: 2px solid @brand-info;
+	color: #727272;
+	padding: 30px 40px 30px 95px;
+	position: relative;
+	font-family: @font-family-serif;
+	font-size: 20px;
+	letter-spacing: 1px;
+	line-height: 30px;
+	margin: 30px 0;
+
+	> h3 {
+		display: none;
+	}
+
+	&::before {
+		color: @brand-info;
+		display: block;
+		transform: translate(-50%, -50%);
+		font-size: 32px;
+		content: "\f2bc";
+		font-family: FontAwesome;
+		left: 48px;
+		position: absolute;
+		top: 48px;
+	}
+
+	.fund-checkout-address-inner {
+		
+		h3 {
+			display: none;
+		}
+		
+	}
+
+}
+
+// Checkout CTA
+.settingrow.fund-checkout-paypal:not(:empty),
+.settingrow.fund-card-payment-btn:not(:empty) {
+
+	label {
+		display: none;
+	}
+
+	&::before {
+		border-bottom: 2px solid @brand-success;
+		content: "Checkout Now:";
+		font-size: 18px;
+		font-weight: 700;
+		margin-right: 20px;
+		padding-bottom: 5px;
+		vertical-align: top;
+
+	}
+	
+	.btn-default:extend(.btn-success) {
+		text-shadow: none;
+	}
+	
+	@media (max-width: @screen-sm) {
+		text-align: center;
+		margin-top: 15px;
+
+		&::before {
+			margin-right: 0;
+		}
+
+		div {
+			margin-top: 15px;
+		}
+	}
+}
+
+.fund-card-error {
+	display: block;
+	font-weight: 700;
+}
+
+.fund-creditcard .moduletitle {
+	margin-top: 0;
+}
+
+.settingrow.fund-card-payment-btn:not(:empty) {
+	
+	div {
+		display: inline-block;
+	}
+
+	&::before {
+		vertical-align: text-bottom;
+	}
+}
+
+.ppwrapper {
+
+	.settinglabel {
+		display: inline-block;
+		font-size: 18px;
+		font-weight: 700;
+		margin-bottom: 0;
+		margin-right: 20px;
+		margin-top: 0;
+		vertical-align: middle;
+	}
+
+	.settinglabel + div {
+		display: inline-block;
+	}
+
+}
+
+
+
+// Login or register CTA
+.signinorregister {
+
+	a[id*="_lnkLogin"]:extend(.btn all, .btn-sm all, .btn-success all) {}
+	a[id*="_lnkRegister"]:extend(.btn all, .btn-sm all, .btn-info all) {}
+ 
+}
+
+
+// Fund Raiser Adiministration
+.fundadminmenu {
+	ul.simplelist {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: flex-start;
+		margin-left: -15px;
+		margin-right: -15px;
+		padding: 0;
+
+		> li {
+			align-items: stretch;
+			display: flex;
+			flex: 1 1 50%;
+			max-width: 50%;
+			font-family: arial, sans-serif;
+			font-size: 14px;
+			padding: 15px;
+			text-align: center;
+
+			@media (min-width: @screen-sm) {
+				flex: 1 1 33%;
+				max-width: 33%;
+			}
+
+			@media (min-width: @screen-md) {
+				flex: 1 1 25%;
+				max-width: 25%;
+			}
+
+			@media (min-width: @screen-lg) {
+				flex: 1 1 20%;
+				max-width: 20%;
+			}
+
+			a > {
+				border: 1px solid #ddd;
+				display: flex;
+				flex: 1 0 100%;
+				flex-flow: column wrap;
+				justify-content: center;
+				padding: 15px;
+				position: relative;
+				max-width: 100%;
+
+				@media (min-width: @screen-md) {
+					padding: 40px;
+				}
+
+				&::before {
+					content: "\f07c";
+					display: block;
+					font-family: FontAwesome;
+					font-size: 30px;
+					margin-bottom: 5px;
+				}
+
+				&.lnkEditInfo:before {
+					content: "\f044";
+				}
+
+				&.lnkEditLevels::before {
+					content: "\f080";
+				}
+
+				&.lnkEmailTemplates::before {
+					content: "\f247";
+				}
+
+				&.lnkContributors::before {
+					content: "\f0c0";
+				}
+
+				&.lnkContributions::before {
+					content: "\f1da";
+				}
+
+				&.lnkNewContribution::before {
+					content: "\f234";
+				}
+
+				&.lnkNewUpdate::before {
+					content: "\f1ea";
+				}
+
+				&.lnkBrowseCarts::before {
+					content: "\f0c5";
+				}
+				
+				&.lnkReports::before {
+					content: "\f201";
+				}
+
+				&:hover {
+					background-color: @nav-link-hover-bg;
+					text-decoration: none;
+				}
+
+			}
+		}
+	}
+}

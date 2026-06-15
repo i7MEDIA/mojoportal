@@ -5,23 +5,12 @@
 	"License": "EPL",
 	"SupportUrl": "https://i7media.com",
 	"HelpLinkScriptPath": "",
-	"ModalScriptPath": "$SkinPath$/js/GenericModalScript.js",
-	"ModalTemplatePath": "$SkinPath$/includes/modal.html",
 	"Display": {
 		"ShowSkinSearchInputOnSearchResults": false,
 		"ShowSearchInputOnSiteSettings": false,
 		"ShowModuleTitlesByDefault": true,
 		"EnableEditingModuleTitleElement": true,
-		"ModuleTitleElement": "h3",
-		"ModuleTitleElementOptions": [
-			"h2",
-			"h3",
-			"h4",
-			"h5",
-			"h6",
-			"div",
-			"span"
-		]
+		"ModuleTitleTag": "h3"
 	},
 	"EditorConfig": {
 		"all": {

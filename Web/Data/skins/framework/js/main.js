@@ -1,4 +1,15 @@
 //
+// Base64 to Email
+// --------------------------------------------------
+
+[].forEach.call(document.querySelectorAll('[data-b64]'), function(b64) {
+	var email = window.atob(b64.getAttribute('data-b64')).replace(/\0/g, '').trim();
+	b64.innerHTML = email;
+	b64.href = 'mailto:' + email;
+}); 
+
+
+//
 // Event Calendar - Clean out styles and BR elements
 // --------------------------------------------------
 
@@ -26,7 +37,6 @@
 		removeYuck(calBr, 'el');
 	}
 })();
-
 
 //
 // jQuery Scripts
