@@ -151,7 +151,7 @@ public partial class StyleSheetCombiner : UserControl
 
 		skinBaseUrl = SiteUtils.DetermineSkinBaseUrl(AllowPageOverride, Page);
 
-		if (OverrideSkinName.Length > 0)
+		if (!string.IsNullOrWhiteSpace(OverrideSkinName))
 		{
 			skinBaseUrl = SiteUtils.DetermineSkinBaseUrl(OverrideSkinName);
 		}
@@ -186,8 +186,8 @@ public partial class StyleSheetCombiner : UserControl
 		}
 
 		cssLink.Text = $"""
-				<link rel="stylesheet" data-loader="StyleSheetCombiner" {GetMediaProperty()} href="{SiteUtils.GetCssHandlerUrl(true, OverrideSkinName)}"/>
-				""";
+			<link rel="stylesheet" data-loader="StyleSheetCombiner" {GetMediaProperty()} href="{SiteUtils.GetCssHandlerUrl(true, OverrideSkinName)}"/>
+			""";
 
 		Controls.Add(cssLink);
 	}
@@ -214,8 +214,8 @@ public partial class StyleSheetCombiner : UserControl
 		{
 			ID = "jqueryui-css",
 			Text = $"""
-				   <link rel="stylesheet" data-loader="StyleSheetCombiner" href="{jQueryUIBasePath}themes/{JQueryUIThemeName}/{jQueryCssAllName}" />
-				   """
+				<link rel="stylesheet" data-loader="StyleSheetCombiner" href="{jQueryUIBasePath}themes/{JQueryUIThemeName}/{jQueryCssAllName}" />
+				"""
 		});
 	}
 
@@ -225,33 +225,37 @@ public partial class StyleSheetCombiner : UserControl
 		{
 			ID = "jcrop-css",
 			Text = $"""
-				   <link rel="stylesheet" data-loader="StyleSheetCombiner" href="{Page.ResolveUrl("~/ClientScript/jcrop0912/jquery.Jcrop.css")}" />
-				   """
+				<link rel="stylesheet" data-loader="StyleSheetCombiner" href="{Page.ResolveUrl("~/ClientScript/jcrop0912/jquery.Jcrop.css")}" />
+				"""
 		});
 	}
+
 
 	private void AddCssLinks()
 	{
 		string configFilePath;
+
 		if (OverrideSkinName.Length > 0)
 		{
-			configFilePath = Server.MapPath(SiteUtils.DetermineSkinBaseUrl(SiteUtils.SanitizeSkinParam(OverrideSkinName)) + "style.config");
+			configFilePath = Server.MapPath(SiteUtils.DetermineSkinFilePath(SiteUtils.SanitizeSkinParam(OverrideSkinName), "style.config"));
 		}
 		else
 		{
-			configFilePath = Server.MapPath(SiteUtils.DetermineSkinBaseUrl(AllowPageOverride, Page) + "style.config");
+			configFilePath = Server.MapPath(SiteUtils.DetermineSkinFilePath("style.config", AllowPageOverride, Page));
 		}
 
-		if (File.Exists(configFilePath)) //if no file, no style is added
+		if (File.Exists(configFilePath))
 		{
-			using XmlReader reader = new XmlTextReader(new StreamReader(configFilePath));
+			using var reader = new XmlTextReader(new StreamReader(configFilePath));
 			reader.MoveToContent();
+
 			while (reader.Read())
 			{
-				if (("file" == reader.Name) && (reader.NodeType != XmlNodeType.EndElement))
+				if ("file" == reader.Name && reader.NodeType != XmlNodeType.EndElement)
 				{
-					string cssVPath = reader.GetAttribute("cssvpath");
-					string cssUrl = string.Empty;
+					var cssVPath = reader.GetAttribute("cssvpath");
+					string cssUrl;
+
 					if (!string.IsNullOrWhiteSpace(cssVPath))
 					{
 						cssUrl = Page.ResolveUrl($"~{cssVPath}");
@@ -270,8 +274,8 @@ public partial class StyleSheetCombiner : UserControl
 					Controls.Add(new Literal
 					{
 						Text = $"""
-							  <link rel="stylesheet" data-loader="StyleSheetCombiner" href="{cssUrl}" />
-							  """
+							<link rel="stylesheet" data-loader="StyleSheetCombiner" href="{cssUrl.ToLinkBuilder()}" />
+							"""
 					});
 				}
 			}
