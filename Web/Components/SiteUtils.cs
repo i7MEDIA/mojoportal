@@ -1,3 +1,14 @@
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.FileSystem;
+using mojoPortal.Net;
+using mojoPortal.SearchIndex;
+using mojoPortal.Web.Components;
+using mojoPortal.Web.Editor;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,17 +25,6 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.FileSystem;
-using mojoPortal.Net;
-using mojoPortal.SearchIndex;
-using mojoPortal.Web.Components;
-using mojoPortal.Web.Editor;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
 
 namespace mojoPortal.Web
 {
@@ -580,7 +580,7 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			var url = "AccessDenied.aspx".ToLinkBuilder(); 
+			var url = "AccessDenied.aspx".ToLinkBuilder();
 			if (!string.IsNullOrWhiteSpace(returnUrl))
 			{
 				url.ReturnUrl(returnUrl);
@@ -1097,6 +1097,28 @@ namespace mojoPortal.Web
 			///
 		};
 
+
+		public static string DetermineSkinFilePath(string skinName, string fileName)
+		{
+			if (string.IsNullOrWhiteSpace(fileName))
+			{
+				throw new ArgumentNullException(nameof(fileName));
+			}
+
+			if (string.IsNullOrWhiteSpace(skinName))
+			{
+				return Path.Combine("Data", "Skins", WebConfigSettings.DefaultInitialSkin, fileName);
+			}
+
+			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
+			{
+				return Path.Combine("Data", "Sites", siteSettings.SiteId.ToString(), "skins", fileName);
+			}
+
+			return Path.Combine("Data", "Skins", WebConfigSettings.DefaultInitialSkin, fileName);
+		}
+
+
 		public static string DetermineSkinBaseUrl(string skinName)
 		{
 			if (string.IsNullOrWhiteSpace(skinName))
@@ -1106,27 +1128,37 @@ namespace mojoPortal.Web
 
 			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
 			{
-			return Invariant($"/Data/Sites/{siteSettings.SiteId}/skins/{skinName}/");
-		}
+				return Invariant($"/Data/Sites/{siteSettings.SiteId}/skins/{skinName}/");
+			}
 
 			return $"/Data/Skins/{WebConfigSettings.DefaultInitialSkin}/";
-
 		}
 
+
+		/// <summary>
+		/// Get the path to the skin folder, either in URL or physical path formats
+		/// </summary>
 		/// <param name="allowPageOverride"></param>
 		/// <param name="page"></param>
-		/// 
-		/// <returns>Full URL to Skin with trailing slash.</returns>
-		public static string DetermineSkinBaseUrl(bool allowPageOverride = true, Page page = null)
+		/// <param name="returnPath">If true the return value is in physical path format, otherwise URL format</param>
+		/// <returns></returns>
+		private static string GetSkinFolder(
+			bool allowPageOverride = true,
+			Page page = null,
+			bool returnPath = false)
 		{
 			var siteRoot = WebUtils.GetSiteRoot();
-			var skinFolder = $"{siteRoot}/Data/Sites/1/skins";
+			var skinFolder = Path.Combine(siteRoot, "Data", "Sites", "1", "skins").ToUrlPathSeparator();
+			var currentSkin = WebConfigSettings.DefaultInitialSkin.ToUrlPathSeparator();
 
-			var currentSkin = WebConfigSettings.DefaultInitialSkin;
+			if (returnPath)
+			{
+				siteRoot = "\\";
+				skinFolder = skinFolder.ToDirectoryPathSeparator();
+				currentSkin = currentSkin.ToDirectoryPathSeparator();
+			}
 
-			var siteSettings = CacheHelper.GetCurrentSiteSettings();
-
-			if (siteSettings is not null)
+			if (CacheHelper.GetCurrentSiteSettings() is SiteSettings siteSettings)
 			{
 				if (HttpContext.Current.Request.Params.Get("skin") is not null)
 				{
@@ -1171,12 +1203,50 @@ namespace mojoPortal.Web
 					}
 				}
 
-				skinFolder = $"{siteRoot}/Data/Sites/{siteSettings.SiteId}/skins";
+				skinFolder = siteRoot.TrimEnd('/') + "/" + Path.Combine("Data", "Sites", siteSettings.SiteId.ToString(), "skins").ToUrlPathSeparator();
 			}
 
-			// TODO: Refactor system so we can remove the trailing slash
-			return $"{$"{skinFolder}/{currentSkin}".ToLinkBuilder()}/";
+			return returnPath ?
+				Path.Combine(
+					skinFolder.ToDirectoryPathSeparator(),
+					currentSkin.ToDirectoryPathSeparator()
+				) :
+				$"{skinFolder}/{currentSkin}".ToLinkBuilder() + "/";
 		}
+
+
+		private static string ToDirectoryPathSeparator(this string val) => val
+				.Replace(@"/\", Path.DirectorySeparatorChar.ToString())
+				.Replace('/', Path.DirectorySeparatorChar)
+				.Replace('\\', Path.DirectorySeparatorChar);
+
+		private static string ToUrlPathSeparator(this string val) => val
+			.Replace("//", "/")  // Double cleanup
+			.Replace(@"\\", "/") // Double cleanup
+			.Replace('\\', '/'); // Replace backslashes
+
+
+		/// <param name="allowPageOverride"></param>
+		/// <param name="page"></param>
+		/// 
+		/// <returns>Full URL to Skin with trailing slash.</returns>
+		public static string DetermineSkinBaseUrl(bool allowPageOverride = true, Page page = null) =>
+			GetSkinFolder(allowPageOverride, page);
+
+
+		public static string DetermineSkinBasePath(bool allowPageOverride = true, Page page = null) =>
+			GetSkinFolder(allowPageOverride, page, true);
+
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="allowPageOverride"></param>
+		/// <param name="page"></param>
+		/// <returns>Returns the physical path of the the file in a skin.</returns>
+		public static string DetermineSkinFilePath(string fileName, bool allowPageOverride = true, Page page = null) =>
+			Path.Combine(GetSkinFolder(allowPageOverride, page, true), fileName);
+
 
 		public static string GetCssHandlerUrl(bool allowPageOverride, string skinName = "")
 		{
@@ -1192,7 +1262,7 @@ namespace mojoPortal.Web
 				if (AppConfig.IncludeVersionInCssUrl)
 				{
 					urlParams.Add("v", DatabaseHelper.AppCodeVersion().ToString());
-		}
+				}
 
 				return "csshandler.ashx".ToLinkBuilder().AddParams(urlParams).ToString();
 			}
@@ -1222,7 +1292,7 @@ namespace mojoPortal.Web
 				if (!string.IsNullOrWhiteSpace(skinCssUrl))
 				{
 					cssPaths.Insert(0, skinCssUrl);
-			}
+				}
 			}
 
 			return string.Join(",", cssPaths);
