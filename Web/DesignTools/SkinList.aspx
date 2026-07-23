@@ -12,18 +12,6 @@
 			<portal:HeadingControl ID="heading" runat="server" />
 			<portal:OuterBodyPanel ID="pnlOuterBody" runat="server">
 				<portal:InnerBodyPanel ID="pnlInnerBody" runat="server" CssClass="modulecontent">
-					<div id="divUpload" runat="server" class="settingrow">
-						<div class="importskin">
-							<portal:jQueryFileUpload ID="uploader" runat="server" CssClass="forminput normaltextbox" />
-							<portal:mojoButton ID="btnUpload" runat="server" ValidationGroup="upload" CssClass="importformbutton" />
-							<asp:HiddenField ID="hdnState" Value="images" runat="server" />
-						</div>
-						<div class="settingrow">
-							<asp:CheckBox ID="chkOverwrite" runat="server" Checked="true" />
-						</div>
-						<asp:RegularExpressionValidator ID="regexZipFile" ControlToValidate="uploader" Display="Dynamic" EnableClientScript="true" runat="server" ValidationGroup="upload" />
-						<asp:RequiredFieldValidator ID="reqZipFile" runat="server" ControlToValidate="uploader" Display="Dynamic" ValidationGroup="upload" />
-					</div>
 					<asp:Repeater ID="rptSkins" runat="server">
 						<HeaderTemplate>
 							<ul class="simplelist skinlist">
