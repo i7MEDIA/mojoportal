@@ -1,3 +1,10 @@
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.Models;
+using mojoPortal.Web.UI;
+using Resources;
 using System;
 using System.Globalization;
 using System.IO;
@@ -7,12 +14,6 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
 
 namespace mojoPortal.Web;
 
@@ -84,33 +85,15 @@ public class mojoBasePage : Page
 
 	public void EnsureDefaultModal()
 	{
-		ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"\r\n<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath.ToLinkBuilder(useRelativePath: false)}\"></script>", false);
-
-		if (Master.FindControl("phSiteFooter") is Control phSiteFooter)
+		if (
+			Master.FindControl("phSiteFooter") is Control siteFooter &&
+			siteFooter.FindControlRecursive("mojoModalTemplate") is Literal modalTemplate &&
+			modalTemplate.Visible == false
+		)
 		{
-			injectModalTemplate(phSiteFooter);
-		}
-		else if (Master.FindControl("Body") is Control layoutBody)
-		{
-			injectModalTemplate(layoutBody);
-		}
+			ScriptManager.RegisterStartupScript(this, typeof(Page), "mojoModalScript", $"\r\n<script data-loader=\"mojoBasePage\" src=\"{Global.SkinConfig.ModalScriptPath.ToLinkBuilder(useRelativePath: false)}\"></script>", false);
 
-		void injectModalTemplate(Control control)
-		{
-			if (control.FindControlRecursive("mojoModalTemplate") is null)
-			{
-				FileInfo modalFile = new(Server.MapPath(Global.SkinConfig.ModalTemplatePath));
-				if (modalFile.Exists)
-				{
-					var content = File.ReadAllText(modalFile.FullName);
-
-					control.Controls.AddAt(control.Controls.Count, new Literal
-					{
-						Text = content,
-						ID = "mojoModalTemplate"
-					});
-				}
-			}
+			modalTemplate.Visible = true;
 		}
 	}
 
@@ -1601,6 +1584,8 @@ public class mojoBasePage : Page
 		}
 
 		SetupAdminLinks();
+		SetupSiteFooterControl();
+		SetupDefaultModal();
 
 		// older skins may not have it included in layout.master so we load it here
 		if (ScriptConfig is not null && !scriptLoaderFoundInMaster)
@@ -1650,6 +1635,48 @@ public class mojoBasePage : Page
 			}
 		}
 	}
+
+
+	private void SetupSiteFooterControl()
+	{
+		if (
+			Master.FindControl("phSiteFooter") is not PlaceHolder &&
+			Master.FindControl("Body") is Control layoutBody
+		)
+		{
+			var siteFooter = new PlaceHolder
+			{
+				ID = "phSiteFooter"
+			};
+
+			layoutBody.Controls.Add(siteFooter);
+		}
+	}
+
+
+	private void SetupDefaultModal()
+	{
+		if (
+			Master.FindControl("phSiteFooter") is Control siteFooter &&
+			siteFooter.FindControlRecursive("mojoModalTemplate") is null
+		)
+		{
+			var modalFile = new FileInfo(Server.MapPath(Global.SkinConfig.ModalTemplatePath));
+
+			if (modalFile.Exists)
+			{
+				var content = File.ReadAllText(modalFile.FullName);
+
+				siteFooter.Controls.AddAt(siteFooter.Controls.Count, new Literal
+				{
+					Text = content,
+					ID = "mojoModalTemplate",
+					Visible = false
+				});
+			}
+		}
+	}
+
 
 	protected void HideViewSelector()
 	{
