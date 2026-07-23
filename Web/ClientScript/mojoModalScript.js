@@ -77,7 +77,7 @@
 			modalBody.append(iframe);
 		}
 		else if ("Sanitizer" in window && target.dataset.modalType === 'encodedHtml') {
-			modalBody.setHtml(target.dataset.content);
+			modalBody.setHTML(target.dataset.content);
 		}
 		else {
 			modalBody.append(target.dataset.content);
