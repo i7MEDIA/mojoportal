@@ -654,7 +654,7 @@ public static class WebConfigSettings
 
 	public static bool AutoSuggestFriendlyUrlsOnPageNameChanges => ConfigHelper.GetBoolProperty("AutoSuggestFriendlyUrlsOnPageNameChanges", true);
 
-	public static bool DisableMetaWeblogApi => ConfigHelper.GetBoolProperty("DisableMetaWeblogApi", false);
+	public static bool DisableMetaWeblogApi => ConfigHelper.GetBoolProperty("DisableMetaWeblogApi", true);
 
 	public static bool DisableEditingPagesInMetaWeblogApi => ConfigHelper.GetBoolProperty("DisableEditingPagesInMetaWeblogApi", false);
 

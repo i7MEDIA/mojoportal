@@ -1,4 +1,14 @@
-﻿using System;
+﻿using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Business.WebHelpers.PageEventHandlers;
+using mojoPortal.FileSystem;
+using mojoPortal.MetaWeblog;
+using mojoPortal.SearchIndex;
+using mojoPortal.Web.ContentUI;
+using mojoPortal.Web.Framework;
+using Resources;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -6,18 +16,6 @@ using System.IO;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI.WebControls;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Business.WebHelpers.PageEventHandlers;
-using mojoPortal.Core.Extensions;
-using mojoPortal.FileSystem;
-using mojoPortal.MetaWeblog;
-using mojoPortal.SearchIndex;
-using mojoPortal.Web.ContentUI;
-using mojoPortal.Web.Framework;
-using Resources;
-using static System.FormattableString;
 
 namespace mojoPortal.Web.BlogUI;
 
@@ -55,15 +53,15 @@ public class metaweblogapi : IHttpHandler
 	/// <param name="context">An <see cref="T:System.Web.HttpContext"/> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
 	public void ProcessRequest(HttpContext context)
 	{
+		if (WebConfigSettings.DisableMetaWeblogApi)
+		{
+			context.Response.StatusCode = 404;
+
+			return;
+		}
+
 		try
 		{
-			//var rootUrl = SiteUtils.GetNavigationSiteRoot();
-
-			if (WebConfigSettings.DisableMetaWeblogApi)
-			{
-				throw new MetaWeblogException("11", MetaweblogResources.MetaweblogApiDisabled);
-			}
-
 			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				navigationSiteRoot = SiteUtils.GetNavigationSiteRoot();
@@ -73,7 +71,6 @@ public class metaweblogapi : IHttpHandler
 			{
 				navigationSiteRoot = WebUtils.GetHostRoot();
 				imageSiteRoot = navigationSiteRoot;
-
 			}
 
 			var input = new XMLRPCRequest(context);
@@ -83,18 +80,17 @@ public class metaweblogapi : IHttpHandler
 			if (input.MethodName == "system.listMethods")
 			{
 				output.Response(context);
+
 				return;
 			}
 
-			if ((SiteUtils.SslIsAvailable()) && (!mojoPortal.Core.Helpers.WebHelper.IsSecureRequest()))
+			if (SiteUtils.SslIsAvailable() && !WebHelper.IsSecureRequest())
 			{
 				log.Error($"user {input.UserName} posted to metaweblogapi.ashx without using SSL. This can expose security credentials.");
 				throw new MetaWeblogException("11", MetaweblogResources.SSLRequired);
 			}
 
-			//Security.ImpersonateUser(input.UserName, input.Password);
 			bool isUser = Membership.ValidateUser(input.UserName, input.Password);
-
 
 			if (!isUser)
 			{
