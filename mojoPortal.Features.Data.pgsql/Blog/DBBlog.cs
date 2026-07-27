@@ -1883,13 +1883,10 @@ namespace mojoPortal.Data
             sqlCommand.Append("u.loginname, ");
             sqlCommand.Append("u.email, ");
             sqlCommand.Append("u.avatarurl, ");
-			sqlCommand.Append($"string_agg(c.category, '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS categories ");
+			sqlCommand.Append($"(SELECT string_agg(c.category, " +
+				$"'{UnitSeparatorExtensions.UNIT_SEPARATOR}') FROM mp_blogitemcategories ic JOIN mp_blogcategories c ON c.categoryid = ic.categoryid WHERE ic.itemid = b.itemid) AS categories ");
 
-            sqlCommand.Append("FROM	mp_blogs b ");
-			sqlCommand.Append("""
-                join mp_blogitemcategories ic on ic.itemid = b.itemid 
-                join mp_blogcategories c on c.categoryid = ic.categoryid 
-                """);
+			sqlCommand.Append("FROM	mp_blogs b ");
 			sqlCommand.Append("JOIN	mp_modules m ");
             sqlCommand.Append("ON b.moduleid = m.moduleid ");
 
@@ -1987,15 +1984,12 @@ namespace mojoPortal.Data
             sqlCommand.Append("u.email, ");
             sqlCommand.Append("u.avatarurl, ");
             sqlCommand.Append("u.authorbio, ");
-			sqlCommand.Append($"string_agg(c.category, '{UnitSeparatorExtensions.UNIT_SEPARATOR}') AS categories ");
+			sqlCommand.Append($"(SELECT string_agg(c.category, " +
+				$"'{UnitSeparatorExtensions.UNIT_SEPARATOR}') FROM mp_blogitemcategories ic JOIN mp_blogcategories c ON c.categoryid = ic.categoryid WHERE ic.itemid = b.itemid) AS categories ");
 
-            sqlCommand.Append("FROM	mp_blogs b ");
-			sqlCommand.Append("""
-                join mp_blogitemcategories ic on ic.itemid = b.itemid 
-                join mp_blogcategories c on c.categoryid = ic.categoryid 
-                """);
+			sqlCommand.Append("FROM	mp_blogs b ");
 
-            sqlCommand.Append("LEFT OUTER JOIN	mp_users u ");
+			sqlCommand.Append("LEFT OUTER JOIN	mp_users u ");
             sqlCommand.Append("ON b.userguid = u.userguid ");
 
             sqlCommand.Append("WHERE b.itemid = :itemid  ");
