@@ -21,38 +21,54 @@ public partial class XmlModule : SiteModuleControl
 	protected override void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(Page_Load);
+		Load += new EventHandler(Page_Load);
 	}
 
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		LoadSettings();
-
 		PopulateControls();
 	}
+
 
 	private void PopulateControls()
 	{
 		Title1.EditUrl = "XmlXsl/XmlEdit.aspx".ToLinkBuilder().ToString();
 		Title1.EditText = XmlResources.XmlEditButton;
 
-		if (this.ModuleConfiguration != null)
+		if (ModuleConfiguration != null)
 		{
-			this.Title = this.ModuleConfiguration.ModuleTitle;
+			Title = ModuleConfiguration.ModuleTitle;
 		}
 
 		pnlOuterWrap.SetOrAppendCss(config.InstanceCssClass);
 
-		string xmlUrl = string.Empty;
-		string xslUrl = string.Empty;
-		if (config.XmlFileSource.Length > 0) { xmlUrl = WebUtils.ResolveServerUrl(xmlBasePath + config.XmlFileSource); }
-		if (config.XslFileSource.Length > 0) { xslUrl = WebUtils.ResolveServerUrl(xslBasePath + config.XslFileSource); }
+		var xmlUrl = string.Empty;
+		var xslUrl = string.Empty;
 
-		if (config.XmlUrl.Length > 0) { xmlUrl = config.XmlUrl; }
-		if (config.XslUrl.Length > 0) { xslUrl = config.XslUrl; }
+		if (!string.IsNullOrWhiteSpace(config.XmlFileSource))
+		{
+			xmlUrl = WebUtils.ResolveServerUrl(xmlBasePath + config.XmlFileSource);
+		}
+
+		if (!string.IsNullOrWhiteSpace(config.XslFileSource))
+		{
+			xslUrl = WebUtils.ResolveServerUrl(xslBasePath + config.XslFileSource);
+		}
+
+		if (!string.IsNullOrWhiteSpace(config.XmlUrl))
+		{
+			xmlUrl = config.XmlUrl;
+		}
+
+		if (!string.IsNullOrWhiteSpace(config.XslUrl))
+		{
+			xslUrl = config.XslUrl;
+		}
 
 		Literal litContent;
+
 		if (config.TrustContent)
 		{
 			litContent = litTrustedContent;
@@ -62,11 +78,15 @@ public partial class XmlModule : SiteModuleControl
 			litContent = litUnTrustedContent;
 		}
 
-		if ((xmlUrl.Length > 0) && (xslUrl.Length > 0))
+		if (
+			!string.IsNullOrWhiteSpace(xmlUrl) &&
+			!string.IsNullOrWhiteSpace(xslUrl)
+		)
 		{
 			try
 			{
-				litContent.Text = Core.Helpers.XmlHelper.TransformXML(xmlUrl, xslUrl);
+				litContent.Text = XmlHelper.TransformXML(xmlUrl, xslUrl);
+
 				if (litContent.Text.Length == 0)
 				{
 					//probably exception swallowed by XmlHelper
@@ -79,8 +99,8 @@ public partial class XmlModule : SiteModuleControl
 				litContent.Text = XmlResources.GenericError;
 			}
 		}
-
 	}
+
 
 	private void LoadSettings()
 	{

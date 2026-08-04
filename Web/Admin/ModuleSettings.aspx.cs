@@ -1,5 +1,12 @@
+using log4net;
+using mojoPortal.Business;
+using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Framework;
+using mojoPortal.Web.UI;
+using Resources;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -8,12 +15,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using log4net;
-using mojoPortal.Business;
-using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using mojoPortal.Web.UI;
-using Resources;
+using ZedGraph;
 
 namespace mojoPortal.Web.AdminUI;
 
@@ -1018,7 +1020,6 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					}
 					else
 					{
-
 						settingValue = Request.Params.Get(Invariant($"{s.SettingName}{moduleId}"));
 
 						if (s.SettingControlType == "CheckBox")
@@ -1034,13 +1035,61 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 						}
 						else
 						{
-							if (s.SettingValidationRegex.Length > 0)
+							if (!string.IsNullOrWhiteSpace(s.SettingValidationRegex))
 							{
-								if (!Regex.IsMatch(settingValue, s.SettingValidationRegex))
+								if (
+									s.ControlType.Equals("textarea", StringComparison.OrdinalIgnoreCase) &&
+									s.SettingValidationRegex.Equals("DomainList", StringComparison.OrdinalIgnoreCase)
+								)
 								{
-									ok = false;
-									allSetingsAreValid = false;
-									lblValidationSummary.Text += $"<br />{settingLabel}";
+									var domains = settingValue.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
+									var validDomains = new List<string>();
+									var invalidDomains = new List<string>();
+
+									foreach (var domain in domains)
+									{
+										var candidate = domain;
+
+										if (
+											!candidate.StartsWith("http://", StringComparison.OrdinalIgnoreCase) &&
+											!candidate.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+										)
+										{
+											candidate = "http://" + candidate;
+										}
+
+										if (Uri.TryCreate(candidate, UriKind.Absolute, out Uri uriResult))
+										{
+											if (uriResult.HostNameType == UriHostNameType.Dns && !uriResult.Host.Contains(" "))
+											{
+												validDomains.Add(uriResult.Host);
+											}
+										}
+										else
+										{
+											invalidDomains.Add(candidate.Trim());
+										}
+									}
+
+									if (invalidDomains.Any())
+									{
+										ok = false;
+										allSetingsAreValid = false;
+										lblValidationSummary.Text += $"<br /> {GetGlobalResourceObject("XmlResources", "AllowedDomainListError")} {string.Join(", ", invalidDomains)}";
+									}
+									else
+									{
+										settingValue = string.Join("\r\n", validDomains);
+									}
+								}
+								else
+								{
+									if (!Regex.IsMatch(settingValue, s.SettingValidationRegex))
+									{
+										ok = false;
+										allSetingsAreValid = false;
+										lblValidationSummary.Text += $"<br />{settingLabel}";
+									}
 								}
 							}
 						}

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidHostnamesError" xml:space="preserve">
+    <value>The following values are invalid domains:</value>
+  </data>
+  <data name="AllowedHostnames" xml:space="preserve">
+    <value>Allowed Hostnames</value>
+  </data>
   <data name="AllowExternalImages" xml:space="preserve">
     <value>Allow External Images?</value>
   </data>
@@ -153,6 +159,9 @@
   <data name="GenericError" xml:space="preserve">
     <value>An error occurred trying to process the Xml with Xsl. Check the error log for details or contact a site administrator.</value>
   </data>
+  <data name="InvalidFileUrl" xml:space="preserve">
+    <value>Invalid File URL</value>
+  </data>
   <data name="TrustContent" xml:space="preserve">
     <value>Trust Content Completely?</value>
   </data>
@@ -179,5 +188,8 @@
   </data>
   <data name="XslUrl" xml:space="preserve">
     <value>Xsl Url</value>
+  </data>
+  <data name="UrlNotFromHostInAllowedHostnames" xml:space="preserve">
+    <value>URL is not from a host that is in the Allowed Hostnames list. Contact a site administrator.</value>
   </data>
 </root>
