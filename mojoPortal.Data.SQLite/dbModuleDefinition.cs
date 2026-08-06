@@ -3,6 +3,7 @@ using System;
 using System.Configuration;
 using System.Data;
 using System.Text;
+using System.Web.Security;
 
 namespace mojoPortal.Data;
 
@@ -862,88 +863,59 @@ md.FeatureName";
 		string helpKey,
 		int sortOrder,
 		string attributes,
-		string options)
+		string options,
+		string roles,
+		bool showToUnauthorized
+	)
 	{
-		StringBuilder sqlCommand = new StringBuilder();
+		var sqlCommand = """
+			UPDATE mp_ModuleDefinitionSettings
+			SET
+				SettingName = :SettingName,
+				ResourceFile = :ResourceFile,
+				SettingValue = :SettingValue,
+				ControlType = :ControlType,
+				ControlSrc = :ControlSrc,
+				HelpKey = :HelpKey,
+				SortOrder = :SortOrder,
+				GroupName = :GroupName,
+				RegexValidationExpression = :RegexValidationExpression,
+				Attributes = :Attributes,
+				Options = :Options,
+				Roles = :Roles,
+				ShowToUnauthorized = :ShowToUnauthorized
+			WHERE ID = :ID
+			AND ModuleDefID = :ModuleDefID;
+			""";
 
-		sqlCommand.Append("UPDATE mp_ModuleDefinitionSettings ");
-		sqlCommand.Append("SET SettingName = :SettingName,  ");
-		sqlCommand.Append("ResourceFile = :ResourceFile,  ");
-		sqlCommand.Append("SettingValue = :SettingValue,  ");
-		sqlCommand.Append("ControlType = :ControlType,  ");
-		sqlCommand.Append("ControlSrc = :ControlSrc  ,");
-		sqlCommand.Append("HelpKey = :HelpKey  ,");
-		sqlCommand.Append("SortOrder = :SortOrder  ,");
-		sqlCommand.Append("GroupName = :GroupName  ,");
-		sqlCommand.Append("RegexValidationExpression = :RegexValidationExpression,  ");
-		sqlCommand.Append("Attributes = :Attributes,  ");
-		sqlCommand.Append("Options = :Options  ");
+		var sqlParams = new SqliteParameter[]
+		{
+			new(":ID", DbType.Int32) { Direction = ParameterDirection.Input, Value = id },
+			new(":ModuleDefID", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleDefId },
+			new(":SettingName", DbType.String, 50) { Direction = ParameterDirection.Input, Value = settingName },
+			new(":SettingValue", DbType.String, 255) { Direction = ParameterDirection.Input, Value = settingValue },
+			new(":ControlType", DbType.String, 50) { Direction = ParameterDirection.Input, Value = controlType },
+			new(":RegexValidationExpression", DbType.Object) { Direction = ParameterDirection.Input, Value = regexValidationExpression },
+			new(":ResourceFile", DbType.String, 255) { Direction = ParameterDirection.Input, Value = resourceFile },
+			new(":ControlSrc", DbType.String, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
+			new(":HelpKey", DbType.String, 255) { Direction = ParameterDirection.Input, Value = helpKey },
+			new(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
+			new(":GroupName", DbType.String, 255) { Direction = ParameterDirection.Input, Value = groupName },
+			new(":Attributes", DbType.Object) { Direction = ParameterDirection.Input, Value = attributes },
+			new(":Options", DbType.Object) { Direction = ParameterDirection.Input, Value = options },
+			new(":Roles", DbType.String, 255) { Direction = ParameterDirection.Input, Value = roles },
+			new(":ShowToUnauthorized", DbType.Int32) { Direction = ParameterDirection.Input, Value = showToUnauthorized },
+		};
 
-		sqlCommand.Append("WHERE ID = :ID  ");
-		sqlCommand.Append("AND ModuleDefID = :ModuleDefID  ; ");
-
-		SqliteParameter[] arParams = new SqliteParameter[13];
-
-		arParams[0] = new SqliteParameter(":ID", DbType.Int32);
-		arParams[0].Direction = ParameterDirection.Input;
-		arParams[0].Value = id;
-
-		arParams[1] = new SqliteParameter(":ModuleDefID", DbType.Int32);
-		arParams[1].Direction = ParameterDirection.Input;
-		arParams[1].Value = moduleDefId;
-
-		arParams[2] = new SqliteParameter(":SettingName", DbType.String, 50);
-		arParams[2].Direction = ParameterDirection.Input;
-		arParams[2].Value = settingName;
-
-		arParams[3] = new SqliteParameter(":SettingValue", DbType.String, 255);
-		arParams[3].Direction = ParameterDirection.Input;
-		arParams[3].Value = settingValue;
-
-		arParams[4] = new SqliteParameter(":ControlType", DbType.String, 50);
-		arParams[4].Direction = ParameterDirection.Input;
-		arParams[4].Value = controlType;
-
-		arParams[5] = new SqliteParameter(":RegexValidationExpression", DbType.Object);
-		arParams[5].Direction = ParameterDirection.Input;
-		arParams[5].Value = regexValidationExpression;
-
-		arParams[6] = new SqliteParameter(":ResourceFile", DbType.String, 255);
-		arParams[6].Direction = ParameterDirection.Input;
-		arParams[6].Value = resourceFile;
-
-		arParams[7] = new SqliteParameter(":ControlSrc", DbType.String, 255);
-		arParams[7].Direction = ParameterDirection.Input;
-		arParams[7].Value = controlSrc;
-
-		arParams[8] = new SqliteParameter(":HelpKey", DbType.String, 255);
-		arParams[8].Direction = ParameterDirection.Input;
-		arParams[8].Value = helpKey;
-
-		arParams[9] = new SqliteParameter(":SortOrder", DbType.Int32);
-		arParams[9].Direction = ParameterDirection.Input;
-		arParams[9].Value = sortOrder;
-
-		arParams[10] = new SqliteParameter(":GroupName", DbType.String, 255);
-		arParams[10].Direction = ParameterDirection.Input;
-		arParams[10].Value = groupName;
-
-		arParams[11] = new SqliteParameter(":Attributes", DbType.Object);
-		arParams[11].Direction = ParameterDirection.Input;
-		arParams[11].Value = attributes;
-
-		arParams[12] = new SqliteParameter(":Options", DbType.Object);
-		arParams[12].Direction = ParameterDirection.Input;
-		arParams[12].Value = options;
-
-		int rowsAffected = SqliteHelper.ExecuteNonQuery(
+		var rowsAffected = SqliteHelper.ExecuteNonQuery(
 			GetConnectionString(),
-			sqlCommand.ToString(),
-			arParams);
+			sqlCommand,
+			sqlParams
+		);
 
 		return rowsAffected > 0;
-
 	}
+
 
 	public static bool DeleteSettingById(int id)
 	{
