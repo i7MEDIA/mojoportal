@@ -6808,4 +6808,10 @@ We've generated a new key for you. Copy the key below into your site's configura
   <data name="SecurityPasswordIncorrect" xml:space="preserve">
     <value>Password was incorrect, please try again.</value>
   </data>
+  <data name="ModuleDefinitionsRolesLabel" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="ModuleDefinitionsShowToUnauthorized" xml:space="preserve">
+    <value>Show to Unauthorized</value>
+  </data>
 </root>

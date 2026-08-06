@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace mojoPortal.Business;
 
 public class CustomModuleSetting
@@ -17,6 +19,8 @@ public class CustomModuleSetting
 	public string GroupName { get; set; } = string.Empty;
 	public string Attributes { get; set; } = string.Empty;
 	public string Options { get; set; } = string.Empty;
+	public string Roles { get; } = string.Empty;
+	public bool ShowToUnauthorized { get; set; } = false;
 
 
 	public CustomModuleSetting(
@@ -31,7 +35,10 @@ public class CustomModuleSetting
 		string helpKey,
 		int sortOrder,
 		string attributes,
-		string options)
+		string options,
+		string roles,
+		bool showToUnauthorized
+	)
 	{
 		FeatureGuid = featureGuid;
 		DefSettingId = defSettingId;
@@ -45,5 +52,7 @@ public class CustomModuleSetting
 		SortOrder = sortOrder;
 		Attributes = attributes;
 		Options = options;
+		Roles = roles;
+		ShowToUnauthorized = showToUnauthorized;
 	}
 }

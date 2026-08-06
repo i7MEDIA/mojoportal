@@ -1,4 +1,5 @@
 using log4net;
+using Microsoft.Ajax.Utilities;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
@@ -110,7 +111,6 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		}
 
 		PopulateLabels();
-		//SetupIconScript();
 
 		if (!Page.IsPostBack)
 		{
@@ -441,21 +441,26 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 	private void AddSettingControl(CustomModuleSetting s, Panel groupPanel)
 	{
-
-		if (s.SettingControlType == string.Empty)
+		if (
+			string.IsNullOrWhiteSpace(s.SettingControlType) ||
+			(
+				!string.IsNullOrWhiteSpace(s.Roles) &&
+				!WebUser.IsInRoles(s.Roles) &&
+				!s.ShowToUnauthorized
+			)
+		)
 		{
 			return;
 		}
 
-		string resourceFile = "Resource";
+		var resourceFile = "Resource";
 
-		if (s.ResourceFile.Length > 0)
+		if (!string.IsNullOrWhiteSpace(s.ResourceFile))
 		{
 			resourceFile = s.ResourceFile;
 		}
 
-		string settingLabel = GetResourceString(resourceFile, s.SettingName);
-
+		var settingLabel = GetResourceString(resourceFile, s.SettingName);
 
 		var panel = new BasePanel
 		{
@@ -465,26 +470,31 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		var controlMin = string.Empty;
 		var controlMax = string.Empty;
 		var attributes = UIHelper.GetDictionaryFromString(s.Attributes);
+		var panelClass = string.Empty;
 
-		string panelClass = string.Empty;
 		if (!attributes.TryGetValue("panelClass", out panelClass))
 		{
 			panelClass = $"$default$ {s.SettingName}";
 		}
+
 		panelClass = panelClass.Replace("$default$", displaySettings.ModuleSettingsSettingPanelClass);
 
-		string labelClass = string.Empty;
+		var labelClass = string.Empty;
+
 		if (!attributes.TryGetValue("labelClass", out labelClass))
 		{
 			labelClass = "$default$";
 		}
+
 		labelClass = labelClass.Replace("$default$", displaySettings.ModuleSettingsSettingLabelClass);
 
-		string controlClass = string.Empty;
+		var controlClass = string.Empty;
+
 		if (!attributes.TryGetValue("controlClass", out controlClass))
 		{
 			controlClass = "$default$";
 		}
+
 		controlClass = controlClass.Replace("$default$", displaySettings.ModuleSettingsSettingControlClass);
 
 		panel.CssClass = panelClass;
@@ -492,27 +502,34 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		attributes.TryGetValue("min", out controlMin);
 		attributes.TryGetValue("max", out controlMax);
 
-		StringBuilder attribsMarkup = new();
+		var attribsMarkup = new StringBuilder();
+
 		foreach (var attrib in attributes.Where(a => !a.Key.IsIn("panelClass", "labelClass", "controlClass")))
 		{
-			string attribValue = attrib.Value.StartsWith("Resource:") ? GetResourceString(resourceFile, attrib.Value.Substring(9)).ToString() : attrib.Value;
+			var attribValue = attrib.Value.StartsWith("Resource:") ?
+				GetResourceString(resourceFile, attrib.Value.Substring(9)).ToString() :
+				attrib.Value;
 
 			attribsMarkup.Append($" {attrib.Key}=\"{attribValue}\"");
 		}
 
-		string controlID = Invariant($"{s.SettingName}{moduleId.ToInvariantString()}");
+		var controlID = Invariant($"{s.SettingName}{moduleId.ToInvariantString()}");
 
-		Literal label = new()
+		var label = new Literal()
 		{
 			Text = $"<label class=\"{labelClass}\" for=\"{controlID}\">{settingLabel}</label>"
 		};
+
 		panel.Controls.Add(label);
 
 		//creating generic control here so we can cast it as whatever type we need to and still add it to the panel in a single location
-		Control control = new();
+		var control = new Control();
 
-		//string txtBoxMarkupFormat = "<input name=\"{0}\" id=\"{0}\" type=\"text\" class=\"{1}\" value=\"{2}\"{3} />";
 		var settingType = s.SettingControlType.ToLower();
+		var showToUnauthorized = !string.IsNullOrWhiteSpace(s.Roles) && !WebUser.IsInRoles(s.Roles) && s.ShowToUnauthorized;
+
+		static string ConditionalAttribute(bool condition, string value) => condition ? " " + value : string.Empty;
+
 		switch (settingType)
 		{
 			case "textbox":
@@ -521,52 +538,57 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 			case "password":
 			case "range":
 			case "email":
-				Literal textBox = new();
+				var textBox = new Literal();
 				control = textBox;
-				//textBox.Text = string.Format(txtBoxMarkupFormat, controlID, controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup);
-				string type = "text";
+				var type = "text";
+
 				if (settingType != "textbox")
 				{
 					type = settingType;
 				}
 
-				string min = string.Empty;
-				string max = string.Empty;
+				var min = string.Empty;
+				var max = string.Empty;
+
 				if (settingType == "number" || settingType == "range")
 				{
 					min = string.IsNullOrWhiteSpace(controlMin) ? string.Empty : $" min=\"{controlMin}\" ";
 					max = string.IsNullOrWhiteSpace(controlMax) ? string.Empty : $" max=\"{controlMax}\" ";
 				}
 
-				textBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"{type}\"{min}{max}class=\"{controlClass}\" value=\"{s.SettingValue.HtmlEscapeQuotes()}\"{attribsMarkup} />";
+				textBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"{type}\"{min}{max}class=\"{controlClass}\" value=\"{s.SettingValue.HtmlEscapeQuotes()}\"{attribsMarkup}{ConditionalAttribute(showToUnauthorized, "readonly")} />";
 				break;
+
 			case "textarea":
-				Literal textarea = new();
+				var textarea = new Literal();
 				control = textarea;
-				textarea.Text = $"<textarea name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup} rows=\"3\">{s.SettingValue.HtmlEscapeQuotes()}</textarea>";
+				textarea.Text = $"<textarea name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup} rows=\"3\"{ConditionalAttribute(showToUnauthorized, "readonly")}>{s.SettingValue.HtmlEscapeQuotes()}</textarea>";
 				break;
 
 			case "checkbox":
-				Literal checkBox = new Literal();
+				var checkBox = new Literal();
 				control = checkBox;
-				string check = string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase) ? " checked" : string.Empty;
-				//checkBox.Text = string.Format(controlMarkupFormat, controlID, "checkbox", controlClass, s.SettingValue.HtmlEscapeQuotes(), attribsMarkup + (isChecked ? " checked" : ""));
-				checkBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"checkbox\" class=\"{controlClass}\"{attribsMarkup}{check}/>";
+				var check = string.Equals(s.SettingValue, "true", StringComparison.InvariantCultureIgnoreCase) ? " checked" : string.Empty;
+				checkBox.Text = $"<input name=\"{controlID}\" id=\"{controlID}\" type=\"checkbox\" class=\"{controlClass}\"{attribsMarkup}{check}{ConditionalAttribute(showToUnauthorized, "disabled")}/>";
 				break;
+
 			case "dropdownlist":
-				Literal ddl = new Literal();
+				var ddl = new Literal();
 				control = ddl;
 				var options = UIHelper.GetDictionaryFromString(s.Options);
 
-				StringBuilder optionsMarkup = new StringBuilder();
+				var optionsMarkup = new StringBuilder();
+
 				foreach (var op in options)
 				{
-					string optionName = op.Key.StartsWith("Resource:") ? GetResourceString(resourceFile, op.Key.Substring(9)).ToString() : op.Key;
-					string selected = s.SettingValue == op.Value ? " selected" : string.Empty;
+					var optionName = op.Key.StartsWith("Resource:") ? GetResourceString(resourceFile, op.Key.Substring(9)).ToString() : op.Key;
+					var selected = s.SettingValue == op.Value ? " selected" : string.Empty;
 					optionsMarkup.Append($"<option value=\"{op.Value}\"{selected}>{optionName}</option>");
 				}
-				ddl.Text = $"<select name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup}>{optionsMarkup}</select>";
+
+				ddl.Text = $"<select name=\"{controlID}\" id=\"{controlID}\" class=\"{controlClass}\"{attribsMarkup}{ConditionalAttribute(showToUnauthorized, "disabled")}>{optionsMarkup}</select>";
 				break;
+
 			case "isettingcontrol":
 			case "customfield":
 				if (s.ControlSrc.Length > 0)
@@ -577,7 +599,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 						if (control is ISettingControl)
 						{
-							ISettingControl sc = control as ISettingControl;
+							var sc = control as ISettingControl;
 
 							if (!IsPostBack)
 							{
@@ -612,7 +634,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 							{
 								if (control is ISettingControl)
 								{
-									ISettingControl sc = control as ISettingControl;
+									var sc = control as ISettingControl;
 									control.ID = controlID;
 									panel.Controls.Add(control);
 
@@ -641,10 +663,12 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 		}
 
 		panel.Controls.Add(control);
+
 		if (s.HelpKey.Length > 0)
 		{
 			panel.Controls.Add(mojoHelpLink.GetHelpLinkControl(s.HelpKey));
 		}
+
 		groupPanel.Controls.Add(panel);
 	}
 
@@ -1039,47 +1063,21 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 							{
 								if (
 									s.ControlType.Equals("textarea", StringComparison.OrdinalIgnoreCase) &&
-									s.SettingValidationRegex.Equals("DomainList", StringComparison.OrdinalIgnoreCase)
+									s.SettingValidationRegex.Equals("HostnameList", StringComparison.OrdinalIgnoreCase)
 								)
 								{
-									var domains = settingValue.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
-									var validDomains = new List<string>();
-									var invalidDomains = new List<string>();
-
-									foreach (var domain in domains)
+									if (HostnameHelper.TryParseHostnameList(
+										settingValue,
+										out List<string> validHostnames,
+										out List<string> invalidHostnames))
 									{
-										var candidate = domain;
-
-										if (
-											!candidate.StartsWith("http://", StringComparison.OrdinalIgnoreCase) &&
-											!candidate.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
-										)
-										{
-											candidate = "http://" + candidate;
-										}
-
-										if (Uri.TryCreate(candidate, UriKind.Absolute, out Uri uriResult))
-										{
-											if (uriResult.HostNameType == UriHostNameType.Dns && !uriResult.Host.Contains(" "))
-											{
-												validDomains.Add(uriResult.Host);
-											}
-										}
-										else
-										{
-											invalidDomains.Add(candidate.Trim());
-										}
-									}
-
-									if (invalidDomains.Any())
-									{
-										ok = false;
-										allSetingsAreValid = false;
-										lblValidationSummary.Text += $"<br /> {GetGlobalResourceObject("XmlResources", "AllowedDomainListError")} {string.Join(", ", invalidDomains)}";
+										settingValue = string.Join("\r\n", validHostnames);
 									}
 									else
 									{
-										settingValue = string.Join("\r\n", validDomains);
+										ok = false;
+										allSetingsAreValid = false;
+										lblValidationSummary.Text += $"<br /> {GetGlobalResourceObject("XmlResources", "InvalidHostnamesError")} {string.Join(", ", invalidHostnames)}";
 									}
 								}
 								else
