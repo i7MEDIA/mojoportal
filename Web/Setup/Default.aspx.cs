@@ -6,6 +6,7 @@ using System.Web.UI;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -20,16 +21,17 @@ public partial class SetupHome : Page
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(SetupHome));
 
+	private bool newInstall = false;
 	private bool setupIsDisabled = false;
 	private bool dataFolderIsWritable = false;
 	private bool canAccessDatabase = false;
 	private bool schemaHasBeenCreated = false;
 	private bool canAlterSchema = false;
-	private bool showConnectionError = false;
+	//private bool showConnectionError = false;
 	private int existingSiteCount = 0;
 	private bool needSchemaUpgrade = false;
 	private int scriptTimeout;
-	private DateTime startTime;
+	//private DateTime startTime;
 	private string dbPlatform = string.Empty;
 	private Version appCodeVersion;
 	private Version dbSchemaVersion;
@@ -37,7 +39,7 @@ public partial class SetupHome : Page
 	private const string infoFormat = "<div class=\"ms-3 text-info\"><i class=\"bi bi-info-circle\"></i> {0}</div>";
 	private const string warnFormat = "<div class=\"ms-3 text-warning\"><i class=\"bi bi-exclamation-triangle\"></i> {0}</div>";
 	private const string errorFormat = "<div class=\"ms-3 text-danger\"><i class=\"bi bi-exclamation-octagon\"></i> {0}</div>";
-	private const string noFormat = "<div class=\"ms-3\">{0}</div>";
+	//private const string noFormat = "<div class=\"ms-3\">{0}</div>";
 	private const string sqlFormat = "<div class=\"ms-3\"><i class=\"bi bi-filetype-sql\"></i> {0}</div>";
 	private bool machineKeyGenerated = false;
 
@@ -46,10 +48,21 @@ public partial class SetupHome : Page
 		scriptTimeout = Server.ScriptTimeout;
 		Response.Cache.SetCacheability(HttpCacheability.ServerAndNoCache);
 
+		newInstall = DatabaseHelper.ExistingSiteCount() == 0;
+
 		setupIsDisabled = WebConfigSettings.DisableSetup;
 
+		// If the DB is not accessible when the site starts, the SiteCount gets cached at 0,
+		// this causes global.asax HandleRedirects to redirect to setup and it will continue to redirect to setup
+		// even after the DB is available. So, we will clear the cache if the database returns sites and the cache
+		// says the site count is 0 we want HandleRedirects to send user to setup if there aren't sites so setup can run.
+		if (!newInstall && CacheManager.Cache.GetOrSetItem("SiteCount", SiteSettings.SiteCount) == 0)
+		{
+			CacheManager.Cache.ClearAll();
+		}
+
 		Server.ScriptTimeout = int.MaxValue;
-		startTime = DateTime.UtcNow;
+		//startTime = DateTime.UtcNow;
 
 		//we won't have an admin on initial install
 		bool isAdmin = false;
@@ -76,9 +89,15 @@ public partial class SetupHome : Page
 			{
 				try
 				{
-					ProbeSystem();
-
-					ShowStatusMessage(RunSetup());
+					var systemProbeResult = ProbeSystem();
+					if (systemProbeResult.status == SetupStatus.Error)
+					{
+						ShowStatusMessage(systemProbeResult);
+					}
+					else
+					{
+						ShowStatusMessage(RunSetup());
+					}
 				}
 				finally
 				{
@@ -254,7 +273,6 @@ public partial class SetupHome : Page
 		//ThreadPool.QueueUserWorkItem(new WaitCallback(SyncDefinitions), null);
 		//ModuleDefinition.SyncDefinitions();
 		SiteSettings.EnsureExpandoSettings();
-
 		return (SetupStatus.Success, "setup complete");
 	}
 
@@ -734,30 +752,42 @@ public partial class SetupHome : Page
 			default:
 				cssClass = "info";
 				title = title.Coalesce(SetupResource.InfoTitle);
+				msg += $"\r\n<p><a href=\"{Page.ResolveUrl("~/")}\">{SetupResource.HomeLink}</a></p>";
 				break;
 
 			case SetupStatus.Warning:
 				cssClass = "warning";
 				title = title.Coalesce(SetupResource.WarningTitle);
+				msg += $"\r\n<p><a href=\"{Page.ResolveUrl("~/")}\">{SetupResource.HomeLink}</a></p>";
 				break;
 
 			case SetupStatus.Error:
 				cssClass = "danger";
 				title = title.Coalesce(SetupResource.ErrorLabel);
+				msg += $"\r\n<p><a href=\"{Page.ResolveUrl("~/")}\">{SetupResource.HomeLink}</a></p>";
 				break;
 		}
+		
+		var sysInfo = string.Empty;
+		
+		if ((newInstall || WebUser.IsAdmin) && !setupIsDisabled)
+		{
+			sysInfo = $"""
+			<dl class="row mb-0">
+				<dt class="col-sm-3">{SetupResource.DatabasePlatformLabel}</dt><dd class="col-sm-9">{DatabaseHelper.DBPlatform()}</dd>
+				<dt class="col-sm-3">{SetupResource.SchemaVersionLabel}</dt><dd class="col-sm-9">{DatabaseHelper.SchemaVersion()}</dd>
+				<dt class="col-sm-3">{SetupResource.AppCodeVersionLabel}</dt><dd class="col-sm-9">{DatabaseHelper.AppCodeVersion()}</dd>
+				<dt class="col-sm-3">{SetupResource.MessageLabel}</dt><dd class="col-sm-9">{message}</dd>
+			</dl>
+			""";
+		}		
 
 		var html = $"""
 			<hr />
 			<div class="card border-{cssClass}">
 				<h3 class="card-header text-bg-{cssClass}">{title}</h3>
 				<div class="card-body">{msg}
-					<dl class="row mb-0">
-						<dt class="col-sm-3">{SetupResource.DatabasePlatformLabel}</dt><dd class="col-sm-9">{DatabaseHelper.DBPlatform()}</dd>
-						<dt class="col-sm-3">{SetupResource.SchemaVersionLabel}</dt><dd class="col-sm-9">{DatabaseHelper.SchemaVersion()}</dd>
-						<dt class="col-sm-3">{SetupResource.AppCodeVersionLabel}</dt><dd class="col-sm-9">{DatabaseHelper.AppCodeVersion()}</dd>
-						<dt class="col-sm-3">{SetupResource.MessageLabel}</dt><dd class="col-sm-9">{message}</dd>
-					</dl>
+				{sysInfo}
 				</div>
 			</div>
 			""";
@@ -839,16 +869,17 @@ public partial class SetupHome : Page
 		}
 		else
 		{
-			Response.Write(@"
-	</body>
-</html>");
+			Response.Write("""
+					</body>
+				</html>
+				""");
 		}
 
 		Response.Flush();
 	}
 
 
-	private void ProbeSystem()
+	private (SetupStatus status, string msg) ProbeSystem()
 	{
 		WritePageContent(SetupStatus.none, $"<h3>{SetupResource.ProbingSystemMessage}</h3>");
 
@@ -942,9 +973,9 @@ public partial class SetupHome : Page
 				dbError += $"<div>{DatabaseHelper.GetConnectionError(null)}</div>";
 			}
 
-			WritePageContentCard(SetupStatus.Error, dbError);
+			return (SetupStatus.Error, dbError);
 		}
-
+		return (SetupStatus.none, string.Empty);
 	}
 
 	private (SetupStatus status, string msg) CoreSystemIsReady()
@@ -971,6 +1002,8 @@ public partial class SetupHome : Page
 
 	private bool LockForSetup()
 	{
+		CacheManager.Cache.ClearAll();
+
 		if (Application["UpgradeInProgress"] != null)
 		{
 			bool upgradeInProgress = (bool)Application["UpgradeInProgress"];
@@ -981,12 +1014,14 @@ public partial class SetupHome : Page
 		}
 
 		Application["UpgradeInProgress"] = true;
+
 		return true;
 	}
 
 	private void ClearSetupLock()
 	{
 		Application["UpgradeInProgress"] = false;
+		CacheManager.Cache.ClearAll();
 	}
 
 	private string GetPathToIndexFolder()

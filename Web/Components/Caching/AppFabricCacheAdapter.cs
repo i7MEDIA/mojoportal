@@ -1,10 +1,8 @@
-﻿using log4net;
+﻿//http://msdn.microsoft.com/en-us/library/windowsazure/gg278356.aspx
+//http://msdn.microsoft.com/en-us/library/windowsazure/gg618004.aspx
+using log4net;
 using Microsoft.ApplicationServer.Caching;
 using System;
-
-//http://msdn.microsoft.com/en-us/library/windowsazure/gg278356.aspx
-//http://msdn.microsoft.com/en-us/library/windowsazure/gg618004.aspx
-
 
 namespace mojoPortal.Web.Caching;
 
@@ -17,10 +15,10 @@ public class AppFabricCacheAdapter : ICache
 
 	public AppFabricCacheAdapter()
 	{
-
 		var factory = new AppFabricCacheFactory();
 		_cache = factory.ConstructCache(WebConfigSettings.DistributedCacheServers);
 	}
+
 
 	public void Add(string cacheKey, DateTime expiry, object dataToAdd)
 	{
@@ -32,16 +30,19 @@ public class AppFabricCacheAdapter : ICache
 		}
 	}
 
+
 	public object GetObject(string cacheKey)
 	{
 		return _cache.Get(cacheKey);
 	}
+
 
 	public T Get<T>(string cacheKey) where T : class
 	{
 		T data = _cache.Get(cacheKey) as T;
 		return data;
 	}
+
 
 	public void InvalidateCacheItem(string cacheKey)
 	{
@@ -58,6 +59,7 @@ public class AppFabricCacheAdapter : ICache
 		}
 	}
 
+
 	public void AddToPerRequestCache(string cacheKey, object dataToAdd)
 	{
 		// AppFabric does not have a per request concept nor does it need to since all cache nodes should be in sync
@@ -65,6 +67,15 @@ public class AppFabricCacheAdapter : ICache
 		// objects but we wont do that here. We simply add it into the cache for 1 second.
 		// Its hacky but this behaviour will be specific to the scenario at hand.
 		Add(cacheKey, TimeSpan.FromSeconds(1), dataToAdd);
+	}
+
+
+	public void ClearAll()
+	{
+		foreach (string region in _cache.GetSystemRegions())
+		{
+			_cache.ClearRegion(region);
+		}
 	}
 
 

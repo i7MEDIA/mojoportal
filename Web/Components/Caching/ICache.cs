@@ -18,5 +18,6 @@ public interface ICache
 	void Add(string cacheKey, TimeSpan slidingExpiryWindow, object dataToAdd);
 	void InvalidateCacheItem(string cacheKey);
 	void AddToPerRequestCache(string cacheKey, object dataToAdd);
+	void ClearAll();
 	CacheSetting CacheType { get; }
 }
