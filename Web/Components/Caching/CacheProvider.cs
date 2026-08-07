@@ -180,4 +180,10 @@ public class CacheProvider(ICache cache) : ICacheProvider
 			log.Info($"Added item [{cacheKey}] to the per request cache.");
 		}
 	}
+
+
+	public void ClearAll()
+	{
+		_cache.ClearAll();
+	}
 }
