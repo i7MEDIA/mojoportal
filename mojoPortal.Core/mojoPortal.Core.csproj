@@ -57,6 +57,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\XmlExtensions.cs" />
     <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Helpers\HostnameHelper.cs" />
     <Compile Include="Helpers\RoleStringHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Extensions\UnitSeparatorExtensions.cs" />

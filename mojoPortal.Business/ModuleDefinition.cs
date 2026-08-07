@@ -1,6 +1,7 @@
+using mojoPortal.Data;
 using System.Collections.Generic;
 using System.Data;
-using mojoPortal.Data;
+using System.Web.Security;
 
 namespace mojoPortal.Business;
 
@@ -242,7 +243,9 @@ public class ModuleDefinition
 		string helpKey,
 		int sortOrder,
 		string attributes,
-		string options)
+		string options,
+		string roles,
+		bool showToUnauthorized)
 	{
 		return DBModuleDefinition.UpdateModuleDefinitionSetting(
 			featureGuid,
@@ -257,7 +260,9 @@ public class ModuleDefinition
 			helpKey,
 			sortOrder,
 			attributes,
-			options);
+			options,
+			roles,
+			showToUnauthorized);
 	}
 
 	public static bool UpdateModuleDefinitionSettingById(
@@ -273,7 +278,9 @@ public class ModuleDefinition
 		string helpKey,
 		int sortOrder,
 		string attributes,
-		string options)
+		string options,
+		string roles,
+		bool showToUnauthorized)
 	{
 		return DBModuleDefinition.UpdateModuleDefinitionSettingById(
 			id,
@@ -288,7 +295,9 @@ public class ModuleDefinition
 			helpKey,
 			sortOrder,
 			attributes,
-			options);
+			options,
+			roles,
+			showToUnauthorized);
 	}
 
 	public static bool DeleteSettingById(int id) => DBModuleDefinition.DeleteSettingById(id);

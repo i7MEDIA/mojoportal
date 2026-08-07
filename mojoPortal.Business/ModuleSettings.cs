@@ -1,6 +1,6 @@
+using mojoPortal.Data;
 using System.Collections;
 using System.Data;
-using mojoPortal.Data;
 
 namespace mojoPortal.Business;
 
@@ -11,11 +11,15 @@ public sealed class ModuleSettings
 {
 	public ModuleSettings() { }
 
+
 	#region Static Methods
 
-	public static bool CreateDefaultModuleSettings(int moduleId) => DBModuleSettings.CreateDefaultModuleSettings(moduleId);
+	public static bool CreateDefaultModuleSettings(int moduleId) =>
+		DBModuleSettings.CreateDefaultModuleSettings(moduleId);
 
-	public static bool DeleteModuleSettings(int moduleId) => DBModuleSettings.DeleteModuleSettings(moduleId);
+	public static bool DeleteModuleSettings(int moduleId) =>
+		DBModuleSettings.DeleteModuleSettings(moduleId);
+
 
 	public static Hashtable GetModuleSettings(int moduleId)
 	{
@@ -32,73 +36,85 @@ public sealed class ModuleSettings
 		return settings;
 	}
 
+
 	public static ArrayList GetDefaultSettings(int moduleDefId)
 	{
 		var defaultCustomSettings = new ArrayList();
-		using (IDataReader reader = DBModuleSettings.GetDefaultModuleSettings(moduleDefId))
+		using var reader = DBModuleSettings.GetDefaultModuleSettings(moduleDefId);
+
+		while (reader.Read())
 		{
-			while (reader.Read())
+			int sortOrder = 100;
+
+			if (reader["SortOrder"] != DBNull.Value)
 			{
-				int sortOrder = 100;
-				if (reader["SortOrder"] != DBNull.Value)
-					sortOrder = Convert.ToInt32(reader["SortOrder"]);
-
-				var setting = new CustomModuleSetting(
-					new Guid(reader["FeatureGuid"].ToString()),
-					Convert.ToInt32(reader["ID"]),
-					reader["ResourceFile"].ToString(),
-					reader["SettingName"].ToString().Trim(),
-					reader["SettingValue"].ToString(),
-					reader["ControlType"].ToString(),
-					reader["RegexValidationExpression"].ToString(),
-					reader["ControlSrc"].ToString(),
-					reader["HelpKey"].ToString(),
-					sortOrder,
-					reader["Attributes"].ToString(),
-					reader["Options"].ToString()
-					);
-
-				setting.GroupName = reader["GroupName"].ToString();
-				defaultCustomSettings.Add(setting);
+				sortOrder = Convert.ToInt32(reader["SortOrder"]);
 			}
+
+			var setting = new CustomModuleSetting(
+				new Guid(reader["FeatureGuid"].ToString()),
+				Convert.ToInt32(reader["ID"]),
+				reader["ResourceFile"].ToString(),
+				reader["SettingName"].ToString().Trim(),
+				reader["SettingValue"].ToString(),
+				reader["ControlType"].ToString(),
+				reader["RegexValidationExpression"].ToString(),
+				reader["ControlSrc"].ToString(),
+				reader["HelpKey"].ToString(),
+				sortOrder,
+				reader["Attributes"].ToString(),
+				reader["Options"].ToString(),
+				reader["Roles"].ToString(),
+				Convert.ToBoolean(reader["ShowToUnauthorized"])
+			)
+			{
+				GroupName = reader["GroupName"].ToString()
+			};
+
+			defaultCustomSettings.Add(setting);
 		}
 
 		return defaultCustomSettings;
 	}
 
+
 	public static ArrayList GetCustomSettingValues(int moduleId)
 	{
 		var customSettings = new ArrayList();
-		using (IDataReader reader = DBModuleSettings.GetModuleSettings(moduleId))
-		{
-			while (reader.Read())
-			{
-				int sortOrder = 100;
-				if (reader["SortOrder"] != DBNull.Value)
-				{
-					sortOrder = Convert.ToInt32(reader["SortOrder"]);
-				}
+		using var reader = DBModuleSettings.GetModuleSettings(moduleId);
 
-				var setting = new CustomModuleSetting(
-						new Guid(reader["FeatureGuid"].ToString()),
-						-1,
-						reader["ResourceFile"].ToString(),
-						reader["SettingName"].ToString().Trim(),
-						reader["SettingValue"].ToString(),
-						reader["ControlType"].ToString(),
-						reader["RegexValidationExpression"].ToString(),
-						reader["ControlSrc"].ToString(),
-						reader["HelpKey"].ToString(),
-						sortOrder,
-						reader["Attributes"].ToString(),
-						reader["Options"].ToString()
-						);
-				customSettings.Add(setting);
+		while (reader.Read())
+		{
+			var sortOrder = 100;
+
+			if (reader["SortOrder"] != DBNull.Value)
+			{
+				sortOrder = Convert.ToInt32(reader["SortOrder"]);
 			}
+
+			var setting = new CustomModuleSetting(
+				new Guid(reader["FeatureGuid"].ToString()),
+				-1,
+				reader["ResourceFile"].ToString(),
+				reader["SettingName"].ToString().Trim(),
+				reader["SettingValue"].ToString(),
+				reader["ControlType"].ToString(),
+				reader["RegexValidationExpression"].ToString(),
+				reader["ControlSrc"].ToString(),
+				reader["HelpKey"].ToString(),
+				sortOrder,
+				reader["Attributes"].ToString(),
+				reader["Options"].ToString(),
+				reader["Roles"].ToString(),
+				Convert.ToBoolean(reader["ShowToUnauthorized"])
+			);
+
+			customSettings.Add(setting);
 		}
 
 		return customSettings;
 	}
+
 
 	public static bool CreateModuleSetting(
 		Guid moduleGuid,
@@ -109,7 +125,8 @@ public sealed class ModuleSettings
 		string regexValidationExpression,
 		string controlSrc,
 		string helpKey,
-		int sortOrder)
+		int sortOrder
+	)
 	{
 		return DBModuleSettings.CreateModuleSetting(
 			Guid.NewGuid(),
@@ -121,16 +138,19 @@ public sealed class ModuleSettings
 			regexValidationExpression,
 			controlSrc,
 			helpKey,
-			sortOrder);
+			sortOrder
+		);
 	}
 
 	public static bool UpdateModuleSetting(
 		Guid moduleGuid,
 		int moduleId,
 		string settingName,
-		string settingValue)
+		string settingValue
+	)
 	{
 		return DBModuleSettings.UpdateModuleSetting(moduleGuid, moduleId, settingName, settingValue);
 	}
+
 	#endregion
 }

@@ -604,12 +604,16 @@ public partial class SetupHome : Page
 
 	private void SetupFeature(ContentFeature feature)
 	{
-		//		var html = @$"
-		//<li class=""list-group-item d-flex justify-content-between align-items-top"">
-		//{string.Format(successFormat, ResourceHelper.GetResourceString(feature.ResourceFile, feature.FeatureNameReasourceKey))} 
-		//</li>
-		//";
-		WritePageContent(SetupStatus.Success, string.Format(SetupResource.ConfigureFeatureMessage, ResourceHelper.GetResourceString(feature.ResourceFile, feature.FeatureNameReasourceKey)));
+		WritePageContent(
+			SetupStatus.Success,
+			string.Format(
+				SetupResource.ConfigureFeatureMessage,
+				ResourceHelper.GetResourceString(
+					feature.ResourceFile,
+					feature.FeatureNameReasourceKey
+				)
+			)
+		);
 
 		var moduleDefinition = new ModuleDefinition(feature.FeatureGuid)
 		{
@@ -627,9 +631,10 @@ public partial class SetupHome : Page
 			DeleteProvider = feature.DeleteProvider,
 			PartialView = feature.PartialView
 		};
+
 		moduleDefinition.Save();
 
-		foreach (ContentFeatureSetting featureSetting in feature.Settings)
+		foreach (var featureSetting in feature.Settings)
 		{
 			ModuleDefinition.UpdateModuleDefinitionSetting(
 				moduleDefinition.FeatureGuid,
@@ -644,9 +649,12 @@ public partial class SetupHome : Page
 				featureSetting.HelpKey,
 				featureSetting.SortOrder,
 				featureSetting.Attributes,
-				featureSetting.Options);
+				featureSetting.Options,
+				featureSetting.Roles,
+				featureSetting.ShowToUnauthorized);
 		}
 	}
+
 
 	private void ShowStatusMessage((SetupStatus status, string msg) setup)
 	{
