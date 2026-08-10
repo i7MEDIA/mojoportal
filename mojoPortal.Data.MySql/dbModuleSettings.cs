@@ -46,8 +46,8 @@ public static class DBModuleSettings
 				mds.HelpKey,
 				mds.GroupName,
 				mds.Attributes,
-				mds.Options
-				mds.Roles
+				mds.Options,
+				mds.Roles,
 				mds.ShowToUnauthorized
 			FROM mp_ModuleSettings ms
 			JOIN mp_Modules m ON ms.ModuleID = m.ModuleID

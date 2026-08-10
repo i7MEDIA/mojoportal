@@ -809,59 +809,59 @@ md.FeatureName";
 				sortOrder,
 				helpKey,
 				attributes,
-				options
+				options,
+				roles,
+				showToUnauthorized
 			);
 		}
-		else
+
+		var sqlCommand = """
+			UPDATE mp_moduledefinitionsettings
+			SET
+				settingvalue = :settingvalue,
+				controltype = :controltype,
+				regexvalidationexpression = :regexvalidationexpression,
+				featureguid = :featureguid,
+				resourcefile = :resourcefile,
+				controlsrc = :controlsrc,
+				sortorder = :sortorder,
+				groupname = :groupname ,
+				helpkey = :helpkey,
+				attributes = :attributes,
+				options = :options,
+				roles = :roles,
+				showtounauthorized = :showtounauthorized
+			WHERE (moduledefid = :moduledefid OR featureguid = :featureguid)
+			AND settingname = :settingname;
+			""";
+
+		var sqlParams = new NpgsqlParameter[]
 		{
-			var sqlCommand = """
-				UPDATE mp_moduledefinitionsettings
-				SET
-					settingvalue = :settingvalue,
-					controltype = :controltype,
-					regexvalidationexpression = :regexvalidationexpression,
-					featureguid = :featureguid,
-					resourcefile = :resourcefile,
-					controlsrc = :controlsrc,
-					sortorder = :sortorder,
-					groupname = :groupname ,
-					helpkey = :helpkey,
-					attributes = :attributes,
-					options = :options,
-					roles = :roles,
-					showtounauthorized = :showtounauthorized
-				WHERE (moduledefid = :moduledefid OR featureguid = :featureguid)
-				AND settingname = :settingname;
-				""";
+			new(":featureguid", NpgsqlDbType.Char, 36) { Direction = ParameterDirection.Input, Value = featureGuid.ToString() },
+			new(":moduledefid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleDefId },
+			new(":settingname", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = settingName },
+			new(":settingvalue", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = settingValue },
+			new(":controltype", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = controlType },
+			new(":regexvalidationexpression", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = regexValidationExpression },
+			new(":resourcefile", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = resourceFile },
+			new(":controlsrc", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
+			new(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
+			new(":helpkey", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
+			new(":groupname", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = groupName },
+			new(":attributes", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = attributes },
+			new(":options", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = options },
+			new(":roles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = roles },
+			new(":showtounauthorized", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = showToUnauthorized },
+		};
 
-			var sqlParams = new NpgsqlParameter[]
-			{
-				new(":featureguid", NpgsqlDbType.Char, 36) { Direction = ParameterDirection.Input, Value = featureGuid.ToString() },
-				new(":moduledefid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleDefId },
-				new(":settingname", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = settingName },
-				new(":settingvalue", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = settingValue },
-				new(":controltype", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = controlType },
-				new(":regexvalidationexpression", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = regexValidationExpression },
-				new(":resourcefile", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = resourceFile },
-				new(":controlsrc", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
-				new(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
-				new(":helpkey", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
-				new(":groupname", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = groupName },
-				new(":attributes", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = attributes },
-				new(":options", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = options },
-				new(":roles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = roles },
-				new(":showtounauthorized", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = showToUnauthorized },
-			};
+		var rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+			ConnectionString.GetWriteConnectionString(),
+			CommandType.Text,
+			sqlCommand,
+			sqlParams
+		);
 
-			var rowsAffected = NpgsqlHelper.ExecuteNonQuery(
-				ConnectionString.GetWriteConnectionString(),
-				CommandType.Text,
-				sqlCommand,
-				sqlParams
-			);
-
-			return rowsAffected > -1;
-		}
+		return rowsAffected > -1;
 	}
 
 
@@ -946,114 +946,73 @@ md.FeatureName";
 		int sortOrder,
 		string helpKey,
 		string attributes,
-		string options
+		string options,
+		string roles,
+		bool showToUnauthorized
 	)
 	{
-		StringBuilder sqlCommand = new StringBuilder();
+		var sqlCommand =
+			"""
+			INSERT INTO mp_moduledefinitionsettings (
+				featureguid,
+				moduledefid,
+				resourcefile,
+				settingname,
+				settingvalue,
+				controltype,
+				controlsrc,
+				helpkey,
+				sortorder,
+				groupname,
+				regexvalidationexpression,
+				attributes,
+				options,
+				roles,
+				showtounauthorized
+			)
+			VALUES (
+				:featureguid,
+				:moduledefid,
+				:resourcefile,
+				:settingname,
+				:settingvalue,
+				:controltype,
+				:controlsrc,
+				:helpkey,
+				:sortorder,
+				:groupname,
+				:regexvalidationexpression,
+				:attributes,
+				:options,
+				:roles,
+				:showtounauthorized
+			);
+			""";
 
-		sqlCommand.AppendFormat("INSERT INTO mp_moduledefinitionsettings ({0}) VALUES ({1});"
-			, @"featureguid
-				  ,moduledefid
-				  ,resourcefile
-				  ,settingname
-				  ,settingvalue
-				  ,controltype
-				  ,controlsrc
-				  ,helpkey
-				  ,sortorder
-				  ,groupname
-				  ,regexvalidationexpression
-				  ,attributes
-				  ,options"
-			, @":featureguid
-				  ,:moduledefid
-				  ,:resourcefile
-				  ,:settingname
-				  ,:settingvalue
-				  ,:controltype
-				  ,:controlsrc
-				  ,:helpkey
-				  ,:sortorder
-				  ,:groupname
-				  ,:regexvalidationexpression
-				  ,:attributes
-				  ,:options"
-		);
-
-		var sqlParams = new List<NpgsqlParameter>()
+		var sqlParams = new NpgsqlParameter[]
 		{
-			new NpgsqlParameter(":featureguid", NpgsqlDbType.Char, 36)
-			{
-				Direction = ParameterDirection.Input,
-				Value = featureGuid.ToString()
-			},
-			new NpgsqlParameter(":moduledefid", NpgsqlDbType.Integer)
-			{
-				Direction = ParameterDirection.Input,
-				Value = moduleDefId
-			},
-			new NpgsqlParameter(":settingname", NpgsqlDbType.Varchar, 50)
-			{
-				Direction = ParameterDirection.Input,
-				Value = settingName
-			},
-			new NpgsqlParameter(":settingvalue", NpgsqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = settingValue
-			},
-			new NpgsqlParameter(":controltype", NpgsqlDbType.Varchar, 50)
-			{
-				Direction = ParameterDirection.Input,
-				Value = controlType
-			},
-			new NpgsqlParameter(":regexvalidationexpression", NpgsqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = regexValidationExpression
-			},
-			new NpgsqlParameter(":resourcefile", NpgsqlDbType.Varchar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = resourceFile
-			},
-			new NpgsqlParameter(":controlsrc", NpgsqlDbType.Varchar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = controlSrc
-			},
-			new NpgsqlParameter(":sortorder", NpgsqlDbType.Integer)
-			{
-				Direction = ParameterDirection.Input,
-				Value = sortOrder
-			},
-			new NpgsqlParameter(":helpkey", NpgsqlDbType.Varchar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = helpKey
-			},
-			new NpgsqlParameter(":groupname", NpgsqlDbType.Varchar, 255)
-			{
-				Direction = ParameterDirection.Input,
-				Value = groupName
-			},
-			new NpgsqlParameter(":attributes", NpgsqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = attributes
-			},
-			new NpgsqlParameter(":options", NpgsqlDbType.Text)
-			{
-				Direction = ParameterDirection.Input,
-				Value = options
-			}
+			new(":featureguid", NpgsqlDbType.Char, 36) { Direction = ParameterDirection.Input, Value = featureGuid.ToString() },
+			new(":moduledefid", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = moduleDefId },
+			new(":settingname", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = settingName },
+			new(":settingvalue", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = settingValue },
+			new(":controltype", NpgsqlDbType.Varchar, 50) { Direction = ParameterDirection.Input, Value = controlType },
+			new(":regexvalidationexpression", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = regexValidationExpression },
+			new(":resourcefile", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = resourceFile },
+			new(":controlsrc", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
+			new(":sortorder", NpgsqlDbType.Integer) { Direction = ParameterDirection.Input, Value = sortOrder },
+			new(":helpkey", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = helpKey },
+			new(":groupname", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = groupName },
+			new(":attributes", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = attributes },
+			new(":options", NpgsqlDbType.Text) { Direction = ParameterDirection.Input, Value = options },
+			new(":roles", NpgsqlDbType.Varchar, 255) { Direction = ParameterDirection.Input, Value = roles },
+			new(":showtounauthorized", NpgsqlDbType.Boolean) { Direction = ParameterDirection.Input, Value = showToUnauthorized },
 		};
 
 		int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
 			ConnectionString.GetWriteConnectionString(),
 			CommandType.Text,
-			sqlCommand.ToString(),
-			sqlParams.ToArray()
+			sqlCommand,
+			sqlParams
 		);
 
 		return rowsAffected > 0;
