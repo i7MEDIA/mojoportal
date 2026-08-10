@@ -249,6 +249,8 @@ public static class SecurityHelper
 	/// <returns>True if string is possibly XSS attemp. False if string is clean.</returns>
 	public static bool IsPossibleXss(string text)
 	{
+		text = text.Trim();
+
 		if (text.RemoveMarkup() != text)
 		{
 			return true;
