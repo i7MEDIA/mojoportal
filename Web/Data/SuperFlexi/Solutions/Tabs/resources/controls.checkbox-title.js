@@ -17,10 +17,10 @@ $(document).ready(function() {
 	$(".cats-radio").each(function() {
 		var $this = $(this);
 		var titleList = [];
-		var origValue = $this.find('input[type="checkbox"]:checked').next('label').text();
+		var origValue = $this.find('input[type="checkbox"]:checked').closest('label').text().trim();
 
 		$this.find('input[type="checkbox"]').each(function() {
-			titleList.push($(this).next('label').text().toLowerCase());
+			titleList.push($(this).closest('label').text().toLowerCase().trim());
 		});
 		if ($this.find('ul.hide-list').length) {
 			$this.find('input[type="text"]').val(origValue);
@@ -68,8 +68,8 @@ $(document).ready(function() {
 		errorOk = true,
 		checkboxTitleError = $('#checkboxTitleError');
 
-	checkList.find('+ label').each(function() {
-		titleList.push($(this).text());
+	checkList.closest('label').each(function() {
+		titleList.push($(this).text().trim());
 	});
 
 	checkList.each(function(i) {
