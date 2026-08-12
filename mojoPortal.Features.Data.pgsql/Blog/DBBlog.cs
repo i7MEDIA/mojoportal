@@ -2208,6 +2208,162 @@ namespace mojoPortal.Data
 			sqlCommand.Append(" = :moduleid ) ");
 			sqlCommand.Append(";");
 
+
+            sqlCommand.Append("WHERE   ");
+            sqlCommand.Append("m.siteid = :siteid ");
+            sqlCommand.Append("AND b.includeinsitemap = true ");
+            sqlCommand.Append("AND b.IsPublished = true ");
+            sqlCommand.Append("AND b.startdate <= :begindate  ");
+            sqlCommand.Append("AND (b.enddate IS NULL OR b.enddate > :begindate) ");
+            sqlCommand.Append("AND b.itemurl <> ''  ");
+
+            sqlCommand.Append("ORDER BY b.startdate DESC  ");
+            sqlCommand.Append("");
+
+            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = siteId;
+
+            arParams[1] = new NpgsqlParameter("begindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = currentUtcDateTime;
+
+            return NpgsqlHelper.ExecuteReader(
+                ConnectionString.GetReadConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+
+        }
+
+        public static IDataReader GetBlogsForNewsMap(int siteId, DateTime utcThresholdTime)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT ");
+            sqlCommand.Append("b.itemurl, ");
+            sqlCommand.Append("b.lastmodutc, ");
+            sqlCommand.Append("b.itemid, ");
+            sqlCommand.Append("b.moduleid, ");
+
+            sqlCommand.Append("b.headlineimageurl, ");
+            sqlCommand.Append("b.pubaccess, ");
+            sqlCommand.Append("b.pubgenres, ");
+            sqlCommand.Append("b.pubgeolocations, ");
+            sqlCommand.Append("b.pubkeywords, ");
+            sqlCommand.Append("b.publanguage,");
+            sqlCommand.Append("b.pubname, ");
+            sqlCommand.Append("b.pubstocktickers, ");
+            sqlCommand.Append("b.startdate,");
+            sqlCommand.Append("b.title, ");
+            sqlCommand.Append("b.heading, ");
+
+            sqlCommand.Append("pm.pageid ");
+
+            sqlCommand.Append("FROM	mp_blogs b ");
+
+            sqlCommand.Append("JOIN mp_modules m ");
+            sqlCommand.Append("ON ");
+            sqlCommand.Append("b.moduleid = m.moduleid ");
+
+            sqlCommand.Append("JOIN mp_pagemodules pm ");
+            sqlCommand.Append("ON ");
+            sqlCommand.Append("b.moduleid = pm.moduleid ");
+
+            sqlCommand.Append("WHERE   ");
+            sqlCommand.Append("m.siteid = :siteid ");
+            sqlCommand.Append("AND b.includeinnews = true ");
+            sqlCommand.Append("AND b.ispublished = true ");
+            sqlCommand.Append("AND b.startdate >= :begindate  ");
+            
+            sqlCommand.Append("AND b.itemurl <> ''  ");
+
+            sqlCommand.Append("ORDER BY b.startdate DESC  ");
+            sqlCommand.Append("");
+
+            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = siteId;
+
+            arParams[1] = new NpgsqlParameter("begindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = utcThresholdTime;
+
+            return NpgsqlHelper.ExecuteReader(
+                ConnectionString.GetReadConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+        }
+
+        public static IDataReader GetDrafts(int moduleId)
+        {
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT * ");
+            sqlCommand.Append("FROM	mp_blogs ");
+            sqlCommand.Append("WHERE moduleid = :moduleid  ");
+            sqlCommand.Append("AND ((startdate > :begindate) OR (ispublished = false))  ");
+
+            sqlCommand.Append("ORDER BY startdate DESC  ");
+            sqlCommand.Append(";");
+
+            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+            arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = moduleId;
+
+            arParams[1] = new NpgsqlParameter("begindate", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = DateTime.UtcNow;
+
+            return NpgsqlHelper.ExecuteReader(
+                ConnectionString.GetReadConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+           
+        }
+
+        public static IDataReader GetBlogsByPage(int siteId, int pageId)
+        {
+            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+
+            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = siteId;
+
+            arParams[1] = new NpgsqlParameter("pageid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = pageId;
+
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("SELECT  b.*, ");
+
+            sqlCommand.Append("m.moduletitle, ");
+            sqlCommand.Append("m.viewroles, ");
+            sqlCommand.Append("md.featurename, ");
+
+            sqlCommand.Append("COALESCE(u.userid, -1) AS userid, ");
+            sqlCommand.Append("u.name, ");
+            sqlCommand.Append("u.firstname, ");
+            sqlCommand.Append("u.lastname, ");
+            sqlCommand.Append("u.loginname, ");
+            sqlCommand.Append("u.email, ");
+            sqlCommand.Append("u.avatarurl, ");
+			sqlCommand.Append($"(SELECT string_agg(c.category, " +
+				$"'{UnitSeparatorExtensions.UNIT_SEPARATOR}') FROM mp_blogitemcategories ic JOIN mp_blogcategories c ON c.categoryid = ic.categoryid WHERE ic.itemid = b.itemid) AS categories ");
+
+			sqlCommand.Append("FROM	mp_blogs b ");
+			sqlCommand.Append("JOIN	mp_modules m ");
+            sqlCommand.Append("ON b.moduleid = m.moduleid ");
+
 			rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
 				CommandType.Text,
 				sqlCommand.ToString(),
@@ -2217,6 +2373,7 @@ namespace mojoPortal.Data
 			sqlCommand.Append("DELETE FROM mp_blogcategories ");
 			sqlCommand.Append("WHERE moduleid  = :moduleid ");
 			sqlCommand.Append(";");
+
 
 			rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
 				CommandType.Text,
@@ -2326,6 +2483,321 @@ namespace mojoPortal.Data
 			sqlCommand.Append("WHERE moduleid IN (SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ");
 			sqlCommand.Append(";");
 
+
+            sqlCommand.Append("COALESCE(u.userid, -1) AS userid, ");
+            sqlCommand.Append("u.name, ");
+            sqlCommand.Append("u.firstname, ");
+            sqlCommand.Append("u.lastname, ");
+            sqlCommand.Append("u.loginname, ");
+            sqlCommand.Append("u.email, ");
+            sqlCommand.Append("u.avatarurl, ");
+            sqlCommand.Append("u.authorbio, ");
+			sqlCommand.Append($"(SELECT string_agg(c.category, " +
+				$"'{UnitSeparatorExtensions.UNIT_SEPARATOR}') FROM mp_blogitemcategories ic JOIN mp_blogcategories c ON c.categoryid = ic.categoryid WHERE ic.itemid = b.itemid) AS categories ");
+
+			sqlCommand.Append("FROM	mp_blogs b ");
+
+			sqlCommand.Append("LEFT OUTER JOIN	mp_users u ");
+            sqlCommand.Append("ON b.userguid = u.userguid ");
+
+            sqlCommand.Append("WHERE b.itemid = :itemid  ");
+
+            sqlCommand.Append("");
+
+            NpgsqlParameter[] arParams = new NpgsqlParameter[2];
+            
+            arParams[0] = new NpgsqlParameter("itemid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = itemId;
+
+            arParams[1] = new NpgsqlParameter("currenttime", NpgsqlTypes.NpgsqlDbType.Timestamp);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = currentTime;
+
+            return NpgsqlHelper.ExecuteReader(
+                ConnectionString.GetReadConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+        }
+
+        public static bool DeleteBlog(int itemId)
+        {
+            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+
+            arParams[0] = new NpgsqlParameter("itemid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = itemId;
+
+            int rowsAffected = Convert.ToInt32(NpgsqlHelper.ExecuteScalar(
+                ConnectionString.GetWriteConnectionString(),
+                CommandType.StoredProcedure,
+                "mp_blog_delete(:itemid)",
+                arParams));
+
+            return (rowsAffected > -1);
+
+        }
+
+        public static bool DeleteByModule(int moduleId)
+        {
+            
+            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+
+            arParams[0] = new NpgsqlParameter("moduleid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = moduleId;
+
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogitemcategories ");
+            sqlCommand.Append("WHERE itemid IN (SELECT itemid FROM mp_blogs WHERE moduleid ");
+            sqlCommand.Append(" = :moduleid ) ");
+            sqlCommand.Append(";");
+
+            int rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_friendlyurls ");
+            sqlCommand.Append("WHERE pageguid IN (SELECT blogguid FROM mp_blogs WHERE moduleid ");
+            sqlCommand.Append(" = :moduleid ) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_contenthistory ");
+            sqlCommand.Append("WHERE contentguid IN (SELECT blogguid FROM mp_blogs WHERE moduleid ");
+            sqlCommand.Append(" = :moduleid ) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_contentrating ");
+            sqlCommand.Append("WHERE contentguid IN (SELECT blogguid FROM mp_blogs WHERE moduleid ");
+            sqlCommand.Append(" = :moduleid ) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogcategories ");
+            sqlCommand.Append("WHERE moduleid  = :moduleid ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogstats ");
+            sqlCommand.Append("WHERE moduleid = :moduleid ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogcomments ");
+            sqlCommand.Append("WHERE moduleid  = :moduleid ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogs ");
+            sqlCommand.Append("WHERE moduleid  = :moduleid ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            return (rowsAffected > -1);
+
+        }
+
+        public static bool DeleteBySite(int siteId)
+        {
+
+            NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+
+            arParams[0] = new NpgsqlParameter("siteid", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[0].Direction = ParameterDirection.Input;
+            arParams[0].Value = siteId;
+
+            StringBuilder sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogitemcategories ");
+            sqlCommand.Append("WHERE itemid IN (SELECT itemid FROM mp_blogs WHERE moduleid IN ");
+            sqlCommand.Append("(SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ) ");
+            sqlCommand.Append(";");
+
+            int rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_friendlyurls ");
+            sqlCommand.Append("WHERE pageguid IN (SELECT moduleguid FROM mp_blogs WHERE moduleid IN ");
+            sqlCommand.Append("(SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_friendlyurls ");
+            sqlCommand.Append("WHERE pageguid IN (SELECT blogguid FROM mp_blogs WHERE moduleid IN ");
+            sqlCommand.Append("(SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_contenthistory ");
+            sqlCommand.Append("WHERE contentguid IN (SELECT blogguid FROM mp_blogs WHERE moduleid IN ");
+            sqlCommand.Append("(SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_contentrating ");
+            sqlCommand.Append("WHERE contentguid IN (SELECT blogguid FROM mp_blogs WHERE moduleid IN ");
+            sqlCommand.Append("(SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogcategories ");
+            sqlCommand.Append("WHERE moduleid IN (SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogstats ");
+            sqlCommand.Append("WHERE moduleid IN (SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogcomments ");
+            sqlCommand.Append("WHERE moduleid IN (SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            sqlCommand = new StringBuilder();
+            sqlCommand.Append("DELETE FROM mp_blogs ");
+            sqlCommand.Append("WHERE moduleid IN (SELECT moduleid FROM mp_modules WHERE siteid = :siteid) ");
+            sqlCommand.Append(";");
+
+            rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
+                CommandType.Text,
+                sqlCommand.ToString(),
+                arParams);
+
+            return (rowsAffected > -1);
+
+        }
+
+
+        public static int AddBlog(
+            Guid blogGuid,
+            Guid moduleGuid,
+            int moduleId,
+            string userName,
+            string title,
+            string excerpt,
+            string description,
+            DateTime startDate,
+            bool isInNewsletter,
+            bool includeInFeed,
+            int allowCommentsForDays,
+            string location,
+            Guid userGuid,
+            DateTime createdDate,
+            string itemUrl,
+            string metaKeywords,
+            string metaDescription,
+            string compiledMeta,
+            bool isPublished,
+            string subTitle,
+            DateTime endDate,
+            bool approved,
+            Guid approvedBy,
+            DateTime approvedDate,
+            bool showAuthorName,
+            bool showAuthorAvatar,
+            bool showAuthorBio,
+            bool includeInSearch,
+            bool useBingMap,
+            string mapHeight,
+            string mapWidth,
+            bool showMapOptions,
+            bool showZoomTool,
+            bool showLocationInfo,
+            bool useDrivingDirections,
+            string mapType,
+            int mapZoom,
+            bool showDownloadLink,
+            bool includeInSiteMap,
+            bool excludeFromRecentContent,
+
+            bool includeInNews,
+            string pubName,
+            string pubLanguage,
+            string pubAccess,
+            string pubGenres,
+            string pubKeyWords,
+            string pubGeoLocations,
+            string pubStockTickers,
+            string headlineImageUrl,
+            bool includeImageInExcerpt,
+
 			rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
 				CommandType.Text,
 				sqlCommand.ToString(),
@@ -2418,6 +2890,7 @@ namespace mojoPortal.Data
 			string pubStockTickers,
 			string headlineImageUrl,
 			bool includeImageInExcerpt,
+
 			bool includeImageInPost
 		)
 		{
