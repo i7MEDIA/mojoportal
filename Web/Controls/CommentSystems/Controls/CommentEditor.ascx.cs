@@ -356,9 +356,18 @@ namespace mojoPortal.Web.UI
 
 		private bool IsValidComment()
 		{
+			edComment.Text = edComment.Text.Trim();
+			txtName.Text = txtName.Text.Trim();
+			txtEmail.Text = txtEmail.Text.Trim();
+			txtCommentTitle.Text = txtCommentTitle.Text.Trim();
 
-			if (edComment.Text.Length == 0) { return false; }
-			if (edComment.Text == "<p>&#160;</p>") { return false; } //some editors add this when its empty
+			if (
+				string.IsNullOrWhiteSpace(edComment.Text) ||
+				edComment.Text == "<p>&#160;</p>"
+			)
+			{
+				return false;
+			}
 
 			bool result = true;
 
@@ -375,7 +384,6 @@ namespace mojoPortal.Web.UI
 			{
 				//manipulation can make the Challenge null on recaptcha
 			}
-
 
 			if (siteSettings.BadWordCheckingEnabled && (CheckKeywordBlacklist || siteSettings.BadWordCheckingEnforced))
 			{
@@ -427,9 +435,10 @@ namespace mojoPortal.Web.UI
 				return false;
 			}
 
-			if (SecurityHelper.IsPossibleXss(txtName.Text) 
-				|| SecurityHelper.IsPossibleXss(txtCommentTitle.Text)
-				)
+			if (
+				SecurityHelper.IsPossibleXss(txtName.Text) ||
+				SecurityHelper.IsPossibleXss(txtCommentTitle.Text)
+			)
 			{
 				return false;
 			}

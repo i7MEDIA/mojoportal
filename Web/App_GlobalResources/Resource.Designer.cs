@@ -8899,6 +8899,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roles.
+        /// </summary>
+        internal static string ModuleDefinitionsRolesLabel {
+            get {
+                return ResourceManager.GetString("ModuleDefinitionsRolesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search List ResourceName.
         /// </summary>
         internal static string ModuleDefinitionsSearchListNameLabel {
@@ -8994,6 +9003,15 @@ namespace Resources {
         internal static string ModuleDefinitionsSettingValueLabel {
             get {
                 return ResourceManager.GetString("ModuleDefinitionsSettingValueLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show to Unauthorized.
+        /// </summary>
+        internal static string ModuleDefinitionsShowToUnauthorized {
+            get {
+                return ResourceManager.GetString("ModuleDefinitionsShowToUnauthorized", resourceCulture);
             }
         }
         

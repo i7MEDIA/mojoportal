@@ -1,17 +1,8 @@
-﻿// Forked from http://weblogs.asp.net/pglavich/archive/2011/07/04/cacheadapter-v2-now-with-memcached-support.aspx
-// https://bitbucket.org/glav/cacheadapter
-// License: Ms-Pl http://www.opensource.org/licenses/MS-PL
-// Forked on 2011-08-03 by 
-// Changed namespaces and modified for easier use in mojoPortal
-//
-// Change history for this file since original fork:
-// 2011-08-03  modified to support .NET 3.5
-// 2012-03-22 added support for use of Cache Dependency files (.net 3.5) and HostFileChangeMonitor (.net 4)
-
-using log4net;
+﻿using log4net;
 using mojoPortal.Business.WebHelpers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Caching;
 
 namespace mojoPortal.Web.Caching;
@@ -105,6 +96,17 @@ public class MemoryCacheAdapter : ICache
 		// objects but we wont do that here. We simply add it into the cache for 1 second.
 		// Its hacky but this behaviour will be specific to the scenario at hand.
 		Add(cacheKey, TimeSpan.FromSeconds(1), dataToAdd);
+	}
+
+
+	public void ClearAll()
+	{
+		var keys = _cache.Select(kvp => kvp.Key).ToList();
+
+		foreach (var key in keys)
+		{
+			_cache.Remove(key);
+		}
 	}
 
 

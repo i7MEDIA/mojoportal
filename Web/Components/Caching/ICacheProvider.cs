@@ -25,4 +25,5 @@ public interface ICacheProvider
 	void Add(string cacheKey, DateTime absoluteExpiryDate, object dataToAdd);
 	void Add(string cacheKey, TimeSpan slidingExpiryWindow, object dataToAdd);
 	void AddToPerRequestCache(string cacheKey, object dataToAdd);
+	void ClearAll();
 }

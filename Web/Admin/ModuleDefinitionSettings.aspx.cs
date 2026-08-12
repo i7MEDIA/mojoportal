@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
-using System.Globalization;
-using System.Web.UI.WebControls;
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using Resources;
+using System;
+using System.Collections;
+using System.Globalization;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.AdminUI;
 
@@ -91,9 +91,7 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 			ArrayList defSettings = ModuleSettings.GetDefaultSettings(moduleDefId);
 			grdSettings.DataSource = defSettings;
 			grdSettings.DataBind();
-
 		}
-
 	}
 
 	protected void btnCreateNewSetting_Click(object sender, EventArgs e)
@@ -101,6 +99,7 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 		if (moduleDefId > -1)
 		{
 			var featureDef = new ModuleDefinition(moduleDefId);
+
 			ModuleDefinition.UpdateModuleDefinitionSetting(
 				featureDef.FeatureGuid,
 				moduleDefId,
@@ -114,7 +113,9 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 				txtNewHelpKey.Text,
 				Convert.ToInt32(txtNewSortOrder.Text),
 				txtAttributes.Text,
-				txtOptions.Text);
+				txtOptions.Text,
+				txtNewRoles.Text,
+				chkNewShowToUnauthorized.Checked);
 		}
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
@@ -123,21 +124,23 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 
 	protected void grdSettings_RowUpdating(object sender, GridViewUpdateEventArgs e)
 	{
-		GridView grid = (GridView)sender;
-		int settingId = (int)grid.DataKeys[e.RowIndex].Value;
+		var grid = (GridView)sender;
+		var settingId = (int)grid.DataKeys[e.RowIndex].Value;
 
-		TextBox txtResourceFile = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtResourceFile");
-		TextBox txtGroupNameKey = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtGroupNameKey");
-		TextBox txtName = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtSettingName");
-		TextBox txtValue = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtSettingValue");
-		TextBox txtRegex = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtRegexValidationExpression");
-		DropDownList ddType = (DropDownList)grid.Rows[e.RowIndex].Cells[1].FindControl("ddControlType");
+		var txtResourceFile = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtResourceFile");
+		var txtGroupNameKey = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtGroupNameKey");
+		var txtName = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtSettingName");
+		var txtValue = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtSettingValue");
+		var txtRegex = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtRegexValidationExpression");
+		var ddType = (DropDownList)grid.Rows[e.RowIndex].Cells[1].FindControl("ddControlType");
 
-		TextBox txtControlSrc = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtControlSrc");
-		TextBox txtHelpKey = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtHelpKey");
-		TextBox txtSortOrder = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtSortOrder");
-		TextBox txtAttributes = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtAttributes");
-		TextBox txtOptions = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtOptions");
+		var txtControlSrc = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtControlSrc");
+		var txtHelpKey = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtHelpKey");
+		var txtSortOrder = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtSortOrder");
+		var txtAttributes = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtAttributes");
+		var txtOptions = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtOptions");
+		var txtRoles = (TextBox)grid.Rows[e.RowIndex].Cells[1].FindControl("txtRoles");
+		var chkShowToUnauthorized = (CheckBox)grid.Rows[e.RowIndex].Cells[1].FindControl("chkShowToUnauthorized");
 
 		if (moduleDefId > -1)
 		{
@@ -153,14 +156,15 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 				txtControlSrc.Text,
 				txtHelpKey.Text,
 				Convert.ToInt32(txtSortOrder.Text),
-					txtAttributes.Text,
-					txtOptions.Text);
-
+				txtAttributes.Text,
+				txtOptions.Text,
+				txtRoles.Text,
+				chkShowToUnauthorized.Checked);
 		}
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
-
 	}
+
 
 	protected void grdSettings_RowDeleting(object sender, GridViewDeleteEventArgs e)
 	{
@@ -169,7 +173,6 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 		ModuleDefinition.DeleteSettingById(settingID);
 
 		WebUtils.SetupRedirect(this, Request.RawUrl);
-
 	}
 
 
@@ -183,8 +186,6 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 		GridView grid = (GridView)sender;
 		grid.EditIndex = e.NewEditIndex;
 		BindControls();
-
-
 	}
 
 
@@ -194,34 +195,33 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 		UIHelper.AddConfirmationDialog(button, Resource.ModuleDefinitionDeleteSettingWarning);
 	}
 
-
-	protected String GetEditImageAltText()
+	protected string GetEditImageAltText()
 	{
 		return Resource.ModuleDefinitionSettingsEditButton;
 	}
 
 
-	protected String GetEditImageUrl()
+	protected string GetEditImageUrl()
 	{
 		return ImageSiteRoot + "/Data/SiteImages/" + EditContentImage;
 	}
 
-	protected String GetEditButtonText()
+	protected string GetEditButtonText()
 	{
 		return Resource.ModuleDefinitionSettingsEditButton;
 	}
 
-	protected String GetUpdateButtonText()
+	protected string GetUpdateButtonText()
 	{
 		return Resource.ModuleDefinitionSettingsUpdateButton;
 	}
 
-	protected String GetDeleteButtonText()
+	protected string GetDeleteButtonText()
 	{
 		return Resource.ModuleDefinitionSettingsDeleteButton;
 	}
 
-	protected String GetCancelButtonText()
+	protected string GetCancelButtonText()
 	{
 		return Resource.ModuleDefinitionSettingsCancelButton;
 	}
@@ -230,8 +230,6 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 	{
 		Title = SiteUtils.FormatPageTitle(siteSettings, Resource.AdminMenuFeatureModulesLink);
 
-
-
 		subHeading.Text = Resource.ModuleDefinitionsAddSettingHeader;
 
 		lnkAdminMenu.Text = Resource.AdvancedToolsLink;
@@ -239,8 +237,6 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 		lnkModuleAdmin.Text = Resource.AdminMenuFeatureModulesLink;
 		lnkModuleAdmin.NavigateUrl = SiteRoot + "/Admin/ModuleAdmin.aspx";
 		btnCreateNewSetting.Text = Resource.ModuleDefinitionsAddSettingButton;
-
-
 	}
 
 	private void LoadParams()
@@ -249,8 +245,5 @@ public partial class ModuleDefinitionSettingsPage : NonCmsBasePage
 
 		AddClassToBody("administration");
 		AddClassToBody("featuredefadmin");
-
 	}
-
-
 }

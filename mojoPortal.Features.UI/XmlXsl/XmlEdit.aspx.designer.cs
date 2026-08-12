@@ -123,6 +123,15 @@ namespace mojoPortal.Web.XmlUI
 		protected global::System.Web.UI.WebControls.TextBox txtXmlUrl;
 
 		/// <summary>
+		/// lblXmlUrlValidationSummary control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoLabel lblXmlUrlValidationSummary;
+
+		/// <summary>
 		/// SiteLabel4 control.
 		/// </summary>
 		/// <remarks>
@@ -139,6 +148,15 @@ namespace mojoPortal.Web.XmlUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.TextBox txtXslUrl;
+
+		/// <summary>
+		/// lblXslUrlValidationSummary control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoLabel lblXslUrlValidationSummary;
 
 		/// <summary>
 		/// SiteLabel35 control.
@@ -229,14 +247,5 @@ namespace mojoPortal.Web.XmlUI
 		/// To modify move field declaration from designer file to code-behind file.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.HiddenField hdnReturnUrl;
-
-		/// <summary>
-		/// divCleared control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		
 	}
 }

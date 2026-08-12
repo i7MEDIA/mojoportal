@@ -40,7 +40,7 @@
 		DisableSetup:
 		Change this to true after installation
 	-->
-	<add key="DisableSetup" value="false"/>
+	<add key="DisableSetup" value="true"/>
 
 
 	<!--

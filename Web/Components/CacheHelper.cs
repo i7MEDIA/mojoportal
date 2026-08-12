@@ -367,13 +367,16 @@ public static class CacheHelper
 			return null;
 		}
 
-		if (HttpContext.Current.Items["SiteSettings"] is not SiteSettings siteSettings)
+		if (HttpContext.Current.Items["SiteSettings"] is SiteSettings siteSettings)
 		{
-			siteSettings = GetSiteSettingsFromCache();
-			if (siteSettings is not null)
-			{
-				HttpContext.Current.Items["SiteSettings"] = siteSettings;
-			}
+			return siteSettings;
+		}
+
+		siteSettings = GetSiteSettingsFromCache();
+
+		if (siteSettings is not null)
+		{
+			HttpContext.Current.Items["SiteSettings"] = siteSettings;
 		}
 
 		return siteSettings;
@@ -436,18 +439,19 @@ public static class CacheHelper
 		}
 	}
 
+
 	private static SiteSettings LoadSiteSettings()
 	{
 		SiteSettings siteSettings = null;
 
 		try
 		{
+			var siteFolderName = string.Empty;
 
-			string siteFolderName = string.Empty;
 			if (AppConfig.MultiTenancy.UseFolders)
 			{
 				siteFolderName = VirtualFolderEvaluator.VirtualFolderName();
-				Guid siteGuid = SiteFolder.GetSiteGuid(siteFolderName);
+				var siteGuid = SiteFolder.GetSiteGuid(siteFolderName);
 				siteSettings = new SiteSettings(siteGuid);
 			}
 			else
@@ -459,6 +463,7 @@ public static class CacheHelper
 			{
 				siteSettings.ReloadExpandoProperties();
 				siteSettings.SiteRoot = WebUtils.GetSiteRoot();
+
 				if (AppConfig.MultiTenancy.UseFolders)
 				{
 					siteSettings.SiteFolderName = siteFolderName;
@@ -467,6 +472,7 @@ public static class CacheHelper
 			else
 			{
 				siteSettings = null;
+
 				log.Error("CacheHelper failed to load siteSettings");
 			}
 		}
@@ -485,6 +491,7 @@ public static class CacheHelper
 
 		return siteSettings;
 	}
+
 
 	/// <summary>
 	/// This method should not normally be used, typically you should use the overload with no inputs.
