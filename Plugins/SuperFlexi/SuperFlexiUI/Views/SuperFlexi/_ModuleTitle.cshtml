@@ -6,7 +6,7 @@
 @if (Model.Module.ShowTitle)
 {
 
-	@Html.Raw("<" + Model.Module.TitleElement + " class=\"" + Model.Config.ModuleCssClass +"__title moduletitle\" data-moduleid=\"module" + Model.Module.Id + "\">")
+	@Html.Raw("<" + Model.Module.TitleElement + " class=\"" + Model.Config.SolutionCssClass +"__title moduletitle\" data-moduleid=\"module" + Model.Module.Id + "\">")
 	<text>@Model.Module.Title</text>
 
 	if (Model.Module.IsEditable)
