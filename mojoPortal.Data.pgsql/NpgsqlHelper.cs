@@ -1,12 +1,22 @@
 #nullable enable
 using Npgsql;
 using System;
+using System.Collections.Generic;
 using System.Data;
 
 namespace mojoPortal.Data;
 
 public sealed class NpgsqlHelper
 {
+	static NpgsqlHelper()
+	{
+		// Ensures CommandType.StoredProcedure executes functions via SELECT rather than CALL
+		AppContext.SetSwitch("Npgsql.EnableStoredProcedureCompatMode", true);
+
+		// Ensures DateTime values with Unspecified or Local kind map safely to timestamp columns
+		AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+	}
+
 	private NpgsqlHelper()
 	{ }
 
@@ -28,6 +38,55 @@ public sealed class NpgsqlHelper
 		if (string.IsNullOrEmpty(commandText))
 		{
 			throw new ArgumentNullException("commandText");
+		}
+
+		if (commandType == CommandType.StoredProcedure)
+		{
+			commandType = CommandType.Text;
+			string trimmedText = commandText.Trim();
+			if (trimmedText.EndsWith(";"))
+			{
+				trimmedText = trimmedText.Substring(0, trimmedText.Length - 1).Trim();
+			}
+
+			if (trimmedText.Contains("("))
+			{
+				if (!trimmedText.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase)
+					&& !trimmedText.StartsWith("CALL", StringComparison.OrdinalIgnoreCase))
+				{
+					commandText = "SELECT * FROM " + trimmedText;
+				}
+				else
+				{
+					commandText = trimmedText;
+				}
+			}
+			else
+			{
+				var paramPlaceholders = new List<string>();
+				if (commandParameters != null)
+				{
+					for (int i = 0; i < commandParameters.Length; i++)
+					{
+						var p = commandParameters[i];
+						if (p != null)
+						{
+							if (string.IsNullOrEmpty(p.ParameterName))
+							{
+								p.ParameterName = $"p{i}";
+							}
+
+							string pName = p.ParameterName;
+							if (!pName.StartsWith(":") && !pName.StartsWith("@"))
+							{
+								pName = ":" + pName;
+							}
+							paramPlaceholders.Add(pName);
+						}
+					}
+				}
+				commandText = "SELECT * FROM " + trimmedText + "(" + string.Join(", ", paramPlaceholders) + ")";
+			}
 		}
 
 		command.Connection = connection;
@@ -99,11 +158,15 @@ public sealed class NpgsqlHelper
 			throw new ArgumentNullException("connectionString");
 		}
 
+		connectionString = ConnectionString.CleanConnectionString(connectionString);
+
 		using NpgsqlConnection connection = new NpgsqlConnection(connectionString);
 
 		connection.Open();
 
 		using NpgsqlCommand command = new NpgsqlCommand();
+
+		bool isStoredProcedure = commandType == CommandType.StoredProcedure;
 
 		PrepareCommand(
 			command,
@@ -113,6 +176,16 @@ public sealed class NpgsqlHelper
 			commandText,
 			commandParameters
 		);
+
+		if (isStoredProcedure)
+		{
+			object? scalar = command.ExecuteScalar();
+			if (scalar != null && scalar != DBNull.Value && int.TryParse(scalar.ToString(), out int affected))
+			{
+				return affected;
+			}
+			return 0;
+		}
 
 		return command.ExecuteNonQuery();
 	}
@@ -136,6 +209,7 @@ public sealed class NpgsqlHelper
 		}
 
 		var command = new NpgsqlCommand();
+		bool isStoredProcedure = commandType == CommandType.StoredProcedure;
 
 		if (transaction != null)
 		{
@@ -147,6 +221,16 @@ public sealed class NpgsqlHelper
 				commandText,
 				commandParameters
 			);
+		}
+
+		if (isStoredProcedure)
+		{
+			object? scalar = command.ExecuteScalar();
+			if (scalar != null && scalar != DBNull.Value && int.TryParse(scalar.ToString(), out int affected))
+			{
+				return affected;
+			}
+			return 0;
 		}
 
 		return command.ExecuteNonQuery();
@@ -164,6 +248,8 @@ public sealed class NpgsqlHelper
 		{
 			throw new ArgumentNullException("connectionString");
 		}
+
+		connectionString = ConnectionString.CleanConnectionString(connectionString);
 
 		NpgsqlConnection? connection = null;
 
@@ -209,6 +295,8 @@ public sealed class NpgsqlHelper
 			throw new ArgumentNullException("connectionString");
 		}
 
+		connectionString = ConnectionString.CleanConnectionString(connectionString);
+
 		using var connection = new NpgsqlConnection(connectionString);
 
 		connection.Open();
@@ -239,6 +327,8 @@ public sealed class NpgsqlHelper
 		{
 			throw new ArgumentNullException("connectionString");
 		}
+
+		connectionString = ConnectionString.CleanConnectionString(connectionString);
 
 		using var connection = new NpgsqlConnection(connectionString);
 

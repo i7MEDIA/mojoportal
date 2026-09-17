@@ -75,6 +75,13 @@ public class Global : HttpApplication
 
 	protected void Application_Start(object sender, EventArgs e)
 	{
+		#region Configure Npgsql Compatibility Switches
+
+		AppContext.SetSwitch("Npgsql.EnableStoredProcedureCompatMode", true);
+		AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+		#endregion
+
 		#region Configure OAuth/OpenID Connect
 
 		if (AppConfig.OAuth.Configured)
