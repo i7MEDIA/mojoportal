@@ -1,16 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Globalization;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+#nullable enable
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Web.Controls;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace mojoPortal.Web.Configuration;
 
@@ -100,16 +102,13 @@ public class mojoProfilePropertyDefinition
 		Page currentPage,
 		Panel parentControl,
 		mojoProfilePropertyDefinition propertyDefinition,
-		string propertyValue,
+		string? propertyValue,
 		double legacyTimeZoneOffset,
 		TimeZoneInfo timeZone,
 		string siteRoot
 	)
 	{
-		if (propertyValue == null)
-		{
-			propertyValue = string.Empty;
-		}
+		propertyValue ??= string.Empty;
 
 		var validatorSkinID = "Profile";
 
@@ -135,19 +134,19 @@ public class mojoProfilePropertyDefinition
 			CssClass = "settinglabel"
 		};
 
-		if (propertyDefinition.ISettingControlSrc.Length > 0)
+		if (!string.IsNullOrWhiteSpace(propertyDefinition.ISettingControlSrc))
 		{
-			Control c = null;
+			Control? control = null;
 
 			if (propertyDefinition.ISettingControlSrc.EndsWith(".ascx"))
 			{
-				c = currentPage.LoadControl(propertyDefinition.ISettingControlSrc);
+				control = currentPage.LoadControl(propertyDefinition.ISettingControlSrc);
 			}
 			else
 			{
 				try
 				{
-					c = Activator.CreateInstance(System.Type.GetType(propertyDefinition.ISettingControlSrc)) as Control;
+					control = Activator.CreateInstance(System.Type.GetType(propertyDefinition.ISettingControlSrc)) as Control;
 				}
 				catch (Exception ex)
 				{
@@ -155,22 +154,81 @@ public class mojoProfilePropertyDefinition
 				}
 			}
 
-			if (c != null && c is ISettingControl control)
+			if (control is not null)
 			{
-				c.ID = $"isc{propertyDefinition.Name}";
+				control.ID = $"isc{propertyDefinition.Name}";
 
 				parentControl.Controls.Add(label);
-
-				var settingControl = control;
-
-				settingControl.SetValue(propertyValue);
-
-				parentControl.Controls.Add(c);
+				parentControl.Controls.Add(control);
 
 				if (propertyDefinition.IncludeHelpLink)
 				{
 					AddHelpLink(parentControl, propertyDefinition);
 				}
+			}
+
+			void AddValidator(string? controlValue)
+			{
+				var regexValidator = new CustomValidator
+				{
+					SkinID = validatorSkinID,
+					ValidationGroup = "profile",
+					EnableClientScript = false
+				};
+
+				if (!string.IsNullOrWhiteSpace(propertyDefinition.RegexValidationErrorResourceKey))
+				{
+					regexValidator.ErrorMessage = ResourceHelper.GetResourceString(
+						propertyDefinition.ResourceFile,
+						propertyDefinition.RegexValidationErrorResourceKey
+					);
+				}
+
+				var regexPattern = propertyDefinition.RegexValidationExpression;
+
+				regexValidator.ServerValidate += (sender, args) =>
+				{
+					var val = controlValue ?? string.Empty;
+
+					// ASP.NET validator convention: empty values pass regex (use Required field validator if required)
+					if (string.IsNullOrEmpty(val) && !propertyDefinition.RequiredForRegistration)
+					{
+						args.IsValid = true;
+						return;
+					}
+
+					try
+					{
+						args.IsValid = Regex.IsMatch(val, regexPattern);
+					}
+					catch (ArgumentException ex)
+					{
+						log.Error($"Invalid regex pattern '{regexPattern}' for {propertyDefinition.Name}", ex);
+						args.IsValid = false;
+					}
+				};
+
+				parentControl.Controls.Add(regexValidator);
+			}
+
+			if (control is ISettingControl settingControl)
+			{
+				settingControl.SetValue(propertyValue);
+
+				if (!string.IsNullOrWhiteSpace(propertyDefinition.RegexValidationExpression))
+				{
+					AddValidator(settingControl.GetValue());
+				}
+			}
+			else if (control is ICustomField customField)
+			{
+				customField.SetValue(propertyValue);
+
+				if (!string.IsNullOrWhiteSpace(propertyDefinition.RegexValidationExpression))
+				{
+					AddValidator(customField.GetValue());
+				}
+
 			}
 		}
 		else if (propertyDefinition.OptionList.Count > 0)
