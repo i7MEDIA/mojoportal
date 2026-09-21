@@ -40,16 +40,6 @@ public partial class SkinListPage : NonCmsBasePage
 	}
 
 
-	protected string BuildDownloadLink(string skinName)
-	{
-		return $"""
-			<a href='{SiteRoot}/DesignTools/DownloadSkin.aspx?s={skinName}' title='{string.Format(CultureInfo.InvariantCulture, Resource.DownloadSkinFormat, skinName)}' class='skinzip' {_newWindowMarkup}>
-				<img src='{ImageSiteRoot}/Data/SiteImages/Icons/zip.png' alt='{DevTools.DownloadSkin}' />
-			</a>
-			""";
-	}
-
-
 	private void PopulateLabels()
 	{
 		Title = SiteUtils.FormatPageTitle(siteSettings, DevTools.SkinManagement);
