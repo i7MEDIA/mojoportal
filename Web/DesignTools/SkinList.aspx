@@ -19,7 +19,6 @@
 						<ItemTemplate>
 							<li class="simplelist">
 								<%# Eval("Name") %>
-								<%# BuildDownloadLink(Eval("Name").ToString()) %>
 								<asp:HyperLink ID="lnkSkinPreview" runat="server" CssClass="cblink" Text='<%# PreviewText %>' NavigateUrl='<%# SiteRoot + "/?skin=" + Eval("Name")  %>' />
 								<asp:HyperLink ID="lnkManage" runat="server" Visible='<%# allowEditing %>' Text='<%# ManageText %>' NavigateUrl='<%# SiteRoot + "/DesignTools/ManageSkin.aspx?s=" + Eval("Name")  %>' />
 							</li>
