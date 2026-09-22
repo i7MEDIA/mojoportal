@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 
 //http://haacked.com/archive/2010/05/16/three-hidden-extensibility-gems-in-asp-net-4.aspx/
@@ -33,7 +33,7 @@ using System.Reflection;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("2.7.0.9")]
+[assembly: AssemblyVersion("3.1.7.0")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
@@ -69,6 +69,6 @@ using System.Reflection;
 //[assembly: AssemblyKeyName("")]
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyFileVersion("2.7.0.9")]
+[assembly: AssemblyFileVersion("3.1.7.0")]
 
 //[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)]
