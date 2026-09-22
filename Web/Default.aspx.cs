@@ -130,7 +130,26 @@ public partial class CmsPage : mojoBasePage
 				}
 				else
 				{
-					if (CurrentPage.UrlHasBeenAdjustedForFolderSites)
+					string effectiveHostNameOverride = CacheHelper.GetEffectiveHostNameOverride(CurrentPage);
+					if (!string.IsNullOrWhiteSpace(effectiveHostNameOverride))
+					{
+						string protocol = (SiteUtils.SslIsAvailable(siteSettings) && (CurrentPage.RequireSsl || siteSettings.UseSslOnAllPages || WebConfigSettings.ForceSslOnAllPages)) ? "https://" : "http://";
+						if (WebHelper.IsSecureRequest())
+						{
+							protocol = "https://";
+						}
+						string serverPort = HttpContext.Current?.Request.ServerVariables["SERVER_PORT"];
+						if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
+						{
+							serverPort = string.Empty;
+						}
+						else if (!string.IsNullOrWhiteSpace(serverPort))
+						{
+							serverPort = $":{serverPort}";
+						}
+						urlToUse = protocol + effectiveHostNameOverride + serverPort + CurrentPage.Url.Replace("~/", "/");
+					}
+					else if (CurrentPage.UrlHasBeenAdjustedForFolderSites)
 					{
 						urlToUse = WebUtils.GetSiteRoot() + CurrentPage.Url.Replace("~/", "/");
 					}

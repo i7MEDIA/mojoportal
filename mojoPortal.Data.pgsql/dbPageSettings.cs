@@ -76,7 +76,9 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("INSERT INTO mp_pages (");
@@ -144,7 +146,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("pcreatedfromip, ");
             sqlCommand.Append("plastmodutc, ");
             sqlCommand.Append("plastmodby, ");
-            sqlCommand.Append("plastmodfromip ");
+            sqlCommand.Append("plastmodfromip, ");
+            sqlCommand.Append("hostnameoverride, ");
+            sqlCommand.Append("hostnameredirectmode ");
 
             sqlCommand.Append(")");
 
@@ -212,14 +216,16 @@ namespace mojoPortal.Data
             sqlCommand.Append(":pcreatedfromip, ");
             sqlCommand.Append(":plastmodutc, ");
             sqlCommand.Append(":plastmodby, ");
-            sqlCommand.Append(":plastmodfromip ");
+            sqlCommand.Append(":plastmodfromip, ");
+            sqlCommand.Append(":hostnameoverride, ");
+            sqlCommand.Append(":hostnameredirectmode ");
 
             sqlCommand.Append(")");
 
             sqlCommand.Append(";");
             sqlCommand.Append(" SELECT CURRVAL('mp_pages_pageid_seq');");
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[60];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[62];
 
             arParams[0] = new NpgsqlParameter(":parentid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
@@ -468,6 +474,14 @@ namespace mojoPortal.Data
             {
                 arParams[59].Value = pubDateUtc;
             }
+
+            arParams[60] = new NpgsqlParameter(":hostnameoverride", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[60].Direction = ParameterDirection.Input;
+            arParams[60].Value = hostNameOverride;
+
+            arParams[61] = new NpgsqlParameter(":hostnameredirectmode", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[61].Direction = ParameterDirection.Input;
+            arParams[61].Value = hostNameRedirectMode;
             
 
             
@@ -539,7 +553,9 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode)
         {
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("UPDATE mp_pages ");
@@ -607,13 +623,15 @@ namespace mojoPortal.Data
             sqlCommand.Append("pcreatedby = :pcreatedby, ");
             sqlCommand.Append("plastmodutc = :plastmodutc, ");
             sqlCommand.Append("plastmodby = :plastmodby, ");
-            sqlCommand.Append("plastmodfromip = :plastmodfromip ");
+            sqlCommand.Append("plastmodfromip = :plastmodfromip, ");
+            sqlCommand.Append("hostnameoverride = :hostnameoverride, ");
+            sqlCommand.Append("hostnameredirectmode = :hostnameredirectmode ");
 
             sqlCommand.Append("WHERE  ");
             sqlCommand.Append("pageid = :pageid ");
             sqlCommand.Append(";");
 
-            NpgsqlParameter[] arParams = new NpgsqlParameter[57];
+            NpgsqlParameter[] arParams = new NpgsqlParameter[59];
 
             arParams[0] = new NpgsqlParameter(":pageid", NpgsqlTypes.NpgsqlDbType.Integer);
             arParams[0].Direction = ParameterDirection.Input;
@@ -850,6 +868,14 @@ namespace mojoPortal.Data
             {
                 arParams[56].Value = pubDateUtc;
             }
+
+            arParams[57] = new NpgsqlParameter(":hostnameoverride", NpgsqlTypes.NpgsqlDbType.Varchar, 255);
+            arParams[57].Direction = ParameterDirection.Input;
+            arParams[57].Value = hostNameOverride;
+
+            arParams[58] = new NpgsqlParameter(":hostnameredirectmode", NpgsqlTypes.NpgsqlDbType.Integer);
+            arParams[58].Direction = ParameterDirection.Input;
+            arParams[58].Value = hostNameRedirectMode;
 
             int rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
                 CommandType.Text,

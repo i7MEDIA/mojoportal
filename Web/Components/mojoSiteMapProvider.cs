@@ -117,7 +117,7 @@ public class mojoSiteMapProvider : StaticSiteMapProvider
         {
             if (p.ParentId == page.PageId)
             {
-                SiteMapNode childNode = CreateSiteMapNode(p, depth);
+                SiteMapNode childNode = CreateSiteMapNode(p, depth, node);
                 try
                 {
                     AddNode(childNode, node);
@@ -142,12 +142,21 @@ public class mojoSiteMapProvider : StaticSiteMapProvider
     }
 
 
-    private SiteMapNode CreateSiteMapNode(PageSettings page, int depth)
+    private SiteMapNode CreateSiteMapNode(PageSettings page, int depth, mojoSiteMapNode parentNode = null)
     {
         List<string> roleList = null;
         if (!String.IsNullOrEmpty(page.AuthorizedRoles))
         {
             roleList = page.AuthorizedRoles.SplitOnChar(';');
+        }
+
+        string effectiveHostNameOverride = page.HostNameOverride;
+        PageHostNameRedirectMode effectiveHostNameRedirectMode = page.HostNameRedirectMode;
+
+        if (string.IsNullOrEmpty(effectiveHostNameOverride) && parentNode != null && !string.IsNullOrEmpty(parentNode.HostNameOverride))
+        {
+            effectiveHostNameOverride = parentNode.HostNameOverride;
+            effectiveHostNameRedirectMode = parentNode.HostNameRedirectMode;
         }
 
         string pageUrl;
@@ -204,7 +213,9 @@ public class mojoSiteMapProvider : StaticSiteMapProvider
 				MenuDescription = page.MenuDescription,
 				MenuImage = page.MenuImage,
 				LinkRel = page.LinkRel,
-				PubDateUtc = page.PubDateUtc
+				PubDateUtc = page.PubDateUtc,
+				HostNameOverride = effectiveHostNameOverride,
+				HostNameRedirectMode = effectiveHostNameRedirectMode
 			};
 
 			if (!this.nodes.ContainsKey(page.PageId))

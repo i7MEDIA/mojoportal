@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -4379,6 +4379,21 @@
   </data>
   <data name="PageSettingsCanonicalOverride" xml:space="preserve">
     <value>Canonical URL Override</value>
+  </data>
+  <data name="PageSettingsHostNameOverrideLabel" xml:space="preserve">
+    <value>Host Name Override</value>
+  </data>
+  <data name="PageSettingsHostNameRedirectModeLabel" xml:space="preserve">
+    <value>Host Name Redirect Mode</value>
+  </data>
+  <data name="PageHostNameRedirectModeNone" xml:space="preserve">
+    <value>None (No Redirect)</value>
+  </data>
+  <data name="PageHostNameRedirectMode301" xml:space="preserve">
+    <value>301 (Permanent Redirect)</value>
+  </data>
+  <data name="PageHostNameRedirectMode302" xml:space="preserve">
+    <value>302 (Temporary Redirect)</value>
   </data>
   <data name="DisableDbAuthentication" xml:space="preserve">
     <value>Disable Database Authentication?</value>

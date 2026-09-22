@@ -674,6 +674,16 @@
 									<portal:mojoHelpLink ID="MojoHelpLink31" runat="server" HelpKey="pagesettings-CannonicalOverride-help" />
 								</div>
 								<div class="settingrow">
+									<mp:SiteLabel ID="lblHostNameOverride" runat="server" ForControl="txtHostNameOverride" CssClass="settinglabel" ConfigKey="PageSettingsHostNameOverrideLabel" />
+									<asp:TextBox ID="txtHostNameOverride" runat="server" MaxLength="255" CssClass="forminput verywidetextbox"></asp:TextBox>
+									<portal:mojoHelpLink ID="hlpHostNameOverride" runat="server" HelpKey="pagesettings-HostNameOverride-help" />
+								</div>
+								<div class="settingrow">
+									<mp:SiteLabel ID="lblHostNameRedirectMode" runat="server" ForControl="ddHostNameRedirectMode" CssClass="settinglabel" ConfigKey="PageSettingsHostNameRedirectModeLabel" />
+									<asp:DropDownList ID="ddHostNameRedirectMode" runat="server" CssClass="forminput" />
+									<portal:mojoHelpLink ID="hlpHostNameRedirectMode" runat="server" HelpKey="pagesettings-HostNameRedirectMode-help" />
+								</div>
+								<div class="settingrow">
 									<mp:SiteLabel ID="SiteLabel8" runat="server" CssClass="settinglabel" ConfigKey="spacer" />
 								</div>
 							</div>

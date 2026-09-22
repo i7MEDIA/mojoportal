@@ -67,6 +67,8 @@ public class mojoSiteMapNode : SiteMapNode
 
 
 		public string MenuDescription { get; set; } = string.Empty;
+		public string HostNameOverride { get; set; } = string.Empty;
+		public PageHostNameRedirectMode HostNameRedirectMode { get; set; } = PageHostNameRedirectMode.None;
 
 		public PageChangeFrequency ChangeFrequency
     {

@@ -42,6 +42,6 @@
 	<MSBuild 
 		Projects="..\mojoPortal.Features.UI\mojoPortal.Features.UI.csproj;
 		..\Plugins\SuperFlexi\SuperFlexiUI\SuperFlexiUI.csproj"
-		Properties="Configuration=$(Configuration)" />		
+		Properties="Configuration=$(Configuration);BuildProjectReferences=false" />		
   </Target>
 </Project>

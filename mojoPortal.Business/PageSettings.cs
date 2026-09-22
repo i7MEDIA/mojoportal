@@ -193,6 +193,10 @@ namespace mojoPortal.Business
 
 		public string CanonicalOverride { get; set; } = string.Empty;
 
+		public string HostNameOverride { get; set; } = string.Empty;
+
+		public PageHostNameRedirectMode HostNameRedirectMode { get; set; } = PageHostNameRedirectMode.None;
+
 		public bool IncludeInSearchMap { get; set; } = true;
 
 		public bool IncludeInChildSiteMap { get; set; } = true;
@@ -426,6 +430,16 @@ namespace mojoPortal.Business
 				this.LinkRel = reader["LinkRel"].ToString();
 				this.PageHeading = reader["PageHeading"].ToString();
 
+				if (reader["HostNameOverride"] != DBNull.Value)
+				{
+					this.HostNameOverride = reader["HostNameOverride"].ToString();
+				}
+
+				if (reader["HostNameRedirectMode"] != DBNull.Value)
+				{
+					this.HostNameRedirectMode = (PageHostNameRedirectMode)Convert.ToInt32(reader["HostNameRedirectMode"]);
+				}
+
 
 			}
 
@@ -517,7 +531,9 @@ namespace mojoPortal.Business
 				this.LinkRel,
 				this.PageHeading,
 				this.ShowPageHeading,
-				this.PubDateUtc);
+				this.PubDateUtc,
+				this.HostNameOverride,
+				(int)this.HostNameRedirectMode);
 
 			this.PageId = newID;
 
@@ -592,7 +608,9 @@ namespace mojoPortal.Business
 				this.LinkRel,
 				this.PageHeading,
 				this.ShowPageHeading,
-				this.PubDateUtc);
+				this.PubDateUtc,
+				this.HostNameOverride,
+				(int)this.HostNameRedirectMode);
 		}
 
 

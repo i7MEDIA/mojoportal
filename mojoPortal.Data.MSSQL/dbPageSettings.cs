@@ -77,10 +77,12 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode)
         {
 
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Pages_Insert", 60); 
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Pages_Insert", 62); 
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
             sph.DefineSqlParameter("@ParentID", SqlDbType.Int, ParameterDirection.Input, parentId);
             sph.DefineSqlParameter("@PageName", SqlDbType.NVarChar, 255, ParameterDirection.Input, pageName);
@@ -151,6 +153,9 @@ namespace mojoPortal.Data
             {
                 sph.DefineSqlParameter("@PubDateUtc", SqlDbType.DateTime, ParameterDirection.Input, pubDateUtc);
             }
+
+            sph.DefineSqlParameter("@HostNameOverride", SqlDbType.NVarChar, 255, ParameterDirection.Input, hostNameOverride);
+            sph.DefineSqlParameter("@HostNameRedirectMode", SqlDbType.Int, ParameterDirection.Input, hostNameRedirectMode);
             
 
             int newID = Convert.ToInt32(sph.ExecuteScalar());
@@ -213,9 +218,11 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode)
         {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Pages_Update", 58);
+            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "mp_Pages_Update", 60);
             sph.DefineSqlParameter("@SiteID", SqlDbType.Int, ParameterDirection.Input, siteId);
             sph.DefineSqlParameter("@PageID", SqlDbType.Int, ParameterDirection.Input, pageId);
             sph.DefineSqlParameter("@ParentID", SqlDbType.Int, ParameterDirection.Input, parentId);
@@ -283,6 +290,9 @@ namespace mojoPortal.Data
             {
                 sph.DefineSqlParameter("@PubDateUtc", SqlDbType.DateTime, ParameterDirection.Input, pubDateUtc);
             }
+
+            sph.DefineSqlParameter("@HostNameOverride", SqlDbType.NVarChar, 255, ParameterDirection.Input, hostNameOverride);
+            sph.DefineSqlParameter("@HostNameRedirectMode", SqlDbType.Int, ParameterDirection.Input, hostNameRedirectMode);
             
 
             int rowsAffected = sph.ExecuteNonQuery();

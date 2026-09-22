@@ -96,7 +96,9 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode
             )
         {
 
@@ -234,23 +236,16 @@ namespace mojoPortal.Data
             {
                 bcache = 0;
             }
-
             int intIncludeInChildSiteMap = 0;
-            if (includeInChildSiteMap)
-            {
-                intIncludeInChildSiteMap = 1;
-            }
+            if (includeInChildSiteMap) { intIncludeInChildSiteMap = 1; }
 
-            int intShowPageHeading = 0;
-            if (showPageHeading)
-            {
-                intShowPageHeading = 1;
-            }
+            int intShowPageHeading = 1;
+            if (!showPageHeading) { intShowPageHeading = 0; }
 
             #endregion
 
             StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("INSERT INTO mp_Pages ( ");
+            sqlCommand.Append("INSERT INTO mp_Pages (");
             sqlCommand.Append("SiteID, ");
             sqlCommand.Append("ParentID, ");
             sqlCommand.Append("PageName, ");
@@ -315,7 +310,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("PCreatedFromIp, ");
             sqlCommand.Append("PLastModUtc, ");
             sqlCommand.Append("PLastModBy, ");
-            sqlCommand.Append("PLastModFromIp ");
+            sqlCommand.Append("PLastModFromIp, ");
+            sqlCommand.Append("HostNameOverride, ");
+            sqlCommand.Append("HostNameRedirectMode ");
 
             sqlCommand.Append(")");
 
@@ -384,14 +381,16 @@ namespace mojoPortal.Data
             sqlCommand.Append(":PCreatedFromIp, ");
             sqlCommand.Append(":PLastModUtc, ");
             sqlCommand.Append(":PLastModBy, ");
-            sqlCommand.Append(":PLastModFromIp ");
+            sqlCommand.Append(":PLastModFromIp, ");
+            sqlCommand.Append(":HostNameOverride, ");
+            sqlCommand.Append(":HostNameRedirectMode ");
 
             sqlCommand.Append(")");
             sqlCommand.Append(";");
 
             sqlCommand.Append("SELECT LAST_INSERT_ROWID();");
 
-            SqliteParameter[] arParams = new SqliteParameter[60];
+            SqliteParameter[] arParams = new SqliteParameter[62];
 
             arParams[0] = new SqliteParameter(":SiteID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -641,6 +640,14 @@ namespace mojoPortal.Data
                 arParams[59].Value = pubDateUtc;
             }
 
+            arParams[60] = new SqliteParameter(":HostNameOverride", DbType.String, 255);
+            arParams[60].Direction = ParameterDirection.Input;
+            arParams[60].Value = hostNameOverride;
+
+            arParams[61] = new SqliteParameter(":HostNameRedirectMode", DbType.Int32);
+            arParams[61].Direction = ParameterDirection.Input;
+            arParams[61].Value = hostNameRedirectMode;
+
 
             int newID = Convert.ToInt32(SqliteHelper.ExecuteScalar(
                 GetConnectionString(),
@@ -707,7 +714,9 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode)
         {
 
             #region byte conversion
@@ -924,11 +933,13 @@ namespace mojoPortal.Data
             sqlCommand.Append("PCreatedBy = :PCreatedBy, ");
             sqlCommand.Append("PLastModUtc = :PLastModUtc, ");
             sqlCommand.Append("PLastModBy = :PLastModBy, ");
-            sqlCommand.Append("PLastModFromIp = :PLastModFromIp "); 
+            sqlCommand.Append("PLastModFromIp = :PLastModFromIp, "); 
+            sqlCommand.Append("HostNameOverride = :HostNameOverride, ");
+            sqlCommand.Append("HostNameRedirectMode = :HostNameRedirectMode ");
 
             sqlCommand.Append("WHERE PageID = :PageID ;");
 
-            SqliteParameter[] arParams = new SqliteParameter[57];
+            SqliteParameter[] arParams = new SqliteParameter[59];
 
             arParams[0] = new SqliteParameter(":PageID", DbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -1165,6 +1176,14 @@ namespace mojoPortal.Data
             {
                 arParams[56].Value = pubDateUtc;
             }
+
+            arParams[57] = new SqliteParameter(":HostNameOverride", DbType.String, 255);
+            arParams[57].Direction = ParameterDirection.Input;
+            arParams[57].Value = hostNameOverride;
+
+            arParams[58] = new SqliteParameter(":HostNameRedirectMode", DbType.Int32);
+            arParams[58].Direction = ParameterDirection.Input;
+            arParams[58].Value = hostNameRedirectMode;
             
 
 

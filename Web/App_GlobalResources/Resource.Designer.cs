@@ -12040,6 +12040,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Host Name Override.
+        /// </summary>
+        internal static string PageSettingsHostNameOverrideLabel {
+            get {
+                return ResourceManager.GetString("PageSettingsHostNameOverrideLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host Name Redirect Mode.
+        /// </summary>
+        internal static string PageSettingsHostNameRedirectModeLabel {
+            get {
+                return ResourceManager.GetString("PageSettingsHostNameRedirectModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None (No Redirect).
+        /// </summary>
+        internal static string PageHostNameRedirectModeNone {
+            get {
+                return ResourceManager.GetString("PageHostNameRedirectModeNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 301 (Permanent Redirect).
+        /// </summary>
+        internal static string PageHostNameRedirectMode301 {
+            get {
+                return ResourceManager.GetString("PageHostNameRedirectMode301", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 302 (Temporary Redirect).
+        /// </summary>
+        internal static string PageHostNameRedirectMode302 {
+            get {
+                return ResourceManager.GetString("PageHostNameRedirectMode302", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Frequency.
         /// </summary>
         internal static string PageSettingsChangeFrequencyLabel {

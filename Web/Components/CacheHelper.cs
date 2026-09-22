@@ -221,6 +221,15 @@ public static class CacheHelper
 		{
 			HttpRuntime.Cache.Remove(cacheKey);
 		}
+
+		if (GetCurrentSiteSettings() is SiteSettings siteSettings)
+		{
+			var hostMapKey = Invariant($"PageHostNameMap_{siteSettings.SiteId}");
+			if (HttpRuntime.Cache[hostMapKey] is not null)
+			{
+				HttpRuntime.Cache.Remove(hostMapKey);
+			}
+		}
 	}
 
 	public static void ResetSiteMapCache(int siteId)
@@ -236,6 +245,12 @@ public static class CacheHelper
 		if (HttpRuntime.Cache[cacheKey] is not null)
 		{
 			HttpRuntime.Cache.Remove(cacheKey);
+		}
+
+		var hostMapKey = Invariant($"PageHostNameMap_{siteId}");
+		if (HttpRuntime.Cache[hostMapKey] is not null)
+		{
+			HttpRuntime.Cache.Remove(hostMapKey);
 		}
 	}
 
@@ -901,6 +916,16 @@ public static class CacheHelper
 					pageDetails.PubDateUtc = Convert.ToDateTime(reader["PubDateUtc"]);
 				}
 
+				if (reader["HostNameOverride"] != DBNull.Value)
+				{
+					pageDetails.HostNameOverride = reader["HostNameOverride"].ToString();
+				}
+
+				if (reader["HostNameRedirectMode"] != DBNull.Value)
+				{
+					pageDetails.HostNameRedirectMode = (PageHostNameRedirectMode)Convert.ToInt32(reader["HostNameRedirectMode"]);
+				}
+
 				if (AppConfig.MultiTenancy.UseFolders
 					&& !string.IsNullOrWhiteSpace(virtualFolder)
 					&& pageDetails.Url.StartsWith("~/")
@@ -949,4 +974,159 @@ public static class CacheHelper
 	#endregion
 
 	public static string GetPathToWebConfigFile() => HostingEnvironment.MapPath("~/web.config");
+
+	#region Page Host Name Override Mapping
+
+	public static SitePageHostNameMap GetEffectivePageHostNameMap(int siteId)
+	{
+		var cacheKey = Invariant($"PageHostNameMap_{siteId}");
+		if (HttpRuntime.Cache[cacheKey] is SitePageHostNameMap cachedMap)
+		{
+			return cachedMap;
+		}
+
+		var map = new SitePageHostNameMap();
+		var menuPages = GetMenuPages();
+		if (menuPages == null || menuPages.Count == 0)
+		{
+			return map;
+		}
+
+		var pagesById = new Dictionary<int, PageSettings>();
+		foreach (var p in menuPages)
+		{
+			if (!pagesById.ContainsKey(p.PageId))
+			{
+				pagesById.Add(p.PageId, p);
+			}
+		}
+
+		foreach (var page in menuPages)
+		{
+			var hostInfo = ResolveEffectiveHostNameInfo(page, pagesById);
+			map.PageIdToHostInfo[page.PageId] = hostInfo;
+
+			if (!string.IsNullOrWhiteSpace(page.Url))
+			{
+				string cleanUrl = page.Url.Replace("~/", "/").Trim('/');
+				if (cleanUrl.Length > 0 && !cleanUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+				{
+					map.PathToHostInfo[cleanUrl] = hostInfo;
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(page.UnmodifiedUrl))
+			{
+				string cleanUnmod = page.UnmodifiedUrl.Replace("~/", "/").Trim('/');
+				if (cleanUnmod.Length > 0 && !cleanUnmod.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+				{
+					map.PathToHostInfo[cleanUnmod] = hostInfo;
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(hostInfo.HostNameOverride))
+			{
+				map.ConfiguredHostNames.Add(hostInfo.HostNameOverride);
+
+				if (!map.HostToRootLandingUrl.ContainsKey(hostInfo.HostNameOverride))
+				{
+					string landingUrl = page.Url.Replace("~/", "/");
+					if (!landingUrl.StartsWith("/"))
+					{
+						landingUrl = "/" + landingUrl;
+					}
+					map.HostToRootLandingUrl[hostInfo.HostNameOverride] = landingUrl;
+				}
+			}
+		}
+
+		HttpRuntime.Cache.Insert(
+			cacheKey,
+			map,
+			null,
+			DateTime.UtcNow.AddMinutes(15),
+			Cache.NoSlidingExpiration,
+			CacheItemPriority.Normal,
+			null);
+
+		return map;
+	}
+
+	public static string GetEffectiveHostNameOverride(PageSettings page)
+	{
+		if (page == null) return string.Empty;
+		if (!string.IsNullOrWhiteSpace(page.HostNameOverride)) return page.HostNameOverride.Trim();
+
+		if (page.ParentId > -1)
+		{
+			var menuPages = GetMenuPages();
+			if (menuPages != null)
+			{
+				var pagesById = new Dictionary<int, PageSettings>();
+				foreach (var p in menuPages)
+				{
+					if (!pagesById.ContainsKey(p.PageId))
+					{
+						pagesById.Add(p.PageId, p);
+					}
+				}
+				var info = ResolveEffectiveHostNameInfo(page, pagesById);
+				return info.HostNameOverride;
+			}
+		}
+
+		return string.Empty;
+	}
+
+	private static PageHostNameInfo ResolveEffectiveHostNameInfo(PageSettings page, IDictionary<int, PageSettings> pagesById)
+	{
+		var visited = new HashSet<int>();
+		var current = page;
+		while (current != null && !visited.Contains(current.PageId))
+		{
+			visited.Add(current.PageId);
+			if (!string.IsNullOrWhiteSpace(current.HostNameOverride))
+			{
+				return new PageHostNameInfo
+				{
+					HostNameOverride = current.HostNameOverride.Trim(),
+					RedirectMode = current.HostNameRedirectMode,
+					PageUrl = page.Url
+				};
+			}
+
+			if (current.ParentId > -1 && pagesById.TryGetValue(current.ParentId, out var parent))
+			{
+				current = parent;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		return new PageHostNameInfo
+		{
+			HostNameOverride = string.Empty,
+			RedirectMode = PageHostNameRedirectMode.None,
+			PageUrl = page.Url
+		};
+	}
+
+	#endregion
+}
+
+public class PageHostNameInfo
+{
+	public string HostNameOverride { get; set; } = string.Empty;
+	public PageHostNameRedirectMode RedirectMode { get; set; } = PageHostNameRedirectMode.None;
+	public string PageUrl { get; set; } = string.Empty;
+}
+
+public class SitePageHostNameMap
+{
+	public Dictionary<string, PageHostNameInfo> PathToHostInfo { get; } = new(StringComparer.OrdinalIgnoreCase);
+	public Dictionary<int, PageHostNameInfo> PageIdToHostInfo { get; } = new();
+	public Dictionary<string, string> HostToRootLandingUrl { get; } = new(StringComparer.OrdinalIgnoreCase);
+	public HashSet<string> ConfiguredHostNames { get; } = new(StringComparer.OrdinalIgnoreCase);
 }

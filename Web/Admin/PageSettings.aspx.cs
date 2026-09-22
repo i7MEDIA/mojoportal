@@ -248,6 +248,7 @@ namespace mojoPortal.Web.AdminUI
 		{
 			PopulatePageList();
 			PopulateChangeFrequencyDropdown();
+			PopulateHostNameRedirectModeDropdown();
 
 			ListItem listItem;
 
@@ -300,6 +301,13 @@ namespace mojoPortal.Web.AdminUI
 			if (listItem != null)
 			{
 				ddChangeFrequency.ClearSelection();
+				listItem.Selected = true;
+			}
+
+			listItem = ddHostNameRedirectMode.Items.FindByValue(((int)PageHostNameRedirectMode.None).ToInvariantString());
+			if (listItem != null)
+			{
+				ddHostNameRedirectMode.ClearSelection();
 				listItem.Selected = true;
 			}
 
@@ -377,6 +385,13 @@ namespace mojoPortal.Web.AdminUI
 				lnkViewPage.NavigateUrl = SiteUtils.GetCurrentPageUrl();
 				chkIncludeInSearchEngineSiteMap.Checked = pageSettings.IncludeInSearchMap;
 				txtCannonicalOverride.Text = pageSettings.CanonicalOverride;
+				txtHostNameOverride.Text = pageSettings.HostNameOverride;
+				listItem = ddHostNameRedirectMode.Items.FindByValue(((int)pageSettings.HostNameRedirectMode).ToInvariantString());
+				if (listItem != null)
+				{
+					ddHostNameRedirectMode.ClearSelection();
+					listItem.Selected = true;
+				}
 
 				txtBodyCssClass.Text = pageSettings.BodyCssClass;
 				txtMenuCssClass.Text = pageSettings.MenuCssClass;
@@ -673,6 +688,15 @@ namespace mojoPortal.Web.AdminUI
 
 			listItem = new ListItem(Resource.PageChangeFrequencyNever, "Never");
 			ddChangeFrequency.Items.Add(listItem);
+		}
+
+		private void PopulateHostNameRedirectModeDropdown()
+		{
+			ddHostNameRedirectMode.Items.Clear();
+
+			ddHostNameRedirectMode.Items.Add(new ListItem(Resource.PageHostNameRedirectModeNone, ((int)PageHostNameRedirectMode.None).ToInvariantString()));
+			ddHostNameRedirectMode.Items.Add(new ListItem(Resource.PageHostNameRedirectMode301, ((int)PageHostNameRedirectMode.Permanent301).ToInvariantString()));
+			ddHostNameRedirectMode.Items.Add(new ListItem(Resource.PageHostNameRedirectMode302, ((int)PageHostNameRedirectMode.Temporary302).ToInvariantString()));
 		}
 
 		private void PopulatePageList()
@@ -999,6 +1023,27 @@ namespace mojoPortal.Web.AdminUI
 			pageSettings.HideAfterLogin = chkHideAfterLogin.Checked;
 			pageSettings.IncludeInSearchMap = chkIncludeInSearchEngineSiteMap.Checked;
 			pageSettings.CanonicalOverride = txtCannonicalOverride.Text;
+			string hostNameOverride = txtHostNameOverride.Text.Trim();
+			if (hostNameOverride.StartsWith("http://", StringComparison.OrdinalIgnoreCase))
+			{
+				hostNameOverride = hostNameOverride.Substring(7);
+			}
+			else if (hostNameOverride.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+			{
+				hostNameOverride = hostNameOverride.Substring(8);
+			}
+			hostNameOverride = hostNameOverride.TrimEnd('/');
+			pageSettings.HostNameOverride = hostNameOverride;
+
+			int redirectModeVal;
+			if (int.TryParse(ddHostNameRedirectMode.SelectedValue, out redirectModeVal) && Enum.IsDefined(typeof(PageHostNameRedirectMode), redirectModeVal))
+			{
+				pageSettings.HostNameRedirectMode = (PageHostNameRedirectMode)redirectModeVal;
+			}
+			else
+			{
+				pageSettings.HostNameRedirectMode = PageHostNameRedirectMode.None;
+			}
 			pageSettings.EnableComments = chkEnableComments.Checked;
 			pageSettings.BodyCssClass = txtBodyCssClass.Text;
 			pageSettings.MenuCssClass = txtMenuCssClass.Text;

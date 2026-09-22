@@ -389,6 +389,11 @@ public class Global : HttpApplication
 
 	private void HandleRedirects(int siteCount)
 	{
+		if (WebUtils.IsRequestForStaticFile(Request.Path))
+		{
+			return;
+		}
+
 		// This will only be the case when the site has yet to be installed
 		if (siteCount == 0)
 		{
@@ -414,6 +419,7 @@ public class Global : HttpApplication
 		var protocol = useHttps ? "https://" : "http://";
 		string redirectUrl = null;
 		var doRedirect = false;
+		PageHostNameRedirectMode redirectModeToUse = PageHostNameRedirectMode.Permanent301;
 
 		if (useHttps)
 		{
@@ -437,50 +443,129 @@ public class Global : HttpApplication
 			}
 		}
 
-		if (
-			WebConfigSettings.AllowForcingPreferredHostName && 
-			siteSettings is not null &&
-			!string.IsNullOrWhiteSpace(siteSettings.PreferredHostName)
-		)
+		if (siteSettings is not null)
 		{
 			var requestedHostName = WebUtils.GetHostName();
+			var serverPort = HttpContext.Current?.Request.ServerVariables["SERVER_PORT"];
 
-			if (siteSettings.PreferredHostName != requestedHostName)
+			if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
 			{
-				doRedirect = true;
+				serverPort = string.Empty;
+			}
+			else if (!string.IsNullOrWhiteSpace(serverPort))
+			{
+				serverPort = $":{serverPort}";
+			}
 
-				var serverPort = HttpContext.Current.Request.ServerVariables["SERVER_PORT"];
+			var hostMap = CacheHelper.GetEffectivePageHostNameMap(siteSettings.SiteId);
 
-				if (!string.IsNullOrWhiteSpace(serverPort) && (serverPort == "80" || serverPort == "443"))
+			// Determine if this request is for a specific page with a host override
+			PageHostNameInfo pageHostInfo = null;
+
+			if (!string.IsNullOrWhiteSpace(Request.QueryString["pageid"]) &&
+				int.TryParse(Request.QueryString["pageid"], out int pageId) &&
+				hostMap.PageIdToHostInfo.TryGetValue(pageId, out var infoByPid))
+			{
+				pageHostInfo = infoByPid;
+			}
+			else
+			{
+				string appRoot = WebUtils.GetApplicationRoot();
+				string path = Request.Path;
+				if (!string.IsNullOrEmpty(appRoot) && path.StartsWith(appRoot, StringComparison.OrdinalIgnoreCase))
 				{
-					serverPort = string.Empty;
+					path = path.Substring(appRoot.Length);
+				}
+				path = path.Trim('/');
+
+				if (!string.IsNullOrEmpty(path))
+				{
+					hostMap.PathToHostInfo.TryGetValue(path, out pageHostInfo);
 				}
 				else
 				{
-					serverPort = $":{serverPort}";
-				}
+					// Root request: check if requested host has a root landing page
+					if (hostMap.HostToRootLandingUrl.TryGetValue(requestedHostName, out var rootLandingUrl))
+					{
+						string cleanRootLanding = rootLandingUrl.Trim('/');
+						hostMap.PathToHostInfo.TryGetValue(cleanRootLanding, out pageHostInfo);
 
-				if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
-				{
-					redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
+						if (pageHostInfo != null)
+						{
+							doRedirect = true;
+							redirectUrl = protocol + requestedHostName + serverPort + rootLandingUrl;
+							redirectModeToUse = pageHostInfo.RedirectMode != PageHostNameRedirectMode.None
+								? pageHostInfo.RedirectMode
+								: PageHostNameRedirectMode.Permanent301;
+						}
+					}
 				}
-				else
-				{
-					redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
-				}
+			}
 
-				if (WebConfigSettings.LogRedirectsToPreferredHostName)
+			if (pageHostInfo != null && !string.IsNullOrWhiteSpace(pageHostInfo.HostNameOverride))
+			{
+				// Page has a HostNameOverride!
+				if (!string.Equals(requestedHostName, pageHostInfo.HostNameOverride, StringComparison.OrdinalIgnoreCase))
 				{
-					log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
+					// Request arrived on alternate host
+					if (pageHostInfo.RedirectMode == PageHostNameRedirectMode.None)
+					{
+						// Do not redirect between hosts if mode is None
+					}
+					else
+					{
+						doRedirect = true;
+						redirectModeToUse = pageHostInfo.RedirectMode;
+						redirectUrl = protocol + pageHostInfo.HostNameOverride + serverPort + Request.RawUrl;
+
+						if (WebConfigSettings.LogRedirectsToPreferredHostName)
+						{
+							log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to page override host name {redirectUrl} with mode {redirectModeToUse}");
+						}
+					}
+				}
+			}
+			else if (WebConfigSettings.AllowForcingPreferredHostName && !string.IsNullOrWhiteSpace(siteSettings.PreferredHostName))
+			{
+				if (!string.Equals(requestedHostName, siteSettings.PreferredHostName, StringComparison.OrdinalIgnoreCase))
+				{
+					doRedirect = true;
+					redirectModeToUse = WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName
+						? PageHostNameRedirectMode.Permanent301
+						: PageHostNameRedirectMode.Temporary302;
+
+					if (WebConfigSettings.RedirectToRootWhenEnforcingPreferredHostName)
+					{
+						redirectUrl = protocol + siteSettings.PreferredHostName + serverPort;
+					}
+					else
+					{
+						redirectUrl = protocol + siteSettings.PreferredHostName + serverPort + Request.RawUrl;
+					}
+
+					if (WebConfigSettings.LogRedirectsToPreferredHostName)
+					{
+						log.Info($"received a request for hostname {requestedHostName}{serverPort}{Request.RawUrl}, redirecting to preferred host name {redirectUrl}");
+					}
 				}
 			}
 		}
 
-		if (doRedirect)
+		if (doRedirect && !string.IsNullOrWhiteSpace(redirectUrl))
 		{
-			if (WebConfigSettings.Use301RedirectWhenEnforcingPreferredHostName)
+			if (redirectModeToUse == PageHostNameRedirectMode.Permanent301)
 			{
 				Response.Status = "301 Moved Permanently";
+				Response.AddHeader("Location", redirectUrl);
+				Response.Cache.SetNoStore();
+				Response.Cache.SetCacheability(HttpCacheability.NoCache);
+				Response.Cache.SetRevalidation(HttpCacheRevalidation.AllCaches);
+
+				return;
+			}
+			else if (redirectModeToUse == PageHostNameRedirectMode.Temporary302)
+			{
+				Response.Status = "302 Found";
 				Response.AddHeader("Location", redirectUrl);
 				Response.Cache.SetNoStore();
 				Response.Cache.SetCacheability(HttpCacheability.NoCache);

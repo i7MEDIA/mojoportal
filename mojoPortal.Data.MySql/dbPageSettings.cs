@@ -81,7 +81,9 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode)
         {
 
             #region byte conversion
@@ -264,7 +266,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("PCreatedFromIp, ");
             sqlCommand.Append("PLastModUtc, ");
             sqlCommand.Append("PLastModBy, ");
-            sqlCommand.Append("PLastModFromIp ");
+            sqlCommand.Append("PLastModFromIp, ");
+            sqlCommand.Append("HostNameOverride, ");
+            sqlCommand.Append("HostNameRedirectMode ");
 
 
             sqlCommand.Append(")");
@@ -335,7 +339,9 @@ namespace mojoPortal.Data
             sqlCommand.Append("?PCreatedFromIp, ");
             sqlCommand.Append("?PLastModUtc, ");
             sqlCommand.Append("?PLastModBy, ");
-            sqlCommand.Append("?PLastModFromIp ");
+            sqlCommand.Append("?PLastModFromIp, ");
+            sqlCommand.Append("?HostNameOverride, ");
+            sqlCommand.Append("?HostNameRedirectMode ");
 
             sqlCommand.Append(")");
 
@@ -344,7 +350,7 @@ namespace mojoPortal.Data
 
             sqlCommand.Append("SELECT LAST_INSERT_ID();");
 
-            MySqlParameter[] arParams = new MySqlParameter[60];
+            MySqlParameter[] arParams = new MySqlParameter[62];
 
             arParams[0] = new MySqlParameter("?SiteID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -594,6 +600,14 @@ namespace mojoPortal.Data
             {
                 arParams[59].Value = pubDateUtc;
             }
+
+            arParams[60] = new MySqlParameter("?HostNameOverride", MySqlDbType.VarChar, 255);
+            arParams[60].Direction = ParameterDirection.Input;
+            arParams[60].Value = hostNameOverride;
+
+            arParams[61] = new MySqlParameter("?HostNameRedirectMode", MySqlDbType.Int32);
+            arParams[61].Direction = ParameterDirection.Input;
+            arParams[61].Value = hostNameRedirectMode;
             
 
             int newID = Convert.ToInt32(MySqlHelper.ExecuteScalar(
@@ -661,7 +675,9 @@ namespace mojoPortal.Data
             string linkRel,
             string pageHeading,
             bool showPageHeading,
-            DateTime pubDateUtc)
+            DateTime pubDateUtc,
+            string hostNameOverride,
+            int hostNameRedirectMode)
         {
 
             #region byte conversion
@@ -871,11 +887,13 @@ namespace mojoPortal.Data
             sqlCommand.Append("PCreatedBy = ?PCreatedBy  , ");
             sqlCommand.Append("PLastModUtc = ?PLastModUtc  , ");
             sqlCommand.Append("PLastModBy = ?PLastModBy, ");
-            sqlCommand.Append("PLastModFromIp = ?PLastModFromIp "); 
+            sqlCommand.Append("PLastModFromIp = ?PLastModFromIp, "); 
+            sqlCommand.Append("HostNameOverride = ?HostNameOverride, ");
+            sqlCommand.Append("HostNameRedirectMode = ?HostNameRedirectMode ");
 
             sqlCommand.Append("WHERE PageID = ?PageID ;");
 
-            MySqlParameter[] arParams = new MySqlParameter[57];
+            MySqlParameter[] arParams = new MySqlParameter[59];
 
             arParams[0] = new MySqlParameter("?PageID", MySqlDbType.Int32);
             arParams[0].Direction = ParameterDirection.Input;
@@ -1111,6 +1129,14 @@ namespace mojoPortal.Data
             {
                 arParams[56].Value = pubDateUtc;
             }
+
+            arParams[57] = new MySqlParameter("?HostNameOverride", MySqlDbType.VarChar, 255);
+            arParams[57].Direction = ParameterDirection.Input;
+            arParams[57].Value = hostNameOverride;
+
+            arParams[58] = new MySqlParameter("?HostNameRedirectMode", MySqlDbType.Int32);
+            arParams[58].Direction = ParameterDirection.Input;
+            arParams[58].Value = hostNameRedirectMode;
             
 
 

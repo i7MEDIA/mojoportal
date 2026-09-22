@@ -1833,6 +1833,60 @@ namespace mojoPortal.Web.AdminUI
 		protected global::mojoPortal.Web.UI.mojoHelpLink MojoHelpLink31;
 
 		/// <summary>
+		/// lblHostNameOverride control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.SiteLabel lblHostNameOverride;
+
+		/// <summary>
+		/// txtHostNameOverride control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox txtHostNameOverride;
+
+		/// <summary>
+		/// hlpHostNameOverride control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoHelpLink hlpHostNameOverride;
+
+		/// <summary>
+		/// lblHostNameRedirectMode control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.Controls.SiteLabel lblHostNameRedirectMode;
+
+		/// <summary>
+		/// ddHostNameRedirectMode control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.DropDownList ddHostNameRedirectMode;
+
+		/// <summary>
+		/// hlpHostNameRedirectMode control.
+		/// </summary>
+		/// <remarks>
+		/// Auto-generated field.
+		/// To modify move field declaration from designer file to code-behind file.
+		/// </remarks>
+		protected global::mojoPortal.Web.UI.mojoHelpLink hlpHostNameRedirectMode;
+
+		/// <summary>
 		/// SiteLabel8 control.
 		/// </summary>
 		/// <remarks>

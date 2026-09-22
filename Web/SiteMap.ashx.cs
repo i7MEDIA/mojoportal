@@ -128,6 +128,11 @@ public class SiteMap : IHttpHandler
 					{
 						url = mojoNode.Url;
 					}
+					else if (!string.IsNullOrWhiteSpace(mojoNode.HostNameOverride))
+					{
+						string protocol = ((mojoNode.UseSsl) || (siteSettings.UseSslOnAllPages)) ? "https://" : "http://";
+						url = protocol + mojoNode.HostNameOverride + mojoNode.Url.Replace("~/", "/");
+					}
 					else
 					{
 						if ((mojoNode.UseSsl) || (siteSettings.UseSslOnAllPages))
