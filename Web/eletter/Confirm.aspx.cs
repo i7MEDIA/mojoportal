@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Globalization;
 using mojoPortal.Business;
+using mojoPortal.Web.ExternalNewsletter;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -29,7 +30,15 @@ public partial class ConfirmPage : NonCmsBasePage
 		}
 		else
 		{
-			letterInfo = new LetterInfo(subscription.LetterInfoGuid);
+			if (ExternalNewsletterProviderManager.IsExternal(subscription.LetterInfoGuid))
+			{
+				ExternalNewsletterProviderManager.GetProviderForNewsletter(subscription.LetterInfoGuid, out var extLetter);
+				letterInfo = extLetter ?? new LetterInfo();
+			}
+			else
+			{
+				letterInfo = new LetterInfo(subscription.LetterInfoGuid);
+			}
 			litConfirmDetails.Text = string.Format(CultureInfo.InvariantCulture, Resource.NewsletterConfirmedFormat, letterInfo.Title);
 			pnlNotFound.Visible = false;
 			pnlConfirmed.Visible = true;
@@ -61,7 +70,10 @@ public partial class ConfirmPage : NonCmsBasePage
 					}
 				}
 
-				LetterInfo.UpdateSubscriberCount(subscription.LetterInfoGuid);
+				if (!ExternalNewsletterProviderManager.IsExternal(subscription.LetterInfoGuid))
+				{
+					LetterInfo.UpdateSubscriberCount(subscription.LetterInfoGuid);
+				}
 			}
 			else
 			{
