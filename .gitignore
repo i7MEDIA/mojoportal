@@ -461,3 +461,10 @@ Web/Data/sqlitedb/mojo\.db\.config
 /Web/Data/style/galleriffic
 /Web/NeatHtml
 /Web/Data/HelpFiles/en-US-addeditpolloptionshelp.config
+
+# Allows for custom plugins without listing them here
+/Plugins/*/
+# Add plugins to include in the repo here
+!/Plugins/mojoPortal.Plugins.HtmlInclude/
+!/Plugins/SuperFlexi/
+!/Plugins/PluginAssemblyInfo.cs
