@@ -1,330 +1,352 @@
-// Author:					
-// Created:				2007-04-29
-// Last Modified:			2009-06-27
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+using log4net;
 using System;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Web;
 using System.Web.Configuration;
-using System.Web.UI;
-using log4net;
 
-namespace mojoPortal.Web.Framework
+namespace mojoPortal.Web.Framework;
+
+public static class ResourceHelper
 {
-    
-    public static class ResourceHelper
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(ResourceHelper));
+	private static readonly ILog log = LogManager.GetLogger(typeof(ResourceHelper));
 
-        #region Help System
+	#region Help System
 
-        /// <summary>
-        /// when posssible you should use SiteUtils.GetDefaultUICulture() in preference to this method
-        /// </summary>
-        /// <returns></returns>
-        public static CultureInfo GetDefaultUICulture()
-        {
-            try
-            {
-                
-                // reading config sections not allowed in Medium trust so catch SecurityException
-                GlobalizationSection globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
-                if (globalizationSection != null)
-                {
-                    if (globalizationSection.Culture.Contains(":"))
-                    {
-                        String cultureString;
-                        // this is tryinbg to get UiCulture and expects this format
-                        // <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
-                        cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.LastIndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.LastIndexOf(":") + 1)));
-                        return new CultureInfo(cultureString);
-                    }
-                    else
-                    {
-                        return new CultureInfo(globalizationSection.Culture);
-                    }
-                }
-            }
-            catch (ArgumentException ex) 
-            {
-                log.Info("ResourceHelper swallowed exception", ex);
-            }
-            catch (System.Security.SecurityException ex)
-            {
-                log.Info("ResourceHelper swallowed exception", ex);
-            }
+	/// <summary>
+	/// when posssible you should use SiteUtils.GetDefaultUICulture() in preference to this method
+	/// </summary>
+	/// <returns></returns>
+	public static CultureInfo GetDefaultUICulture()
+	{
+		try
+		{
 
-            return new CultureInfo("en-US"); //this is the default culture in Web.config
-        }
+			// reading config sections not allowed in Medium trust so catch SecurityException
+			GlobalizationSection globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
+			if (globalizationSection != null)
+			{
+				if (globalizationSection.Culture.Contains(":"))
+				{
+					string cultureString;
+					// this is tryinbg to get UiCulture and expects this format
+					// <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
+					cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.LastIndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.LastIndexOf(":") + 1)));
+					return new CultureInfo(cultureString);
+				}
+				else
+				{
+					return new CultureInfo(globalizationSection.Culture);
+				}
+			}
+		}
+		catch (ArgumentException ex)
+		{
+			log.Info("ResourceHelper swallowed exception", ex);
+		}
+		catch (System.Security.SecurityException ex)
+		{
+			log.Info("ResourceHelper swallowed exception", ex);
+		}
 
-        /// <summary>
-        /// when posssible you should use SiteUtils.GetDefaultCulture() in preference to this method
-        /// </summary>
-        /// <returns></returns>
-        public static CultureInfo GetDefaultCulture()
-        {
-            try
-            {
+		return new CultureInfo("en-US"); //this is the default culture in Web.config
+	}
 
-                // reading config sections not allowed in Medium trust so catch SecurityException
-                GlobalizationSection globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
-                if (globalizationSection != null)
-                {
-                    if (globalizationSection.Culture.Contains(":"))
-                    {
-                        String cultureString;
-                        // this is trying to get culture not uiculture and expects this format 
-                        // <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
-                        cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.IndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.IndexOf(":") + 1)));
-                        return new CultureInfo(cultureString);
-                    }
-                    else
-                    {
-                        return new CultureInfo(globalizationSection.Culture);
-                    }
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                log.Info("ResourceHelper swallowed exception", ex);
-            }
-            catch (System.Security.SecurityException ex)
-            {
-                log.Info("ResourceHelper swallowed exception", ex);
-            }
+	/// <summary>
+	/// when posssible you should use SiteUtils.GetDefaultCulture() in preference to this method
+	/// </summary>
+	/// <returns></returns>
+	public static CultureInfo GetDefaultCulture()
+	{
+		try
+		{
 
-            return new CultureInfo("en-US"); //this is the default culture in Web.config
-        }
+			// reading config sections not allowed in Medium trust so catch SecurityException
+			GlobalizationSection globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
+			if (globalizationSection != null)
+			{
+				if (globalizationSection.Culture.Contains(":"))
+				{
+					string cultureString;
+					// this is trying to get culture not uiculture and expects this format 
+					// <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
+					cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.IndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.IndexOf(":") + 1)));
+					return new CultureInfo(cultureString);
+				}
+				else
+				{
+					return new CultureInfo(globalizationSection.Culture);
+				}
+			}
+		}
+		catch (ArgumentException ex)
+		{
+			log.Info("ResourceHelper swallowed exception", ex);
+		}
+		catch (System.Security.SecurityException ex)
+		{
+			log.Info("ResourceHelper swallowed exception", ex);
+		}
 
-        /// <summary>
-        /// Gets a CultureInfo object suitable for parsing or formatting a specific currency
-        /// </summary>
-        /// <param name="currencyISOCode"></param>
-        /// <returns></returns>
-        public static CultureInfo GetCurrencyCulture(string currencyISOCode)
-        {
-            if (string.IsNullOrEmpty(currencyISOCode)) { return ResourceHelper.GetDefaultCulture(); }
+		return new CultureInfo("en-US"); //this is the default culture in Web.config
+	}
 
-            //this helper caches the lookup list
-            CultureInfo currencyCulture = CurrencyHelper.CultureInfoFromCurrencyISO(currencyISOCode);
-            if (currencyCulture != null) { return currencyCulture; }
+	/// <summary>
+	/// Gets a CultureInfo object suitable for parsing or formatting a specific currency
+	/// </summary>
+	/// <param name="currencyISOCode"></param>
+	/// <returns></returns>
+	public static CultureInfo GetCurrencyCulture(string currencyISOCode)
+	{
+		if (string.IsNullOrEmpty(currencyISOCode)) { return GetDefaultCulture(); }
 
-            // this is based on web.config globalization section, en-US
-            return ResourceHelper.GetDefaultCulture();
+		//this helper caches the lookup list
+		CultureInfo currencyCulture = CurrencyHelper.CultureInfoFromCurrencyISO(currencyISOCode);
+		if (currencyCulture != null) { return currencyCulture; }
 
-        }
+		// this is based on web.config globalization section, en-US
+		return GetDefaultCulture();
 
-        public static string GetHelpFileText(string helpKey)
-        {
-            if (String.IsNullOrEmpty(helpKey)) return String.Empty;
+	}
 
-            string fileExtension = ".config";
-            string helpFolder = GetHelpFolder();
-            string helpFile;
-            helpFile = GetFullResourceFilePath(CultureInfo.CurrentUICulture, helpFolder, helpKey + fileExtension);
+	public static string GetHelpFileText(string helpKey)
+	{
+		if (string.IsNullOrEmpty(helpKey))
+		{
+			return string.Empty;
+		}
 
-            string message = String.Empty;
-            if (File.Exists(helpFile))
-            {
-                FileInfo file = new FileInfo(helpFile);
-                StreamReader sr = file.OpenText();
-                message = sr.ReadToEnd();
-                sr.Close();
-            }
-            return message;
-        }
+		var fileExtension = ".config";
+		var helpFolder = GetHelpFolder();
+		var helpFile = GetFullResourceFilePath(CultureInfo.CurrentUICulture, helpFolder, helpKey + fileExtension);
+		var message = string.Empty;
 
-        public static void SetHelpFileText(String helpKey, String helpText)
-        {
-            if (String.IsNullOrEmpty(helpKey) || String.IsNullOrEmpty(helpText)) return;
+		if (File.Exists(helpFile))
+		{
+			var file = new FileInfo(helpFile);
+			var sr = file.OpenText();
+			message = sr.ReadToEnd();
+			sr.Close();
+		}
 
-            string culture = CultureInfo.CurrentUICulture.Name;
-            string fileExtension = ".config";
-            string helpFolder = GetHelpFolder();
-            string helpFile;
-            helpFile = helpFolder + culture + "-" + helpKey + fileExtension;
+		return message;
+	}
 
-            StreamWriter streamWriter = File.CreateText(helpFile);
-            streamWriter.Write(helpText);
-            streamWriter.Close();
-        }
+	public static void SetHelpFileText(string helpKey, string helpText)
+	{
+		if (string.IsNullOrEmpty(helpKey) || string.IsNullOrEmpty(helpText))
+		{
+			return;
+		}
 
-        public static String GetHelpFolder()
-        {
-            if (HttpContext.Current == null) return String.Empty;
-            return HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot()
-                    + "/Data/HelpFiles") + Path.DirectorySeparatorChar;
-        }
+		var culture = CultureInfo.CurrentUICulture.Name;
+		var helpFolder = GetHelpFolder();
+		var helpFile = $"{helpFolder}{culture}-{helpKey}.config";
 
-        public static string GetFullResourceFilePath(CultureInfo cultureInfo, string folder, string filename)
-        {
-            string path = GetResourceFilePath(cultureInfo, folder, filename);
-            return
-                string.IsNullOrEmpty(path) ?
-                string.Format("{0}{1}-{2}", folder, "en-US" /* or using GetDefaultCulture().Name here? */, filename) :
-                path;
-        }
+		if (!IsPathSafe(helpFolder, helpFile))
+		{
+			log.Error("helpKey attempted directory traversal.");
 
-        public static string GetResourceFilePath(CultureInfo curltureInfo, string folder, string filename)
-        {
-            if (curltureInfo == null || curltureInfo.LCID.Equals(CultureInfo.InvariantCulture.LCID))
-                return string.Empty;
+			throw new Exception("helpKey attempted directory traversal.");
+		}
 
-            string path = string.Format("{0}{1}-{2}", folder, curltureInfo.Name, filename);
+		var streamWriter = File.CreateText(helpFile);
+		streamWriter.Write(helpText);
+		streamWriter.Close();
+	}
 
-            if (File.Exists(path))
-            {
-                return path;
-            }
+	public static string GetHelpFolder()
+	{
+		if (HttpContext.Current is null)
+		{
+			return string.Empty;
+		}
 
-            // default to file most likely to exist
-            path = string.Format("{0}{1}-{2}", folder, "en-US", filename);
-            return path;
+		return HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/HelpFiles") + Path.DirectorySeparatorChar;
+	}
 
-            //return File.Exists(path) ? path : GetResourceFilePath(curltureInfo.Parent, folder, filename);
-        }
+	public static string GetFullResourceFilePath(CultureInfo cultureInfo, string folder, string filename)
+	{
+		var path = GetResourceFilePath(cultureInfo, folder, filename);
 
-        #endregion
+		if (!string.IsNullOrWhiteSpace(path))
+		{
+			return path;
+		}
 
-        #region Message Templates
+		path = $"{folder}en-US-{filename}";
 
-        public static string GetMessageTemplate(string templateFile)
-        {
-            return GetMessageTemplate(CultureInfo.CurrentUICulture, templateFile);
-        }
+		if (!IsPathSafe(folder, path))
+		{
+			log.Error("Filename attempted directory traversal.");
 
-        public static string GetMessageTemplate(CultureInfo cultureInfo, string templateFile)
-        {
-            if (String.IsNullOrEmpty(templateFile)) return String.Empty;
+			throw new Exception("Filename attempted directory traversal.");
+		}
 
-            string templateFolder = GetMessageTemplateFolder();
-            string messageFile;
+		return path;
+	}
 
-            messageFile = GetFullResourceFilePath(cultureInfo, templateFolder, templateFile);
+	public static string GetResourceFilePath(CultureInfo cultureInfo, string folder, string filename)
+	{
+		if (cultureInfo == null || cultureInfo.LCID.Equals(CultureInfo.InvariantCulture.LCID))
+		{
+			return string.Empty;
+		}
 
-            if (File.Exists(messageFile))
-            {
-                string message = File.ReadAllText(messageFile);
+		var path = $"{folder}{cultureInfo.Name}-{filename}";
 
-                return message;
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
+		if (!IsPathSafe(folder, path))
+		{
+			log.Error("Filename attempted directory traversal.");
 
-        
+			throw new Exception("Filename attempted directory traversal.");
+		}
 
-        //public static void SetMessageTemplate(String templateKey, String templateText)
-        //{
-        //    if (String.IsNullOrEmpty(templateKey) || String.IsNullOrEmpty(templateText)) return;
+		if (File.Exists(path))
+		{
+			return path;
+		}
 
-        //    String culture = CultureInfo.CurrentCulture.Name;
-        //    //String fileExtension = ".config";
-        //    if (!templateKey.EndsWith(".config"))
-        //    {
-        //        templateKey += ".config";
-        //    }
+		// Fallback to the default culture
+		path = $"{folder}en-US-{filename}";
 
-        //    string templateFolder = GetMessageTemplateFolder();
-        //    string messageFile = templateFolder + culture + "-" + templateKey;
+		if (!IsPathSafe(folder, path))
+		{
+			log.Error("Filename attempted directory traversal.");
 
-        //    StreamWriter streamWriter = File.CreateText(messageFile);
-        //    streamWriter.Write(templateText);
-        //    streamWriter.Close();
-        //}
+			throw new Exception("Filename attempted directory traversal.");
+		}
+
+		return path;
+	}
+
+	#endregion
+
+	#region Message Templates
+
+	public static string GetMessageTemplate(string templateFile)
+	{
+		return GetMessageTemplate(CultureInfo.CurrentUICulture, templateFile);
+	}
+
+	public static string GetMessageTemplate(CultureInfo cultureInfo, string templateFile)
+	{
+		if (string.IsNullOrEmpty(templateFile))
+		{
+			return string.Empty;
+		}
+
+		string templateFolder = GetMessageTemplateFolder();
+		string messageFile;
+
+		messageFile = GetFullResourceFilePath(cultureInfo, templateFolder, templateFile);
+
+		if (File.Exists(messageFile))
+		{
+			string message = File.ReadAllText(messageFile);
+
+			return message;
+		}
+		else
+		{
+			return string.Empty;
+		}
+	}
+
+	public static string GetMessageTemplateFolder()
+	{
+		if (HttpContext.Current == null)
+		{
+			return string.Empty;
+		}
+
+		return HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/MessageTemplates") + Path.DirectorySeparatorChar;
+	}
 
 
-        public static String GetMessageTemplateFolder()
-        {
-            if (HttpContext.Current == null) return String.Empty;
-            return HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot()
-                    + "/Data/MessageTemplates") + Path.DirectorySeparatorChar;
-        }
+	#endregion
+
+	public static string GetResourceString(
+		string resourceFile,
+		string resourceKey)
+	{
+		bool useConfigOverrides = false;
+
+		return GetResourceString(resourceFile, resourceKey, useConfigOverrides);
+
+	}
+
+	public static string GetResourceString(
+		string resourceFile,
+		string resourceKey,
+		bool useConfigOverrides)
+	{
+		return GetResourceString(
+			resourceFile,
+			resourceKey,
+			null,
+			useConfigOverrides);
+
+	}
+
+	public static string GetResourceString(
+		string resourceFile,
+		string resourceKey,
+		CultureInfo culture,
+		bool useConfigOverrides)
+	{
+		if (HttpContext.Current == null) return resourceKey;
+		if (resourceFile.Length == 0) resourceFile = "Resource";
+
+		if (ConfigurationManager.AppSettings[resourceKey] != null)
+		{
+			return ConfigurationManager.AppSettings[resourceKey];
+		}
+
+		try
+		{
+			object resource;
+			if (culture != null)
+			{
+				resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey, culture);
+			}
+			else
+			{
+				resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey);
+			}
+
+			if (resource != null) return resource.ToString();
+		}
+		catch { }
+
+		return resourceKey;
+
+	}
+
+	public static string FormatCategoryLinkText(string category, int postCount)
+	{
+		if (CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
+		{
+			return "(" + postCount.ToString() + ") " + category;
+		}
+
+		return category + " (" + postCount.ToString() + ")";
+	}
 
 
-        #endregion
+	private static bool IsPathSafe(string basePath, string path)
+	{
+		var nomalizedBase = basePath.EndsWith(Path.DirectorySeparatorChar.ToString()) ?
+			basePath :
+			basePath + Path.DirectorySeparatorChar;
+		var fullPath = Path.GetFullPath(path);
 
-        public static string GetResourceString(
-            string resourceFile,
-            string resourceKey)
-        {
-            bool useConfigOverrides = false;
+		if (!fullPath.StartsWith(nomalizedBase, StringComparison.OrdinalIgnoreCase))
+		{
+			return false;
+		}
 
-            return GetResourceString(resourceFile, resourceKey, useConfigOverrides);
-
-        }
-
-        public static string GetResourceString(
-            string resourceFile,
-            string resourceKey,
-            bool useConfigOverrides)
-        {
-            return GetResourceString(
-                resourceFile,
-                resourceKey,
-                null,
-                useConfigOverrides);
-
-        }
-
-        public static string GetResourceString(
-            string resourceFile,
-            string resourceKey,
-            CultureInfo culture,
-            bool useConfigOverrides)
-        {
-            if (HttpContext.Current == null) return resourceKey;
-            if (resourceFile.Length == 0) resourceFile = "Resource";
-
-            if (ConfigurationManager.AppSettings[resourceKey] != null)
-            {
-                return ConfigurationManager.AppSettings[resourceKey];
-            }
-
-            try
-            {
-                object resource;
-                if (culture != null)
-                {
-                    resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey, culture);
-                }
-                else
-                {
-                    resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey);
-                }
-
-                if (resource != null) return resource.ToString();
-            }
-            catch { }
-
-            return resourceKey;
-
-        }
-
-        public static string FormatCategoryLinkText(string category, int postCount)
-        {
-            if (CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
-            {
-                return "(" + postCount.ToString() + ") " + category;
-            }
-
-            return category + " (" + postCount.ToString() + ")";
-
-           
-        }
-
-    }
+		return true;
+	}
 }
