@@ -340,7 +340,7 @@ public class LinkBuilder
 		}
 
 		var segments = path
-			.TrimStart('~') // Remove starting tildes.
+			.TrimStart(['/', '~']) // Remove starting tildes and slashes.
 			.Split(['/', '\\'], StringSplitOptions.RemoveEmptyEntries) // Split on diretory separators.
 			.ToArray();
 
