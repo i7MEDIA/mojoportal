@@ -328,7 +328,7 @@ public class LinkBuilder
 
 			if (!string.IsNullOrWhiteSpace(_urlBase))
 			{
-				var index = path.IndexOf(path);
+				var index = path.IndexOf(_urlBase, StringComparison.OrdinalIgnoreCase);
 
 				path = SanitizeRelativeUrl(path.Remove(index, _urlBase.Length));
 				urlBase = _urlBase;
@@ -339,7 +339,12 @@ public class LinkBuilder
 			path = SanitizeRelativeUrl(path);
 		}
 
-		return (urlBase, path.Split(['/', '\\', '~'], StringSplitOptions.RemoveEmptyEntries));
+		var segments = path
+			.TrimStart('~') // Remove starting tildes.
+			.Split(['/', '\\'], StringSplitOptions.RemoveEmptyEntries) // Split on diretory separators.
+			.ToArray();
+
+		return (urlBase, segments);
 	}
 
 
