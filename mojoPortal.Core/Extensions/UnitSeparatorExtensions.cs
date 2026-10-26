@@ -5,7 +5,8 @@ namespace mojoPortal.Core.Extensions;
 
 public static class UnitSeparatorExtensions
 {
-	public const char UNIT_SEPARATOR = '␟';
+	// '\u001F' is the actual control char/byte value, '␟' is a visual glyph and is meant for displaying the character, not acting like it.
+	public const char UNIT_SEPARATOR = '\u001F';
 
 	/// <summary>
 	/// Concatenates the elements of a sequence of strings, using the Unit Separator (ASCII 31) as the delimiter.
