@@ -984,7 +984,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 				foreach (CustomModuleSetting s in defaultSettings)
 				{
-					if (s.SettingControlType == string.Empty)
+					if (s.SettingControlType == string.Empty || !string.IsNullOrWhiteSpace(s.Roles) && !WebUser.IsInRoles(s.Roles))
 					{
 						continue;
 					}
