@@ -1,4 +1,4 @@
-﻿// Author:					
+// Author:					
 // Created:				    2007-12-21
 // Last Modified:			2009-10-31
 // 
@@ -16,6 +16,7 @@ using System.Web.UI;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.ExternalNewsletter;
 using Resources;
 
 namespace mojoPortal.Web.ELetterUI
@@ -99,7 +100,14 @@ namespace mojoPortal.Web.ELetterUI
                         subscriber.IpAddress = SiteUtils.GetIP4Address();
                         subscriptions.Save(subscriber);
 
-                        LetterInfo.UpdateSubscriberCount(availableSubscription.LetterInfoGuid);
+                        if (ExternalNewsletterProviderManager.IsExternal(availableSubscription))
+                        {
+                            ExternalNewsletterProviderManager.Subscribe(availableSubscription, siteUser.Email, siteUser.FirstName, siteUser.LastName);
+                        }
+                        else
+                        {
+                            LetterInfo.UpdateSubscriberCount(availableSubscription.LetterInfoGuid);
+                        }
 
                     }
                     else
@@ -117,7 +125,10 @@ namespace mojoPortal.Web.ELetterUI
                                 if (!s.IsVerified)
                                 {
                                     subscriptions.Verify(s.SubscribeGuid, true, Guid.Empty);
-                                    LetterInfo.UpdateSubscriberCount(availableSubscription.LetterInfoGuid);
+                                    if (!ExternalNewsletterProviderManager.IsExternal(availableSubscription))
+                                    {
+                                        LetterInfo.UpdateSubscriberCount(availableSubscription.LetterInfoGuid);
+                                    }
                                 }
                             }
 
@@ -138,8 +149,14 @@ namespace mojoPortal.Web.ELetterUI
                             }
                         }
                         
-                        
-                        LetterInfo.UpdateSubscriberCount(availableSubscription.LetterInfoGuid);
+                        if (ExternalNewsletterProviderManager.IsExternal(availableSubscription))
+                        {
+                            ExternalNewsletterProviderManager.Unsubscribe(availableSubscription, siteUser.Email);
+                        }
+                        else
+                        {
+                            LetterInfo.UpdateSubscriberCount(availableSubscription.LetterInfoGuid);
+                        }
 
                     }
                 }

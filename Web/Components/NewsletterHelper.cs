@@ -1,4 +1,4 @@
-﻿// Author:					
+// Author:					
 // Created:				    2009-10-29
 // Last Modified:			2012-05-18
 // 
@@ -18,6 +18,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Framework;
 using mojoPortal.Net;
+using mojoPortal.Web.ExternalNewsletter;
 using Resources;
 
 namespace mojoPortal.Web
@@ -37,6 +38,7 @@ namespace mojoPortal.Web
                 }
             }
 
+            available.AddRange(ExternalNewsletterProviderManager.GetAvailableNewsletters(siteGuid));
 
             return available;
 
@@ -55,9 +57,15 @@ namespace mojoPortal.Web
                 }
             }
 
+            available.AddRange(ExternalNewsletterProviderManager.GetAvailableNewsletters(siteGuid));
 
             return available;
 
+        }
+
+        public static int GetNewsletterCount(Guid siteGuid)
+        {
+            return LetterInfo.GetCount(siteGuid) + ExternalNewsletterProviderManager.GetNewsletterCount(siteGuid);
         }
 
         /// <summary>
@@ -81,8 +89,19 @@ namespace mojoPortal.Web
                 if (!s.IsVerified)
                 {
                     subscriptions.Verify(s.SubscribeGuid, true, Guid.Empty);
-                    LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                    if (!ExternalNewsletterProviderManager.IsExternal(s.LetterInfoGuid))
+                    {
+                        LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                    }
+                }
 
+                if (ExternalNewsletterProviderManager.IsExternal(s.LetterInfoGuid))
+                {
+                    ExternalNewsletterProviderManager.GetProviderForNewsletter(s.LetterInfoGuid, out var extLetter);
+                    if (extLetter != null)
+                    {
+                        ExternalNewsletterProviderManager.Subscribe(extLetter, siteUser.Email, siteUser.FirstName, siteUser.LastName);
+                    }
                 }
 
             }
@@ -133,8 +152,10 @@ namespace mojoPortal.Web
                 if (!s.IsVerified)
                 {
                     subscriptions.Verify(s.SubscribeGuid, true, Guid.Empty);
-                    LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
-
+                    if (!ExternalNewsletterProviderManager.IsExternal(s.LetterInfoGuid))
+                    {
+                        LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                    }
                 }
 
             }
@@ -166,8 +187,10 @@ namespace mojoPortal.Web
             foreach (LetterSubscriber s in duplicates)
             {
                 subscriptions.Delete(s, false);
-                LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
-
+                if (!ExternalNewsletterProviderManager.IsExternal(s.LetterInfoGuid))
+                {
+                    LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                }
             }
 
         }

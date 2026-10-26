@@ -508,7 +508,7 @@ public partial class UserProfile : NonCmsBasePage
 			divLiveMessenger.Visible = false;
 		}
 
-		var countOfNewsLetters = LetterInfo.GetCount(siteSettings.SiteGuid);
+		var countOfNewsLetters = NewsletterHelper.GetNewsletterCount(siteSettings.SiteGuid);
 
 		liNewsletters.Visible = WebConfigSettings.EnableNewsletter && countOfNewsLetters > 0;
 		tabNewsletters.Visible = liNewsletters.Visible;

@@ -13,6 +13,7 @@ using mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Configuration;
 using mojoPortal.Web.Controls;
+using mojoPortal.Web.ExternalNewsletter;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -358,7 +359,14 @@ public partial class Register : NonCmsBasePage
 		};
 		subscriptions.Save(subscriber);
 
-		LetterInfo.UpdateSubscriberCount(subscriber.LetterInfoGuid);
+		if (ExternalNewsletterProviderManager.IsExternal(letter))
+		{
+			ExternalNewsletterProviderManager.Subscribe(letter, siteUser.Email, siteUser.FirstName, siteUser.LastName);
+		}
+		else
+		{
+			LetterInfo.UpdateSubscriberCount(subscriber.LetterInfoGuid);
+		}
 	}
 
 	#region Events

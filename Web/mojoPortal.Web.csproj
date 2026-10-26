@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -1849,6 +1849,12 @@
     <Compile Include="Components\IWorkflow.cs" />
     <Compile Include="Components\LetterSendTask.cs" />
     <Compile Include="Components\ModuleDecoratedSiteMapNode.cs" />
+    <Compile Include="Components\ExternalNewsletter\ExternalNewsletterInfo.cs" />
+    <Compile Include="Components\ExternalNewsletter\ExternalNewsletterProvider.cs" />
+    <Compile Include="Components\ExternalNewsletter\ExternalNewsletterProviderCollection.cs" />
+    <Compile Include="Components\ExternalNewsletter\ExternalNewsletterProviderConfig.cs" />
+    <Compile Include="Components\ExternalNewsletter\ExternalNewsletterProviderManager.cs" />
+    <Compile Include="Components\ExternalNewsletter\SendGridNewsletterProvider.cs" />
     <Compile Include="Components\NewsletterHelper.cs" />
     <Compile Include="Components\PageViewMode.cs" />
     <Compile Include="Components\WorkflowHelper.cs" />

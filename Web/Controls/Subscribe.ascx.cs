@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web.UI;
@@ -6,6 +6,7 @@ using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Core.Extensions;
+using mojoPortal.Web.ExternalNewsletter;
 using mojoPortal.Web.Framework;
 using Resources;
 
@@ -137,7 +138,7 @@ public partial class Subscribe : UserControl
             if (email == "email@gmail.com") { return; } //I've been seeing a lot of this from a bot
 
             LetterSubscriber s = subscriptions.Fetch(siteSettings.SiteGuid, letter.LetterInfoGuid, email);
-
+            bool isExternal = ExternalNewsletterProviderManager.IsExternal(letter);
             bool needToSendVerification = false;
 
             if (s == null)
@@ -155,33 +156,42 @@ public partial class Subscribe : UserControl
 				s.UseHtml = HtmlIsDefault;
                 }
 
+                SiteUser siteUser = null;
                 if ((currentUser != null) && (string.Equals(currentUser.Email, email, StringComparison.InvariantCultureIgnoreCase)))
                 {
                     s.UserGuid = currentUser.UserGuid;
                     s.IsVerified = true;
+                    siteUser = currentUser;
                 }
                 else
                 {
-                    // user is not authenticated but may still exist
-                    // attach userguid but don't flag as verified
-                    // because we don't know that the user who submited the form is the account owner
-                    SiteUser siteUser = SiteUser.GetByEmail(siteSettings, email);
+                    siteUser = SiteUser.GetByEmail(siteSettings, email);
                     if (siteUser != null) { s.UserGuid = siteUser.UserGuid; }
 
-
+                    // If external newsletter, bypass mojoPortal verification; provider handles opt-in
+                    if (isExternal)
+                    {
+                        s.IsVerified = true;
+                    }
                 }
                 s.IpAddress = SiteUtils.GetIP4Address();
                 subscriptions.Save(s);
 
-                LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                if (isExternal)
+                {
+                    ExternalNewsletterProviderManager.Subscribe(letter, email, siteUser?.FirstName ?? string.Empty, siteUser?.LastName ?? string.Empty);
+                }
+                else
+                {
+                    LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                }
 
                 if (WebConfigSettings.LogNewsletterSubscriptions)
                 {
                     log.Info(s.EmailAddress + " just subscribed to newsletter " + letter.Title);
                 }
                     
-
-			if (!s.IsVerified)
+			if (!s.IsVerified && !isExternal)
                 {
                     needToSendVerification = true;
                 }
@@ -193,8 +203,14 @@ public partial class Subscribe : UserControl
 
                 if (!s.IsVerified)
                 {
-                    // if the current authenticated user has the same email mark it as verified
-                    if ((currentUser != null) && (string.Equals(currentUser.Email, email, StringComparison.InvariantCultureIgnoreCase)))
+                    if (isExternal)
+                    {
+                        s.IsVerified = true;
+                        subscriptions.Save(s);
+                        SiteUser siteUser = currentUser ?? SiteUser.GetByEmail(siteSettings, email);
+                        ExternalNewsletterProviderManager.Subscribe(letter, email, siteUser?.FirstName ?? string.Empty, siteUser?.LastName ?? string.Empty);
+                    }
+                    else if ((currentUser != null) && (string.Equals(currentUser.Email, email, StringComparison.InvariantCultureIgnoreCase)))
                     {
                         s.UserGuid = currentUser.UserGuid;
 					if (ShowFormatOptions)
@@ -208,8 +224,6 @@ public partial class Subscribe : UserControl
                     {
                         // if the user never verifed before and its been at least x days go ahead and send another chance to verify
                         needToSendVerification = true;
-                        // TODO: maybe we should log this in case some spam script is using the same email over and over
-                        // or maybe we should add a verification sent count on subscription
                     }
                 }
             }
@@ -225,7 +239,7 @@ public partial class Subscribe : UserControl
                 needToSendVerification = false;
             }
 
-            if (needToSendVerification)
+            if (needToSendVerification && !isExternal)
             {
                 NewsletterHelper.SendSubscriberVerificationEmail(
                     siteRoot,
@@ -233,9 +247,6 @@ public partial class Subscribe : UserControl
                     s.SubscribeGuid,
                     letter,
                     siteSettings);
-
-              
-
             }
 
         }

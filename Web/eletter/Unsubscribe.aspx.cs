@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.ExternalNewsletter;
 using mojoPortal.Business;
 using Resources;
 
@@ -83,7 +84,14 @@ namespace mojoPortal.Web.ELetterUI
                     return;
                 }
                 subscriptions.Delete(s);
-                LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                if (ExternalNewsletterProviderManager.IsExternal(s.LetterInfoGuid))
+                {
+                    ExternalNewsletterProviderManager.Unsubscribe(s.LetterInfoGuid, s.EmailAddress);
+                }
+                else
+                {
+                    LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                }
                 lblUnsubscribe.Text = Resource.NewsletterUnsubscribeSuccess;
 
                 btnUnsubscribeConfirm.Visible = false;
@@ -91,8 +99,9 @@ namespace mojoPortal.Web.ELetterUI
                 return;
             }
 
+            bool isExternal = ExternalNewsletterProviderManager.IsExternal(letterInfoGuid);
             LetterInfo letterInfo = new LetterInfo(letterInfoGuid);
-            if (letterInfo.LetterInfoGuid == Guid.Empty)
+            if (letterInfo.LetterInfoGuid == Guid.Empty && !isExternal)
             {
                 ShowNotFoundMessge();
                 return;
@@ -108,16 +117,24 @@ namespace mojoPortal.Web.ELetterUI
                 {
                     subscriptions.Delete(s);
                     unsubscribed = true;
-                    LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                    if (isExternal)
+                    {
+                        ExternalNewsletterProviderManager.Unsubscribe(s.LetterInfoGuid, s.EmailAddress);
+                    }
+                    else
+                    {
+                        LetterInfo.UpdateSubscriberCount(s.LetterInfoGuid);
+                    }
                 }
 
             }
 
             if (unsubscribed)
             {
+                string title = !string.IsNullOrEmpty(letterInfo.Title) ? letterInfo.Title : Resource.UserProfileNewslettersTab;
                 lblUnsubscribe.Text = string.Format(CultureInfo.InvariantCulture,
                     Resource.NewsletterUnsubscribeSuccessFormatString,
-                    letterInfo.Title);
+                    title);
 
                 btnUnsubscribeConfirm.Visible = false;
                 lblUnsubscribe.Visible = true;
@@ -127,29 +144,25 @@ namespace mojoPortal.Web.ELetterUI
                 ShowNotFoundMessge();
             }
 
-            
-
         }
 
         private void ShowUnsubscribePrompt()
         {
+            bool isExternal = ExternalNewsletterProviderManager.IsExternal(letterInfoGuid);
             LetterInfo letterInfo = new LetterInfo(letterInfoGuid);
-            if (letterInfo.LetterInfoGuid == Guid.Empty)
+            if (letterInfo.LetterInfoGuid == Guid.Empty && !isExternal)
             {
                 ShowNotFoundMessge();
                 return;
             }
 
+            string title = !string.IsNullOrEmpty(letterInfo.Title) ? letterInfo.Title : Resource.UserProfileNewslettersTab;
+
             btnUnsubscribeConfirm.Visible = true;
             lblUnsubscribe.Visible = false;
             btnUnsubscribeConfirm.Text = string.Format(CultureInfo.InvariantCulture,
                 Resource.NewsletterUnsubscribeConfirmFormatString,
-                Server.HtmlEncode(letterInfo.Title));
-
-            
-
-
-
+                Server.HtmlEncode(title));
         }
 
         private void ShowNotFoundMessge()
