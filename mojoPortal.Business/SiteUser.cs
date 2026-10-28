@@ -3131,21 +3131,15 @@ namespace mojoPortal.Business
 			}
 
 			char[] passwordChars = new char[length];
-			byte[] seedBytes = new byte[4];
-			RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider();
-			crypto.GetBytes(seedBytes);
-
-			int seed =
-				(seedBytes[0] & 0x7f) << 24 |
-				seedBytes[1] << 16 |
-				seedBytes[2] << 8 |
-				seedBytes[3];
-
-			Random random = new Random(seed);
-
-			for (int i = 0; i < length; i++)
+			byte[] randomBytes = new byte[4];
+			using (RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider())
 			{
-				passwordChars[i] = allowedChars[random.Next(0, allowedChars.Length)];
+				for (int i = 0; i < length; i++)
+				{
+					crypto.GetBytes(randomBytes);
+					uint randomValue = BitConverter.ToUInt32(randomBytes, 0);
+					passwordChars[i] = allowedChars[randomValue % (uint)allowedChars.Length];
+				}
 			}
 
 			return new string(passwordChars);

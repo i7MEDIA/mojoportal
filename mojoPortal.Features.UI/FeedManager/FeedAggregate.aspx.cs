@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Configuration;
 using System.Data;
@@ -177,8 +177,7 @@ public partial class FeedAggregatePage : Page
 		}
 
 		if (bypassPageSecurity
-			|| WebUser.IsInRoles(pageSettings.AuthorizedRoles)
-			|| WebUser.IsInRoles(module.ViewRoles)
+			|| (WebUser.IsInRoles(pageSettings.AuthorizedRoles) && WebUser.IsInRoles(module.ViewRoles))
 		)
 		{
 			canView = true;

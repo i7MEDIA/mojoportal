@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using IdentityModel.Client;
 using log4net;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -176,8 +176,7 @@ public class OidcService
 
 		var validationParameters = new TokenValidationParameters
 		{
-			// https://stackoverflow.com/questions/53550321/keycloak-gatekeeper-aud-claim-and-client-id-do-not-match/53627747#53627747
-			ValidateAudience = false,
+			ValidateAudience = true,
 			ValidAudience = _clientId,
 			ValidateIssuer = true,
 			ValidIssuer = _issuer,

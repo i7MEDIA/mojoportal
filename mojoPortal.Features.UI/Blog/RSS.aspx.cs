@@ -558,8 +558,7 @@ namespace mojoPortal.Web.BlogUI
 
             if (
                 (bypassPageSecurity)
-                || (WebUser.IsInRoles(pageSettings.AuthorizedRoles))
-                || (WebUser.IsInRoles(module.ViewRoles))
+                || (WebUser.IsInRoles(pageSettings.AuthorizedRoles) && WebUser.IsInRoles(module.ViewRoles))
                 )
             {
                 canView = true;
