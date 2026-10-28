@@ -12,7 +12,6 @@ namespace mojoPortal.Web.AdminUI {
     
     public partial class ContentValidation {
         protected System.Web.UI.HtmlControls.HtmlForm Form1;
-        protected System.Web.UI.WebControls.TextBox txtConnectionString;
         protected System.Web.UI.WebControls.Button validateBtn;
         protected System.Web.UI.WebControls.Table tableResults;
     }

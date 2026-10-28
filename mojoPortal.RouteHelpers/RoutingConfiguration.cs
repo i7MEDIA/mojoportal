@@ -1,4 +1,4 @@
-﻿// Author:					
+// Author:					
 // Created:				    2010-10-18
 // Last Modified:			2010-10-18
 // 
@@ -49,7 +49,10 @@ namespace mojoPortal.RouteHelpers
 
             foreach (FileInfo fileInfo in routeFiles)
             {
-                XmlDocument routeConfigFile = new XmlDocument();
+                XmlDocument routeConfigFile = new XmlDocument
+                {
+                    XmlResolver = null
+                };
                 routeConfigFile.Load(fileInfo.FullName);
                 LoadRoutes(config, routeConfigFile.DocumentElement);
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Configuration;
 using System.Web;
@@ -111,7 +111,13 @@ namespace mojoPortal.Web.Framework
             string fullPathToFile = HttpContext.Current.Server.MapPath("~/App_Data/ScriptFileSets.xml");
             if (!File.Exists(fullPathToFile)) { return sets; }
 
-            using (XmlReader reader = new XmlTextReader(new StreamReader(fullPathToFile)))
+            var xmlSettings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
+            };
+            using (var streamReader = new StreamReader(fullPathToFile))
+            using (XmlReader reader = XmlReader.Create(streamReader, xmlSettings))
             {
                 reader.MoveToContent();
                 while (reader.Read())

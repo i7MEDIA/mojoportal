@@ -1,4 +1,4 @@
-﻿// Author:					
+// Author:					
 // Created:				    2008-01-06
 // Last Modified:			2009-05-30
 // 
@@ -295,7 +295,7 @@ namespace mojoPortal.Web
                     {
                         Type t = Type.GetType(task.SerializedTaskType);
 
-                        if (t == null)
+                        if (t == null || !typeof(ITaskQueueTask).IsAssignableFrom(t) || t.IsGenericType)
                         {
                             log.Error("Failed to deserialize and resume task " + task.TaskName);
                             task.Status = "Stalled";
@@ -372,7 +372,7 @@ namespace mojoPortal.Web
                 catch (TypeLoadException) { }
                 
                 
-                if (t == null)
+                if (t == null || !typeof(ITaskQueueTask).IsAssignableFrom(t) || t.IsGenericType)
                 {
                     log.Error("Failed to deserialize and resume task " + task.TaskName);
                     task.CompleteRatio = 1;
@@ -385,7 +385,7 @@ namespace mojoPortal.Web
                 try
                 {
                     ITaskQueueTask qTask
-                        = (ITaskQueueTask)SerializationHelper.DeserializeFromString(Type.GetType(task.SerializedTaskType), task.SerializedTaskObject);
+                        = (ITaskQueueTask)SerializationHelper.DeserializeFromString(t, task.SerializedTaskObject);
                     if (qTask != null)
                     {
                         qTask.StartTask();

@@ -786,15 +786,19 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("UPDATE " + tableName + " ");
 			sqlCommand.Append(" SET " + dataFieldName + " = ?fieldValue ");
-			sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
+			sqlCommand.Append(" WHERE " + keyFieldName + " = ?keyFieldValue ");
 			sqlCommand.Append(" " + additionalWhere + " ");
 			sqlCommand.Append(" ; ");
 
-			MySqlParameter[] arParams = new MySqlParameter[1];
+			MySqlParameter[] arParams = new MySqlParameter[2];
 
 			arParams[0] = new MySqlParameter("?fieldValue", MySqlDbType.Blob);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = dataFieldValue;
+
+			arParams[1] = new MySqlParameter("?keyFieldValue", MySqlDbType.VarChar, 255);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = keyFieldValue;
 
 			int rowsAffected = MySqlHelper.ExecuteNonQuery(
 				connectionString,
@@ -814,26 +818,14 @@ namespace mojoPortal.Data
 			string dataFieldValue,
 			string additionalWhere)
 		{
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("UPDATE " + tableName + " ");
-			sqlCommand.Append(" SET " + dataFieldName + " = ?fieldValue ");
-			sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
-			sqlCommand.Append(" " + additionalWhere + " ");
-			sqlCommand.Append(" ; ");
-
-			MySqlParameter[] arParams = new MySqlParameter[1];
-
-			arParams[0] = new MySqlParameter("?fieldValue", MySqlDbType.Blob);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = dataFieldValue;
-
-			int rowsAffected = MySqlHelper.ExecuteNonQuery(
+			return DatabaseHelperUpdateTableField(
 				ConnectionString.GetWriteConnectionString(),
-				sqlCommand.ToString(),
-				arParams);
-
-			return (rowsAffected > 0);
-
+				tableName,
+				keyFieldName,
+				keyFieldValue,
+				dataFieldName,
+				dataFieldValue,
+				additionalWhere);
 		}
 
 		public static IDataReader DatabaseHelperGetReader(
@@ -886,6 +878,8 @@ namespace mojoPortal.Data
 			string tableName,
 			string whereClause)
 		{
+			if (string.IsNullOrEmpty(connectionString)) { connectionString = ConnectionString.GetReadConnectionString(); }
+
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT * ");
 			sqlCommand.Append("FROM " + tableName + " ");

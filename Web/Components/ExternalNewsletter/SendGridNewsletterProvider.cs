@@ -62,7 +62,10 @@ namespace mojoPortal.Web.ExternalNewsletter
         {
             try
             {
-                XmlDocument doc = new XmlDocument();
+                XmlDocument doc = new XmlDocument
+                {
+                    XmlResolver = null
+                };
                 doc.LoadXml("<root>" + rawXml + "</root>");
 
                 XmlNodeList listNodes = doc.SelectNodes("//list");

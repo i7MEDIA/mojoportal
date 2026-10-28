@@ -566,10 +566,11 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			HttpContext.Current.Response.RedirectLocation = url;
+			string safeUrl = (url ?? string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);
+			HttpContext.Current.Response.RedirectLocation = safeUrl;
 			HttpContext.Current.Response.StatusCode = 302;
-			HttpContext.Current.Response.StatusDescription = $"Redirecting to {url}";
-			HttpContext.Current.Response.Write($"Redirecting to {url}");
+			HttpContext.Current.Response.StatusDescription = "Found";
+			HttpContext.Current.Response.Write($"Redirecting to {HttpUtility.HtmlEncode(safeUrl)}");
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 
@@ -586,11 +587,12 @@ namespace mojoPortal.Web
 				url.ReturnUrl(returnUrl);
 			}
 
+			string targetUrl = url.ToString();
 			HttpContext.Current.Response.TrySkipIisCustomErrors = true;
 			HttpContext.Current.Response.StatusCode = 403;
-			HttpContext.Current.Response.StatusDescription = $"Redirecting to {url}";
-			HttpContext.Current.Response.Write($"Redirecting to {url}");
-			HttpContext.Current.Response.Redirect(url.ToString());
+			HttpContext.Current.Response.StatusDescription = "Forbidden";
+			HttpContext.Current.Response.Write($"Redirecting to {HttpUtility.HtmlEncode(targetUrl)}");
+			HttpContext.Current.Response.Redirect(targetUrl);
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 

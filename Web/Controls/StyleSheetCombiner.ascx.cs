@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -246,7 +246,13 @@ public partial class StyleSheetCombiner : UserControl
 
 		if (File.Exists(configFilePath))
 		{
-			using var reader = new XmlTextReader(new StreamReader(configFilePath));
+			var xmlSettings = new XmlReaderSettings
+			{
+				DtdProcessing = DtdProcessing.Prohibit,
+				XmlResolver = null
+			};
+			using var streamReader = new StreamReader(configFilePath);
+			using var reader = XmlReader.Create(streamReader, xmlSettings);
 			reader.MoveToContent();
 
 			while (reader.Read())

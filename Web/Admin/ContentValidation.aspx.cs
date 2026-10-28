@@ -33,15 +33,16 @@ namespace mojoPortal.Web.AdminUI
 				SiteUtils.RedirectToLoginPage(this);
 				return;
 			}
-			if (!WebUser.IsAdmin)
-            {
-                SiteUtils.RedirectToAccessDeniedPage(this);
-                return;
-            }
+			SiteSettings siteSettings = CacheHelper.GetCurrentSiteSettings();
+			if (!WebUser.IsAdmin || siteSettings == null || !siteSettings.IsServerAdminSite)
+			{
+				SiteUtils.RedirectToAccessDeniedPage(this);
+				return;
+			}
 
-            if (SiteUtils.SslIsAvailable()) WebUtils.ForceSsl();
+			if (SiteUtils.SslIsAvailable()) WebUtils.ForceSsl();
 
-            //EditAltText = Resource.EditImageAltText;
+			//EditAltText = Resource.EditImageAltText;
 			
 			if (IsPostBack)
 			{
@@ -58,11 +59,11 @@ namespace mojoPortal.Web.AdminUI
 			//string schemaFolder = HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/NeatHtml/schema" );
 			//string schemaFile = Path.Combine(schemaFolder, "NeatHtml.xsd");
 			
-            //XssFilter filter = XssFilter.GetForSchema(schemaFile);
-            Filter filter = Filter.DefaultFilter;
+			//XssFilter filter = XssFilter.GetForSchema(schemaFile);
+			Filter filter = Filter.DefaultFilter;
 				
 			DataTable dataTable = DatabaseHelper.GetTable(
-				txtConnectionString.Text,
+				string.Empty,
 				tableName,
 				string.Empty);
 			tableResults.BorderWidth = Unit.Pixel(1);

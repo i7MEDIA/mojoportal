@@ -812,32 +812,26 @@ namespace mojoPortal.Data
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("UPDATE " + tableName + " ");
             sqlCommand.Append(" SET " + dataFieldName + " = @fieldValue ");
-            sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
+            sqlCommand.Append(" WHERE " + keyFieldName + " = @keyFieldValue ");
             sqlCommand.Append(" " + additionalWhere + " ");
             sqlCommand.Append("  ");
 
-            SqlParameter[] arParams = new SqlParameter[1];
+            SqlParameter[] arParams = new SqlParameter[2];
 
             arParams[0] = new SqlParameter("@fieldValue", SqlDbType.Text);
             arParams[0].Direction = ParameterDirection.Input;
             arParams[0].Value = dataFieldValue;
 
-            //SqlConnection connection = new SqlConnection(connectionString);
-            //connection.Open();
-            //try
-            //{
-                int rowsAffected = SqlHelper.ExecuteNonQuery(
-                    connectionString,
-                    CommandType.Text,
-                    sqlCommand.ToString(), arParams);
+            arParams[1] = new SqlParameter("@keyFieldValue", SqlDbType.NVarChar, 255);
+            arParams[1].Direction = ParameterDirection.Input;
+            arParams[1].Value = keyFieldValue;
 
-                result = (rowsAffected > 0);
+            int rowsAffected = SqlHelper.ExecuteNonQuery(
+                connectionString,
+                CommandType.Text,
+                sqlCommand.ToString(), arParams);
 
-            //}
-            //finally
-            //{
-            //    connection.Close();
-            //}
+            result = (rowsAffected > 0);
 
             return result;
 
@@ -873,40 +867,14 @@ namespace mojoPortal.Data
             String dataFieldValue,
             String additionalWhere)
         {
-            bool result = false;
-
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("UPDATE " + tableName + " ");
-            sqlCommand.Append(" SET " + dataFieldName + " = @fieldValue ");
-            sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
-            sqlCommand.Append(" " + additionalWhere + " ");
-            sqlCommand.Append("  ");
-
-            SqlParameter[] arParams = new SqlParameter[1];
-
-            arParams[0] = new SqlParameter("@fieldValue", SqlDbType.Text);
-            arParams[0].Direction = ParameterDirection.Input;
-            arParams[0].Value = dataFieldValue;
-
-            //SqlConnection connection = new SqlConnection(GetConnectionString());
-            //connection.Open();
-            //try
-            //{
-                int rowsAffected = SqlHelper.ExecuteNonQuery(
-                    ConnectionString.GetWriteConnectionString(),
-                    CommandType.Text,
-                    sqlCommand.ToString(), arParams);
-
-                result = (rowsAffected > 0);
-
-            //}
-            //finally
-            //{
-            //    connection.Close();
-            //}
-
-            return result;
-
+            return DatabaseHelperUpdateTableField(
+                ConnectionString.GetWriteConnectionString(),
+                tableName,
+                keyFieldName,
+                keyFieldValue,
+                dataFieldName,
+                dataFieldValue,
+                additionalWhere);
         }
 
         //public static IDataReader DatabaseHelperGetReader(
@@ -993,6 +961,8 @@ namespace mojoPortal.Data
             String tableName,
             String whereClause)
         {
+            if (string.IsNullOrEmpty(connectionString)) { connectionString = ConnectionString.GetReadConnectionString(); }
+
             StringBuilder sqlCommand = new StringBuilder();
             sqlCommand.Append("SELECT * ");
             sqlCommand.Append("FROM " + tableName + " ");

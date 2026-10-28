@@ -643,20 +643,20 @@ public static class DBPortal
 		StringBuilder sqlCommand = new StringBuilder();
 		sqlCommand.Append("UPDATE " + tableName.ToLower() + " ");
 		sqlCommand.Append(" SET " + dataFieldName.ToLower() + " = :fieldvalue ");
-		sqlCommand.Append(" WHERE " + keyFieldName.ToLower() + " = " + keyFieldValue);
+		sqlCommand.Append(" WHERE " + keyFieldName.ToLower() + " = :keyfieldvalue ");
 		sqlCommand.Append(" " + additionalWhere + " ");
 		sqlCommand.Append(" ; ");
 
-		NpgsqlParameter[] arParams = new NpgsqlParameter[1];
+		NpgsqlParameter[] arParams = new NpgsqlParameter[2];
 
 		arParams[0] = new NpgsqlParameter(":fieldvalue", NpgsqlDbType.Text);
 		arParams[0].Direction = ParameterDirection.Input;
 		arParams[0].Value = dataFieldValue;
 
-		//NpgsqlConnection connection = new NpgsqlConnection(connectionString);
-		//connection.Open();
-		//try
-		//{
+		arParams[1] = new NpgsqlParameter(":keyfieldvalue", NpgsqlDbType.Varchar, 255);
+		arParams[1].Direction = ParameterDirection.Input;
+		arParams[1].Value = keyFieldValue;
+
 		int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
 			connectionString,
 			CommandType.Text,
@@ -664,11 +664,6 @@ public static class DBPortal
 			arParams);
 
 		result = (rowsAffected > 0);
-		//}
-		//finally
-		//{
-		//    connection.Close();
-		//}
 
 		return result;
 
@@ -682,40 +677,14 @@ public static class DBPortal
 		String dataFieldValue,
 		String additionalWhere)
 	{
-		bool result = false;
-
-		StringBuilder sqlCommand = new StringBuilder();
-		sqlCommand.Append("UPDATE " + tableName.ToLower() + " ");
-		sqlCommand.Append(" SET " + dataFieldName.ToLower() + " = :fieldvalue ");
-		sqlCommand.Append(" WHERE " + keyFieldName.ToLower() + " = " + keyFieldValue);
-		sqlCommand.Append(" " + additionalWhere + " ");
-		sqlCommand.Append(" ; ");
-
-		NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-		arParams[0] = new NpgsqlParameter(":fieldvalue", NpgsqlDbType.Text);
-		arParams[0].Direction = ParameterDirection.Input;
-		arParams[0].Value = dataFieldValue;
-
-		//NpgsqlConnection connection = new NpgsqlConnection(GetConnectionString());
-		//connection.Open();
-		//try
-		//{
-		int rowsAffected = NpgsqlHelper.ExecuteNonQuery(
+		return DatabaseHelperUpdateTableField(
 			ConnectionString.GetWriteConnectionString(),
-			CommandType.Text,
-			sqlCommand.ToString(),
-			arParams);
-
-		result = (rowsAffected > 0);
-		//}
-		//finally
-		//{
-		//    connection.Close();
-		//}
-
-		return result;
-
+			tableName,
+			keyFieldName,
+			keyFieldValue,
+			dataFieldName,
+			dataFieldValue,
+			additionalWhere);
 	}
 
 	public static IDataReader DatabaseHelperGetReader(
@@ -772,6 +741,8 @@ public static class DBPortal
 		String tableName,
 		String whereClause)
 	{
+		if (string.IsNullOrEmpty(connectionString)) { connectionString = ConnectionString.GetReadConnectionString(); }
+
 		StringBuilder sqlCommand = new StringBuilder();
 		sqlCommand.Append("select * ");
 		sqlCommand.Append("from " + tableName.ToLower() + " ");

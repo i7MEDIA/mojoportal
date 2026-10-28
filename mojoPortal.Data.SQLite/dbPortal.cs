@@ -770,15 +770,19 @@ namespace mojoPortal.Data
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("UPDATE " + tableName + " ");
 			sqlCommand.Append(" SET " + dataFieldName + " = :fieldValue ");
-			sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
+			sqlCommand.Append(" WHERE " + keyFieldName + " = :keyFieldValue ");
 			sqlCommand.Append(" " + additionalWhere + " ");
 			sqlCommand.Append(" ; ");
 
-			SqliteParameter[] arParams = new SqliteParameter[1];
+			SqliteParameter[] arParams = new SqliteParameter[2];
 
 			arParams[0] = new SqliteParameter(":fieldValue", DbType.String);
 			arParams[0].Direction = ParameterDirection.Input;
 			arParams[0].Value = dataFieldValue;
+
+			arParams[1] = new SqliteParameter(":keyFieldValue", DbType.String);
+			arParams[1].Direction = ParameterDirection.Input;
+			arParams[1].Value = keyFieldValue;
 
 			SqliteConnection connection = new SqliteConnection(connectionString);
 			connection.Open();
@@ -804,35 +808,14 @@ namespace mojoPortal.Data
 			String dataFieldValue,
 			String additionalWhere)
 		{
-			bool result = false;
-
-			StringBuilder sqlCommand = new StringBuilder();
-			sqlCommand.Append("UPDATE " + tableName + " ");
-			sqlCommand.Append(" SET " + dataFieldName + " = :fieldValue ");
-			sqlCommand.Append(" WHERE " + keyFieldName + " = " + keyFieldValue);
-			sqlCommand.Append(" " + additionalWhere + " ");
-			sqlCommand.Append(" ; ");
-
-			SqliteParameter[] arParams = new SqliteParameter[1];
-
-			arParams[0] = new SqliteParameter(":fieldValue", DbType.String);
-			arParams[0].Direction = ParameterDirection.Input;
-			arParams[0].Value = dataFieldValue;
-
-			SqliteConnection connection = new SqliteConnection(GetConnectionString());
-			connection.Open();
-			try
-			{
-				int rowsAffected = SqliteHelper.ExecuteNonQuery(connection, sqlCommand.ToString(), arParams);
-				result = (rowsAffected > 0);
-			}
-			finally
-			{
-				connection.Close();
-			}
-
-			return result;
-
+			return DatabaseHelperUpdateTableField(
+				GetConnectionString(),
+				tableName,
+				keyFieldName,
+				keyFieldValue,
+				dataFieldName,
+				dataFieldValue,
+				additionalWhere);
 		}
 
 		public static IDataReader DatabaseHelperGetReader(
@@ -885,6 +868,8 @@ namespace mojoPortal.Data
 			String tableName,
 			String whereClause)
 		{
+			if (string.IsNullOrEmpty(connectionString)) { connectionString = GetConnectionString(); }
+
 			StringBuilder sqlCommand = new StringBuilder();
 			sqlCommand.Append("SELECT * ");
 			sqlCommand.Append("FROM " + tableName + " ");

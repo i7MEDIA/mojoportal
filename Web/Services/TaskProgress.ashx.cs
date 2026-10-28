@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Web;
 using System.Web.Services;
@@ -35,13 +35,13 @@ public class TaskProgress : IHttpHandler
 		Encoding encoding = new UTF8Encoding();
 		context.Response.ContentEncoding = encoding;
 
-		if (task != null)
+		if (task != null && context.Request.IsAuthenticated)
 		{
 			int progress = Convert.ToInt32(task.CompleteRatio * 100);
 			if (progress > 100) { progress = 100; }
 			if (progress < 0) { progress = 0; }
 			context.Response.Write("{");
-			context.Response.Write("\"status\":\"" + task.Status + "\"");
+			context.Response.Write("\"status\":\"" + HttpUtility.JavaScriptStringEncode(task.Status ?? string.Empty) + "\"");
 			context.Response.Write(",\"percentComplete\":" + progress.ToInvariantString());
 			context.Response.Write("}");
 

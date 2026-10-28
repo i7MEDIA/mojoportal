@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -45,8 +45,16 @@ public class SerializationHelper
 	/// <returns></returns>
 	public static object DeserializeFromString(Type type, string serializedObject)
 	{
+		if (type == null) throw new ArgumentNullException(nameof(type));
+		if (string.IsNullOrEmpty(serializedObject)) return null;
 
-		using (XmlTextReader reader = new XmlTextReader(new StringReader(serializedObject)))
+		var settings = new XmlReaderSettings
+		{
+			DtdProcessing = DtdProcessing.Prohibit,
+			XmlResolver = null
+		};
+
+		using (XmlReader reader = XmlReader.Create(new StringReader(serializedObject), settings))
 		{
 			XmlSerializer serializer = new XmlSerializer(type);
 

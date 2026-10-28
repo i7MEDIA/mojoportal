@@ -18,16 +18,6 @@
 			Occasionally benign content will be considered invalid as well.  Click below to search for
 			invalid content and then, if you are convinced that some content is benign, follow its link 
 			to edit the content to make it valid.</p>
-			<table border="1">
-				<tr>
-					<th align="left">
-						Database Connection String:
-					</th>
-					<td colspan="2">
-						<asp:TextBox ID="txtConnectionString" Runat="server" Columns="80"></asp:TextBox>
-					</td>
-				</tr>
-			</table>
 			<asp:Button ID="validateBtn" Runat="server" Text="Find Invalid Content"></asp:Button>
 			<br />
 			<asp:Table id="tableResults" runat="server" EnableViewState="False" >

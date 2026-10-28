@@ -347,6 +347,14 @@ public static class DatabaseHelper
 		return appName;
 	}
 
+	private static void ValidateIdentifier(string identifier, string paramName)
+	{
+		if (string.IsNullOrWhiteSpace(identifier) || !System.Text.RegularExpressions.Regex.IsMatch(identifier, "^[a-zA-Z0-9_]+$"))
+		{
+			throw new ArgumentException("Invalid SQL identifier.", paramName);
+		}
+	}
+
 	public static bool UpdateTableField(
 		string connectionString,
 		string tableName,
@@ -357,10 +365,9 @@ public static class DatabaseHelper
 		string additionalWhere
 	)
 	{
-		if (dataFieldName is null)
-		{
-			throw new ArgumentNullException(nameof(dataFieldName));
-		}
+		ValidateIdentifier(tableName, nameof(tableName));
+		ValidateIdentifier(keyFieldName, nameof(keyFieldName));
+		ValidateIdentifier(dataFieldName, nameof(dataFieldName));
 
 		return DBPortal.DatabaseHelperUpdateTableField(
 			connectionString,
@@ -382,6 +389,10 @@ public static class DatabaseHelper
 		string additionalWhere
 	)
 	{
+		ValidateIdentifier(tableName, nameof(tableName));
+		ValidateIdentifier(keyFieldName, nameof(keyFieldName));
+		ValidateIdentifier(dataFieldName, nameof(dataFieldName));
+
 		return DBPortal.DatabaseHelperUpdateTableField(
 			tableName,
 			keyFieldName,
@@ -394,13 +405,17 @@ public static class DatabaseHelper
 
 	public static IDataReader GetReader(string connectionString, string tableName, string whereClause)
 	{
+		ValidateIdentifier(tableName, nameof(tableName));
 		return DBPortal.DatabaseHelperGetReader(connectionString, tableName, whereClause);
 	}
 
 	public static DataTable GetTable(string connectionString, string tableName, string whereClause)
 	{
+		ValidateIdentifier(tableName, nameof(tableName));
 		return DBPortal.DatabaseHelperGetTable(connectionString, tableName, whereClause);
 	}
+
+	public static DataTable GetTable(string tableName, string whereClause) => GetTable(string.Empty, tableName, whereClause);
 
 	#region Version Specific tasks
 	public static bool RunPostUpgradeTasks(Version version, string overrideConnectionString)

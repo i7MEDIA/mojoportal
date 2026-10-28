@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -220,7 +220,13 @@ public class CssHandler : IHttpHandler
 
 	private void ProcessCssFileList(StringBuilder cssContent, string physicalSkinPath, string skinImageBasePath)
 	{
-		using XmlReader reader = new XmlTextReader(new StreamReader($"{physicalSkinPath}/style.config"));
+		var xmlSettings = new XmlReaderSettings
+		{
+			DtdProcessing = DtdProcessing.Prohibit,
+			XmlResolver = null
+		};
+		using var streamReader = new StreamReader($"{physicalSkinPath}/style.config");
+		using XmlReader reader = XmlReader.Create(streamReader, xmlSettings);
 		reader.MoveToContent();
 
 		while (reader.Read())
