@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -18,6 +18,10 @@ public class FileManagerController : Controller
 	public ActionResult Index([FromUri] QueryParams queryParams)
 	{
 		var model = LoadSettings(queryParams);
+		if (model == null)
+		{
+			return new HttpUnauthorizedResult();
+		}
 
 		return View(model);
 	}
@@ -27,6 +31,10 @@ public class FileManagerController : Controller
 	public ActionResult Pages([FromUri] QueryParams queryParams)
 	{
 		var model = LoadSettings(queryParams);
+		if (model == null)
+		{
+			return new HttpUnauthorizedResult();
+		}
 
 		return View(model);
 	}
@@ -42,6 +50,7 @@ public class FileManagerController : Controller
 		if (siteSettings == null)
 		{
 			log.Info(Resource.FileSystemSiteSettingsNotLoaded);
+			return null;
 		}
 
 		FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
@@ -49,13 +58,15 @@ public class FileManagerController : Controller
 		if (p == null)
 		{
 			log.Info(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
+			return null;
 		}
 
 		fileSystem = p.GetFileSystem();
 
-		if (fileSystem == null)
+		if (fileSystem == null || !fileSystem.UserHasBrowsePermission)
 		{
 			log.Info(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
+			return null;
 		}
 
 		var virtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.VirtualRoot.Replace("~", string.Empty));

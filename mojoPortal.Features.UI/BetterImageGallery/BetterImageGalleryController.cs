@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Web;
 using System.Web.Http;
 
@@ -22,10 +22,23 @@ public class BetterImageGalleryController : ApiController
 	[Route("api/BetterImageGallery/imagehandler")]
 	public IHttpActionResult ImageHandler([FromUri] string path)
 	{
-		var imgPath = HttpContext.Current.Server.MapPath($"~/Data/systemfiles/BetterImageGalleryCache/{path.ToLinkBuilder(false)}");
+		if (string.IsNullOrWhiteSpace(path))
+		{
+			return NotFound();
+		}
+
+		string cacheRootVirtualPath = "~/Data/systemfiles/BetterImageGalleryCache/";
+		string virtualTargetPath = $"{cacheRootVirtualPath}{path.ToLinkBuilder(false)}";
+
+		if (!Web.Framework.IOHelper.IsDecendentFile(cacheRootVirtualPath, virtualTargetPath))
+		{
+			return NotFound();
+		}
+
+		var imgPath = HttpContext.Current.Server.MapPath(virtualTargetPath);
 		var fileInfo = new FileInfo(imgPath);
 
-		return !fileInfo.Exists
+		return !fileInfo.Exists || !Web.Framework.IOHelper.IsWebImageFile(fileInfo)
 			? (IHttpActionResult)NotFound()
 			: new FileResult(fileInfo.FullName);
 	}

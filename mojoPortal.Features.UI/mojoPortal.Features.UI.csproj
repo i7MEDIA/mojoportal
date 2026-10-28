@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -289,11 +289,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FeedResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\FolderGalleryResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FolderGalleryResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\ForumResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -730,25 +725,6 @@
     <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
       <DependentUpon>FeedManagerModule.ascx</DependentUpon>
     </Compile>
-    <Compile Include="FolderGallery\Components\FolderGalleryConfiguration.cs" />
-    <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
-    <Compile Include="FolderGallery\Edit.aspx.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FolderGallery\Edit.aspx.designer.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FolderGallery\FolderGalleryModule.ascx.cs">
-      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FolderGallery\FolderGalleryModule.ascx.designer.cs">
-      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="FolderGallery\upload.ashx.cs">
-      <DependentUpon>upload.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Forums\Components\FeedParameterParser.cs" />
     <Compile Include="Forums\Components\ForumConfiguration.cs" />
     <Compile Include="Forums\Components\ForumContentDeleteHandler.cs" />
@@ -1081,9 +1057,6 @@
       <DependentUpon>PollModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\GalleryDataService.ashx.cs">
-      <DependentUpon>GalleryDataService.ashx</DependentUpon>
-    </Compile>
     <Compile Include="SharedFiles\Components\SharedFilesConfiguration.cs" />
     <Compile Include="SharedFiles\Components\SharedFilesContentDeleteHandler.cs" />
     <Compile Include="SharedFiles\Components\SharedFilesContentInstaller.cs" />
@@ -1456,20 +1429,6 @@
     <Content Include="Setup\ProviderConfig\indexbuilders\sharedfilesindexbuilder.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FolderGallery\Edit.aspx" />
-    <Content Include="FolderGallery\FolderGalleryModule.ascx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\FolderGalleryResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>FolderGalleryResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\foldergallery\FeatureDefinitions\50040_FolderGalleryModule.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_GlobalResources\GMapResources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>GMapResources.Designer.cs</LastGenOutput>
@@ -1613,9 +1572,6 @@
     <Content Include="Blog\Controls\CommentDaysSetting.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Services\GalleryDataService.ashx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ImageGallery\BulkUpload.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -1709,9 +1665,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageGallery\upload.ashx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FolderGallery\upload.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="XmlXsl\uploader.ashx" />
@@ -2078,10 +2031,6 @@ xcopy /s /y /d "$(ProjectDir)List\*.ascx" "$(SolutionDir)Web\List\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.aspx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ascx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ashx" "$(SolutionDir)Web\SharedFiles\"
-
-xcopy /s /y /d "$(ProjectDir)FolderGallery\*.aspx" "$(SolutionDir)Web\FolderGallery\"
-xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ascx" "$(SolutionDir)Web\FolderGallery\"
-xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ashx" "$(SolutionDir)Web\FolderGallery\"
 
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.aspx" "$(SolutionDir)Web\GoogleMap\"
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.ascx" "$(SolutionDir)Web\GoogleMap\"

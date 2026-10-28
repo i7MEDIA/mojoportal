@@ -39,15 +39,18 @@ public partial class HtmlIncludeModule : SiteModuleControl
 			includePath = Invariant($"/Data/Sites/{siteSettings.SiteId}/htmlfragments");
 		}
 
-		string includeFileName = Settings["HtmlFragmentSourceSetting"].ToString();
-		string includeContentFile = HttpContext.Current.Server.MapPath($"{WebUtils.GetApplicationRoot()}{includePath}{Path.DirectorySeparatorChar}{includeFileName}");
+		string includeFileName = Path.GetFileName(Settings["HtmlFragmentSourceSetting"]?.ToString() ?? string.Empty);
+		string includeVirtualDir = $"{WebUtils.GetApplicationRoot()}{includePath}";
+		string includeContentFile = !string.IsNullOrEmpty(includeFileName)
+			? HttpContext.Current.Server.MapPath($"{includeVirtualDir}/{includeFileName}")
+			: null;
 
-		if (includeFileName != null)
+		if (!string.IsNullOrEmpty(includeFileName) && includeContentFile != null)
 		{
-			if (File.Exists(includeContentFile))
+			if (IOHelper.IsDecendentFile(includeVirtualDir, $"{includeVirtualDir}/{includeFileName}") && File.Exists(includeContentFile))
 			{
 				var file = new FileInfo(includeContentFile);
-				if (file.Extension != ".config")
+				if (!file.Extension.Equals(".config", StringComparison.OrdinalIgnoreCase))
 				{
 					using StreamReader sr = file.OpenText();
 					litInclude.Text = sr.ReadToEnd();
@@ -55,7 +58,7 @@ public partial class HtmlIncludeModule : SiteModuleControl
 			}
 			else
 			{
-				Controls.Add(new LiteralControl($"<div class=\"alert alert-danger\">File {includeContentFile} not found."));
+				Controls.Add(new LiteralControl($"<div class=\"alert alert-danger\">File {HttpUtility.HtmlEncode(includeFileName)} not found.</div>"));
 			}
 		}
 

@@ -1,4 +1,4 @@
-﻿using log4net;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
@@ -112,10 +112,12 @@ namespace SuperFlexiUI
 			}
 
 			string helpText = string.Empty;
-			WebFile helpFile;
-			if (helpKey.ToLower().EndsWith(".sfhelp") ||
-				helpKey.ToLower().EndsWith(".config") ||
-				helpKey.ToLower().EndsWith(".html"))
+			WebFile helpFile = null;
+			if (!string.IsNullOrWhiteSpace(helpKey) &&
+				!helpKey.Contains("..") &&
+				!helpKey.Contains("\\") &&
+				(helpKey.ToLower().EndsWith(".sfhelp") ||
+				 helpKey.ToLower().EndsWith(".html")))
 			{
 				if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
 				{

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -91,17 +91,27 @@ public class DiskFileSystem : IFileSystem
 
 	private string MapPath(string virtualPath)
 	{
-		string fullPath;
-		if (virtualPath.StartsWith("~"))
+		if (string.IsNullOrWhiteSpace(virtualPath))
 		{
-			fullPath = HostingEnvironment.MapPath(virtualPath);
-		}
-		else
-		{
-			fullPath = HostingEnvironment.MapPath("~" + virtualPath);
+			throw new ArgumentNullException(nameof(virtualPath));
 		}
 
-		return fullPath;
+		string fullPath = virtualPath.StartsWith("~")
+			? HostingEnvironment.MapPath(virtualPath)
+			: HostingEnvironment.MapPath("~" + virtualPath);
+
+		string canonicalFullPath = Path.GetFullPath(fullPath);
+		string dataRootPath = Path.GetFullPath(HostingEnvironment.MapPath("~/Data/"))
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+		string canonicalTargetWithSep = canonicalFullPath
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+		if (!canonicalTargetWithSep.StartsWith(dataRootPath, StringComparison.OrdinalIgnoreCase))
+		{
+			throw new UnauthorizedAccessException("Attempted to access a path outside of the Data directory.");
+		}
+
+		return canonicalFullPath;
 	}
 
 	private string ResolvePathResult(string path)

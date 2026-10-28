@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -62,29 +62,36 @@ public class FileServiceController : ApiController
 
 		var localizedUserFolder = "/" + Resource.UserFolder;
 
-		request.Path = request.Path.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
-		request.NewItemPath = request.NewItemPath.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
-		request.NewPath = request.NewPath.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
-		request.Item = request.Item.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+		request.Path = request.Path?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+		request.NewItemPath = request.NewItemPath?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+		request.NewPath = request.NewPath?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+		request.Item = request.Item?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
 
-		if (request.Items.Count > 0)
+		if (request.Items != null && request.Items.Count > 0)
 		{
-			request.Items = request.Items.Select(s => s.Replace(localizedUserFolder, fileSystem.Permission.UserFolder)).ToList();
+			request.Items = request.Items.Select(s => s?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder)).ToList();
 		}
+
+		bool canUpload = fileSystem.UserHasUploadPermission;
+		bool canDelete = canUpload && (
+			WebUser.IsAdminOrContentAdmin
+			|| WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor)
+			|| (!string.IsNullOrWhiteSpace(fileSystem.Permission.UserFolder) && fileSystem.Permission.UserFolder == fileSystem.VirtualRoot)
+		);
 
 		return request.Action switch
 		{
-			"rename" => RenameItem(request.Item, request.NewItemPath),
-			"move" => MoveItem(request.Items, request.NewPath, returnMessages, returnErrors),
-			"copy" => CopyItem(request.Items, request.SingleFileName, request.NewPath, returnMessages, returnErrors),
-			"remove" => RemoveItem(request.Items, returnMessages, returnErrors),
-			"edit" => EditItem(request.Item, request.Content),
+			"rename" => canUpload ? RenameItem(request.Item, request.NewItemPath) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
+			"move" => canUpload ? MoveItem(request.Items, request.NewPath, returnMessages, returnErrors) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
+			"copy" => canUpload ? CopyItem(request.Items, request.SingleFileName, request.NewPath, returnMessages, returnErrors) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
+			"remove" => canDelete ? RemoveItem(request.Items, returnMessages, returnErrors) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
+			"edit" => canUpload ? EditItem(request.Item, request.Content) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
 			"getContent" => GetFileContent(request.Item),
-			"createFolder" => CreateFolder(request.NewPath),
+			"createFolder" => canUpload ? CreateFolder(request.NewPath) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
 			// There is no infrastructure to edit permissions... yet.
 			//case "changePermissions":
-			"compress" => CompressItems(request.Items, request.Destination, request.CompressedFilename),
-			"extract" => ExtractItems(request.Item, request.Destination, request.FolderName),
+			"compress" => canUpload ? CompressItems(request.Items, request.Destination, request.CompressedFilename) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
+			"extract" => canUpload ? ExtractItems(request.Item, request.Destination, request.FolderName) : new FileService.ReturnObject(ReturnResult(OpResult.Denied)),
 			_ => ListAllFilesFolders(request.Path),
 		};
 	}
@@ -345,15 +352,19 @@ public class FileServiceController : ApiController
 
 	private dynamic EditItem(string item, string content)
 	{
-		item = FilePath(item);
-
 		if (allowEditing)
 		{
 			if (AllowedExtension(item))
 			{
 				try
 				{
-					using (StreamWriter writer = File.CreateText(FilePath(item, true, false, true)))
+					string diskFilePath = FilePath(item, true);
+					if (Path.GetExtension(diskFilePath).Equals(".svg", StringComparison.OrdinalIgnoreCase))
+					{
+						content = Core.Helpers.XmlSanitizer.RemoveScripts(content);
+					}
+
+					using (StreamWriter writer = File.CreateText(diskFilePath))
 					{
 						writer.Write(content);
 					}
@@ -368,7 +379,6 @@ public class FileServiceController : ApiController
 			}
 
 			return new FileService.ReturnObject(ReturnResult(OpResult.FileTypeNotAllowed));
-			;
 		}
 
 		return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.FileEditInFileManagerNotAllowed });
@@ -437,7 +447,10 @@ public class FileServiceController : ApiController
 							zip.AddDirectory(path, CleanFileName(item, "folder"));
 							break;
 						case "file":
-							zip.AddFile(path, "");
+							if (AllowedExtension(item))
+							{
+								zip.AddFile(path, "");
+							}
 							break;
 					}
 				}
@@ -465,6 +478,14 @@ public class FileServiceController : ApiController
 	{
 		try
 		{
+			if (!AllowedExtension(item) || !Path.GetExtension(item).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+			{
+				return new FileService.ReturnObject(ReturnResult(OpResult.FileTypeNotAllowed));
+			}
+
+			string cleanFolderName = CleanFileName(folderName, "folder");
+			string targetExtractDir = FilePath(destination + "/" + cleanFolderName, true);
+
 			using (ZipFile zip = ZipFile.Read(FilePath(item, true)))
 			{
 
@@ -504,8 +525,22 @@ public class FileServiceController : ApiController
 						e.FileName = string.Join("/", cleanDirs) + "/" + file;
 					}
 
-					e.Extract(FilePath(destination + "/" + folderName, true), overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
+					if (!IOHelper.IsSafeZipEntryPath(targetExtractDir, e.FileName))
+					{
+						continue;
+					}
 
+					e.Extract(targetExtractDir, overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
+
+					if (!e.IsDirectory && Path.GetExtension(e.FileName).Equals(".svg", StringComparison.OrdinalIgnoreCase))
+					{
+						string extractedFilePath = Path.GetFullPath(Path.Combine(targetExtractDir, e.FileName.TrimStart('/', '\\')));
+						if (File.Exists(extractedFilePath))
+						{
+							string sanitizedSvg = Core.Helpers.XmlSanitizer.RemoveScripts(File.ReadAllText(extractedFilePath, Encoding.UTF8));
+							File.WriteAllText(extractedFilePath, sanitizedSvg, Encoding.UTF8);
+						}
+					}
 				}
 			}
 
@@ -523,10 +558,15 @@ public class FileServiceController : ApiController
 	{
 		var newpath = path.Replace($"/{Resource.UserFolder}", fileSystem.Permission.UserFolder);
 
+		if (!AllowedExtension(newpath))
+		{
+			throw new HttpResponseException(HttpStatusCode.Forbidden);
+		}
+
 		try
 		{
 			var result = new HttpResponseMessage(HttpStatusCode.OK);
-			var stream = new FileStream(FilePath(newpath, true), FileMode.Open);
+			var stream = new FileStream(FilePath(newpath, true), FileMode.Open, FileAccess.Read, FileShare.Read);
 
 			result.Content = new StreamContent(stream);
 			result.Content.Headers.ContentType = new MediaTypeHeaderValue(MimeMapping.GetMimeMapping(path));
@@ -552,7 +592,11 @@ public class FileServiceController : ApiController
 		{
 			foreach (var item in items)
 			{
-				zipFile.AddFile(FilePath(item, true), "");
+				var resolvedItem = item.Replace($"/{Resource.UserFolder}", fileSystem.Permission.UserFolder);
+				if (AllowedExtension(resolvedItem))
+				{
+					zipFile.AddFile(FilePath(resolvedItem, true), "");
+				}
 			}
 
 			return ZipContentResult(zipFile, toFilename);
@@ -742,31 +786,62 @@ public class FileServiceController : ApiController
 			return itemPath;
 		}
 
+		// Normalize backslashes first, then repeatedly strip ".." to prevent order-of-operations bypasses
+		itemPath = itemPath.Replace("\\", "/").Trim();
+		while (itemPath.Contains(".."))
+		{
+			itemPath = itemPath.Replace("..", string.Empty);
+		}
+
 		var userFolder = fileSystem.Permission.UserFolder;
 
-		if (!string.IsNullOrWhiteSpace(userFolder) && itemPath.Contains(userFolder))
+		if (!string.IsNullOrWhiteSpace(userFolder) && itemPath.StartsWith(userFolder, StringComparison.OrdinalIgnoreCase))
 		{
-			if (!Directory.Exists(fileSystem.Permission.UserFolder))
+			if (!fileSystem.FolderExists(fileSystem.Permission.UserFolder))
+			{
 				fileSystem.CreateFolder(fileSystem.Permission.UserFolder);
+			}
 
-			itemPath = itemPath.Replace(userFolder, fileSystem.Permission.UserFolder);
 			isFullPath = true;
 		}
 
-		// Remove "../" or "\" to prevent hacks 
-		itemPath = itemPath.Replace("..", string.Empty).Replace("\\", string.Empty).Trim();
 		string fullPath = !isFullPath ? virtualPath + itemPath : itemPath;
 		// Clean virtual path
 		string cleanPath = onlyOneSlashRegEx.Replace(fullPath, string.Empty);
 		if (appendTrailingSlash)
+		{
 			cleanPath = VirtualPathUtility.AppendTrailingSlash(cleanPath);
-		// Clean disk path
-		string diskPath = HttpContext.Current.Server.MapPath(cleanPath);
+		}
+
+		// Clean and verify disk path containment
+		string diskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(cleanPath));
+		string allowedRootDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(virtualPath))
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+		string diskPathWithSep = diskPath
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+		bool isWithinAllowedRoot = diskPathWithSep.StartsWith(allowedRootDiskPath, StringComparison.OrdinalIgnoreCase);
+
+		if (!isWithinAllowedRoot && !string.IsNullOrWhiteSpace(userFolder))
+		{
+			string allowedUserDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(userFolder))
+				.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+			isWithinAllowedRoot = diskPathWithSep.StartsWith(allowedUserDiskPath, StringComparison.OrdinalIgnoreCase);
+		}
+
+		if (!isWithinAllowedRoot)
+		{
+			throw new UnauthorizedAccessException("Attempted to access a path outside of the allowed file manager root.");
+		}
 
 		if (returnDiskPath)
+		{
 			return diskPath;
+		}
 		else
+		{
 			return cleanPath;
+		}
 	}
 
 	private bool AllowedExtension(string item)

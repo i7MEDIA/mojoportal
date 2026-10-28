@@ -1658,12 +1658,18 @@ public class mojoBasePage : Page
 	{
 		if (
 			Master.FindControl("phSiteFooter") is Control siteFooter &&
-			siteFooter.FindControlRecursive("mojoModalTemplate") is null
+			siteFooter.FindControlRecursive("mojoModalTemplate") is null &&
+			!string.IsNullOrWhiteSpace(Global.SkinConfig.ModalTemplatePath) &&
+			IOHelper.IsDecendentFile("~/Data/", Global.SkinConfig.ModalTemplatePath)
 		)
 		{
 			var modalFile = new FileInfo(Server.MapPath(Global.SkinConfig.ModalTemplatePath));
 
-			if (modalFile.Exists)
+			if (
+				modalFile.Exists &&
+				(modalFile.Extension.Equals(".html", StringComparison.OrdinalIgnoreCase) ||
+				 modalFile.Extension.Equals(".htm", StringComparison.OrdinalIgnoreCase))
+			)
 			{
 				var content = File.ReadAllText(modalFile.FullName);
 

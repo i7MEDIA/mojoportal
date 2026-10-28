@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -59,6 +59,11 @@ public class ModuleConfiguration
 	/// <returns>bool</returns>
 	public void CopyMarkupDefinitionToDatabase()
 	{
+		if (string.IsNullOrWhiteSpace(MarkupDefinitionFile) || MarkupDefinitionFile.Contains("..") || MarkupDefinitionFile.Contains("\\"))
+		{
+			return;
+		}
+
 		bool changed = false;
 		var sfMarkup = fileSystem.RetrieveFile(MarkupDefinitionFile);
 
@@ -119,7 +124,11 @@ public class ModuleConfiguration
 		}
 
 		MarkupDefinitionFile = WebUtils.ParseStringFromHashtable(settings, "MarkupDefinitionFile", MarkupDefinitionFile);
-		if (MarkupDefinitionFile.IndexOf("~", 0) < 0)
+		if (MarkupDefinitionFile.Contains("..") || MarkupDefinitionFile.Contains("\\"))
+		{
+			MarkupDefinitionFile = string.Empty;
+		}
+		else if (MarkupDefinitionFile.IndexOf("~", 0) < 0)
 		{
 			MarkupDefinitionFile = $"~{MarkupDefinitionFile}";
 		}

@@ -670,11 +670,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Admin\CacheTool.aspx" />
-    <Content Include="DesignTools\CssEditor.aspx" />
-    <Content Include="DesignTools\Default.aspx" />
-    <Content Include="DesignTools\DownloadSkin.aspx" />
-    <Content Include="DesignTools\ManageSkin.aspx" />
-    <Content Include="DesignTools\SkinList.aspx" />
     <Content Include="Dialog\GlobalContentDialog.aspx" />
     <Content Include="Dialog\ParentPageDialog.aspx" />
     <Content Include="Dialog\UserRolesDialog.aspx" />
@@ -1487,41 +1482,6 @@
     </Compile>
     <Compile Include="Admin\CacheTool.aspx.designer.cs">
       <DependentUpon>CacheTool.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DesignTools\CssEditor.aspx.cs">
-      <DependentUpon>CssEditor.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\CssEditor.aspx.designer.cs">
-      <DependentUpon>CssEditor.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DesignTools\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DesignTools\DownloadSkin.aspx.cs">
-      <DependentUpon>DownloadSkin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\DownloadSkin.aspx.designer.cs">
-      <DependentUpon>DownloadSkin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DesignTools\ManageSkin.aspx.cs">
-      <DependentUpon>ManageSkin.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\ManageSkin.aspx.designer.cs">
-      <DependentUpon>ManageSkin.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DesignTools\SkinList.aspx.cs">
-      <DependentUpon>SkinList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="DesignTools\SkinList.aspx.designer.cs">
-      <DependentUpon>SkinList.aspx</DependentUpon>
     </Compile>
     <Compile Include="DevAdmin\Controls\QueryTool.ascx.cs">
       <DependentUpon>QueryTool.ascx</DependentUpon>

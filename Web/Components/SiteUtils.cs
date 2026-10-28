@@ -716,9 +716,8 @@ namespace mojoPortal.Web
 				return skinName;
 			}
 
-			// protected against this xss attack
-
-			return skinName.Remove(["%", " ", ">", "<", "'", "\""]);
+			// Protect against XSS and path traversal in skin parameter
+			return skinName.Remove(["%", " ", ">", "<", "'", "\"", ".", "/", "\\", ":"]);
 		}
 
 		public static void SetSkinCookie(SiteUser siteUser)
@@ -1178,7 +1177,7 @@ namespace mojoPortal.Web
 
 							if (cookieValue.Length > 0)
 							{
-								currentSkin = cookieValue;
+								currentSkin = SanitizeSkinParam(cookieValue);
 							}
 						}
 					}
@@ -1436,7 +1435,7 @@ namespace mojoPortal.Web
 						string cookieValue = CookieHelper.GetCookieValue(skinCookieName);
 						if (cookieValue.Length > 0)
 						{
-							currentSkin = cookieValue;
+							currentSkin = SanitizeSkinParam(cookieValue);
 						}
 					}
 				}

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -57,11 +57,17 @@ public class BetterImageGalleryService
 			GalleryFolder = bigConfig.FolderPath
 		};
 
-		if (string.IsNullOrWhiteSpace(bigConfig.FolderPath)) return model;
+		if (string.IsNullOrWhiteSpace(bigConfig.FolderPath) || string.IsNullOrWhiteSpace(path)) return model;
 
-		if (!path.Contains(galleryRootPath.Replace("~", string.Empty)))
+		if (!path.StartsWith(galleryRootPath, StringComparison.OrdinalIgnoreCase) &&
+			!path.StartsWith(galleryRootPath.Replace("~", string.Empty), StringComparison.OrdinalIgnoreCase))
 		{
-			path = galleryRootPath + path;
+			path = galleryRootPath + path.TrimStart('/', '\\');
+		}
+
+		if (!Web.Framework.IOHelper.IsDecendentDirectory(galleryPath, path))
+		{
+			return model;
 		}
 
 		var folderList = fileSystem?.GetFolderList(path).ToList();
