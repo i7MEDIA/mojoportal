@@ -221,7 +221,7 @@ namespace SuperFlexiUI
 			sb.Replace("$_EditorToolbarSet_$", mojoPortal.Web.Editor.ToolBar.FullWithTemplates.ToString());
 			sb.Replace("$_EditorTemplatesUrl_$", $"{siteRoot}/Services/CKeditorTemplates.ashx?cb={Guid.NewGuid()}");
 			sb.Replace("$_EditorStylesUrl_$", $"{siteRoot}/Services/CKeditorStyles.ashx?cb={Guid.NewGuid().ToString().Replace("-", string.Empty)}");
-			sb.Replace("$_DropFileUploadUrl_$", $"{siteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
+			sb.Replace("$_DropFileUploadUrl_$", $"{siteRoot}/api/FileUpload/UploadFromEditor?rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
 			sb.Replace("$_FileBrowserUrl_$", $"{siteRoot}{WebConfigSettings.FileDialogRelativeUrl}");
 			sb.Replace("$_HeaderContent_$", config.HeaderContent);
 			sb.Replace("$_FooterContent_$", config.FooterContent);

@@ -141,9 +141,8 @@ public class CKEditorAdapter : IWebEditor
 					.ToLinkBuilder()
 					.AddParam("cb", Guid.NewGuid().ToString("N")) //cache busting guid
 					.ToString();
-				_editor.DropFileUploadUrl = $"~/Services/FileService.ashx"
+				_editor.DropFileUploadUrl = $"~/api/FileUpload/UploadFromEditor"
 					.ToLinkBuilder()
-					.AddParam("cmd", "uploadfromeditor")
 					.AddParam("rz", true)
 					.AddParam("ko", WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower())
 					.AddParam("t", Global.FileSystemToken)
@@ -171,9 +170,8 @@ public class CKEditorAdapter : IWebEditor
 					.ToLinkBuilder()
 					.AddParam("cb", Guid.NewGuid().ToString("N")) //cache busting guid
 					.ToString();
-				_editor.DropFileUploadUrl = $"~/Services/FileService.ashx"
+				_editor.DropFileUploadUrl = $"~/api/FileUpload/UploadFromEditor"
 					.ToLinkBuilder()
-					.AddParam("cmd", "uploadfromeditor")
 					.AddParam("rz", true)
 					.AddParam("ko", WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower())
 					.AddParam("t", Global.FileSystemToken)

@@ -31,7 +31,7 @@ public class TinyMceSettings : ITinyMceSettings
 	public bool AutoFocus { get; set; } = false;
 	public string Menubar { get; set; } = string.Empty;
 	public bool DisableMenuBar { get; set; } = true;
-	public string Plugins { get; set; } = "emotions,directionality,inlinepopups";
+	public string Plugins { get; set; } = "emoticons,directionality";
 	public string Toolbar1Buttons { get; set; } = "cut,copy,pastetext,separator,blockquote,bold,italic,separator,bullist,numlist,separator,link,unlink,emotions";
 	public string Toolbar2Buttons { get; set; } = string.Empty;
 	public string Toolbar3Buttons { get; set; } = string.Empty;
