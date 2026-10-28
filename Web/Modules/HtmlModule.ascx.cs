@@ -565,7 +565,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 		string strModuleId = ModuleId.ToInvariantString();
 		string strRandomGuid = Guid.NewGuid().ToString().Replace("-", string.Empty);
 		string fileManagerUrl = $"{SiteRoot}{WebConfigSettings.FileDialogRelativeUrl}";
-		string dropFileUploadUrl = $"{SiteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}";
+		string dropFileUploadUrl = $"{SiteRoot}/api/FileUpload/UploadFromEditor?rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}";
 		string styleJsonUrl = $"{SiteRoot}/Services/CKeditorStyles.ashx?cb={strRandomGuid}";
 		string templatesUrl = $"{SiteRoot}/Services/CKeditorTemplates.ashx?cb={strRandomGuid}";
 		var script = new StringBuilder();
@@ -719,7 +719,7 @@ public partial class HtmlModule : SiteModuleControl, IWorkflow
 
 		string strModuleId = ModuleId.ToInvariantString();
 
-		string imagesUploadUrl = Page.ResolveUrl($"{SiteRoot}/Services/FileService.ashx?cmd=uploadfromeditor&rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
+		string imagesUploadUrl = Page.ResolveUrl($"{SiteRoot}/api/FileUpload/UploadFromEditor?rz=true&ko={WebConfigSettings.KeepFullSizeImagesDroppedInEditor.ToString().ToLower()}&t={Global.FileSystemToken}");
 		editorSettings.ImagesUploadUrl = imagesUploadUrl;
 
 		if (WebConfigSettings.TinyMceInlineUseSavePlugin) // true by default

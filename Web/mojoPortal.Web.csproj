@@ -2657,9 +2657,6 @@
     <Compile Include="Services\EditorStyles.ashx.cs">
       <DependentUpon>EditorStyles.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Services\FileService.ashx.cs">
-      <DependentUpon>FileService.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Services\FriendlyUrlSuggestXml.aspx.cs">
       <DependentUpon>FriendlyUrlSuggestXml.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2987,7 +2984,6 @@
     <Content Include="Services\ContentRatingService.ashx" />
     <Content Include="Services\TrackLocation.ashx" />
     <Content Include="mojoFileSystem.config" />
-    <Content Include="Services\FileService.ashx" />
     <Content Include="Controls\DateFormatSetting.ascx" />
     <Content Include="Controls\ImageCropper.ascx" />
     <Content Include="Controls\Subscribe.ascx" />

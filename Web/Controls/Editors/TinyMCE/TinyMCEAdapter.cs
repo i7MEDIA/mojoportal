@@ -160,9 +160,8 @@ public class TinyMceEditorAdapter : IWebEditor
 	private void SetToolBar()
 	{
 		var fileManagerUrl = WebConfigSettings.FileDialogRelativeUrl.ToLinkBuilder().ToString();
-		var imageUploadUrl = "~/Services/FileService.ashx"
+		var imageUploadUrl = "~/api/FileUpload/UploadFromEditor"
 			.ToLinkBuilder()
-			.AddParam("cmd", "uploadfromeditor")
 			.AddParam("rz", "true")
 			.AddParam("ko", WebConfigSettings.KeepFullSizeImagesDroppedInEditor)
 			.AddParam("t", Global.FileSystemToken)
