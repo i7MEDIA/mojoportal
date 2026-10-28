@@ -669,7 +669,7 @@
     <Content Include="Default.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="DesignTools\CacheTool.aspx" />
+    <Content Include="Admin\CacheTool.aspx" />
     <Content Include="DesignTools\CssEditor.aspx" />
     <Content Include="DesignTools\Default.aspx" />
     <Content Include="DesignTools\DownloadSkin.aspx" />
@@ -1481,11 +1481,11 @@
     </Compile>
     <Compile Include="Controls\WorldPay\WorldPayAcceptanceMark.cs" />
     <Compile Include="Controls\WorldPay\WorldPayPurchaseButton.cs" />
-    <Compile Include="DesignTools\CacheTool.aspx.cs">
+    <Compile Include="Admin\CacheTool.aspx.cs">
       <DependentUpon>CacheTool.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="DesignTools\CacheTool.aspx.designer.cs">
+    <Compile Include="Admin\CacheTool.aspx.designer.cs">
       <DependentUpon>CacheTool.aspx</DependentUpon>
     </Compile>
     <Compile Include="DesignTools\CssEditor.aspx.cs">
