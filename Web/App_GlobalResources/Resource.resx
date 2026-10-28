@@ -5440,13 +5440,13 @@
     <value>Enable Keep Me Logged In?</value>
   </data>
   <data name="ResetSkinVersionGuid" xml:space="preserve">
-    <value>Clear Skin Cache</value>
+    <value>Clear Site Cache</value>
   </data>
   <data name="RolesThatCanAssignSkinsToPages" xml:space="preserve">
     <value>Assign Skins to Pages</value>
   </data>
   <data name="SkinVersionGuidInfo" xml:space="preserve">
-    <value>The Skin Version Guid is appended as a query string parameter in the url for the CSS handler. Since browsers cache CSS based on the URL, changing this parameter is a way to force all visitors of your site to reload the latest CSS for your skin. You should reset the Guid whenever you have completed changes to your CSS, otherwise some visitors may still be seeing the CSS that was previously cached by their web browser.</value>
+    <value>This button clears all internal cache in the system and changes the Skin Version Guid, which is appended as a query string parameter in the url for the CSS handler. Since browsers cache CSS based on the URL, changing this parameter is a way to force all visitors of your site to reload the latest CSS for your skin. You should reset the Guid whenever you have completed changes to your CSS, otherwise some visitors may still be seeing the CSS that was previously cached by their web browser.</value>
   </data>
   <data name="SortChildPagesAlphabetically" xml:space="preserve">
     <value>Sort child pages alphabetically</value>

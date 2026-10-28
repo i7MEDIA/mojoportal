@@ -9,7 +9,7 @@ public partial class DownloadSkin : NonCmsBasePage
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		_log.Info("DownloadSkin.aspx is depricated, redirecting to admin menu.");
+		_log.Info("DownloadSkin.aspx is deprecated, redirecting to admin menu.");
 
 		SiteUtils.RedirectToAdminMenu(this);
 		return;

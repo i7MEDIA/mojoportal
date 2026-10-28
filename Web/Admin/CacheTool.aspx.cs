@@ -85,9 +85,6 @@ public partial class CacheToolPage : NonCmsBasePage
 		lnkAdminMenu.Text = Resource.AdminMenuLink;
 		lnkAdminMenu.NavigateUrl = $"{SiteRoot}/Admin/AdminMenu.aspx";
 
-		lnkDesignerTools.Text = DevTools.DesignTools;
-		lnkDesignerTools.NavigateUrl = $"{SiteRoot}/DesignTools/Default.aspx";
-
 		lnkThisPage.Text = DevTools.CacheTool;
 		lnkThisPage.NavigateUrl = $"{SiteRoot}/DesignTools/CacheTool.aspx";
 

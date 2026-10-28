@@ -14047,7 +14047,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clear Skin Cache.
+        ///   Looks up a localized string similar to Clear Site Cache.
         /// </summary>
         internal static string ResetSkinVersionGuid {
             get {
@@ -17747,7 +17747,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Skin Version Guid is appended as a query string parameter in the url for the CSS handler. Since browsers cache CSS based on the URL, changing this parameter is a way to force all visitors of your site to reload the latest CSS for your skin. You should reset the Guid whenever you have completed changes to your CSS, otherwise some visitors may still be seeing the CSS that was previously cached by their web browser..
+        ///   Looks up a localized string similar to This button clears all internal cache in the system and changes the Skin Version Guid, which is appended as a query string parameter in the url for the CSS handler. Since browsers cache CSS based on the URL, changing this parameter is a way to force all visitors of your site to reload the latest CSS for your skin. You should reset the Guid whenever you have completed changes to your CSS, otherwise some visitors may still be seeing the CSS that was previously cached by their web browser..
         /// </summary>
         internal static string SkinVersionGuidInfo {
             get {

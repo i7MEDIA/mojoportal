@@ -42,24 +42,6 @@ namespace mojoPortal.Web.AdminUI
 		protected global::mojoPortal.Web.UI.AdminCrumbSeparator AdminCrumbSeparator1;
 
 		/// <summary>
-		/// lnkDesignerTools control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.HyperLink lnkDesignerTools;
-
-		/// <summary>
-		/// AdminCrumbSeparator3 control.
-		/// </summary>
-		/// <remarks>
-		/// Auto-generated field.
-		/// To modify move field declaration from designer file to code-behind file.
-		/// </remarks>
-		protected global::mojoPortal.Web.UI.AdminCrumbSeparator AdminCrumbSeparator3;
-
-		/// <summary>
 		/// lnkThisPage control.
 		/// </summary>
 		/// <remarks>

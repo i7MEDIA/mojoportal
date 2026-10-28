@@ -1,11 +1,11 @@
-using System;
-using System.Linq;
 using log4net;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.UI;
 using Resources;
+using System;
+using System.Linq;
 
 namespace mojoPortal.Web.AdminUI;
 
@@ -233,20 +233,6 @@ public partial class AdminMenuPage : NonCmsBasePage
 			]);
 		}
 
-		//Design Tools
-		if (IsAdmin || WebUser.IsContentAdmin || WebUser.IsInRoles(siteSettings.RolesThatCanManageSkins))
-		{
-			model.Links.Add(new()
-			{
-				ResourceFile = "DevTools",
-				ResourceKey = "DesignTools",
-				Url = "DesignTools/Default.aspx".ToLinkBuilder().ToString(),
-				CssClass = "adminlink-designtools",
-				IconCssClass = "fa fa-paint-brush",
-				SortOrder = 65
-			});
-		}
-
 		//File Manager
 		//using the FileManagerLink to check if the link should render because it has a lot of criteria, best not to duplicate it
 		var fileManagerLinkTest = new FileManagerLink();
@@ -307,7 +293,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 			//Login Page Text
 			if (!WebConfigSettings.DisableLoginInfo)
 			{
-				model.Links.Add(new ()
+				model.Links.Add(new()
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "LoginPageContent",
@@ -321,7 +307,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 			//Core Data
 			if (siteSettings.IsServerAdminSite)
 			{
-				model.Links.Add(new ()
+				model.Links.Add(new()
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "CoreDataAdministrationLink",
@@ -336,7 +322,7 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Adv. Tools
 		if (IsAdminOrContentAdmin || isSiteEditor)
 		{
-			model.Links.Add(new ()
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdvancedToolsLink",
@@ -346,17 +332,27 @@ public partial class AdminMenuPage : NonCmsBasePage
 				SortOrder = 100
 			});
 
+			model.Links.Add(new()
+			{
+				ResourceFile = "DevTools",
+				ResourceKey = "CacheTool",
+				Url = $"{WebConfigSettings.AdminDirectoryLocation}/CacheTool.aspx".ToLinkBuilder().ToString(),
+				CssClass = "adminlink-design-cache",
+				IconCssClass = "fa fa-floppy-o",
+				SortOrder = 105
+			});
+
 			//System Info
 			if (siteSettings.IsServerAdminSite || AppConfig.MultiTenancy.ShowSystemInfo)
 			{
-				model.Links.Add(new ()
+				model.Links.Add(new()
 				{
 					ResourceFile = "Resource",
 					ResourceKey = "AdminMenuServerInfoLabel",
 					Url = $"{WebConfigSettings.AdminDirectoryLocation}/ServerInformation.aspx".ToLinkBuilder().ToString(),
 					CssClass = "adminlink-serverinfo",
 					IconCssClass = "fa fa-info-circle",
-					SortOrder = 105
+					SortOrder = 110
 				});
 			}
 		}
@@ -364,14 +360,14 @@ public partial class AdminMenuPage : NonCmsBasePage
 		//Log Viewer
 		if (IsAdmin && siteSettings.IsServerAdminSite && WebConfigSettings.EnableLogViewer)
 		{
-			model.Links.Add(new ()
+			model.Links.Add(new()
 			{
 				ResourceFile = "Resource",
 				ResourceKey = "AdminMenuServerLogLabel",
 				Url = $"{WebConfigSettings.AdminDirectoryLocation}/ServerLog.aspx".ToLinkBuilder().ToString(),
 				CssClass = "adminlink-log",
 				IconCssClass = "fa fa-clipboard",
-				SortOrder = 110
+				SortOrder = 115
 			});
 		}
 
