@@ -1173,7 +1173,8 @@ public static class WebConfigSettings
 
 	public static string DefaultInitialSkin => ConfigHelper.GetStringProperty("DefaultInitialSkin", "framework");
 
-	public static string AllowedSkinFileExtensions => ConfigHelper.GetStringProperty("AllowedSkinFileExtensions", ".master|.skin|.css|.jpg|.jpeg|.png|.gif|.ico|.txt|.config|.js|.webm|.weba|.webp|.html|.xml|.less|.eot|.otf|.woff|.ttf|.svg|.cshtml");
+	[Obsolete("We no longer support skin manipulation through mojo. Use FTP to access skins.", true)]
+	public static string AllowedSkinFileExtensions => throw new Exception("We no longer support skin manipulation through mojo. Use FTP to access skins.");
 
 	public static bool DebugSkinImporter => ConfigHelper.GetBoolProperty("DebugSkinImporter", false);
 
