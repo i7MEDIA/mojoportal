@@ -1,1 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="SkinList.aspx.cs" Inherits="mojoPortal.Web.AdminUI.SkinListPage" %>
+﻿<%@ Page Language="C#" %>
+
+<script runat="server">
+	protected void Page_Load(object sender, EventArgs e)
+	{
+		SiteUtils.RedirectToAdminMenu(this);
+		return;
+	}
+</script>
