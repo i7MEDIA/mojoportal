@@ -48,11 +48,12 @@ public class OidcService
 		_clientSecret = model.ClientSecret;
 
 		PageUrlService.Overrides.LoginLink = "placeholder";
-		PageUrlService.Overrides.LoginLinkProcessor = (url) => GetLoginUrl();
-		//PageUrlService.Overrides.LoginLinkProcessor = (url) => GetLoginUrlAsync().Result;
+		//PageUrlService.Overrides.LoginLinkProcessor = (url) => GetLoginUrl();
+		PageUrlService.Overrides.LoginLinkProcessor = (url) => Task.Run(() => GetLoginUrlAsync()).GetAwaiter().GetResult();
 
 		PageUrlService.Overrides.RegisterLink = "placeholder";
-		PageUrlService.Overrides.RegisterLinkProcessor = (url) => GetLoginUrl().Replace("/auth", "/registrations");
+		//PageUrlService.Overrides.RegisterLinkProcessor = (url) => GetLoginUrl().Replace("/auth", "/registrations");
+		PageUrlService.Overrides.RegisterLinkProcessor = (url) => Task.Run(() => GetRegistrationUrlAsync()).GetAwaiter().GetResult();
 
 		PageUrlService.Overrides.ExternalLoginCallbackLink = "~/ExternalLogin/Callback";
 		PageUrlService.Overrides.ExternalLoginCallbackLinkProcessor = (url) => url.ToLinkBuilder().ToString();
@@ -64,13 +65,18 @@ public class OidcService
 
 	#region Public Methods
 
-	public string GetLoginUrl(Guid? nonce = null)
-	//public string GetLoginUrlAsync(Guid? nonce = null)
+	public async Task<string> GetLoginUrlAsync(Guid? nonce = null)
+	//public string GetLoginUrl(Guid? nonce = null)
 	{
 		// TODO: Fix this so the code doesn't deadlock
 		//var disco = await _DiscoveryCache.GetAsync();
 		//var requestUrl = new RequestUrl(disco.AuthorizeEndpoint!);
-		var requestUrl = new RequestUrl(_issuer + "/protocol/openid-connect/auth");
+
+		//var requestUrl = new RequestUrl(_issuer + "/protocol/openid-connect/auth");
+
+		// This should fix the above TODO, but it hasn't been tested.
+		var disco = await _discoveryCache.GetAsync();
+		var requestUrl = new RequestUrl(disco.AuthorizeEndpoint!);
 
 		return requestUrl.CreateAuthorizeUrl(
 			clientId: _clientId,
@@ -82,13 +88,21 @@ public class OidcService
 	}
 
 
+	public async Task<string> GetRegistrationUrlAsync()
+	{
+		var disco = await _discoveryCache.GetAsync();
+
+		return disco.RegistrationEndpoint ?? string.Empty;
+	}
+
+
 	public async Task<(bool, string?, string?)> GetTokensByCodeAsync(string iss, string code)
 	{
 		var tokens = await GetTokensByCodeAsync(code);
 
 		try
 		{
-			_ = await ValidateTokenAsync(tokens.AccessToken!);
+			_ = await ValidateTokenAsync(tokens?.AccessToken!);
 		}
 		catch (Exception e)
 		{
