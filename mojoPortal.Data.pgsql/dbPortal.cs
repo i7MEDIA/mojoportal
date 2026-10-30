@@ -141,21 +141,6 @@ public static class DBPortal
 
 	}
 
-	public static bool SchemaVersionDeleteSchemaVersion(Guid applicationId)
-	{
-		NpgsqlParameter[] arParams = new NpgsqlParameter[1];
-
-		arParams[0] = new NpgsqlParameter(":applicationid", NpgsqlTypes.NpgsqlDbType.Varchar, 36);
-		arParams[0].Direction = ParameterDirection.Input;
-		arParams[0].Value = applicationId.ToString();
-
-		int rowsAffected = NpgsqlHelper.ExecuteNonQuery(ConnectionString.GetWriteConnectionString(),
-			CommandType.StoredProcedure,
-			"mp_schemaversion_delete(:applicationid)",
-			arParams);
-
-		return rowsAffected > -1;
-	}
 
 	public static bool SchemaVersionExists(Guid applicationId)
 	{

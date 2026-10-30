@@ -612,60 +612,6 @@ public static class DBPortal
 
 	}
 
-	public static void DatabaseHelperDoVersion2320PostUpgradeTasks(string overrideConnectionInfo)
-	{
-		string connectionString;
-
-		if (
-			overrideConnectionInfo != null &&
-			overrideConnectionInfo.Length > 0)
-		{
-			connectionString = overrideConnectionInfo;
-		}
-		else
-		{
-			connectionString = ConnectionString.GetReadConnectionString();
-		}
-
-		StringBuilder sqlCommand = new StringBuilder();
-		sqlCommand.Append("SELECT  ");
-		sqlCommand.Append("u.SiteGuid, ");
-		sqlCommand.Append("ls.LetterInfoGuid, ");
-		sqlCommand.Append("ls.UserGuid, ");
-		sqlCommand.Append("u.Email, ");
-		sqlCommand.Append("ls.BeginUTC, ");
-		sqlCommand.Append("ls.UseHtml ");
-
-
-		sqlCommand.Append("FROM ");
-		sqlCommand.Append("mp_LetterSubscriber ls ");
-		sqlCommand.Append("JOIN ");
-		sqlCommand.Append("mp_Users u ");
-		sqlCommand.Append("ON ");
-		sqlCommand.Append("u.UserGuid = ls.UserGuid ");
-		sqlCommand.Append(" ; ");
-
-		DataSet ds = MySqlHelper.ExecuteDataset(
-			connectionString,
-			sqlCommand.ToString());
-
-		DataTable dataTable = ds.Tables[0];
-
-		foreach (DataRow row in dataTable.Rows)
-		{
-
-			DBLetterSubscription.Create(
-				Guid.NewGuid(),
-				new Guid(row["SiteGuid"].ToString()),
-				new Guid(row["LetterInfoGuid"].ToString()),
-				new Guid(row["UserGuid"].ToString()),
-				row["Email"].ToString().ToLower(),
-				true,
-				new Guid("00000000-0000-0000-0000-000000000000"),
-				Convert.ToDateTime(row["BeginUTC"]),
-				Convert.ToBoolean(row["UseHtml"]));
-		}
-	}
 
 	public static bool DatabaseHelperSitesTableExists()
 	{

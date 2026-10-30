@@ -112,11 +112,11 @@ public static class DBPortal
 		var sqlCommand = $"""
 			SELECT *
 			FROM [dbo].[mp_SchemaVersion]
-			WHERE LOWER(ApplicationName) = @ApplicationName;
+			WHERE LOWER([ApplicationName]) = @ApplicationName;
 			""";
 
-		var sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), sqlCommand, 1);
-		sph.DefineSqlParameter("@ApplicationName", SqlDbType.NVarChar, ParameterDirection.Input, applicationName.ToLower());
+		var sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), sqlCommand, CommandType.Text, 1);
+		sph.DefineSqlParameter("@ApplicationName", SqlDbType.NVarChar, 255, ParameterDirection.Input, applicationName.ToLower());
 
 		return sph.ExecuteReader();
 	}
@@ -365,7 +365,7 @@ public static class DBPortal
 			CREATE TABLE [dbo].[mp_Testdb](
 				[FooID] [int] IDENTITY(1,1) NOT NULL,
 				[Foo] [nvarchar](255) NOT NULL,
-				CONSTRAINT [PK_mp_Testdb] PRIMARY KEY CLUSTERED ([FooID] ASC WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
+				CONSTRAINT [PK_mp_Testdb] PRIMARY KEY CLUSTERED ([FooID] ASC) WITH (STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF)
 			)
 			GO
 			""";
