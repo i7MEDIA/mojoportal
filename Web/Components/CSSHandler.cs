@@ -220,13 +220,8 @@ public class CssHandler : IHttpHandler
 
 	private void ProcessCssFileList(StringBuilder cssContent, string physicalSkinPath, string skinImageBasePath)
 	{
-		var xmlSettings = new XmlReaderSettings
-		{
-			DtdProcessing = DtdProcessing.Prohibit,
-			XmlResolver = null
-		};
 		using var streamReader = new StreamReader($"{physicalSkinPath}/style.config");
-		using XmlReader reader = XmlReader.Create(streamReader, xmlSettings);
+		using XmlReader reader = XmlHelper.CreateXmlReader(streamReader);
 		reader.MoveToContent();
 
 		while (reader.Read())

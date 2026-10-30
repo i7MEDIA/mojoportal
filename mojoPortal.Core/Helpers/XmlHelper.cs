@@ -97,6 +97,21 @@ public static class XmlHelper
 	}
 
 
+	public static XmlReaderSettings GetXmlReaderSettings() => new()
+	{
+		DtdProcessing = DtdProcessing.Prohibit,
+		XmlResolver = null
+	};
+
+
+	public static XmlReader CreateXmlReader(StreamReader streamReader) =>
+		XmlReader.Create(streamReader, GetXmlReaderSettings());
+
+
+	public static XmlReader CreateXmlReader(StringReader streamReader) =>
+		XmlReader.Create(streamReader, GetXmlReaderSettings());
+
+
 	public static void AddNode(XmlDocument xmlDoc, string name, string content)
 	{
 		var elem = xmlDoc.CreateElement(name);
@@ -116,13 +131,13 @@ public static class XmlHelper
 		if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
 		{
 			// Allow for development testing
-			#if !DEBUG
+#if !DEBUG
 			// Loopback: 127.0.0.0/8
 			if (bytes[0] == 127)
 			{
 				return false;
 			}
-			#endif
+#endif
 
 			// Link-Local / Cloud Metadata: 169.254.0.0/16
 			if (bytes[0] == 169 && bytes[1] == 254)

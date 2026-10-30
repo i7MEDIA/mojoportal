@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace mojoPortal.Core.Helpers;
@@ -31,14 +30,8 @@ public static class XmlSanitizer
 			return string.Empty;
 		}
 
-		var settings = new XmlReaderSettings
-		{
-			DtdProcessing = DtdProcessing.Prohibit,
-			XmlResolver = null
-		};
-
 		using var stringReader = new StringReader(xmlString);
-		using var xmlReader = XmlReader.Create(stringReader, settings);
+		using var xmlReader = XmlHelper.CreateXmlReader(stringReader);
 		var document = XDocument.Load(xmlReader);
 
 		var elementsToRemove = document
@@ -95,21 +88,24 @@ public static class XmlSanitizer
 
 	private static bool IsDangerousAttribute(XAttribute attribute)
 	{
-		string localName = attribute.Name.LocalName;
+		var localName = attribute.Name.LocalName;
+
 		if (localName.StartsWith("on", StringComparison.OrdinalIgnoreCase))
 		{
 			return true;
 		}
 
-		string normalizedValue = new string(attribute.Value.Where(c => !char.IsWhiteSpace(c) && !char.IsControl(c)).ToArray());
+		var normalizedValue = new string(attribute.Value.Where(c => !char.IsWhiteSpace(c) && !char.IsControl(c)).ToArray());
 
-		if (localName.Equals("href", StringComparison.OrdinalIgnoreCase) ||
+		if (
+			localName.Equals("href", StringComparison.OrdinalIgnoreCase) ||
 			localName.Equals("src", StringComparison.OrdinalIgnoreCase) ||
 			localName.Equals("from", StringComparison.OrdinalIgnoreCase) ||
 			localName.Equals("to", StringComparison.OrdinalIgnoreCase) ||
 			localName.Equals("values", StringComparison.OrdinalIgnoreCase))
 		{
-			if (normalizedValue.StartsWith("javascript:", StringComparison.OrdinalIgnoreCase) ||
+			if (
+				normalizedValue.StartsWith("javascript:", StringComparison.OrdinalIgnoreCase) ||
 				normalizedValue.StartsWith("vbscript:", StringComparison.OrdinalIgnoreCase) ||
 				normalizedValue.StartsWith("data:", StringComparison.OrdinalIgnoreCase))
 			{
@@ -117,7 +113,8 @@ public static class XmlSanitizer
 			}
 		}
 
-		if (normalizedValue.IndexOf("javascript:", StringComparison.OrdinalIgnoreCase) >= 0 ||
+		if (
+			normalizedValue.IndexOf("javascript:", StringComparison.OrdinalIgnoreCase) >= 0 ||
 			normalizedValue.IndexOf("vbscript:", StringComparison.OrdinalIgnoreCase) >= 0)
 		{
 			return true;

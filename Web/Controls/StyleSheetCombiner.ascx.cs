@@ -246,13 +246,9 @@ public partial class StyleSheetCombiner : UserControl
 
 		if (File.Exists(configFilePath))
 		{
-			var xmlSettings = new XmlReaderSettings
-			{
-				DtdProcessing = DtdProcessing.Prohibit,
-				XmlResolver = null
-			};
+
 			using var streamReader = new StreamReader(configFilePath);
-			using var reader = XmlReader.Create(streamReader, xmlSettings);
+			using var reader = XmlHelper.CreateXmlReader(streamReader);
 			reader.MoveToContent();
 
 			while (reader.Read())
