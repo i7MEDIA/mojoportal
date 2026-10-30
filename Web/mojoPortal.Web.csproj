@@ -504,7 +504,6 @@
     <Content Include="Admin\ContentManager.aspx" />
     <Content Include="Admin\ContentManagerPreview.aspx" />
     <Content Include="Admin\ContentPublishDialog.aspx" />
-    <Content Include="Admin\ContentValidation.aspx" />
     <Content Include="Admin\Controls\PageContentWizard.ascx" />
     <Content Include="Admin\Controls\UserRoles.ascx" />
     <Content Include="Admin\EditLoginInfo.aspx" />
@@ -1531,13 +1530,6 @@
     </Compile>
     <Compile Include="Admin\ContentTemplates.aspx.designer.cs">
       <DependentUpon>ContentTemplates.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\ContentValidation.aspx.cs">
-      <DependentUpon>ContentValidation.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\ContentValidation.aspx.designer.cs">
-      <DependentUpon>ContentValidation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\ContentWorkflow.aspx.cs">
       <DependentUpon>ContentWorkflow.aspx</DependentUpon>
