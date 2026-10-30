@@ -100,15 +100,6 @@ public static class DatabaseHelper
 		);
 	}
 
-	public static bool DeleteSchemaVersion(Guid applicationId) => DBPortal.SchemaVersionDeleteSchemaVersion(applicationId);
-
-	public static Version GetSchemaVersion(string applicationName)
-	{
-		Guid appGuid = GetApplicationId(applicationName);
-
-		return GetSchemaVersion(appGuid);
-	}
-
 	public static Version GetSchemaVersion(Guid applicationId)
 	{
 		var major = 0;
@@ -119,6 +110,7 @@ public static class DatabaseHelper
 		try
 		{
 			using IDataReader reader = DBPortal.SchemaVersionGetSchemaVersion(applicationId);
+
 			if (reader.Read())
 			{
 				major = Convert.ToInt32(reader["Major"]);
@@ -162,15 +154,7 @@ public static class DatabaseHelper
 		);
 	}
 
-	public static bool DeleteSchemaScriptHistory(int id) => DBPortal.SchemaScriptHistoryDeleteSchemaScriptHistory(id);
-
 	public static IDataReader SchemaVersionGetNonCore() => DBPortal.SchemaVersionGetNonCore();
-
-	public static IDataReader GetSchemaScriptHistory(int id) => DBPortal.SchemaScriptHistoryGetSchemaScriptHistory(id);
-
-	public static IDataReader GetSchemaScriptHistory(Guid applicationId) => DBPortal.SchemaScriptHistoryGetSchemaScriptHistory(applicationId);
-
-	public static IDataReader GetSchemaScriptErrorHistory(Guid applicationId) => DBPortal.SchemaScriptHistoryGetSchemaScriptErrorHistory(applicationId);
 
 	public static bool SchemaScriptHasBeenRun(Guid applicationId, string scriptFile)
 	{
@@ -257,14 +241,9 @@ public static class DatabaseHelper
 		return resultMessage;
 	}
 
-	public static IDataReader GetReader(string query) => GetReader(string.Empty, query);
-
 	public static IDataReader GetReader(string connectionString, string query) => DBPortal.DatabaseHelperGetReader(connectionString, query);
 
-	public static int ExecteNonQuery(string query) => ExecteNonQuery(string.Empty, query);
-
 	public static int ExecteNonQuery(string connectionString, string query) => DBPortal.DatabaseHelperExecteNonQuery(connectionString, query);
-
 
 	public static Version ParseVersionFromFileName(String fileName)
 	{
@@ -273,8 +252,7 @@ public static class DatabaseHelper
 
 		if (fileName != null)
 		{
-			char[] separator = ['.'];
-			string[] args = fileName.Replace(".config", string.Empty).Split(separator);
+			var args = fileName.Replace(".config", string.Empty).Split(['.']);
 
 			if (args.Length >= 4)
 			{
@@ -320,121 +298,15 @@ public static class DatabaseHelper
 		}
 
 		var appID = Guid.NewGuid();
+		using var reader = DBPortal.DatabaseHelperGetApplicationId(applicationName);
 
-		using (IDataReader reader = DBPortal.DatabaseHelperGetApplicationId(applicationName))
+		if (reader.Read())
 		{
-			if (reader.Read())
-			{
-				appID = new Guid(reader["ApplicationID"].ToString());
-			}
+			appID = new Guid(reader["ApplicationID"].ToString());
 		}
 
 		return appID;
 	}
-
-	public static string GetApplicationName(Guid applicationId)
-	{
-		string appName = null;
-
-		using (IDataReader reader = DBPortal.SchemaVersionGetSchemaVersion(applicationId))
-		{
-			if (reader.Read())
-			{
-				appName = reader["ApplicationName"].ToString();
-			}
-		}
-
-		return appName;
-	}
-
-	private static void ValidateIdentifier(string identifier, string paramName)
-	{
-		if (string.IsNullOrWhiteSpace(identifier) || !System.Text.RegularExpressions.Regex.IsMatch(identifier, "^[a-zA-Z0-9_]+$"))
-		{
-			throw new ArgumentException("Invalid SQL identifier.", paramName);
-		}
-	}
-
-	public static bool UpdateTableField(
-		string connectionString,
-		string tableName,
-		string keyFieldName,
-		string keyFieldValue,
-		string dataFieldName,
-		string dataFieldValue,
-		string additionalWhere
-	)
-	{
-		ValidateIdentifier(tableName, nameof(tableName));
-		ValidateIdentifier(keyFieldName, nameof(keyFieldName));
-		ValidateIdentifier(dataFieldName, nameof(dataFieldName));
-
-		return DBPortal.DatabaseHelperUpdateTableField(
-			connectionString,
-			tableName,
-			keyFieldName,
-			keyFieldValue,
-			dataFieldName,
-			dataFieldValue,
-			additionalWhere
-		);
-	}
-
-	public static bool UpdateTableField(
-		string tableName,
-		string keyFieldName,
-		string keyFieldValue,
-		string dataFieldName,
-		string dataFieldValue,
-		string additionalWhere
-	)
-	{
-		ValidateIdentifier(tableName, nameof(tableName));
-		ValidateIdentifier(keyFieldName, nameof(keyFieldName));
-		ValidateIdentifier(dataFieldName, nameof(dataFieldName));
-
-		return DBPortal.DatabaseHelperUpdateTableField(
-			tableName,
-			keyFieldName,
-			keyFieldValue,
-			dataFieldName,
-			dataFieldValue,
-			additionalWhere
-		);
-	}
-
-	public static IDataReader GetReader(string connectionString, string tableName, string whereClause)
-	{
-		ValidateIdentifier(tableName, nameof(tableName));
-		return DBPortal.DatabaseHelperGetReader(connectionString, tableName, whereClause);
-	}
-
-	public static DataTable GetTable(string connectionString, string tableName, string whereClause)
-	{
-		ValidateIdentifier(tableName, nameof(tableName));
-		return DBPortal.DatabaseHelperGetTable(connectionString, tableName, whereClause);
-	}
-
-	public static DataTable GetTable(string tableName, string whereClause) => GetTable(string.Empty, tableName, whereClause);
-
-	#region Version Specific tasks
-	public static bool RunPostUpgradeTasks(Version version, string overrideConnectionString)
-	{
-		return DBPortal.RunPostUpgradeTask(version, overrideConnectionString);
-	}
-
-	public static void DoForumVersion2202PostUpgradeTasks(string overrideConnectionInfo)
-	{
-		DBPortal.DatabaseHelperDoForumVersion2202PostUpgradeTasks(overrideConnectionInfo);
-	}
-
-	public static void DoForumVersion2203PostUpgradeTasks(string overrideConnectionInfo)
-	{
-		DBPortal.DatabaseHelperDoForumVersion2203PostUpgradeTasks(overrideConnectionInfo);
-	}
-
-
-	#endregion
 
 	public static DataTable GetTableFromDataReader(IDataReader reader)
 	{
@@ -468,7 +340,6 @@ public static class DatabaseHelper
 				for (int i = 0; i < arrayList.Count; i++)
 				{
 					row[(string)arrayList[i]] = reader[(string)arrayList[i]];
-
 				}
 
 				dataTable.Rows.Add(row);

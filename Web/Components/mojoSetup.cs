@@ -149,7 +149,6 @@ public sealed class mojoSetup
 					if ((scriptVersion is not null) && (scriptVersion > currentSchemaVersion) && !DatabaseHelper.SchemaScriptHasBeenRun(appID, fileInfo.Name))
 					{
 						DatabaseHelper.RunScript(appID, fileInfo, overrideConnectionInfo);
-						DoPostScriptTasks(scriptVersion, overrideConnectionInfo);
 					}
 				}
 			}
@@ -164,10 +163,6 @@ public sealed class mojoSetup
 		}
 	}
 
-	public static void DoPostScriptTasks(Version scriptVersion, string overrideConnectionInfo)
-	{
-		DatabaseHelper.RunPostUpgradeTasks(scriptVersion, overrideConnectionInfo);
-	}
 	#endregion
 
 	#region Create Initial Data
