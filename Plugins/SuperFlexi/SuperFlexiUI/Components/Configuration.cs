@@ -124,11 +124,13 @@ public class ModuleConfiguration
 		}
 
 		MarkupDefinitionFile = WebUtils.ParseStringFromHashtable(settings, "MarkupDefinitionFile", MarkupDefinitionFile);
+
 		if (MarkupDefinitionFile.Contains("..") || MarkupDefinitionFile.Contains("\\"))
 		{
 			MarkupDefinitionFile = string.Empty;
 		}
-		else if (MarkupDefinitionFile.IndexOf("~", 0) < 0)
+		// Must check for empty string, because when a module is initialized MarkupDefinitionFile is empty and we don't want to sent a tilde with no path to the filesystem
+		else if (!string.IsNullOrWhiteSpace(MarkupDefinitionFile) && MarkupDefinitionFile.IndexOf("~", 0) < 0)
 		{
 			MarkupDefinitionFile = $"~{MarkupDefinitionFile}";
 		}
