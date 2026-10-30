@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,14 +24,15 @@ namespace mojoPortal.Web.Controllers;
 
 public class FileServiceController : ApiController
 {
-	IFileSystem fileSystem = null;
-	private bool allowEditing = false;
-	private SiteUser currentUser = null;
-	private SiteSettings siteSettings = null;
-	private string virtualPath = string.Empty;
-	protected bool overwriteExistingFiles = false;
-	private string allowedExtensions = string.Empty;
-	private static readonly ILog log = LogManager.GetLogger(typeof(FileServiceController));
+	private static readonly ILog _log = LogManager.GetLogger(typeof(FileServiceController));
+
+	private IFileSystem? _fileSystem = null;
+	private bool _allowEditing = false;
+	private SiteUser? _currentUser = null;
+	private SiteSettings? _siteSettings = null;
+	private string _virtualPath = string.Empty;
+	private string _allowedExtensions = string.Empty;
+	private bool _overwriteExistingFiles = false;
 
 
 	// POST: /fileservice
@@ -52,7 +54,10 @@ public class FileServiceController : ApiController
 			}
 		}
 
-		if ((fileSystem == null) || (!fileSystem.UserHasBrowsePermission))
+		if (
+			_siteSettings is null ||
+			_fileSystem is null ||
+			!_fileSystem.UserHasBrowsePermission)
 		{
 			return new FileService.ReturnObject(ReturnResult(OpResult.Denied));
 		}
@@ -62,21 +67,22 @@ public class FileServiceController : ApiController
 
 		var localizedUserFolder = "/" + Resource.UserFolder;
 
-		request.Path = request.Path?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
-		request.NewItemPath = request.NewItemPath?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
-		request.NewPath = request.NewPath?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
-		request.Item = request.Item?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder);
+		request.Path = request.Path?.Replace(localizedUserFolder, _fileSystem.Permission.UserFolder);
+		request.NewItemPath = request.NewItemPath?.Replace(localizedUserFolder, _fileSystem.Permission.UserFolder);
+		request.NewPath = request.NewPath?.Replace(localizedUserFolder, _fileSystem.Permission.UserFolder);
+		request.Item = request.Item?.Replace(localizedUserFolder, _fileSystem.Permission.UserFolder);
 
 		if (request.Items != null && request.Items.Count > 0)
 		{
-			request.Items = request.Items.Select(s => s?.Replace(localizedUserFolder, fileSystem.Permission.UserFolder)).ToList();
+			request.Items = request.Items.Select(s => s?.Replace(localizedUserFolder, _fileSystem.Permission.UserFolder)).ToList();
 		}
 
-		bool canUpload = fileSystem.UserHasUploadPermission;
-		bool canDelete = canUpload && (
-			WebUser.IsAdminOrContentAdmin
-			|| WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor)
-			|| (!string.IsNullOrWhiteSpace(fileSystem.Permission.UserFolder) && fileSystem.Permission.UserFolder == fileSystem.VirtualRoot)
+		var canUpload = _fileSystem.UserHasUploadPermission;
+		var canDelete = canUpload && (
+			WebUser.IsAdminOrContentAdmin ||
+			WebUser.IsInRoles(_siteSettings.RolesThatCanDeleteFilesInEditor) ||
+			!string.IsNullOrWhiteSpace(_fileSystem.Permission.UserFolder) &&
+			_fileSystem.Permission.UserFolder == _fileSystem.VirtualRoot
 		);
 
 		return request.Action switch
@@ -104,74 +110,71 @@ public class FileServiceController : ApiController
 
 		if (!loadSettings.Success)
 		{
-			log.Info(loadSettings.Error);
+			_log.Info(loadSettings.Error);
 			throw new HttpResponseException(HttpStatusCode.InternalServerError);
 		}
 
-		if ((fileSystem == null) || (!fileSystem.UserHasBrowsePermission))
+		if (_fileSystem == null || !_fileSystem.UserHasBrowsePermission)
 		{
 			throw new HttpResponseException(HttpStatusCode.Unauthorized);
 		}
 
-		switch (request.Action)
+		return request.Action switch
 		{
-			case "download":
-			default:
-				return DownloadItem(request.Path);
-
-			case "downloadMultiple":
-				return DownloadMultiple(request.Items, request.ToFilename);
-		}
+			"downloadMultiple" => DownloadMultiple(request.Items, request.ToFilename),
+			_ => DownloadItem(request.Path),
+		};
 	}
 
 
 	private FileService.ReturnMessage LoadSettings(FileService.RequestObject request, string t)
 	{
-		allowEditing = WebConfigSettings.AllowFileEditInFileManager;
-		overwriteExistingFiles = WebConfigSettings.FileManagerOverwriteFiles;
+		_allowEditing = WebConfigSettings.AllowFileEditInFileManager;
+		_overwriteExistingFiles = WebConfigSettings.FileManagerOverwriteFiles;
 
-		siteSettings = CacheHelper.GetCurrentSiteSettings();
-		if (siteSettings == null)
+		_siteSettings = CacheHelper.GetCurrentSiteSettings();
+		if (_siteSettings == null)
 		{
 			return new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemSiteSettingsNotLoaded };
 		}
 
-		if (WebConfigSettings.RequireFileSystemServiceToken && (t != Global.FileSystemToken.ToString()))
+		if (WebConfigSettings.RequireFileSystemServiceToken && t != Global.FileSystemToken.ToString())
 		{
-			log.Info(Resource.FileSystemInvalidToken);
+			_log.Info(Resource.FileSystemInvalidToken);
 			return new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemInvalidToken };
 		}
 
-		FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+		var p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+
 		if (p == null)
 		{
-			log.Error(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
+			_log.Error(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
 			return new FileService.ReturnMessage { Success = false, Error = string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider) };
 		}
 
-		fileSystem = p.GetFileSystem();
-		if (fileSystem == null)
+		_fileSystem = p.GetFileSystem();
+		if (_fileSystem == null)
 		{
-			log.Error(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
+			_log.Error(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
 			return new FileService.ReturnMessage { Success = false, Error = string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider) };
 		}
 
-		virtualPath = fileSystem.VirtualRoot;
+		_virtualPath = _fileSystem.VirtualRoot;
 
-		if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor() || WebUser.IsInRoles(siteSettings.GeneralBrowseAndUploadRoles + siteSettings.GeneralBrowseRoles))
+		if (WebUser.IsAdminOrContentAdmin || SiteUtils.UserIsSiteEditor() || WebUser.IsInRoles(_siteSettings.GeneralBrowseAndUploadRoles + _siteSettings.GeneralBrowseRoles))
 		{
-			allowedExtensions = WebConfigSettings.AllowedUploadFileExtensions;
+			_allowedExtensions = WebConfigSettings.AllowedUploadFileExtensions;
 		}
-		else if (WebUser.IsInRoles(siteSettings.UserFilesBrowseAndUploadRoles))
+		else if (WebUser.IsInRoles(_siteSettings.UserFilesBrowseAndUploadRoles))
 		{
-			currentUser = SiteUtils.GetCurrentSiteUser();
+			_currentUser = SiteUtils.GetCurrentSiteUser();
 
-			if (currentUser == null)
+			if (_currentUser == null)
 			{
 				return new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemUserNotAuthorized };
 			}
 
-			allowedExtensions = WebConfigSettings.AllowedLessPriveledgedUserUploadFileExtensions;
+			_allowedExtensions = WebConfigSettings.AllowedLessPriveledgedUserUploadFileExtensions;
 		}
 
 		if (WebConfigSettings.LogAllFileServiceRequests)
@@ -210,7 +213,7 @@ public class FileServiceController : ApiController
 			if (request.ToFilename != null)
 				message.AppendFormat("ToFilename: {0}\n", request.ToFilename);
 
-			log.Info(message);
+			_log.Info(message);
 		}
 
 		return new FileService.ReturnMessage { Success = true };
@@ -220,20 +223,20 @@ public class FileServiceController : ApiController
 	private dynamic ListAllFilesFolders(string requestPath)
 	{
 		var filePath = FilePath(requestPath);
-		var files = fileSystem.GetFileList(filePath).Select(x => x.ToDto()).ToList();
-		var folders = fileSystem.GetFolderList(filePath).Select(x => x.ToDto()).ToList();
+		var files = _fileSystem.GetFileList(filePath).Select(x => x.ToDto()).ToList();
+		var folders = _fileSystem.GetFolderList(filePath).Select(x => x.ToDto()).ToList();
 		var allowedFiles = new List<FileServiceDto>();
 
 		if (
 			requestPath == "/" &&
-			!string.IsNullOrWhiteSpace(fileSystem.Permission.UserFolder) &&
-			fileSystem.Permission.UserFolder != fileSystem.VirtualRoot
+			!string.IsNullOrWhiteSpace(_fileSystem.Permission.UserFolder) &&
+			_fileSystem.Permission.UserFolder != _fileSystem.VirtualRoot
 		)
 		{
 			folders.Add(new WebFolder
 			{
-				VirtualPath = fileSystem.Permission.UserFolder,
-				Path = fileSystem.Permission.UserFolder,
+				VirtualPath = _fileSystem.Permission.UserFolder,
+				Path = _fileSystem.Permission.UserFolder,
 				Created = DateTime.Now,
 				Modified = DateTime.Now,
 				Name = Resource.UserFolder
@@ -254,7 +257,7 @@ public class FileServiceController : ApiController
 				(type == "media" || type == "audio" || type == "video") && !file.IsAllowedMediaFile() ||
 				type == "audio" && !file.IsAllowedFileType(WebConfigSettings.AudioFileExtensions) ||
 				type == "video" && !file.IsAllowedFileType(WebConfigSettings.VideoFileExtensions) ||
-				type == "file" && !file.IsAllowedFileType(allowedExtensions)
+				type == "file" && !file.IsAllowedFileType(_allowedExtensions)
 			)
 			{
 				continue;
@@ -300,7 +303,7 @@ public class FileServiceController : ApiController
 			{
 				string newFile = FilePath(newPath + "/" + CleanFileName(singleFileName, "file"));
 
-				result = fileSystem.CopyFile(file, newFile, overwriteExistingFiles);
+				result = _fileSystem.CopyFile(file, newFile, _overwriteExistingFiles);
 
 				if (result != OpResult.Succeed)
 				{
@@ -328,7 +331,7 @@ public class FileServiceController : ApiController
 				case "file":
 					if (AllowedExtension(item))
 					{
-						result = fileSystem.DeleteFile(FilePath(item));
+						result = _fileSystem.DeleteFile(FilePath(item));
 					}
 					else
 					{
@@ -336,7 +339,7 @@ public class FileServiceController : ApiController
 					}
 					break;
 				case "folder":
-					result = fileSystem.DeleteFolder(FilePath(item, false, true));
+					result = _fileSystem.DeleteFolder(FilePath(item, false, true));
 					break;
 			}
 
@@ -352,7 +355,7 @@ public class FileServiceController : ApiController
 
 	private dynamic EditItem(string item, string content)
 	{
-		if (allowEditing)
+		if (_allowEditing)
 		{
 			if (AllowedExtension(item))
 			{
@@ -373,7 +376,7 @@ public class FileServiceController : ApiController
 				}
 				catch (Exception ex)
 				{
-					log.Error(ex);
+					_log.Error(ex);
 					return new FileService.ReturnObject(ReturnResult(OpResult.Error));
 				}
 			}
@@ -387,7 +390,7 @@ public class FileServiceController : ApiController
 
 	private dynamic GetFileContent(string item)
 	{
-		if (allowEditing)
+		if (_allowEditing)
 		{
 			if (AllowedExtension(item))
 			{
@@ -414,12 +417,12 @@ public class FileServiceController : ApiController
 	{
 		OpResult result = OpResult.FolderLimitExceed;
 
-		if (fileSystem.CountFolders() < fileSystem.Permission.MaxFolders)
+		if (_fileSystem.CountFolders() < _fileSystem.Permission.MaxFolders)
 		{
 			string dir = VirtualPathUtility.GetDirectory(path);
 			string newFolder = dir + CleanFileName(path, "folder");
 
-			result = fileSystem.CreateFolder(FilePath(newFolder, false, true));
+			result = _fileSystem.CreateFolder(FilePath(newFolder, false, true));
 
 			if (result != OpResult.Succeed)
 			{
@@ -468,7 +471,7 @@ public class FileServiceController : ApiController
 		}
 		catch (Exception ex)
 		{
-			log.Error(ex);
+			_log.Error(ex);
 			return new FileService.ReturnObject(ReturnResult(OpResult.Error));
 		}
 	}
@@ -530,7 +533,7 @@ public class FileServiceController : ApiController
 						continue;
 					}
 
-					e.Extract(targetExtractDir, overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
+					e.Extract(targetExtractDir, _overwriteExistingFiles ? ExtractExistingFileAction.OverwriteSilently : ExtractExistingFileAction.DoNotOverwrite);
 
 					if (!e.IsDirectory && Path.GetExtension(e.FileName).Equals(".svg", StringComparison.OrdinalIgnoreCase))
 					{
@@ -548,7 +551,7 @@ public class FileServiceController : ApiController
 		}
 		catch (Exception ex)
 		{
-			log.Error(ex);
+			_log.Error(ex);
 			return new FileService.ReturnObject(ReturnResult(OpResult.Error));
 		}
 	}
@@ -556,7 +559,7 @@ public class FileServiceController : ApiController
 
 	private HttpResponseMessage DownloadItem(string path)
 	{
-		var newpath = path.Replace($"/{Resource.UserFolder}", fileSystem.Permission.UserFolder);
+		var newpath = path.Replace($"/{Resource.UserFolder}", _fileSystem.Permission.UserFolder);
 
 		if (!AllowedExtension(newpath))
 		{
@@ -580,7 +583,7 @@ public class FileServiceController : ApiController
 		}
 		catch (Exception ex)
 		{
-			log.Error(ex);
+			_log.Error(ex);
 			throw new HttpResponseException(HttpStatusCode.InternalServerError);
 		}
 	}
@@ -592,7 +595,7 @@ public class FileServiceController : ApiController
 		{
 			foreach (var item in items)
 			{
-				var resolvedItem = item.Replace($"/{Resource.UserFolder}", fileSystem.Permission.UserFolder);
+				var resolvedItem = item.Replace($"/{Resource.UserFolder}", _fileSystem.Permission.UserFolder);
 				if (AllowedExtension(resolvedItem))
 				{
 					zipFile.AddFile(FilePath(resolvedItem, true), "");
@@ -639,14 +642,14 @@ public class FileServiceController : ApiController
 				switch (FolderOrFile(origin))
 				{
 					case "folder":
-						result = fileSystem.MoveFolder(FilePath(origin, false, true), FilePath(dir + "/" + CleanFileName(destination, "folder"), false, true));
+						result = _fileSystem.MoveFolder(FilePath(origin, false, true), FilePath(dir + "/" + CleanFileName(destination, "folder"), false, true));
 
 						break;
 
 					case "file":
 						if (AllowedExtension(origin) && AllowedExtension(dest))
 						{
-							result = fileSystem.MoveFile(FilePath(origin), FilePath(dir + "/" + CleanFileName(dest, "file")), overwriteExistingFiles);
+							result = _fileSystem.MoveFile(FilePath(origin), FilePath(dir + "/" + CleanFileName(dest, "file")), _overwriteExistingFiles);
 						}
 						else
 						{
@@ -663,14 +666,14 @@ public class FileServiceController : ApiController
 					case "folder":
 						string org = FilePath(origin, false, true);
 						string des = FilePath(destination + "/" + CleanFileName(origin, "folder"), false, true);
-						result = fileSystem.MoveFolder(org, des);
+						result = _fileSystem.MoveFolder(org, des);
 
 						break;
 
 					case "file":
 						if (AllowedExtension(origin) && FolderOrFile(dest) == "folder")
 						{
-							result = fileSystem.MoveFile(FilePath(origin), FilePath(destination + "/" + CleanFileName(origin, "file")), false);
+							result = _fileSystem.MoveFile(FilePath(origin), FilePath(destination + "/" + CleanFileName(origin, "file")), false);
 						}
 						else
 						{
@@ -685,7 +688,7 @@ public class FileServiceController : ApiController
 		}
 		catch (Exception ex)
 		{
-			log.Error(ex);
+			_log.Error(ex);
 			return new FileService.ReturnMessage { Success = false, Error = ex.ToString() };
 		}
 	}
@@ -793,19 +796,19 @@ public class FileServiceController : ApiController
 			itemPath = itemPath.Replace("..", string.Empty);
 		}
 
-		var userFolder = fileSystem.Permission.UserFolder;
+		var userFolder = _fileSystem.Permission.UserFolder;
 
 		if (!string.IsNullOrWhiteSpace(userFolder) && itemPath.StartsWith(userFolder, StringComparison.OrdinalIgnoreCase))
 		{
-			if (!fileSystem.FolderExists(fileSystem.Permission.UserFolder))
+			if (!_fileSystem.FolderExists(_fileSystem.Permission.UserFolder))
 			{
-				fileSystem.CreateFolder(fileSystem.Permission.UserFolder);
+				_fileSystem.CreateFolder(_fileSystem.Permission.UserFolder);
 			}
 
 			isFullPath = true;
 		}
 
-		string fullPath = !isFullPath ? virtualPath + itemPath : itemPath;
+		string fullPath = !isFullPath ? _virtualPath + itemPath : itemPath;
 		// Clean virtual path
 		string cleanPath = onlyOneSlashRegEx.Replace(fullPath, string.Empty);
 		if (appendTrailingSlash)
@@ -815,7 +818,7 @@ public class FileServiceController : ApiController
 
 		// Clean and verify disk path containment
 		string diskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(cleanPath));
-		string allowedRootDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(virtualPath))
+		string allowedRootDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(_virtualPath))
 			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
 		string diskPathWithSep = diskPath
 			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
@@ -846,7 +849,7 @@ public class FileServiceController : ApiController
 
 	private bool AllowedExtension(string item)
 	{
-		return fileSystem.Permission.IsExtAllowed(VirtualPathUtility.GetExtension(item));
+		return _fileSystem.Permission.IsExtAllowed(VirtualPathUtility.GetExtension(item));
 	}
 
 	private string CleanFileName(string item, string type)

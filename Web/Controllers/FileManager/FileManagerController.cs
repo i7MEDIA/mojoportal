@@ -1,3 +1,4 @@
+#nullable enable
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -18,6 +19,7 @@ public class FileManagerController : Controller
 	public ActionResult Index([FromUri] QueryParams queryParams)
 	{
 		var model = LoadSettings(queryParams);
+
 		if (model == null)
 		{
 			return new HttpUnauthorizedResult();
@@ -31,6 +33,7 @@ public class FileManagerController : Controller
 	public ActionResult Pages([FromUri] QueryParams queryParams)
 	{
 		var model = LoadSettings(queryParams);
+
 		if (model == null)
 		{
 			return new HttpUnauthorizedResult();
@@ -39,10 +42,10 @@ public class FileManagerController : Controller
 		return View(model);
 	}
 
-	private dynamic LoadSettings(QueryParams queryParams)
+	private dynamic? LoadSettings(QueryParams queryParams)
 	{
-		IFileSystem fileSystem = null;
-		SiteSettings siteSettings = null;
+		IFileSystem fileSystem;
+		SiteSettings siteSettings;
 		ILog log = LogManager.GetLogger(typeof(FileServiceController));
 
 		siteSettings = CacheHelper.GetCurrentSiteSettings();
@@ -53,7 +56,7 @@ public class FileManagerController : Controller
 			return null;
 		}
 
-		FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+		var p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 
 		if (p == null)
 		{

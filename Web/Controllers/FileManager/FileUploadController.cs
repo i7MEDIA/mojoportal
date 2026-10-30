@@ -23,8 +23,6 @@ public class FileUploadController : ApiController
 	private static readonly ILog _log = LogManager.GetLogger(typeof(FileServiceController));
 
 	private readonly SiteSettings _siteSettings;
-	private readonly bool _overwriteExistingFiles;
-	private readonly string _siteRoot;
 	private readonly IFileSystem? _fileSystem;
 	private readonly string _virtualPath = string.Empty;
 
@@ -34,8 +32,6 @@ public class FileUploadController : ApiController
 	public FileUploadController()
 	{
 		_siteSettings = CacheHelper.GetCurrentSiteSettings();
-		_overwriteExistingFiles = WebConfigSettings.FileManagerOverwriteFiles;
-		_siteRoot = SiteUtils.GetNavigationSiteRoot();
 
 		var fileSystemProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 
@@ -396,17 +392,18 @@ public class FileUploadController : ApiController
 		}
 
 		// Clean and verify disk path containment
-		string diskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(cleanPath));
-		string allowedRootDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(_virtualPath))
+		// TODO: Considering updating FileSystem to have these methods
+		var diskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(cleanPath));
+		var allowedRootDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(_virtualPath))
 			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
-		string diskPathWithSep = diskPath
+		var diskPathWithSep = diskPath
 			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
 
-		bool isWithinAllowedRoot = diskPathWithSep.StartsWith(allowedRootDiskPath, StringComparison.OrdinalIgnoreCase);
+		var isWithinAllowedRoot = diskPathWithSep.StartsWith(allowedRootDiskPath, StringComparison.OrdinalIgnoreCase);
 
 		if (!isWithinAllowedRoot && !string.IsNullOrWhiteSpace(_fileSystem.Permission.UserFolder))
 		{
-			string allowedUserDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(_fileSystem.Permission.UserFolder))
+			var allowedUserDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(_fileSystem.Permission.UserFolder))
 				.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
 			isWithinAllowedRoot = diskPathWithSep.StartsWith(allowedUserDiskPath, StringComparison.OrdinalIgnoreCase);
 		}
