@@ -18,7 +18,7 @@
 						<Columns>
 							<asp:TemplateField>
 								<ItemTemplate>
-									<asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="buttonlink" Tezt='<%# Resources.Resource.LanguageGridEditButton %>' />
+									<asp:Button ID="btnEdit" runat="server" CommandName="Edit" CssClass="buttonlink" Text='<%# Resources.Resource.LanguageGridEditButton %>' />
 								</ItemTemplate>
 								<EditItemTemplate>
 									<asp:Button ID="btnGridUpdate" runat="server" Text='<%# Resources.Resource.LanguageGridUpdateButton %>'
