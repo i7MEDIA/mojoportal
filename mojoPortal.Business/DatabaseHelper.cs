@@ -429,18 +429,38 @@ public static class DatabaseHelper
 		DataRow row;
 		var arrayList = new ArrayList();
 
-		for (int i = 0; i < schemaTable.Rows.Count; i++)
+		if (schemaTable != null)
 		{
-			column = new DataColumn();
-
-			if (!dataTable.Columns.Contains(schemaTable.Rows[i]["ColumnName"].ToString()))
+			for (int i = 0; i < schemaTable.Rows.Count; i++)
 			{
-				column.ColumnName = schemaTable.Rows[i]["ColumnName"].ToString();
-				column.Unique = Convert.ToBoolean(schemaTable.Rows[i]["IsUnique"]);
-				column.AllowDBNull = Convert.ToBoolean(schemaTable.Rows[i]["AllowDBNull"]);
-				column.ReadOnly = Convert.ToBoolean(schemaTable.Rows[i]["IsReadOnly"]);
-				arrayList.Add(column.ColumnName);
-				dataTable.Columns.Add(column);
+				column = new DataColumn();
+
+				string colName = schemaTable.Rows[i]["ColumnName"].ToString();
+				if (!dataTable.Columns.Contains(colName))
+				{
+					column.ColumnName = colName;
+
+					object isUnique = schemaTable.Rows[i]["IsUnique"];
+					if (isUnique != null && isUnique != DBNull.Value)
+					{
+						column.Unique = Convert.ToBoolean(isUnique);
+					}
+
+					object allowDBNull = schemaTable.Rows[i]["AllowDBNull"];
+					if (allowDBNull != null && allowDBNull != DBNull.Value)
+					{
+						column.AllowDBNull = Convert.ToBoolean(allowDBNull);
+					}
+
+					object isReadOnly = schemaTable.Rows[i]["IsReadOnly"];
+					if (isReadOnly != null && isReadOnly != DBNull.Value)
+					{
+						column.ReadOnly = Convert.ToBoolean(isReadOnly);
+					}
+
+					arrayList.Add(column.ColumnName);
+					dataTable.Columns.Add(column);
+				}
 			}
 		}
 

@@ -364,24 +364,33 @@ public static class DBPortal
 			DataRow row;
 			ArrayList arrayList = new ArrayList();
 
-			for (int i = 0; i < schemaTable.Rows.Count; i++)
+			if (schemaTable != null)
 			{
-
-				column = new DataColumn();
-
-				if (!dataTable.Columns.Contains(schemaTable.Rows[i]["ColumnName"].ToString()))
+				for (int i = 0; i < schemaTable.Rows.Count; i++)
 				{
+					column = new DataColumn();
 
-					column.ColumnName = schemaTable.Rows[i]["ColumnName"].ToString();
-					// we don't always want to enforce constrainnts, it may be fine to have duplicates in a query even if the underlying table has a unique constraint
-					//column.Unique = Convert.ToBoolean(schemaTable.Rows[i]["IsUnique"]);
-					column.AllowDBNull = Convert.ToBoolean(schemaTable.Rows[i]["AllowDBNull"]);
-					column.ReadOnly = Convert.ToBoolean(schemaTable.Rows[i]["IsReadOnly"]);
-					arrayList.Add(column.ColumnName);
-					dataTable.Columns.Add(column);
+					string colName = schemaTable.Rows[i]["ColumnName"].ToString();
+					if (!dataTable.Columns.Contains(colName))
+					{
+						column.ColumnName = colName;
 
+						object allowDBNull = schemaTable.Rows[i]["AllowDBNull"];
+						if (allowDBNull != null && allowDBNull != DBNull.Value)
+						{
+							column.AllowDBNull = Convert.ToBoolean(allowDBNull);
+						}
+
+						object isReadOnly = schemaTable.Rows[i]["IsReadOnly"];
+						if (isReadOnly != null && isReadOnly != DBNull.Value)
+						{
+							column.ReadOnly = Convert.ToBoolean(isReadOnly);
+						}
+
+						arrayList.Add(column.ColumnName);
+						dataTable.Columns.Add(column);
+					}
 				}
-
 			}
 
 			while (reader.Read())
@@ -421,7 +430,7 @@ public static class DBPortal
 			&& (overrideConnectionInfo.Length > 0)
 		  )
 		{
-			connection = new NpgsqlConnection(overrideConnectionInfo);
+			connection = new NpgsqlConnection(ConnectionString.CleanConnectionString(overrideConnectionInfo));
 		}
 		else
 		{
@@ -460,7 +469,7 @@ public static class DBPortal
 			&& (overrideConnectionInfo.Length > 0)
 		  )
 		{
-			connection = new NpgsqlConnection(overrideConnectionInfo);
+			connection = new NpgsqlConnection(ConnectionString.CleanConnectionString(overrideConnectionInfo));
 		}
 		else
 		{
@@ -504,27 +513,19 @@ public static class DBPortal
 		{
 			DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
 		}
-		catch (DbException)
-		{
-			result = false;
-		}
-		catch (ArgumentException)
+		catch (Exception)
 		{
 			result = false;
 		}
 
 		sqlCommand = new StringBuilder();
-		sqlCommand.Append("BEGIN; LOCK mp_testdb; ALTER TABLE mp_testdb ADD COLUMN morefoo character varying(255);  COMMIT;");
+		sqlCommand.Append("ALTER TABLE mp_testdb ADD COLUMN morefoo character varying(255);");
 
 		try
 		{
 			DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
 		}
-		catch (DbException)
-		{
-			result = false;
-		}
-		catch (ArgumentException)
+		catch (Exception)
 		{
 			result = false;
 		}
@@ -536,11 +537,7 @@ public static class DBPortal
 		{
 			DatabaseHelperRunScript(sqlCommand.ToString(), overrideConnectionInfo);
 		}
-		catch (DbException)
-		{
-			result = false;
-		}
-		catch (ArgumentException)
+		catch (Exception)
 		{
 			result = false;
 		}
@@ -595,7 +592,7 @@ public static class DBPortal
 			&& (overrideConnectionInfo.Length > 0)
 		  )
 		{
-			connection = new NpgsqlConnection(overrideConnectionInfo);
+			connection = new NpgsqlConnection(ConnectionString.CleanConnectionString(overrideConnectionInfo));
 		}
 		else
 		{
@@ -604,26 +601,38 @@ public static class DBPortal
 
 		connection.Open();
 
-
 		NpgsqlTransaction transaction = connection.BeginTransaction();
 
 		try
 		{
 			NpgsqlHelper.ExecuteNonQuery(transaction, CommandType.Text, script);
-			transaction.Commit();
+			try
+			{
+				transaction.Commit();
+			}
+			catch (InvalidOperationException)
+			{
+				// If the script itself executed COMMIT/ROLLBACK or completed the transaction,
+				// calling Commit() throws InvalidOperationException in Npgsql 8+.
+			}
 			result = true;
-
 		}
-		catch (NpgsqlException ex)
+		catch (Exception ex)
 		{
-			transaction.Rollback();
+			try
+			{
+				transaction.Rollback();
+			}
+			catch (InvalidOperationException)
+			{
+				// Transaction already completed or rolled back on the server
+			}
 			log.Error("dbPortal.RunScript failed", ex);
 			throw;
 		}
 		finally
 		{
 			connection.Close();
-
 		}
 
 		return result;
