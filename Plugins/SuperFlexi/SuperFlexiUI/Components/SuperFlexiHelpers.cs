@@ -1,4 +1,4 @@
-﻿using log4net;
+using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.FileSystem;
@@ -95,9 +95,16 @@ namespace SuperFlexiUI
 			return litExtraMarkup.ToString();
 		}
 
+
+		public static bool IsHelpFile(string helpKey) =>
+			helpKey.EndsWith(".sfhelp", StringComparison.InvariantCultureIgnoreCase) ||
+			helpKey.EndsWith(".html", StringComparison.InvariantCultureIgnoreCase) ||
+			// TODO: Do we need this check? It was in the Edit.aspx.cs but I'm thinking it's unneeded. - Elijah
+			helpKey.StartsWith("$_FlexiHelp_$") ||
+			helpKey.StartsWith("$_SitePath_$");
+
 		public static string GetHelpText(string helpKey, ModuleConfiguration config)
 		{
-
 			FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 			if (p == null)
 			{
@@ -111,11 +118,14 @@ namespace SuperFlexiUI
 				return string.Empty;
 			}
 
-			string helpText = string.Empty;
+			var helpText = string.Empty;
 			WebFile helpFile;
-			if (helpKey.ToLower().EndsWith(".sfhelp") ||
-				helpKey.ToLower().EndsWith(".config") ||
-				helpKey.ToLower().EndsWith(".html"))
+
+			if (
+				!string.IsNullOrWhiteSpace(helpKey) &&
+				!helpKey.Contains("..") &&
+				!helpKey.Contains("\\") &&
+				IsHelpFile(helpKey))
 			{
 				if (helpKey.IndexOf("$_FlexiHelp_$") >= 0)
 				{

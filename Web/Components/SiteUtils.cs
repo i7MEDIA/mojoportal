@@ -566,10 +566,11 @@ namespace mojoPortal.Web
 				return;
 			}
 
-			HttpContext.Current.Response.RedirectLocation = url;
+			string safeUrl = (url ?? string.Empty).Replace("\r", string.Empty).Replace("\n", string.Empty);
+			HttpContext.Current.Response.RedirectLocation = safeUrl;
 			HttpContext.Current.Response.StatusCode = 302;
-			HttpContext.Current.Response.StatusDescription = $"Redirecting to {url}";
-			HttpContext.Current.Response.Write($"Redirecting to {url}");
+			HttpContext.Current.Response.StatusDescription = "Found";
+			HttpContext.Current.Response.Write($"Redirecting to {HttpUtility.HtmlEncode(safeUrl)}");
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 
@@ -586,11 +587,12 @@ namespace mojoPortal.Web
 				url.ReturnUrl(returnUrl);
 			}
 
+			string targetUrl = url.ToString();
 			HttpContext.Current.Response.TrySkipIisCustomErrors = true;
 			HttpContext.Current.Response.StatusCode = 403;
-			HttpContext.Current.Response.StatusDescription = $"Redirecting to {url}";
-			HttpContext.Current.Response.Write($"Redirecting to {url}");
-			HttpContext.Current.Response.Redirect(url.ToString());
+			HttpContext.Current.Response.StatusDescription = "Forbidden";
+			HttpContext.Current.Response.Write($"Redirecting to {HttpUtility.HtmlEncode(targetUrl)}");
+			HttpContext.Current.Response.Redirect(targetUrl);
 			HttpContext.Current.ApplicationInstance.CompleteRequest();
 		}
 
@@ -716,9 +718,8 @@ namespace mojoPortal.Web
 				return skinName;
 			}
 
-			// protected against this xss attack
-
-			return skinName.Remove(["%", " ", ">", "<", "'", "\""]);
+			// Protect against XSS and path traversal in skin parameter
+			return skinName.Remove(["%", " ", ">", "<", "'", "\"", ".", "/", "\\", ":"]);
 		}
 
 		public static void SetSkinCookie(SiteUser siteUser)
@@ -1178,7 +1179,7 @@ namespace mojoPortal.Web
 
 							if (cookieValue.Length > 0)
 							{
-								currentSkin = cookieValue;
+								currentSkin = SanitizeSkinParam(cookieValue);
 							}
 						}
 					}
@@ -1436,7 +1437,7 @@ namespace mojoPortal.Web
 						string cookieValue = CookieHelper.GetCookieValue(skinCookieName);
 						if (cookieValue.Length > 0)
 						{
-							currentSkin = cookieValue;
+							currentSkin = SanitizeSkinParam(cookieValue);
 						}
 					}
 				}

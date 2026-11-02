@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -64,7 +64,7 @@ namespace mojoPortal.Web.Framework
                     else if (map.Url.StartsWith(context.Request.ApplicationPath)) fullUrl = urlScheme + map.Url;
                     else fullUrl = urlScheme + urlPrefix + map.Url;
 
-                    string mapUrlForJS = HttpUtility.HtmlDecode(map.Url).Replace("'", "\'");
+                    string mapUrlForJS = HttpUtility.JavaScriptStringEncode(HttpUtility.HtmlDecode(map.Url));
                     HttpWebRequest request = this.CreateHttpWebRequest(fullUrl);
                     try
                     {

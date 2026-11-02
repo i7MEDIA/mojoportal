@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using log4net;
 using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
@@ -23,8 +23,6 @@ public class FileUploadController : ApiController
 	private static readonly ILog _log = LogManager.GetLogger(typeof(FileServiceController));
 
 	private readonly SiteSettings _siteSettings;
-	private readonly bool _overwriteExistingFiles;
-	private readonly string _siteRoot;
 	private readonly IFileSystem? _fileSystem;
 	private readonly string _virtualPath = string.Empty;
 
@@ -34,8 +32,6 @@ public class FileUploadController : ApiController
 	public FileUploadController()
 	{
 		_siteSettings = CacheHelper.GetCurrentSiteSettings();
-		_overwriteExistingFiles = WebConfigSettings.FileManagerOverwriteFiles;
-		_siteRoot = SiteUtils.GetNavigationSiteRoot();
 
 		var fileSystemProvider = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 
@@ -85,15 +81,15 @@ public class FileUploadController : ApiController
 		}
 
 		var context = HttpContext.Current;
-		HttpFileCollection files = context.Request.Files.Count > 0 ? context.Request.Files : null;
+		HttpFileCollection? files = context.Request.Files.Count > 0 ? context.Request.Files : null;
 
-		if (files.Count is 0)
+		if (files is null || files.Count is 0)
 		{
 			_log.Info(Resource.NoFileSelectedWarning);
 			return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.NoFileSelectedWarning });
 		}
 
-		if (_siteSettings is null)
+		if (_siteSettings is null || _fileSystem is null)
 		{
 			return new FileService.ReturnObject(new FileService.ReturnMessage { Success = false, Error = Resource.FileSystemSiteSettingsNotLoaded });
 		}
@@ -232,12 +228,12 @@ public class FileUploadController : ApiController
 			files.Count == 0 ||
 			_siteSettings is null ||
 			_fileSystem is null ||
-			!WebUser.IsInRoles(_siteSettings.GeneralBrowseAndUploadRoles) &&
+			(!WebUser.IsInRoles(_siteSettings.GeneralBrowseAndUploadRoles) &&
 			!WebUser.IsInRoles(_siteSettings.UserFilesBrowseAndUploadRoles) &&
-			!WebUser.IsContentAdmin ||
-			WebConfigSettings.RequireFileSystemServiceToken &&
-			t is not null &&
-			t != Global.FileSystemToken)
+			!WebUser.IsAdminOrContentAdmin &&
+			!SiteUtils.UserIsSiteEditor()) ||
+			(WebConfigSettings.RequireFileSystemServiceToken &&
+			(t is null || t != Global.FileSystemToken)))
 		{
 			return NotFound();
 		}
@@ -288,9 +284,16 @@ public class FileUploadController : ApiController
 
 		try
 		{
-			using (file.InputStream)
+			using (Stream s = file.InputStream)
 			{
-				_fileSystem.SaveFile(destPath, file.InputStream, IOHelper.GetMimeType(ext), true);
+				if (ext == ".svg")
+				{
+					_fileSystem.SaveFile(destPath, Core.Helpers.XmlSanitizer.RemoveScripts(s), mimeType, true);
+				}
+				else
+				{
+					_fileSystem.SaveFile(destPath, s, mimeType, true);
+				}
 			}
 
 			if (resize && keepOriginalSize)
@@ -354,26 +357,31 @@ public class FileUploadController : ApiController
 	{
 		Regex onlyOneSlashRegEx = new Regex("(/)(?<=\\1\\1)");
 
-		if (string.IsNullOrEmpty(itemPath))
+		if (string.IsNullOrEmpty(itemPath) || _fileSystem is null)
 		{
 			return itemPath;
 		}
 
+		// Normalize backslashes first, then repeatedly strip ".." to prevent order-of-operations bypasses
+		itemPath = itemPath.Replace("\\", "/").Trim();
+		while (itemPath.Contains(".."))
+		{
+			itemPath = itemPath.Replace("..", string.Empty);
+		}
+
 		var userFolder = "/" + Resource.UserFolder;
 
-		if (itemPath.Contains(userFolder))
+		if (!string.IsNullOrWhiteSpace(_fileSystem.Permission.UserFolder) && itemPath.StartsWith(userFolder, StringComparison.OrdinalIgnoreCase))
 		{
-			if (!Directory.Exists(_fileSystem.Permission.UserFolder))
+			if (!_fileSystem.FolderExists(_fileSystem.Permission.UserFolder))
 			{
 				_fileSystem.CreateFolder(_fileSystem.Permission.UserFolder);
 			}
 
-			itemPath = itemPath.Replace(userFolder, _fileSystem.Permission.UserFolder);
+			itemPath = _fileSystem.Permission.UserFolder + itemPath.Substring(userFolder.Length);
 			isFullPath = true;
 		}
 
-		// Remove "../" or "\" to prevent hacks 
-		itemPath = itemPath.Replace("..", string.Empty).Replace("\\", string.Empty).Trim();
 		string fullPath = !isFullPath ? _virtualPath + itemPath : itemPath;
 		// Clean virtual path
 		string cleanPath = onlyOneSlashRegEx.Replace(fullPath, string.Empty);
@@ -382,8 +390,28 @@ public class FileUploadController : ApiController
 		{
 			cleanPath = VirtualPathUtility.AppendTrailingSlash(cleanPath);
 		}
-		// Clean disk path
-		string diskPath = HttpContext.Current.Server.MapPath(cleanPath);
+
+		// Clean and verify disk path containment
+		// TODO: Considering updating FileSystem to have these methods
+		var diskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(cleanPath));
+		var allowedRootDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(_virtualPath))
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+		var diskPathWithSep = diskPath
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+		var isWithinAllowedRoot = diskPathWithSep.StartsWith(allowedRootDiskPath, StringComparison.OrdinalIgnoreCase);
+
+		if (!isWithinAllowedRoot && !string.IsNullOrWhiteSpace(_fileSystem.Permission.UserFolder))
+		{
+			var allowedUserDiskPath = Path.GetFullPath(HttpContext.Current.Server.MapPath(_fileSystem.Permission.UserFolder))
+				.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+			isWithinAllowedRoot = diskPathWithSep.StartsWith(allowedUserDiskPath, StringComparison.OrdinalIgnoreCase);
+		}
+
+		if (!isWithinAllowedRoot)
+		{
+			throw new UnauthorizedAccessException("Attempted to upload to a path outside of the allowed file manager root.");
+		}
 
 		if (returnDiskPath)
 		{

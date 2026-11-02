@@ -289,7 +289,7 @@ public partial class SetupHome : Page
 		var mojoAppGuid = new Guid("077e4857-f583-488e-836e-34a4b04be855");
 		if (appID == mojoAppGuid)
 		{
-			versionToStopAt = DatabaseHelper.AppCodeVersion(); ;
+			versionToStopAt = DatabaseHelper.AppCodeVersion();
 		}
 
 		var pathToScriptFolder = HttpContext.Current.Server.MapPath($"~/Setup/applications/{applicationName}/SchemaInstallScripts/{DatabaseHelper.DBPlatform().ToLowerInvariant()}/");
@@ -364,7 +364,6 @@ public partial class SetupHome : Page
 
 			if (string.Equals(applicationName, "mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
 			{
-				mojoSetup.DoPostScriptTasks(scriptVersion, null);
 				if (scriptVersion >= Version.Parse("2.7.0.3"))
 				{
 					SiteSettings.UpdateSkinVersionGuidForAllSites();
@@ -526,11 +525,6 @@ public partial class SetupHome : Page
 					return false;
 				}
 
-				if (string.Equals(applicationName, "mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
-				{
-					mojoSetup.DoPostScriptTasks(scriptVersion, null);
-				}
-
 				var newVersion = DatabaseHelper.ParseVersionFromFileName(scriptFile.Name);
 
 				if (applicationName is not null && newVersion is not null)
@@ -554,39 +548,6 @@ public partial class SetupHome : Page
 					if (errorMessage.Length == 0)
 					{
 						currentSchemaVersion = newVersion;
-
-						// here is where we need to update the new forum guid field, in non ms databases
-						// this should execute right after the 2.2.0.2 forum script has runn
-						if (applicationName == "forums")
-						{
-							if (currentSchemaVersion == new Version(2, 2, 0, 2))
-							{
-								try
-								{
-									DatabaseHelper.DoForumVersion2202PostUpgradeTasks(string.Empty);
-								}
-								catch (Exception ex)
-								{
-									log.Error(ex);
-								}
-							}
-
-						}
-
-						if (applicationName == "forums")
-						{
-							if (currentSchemaVersion == new Version(2, 2, 0, 3))
-							{
-								try
-								{
-									DatabaseHelper.DoForumVersion2203PostUpgradeTasks(string.Empty);
-								}
-								catch (Exception ex)
-								{
-									log.Error(ex);
-								}
-							}
-						}
 					}
 				}
 			}

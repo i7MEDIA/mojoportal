@@ -214,7 +214,7 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 
 		if (val != null)
 		{
-			if (val == "")
+			if (val == string.Empty)
 			{
 				val = "0";
 			}
@@ -222,7 +222,8 @@ public partial class MarkupDefinitionSetting : mojoUserControl, mojoPortal.Web.U
 			originalValue = val;
 			var item = ddDefinitions.Items.FindByValue(val);
 
-			if (item != null)
+			// item.Value != "0" allows user to set a solution without clicking "Change Solution" when no solution is selected.
+			if (item is not null && item.Value != "0")
 			{
 				ddDefinitions.ClearSelection();
 				item.Selected = true;

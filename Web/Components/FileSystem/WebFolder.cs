@@ -1,4 +1,4 @@
-﻿/*
+/*
  * QtPet Online File Manager v1.0
  * Copyright (c) 2009, Zhifeng Lin (fszlin[at]gmail.com)
  * 
@@ -40,15 +40,19 @@ public class WebFolder : AbstractFileSystemItem
 	/// <returns></returns>
 	public static bool IsDecendentVirtualPath(string virtualRootPath, string virtualChildPath)
 	{
-		string virtualChild;
-		if (virtualChildPath.StartsWith("/"))
+		if (string.IsNullOrWhiteSpace(virtualRootPath) || string.IsNullOrWhiteSpace(virtualChildPath))
 		{
-			virtualChild = $"~{virtualChildPath}";
+			return false;
 		}
-		else
+
+		if (virtualChildPath.Contains("..") || virtualChildPath.Contains("\\"))
 		{
-			virtualChild = virtualChildPath;
+			return false;
 		}
+
+		string virtualChild = virtualChildPath.StartsWith("/")
+			? $"~{virtualChildPath}"
+			: virtualChildPath;
 
 		string sanitizedChildPath = SanitizePath(virtualChild);
 
@@ -57,17 +61,18 @@ public class WebFolder : AbstractFileSystemItem
 			return false;
 		}
 
-		string virtualRoot;
-		if (virtualRootPath.StartsWith("/"))
+		string virtualRoot = virtualRootPath.StartsWith("/")
+			? $"~{virtualRootPath}"
+			: virtualRootPath;
+
+		if (!virtualRoot.EndsWith("/"))
 		{
-			virtualRoot = $"~{virtualRootPath}";
-		}
-		else
-		{
-			virtualRoot = virtualRootPath;
+			virtualRoot += "/";
 		}
 
-		if (!virtualChild.StartsWith(virtualRoot))
+		string virtualChildWithSlash = virtualChild.EndsWith("/") ? virtualChild : virtualChild + "/";
+
+		if (!virtualChildWithSlash.StartsWith(virtualRoot, StringComparison.InvariantCultureIgnoreCase))
 		{
 			return false;
 		}
@@ -81,7 +86,12 @@ public class WebFolder : AbstractFileSystemItem
 		{
 			return input;
 		}
-		// not expecting ../ or \ or that kind of thing so remove it to prevent hacks 
-		return input.Replace("..", string.Empty).Replace("\\", string.Empty).Trim();
+		// Remove "\" first, then repeatedly strip ".." to prevent order-of-operations bypasses
+		string sanitized = input.Replace("\\", string.Empty).Trim();
+		while (sanitized.Contains(".."))
+		{
+			sanitized = sanitized.Replace("..", string.Empty);
+		}
+		return sanitized;
 	}
 }

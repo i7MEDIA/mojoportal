@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -142,22 +142,45 @@ public static class IOHelper
 
 	public static bool IsDecendentDirectory(DirectoryInfo directoryToSearch, DirectoryInfo directoryToFind)
 	{
-		if (directoryToFind.FullName.StartsWith(directoryToSearch.FullName))
+		if (directoryToSearch is null || directoryToFind is null)
 		{
-			return true;
+			return false;
 		}
 
-		return false;
+		string rootPath = Path.GetFullPath(directoryToSearch.FullName)
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+		string targetPath = Path.GetFullPath(directoryToFind.FullName)
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+
+		return targetPath.StartsWith(rootPath, StringComparison.OrdinalIgnoreCase);
 	}
 
 	public static bool IsDecendentDirectory(DirectoryInfo directoryToSearch, FileInfo fileToFind)
 	{
-		if (fileToFind.FullName.StartsWith(directoryToSearch.FullName))
+		if (directoryToSearch is null || fileToFind is null)
 		{
-			return true;
+			return false;
 		}
 
-		return false;
+		string rootPath = Path.GetFullPath(directoryToSearch.FullName)
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+		string targetFilePath = Path.GetFullPath(fileToFind.FullName);
+
+		return targetFilePath.StartsWith(rootPath, StringComparison.OrdinalIgnoreCase);
+	}
+
+	public static bool IsSafeZipEntryPath(string destinationDirectoryPath, string entryFileName)
+	{
+		if (string.IsNullOrWhiteSpace(destinationDirectoryPath) || string.IsNullOrWhiteSpace(entryFileName))
+		{
+			return false;
+		}
+
+		string rootPath = Path.GetFullPath(destinationDirectoryPath)
+			.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+		string combinedPath = Path.GetFullPath(Path.Combine(rootPath, entryFileName));
+
+		return combinedPath.StartsWith(rootPath, StringComparison.OrdinalIgnoreCase);
 	}
 
 	public static bool IsDecendentDirectory(string virtualPathToSearch, string virtualPathToFind)

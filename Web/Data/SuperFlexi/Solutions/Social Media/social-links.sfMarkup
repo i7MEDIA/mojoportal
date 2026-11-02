@@ -28,11 +28,11 @@
 		</Styles>
 	</MarkupDefinition>
 
-    <SearchDefinition>
-        <Title>$title$</Title>
-        <Keywords>Social Media</Keywords>
-        <Description></Description>
-        <Link>$url$</Link>
-    </SearchDefinition>
-    
+	<SearchDefinition>
+		<Title>$title$</Title>
+		<Keywords>Social Media</Keywords>
+		<Description></Description>
+		<Link>$url$</Link>
+	</SearchDefinition>
+
 </Definitions>

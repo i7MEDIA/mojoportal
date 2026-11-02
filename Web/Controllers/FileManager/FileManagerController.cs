@@ -1,4 +1,5 @@
-﻿using System.Linq;
+#nullable enable
+using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -19,6 +20,11 @@ public class FileManagerController : Controller
 	{
 		var model = LoadSettings(queryParams);
 
+		if (model == null)
+		{
+			return new HttpUnauthorizedResult();
+		}
+
 		return View(model);
 	}
 
@@ -28,13 +34,18 @@ public class FileManagerController : Controller
 	{
 		var model = LoadSettings(queryParams);
 
+		if (model == null)
+		{
+			return new HttpUnauthorizedResult();
+		}
+
 		return View(model);
 	}
 
-	private dynamic LoadSettings(QueryParams queryParams)
+	private dynamic? LoadSettings(QueryParams queryParams)
 	{
-		IFileSystem fileSystem = null;
-		SiteSettings siteSettings = null;
+		IFileSystem fileSystem;
+		SiteSettings siteSettings;
 		ILog log = LogManager.GetLogger(typeof(FileServiceController));
 
 		siteSettings = CacheHelper.GetCurrentSiteSettings();
@@ -42,20 +53,23 @@ public class FileManagerController : Controller
 		if (siteSettings == null)
 		{
 			log.Info(Resource.FileSystemSiteSettingsNotLoaded);
+			return null;
 		}
 
-		FileSystemProvider p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
+		var p = FileSystemManager.Providers[WebConfigSettings.FileSystemProvider];
 
 		if (p == null)
 		{
 			log.Info(string.Format(Resource.FileSystemProviderNotLoaded, WebConfigSettings.FileSystemProvider));
+			return null;
 		}
 
 		fileSystem = p.GetFileSystem();
 
-		if (fileSystem == null)
+		if (fileSystem == null || !fileSystem.UserHasBrowsePermission)
 		{
 			log.Info(string.Format(Resource.FileSystemNotLoadedFromProvider, WebConfigSettings.FileSystemProvider));
+			return null;
 		}
 
 		var virtualPath = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.VirtualRoot.Replace("~", string.Empty));

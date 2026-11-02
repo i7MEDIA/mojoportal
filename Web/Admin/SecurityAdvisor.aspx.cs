@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -146,7 +146,7 @@ public partial class SecurityAdvisorPage : NonCmsBasePage
 		{
 			var request = WebRequest.CreateHttp(new Uri(sslCheckUrl));
 
-			ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+			request.ServerCertificateValidationCallback = delegate { return true; };
 
 			WebResponse response = request.GetResponse();
 

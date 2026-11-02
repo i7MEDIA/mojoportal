@@ -1,4 +1,6 @@
-﻿using System.IO;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -7,14 +9,52 @@ namespace mojoPortal.Core.Helpers;
 
 public static class XmlSanitizer
 {
+	private static readonly HashSet<string> DangerousTags = new(StringComparer.OrdinalIgnoreCase)
+	{
+		"script",
+		"foreignObject",
+		"iframe",
+		"object",
+		"embed",
+		"applet",
+		"meta",
+		"link"
+	};
+
 	#region Public Methods
 
 	public static string RemoveScripts(string xmlString)
 	{
-		var document = XDocument.Parse(xmlString);
-		var children = document.Elements();
+		if (string.IsNullOrWhiteSpace(xmlString))
+		{
+			return string.Empty;
+		}
 
-		RecursiveRemoveByTagName(children.FirstOrDefault(), "script");
+		using var stringReader = new StringReader(xmlString);
+		using var xmlReader = XmlHelper.CreateXmlReader(stringReader);
+		var document = XDocument.Load(xmlReader);
+
+		var elementsToRemove = document
+			.Descendants()
+			.Where(el => DangerousTags.Contains(el.Name.LocalName))
+			.ToList();
+
+		foreach (var el in elementsToRemove)
+		{
+			el.Remove();
+		}
+
+		foreach (var element in document.Descendants())
+		{
+			var attributesToRemove = element.Attributes()
+				.Where(IsDangerousAttribute)
+				.ToList();
+
+			foreach (var attr in attributesToRemove)
+			{
+				attr.Remove();
+			}
+		}
 
 		return document.ToString();
 	}
@@ -46,34 +86,41 @@ public static class XmlSanitizer
 
 	#region Private Methods
 
-	private static void RecursiveRemoveByTagName(XElement element, string tagName)
+	private static bool IsDangerousAttribute(XAttribute attribute)
 	{
-		var hasChildren = element.Elements().Count() > 0;
-		var firstChild = element.Elements().FirstOrDefault();
-		var hasSiblings = element.ElementsAfterSelf().Count() > 0;
-		var nextSibling = element.ElementsAfterSelf().FirstOrDefault();
+		var localName = attribute.Name.LocalName;
 
-		if (element == null)
+		if (localName.StartsWith("on", StringComparison.OrdinalIgnoreCase))
 		{
-			return;
+			return true;
 		}
 
-		if (element.Name.LocalName == tagName)
+		var normalizedValue = new string(attribute.Value.Where(c => !char.IsWhiteSpace(c) && !char.IsControl(c)).ToArray());
+
+		if (
+			localName.Equals("href", StringComparison.OrdinalIgnoreCase) ||
+			localName.Equals("src", StringComparison.OrdinalIgnoreCase) ||
+			localName.Equals("from", StringComparison.OrdinalIgnoreCase) ||
+			localName.Equals("to", StringComparison.OrdinalIgnoreCase) ||
+			localName.Equals("values", StringComparison.OrdinalIgnoreCase))
 		{
-			element.Remove();
-		}
-		else
-		{
-			if (hasChildren)
+			if (
+				normalizedValue.StartsWith("javascript:", StringComparison.OrdinalIgnoreCase) ||
+				normalizedValue.StartsWith("vbscript:", StringComparison.OrdinalIgnoreCase) ||
+				normalizedValue.StartsWith("data:", StringComparison.OrdinalIgnoreCase))
 			{
-				RecursiveRemoveByTagName(firstChild, tagName);
+				return true;
 			}
 		}
 
-		if (hasSiblings)
+		if (
+			normalizedValue.IndexOf("javascript:", StringComparison.OrdinalIgnoreCase) >= 0 ||
+			normalizedValue.IndexOf("vbscript:", StringComparison.OrdinalIgnoreCase) >= 0)
 		{
-			RecursiveRemoveByTagName(nextSibling, tagName);
+			return true;
 		}
+
+		return false;
 	}
 
 	#endregion

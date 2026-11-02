@@ -125,7 +125,7 @@ public partial class Edit : NonCmsBasePage
 	{
 		var m = new Module(moduleID);
 
-		ModuleSettings.UpdateModuleSetting(m.ModuleGuid, m.ModuleId, "HtmlFragmentSourceSetting", ddInclude.SelectedValue);
+		ModuleSettings.UpdateModuleSetting(m.ModuleGuid, m.ModuleId, "HtmlFragmentSourceSetting", Path.GetFileName(ddInclude.SelectedValue));
 
 		CurrentPage.UpdateLastModifiedTime();
 		CacheHelper.ClearModuleCache(m.ModuleId);

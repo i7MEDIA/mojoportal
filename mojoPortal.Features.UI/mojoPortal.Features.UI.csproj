@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -289,11 +289,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FeedResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\FolderGalleryResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FolderGalleryResources.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\ForumResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -730,25 +725,6 @@
     <Compile Include="FeedManager\FeedManagerModule.ascx.designer.cs">
       <DependentUpon>FeedManagerModule.ascx</DependentUpon>
     </Compile>
-    <Compile Include="FolderGallery\Components\FolderGalleryConfiguration.cs" />
-    <Compile Include="FolderGallery\Components\FolderGalleryContentInstaller.cs" />
-    <Compile Include="FolderGallery\Edit.aspx.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FolderGallery\Edit.aspx.designer.cs">
-      <DependentUpon>Edit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="FolderGallery\FolderGalleryModule.ascx.cs">
-      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FolderGallery\FolderGalleryModule.ascx.designer.cs">
-      <DependentUpon>FolderGalleryModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="FolderGallery\upload.ashx.cs">
-      <DependentUpon>upload.ashx</DependentUpon>
-    </Compile>
     <Compile Include="Forums\Components\FeedParameterParser.cs" />
     <Compile Include="Forums\Components\ForumConfiguration.cs" />
     <Compile Include="Forums\Components\ForumContentDeleteHandler.cs" />
@@ -1081,9 +1057,6 @@
       <DependentUpon>PollModule.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\GalleryDataService.ashx.cs">
-      <DependentUpon>GalleryDataService.ashx</DependentUpon>
-    </Compile>
     <Compile Include="SharedFiles\Components\SharedFilesConfiguration.cs" />
     <Compile Include="SharedFiles\Components\SharedFilesContentDeleteHandler.cs" />
     <Compile Include="SharedFiles\Components\SharedFilesContentInstaller.cs" />
@@ -1254,13 +1227,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\pollfeature-byChristianFredh\FeatureDefinitions\0000_PollFeature.config" />
-    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mssql\0.0.0.1.config" />
-    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mysql\0.0.0.1.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mssql\0.0.0.5.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\mysql\0.0.0.5.config" />
     <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
     <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
     <Content Include="Setup\applications\surveyfeature\FeatureDefinitions\0000_Survey.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mssql\0.0.1.1.config" />
-    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mysql\0.0.1.0.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mssql\1.9.0.0.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\mysql\1.9.0.0.config" />
     <Content Include="Survey\CompleteSurvey.aspx" />
     <Content Include="Survey\Results.aspx" />
     <Content Include="Survey\SurveyEdit.aspx" />
@@ -1284,16 +1257,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\pgsql\0.0.0.2.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\pgsql\0.0.0.5.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\sqlite\0.0.0.2.config" />
+    <Content Include="Setup\applications\pollfeature-byChristianFredh\SchemaInstallScripts\sqlite\0.0.0.5.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\pgsql\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\pgsql\1.9.0.0.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\sqlite\0.0.1.2.config" />
+    <Content Include="Setup\applications\surveyfeature\SchemaInstallScripts\sqlite\1.9.0.0.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FeedManager\FeedAggregate.aspx" />
@@ -1456,20 +1429,6 @@
     <Content Include="Setup\ProviderConfig\indexbuilders\sharedfilesindexbuilder.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FolderGallery\Edit.aspx" />
-    <Content Include="FolderGallery\FolderGalleryModule.ascx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\FolderGalleryResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>FolderGalleryResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Setup\applications\foldergallery\FeatureDefinitions\50040_FolderGalleryModule.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_GlobalResources\GMapResources.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>GMapResources.Designer.cs</LastGenOutput>
@@ -1497,9 +1456,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\mysql\0.0.0.1.config" />
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\pgsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\blog\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\mssql\2.6.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\mysql\2.6.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\pgsql\2.6.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaInstallScripts\sqlite\2.6.2.3.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
@@ -1508,10 +1468,10 @@
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\mssql\0.0.0.1.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\mysql\0.0.0.1.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\pgsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\forums\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\mssql\2.2.0.5.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\mysql\2.2.0.5.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\pgsql\2.2.0.5.config" />
+    <Content Include="Setup\applications\forums\SchemaInstallScripts\sqlite\2.2.0.5.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\forums\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
@@ -1520,9 +1480,10 @@
     <Content Include="Setup\applications\forums\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\contactform\SchemaInstallScripts\mysql\0.0.0.1.config" />
-    <Content Include="Setup\applications\contactform\SchemaInstallScripts\pgsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\contactform\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\mssql\0.0.0.6.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\mysql\0.0.0.6.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\pgsql\0.0.0.6.config" />
+    <Content Include="Setup\applications\contactform\SchemaInstallScripts\sqlite\0.0.0.6.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
@@ -1531,9 +1492,10 @@
     <Content Include="Setup\applications\contactform\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\mysql\0.0.0.1.config" />
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\pgsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\mssql\1.0.0.0.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\mysql\1.0.0.0.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\pgsql\1.0.0.0.config" />
+    <Content Include="Setup\applications\eventcalendar\SchemaInstallScripts\sqlite\1.0.0.0.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
@@ -1542,10 +1504,10 @@
     <Content Include="Setup\applications\eventcalendar\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mssql\0.0.0.1.config" />
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mysql\0.0.0.1.config" />
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\pgsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mssql\0.0.0.8.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\mysql\0.0.0.8.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\pgsql\0.0.0.8.config" />
+    <Content Include="Setup\applications\imagegallery\SchemaInstallScripts\sqlite\0.0.0.8.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
@@ -1554,10 +1516,10 @@
     <Content Include="Setup\applications\imagegallery\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mssql\0.0.0.1.config" />
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mysql\0.0.0.1.config" />
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\pgsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mssql\1.0.0.9.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\mysql\1.0.0.9.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\pgsql\1.0.0.9.config" />
+    <Content Include="Setup\applications\linksmodule\SchemaInstallScripts\sqlite\1.0.0.9.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
@@ -1566,10 +1528,10 @@
     <Content Include="Setup\applications\linksmodule\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mssql\0.0.0.1.config" />
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mysql\0.0.0.1.config" />
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\pgsql\0.0.0.1.config" />
-    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\sqlite\0.0.0.1.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mssql\1.1.0.0.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\mysql\1.1.0.0.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\pgsql\1.1.0.0.config" />
+    <Content Include="Setup\applications\sharedfiles\SchemaInstallScripts\sqlite\1.1.0.0.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Setup\applications\sharedfiles\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
@@ -1613,9 +1575,6 @@
     <Content Include="Blog\Controls\CommentDaysSetting.ascx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Services\GalleryDataService.ashx" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ImageGallery\BulkUpload.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -1654,12 +1613,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\" />
-    <Folder Include="Setup\applications\blog\SchemaInstallScripts\mssql\" />
-    <Folder Include="Setup\applications\eventcalendar\SchemaInstallScripts\mssql\" />
-    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mssql\" />
-    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\mysql\" />
-    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\pgsql\" />
-    <Folder Include="Setup\applications\feed-manager\SchemaInstallScripts\sqlite\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mssql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\mysql\" />
     <Folder Include="Setup\applications\feed-manager\SchemaUpgradeScripts\pgsql\" />
@@ -1709,9 +1662,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageGallery\upload.ashx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FolderGallery\upload.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="XmlXsl\uploader.ashx" />
@@ -1776,11 +1726,11 @@
     <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\b_tables.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\c_procedures.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\firebirdsql\1.0.0.0\d_tables.config" />
-    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mssql\1.0.0.0.config" />
-    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mysql\1.0.0.0.config" />
-    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\pgsql\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mssql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\mysql\1.0.0.1.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\pgsql\1.0.0.1.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\sqlce\1.0.0.0.config" />
-    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\sqlite\1.0.0.0.config" />
+    <Content Include="Setup\applications\kdmediaplayer\SchemaInstallScripts\sqlite\1.0.0.1.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\firebirdsql\1.0.0.1.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\mssql\1.0.0.1.config" />
     <Content Include="Setup\applications\kdmediaplayer\SchemaUpgradeScripts\mysql\1.0.0.1.config" />
@@ -1986,8 +1936,14 @@
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.2.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.2.2.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.2.2.config" />
-    <Content Include="Setup\applications\contactform\SchemaInstallScripts\mssql\0.0.0.5.config" />
+    <Content Include="Setup\applications\feed-manager\SchemaInstallScripts\mssql\1.0.1.1.config" />
+    <Content Include="Setup\applications\feed-manager\SchemaInstallScripts\mysql\1.0.1.1.config" />
+    <Content Include="Setup\applications\feed-manager\SchemaInstallScripts\pgsql\1.0.1.1.config" />
+    <Content Include="Setup\applications\feed-manager\SchemaInstallScripts\sqlite\1.0.1.1.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mysql\2.6.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\pgsql\2.6.2.3.config" />
+    <Content Include="Setup\applications\blog\SchemaUpgradeScripts\sqlite\2.6.2.3.config" />
     <Content Include="Setup\applications\blog\SchemaUpgradeScripts\mssql\2.6.3.4.config" />
   </ItemGroup>
   <PropertyGroup>
@@ -2078,10 +2034,6 @@ xcopy /s /y /d "$(ProjectDir)List\*.ascx" "$(SolutionDir)Web\List\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.aspx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ascx" "$(SolutionDir)Web\SharedFiles\"
 xcopy /s /y /d "$(ProjectDir)SharedFiles\*.ashx" "$(SolutionDir)Web\SharedFiles\"
-
-xcopy /s /y /d "$(ProjectDir)FolderGallery\*.aspx" "$(SolutionDir)Web\FolderGallery\"
-xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ascx" "$(SolutionDir)Web\FolderGallery\"
-xcopy /s /y /d "$(ProjectDir)FolderGallery\*.ashx" "$(SolutionDir)Web\FolderGallery\"
 
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.aspx" "$(SolutionDir)Web\GoogleMap\"
 xcopy /s /y /d "$(ProjectDir)GoogleMap\*.ascx" "$(SolutionDir)Web\GoogleMap\"

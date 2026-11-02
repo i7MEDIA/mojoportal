@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 using log4net;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Models;
@@ -33,7 +33,7 @@ public class ExternalLoginController : Controller
 		{
 			var link = PageUrlService.GetLoginRedirectLink();
 
-			if (returnurl is not null)
+			if (!string.IsNullOrWhiteSpace(returnurl) && Url.IsLocalUrl(returnurl))
 			{
 				link = returnurl;
 			}

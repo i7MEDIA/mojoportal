@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -26,13 +26,12 @@ public class SuperFlexiController : ApiController
 		currentPage = new PageSettings(siteSettings.SiteId, r.PageId);
 		var allowed = false;
 
-		module = new Module(r.ModuleId);
-		//must always have a module
-		allowed = module is not null && WebUser.IsInRoles(module.ViewRoles);
+		module = r.PageId > 0 ? new Module(r.ModuleId, r.PageId) : new Module(r.ModuleId);
+		//must always have a module belonging to the current site
+		allowed = module is not null && module.ModuleId > -1 && module.SiteId == siteSettings.SiteId && WebUser.IsInRoles(module.ViewRoles);
 
-		if (allowed && currentPage is not null)
+		if (allowed && currentPage is not null && currentPage.PageId > 0)
 		{
-			//we're okay with not specifying a page
 			allowed = WebUser.IsInRoles(currentPage.AuthorizedRoles);
 		}
 
@@ -159,16 +158,12 @@ public class SuperFlexiController : ApiController
 		currentPage = new PageSettings(siteSettings.SiteId, r.PageId);
 		var allowed = false;
 
-		if (currentPage != null)
+		module = r.PageId > 0 ? new Module(r.ModuleId, r.PageId) : new Module(r.ModuleId);
+		allowed = module != null && module.ModuleId > -1 && module.SiteId == siteSettings.SiteId && WebUser.IsInRoles(module.ViewRoles);
+
+		if (allowed && currentPage != null && currentPage.PageId > 0)
 		{
 			allowed = WebUser.IsInRoles(currentPage.AuthorizedRoles);
-		}
-
-		module = new Module(r.ModuleId);
-
-		if (module != null)
-		{
-			allowed = WebUser.IsInRoles(module.ViewRoles);
 		}
 
 		if (!allowed)
