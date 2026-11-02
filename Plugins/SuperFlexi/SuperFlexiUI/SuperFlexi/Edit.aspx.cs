@@ -53,27 +53,16 @@ public partial class EditItems : NonCmsBasePage
 	override protected void OnInit(EventArgs e)
 	{
 		base.OnInit(e);
-		this.Load += new EventHandler(this.Page_Load);
-		this.updateButton.Click += new EventHandler(this.UpdateBtn_Click);
-		this.deleteButton.Click += new EventHandler(this.DeleteBtn_Click);
-		this.saveAsNewButton.Click += new EventHandler(this.SaveAsNewBtn_Click);
-		this.exportButton.Click += new EventHandler(this.ExportBtn_Click);
+
+		Load += new EventHandler(Page_Load);
+		updateButton.Click += new EventHandler(UpdateBtn_Click);
+		deleteButton.Click += new EventHandler(DeleteBtn_Click);
+		saveAsNewButton.Click += new EventHandler(SaveAsNewBtn_Click);
+		exportButton.Click += new EventHandler(ExportBtn_Click);
+
 		SuppressPageMenu();
 	}
 
-	//protected override void OnLoad(EventArgs e)
-	//{
-	//    base.OnLoad(e);
-	//    PopulateCustomControls();
-
-	//    SetupScripts();
-	//}
-
-	//protected override void OnPreRender(EventArgs e)
-	//{
-	//    base.OnPreRender(e);
-	//    PopulateCustomControls();
-	//}
 	#endregion
 
 	private void Page_Load(object sender, EventArgs e)
@@ -163,16 +152,17 @@ public partial class EditItems : NonCmsBasePage
 
 	public void PopulateCustomControls()
 	{
-		List<Field> savedFields = new List<Field>();
-		if (!FieldUtils.EnsureFields(SiteInfo.SiteGuid, config, out savedFields, config.DeleteOrphanedFieldValues)) return;
+		if (!FieldUtils.EnsureFields(SiteInfo.SiteGuid, config, out var savedFields, config.DeleteOrphanedFieldValues))
+		{
+			return;
+		}
 
 		if (item.ItemID == -1)
 		{
-			foreach (Field field in savedFields)
+			foreach (var field in savedFields)
 			{
 				if (field.ControlType.ToLower() == "instructionblock")
 				{
-
 					AddInstructionBlock(field);
 				}
 				else
@@ -183,36 +173,37 @@ public partial class EditItems : NonCmsBasePage
 		}
 		else
 		{
+			var fieldsWithValues = new List<Field>();
+			var fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
 
-			List<Field> fieldsWithValues = new List<Field>();
-			List<ItemFieldValue> fieldValues = ItemFieldValue.GetItemValues(item.ItemGuid);
-
-			foreach (ItemFieldValue fieldValue in fieldValues)
+			foreach (var fieldValue in fieldValues)
 			{
 				fieldsWithValues.Add(new Field(fieldValue.FieldGuid));
 			}
-			FieldComparer fieldComp = new FieldComparer();
-			List<Field> newFields = savedFields.Except(fieldsWithValues, fieldComp).ToList();
-			//List<Field> allFields = new List<Field>();
 
-			foreach (Field field in newFields)
+			var fieldComp = new FieldComparer();
+			var newFields = savedFields.Except(fieldsWithValues, fieldComp).ToList();
+
+			foreach (var field in newFields)
 			{
-				ItemFieldValue fieldValue = new ItemFieldValue();
-				fieldValue.FieldValue = field.DefaultValue;
-				fieldValue.FieldGuid = field.FieldGuid;
-				fieldValue.FeatureGuid = field.FeatureGuid;
-				fieldValue.ItemGuid = item.ItemGuid;
-				fieldValue.ModuleGuid = item.ItemGuid;
-				fieldValue.SiteGuid = item.SiteGuid;
+				var fieldValue = new ItemFieldValue
+				{
+					FieldValue = field.DefaultValue,
+					FieldGuid = field.FieldGuid,
+					FeatureGuid = field.FeatureGuid,
+					ItemGuid = item.ItemGuid,
+					ModuleGuid = item.ItemGuid,
+					SiteGuid = item.SiteGuid
+				};
 
 				fieldValues.Add(fieldValue);
 			}
 
-			foreach (Field field in savedFields)
+			foreach (var field in savedFields)
 			{
 				if (field.ControlType.ToLower() != "instructionblock")
 				{
-					foreach (ItemFieldValue fieldValue in fieldValues)
+					foreach (var fieldValue in fieldValues)
 					{
 						if (fieldValue.FieldGuid == field.FieldGuid)
 						{
@@ -231,8 +222,11 @@ public partial class EditItems : NonCmsBasePage
 
 	private void AddInstructionBlock(Field field)
 	{
-		Literal litInstructions = new Literal();
-		litInstructions.Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config);
+		var litInstructions = new Literal
+		{
+			Text = SuperFlexiHelpers.GetHelpText(field.HelpKey, config)
+		};
+
 		if (!string.IsNullOrWhiteSpace(litInstructions.Text))
 		{
 			customControls.Controls.Add(litInstructions);
@@ -987,12 +981,9 @@ public partial class EditItems : NonCmsBasePage
 				break;
 		}
 
-		if (field.HelpKey.Length > 0)
+		if (!string.IsNullOrWhiteSpace(field.HelpKey))
 		{
-			if (field.HelpKey.EndsWith(".sfhelp") ||
-				field.HelpKey.EndsWith(".config") ||
-				field.HelpKey.StartsWith("$_FlexiHelp_$") ||
-				field.HelpKey.StartsWith("$_SitePath_$"))
+			if (SuperFlexiHelpers.IsHelpFile(field.HelpKey))
 			{
 				panel.Controls.Add(new Literal
 				{

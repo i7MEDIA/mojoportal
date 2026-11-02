@@ -58,7 +58,7 @@
         required="True"
         requiredMessageFormat="Icon is required."
         token="$icon$"
-        helpKey="resources/icon-picker-fa.config"
+        helpKey="resources/icon-picker-fa.sfHelp"
 
         editPageControlWrapperCssClass="settingrow icon-picker-row"
         editPageLabelCssClass="settinglabel"
@@ -70,7 +70,7 @@
         name="iconpickercore"
         label="Icon Picker Core"
         controlType="InstructionBlock"
-        helpKey="resources/icon-picker-fa-core.config"
+        helpKey="resources/icon-picker-fa-core.sfHelp"
         sortOrder="140"
     />
 

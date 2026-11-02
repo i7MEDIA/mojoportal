@@ -16,14 +16,12 @@
 		hideInnerBodyPanel="false"
 		viewName="accordion.cshtml"
 	>
-
 	</MarkupDefinition>
 
-    <SearchDefinition>
-        <Title>$title$</Title>
-        <Keywords></Keywords>
-        <Description>$content$</Description>
-        <Link>$_PageUrl_$</Link>
-    </SearchDefinition>
-    
+	<SearchDefinition>
+		<Title>$title$</Title>
+		<Keywords></Keywords>
+		<Description>$content$</Description>
+		<Link>$_PageUrl_$</Link>
+	</SearchDefinition>
 </Definitions>
