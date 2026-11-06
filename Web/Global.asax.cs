@@ -240,6 +240,7 @@ public class Global : HttpApplication
 			HttpContext.Current.Request.Path.Contains(".jpg", StringComparison.OrdinalIgnoreCase) ||
 			HttpContext.Current.Request.Path.Contains(".jpeg", StringComparison.OrdinalIgnoreCase) ||
 			HttpContext.Current.Request.Path.Contains(".svg", StringComparison.OrdinalIgnoreCase) ||
+			HttpContext.Current.Request.Path.Contains(".webp", StringComparison.OrdinalIgnoreCase) ||
 			HttpContext.Current.Request.Path.Contains(".css", StringComparison.OrdinalIgnoreCase) ||
 			HttpContext.Current.Request.Path.Contains(".axd", StringComparison.OrdinalIgnoreCase) ||
 			HttpContext.Current.Request.Path.Contains(".js", StringComparison.OrdinalIgnoreCase) ||

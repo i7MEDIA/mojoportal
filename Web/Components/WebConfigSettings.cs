@@ -1180,24 +1180,17 @@ public static class WebConfigSettings
 
 	public static bool IncludeContentStylesWithSkinExport => ConfigHelper.GetBoolProperty("IncludeContentStylesWithSkinExport", false);
 
-	public static string ImageFileExtensions => ConfigHelper.GetStringProperty("ImageFileExtensions", ".gif|.jpg|.jpeg|.png|.svg|.webp");
+	[Obsolete("This method is obsolete, use App.Config.ImageFileExtensions instead.")]
+	public static string ImageFileExtensions = AppConfig.ImageFileExtensions;
 
-	public static string AllowedMediaFileExtensions
-	{
-		get
-		{
-			if (ConfigurationManager.AppSettings["AllowedMediaFileExtensions"] != null)
-			{
-				return ConfigurationManager.AppSettings["AllowedMediaFileExtensions"].ToLower();
-			}
-			// default value
-			return $"{ImageFileExtensions}|{AudioFileExtensions}|{VideoFileExtensions}";
-		}
-	}
+	[Obsolete("This method is obsolete, use App.Config.AllowedMediaFileExtensions instead.")]
+	public static string AllowedMediaFileExtensions = AppConfig.AllowedMediaFileExtensions;
 
-	public static string AudioFileExtensions => ConfigHelper.GetStringProperty("AudioFileExtensions", ".wmv|.mp3|.m4a|.m4v|.oga|.webma|.webm|.wav|.asf|.asx").ToLower();
+	[Obsolete("This method is obsolete, use App.Config.AudioFileExtensions instead.")]
+	public static string AudioFileExtensions = AppConfig.AudioFileExtensions;
 
-	public static string VideoFileExtensions => ConfigHelper.GetStringProperty("VideoFileExtensions", ".wmv|.mp4|.m4v|.ogv|.webmv|.webm|.avi|.mov|.mpeg|.mpg").ToLower();
+	[Obsolete("This method is obsolete, use App.Config.VideoFileExtensions instead.")]
+	public static string VideoFileExtensions = AppConfig.VideoFileExtensions;
 
 	public static string JPlayerAudioFileExtensions => ConfigHelper.GetStringProperty("JPlayerAudioFileExtensions", ".mp3|.m4a|.mp4|.oga|.webma|.webm|.wav").ToLower();
 
@@ -1205,9 +1198,10 @@ public static class WebConfigSettings
 
 	public static string JPlayerBasePath => ConfigHelper.GetStringProperty("JPlayerBasePath", "~/ClientScript/jplayer-2-5-0/");
 
-	public static string AllowedUploadFileExtensions => ConfigHelper.GetStringProperty("AllowedUploadFileExtensions", ".gif|.jpg|.jpeg|.svg|.png|.wmv|.mp3|.mp4|.tif|.asf|.asx|.avi|.mov|.mpeg|.mpg|.zip|.pdf|.doc|.docx|.xls|.xlsx|.ppt|.pptx|.csv|.txt").ToLower();
+	[Obsolete("This method is obsolete, use App.Config.AllowedUploadFileExtensions instead.")]
+	public static string AllowedUploadFileExtensions = AppConfig.AllowedUploadFileExtensions;
 
-	public static string AllowedLessPriveledgedUserUploadFileExtensions => ConfigHelper.GetStringProperty("AllowedLessPriveledgedUserUploadFileExtensions", ".gif|.jpg|.jpeg|.png|.svg|.zip").ToLower();
+	public static string AllowedLessPriveledgedUserUploadFileExtensions => ConfigHelper.GetStringProperty("AllowedLessPriveledgedUserUploadFileExtensions", ".gif|.jpg|.jpeg|.png|.svg|.webp|.zip").ToLower();
 
 	public static string mojoFileSystemConfigFileName => ConfigHelper.GetStringProperty("mojoFileSystemConfigFileName", "mojoFileSystem.config");
 
@@ -1423,7 +1417,7 @@ public static class WebConfigSettings
 				return ConfigurationManager.AppSettings["ExtensionsToSkipIn404Handler"].ToLower();
 			}
 			// default value
-			return $"{ImageFileExtensions}|{AudioFileExtensions}|{VideoFileExtensions}.js|.css|.ashx|.axd".ToLower();
+			return $"{ImageFileExtensions}|{AudioFileExtensions}|{VideoFileExtensions}|.js|.css|.ashx|.axd".ToLower();
 		}
 	}
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -34,8 +34,35 @@ public static class AppConfig
 
 	public static string SecureConnectionServerVariableSecureValue => ConfigHelper.GetStringProperty("SecureConnectionServerVariableSecureValue", string.Empty);
 
-	public static string StaticFileExtensions => ConfigHelper.GetStringProperty("StaticFileExtensions", ".asf|.asx|.avi|.css|.csv|.doc|.docx|.gif|.htm|.html|.ico|.jpeg|.jpg|.js" +
+	public static string StaticFileExtensions =>
+		ConfigHelper.GetStringProperty("StaticFileExtensions", ".asf|.asx|.avi|.css|.csv|.doc|.docx|.gif|.htm|.html|.ico|.jpeg|.jpg|.js" +
 		"|.json|.less|.m4a|.m4v|.mov|.mp3|.mp4|.mpeg|.mpg|.oga|.ogg|.ogv|.pdf|.png|.pps|.ppt|.pptx|.svg|.tif|.ttf|.txt|.wav|.webm|.webma|.webmv|.webp|.wmv|.woff|.xls|.xlsx|.xml|.zip").ToLower();
+
+	public static string ImageFileExtensions =>
+		ConfigHelper.GetStringProperty("ImageFileExtensions", ".gif|.jpg|.jpeg|.png|.svg|.webp");
+
+	public static string AllowedUploadFileExtensions =>
+		ConfigHelper.GetStringProperty("AllowedUploadFileExtensions", ".gif|.jpg|.jpeg|.svg|.png|.webp|.wmv|.mp3|.mp4|.tif|.asf|.asx|.avi|.mov|.mpeg|.mpg|.zip|.pdf|.doc|.docx|.xls|.xlsx|.ppt|.pptx|.csv|.txt").ToLower();
+
+	public static string AudioFileExtensions =>
+		ConfigHelper.GetStringProperty("AudioFileExtensions", ".wmv|.mp3|.m4a|.m4v|.oga|.webma|.webm|.wav|.asf|.asx").ToLower();
+
+	public static string VideoFileExtensions =>
+		ConfigHelper.GetStringProperty("VideoFileExtensions", ".wmv|.mp4|.m4v|.ogv|.webmv|.webm|.avi|.mov|.mpeg|.mpg").ToLower();
+
+	public static string AllowedMediaFileExtensions
+	{
+		get
+		{
+			if (ConfigurationManager.AppSettings["AllowedMediaFileExtensions"] != null)
+			{
+				return ConfigurationManager.AppSettings["AllowedMediaFileExtensions"].ToLower();
+			}
+
+			// default value
+			return $"{ImageFileExtensions}|{AudioFileExtensions}|{VideoFileExtensions}";
+		}
+	}
 
 	public static string EditorTemplatesOrder => ConfigHelper.GetStringProperty("EditorTemplatesOrder", "site,skin,system");
 
@@ -193,4 +220,42 @@ public static class AppConfig
 	}
 
 	#endregion
+
+
+	public static string MSSQLConnectionString = GetConnectionString("MSSQLConnectionString", "MSSQLWriteConnectionString");
+	public static string PGSQLConnectionString = GetConnectionString("PostgreSQLConnectionString", "PostgreSQLWriteConnectionString");
+	public static string MySQLConnectionString = GetConnectionString("MySqlConnectionString", "MySqlWriteConnectionString");
+
+	private static string GetConnectionString(string readString, string writeString)
+	{
+		var connectionStringSection = ConfigurationManager.AppSettings["UseConnectionStringSection"];
+		string connectionString;
+
+		if (
+			connectionStringSection is not null &&
+			connectionStringSection == "true")
+		{
+			if (ConfigurationManager.ConnectionStrings[writeString] is not null)
+			{
+				connectionString = ConfigurationManager.ConnectionStrings[writeString].ConnectionString;
+			}
+			else
+			{
+				connectionString = ConfigurationManager.ConnectionStrings[readString].ConnectionString;
+			}
+		}
+		else
+		{
+			if (ConfigurationManager.AppSettings[writeString] is not null)
+			{
+				connectionString = ConfigurationManager.AppSettings[writeString];
+			}
+			else
+			{
+				connectionString = ConfigurationManager.AppSettings[readString];
+			}
+		}
+
+		return connectionString;
+	}
 }
