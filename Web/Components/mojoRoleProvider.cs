@@ -310,58 +310,52 @@ public class mojoRoleProvider : RoleProvider
 
 		if (AppConfig.OAuth.Configured)
 		{
-			var accessToken = Global.OidcService.AccessToken;
-			var resourceAccessClaim = accessToken?.Claims.FirstOrDefault(x => x.Type.Equals("resource_access"))?.Value;
+			var oidcRoles = GetOidcRoles();
 
-			if (resourceAccessClaim is not null)
+			if (oidcRoles is not null)
 			{
-				var resourceAccess = JsonConvert.DeserializeObject<ResourceAccess>(resourceAccessClaim);
+				var rolesToRemove = (
+					from o in userRoles
+					join p in oidcRoles on o.RoleName equals p into t
+					from od in t.DefaultIfEmpty()
+					where od == null
+					select o.RoleName
+				).ToList();
 
-				if (resourceAccess is not null)
+				var rolesToAdd = (
+					from o in oidcRoles
+					join p in userRoles on o equals p.RoleName into t
+					from od in t.DefaultIfEmpty()
+					where od == null
+					select o
+				).ToList();
+
+				if (rolesToRemove.Any() || rolesToAdd.Any())
 				{
-					var rolesToRemove = (
-						from o in userRoles
-						join p in resourceAccess.PublicClient.Roles on o.RoleName equals p into t
-						from od in t.DefaultIfEmpty()
-						where od == null
-						select o.RoleName
-					).ToList();
+					var siteRoles = Role.GetBySite(siteSettings.SiteId);
 
-					var rolesToAdd = (
-						from o in resourceAccess.PublicClient.Roles
-						join p in userRoles on o equals p.RoleName into t
-						from od in t.DefaultIfEmpty()
-						where od == null
-						select o
-					).ToList();
-
-					if (rolesToRemove.Any() || rolesToAdd.Any())
+					foreach (var role in rolesToRemove)
 					{
-						var siteRoles = Role.GetBySite(siteSettings.SiteId);
+						var _role = userRoles.FirstOrDefault(x => x.RoleName == role);
 
-						foreach (var role in rolesToRemove)
+						if (_role is not null)
 						{
-							var _role = userRoles.FirstOrDefault(x => x.RoleName == role);
+							Role.RemoveUser(_role.RoleId, user.UserId);
 
-							if (_role is not null)
-							{
-								Role.RemoveUser(_role.RoleId, user.UserId);
-
-								resultRoles = resultRoles
-									.Where(x => x != role)
-									.ToArray();
-							}
+							resultRoles = resultRoles
+								.Where(x => x != role)
+								.ToArray();
 						}
+					}
 
-						foreach (var role in rolesToAdd)
+					foreach (var role in rolesToAdd)
+					{
+						var _role = siteRoles.FirstOrDefault(x => x.RoleName == role);
+
+						if (_role is not null)
 						{
-							var _role = siteRoles.FirstOrDefault(x => x.RoleName == role);
-
-							if (_role is not null)
-							{
-								Role.AddUser(_role.RoleId, user.UserId, _role.RoleGuid, user.UserGuid);
-								resultRoles = [.. resultRoles, role];
-							}
+							Role.AddUser(_role.RoleId, user.UserId, _role.RoleGuid, user.UserGuid);
+							resultRoles = [.. resultRoles, role];
 						}
 					}
 				}
@@ -594,10 +588,74 @@ public class mojoRoleProvider : RoleProvider
 	}
 
 
-	public class ResourceAccess
+	private static IEnumerable<string>? GetOidcRoles()
 	{
-		[JsonProperty("easy-image")]
-		public PublicClient PublicClient { get; set; } = new();
+		var accessToken = Global.OidcService.AccessToken;
+		var identityToken = Global.OidcService.IdentityToken;
+
+		var resourceAccessClaim =
+			accessToken?.Claims.FirstOrDefault(x => x.Type.Equals("resource_access", StringComparison.OrdinalIgnoreCase))?.Value
+			?? identityToken?.Claims.FirstOrDefault(x => x.Type.Equals("resource_access", StringComparison.OrdinalIgnoreCase))?.Value;
+
+		if (resourceAccessClaim is not null)
+		{
+			var resourceAccess = JsonConvert.DeserializeObject<ResourceAccess>(resourceAccessClaim);
+
+			if (resourceAccess is not null)
+			{
+				return resourceAccess.TryGetValue(AppConfig.OAuth.ClientId, out var publicClient) && publicClient?.Roles is not null
+					? publicClient.Roles
+					: [];
+			}
+		}
+
+		var roleClaims = accessToken?.Claims
+			.Where(x => x.Type.Equals("roles", StringComparison.OrdinalIgnoreCase))
+			.ToList();
+
+		if (roleClaims is null || roleClaims.Count == 0)
+		{
+			roleClaims = identityToken?.Claims
+				.Where(x => x.Type.Equals("roles", StringComparison.OrdinalIgnoreCase))
+				.ToList();
+		}
+
+		if (roleClaims is { Count: > 0 })
+		{
+			var roles = new List<string>();
+
+			foreach (var claim in roleClaims)
+			{
+				if (string.IsNullOrWhiteSpace(claim.Value))
+				{
+					continue;
+				}
+
+				var trimmed = claim.Value.Trim();
+				if (trimmed.StartsWith("[") && trimmed.EndsWith("]"))
+				{
+					var parsed = JsonConvert.DeserializeObject<string[]>(trimmed);
+					if (parsed is not null)
+					{
+						roles.AddRange(parsed);
+					}
+				}
+				else
+				{
+					roles.Add(claim.Value);
+				}
+			}
+
+			return roles;
+		}
+
+		return null;
+	}
+
+
+	public class ResourceAccess : Dictionary<string, PublicClient>
+	{
+		public ResourceAccess() : base(StringComparer.OrdinalIgnoreCase) { }
 	}
 
 	public class PublicClient
