@@ -3,6 +3,7 @@ using IdentityModel.Client;
 using log4net;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using System;
@@ -350,6 +351,16 @@ public class OidcService
 		if (CookieHelper.CookieExists(TOKEN_KEY_REFRESH))
 		{
 			CookieHelper.ExpireCookie(TOKEN_KEY_REFRESH);
+		}
+
+		var siteSettings = CacheHelper.GetCurrentSiteSettings();
+		if (siteSettings is not null)
+		{
+			var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
+			if (CookieHelper.CookieExists(roleCookieName))
+			{
+				CookieHelper.ExpireCookie(roleCookieName);
+			}
 		}
 	}
 

@@ -184,6 +184,7 @@ public static class AppConfig
 		public string Authority => ConfigHelper.GetStringProperty("OAuth:Authority", null);
 		public string ClientId => ConfigHelper.GetStringProperty("OAuth:ClientId", null);
 		public string ClientSecret => ConfigHelper.GetStringProperty("OAuth:ClientSecret", null);
+		public bool ManageRoles => ConfigHelper.GetBoolProperty("OAuth:ManageRoles", true);
 
 		public bool Configured =>
 			!string.IsNullOrWhiteSpace(Authority) &&

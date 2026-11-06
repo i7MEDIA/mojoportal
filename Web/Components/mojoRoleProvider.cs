@@ -308,7 +308,7 @@ public class mojoRoleProvider : RoleProvider
 		var resultRoles = userRoles.Select(x => x.RoleName);
 		var user = new SiteUser(siteSettings, HttpContext.Current.User.Identity.Name);
 
-		if (AppConfig.OAuth.Configured)
+		if (AppConfig.OAuth.Configured && AppConfig.OAuth.ManageRoles)
 		{
 			var oidcRoles = GetOidcRoles();
 
@@ -362,7 +362,7 @@ public class mojoRoleProvider : RoleProvider
 			}
 		}
 
-		if (!AppConfig.OAuth.Configured)
+		if (!AppConfig.OAuth.Configured || !AppConfig.OAuth.ManageRoles)
 		{
 			var roleCookieName = SiteUtils.GetRoleCookieName(siteSettings);
 			var roles = new RoleStringHelper();
