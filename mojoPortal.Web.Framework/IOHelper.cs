@@ -111,6 +111,7 @@ public static class IOHelper
 		if (string.Equals(fileInfo.Extension, ".jpg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 		if (string.Equals(fileInfo.Extension, ".png", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 		if (string.Equals(fileInfo.Extension, ".svg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
+		if (string.Equals(fileInfo.Extension, ".webp", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 		if (string.Equals(fileInfo.Extension, ".tif", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 		if (string.Equals(fileInfo.Extension, ".asf", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 		if (string.Equals(fileInfo.Extension, ".asx", StringComparison.InvariantCultureIgnoreCase)) { return true; }
@@ -136,6 +137,7 @@ public static class IOHelper
 		if (string.Equals(fileInfo.Extension, ".jpg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 		if (string.Equals(fileInfo.Extension, ".png", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 		if (string.Equals(fileInfo.Extension, ".svg", StringComparison.InvariantCultureIgnoreCase)) { return true; }
+		if (string.Equals(fileInfo.Extension, ".webp", StringComparison.InvariantCultureIgnoreCase)) { return true; }
 
 		return false;
 	}
@@ -278,6 +280,9 @@ public static class IOHelper
 
 			case "svg":
 				return "image/svg+xml";
+
+			case "webp":
+				return "image/webp";
 
 			case "bmp":
 				return "image/bmp";
