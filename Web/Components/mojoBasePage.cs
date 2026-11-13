@@ -1324,28 +1324,6 @@ public class mojoBasePage : Page
 		}
 	}
 
-	protected bool ShouldShowModule(Module m)
-	{
-		if (UseMobileSkin && m.PublishMode == webOnly)
-		{
-			return false;
-		}
-
-		if (!UseMobileSkin && m.PublishMode == mobileOnly)
-		{
-			if (WebConfigSettings.RolesThatAlwaysViewMobileContent.Length > 0)
-			{
-				if (WebUser.IsInRoles(WebConfigSettings.RolesThatAlwaysViewMobileContent))
-				{
-					return true;
-				}
-			}
-
-			return false;
-		}
-
-		return true;
-	}
 
 	public void LoadSideContent(bool includeLeft, bool includeRight)
 	{
@@ -1366,11 +1344,6 @@ public class mojoBasePage : Page
 		{
 			foreach (Module module in CurrentPage.Modules)
 			{
-				if (!ShouldShowModule(module)) //mobile skin publishing
-				{
-					continue;
-				}
-
 				if (ModuleIsVisible(module)) //hide from authenticated/unauthenticated
 				{
 					if (includeLeft && module.PaneName.IsCaseInsensitiveMatch("leftpane"))
@@ -1490,11 +1463,6 @@ public class mojoBasePage : Page
 		{
 			foreach (Module module in CurrentPage.Modules)
 			{
-				if (!ShouldShowModule(module))
-				{
-					continue;
-				}
-
 				if (ModuleIsVisible(module))
 				{
 					if (AltPane1 is not null && includeTop && module.PaneName.IsCaseInsensitiveMatch("altcontent1"))

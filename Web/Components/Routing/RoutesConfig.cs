@@ -1,6 +1,9 @@
-﻿using System;
+﻿using log4net;
+using mojoPortal.Web.Plugins;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Caching;
 using System.Xml;
@@ -9,7 +12,10 @@ namespace mojoPortal.Web.Routing;
 
 public class RoutesConfig
 {
+	private static readonly ILog _log = LogManager.GetLogger(typeof(RoutesConfig));
+
 	public List<IRegisterRoutes> RouteRegistrars { get; } = [];
+
 
 	public static RoutesConfig GetConfig()
 	{
@@ -21,7 +27,6 @@ public class RoutesConfig
 		}
 
 		var configFolderName = WebConfigSettings.RouteConfigPath; //"~/Setup/RouteRegistrars/";
-
 		var pathToConfigFolder = System.Web.Hosting.HostingEnvironment.MapPath(configFolderName);
 
 		if (!Directory.Exists(pathToConfigFolder))
@@ -34,8 +39,16 @@ public class RoutesConfig
 
 		foreach (var fileInfo in routeFiles)
 		{
-			var routeConfigFile = XmlHelper.GetXmlDocument(fileInfo.FullName);
-			LoadRoutes(routesConfig, routeConfigFile.DocumentElement);
+			try
+			{
+				var routeConfigFile = XmlHelper.GetXmlDocument(fileInfo.FullName);
+
+				LoadRoutes(routesConfig, routeConfigFile.DocumentElement);
+			}
+			catch (Exception ex)
+			{
+				_log.Warn($"Skipping route registrar file '{fileInfo.FullName}': {ex.Message}");
+			}
 		}
 
 		//cache can be cleared by touching Web.config
@@ -56,21 +69,55 @@ public class RoutesConfig
 
 	private static void LoadRoutes(RoutesConfig config, XmlNode documentElement)
 	{
-		if (documentElement.Name != "Routes")
+		if (documentElement is null || documentElement.Name != "Routes")
 		{
 			return;
 		}
+
+		var pluginAssemblies = new HashSet<string>(
+			PluginLoader.EnabledPlugins
+				.Where(p => p.Instance != null)
+				.SelectMany(p => p.Assemblies)
+				.Select(a => a.GetName().Name),
+			StringComparer.OrdinalIgnoreCase);
 
 		foreach (XmlNode node in documentElement.ChildNodes)
 		{
 			if (node.Name == "IRegisterRoutes")
 			{
 				var attributeCollection = node.Attributes;
+				var typeName = attributeCollection?["type"]?.Value;
 
-				if (attributeCollection["type"] != null && typeof(IRegisterRoutes).IsAssignableFrom(Type.GetType(attributeCollection["type"].Value)))
+				if (string.IsNullOrWhiteSpace(typeName))
 				{
-					IRegisterRoutes registrar = Activator.CreateInstance(Type.GetType(attributeCollection["type"].Value)) as IRegisterRoutes;
-					config.RouteRegistrars.Add(registrar);
+					continue;
+				}
+
+				try
+				{
+					var targetType = Type.GetType(typeName);
+
+					if (targetType is null || !typeof(IRegisterRoutes).IsAssignableFrom(targetType))
+					{
+						continue;
+					}
+
+					// If this assembly already has an enabled IPlugin that registers routes directly, skip legacy XML entry
+					var asmName = targetType.Assembly.GetName().Name;
+
+					if (pluginAssemblies.Contains(asmName))
+					{
+						continue;
+					}
+
+					if (Activator.CreateInstance(targetType) is IRegisterRoutes registrar)
+					{
+						config.RouteRegistrars.Add(registrar);
+					}
+				}
+				catch (Exception ex)
+				{
+					_log.Warn($"Skipping legacy IRegisterRoutes '{typeName}': {ex.Message}");
 				}
 			}
 		}

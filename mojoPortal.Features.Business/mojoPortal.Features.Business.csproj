@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Current">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{65849992-8F44-4480-9494-1CA0D6325795}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mojoPortal.Features.Business</RootNamespace>
+    <RootNamespace>mojoPortal.Business</RootNamespace>
     <AssemblyName>mojoPortal.Features.Business</AssemblyName>
+    <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,227 +21,107 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug - MySql'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release - MySql'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug - pgSQL'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release - pgSQL'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug - SQLite'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release - SQLite'">
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>true</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Blog\Blog.cs" />
-    <Compile Include="Blog\BlogPostModel.cs" />
-    <Compile Include="Blog\PostListModel.cs" />
-    <Compile Include="ContactForm\ContactFormMessage.cs" />
-    <Compile Include="EventCalendar\CalendarEvent.cs" />
-    <Compile Include="FeedManager\RssFeed.cs" />
-    <Compile Include="Forums\Forum.cs" />
-    <Compile Include="Forums\ForumThread.cs" />
-    <Compile Include="Forums\ForumThreadMovedArgs.cs" />
-    <Compile Include="Forums\RSSForum.cs" />
-    <Compile Include="GlobalUsings.cs" />
-    <Compile Include="ImageGallery\Gallery.cs" />
-    <Compile Include="ImageGallery\GalleryImage.cs" />
-    <Compile Include="KDMediaPlayer\MediaFile.cs" />
-    <Compile Include="KDMediaPlayer\MediaPlayer.cs" />
-    <Compile Include="KDMediaPlayer\MediaTrack.cs" />
-    <Compile Include="KDMediaPlayer\MediaType.cs" />
-    <Compile Include="LinkModule\Links.cs" />
-    <Compile Include="Poll\Poll.cs" />
-    <Compile Include="Poll\PollOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedFiles\Models\File.cs" />
-    <Compile Include="SharedFiles\Models\Folder.cs" />
-    <Compile Include="SharedFiles\Models\FoldersAndFiles.cs" />
-    <Compile Include="SharedFiles\SharedFile.cs" />
-    <Compile Include="SharedFiles\SharedFileFolder.cs" />
-    <Compile Include="SharedFiles\SharedFileHistory.cs" />
-    <Compile Include="Survey\Page.cs" />
-    <Compile Include="Survey\Question.cs" />
-    <Compile Include="Survey\QuestionAnswer.cs" />
-    <Compile Include="Survey\QuestionOption.cs" />
-    <Compile Include="Survey\QuestionType.cs" />
-    <Compile Include="Survey\Result.cs" />
-    <Compile Include="Survey\Survey.cs" />
-    <Compile Include="Survey\SurveyManager.cs" />
-    <Compile Include="Survey\SurveyResponse.cs" />
+    <Compile Include="TypeForwarders.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
-      <Project>{fea72210-0415-4133-bdf9-8877683ba832}</Project>
-      <Name>mojoPortal.Core</Name>
-    </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Debug'" Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
+    <ProjectReference Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'" Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
       <Project>{2FB266B5-97F0-42EB-9F42-B6A7DE749D29}</Project>
       <Name>mojoPortal.Features.Data.MSSQL</Name>
     </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Release'" Include="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj">
-      <Project>{2FB266B5-97F0-42EB-9F42-B6A7DE749D29}</Project>
-      <Name>mojoPortal.Features.Data.MSSQL</Name>
-    </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Debug - MySql'" Include="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj">
+    <ProjectReference Condition="'$(Configuration)'=='Debug - MySql' Or '$(Configuration)'=='Release - MySql'" Include="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj">
       <Project>{6DF34148-3B95-4B8A-9C63-823D4BE9F4DE}</Project>
       <Name>mojoPortal.Features.Data.MySql</Name>
     </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Release - MySql'" Include="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj">
-      <Project>{6DF34148-3B95-4B8A-9C63-823D4BE9F4DE}</Project>
-      <Name>mojoPortal.Features.Data.MySql</Name>
-    </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL'" Include="..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgSQL.csproj">
+    <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL' Or '$(Configuration)'=='Release - pgSQL'" Include="..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgSQL.csproj">
       <Project>{D156CD40-3AA9-48C2-8CDF-041386D2C067}</Project>
       <Name>mojoPortal.Features.Data.pgSQL</Name>
     </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Release - pgSQL'" Include="..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgsql.csproj">
-      <Project>{D156CD40-3AA9-48C2-8CDF-041386D2C067}</Project>
-      <Name>mojoPortal.Features.Data.pgsql</Name>
-    </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite'" Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj">
+    <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite' Or '$(Configuration)'=='Release - SQLite'" Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj">
       <Project>{C9FC1EB2-96C9-4458-AAD4-0432E0D33C39}</Project>
       <Name>mojoPortal.Features.Data.SQLite</Name>
     </ProjectReference>
-    <ProjectReference Condition="'$(Configuration)'=='Release - SQLite'" Include="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj">
-      <Project>{C9FC1EB2-96C9-4458-AAD4-0432E0D33C39}</Project>
-      <Name>mojoPortal.Features.Data.SQLite</Name>
+    <ProjectReference Include="..\Plugins\Blog\mojoPortal.Plugins.Blog.Business\mojoPortal.Plugins.Blog.Business.csproj">
+      <Project>{77C97892-6A5A-4C04-B89F-E8BEC4C9757C}</Project>
+      <Name>mojoPortal.Plugins.Blog.Business</Name>
+      <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>3.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">
-      <Version>10.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.4</Version>
-    </PackageReference>
-    <PackageReference Include="System.Buffers">
-      <Version>4.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.IO.Pipelines">
-      <Version>10.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="System.Memory">
-      <Version>4.6.3</Version>
-    </PackageReference>
-    <PackageReference Include="System.Numerics.Vectors">
-      <Version>4.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
-      <Version>6.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="System.Text.Json">
-      <Version>10.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="System.Threading.Tasks.Extensions">
-      <Version>4.6.3</Version>
-    </PackageReference>
-    <PackageReference Include="System.ValueTuple">
-      <Version>4.6.2</Version>
-    </PackageReference>
+    <ProjectReference Include="..\Plugins\ContactForm\mojoPortal.Plugins.ContactForm.Business\mojoPortal.Plugins.ContactForm.Business.csproj">
+      <Project>{68A3D468-A8EC-49AA-A6F2-C2331DBCC827}</Project>
+      <Name>mojoPortal.Plugins.ContactForm.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\EventCalendar\mojoPortal.Plugins.EventCalendar.Business\mojoPortal.Plugins.EventCalendar.Business.csproj">
+      <Project>{AE452CC9-C636-4F12-8A3C-946BB20D62C1}</Project>
+      <Name>mojoPortal.Plugins.EventCalendar.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\FeedManager\mojoPortal.Plugins.FeedManager.Business\mojoPortal.Plugins.FeedManager.Business.csproj">
+      <Project>{3B0101E9-BE95-44BA-AE10-A0539AC86218}</Project>
+      <Name>mojoPortal.Plugins.FeedManager.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Forums\mojoPortal.Plugins.Forums.Business\mojoPortal.Plugins.Forums.Business.csproj">
+      <Project>{C3F555DA-B7A9-4B6A-A446-E6C38051691C}</Project>
+      <Name>mojoPortal.Plugins.Forums.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\ImageGallery\mojoPortal.Plugins.ImageGallery.Business\mojoPortal.Plugins.ImageGallery.Business.csproj">
+      <Project>{DF1E8CD0-6FA6-4ED9-99BA-4894A519E347}</Project>
+      <Name>mojoPortal.Plugins.ImageGallery.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\KDMediaPlayer\mojoPortal.Plugins.KDMediaPlayer.Business\mojoPortal.Plugins.KDMediaPlayer.Business.csproj">
+      <Project>{A1011111-1111-4111-8111-111111111105}</Project>
+      <Name>mojoPortal.Plugins.KDMediaPlayer.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\List\mojoPortal.Plugins.List.Business\mojoPortal.Plugins.List.Business.csproj">
+      <Project>{A2022222-2222-4222-8222-222222222205}</Project>
+      <Name>mojoPortal.Plugins.List.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Poll\mojoPortal.Plugins.Poll.Business\mojoPortal.Plugins.Poll.Business.csproj">
+      <Project>{A3033333-3333-4333-8333-333333333305}</Project>
+      <Name>mojoPortal.Plugins.Poll.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\SharedFiles\mojoPortal.Plugins.SharedFiles.Business\mojoPortal.Plugins.SharedFiles.Business.csproj">
+      <Project>{A4044444-4444-4444-8444-444444444405}</Project>
+      <Name>mojoPortal.Plugins.SharedFiles.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Survey\mojoPortal.Plugins.Survey.Business\mojoPortal.Plugins.Survey.Business.csproj">
+      <Project>{A5055555-5555-4555-8555-555555555505}</Project>
+      <Name>mojoPortal.Plugins.Survey.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <!-- <Target Name="SpicNSpan" BeforeTargets="_GetAllRestoreProjectPathItems">
-    <RemoveDir Directories="$(TargetDir)" />
-    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
-  </Target> -->
 </Project>
+
+
+
+

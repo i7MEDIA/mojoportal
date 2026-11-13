@@ -5,6 +5,7 @@ using mojoPortal.Web.Caching;
 using mojoPortal.Web.Components;
 using mojoPortal.Web.Framework;
 using mojoPortal.Web.Optimization;
+using mojoPortal.Web.Plugins;
 using mojoPortal.Web.Routing;
 using mojoPortal.Web.Security;
 using Resources;
@@ -106,6 +107,8 @@ public class Global : HttpApplication
 			HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
 			RegisteredVirtualThemes = true;
 		}
+
+		PluginLoader.EnsureInitialized();
 
 		AreaRegistration.RegisterAllAreas();
 		GlobalConfiguration.Configure(WebApiConfig.Register);

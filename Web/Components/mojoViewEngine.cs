@@ -1,94 +1,178 @@
-﻿using mojoPortal.Business;
+﻿#nullable enable
+using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
-using mojoPortal.Web.Framework;
-using System;
+using mojoPortal.Web.Plugins;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
-namespace mojoPortal.Web
+namespace mojoPortal.Web;
+
+public class mojoViewEngine : RazorViewEngine
 {
-    public class mojoViewEngine : RazorViewEngine
-    {
-        private string skin = "framework";
-        private SiteSettings siteSettings;
-
-        public mojoViewEngine()
-        {
-            List<string> masterLocationFormats = new List<string>(MasterLocationFormats);
-            masterLocationFormats.Insert(0, "~/Data/Sites/$SiteId$/skins/$Skin$/Views/Shared/{0}.cshtml");
-            MasterLocationFormats = masterLocationFormats.ToArray();
-
-            List<string> partialViewLocationFormats = new List<string>(PartialViewLocationFormats);
-            partialViewLocationFormats.Insert(0, "~/Data/Sites/$SiteId$/skins/$Skin$/Views/{1}/{0}.cshtml");
-            PartialViewLocationFormats = partialViewLocationFormats.ToArray();
+	private string _skin = "framework";
+	private SiteSettings? _siteSettings;
 
 
-            List<string> viewLocationFormats = new List<string>(ViewLocationFormats);
-            viewLocationFormats.Insert(0, "~/Data/Sites/$SiteId$/skins/$Skin$/Views/{1}/{0}.cshtml");
-            ViewLocationFormats = viewLocationFormats.ToArray();
-        }
+	public mojoViewEngine()
+	{
+		var masterLocationFormats = new List<string>
+		{
+			"~/Data/Sites/$SiteId$/skins/$Skin$/Views/Shared/{0}.cshtml"
+		};
 
-        protected override IView CreatePartialView(ControllerContext ctx, string partialPath)
-        {
-            PopulateVariables();
-            return base.CreatePartialView(ctx, OverriddenViewPath(ctx, partialPath));
-        }
- 
-        protected override IView CreateView(ControllerContext ctx, string viewPath, string masterPath)
-        {
-            PopulateVariables();
-            return base.CreateView(ctx, OverriddenViewPath(ctx, viewPath), OverriddenViewPath(ctx, masterPath));
-        }
+		var partialViewLocationFormats = new List<string>
+		{
+			"~/Data/Sites/$SiteId$/skins/$Skin$/Views/{1}/{0}.cshtml",
+			"~/Data/Sites/$SiteId$/skins/$Skin$/Views/Shared/{0}.cshtml"
+		};
 
-        protected override bool FileExists(ControllerContext ctx, string virtualPath)
-        {
-            PopulateVariables();
-            string overriddenPath = OverriddenViewPath(ctx, virtualPath);
-            bool exists = base.FileExists(ctx, overriddenPath);
-            return exists;
-        }
+		var viewLocationFormats = new List<string>
+		{
+			"~/Data/Sites/$SiteId$/skins/$Skin$/Views/{1}/{0}.cshtml",
+			"~/Data/Sites/$SiteId$/skins/$Skin$/Views/Shared/{0}.cshtml"
+		};
 
-        //public override ViewEngineResult FindPartialView(ControllerContext controllerContext, string partialViewName, bool useCache)
-        //{
-        //    ViewEngineResult veResult = new ViewEngineResult()
-        //}
+		// Add plugin view/partial-view/master location formats in plugin Order sequence
+		foreach (var descriptor in PluginLoader.EnabledPlugins)
+		{
+			if (descriptor.Instance is not null)
+			{
+				foreach (var fmt in descriptor.Instance.GetMasterLocationFormats(descriptor.FolderName) ?? [])
+				{
+					if (!string.IsNullOrWhiteSpace(fmt) && !masterLocationFormats.Contains(fmt))
+					{
+						masterLocationFormats.Add(fmt);
+					}
+				}
 
-        private string OverriddenViewPath( ControllerContext ctx, string viewPath)
-        {
-            return viewPath.Replace("$Skin$", skin).Replace("$SiteId$", siteSettings.SiteId.ToString());
-        }
-        private void PopulateVariables()
-        {
-            siteSettings = CacheHelper.GetCurrentSiteSettings(); 
-            if (siteSettings == null)
-            {
-                //not sure this would ever happen ... 
-                return;
-            }
-            skin = siteSettings.Skin;
-            PageSettings currentPage = CacheHelper.GetCurrentPage();
-            if (currentPage != null && !String.IsNullOrWhiteSpace(currentPage.Skin))
-            {
-                skin = currentPage.Skin;
-            }
-        }
+				foreach (var fmt in descriptor.Instance.GetPartialViewLocationFormats(descriptor.FolderName) ?? [])
+				{
+					if (!string.IsNullOrWhiteSpace(fmt) && !partialViewLocationFormats.Contains(fmt))
+					{
+						partialViewLocationFormats.Add(fmt);
+					}
+				}
 
-        //public void AddViewLocationFormat(string paths)
-        //{
-        //    List<string> existingPaths = new List<string>(ViewLocationFormats);
-        //    existingPaths.Add(paths);
+				foreach (var fmt in descriptor.Instance.GetViewLocationFormats(descriptor.FolderName) ?? [])
+				{
+					if (!string.IsNullOrWhiteSpace(fmt) && !viewLocationFormats.Contains(fmt))
+					{
+						viewLocationFormats.Add(fmt);
+					}
+				}
+			}
+			else
+			{
+				var defaultViewFmt = $"~/Plugins/{descriptor.FolderName}/Views/{{1}}/{{0}}.cshtml";
+				var defaultSharedFmt = $"~/Plugins/{descriptor.FolderName}/Views/Shared/{{0}}.cshtml";
 
-        //    ViewLocationFormats = existingPaths.ToArray();
-        //}
+				if (!masterLocationFormats.Contains(defaultSharedFmt))
+				{
+					masterLocationFormats.Add(defaultSharedFmt);
+				}
 
-        //public void AddPartialViewLocationFormat(string paths)
-        //{
-        //    List<string> existingPaths = new List<string>(PartialViewLocationFormats);
-        //    existingPaths.Add(paths);
+				if (!partialViewLocationFormats.Contains(defaultViewFmt))
+				{
+					partialViewLocationFormats.Add(defaultViewFmt);
+				}
 
-        //    PartialViewLocationFormats = existingPaths.ToArray();
-        //}
-    }
+				if (!partialViewLocationFormats.Contains(defaultSharedFmt))
+				{
+					partialViewLocationFormats.Add(defaultSharedFmt);
+				}
+
+				if (!viewLocationFormats.Contains(defaultViewFmt))
+				{
+					viewLocationFormats.Add(defaultViewFmt);
+				}
+
+				if (!viewLocationFormats.Contains(defaultSharedFmt))
+				{
+					viewLocationFormats.Add(defaultSharedFmt);
+				}
+			}
+		}
+
+		foreach (var fmt in MasterLocationFormats)
+		{
+			if (!masterLocationFormats.Contains(fmt))
+			{
+				masterLocationFormats.Add(fmt);
+			}
+		}
+
+		foreach (var fmt in PartialViewLocationFormats)
+		{
+			if (!partialViewLocationFormats.Contains(fmt))
+			{
+				partialViewLocationFormats.Add(fmt);
+			}
+		}
+
+		foreach (var fmt in ViewLocationFormats)
+		{
+			if (!viewLocationFormats.Contains(fmt))
+			{
+				viewLocationFormats.Add(fmt);
+			}
+		}
+
+		MasterLocationFormats = [.. masterLocationFormats];
+		PartialViewLocationFormats = [.. partialViewLocationFormats];
+		ViewLocationFormats = [.. viewLocationFormats];
+	}
+
+
+	protected override IView CreatePartialView(ControllerContext ctx, string partialPath)
+	{
+		PopulateVariables();
+
+		return base.CreatePartialView(ctx, OverriddenViewPath(ctx, partialPath));
+	}
+
+
+	protected override IView CreateView(ControllerContext ctx, string viewPath, string masterPath)
+	{
+		PopulateVariables();
+
+		return base.CreateView(ctx, OverriddenViewPath(ctx, viewPath), OverriddenViewPath(ctx, masterPath));
+	}
+
+
+	protected override bool FileExists(ControllerContext ctx, string virtualPath)
+	{
+		PopulateVariables();
+
+		var overriddenPath = OverriddenViewPath(ctx, virtualPath);
+		var exists = base.FileExists(ctx, overriddenPath);
+
+		return exists;
+	}
+
+
+	private string OverriddenViewPath(ControllerContext ctx, string viewPath)
+	{
+		return viewPath.Replace("$Skin$", _skin).Replace("$SiteId$", _siteSettings.SiteId.ToString());
+	}
+
+
+	private void PopulateVariables()
+	{
+		_siteSettings = CacheHelper.GetCurrentSiteSettings();
+
+		if (_siteSettings is null)
+		{
+			//not sure this would ever happen ...
+			return;
+		}
+
+		_skin = _siteSettings.Skin;
+
+		var currentPage = CacheHelper.GetCurrentPage();
+
+		if (currentPage is not null && !string.IsNullOrWhiteSpace(currentPage.Skin))
+		{
+			_skin = currentPage.Skin;
+		}
+	}
 }

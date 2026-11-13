@@ -1,3 +1,4 @@
+using mojoPortal.Web.Framework;
 using System;
 using System.Web;
 using System.Web.UI;
@@ -62,7 +63,15 @@ public class SiteLabel : WebControl, INamingContainer
 		}
 		else
 		{
-			text = HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) as string;
+			text = null;
+
+			try
+			{
+				text = HttpContext.GetGlobalResourceObject(ResourceFile, ConfigKey) as string;
+			}
+			catch { }
+
+			text ??= ResourceHelper.GetPluginResourceString(ResourceFile, ConfigKey);
 
 			text ??= ShowWarningOnMissingKey ?
 				string.Format("{0} not found in {1}.resx file", ConfigKey, ResourceFile) :

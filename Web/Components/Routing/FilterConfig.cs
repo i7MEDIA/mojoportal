@@ -1,6 +1,7 @@
-﻿using System;
+﻿using log4net;
+using mojoPortal.Web.Plugins;
+using System;
 using System.Web.Mvc;
-using log4net;
 
 namespace mojoPortal.Web.Routing;
 
@@ -8,15 +9,33 @@ public class FilterConfig
 {
 	private static readonly ILog log = LogManager.GetLogger(typeof(FilterConfig));
 
+
 	public static void RegisterGlobalFilters(GlobalFilterCollection filters)
 	{
 		filters.Add(new HandleErrorAttribute());
 
+		foreach (var descriptor in PluginLoader.EnabledPlugins)
+		{
+			if (descriptor.Instance == null)
+			{
+				continue;
+			}
+
+			try
+			{
+				descriptor.Instance.RegisterGlobalFilters(filters);
+			}
+			catch (Exception ex)
+			{
+				log.Error($"Failed to register global filters for plugin '{descriptor.Name}'.", ex);
+			}
+		}
+
 		try
 		{
-			RoutesConfig registrarConfig = RoutesConfig.GetConfig();
+			var registrarConfig = RoutesConfig.GetConfig();
 
-			foreach (IRegisterRoutes registrar in registrarConfig.RouteRegistrars)
+			foreach (var registrar in registrarConfig.RouteRegistrars)
 			{
 				try
 				{

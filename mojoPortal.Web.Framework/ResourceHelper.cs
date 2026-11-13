@@ -1,16 +1,150 @@
 using log4net;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
+using System.Resources;
 using System.Web;
 using System.Web.Configuration;
+using System.Xml.Linq;
 
 namespace mojoPortal.Web.Framework;
 
 public static class ResourceHelper
 {
-	private static readonly ILog log = LogManager.GetLogger(typeof(ResourceHelper));
+	private static readonly ILog _log = LogManager.GetLogger(typeof(ResourceHelper));
+	private static readonly ConcurrentDictionary<string, ResourceManager> _pluginResourceManagers = new(StringComparer.OrdinalIgnoreCase);
+	private static readonly ConcurrentDictionary<string, Dictionary<string, string>> _pluginResxCache = new(StringComparer.OrdinalIgnoreCase);
+	private static readonly List<string> _pluginDirectories = [];
+	private static readonly object _lock = new();
+
+
+	public static void RegisterPluginResourceManager(string resourceFile, ResourceManager resourceManager)
+	{
+		if (string.IsNullOrWhiteSpace(resourceFile) || resourceManager is null)
+		{
+			return;
+		}
+
+		_pluginResourceManagers[resourceFile] = resourceManager;
+	}
+
+
+	public static void RegisterPluginDirectory(string pluginPhysicalPath)
+	{
+		if (string.IsNullOrWhiteSpace(pluginPhysicalPath) || !Directory.Exists(pluginPhysicalPath))
+		{
+			return;
+		}
+
+		lock (_lock)
+		{
+			if (!_pluginDirectories.Contains(pluginPhysicalPath))
+			{
+				_pluginDirectories.Add(pluginPhysicalPath);
+			}
+		}
+	}
+
+
+	public static string GetPluginResourceString(string resourceFile, string resourceKey, CultureInfo culture = null)
+	{
+		if (string.IsNullOrWhiteSpace(resourceFile) || string.IsNullOrWhiteSpace(resourceKey))
+		{
+			return null;
+		}
+
+		culture ??= CultureInfo.CurrentUICulture;
+
+		if (_pluginResourceManagers.TryGetValue(resourceFile, out var rm))
+		{
+			try
+			{
+				var val = rm.GetString(resourceKey, culture);
+
+				if (val is not null)
+				{
+					return val;
+				}
+			}
+			catch { }
+		}
+
+		// Fallback to reading .resx files from ~/Plugins/<PluginName>/App_GlobalResources/ in memory (read-only safe)
+		string[] candidateNames = culture is not null && !string.IsNullOrEmpty(culture.Name)
+			? [$"{resourceFile}.{culture.Name}.resx", $"{resourceFile}.{culture.TwoLetterISOLanguageName}.resx", $"{resourceFile}.resx"]
+			: [$"{resourceFile}.resx"];
+
+		List<string> dirs;
+
+		lock (_lock)
+		{
+			dirs = [.. _pluginDirectories];
+		}
+
+		foreach (var pluginDir in dirs)
+		{
+			var resxDir = Path.Combine(pluginDir, "App_GlobalResources");
+
+			if (!Directory.Exists(resxDir))
+			{
+				continue;
+			}
+
+			foreach (var candidate in candidateNames)
+			{
+				var resxPath = Path.Combine(resxDir, candidate);
+
+				if (!File.Exists(resxPath))
+				{
+					continue;
+				}
+
+				var dict = _pluginResxCache.GetOrAdd(resxPath, LoadResxDictionary);
+
+				if (dict is not null && dict.TryGetValue(resourceKey, out var value))
+				{
+					return value;
+				}
+			}
+		}
+
+		return null;
+	}
+
+
+	private static Dictionary<string, string> LoadResxDictionary(string resxPath)
+	{
+		var result = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+
+		try
+		{
+			var doc = XDocument.Load(resxPath);
+
+			if (doc.Root is not null)
+			{
+				foreach (var dataNode in doc.Root.Elements("data"))
+				{
+					var nameAttr = dataNode.Attribute("name")?.Value;
+					var valElem = dataNode.Element("value")?.Value;
+
+					if (!string.IsNullOrEmpty(nameAttr) && valElem is not null)
+					{
+						result[nameAttr] = valElem;
+					}
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			_log.Warn($"Failed to read plugin resource file {resxPath}", ex);
+		}
+
+		return result;
+	}
+
 
 	#region Help System
 
@@ -22,17 +156,16 @@ public static class ResourceHelper
 	{
 		try
 		{
-
 			// reading config sections not allowed in Medium trust so catch SecurityException
 			GlobalizationSection globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
-			if (globalizationSection != null)
+			if (globalizationSection is not null)
 			{
 				if (globalizationSection.Culture.Contains(":"))
 				{
-					string cultureString;
 					// this is tryinbg to get UiCulture and expects this format
 					// <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
-					cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.LastIndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.LastIndexOf(":") + 1)));
+					string cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.LastIndexOf(":") + 1, globalizationSection.Culture.Length - (globalizationSection.Culture.LastIndexOf(":") + 1));
+
 					return new CultureInfo(cultureString);
 				}
 				else
@@ -43,15 +176,16 @@ public static class ResourceHelper
 		}
 		catch (ArgumentException ex)
 		{
-			log.Info("ResourceHelper swallowed exception", ex);
+			_log.Info("ResourceHelper swallowed exception", ex);
 		}
 		catch (System.Security.SecurityException ex)
 		{
-			log.Info("ResourceHelper swallowed exception", ex);
+			_log.Info("ResourceHelper swallowed exception", ex);
 		}
 
 		return new CultureInfo("en-US"); //this is the default culture in Web.config
 	}
+
 
 	/// <summary>
 	/// when posssible you should use SiteUtils.GetDefaultCulture() in preference to this method
@@ -61,17 +195,17 @@ public static class ResourceHelper
 	{
 		try
 		{
-
 			// reading config sections not allowed in Medium trust so catch SecurityException
-			GlobalizationSection globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
-			if (globalizationSection != null)
+			var globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
+
+			if (globalizationSection is not null)
 			{
 				if (globalizationSection.Culture.Contains(":"))
 				{
-					string cultureString;
 					// this is trying to get culture not uiculture and expects this format 
 					// <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
-					cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.IndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.IndexOf(":") + 1)));
+					var cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.IndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.IndexOf(":") + 1)));
+
 					return new CultureInfo(cultureString);
 				}
 				else
@@ -82,15 +216,16 @@ public static class ResourceHelper
 		}
 		catch (ArgumentException ex)
 		{
-			log.Info("ResourceHelper swallowed exception", ex);
+			_log.Info("ResourceHelper swallowed exception", ex);
 		}
 		catch (System.Security.SecurityException ex)
 		{
-			log.Info("ResourceHelper swallowed exception", ex);
+			_log.Info("ResourceHelper swallowed exception", ex);
 		}
 
 		return new CultureInfo("en-US"); //this is the default culture in Web.config
 	}
+
 
 	/// <summary>
 	/// Gets a CultureInfo object suitable for parsing or formatting a specific currency
@@ -103,12 +238,13 @@ public static class ResourceHelper
 
 		//this helper caches the lookup list
 		CultureInfo currencyCulture = CurrencyHelper.CultureInfoFromCurrencyISO(currencyISOCode);
-		if (currencyCulture != null) { return currencyCulture; }
+		if (currencyCulture is not null) { return currencyCulture; }
 
 		// this is based on web.config globalization section, en-US
 		return GetDefaultCulture();
 
 	}
+
 
 	public static string GetHelpFileText(string helpKey)
 	{
@@ -128,6 +264,29 @@ public static class ResourceHelper
 			var sr = file.OpenText();
 			message = sr.ReadToEnd();
 			sr.Close();
+			return message;
+		}
+
+		// Fallback to plugin Data/HelpFiles folders
+		List<string> dirs;
+		lock (_lock)
+		{
+			dirs = new List<string>(_pluginDirectories);
+		}
+
+		foreach (var pluginDir in dirs)
+		{
+			var pluginHelpFolder = Path.Combine(pluginDir, "Data", "HelpFiles") + Path.DirectorySeparatorChar;
+			if (!Directory.Exists(pluginHelpFolder))
+			{
+				continue;
+			}
+
+			var pluginHelpFile = GetFullResourceFilePath(CultureInfo.CurrentUICulture, pluginHelpFolder, helpKey + fileExtension);
+			if (File.Exists(pluginHelpFile))
+			{
+				return File.ReadAllText(pluginHelpFile);
+			}
 		}
 
 		return message;
@@ -146,7 +305,7 @@ public static class ResourceHelper
 
 		if (!IsPathSafe(helpFolder, helpFile))
 		{
-			log.Error("helpKey attempted directory traversal.");
+			_log.Error("helpKey attempted directory traversal.");
 
 			throw new Exception("helpKey attempted directory traversal.");
 		}
@@ -179,7 +338,7 @@ public static class ResourceHelper
 
 		if (!IsPathSafe(folder, path))
 		{
-			log.Error("Filename attempted directory traversal.");
+			_log.Error("Filename attempted directory traversal.");
 
 			throw new Exception("Filename attempted directory traversal.");
 		}
@@ -189,7 +348,7 @@ public static class ResourceHelper
 
 	public static string GetResourceFilePath(CultureInfo cultureInfo, string folder, string filename)
 	{
-		if (cultureInfo == null || cultureInfo.LCID.Equals(CultureInfo.InvariantCulture.LCID))
+		if (cultureInfo is null || cultureInfo.LCID.Equals(CultureInfo.InvariantCulture.LCID))
 		{
 			return string.Empty;
 		}
@@ -198,7 +357,7 @@ public static class ResourceHelper
 
 		if (!IsPathSafe(folder, path))
 		{
-			log.Error("Filename attempted directory traversal.");
+			_log.Error("Filename attempted directory traversal.");
 
 			throw new Exception("Filename attempted directory traversal.");
 		}
@@ -213,7 +372,7 @@ public static class ResourceHelper
 
 		if (!IsPathSafe(folder, path))
 		{
-			log.Error("Filename attempted directory traversal.");
+			_log.Error("Filename attempted directory traversal.");
 
 			throw new Exception("Filename attempted directory traversal.");
 		}
@@ -223,12 +382,11 @@ public static class ResourceHelper
 
 	#endregion
 
+
 	#region Message Templates
 
-	public static string GetMessageTemplate(string templateFile)
-	{
-		return GetMessageTemplate(CultureInfo.CurrentUICulture, templateFile);
-	}
+	public static string GetMessageTemplate(string templateFile) => GetMessageTemplate(CultureInfo.CurrentUICulture, templateFile);
+
 
 	public static string GetMessageTemplate(CultureInfo cultureInfo, string templateFile)
 	{
@@ -237,26 +395,49 @@ public static class ResourceHelper
 			return string.Empty;
 		}
 
-		string templateFolder = GetMessageTemplateFolder();
-		string messageFile;
-
-		messageFile = GetFullResourceFilePath(cultureInfo, templateFolder, templateFile);
+		var templateFolder = GetMessageTemplateFolder();
+		var messageFile = GetFullResourceFilePath(cultureInfo, templateFolder, templateFile);
 
 		if (File.Exists(messageFile))
 		{
-			string message = File.ReadAllText(messageFile);
+			var message = File.ReadAllText(messageFile);
 
 			return message;
 		}
 		else
 		{
+			List<string> dirs;
+
+			lock (_lock)
+			{
+				dirs = [.. _pluginDirectories];
+			}
+
+			foreach (var pluginDir in dirs)
+			{
+				var pluginTemplateFolder = Path.Combine(pluginDir, "Data", "MessageTemplates") + Path.DirectorySeparatorChar;
+
+				if (!Directory.Exists(pluginTemplateFolder))
+				{
+					continue;
+				}
+
+				var pluginMessageFile = GetFullResourceFilePath(cultureInfo, pluginTemplateFolder, templateFile);
+
+				if (File.Exists(pluginMessageFile))
+				{
+					return File.ReadAllText(pluginMessageFile);
+				}
+			}
+
 			return string.Empty;
 		}
 	}
 
+
 	public static string GetMessageTemplateFolder()
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			return string.Empty;
 		}
@@ -264,31 +445,23 @@ public static class ResourceHelper
 		return HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/MessageTemplates") + Path.DirectorySeparatorChar;
 	}
 
-
 	#endregion
+
 
 	public static string GetResourceString(
 		string resourceFile,
-		string resourceKey)
-	{
-		bool useConfigOverrides = false;
+		string resourceKey) => GetResourceString(resourceFile, resourceKey, false);
 
-		return GetResourceString(resourceFile, resourceKey, useConfigOverrides);
-
-	}
 
 	public static string GetResourceString(
 		string resourceFile,
 		string resourceKey,
-		bool useConfigOverrides)
-	{
-		return GetResourceString(
+		bool useConfigOverrides) => GetResourceString(
 			resourceFile,
 			resourceKey,
 			null,
 			useConfigOverrides);
 
-	}
 
 	public static string GetResourceString(
 		string resourceFile,
@@ -296,10 +469,17 @@ public static class ResourceHelper
 		CultureInfo culture,
 		bool useConfigOverrides)
 	{
-		if (HttpContext.Current == null) return resourceKey;
-		if (resourceFile.Length == 0) resourceFile = "Resource";
+		if (HttpContext.Current is null)
+		{
+			return resourceKey;
+		}
 
-		if (ConfigurationManager.AppSettings[resourceKey] != null)
+		if (resourceFile.Length == 0)
+		{
+			resourceFile = "Resource";
+		}
+
+		if (ConfigurationManager.AppSettings[resourceKey] is not null)
 		{
 			return ConfigurationManager.AppSettings[resourceKey];
 		}
@@ -307,7 +487,8 @@ public static class ResourceHelper
 		try
 		{
 			object resource;
-			if (culture != null)
+
+			if (culture is not null)
 			{
 				resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey, culture);
 			}
@@ -316,22 +497,29 @@ public static class ResourceHelper
 				resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey);
 			}
 
-			if (resource != null) return resource.ToString();
+			if (resource is not null) return resource.ToString();
 		}
 		catch { }
 
-		return resourceKey;
+		var pluginResource = GetPluginResourceString(resourceFile, resourceKey, culture);
 
+		if (pluginResource is not null)
+		{
+			return pluginResource;
+		}
+
+		return resourceKey;
 	}
+
 
 	public static string FormatCategoryLinkText(string category, int postCount)
 	{
 		if (CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft)
 		{
-			return "(" + postCount.ToString() + ") " + category;
+			return $"({postCount}) {category}";
 		}
 
-		return category + " (" + postCount.ToString() + ")";
+		return $"{category} ({postCount})";
 	}
 
 

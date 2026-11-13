@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-<!-- <Target Name="BeforeBuild"> -->
-	<!-- <Message Text="Cleaning up ..." Importance="high" /> -->
-	<!-- <CallTarget Targets="Clean" /> -->
-	<!-- <Message Text="Finished Clean up ..." Importance="high" /> -->
-<!-- </Target> -->
-  <Target Name="AfterBuild">
-	<Message Text="Current Configuration is $(Configuration)"/>
+  <Target Name="AfterBuild" Condition="'$(DeployOnBuild)' == 'true'">
+    <Message Text="Current Configuration is $(Configuration)" />
 
+    <ItemGroup>
+      <PluginDataMSSQL Include="..\Plugins\*\mojoPortal.Plugins.*.Data.MSSQL\*.csproj;..\Plugins\SuperFlexi\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj" />
+      <PluginDataMySql Include="..\Plugins\*\mojoPortal.Plugins.*.Data.MySql\*.csproj;..\Plugins\SuperFlexi\SuperFlexiData.MySql\SuperFlexiData.MySql.csproj" />
+      <PluginDataPgSQL Include="..\Plugins\*\mojoPortal.Plugins.*.Data.pgSQL\*.csproj;..\Plugins\SuperFlexi\SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj" />
+      <PluginDataSQLite Include="..\Plugins\*\mojoPortal.Plugins.*.Data.SQLite\*.csproj;..\Plugins\SuperFlexi\SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj" />
+      <PluginBusiness Include="..\Plugins\*\mojoPortal.Plugins.*.Business\*.csproj;..\Plugins\SuperFlexi\SuperFlexiBusiness\SuperFlexiBusiness.csproj" />
+      <PluginUI Include="..\Plugins\*\mojoPortal.Plugins.*.UI\*.csproj;..\Plugins\*\mojoPortal.Plugins.*.csproj;..\Plugins\SuperFlexi\SuperFlexiUI\SuperFlexiUI.csproj" />
+    </ItemGroup>
 
-	<!-- <MSBuild Condition="'$(Configuration)' == 'Release' " -->
-		<!-- Projects="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj; -->
-		<!-- ..\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj"  -->
-		<!-- Properties="Configuration=$(Configuration)" /> -->
-		
-	<Message Text="Building Data layer for Features and SuperFlexi" Importance="High"/>
-	
-	<MSBuild Condition="'$(Configuration)' == 'Release' OR '$(Configuration)' == 'Debug'"
-		Projects="..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj;
-		..\Plugins\SuperFlexi\SuperFlexiData.MSSQL\SuperFlexiData.MSSQL.csproj" />
-		
-	<MSBuild Condition="'$(Configuration)' == 'Release - MySql' OR '$(Configuration)' == 'Debug - MySql'"
-		Projects="..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj;
-		..\Plugins\SuperFlexi\SuperFlexiData.MySql\SuperFlexiData.MySql.csproj" />
-		
-	<MSBuild Condition="'$(Configuration)' == 'Release - pgSQL' OR '$(Configuration)' == 'Debug - pgSQL'"
-		Projects="..\mojoPortal.Features.Data.pgSQL\mojoPortal.Features.Data.pgSQL.csproj;
-		..\Plugins\SuperFlexi\SuperFlexiData.pgSQL\SuperFlexiData.pgSQL.csproj" />	
-		
-	<MSBuild Condition="'$(Configuration)' == 'Release - SQLite' OR '$(Configuration)' == 'Debug - SQLite'"
-		Projects="..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj;
-		..\Plugins\SuperFlexi\SuperFlexiData.SQLite\SuperFlexiData.SQLite.csproj" />		
-		
-	<Message Text="Building Business layer for Features and SuperFlexi" Importance="High"/>	
-	<MSBuild 
-		Projects="..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj;
-		..\Plugins\SuperFlexi\SuperFlexiBusiness\SuperFlexiBusiness.csproj" 
-		Properties="Configuration=$(Configuration)" />
+    <Message Text="Building Data layer for Plugins and Features Shims" Importance="High" />
 
-	<Message Text="Building UI layer for Features and SuperFlexi" Importance="High"/>
-	<MSBuild 
-		Projects="..\mojoPortal.Features.UI\mojoPortal.Features.UI.csproj;
-		..\Plugins\SuperFlexi\SuperFlexiUI\SuperFlexiUI.csproj"
-		Properties="Configuration=$(Configuration)" />		
+    <MSBuild Condition="'$(Configuration)' == 'Release' OR '$(Configuration)' == 'Debug'"
+      Projects="@(PluginDataMSSQL);..\mojoPortal.Features.Data.MSSQL\mojoPortal.Features.Data.MSSQL.csproj"
+      Properties="Configuration=$(Configuration);BuildProjectReferences=false" />
+
+    <MSBuild Condition="'$(Configuration)' == 'Release - MySql' OR '$(Configuration)' == 'Debug - MySql'"
+      Projects="@(PluginDataMySql);..\mojoPortal.Features.Data.MySql\mojoPortal.Features.Data.MySql.csproj"
+      Properties="Configuration=$(Configuration);BuildProjectReferences=false" />
+
+    <MSBuild Condition="'$(Configuration)' == 'Release - pgSQL' OR '$(Configuration)' == 'Debug - pgSQL'"
+      Projects="@(PluginDataPgSQL);..\mojoPortal.Features.Data.pgsql\mojoPortal.Features.Data.pgSQL.csproj"
+      Properties="Configuration=$(Configuration);BuildProjectReferences=false" />
+
+    <MSBuild Condition="'$(Configuration)' == 'Release - SQLite' OR '$(Configuration)' == 'Debug - SQLite'"
+      Projects="@(PluginDataSQLite);..\mojoPortal.Features.Data.SQLite\mojoPortal.Features.Data.SQLite.csproj"
+      Properties="Configuration=$(Configuration);BuildProjectReferences=false" />
+
+    <Message Text="Building Business layer for Plugins and Features Shims" Importance="High" />
+    <MSBuild
+      Projects="@(PluginBusiness);..\mojoPortal.Features.Business\mojoPortal.Features.Business.csproj"
+      Properties="Configuration=$(Configuration);BuildProjectReferences=false" />
+
+    <Message Text="Building UI layer for Plugins and Features Shims" Importance="High" />
+    <MSBuild
+      Projects="@(PluginUI);..\mojoPortal.Features.UI\mojoPortal.Features.UI.csproj"
+      Properties="Configuration=$(Configuration);BuildProjectReferences=false" />
   </Target>
 </Project>

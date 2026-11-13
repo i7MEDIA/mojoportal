@@ -1,4 +1,5 @@
 ﻿using log4net;
+using mojoPortal.Web.Plugins;
 using System;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -15,6 +16,7 @@ public class RouteRegistrar
 		try
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+			routes.MapMvcAttributeRoutes();
 
 			routes.MapRoute(
 				name: "FileManager",
@@ -31,15 +33,27 @@ public class RouteRegistrar
 				);
 			}
 
-			//routes.MapRoute(
-			//	name: "BadWord",
-			//	url: "BadWord/{action}",
-			//	defaults: new { controller = "BadWord", action = "CheckString" }
-			//);
+			// Register MVC 5 routes from enabled plugins in Order sequence
+			foreach (var descriptor in PluginLoader.EnabledPlugins)
+			{
+				if (descriptor.Instance is null)
+				{
+					continue;
+				}
+
+				try
+				{
+					descriptor.Instance.RegisterRoutes(routes);
+				}
+				catch (Exception ex)
+				{
+					log.Error($"Failed to register MVC routes for plugin '{descriptor.Name}'.", ex);
+				}
+			}
 
 			var registrarConfig = RoutesConfig.GetConfig();
 
-			foreach (IRegisterRoutes registrar in registrarConfig.RouteRegistrars)
+			foreach (var registrar in registrarConfig.RouteRegistrars)
 			{
 				try
 				{
@@ -55,14 +69,5 @@ public class RouteRegistrar
 		{
 			log.Error(ex);
 		}
-
-		//if (WebConfigSettings.AddDefaultMvcRoute)
-		//{
-		//	routes.MapRoute(
-		//		name: "Default",
-		//		url: "{controller}/{action}/{id}",
-		//		defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-		//	);
-		//}
 	}
 }

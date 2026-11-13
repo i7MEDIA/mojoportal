@@ -1,145 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D156CD40-3AA9-48C2-8CDF-041386D2C067}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mojoPortal.Features.Data</RootNamespace>
+    <RootNamespace>mojoPortal.Data</RootNamespace>
     <AssemblyName>mojoPortal.Features.Data</AssemblyName>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Debug - pgSQL|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' Or '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
     <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU' OR '$(Configuration)|$(Platform)' == 'Release - pgSQL|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' Or '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Blog\DBBlog.cs" />
-    <Compile Include="ContactForm\DBContactFormMessage.cs" />
-    <Compile Include="EventCalendar\DBEvents.cs" />
-    <Compile Include="FeedManager\DBRssFeed.cs" />
-    <Compile Include="Forums\DBForums.cs" />
-    <Compile Include="ImageGallery\DBGallery.cs" />
-    <Compile Include="KDMediaPlayer\DBMediaFile.cs" />
-    <Compile Include="KDMediaPlayer\DBMediaPlayer.cs" />
-    <Compile Include="KDMediaPlayer\DBMediaTrack.cs" />
-    <Compile Include="LinkModule\DBLinks.cs" />
-    <Compile Include="Poll\DBPoll.cs" />
-    <Compile Include="Poll\DBPollOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedFiles\DBSharedFiles.cs" />
-    <Compile Include="Survey\DBQuestion.cs" />
-    <Compile Include="Survey\DBQuestionAnswer.cs" />
-    <Compile Include="Survey\DBQuestionOption.cs" />
-    <Compile Include="Survey\DBSurvey.cs" />
-    <Compile Include="Survey\DBSurveyPage.cs" />
-    <Compile Include="Survey\DBSurveyResponse.cs" />
+    <Compile Include="TypeForwarders.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
-      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
-      <Name>mojoPortal.Core</Name>
+    <ProjectReference Include="..\Plugins\Blog\mojoPortal.Plugins.Blog.Data.pgSQL\mojoPortal.Plugins.Blog.Data.pgSQL.csproj">
+      <Project>{5EA69AFE-B5C8-43E7-880E-066FBC00849E}</Project>
+      <Name>mojoPortal.Plugins.Blog.Data.pgSQL</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Data.pgsql\mojoPortal.Data.pgSQL.csproj">
-      <Project>{B528429F-7155-496A-86B3-8B23219C10D4}</Project>
-      <Name>mojoPortal.Data.pgSQL</Name>
+    <ProjectReference Include="..\Plugins\ContactForm\mojoPortal.Plugins.ContactForm.Data.pgSQL\mojoPortal.Plugins.ContactForm.Data.pgSQL.csproj">
+      <Project>{1455DAA2-B605-4E8F-9077-188128C83AC3}</Project>
+      <Name>mojoPortal.Plugins.ContactForm.Data.pgSQL</Name>
+      <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="log4net">
-      <Version>3.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="Npgsql">
-      <Version>8.0.9</Version>
-    </PackageReference>
+    <ProjectReference Include="..\Plugins\EventCalendar\mojoPortal.Plugins.EventCalendar.Data.pgSQL\mojoPortal.Plugins.EventCalendar.Data.pgSQL.csproj">
+      <Project>{18332D1B-0166-4D86-8897-8C5D06523709}</Project>
+      <Name>mojoPortal.Plugins.EventCalendar.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\FeedManager\mojoPortal.Plugins.FeedManager.Data.pgSQL\mojoPortal.Plugins.FeedManager.Data.pgSQL.csproj">
+      <Project>{05DF7C52-1606-4887-8F81-E393F285C370}</Project>
+      <Name>mojoPortal.Plugins.FeedManager.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Forums\mojoPortal.Plugins.Forums.Data.pgSQL\mojoPortal.Plugins.Forums.Data.pgSQL.csproj">
+      <Project>{8C576974-7F1A-4B2E-B374-6CF378AB7857}</Project>
+      <Name>mojoPortal.Plugins.Forums.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\ImageGallery\mojoPortal.Plugins.ImageGallery.Data.pgSQL\mojoPortal.Plugins.ImageGallery.Data.pgSQL.csproj">
+      <Project>{A1FA40E6-CF61-4BBC-B729-6E8C13498429}</Project>
+      <Name>mojoPortal.Plugins.ImageGallery.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\KDMediaPlayer\mojoPortal.Plugins.KDMediaPlayer.Data.pgSQL\mojoPortal.Plugins.KDMediaPlayer.Data.pgSQL.csproj">
+      <Project>{A1011111-1111-4111-8111-111111111103}</Project>
+      <Name>mojoPortal.Plugins.KDMediaPlayer.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\List\mojoPortal.Plugins.List.Data.pgSQL\mojoPortal.Plugins.List.Data.pgSQL.csproj">
+      <Project>{A2022222-2222-4222-8222-222222222203}</Project>
+      <Name>mojoPortal.Plugins.List.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Poll\mojoPortal.Plugins.Poll.Data.pgSQL\mojoPortal.Plugins.Poll.Data.pgSQL.csproj">
+      <Project>{A3033333-3333-4333-8333-333333333303}</Project>
+      <Name>mojoPortal.Plugins.Poll.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\SharedFiles\mojoPortal.Plugins.SharedFiles.Data.pgSQL\mojoPortal.Plugins.SharedFiles.Data.pgSQL.csproj">
+      <Project>{A4044444-4444-4444-8444-444444444403}</Project>
+      <Name>mojoPortal.Plugins.SharedFiles.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Survey\mojoPortal.Plugins.Survey.Data.pgSQL\mojoPortal.Plugins.Survey.Data.pgSQL.csproj">
+      <Project>{A5055555-5555-4555-8555-555555555503}</Project>
+      <Name>mojoPortal.Plugins.Survey.Data.pgSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <!-- <Target Name="SpicNSpan" BeforeTargets="_GetAllRestoreProjectPathItems">
-    <RemoveDir Directories="$(TargetDir)" />
-    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
-  </Target> -->
 </Project>
+

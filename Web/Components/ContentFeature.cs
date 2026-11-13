@@ -1,328 +1,219 @@
-// Author:					
-// Created:				    2007-08-05
-// Last Modified:			2017-10-04
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+#nullable enable
+using log4net;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Web;
 using System.Xml;
-using log4net;
 
-namespace mojoPortal.Web
+namespace mojoPortal.Web;
+
+/// <summary>
+/// Defines a Feature that can plug into the CMS
+/// </summary>
+public class ContentFeature
 {
-    /// <summary>
-    /// Defines a Feature that can plug into the CMS
-    /// </summary>
-    public class ContentFeature
-    {
-        private ContentFeature()
-        { }
+	private static readonly ILog _log = LogManager.GetLogger(typeof(ContentFeature));
 
-        private static readonly ILog log
-            = LogManager.GetLogger(typeof(ContentFeature));
+	public Guid FeatureGuid { get; set; } = Guid.Empty;
+	public string SupportedDatabases { get; set; } = "MSSQL,MySQL,pgsql,SQLite";
+	public string ResourceFile { get; set; } = string.Empty;
+	public string FeatureNameReasourceKey { get; set; } = string.Empty;
+	public string SearchListNameResourceKey { get; set; } = string.Empty;
+	public bool IsSearchable { get; set; } = false;
+	public bool SupportsPageReuse { get; set; } = true;
+	public string DeleteProvider { get; set; } = string.Empty;
+	public string PartialView { get; set; } = string.Empty;
+	public string ControlSource { get; set; } = string.Empty;
+	public int SortOrder { get; set; } = 300;
+	public bool IsCacheable { get; set; } = false;
+	public int DefaultCacheTime { get; set; } = 0;
+	public string Icon { get; set; } = "blank.gif";
+	public bool ExcludeFromFeatureList { get; set; } = false;
+	public string SkinFileName { get; set; } = string.Empty;
 
-        private Guid featureGuid = Guid.Empty;
-        private string supportedDatabases = "MSSQL";
-        private string resourceFile = string.Empty;
-        private string featureNameReasourceKey = string.Empty;
-        private string controlSource = string.Empty;
-        private int sortOrder = 300;
-        private bool isCacheable = false;
-        private int defaultCacheTime = 0;
-        private bool excludeFromFeatureList = false;
-        private string icon = "blank.gif";
-        private bool isSearchable = false;
-        private string searchListNameResourceKey = string.Empty;
-        private bool supportsPageReuse = true;
-        private string deleteProvider = string.Empty;
-        private string partialView = string.Empty;
-        private string skinFileName = string.Empty;
-
-		private Collection<ContentFeatureSetting> featureSettings
-            = new Collection<ContentFeatureSetting>();
-
-        public Guid FeatureGuid
-        {
-            get { return featureGuid; }
-           
-        }
-
-        public string SupportedDatabases
-        {
-            get { return supportedDatabases; }
-        }
-
-        public string ResourceFile
-        {
-            get { return resourceFile; }
-        }
-
-        public string FeatureNameReasourceKey
-        {
-            get { return featureNameReasourceKey; }
-        }
-
-        public string SearchListNameResourceKey
-        {
-            get { return searchListNameResourceKey; }
-        }
-
-        public bool IsSearchable
-        {
-            get { return isSearchable; }
-        }
-
-        public bool SupportsPageReuse
-        {
-            get { return supportsPageReuse; }
-            set { supportsPageReuse = value; }
-        }
-
-        public string DeleteProvider
-        {
-            get { return deleteProvider; }
-            set { deleteProvider = value; }
-        }
-
-        public string PartialView
-        {
-            get { return partialView; }
-        }
-
-        public string ControlSource
-        {
-            get { return controlSource; }
-        }
-
-        public int SortOrder
-        {
-            get { return sortOrder; }
-        }
-
-        public bool IsCacheable
-        {
-            get { return isCacheable; }
-        }
-
-        public int DefaultCacheTime
-        {
-            get { return defaultCacheTime; }
-        }
-
-        public string Icon
-        {
-            get { return icon; }
-        }
-
-        public bool ExcludeFromFeatureList
-        {
-            get { return excludeFromFeatureList; }
-        }
-
-		public string SkinFileName
+	private Collection<ContentFeatureSetting> _featureSettings = [];
+	public Collection<ContentFeatureSetting> Settings
+	{
+		get
 		{
-			get => skinFileName;
+			return _featureSettings;
+		}
+		set
+		{
+			_featureSettings = value ?? [];
+		}
+	}
+
+
+	public ContentFeature()
+	{ }
+
+
+	public static void LoadFeature(
+		ContentFeatureConfiguration contentFeatureConfig,
+		XmlNode documentElement)
+	{
+		if (HttpContext.Current == null || documentElement.Name != "featureDefinitions")
+		{
+			return;
 		}
 
-        public Collection<ContentFeatureSetting> Settings
-        {
-            get
-            {
-                return featureSettings;
-            }
-        }
+		foreach (XmlNode node in documentElement.ChildNodes)
+		{
+			if (node.Name == "featureDefinition")
+			{
+				var feature = new ContentFeature();
 
+				var attributeCollection = node.Attributes;
 
-        public static void LoadFeature(
-            ContentFeatureConfiguration contentFeatureConfig,
-            XmlNode documentElement)
-        {
-            if (HttpContext.Current == null) return;
-            if (documentElement.Name != "featureDefinitions") return;
+				if (attributeCollection["featureGuid"] is not null)
+				{
+					feature.FeatureGuid = new Guid(attributeCollection["featureGuid"].Value);
+				}
 
-            foreach (XmlNode node in documentElement.ChildNodes)
-            {
-                if (node.Name == "featureDefinition")
-                {
-                    ContentFeature feature = new ContentFeature();
+				if (attributeCollection["supportedDatabases"] is not null)
+				{
+					feature.SupportedDatabases = attributeCollection["supportedDatabases"].Value;
+				}
 
-                    XmlAttributeCollection attributeCollection
-                        = node.Attributes;
+				if (attributeCollection["resourceFile"] is not null)
+				{
+					feature.ResourceFile = attributeCollection["resourceFile"].Value;
+				}
 
-                    if (attributeCollection["featureGuid"] != null)
-                    {
-                        feature.featureGuid = new Guid(attributeCollection["featureGuid"].Value);
-                    }
-
-                    if (attributeCollection["supportedDatabases"] != null)
-                    {
-                        feature.supportedDatabases = attributeCollection["supportedDatabases"].Value;
-                    }
-
-                    
-
-                    if (attributeCollection["resourceFile"] != null)
-                    {
-                        feature.resourceFile = attributeCollection["resourceFile"].Value;
-                    }
-
-                    if (attributeCollection["excludeFromFeatureList"] != null)
-                    {
-                        try
-                        {
-                            feature.excludeFromFeatureList = Convert.ToBoolean(attributeCollection["excludeFromFeatureList"].Value);
-                        }
-                        catch { }
-                    }
-
-                    if (attributeCollection["featureNameReasourceKey"] != null)
-                    {
-                        feature.featureNameReasourceKey = attributeCollection["featureNameReasourceKey"].Value;
-                    }
-
-
-                    if (attributeCollection["isSearchable"] != null)
-                    {
-                        try
-                        {
-                            feature.isSearchable = Convert.ToBoolean(attributeCollection["isSearchable"].Value);
-                        }
-                        catch { }
-                    }
-
-                    if (attributeCollection["supportsPageReuse"] != null)
-                    {
-                        try
-                        {
-                            feature.supportsPageReuse = Convert.ToBoolean(attributeCollection["supportsPageReuse"].Value);
-                        }
-                        catch { }
-                    }
-
-                    if (attributeCollection["isCacheable"] != null)
-                    {
-                        try
-                        {
-                            feature.isCacheable = Convert.ToBoolean(attributeCollection["isCacheable"].Value);
-                        }
-                        catch { }
-                    }
-
-                    if (attributeCollection["deleteProvider"] != null)
-                    {
-                        feature.deleteProvider = attributeCollection["deleteProvider"].Value;
-                    }
-
-                    if (attributeCollection["partialView"] != null)
-                    {
-                        feature.partialView = attributeCollection["partialView"].Value;
-                    }
-
-					if (attributeCollection["skinFileName"] != null)
+				if (attributeCollection["excludeFromFeatureList"] is not null)
+				{
+					try
 					{
-						feature.skinFileName = attributeCollection["skinFileName"].Value;
+						feature.ExcludeFromFeatureList = Convert.ToBoolean(attributeCollection["excludeFromFeatureList"].Value);
 					}
+					catch { }
+				}
+
+				if (attributeCollection["featureNameReasourceKey"] is not null)
+				{
+					feature.FeatureNameReasourceKey = attributeCollection["featureNameReasourceKey"].Value;
+				}
+
+				if (attributeCollection["isSearchable"] is not null)
+				{
+					try
+					{
+						feature.IsSearchable = Convert.ToBoolean(attributeCollection["isSearchable"].Value);
+					}
+					catch { }
+				}
+
+				if (attributeCollection["supportsPageReuse"] is not null)
+				{
+					try
+					{
+						feature.SupportsPageReuse = Convert.ToBoolean(attributeCollection["supportsPageReuse"].Value);
+					}
+					catch { }
+				}
+
+				if (attributeCollection["isCacheable"] is not null)
+				{
+					try
+					{
+						feature.IsCacheable = Convert.ToBoolean(attributeCollection["isCacheable"].Value);
+					}
+					catch { }
+				}
+
+				if (attributeCollection["deleteProvider"] is not null)
+				{
+					feature.DeleteProvider = attributeCollection["deleteProvider"].Value;
+				}
+
+				if (attributeCollection["partialView"] is not null)
+				{
+					feature.PartialView = attributeCollection["partialView"].Value;
+				}
+
+				if (attributeCollection["skinFileName"] is not null)
+				{
+					feature.SkinFileName = attributeCollection["skinFileName"].Value;
+				}
 
 
-					if (attributeCollection["searchListNameResourceKey"] != null)
-                    {
-                        feature.searchListNameResourceKey = attributeCollection["searchListNameResourceKey"].Value;
-                    }
+				if (attributeCollection["searchListNameResourceKey"] is not null)
+				{
+					feature.SearchListNameResourceKey = attributeCollection["searchListNameResourceKey"].Value;
+				}
 
-                    if (attributeCollection["controlSource"] != null)
-                    {
-                        feature.controlSource = attributeCollection["controlSource"].Value;
-                    }
+				if (attributeCollection["controlSource"] is not null)
+				{
+					feature.ControlSource = attributeCollection["controlSource"].Value;
+				}
 
-                    if (!feature.controlSource.EndsWith(".ascx"))
-                    {
-                        log.Error("could not install feature " + feature.FeatureNameReasourceKey
-                            + ". Invalid ControlSource Setting");
+				if (!feature.ControlSource.EndsWith(".ascx"))
+				{
+					_log.Error($"could not install feature {feature.FeatureNameReasourceKey}. Invalid ControlSource Setting");
 
-                        return;
+					return;
+				}
 
-                    }
+				if (attributeCollection["icon"] is not null)
+				{
+					feature.Icon = attributeCollection["icon"].Value;
+				}
 
-                    if (attributeCollection["icon"] != null)
-                    {
-                        feature.icon = attributeCollection["icon"].Value;
-                    }
+				if (attributeCollection["sortOrder"] is not null)
+				{
+					if (int.TryParse(attributeCollection["sortOrder"].Value, out int sort))
+					{
+						feature.SortOrder = sort;
+					}
+				}
 
-                    if (attributeCollection["sortOrder"] != null)
-                    {
-                        int sort = 300;
-                        if (int.TryParse(attributeCollection["sortOrder"].Value,
-                            out sort))
-                        {
-                            feature.sortOrder = sort;
-                        }
-                    }
+				if (attributeCollection["defaultCacheTime"] is not null)
+				{
+					if (int.TryParse(attributeCollection["defaultCacheTime"].Value, out int cacheTime))
+					{
+						feature.DefaultCacheTime = cacheTime;
+					}
+				}
 
-                    if (attributeCollection["defaultCacheTime"] != null)
-                    {
-                        int cacheTime = 300;
-                        if (int.TryParse(attributeCollection["defaultCacheTime"].Value,
-                            out cacheTime))
-                        {
-                            feature.defaultCacheTime = cacheTime;
-                        }
-                    }
+				foreach (XmlNode featureSettingNode in node.ChildNodes)
+				{
+					if (featureSettingNode.Name == "featureSetting")
+					{
+						ContentFeatureSetting.LoadFeatureSetting(
+							feature,
+							featureSettingNode);
+					}
+				}
 
-                    foreach (XmlNode featureSettingNode in node.ChildNodes)
-                    {
-                        if (featureSettingNode.Name == "featureSetting")
-                        {
-                            ContentFeatureSetting.LoadFeatureSetting(
-                                feature,
-                                featureSettingNode);
-                        }
-                    }
+				if (feature.FeatureGuid == Guid.Empty)
+				{
+					_log.Error($"could not install feature {feature.FeatureNameReasourceKey}. Invalid FeatureGuid.");
 
-                    if (feature.FeatureGuid == Guid.Empty)
-                    {
-                        log.Error("could not install feature " + feature.FeatureNameReasourceKey
-                        + ". Invalid FeatureGuid.");
-                        return;
+					return;
+				}
 
-                    }
-                        
-                    string controlPath = feature.controlSource;
-                    if (!controlPath.StartsWith("/"))
-                    {
-                        controlPath = "~/" + controlPath;
-                    }
-                    else
-                    {
-                        controlPath = "~" + controlPath;
-                    }
+				var controlPath = feature.ControlSource;
 
-                    if (File.Exists(HttpContext.Current.Server.MapPath(controlPath)))
-                    {
-                        contentFeatureConfig.ContentFeatures.Add(feature);
-                    }
-                    else
-                    {
-                        log.Error("could not install feature " + feature.FeatureNameReasourceKey
-                        + ". Invalid ControlSource Setting. Filenot found: " + controlPath);
+				if (!controlPath.StartsWith("/"))
+				{
+					controlPath = "~/" + controlPath;
+				}
+				else
+				{
+					controlPath = "~" + controlPath;
+				}
 
-                    }
-
-                    
-                }
-
-            }
-
-
-        }
-
-    }
+				if (File.Exists(HttpContext.Current.Server.MapPath(controlPath)) || Plugins.PluginFileResolver.FileExists(controlPath))
+				{
+					contentFeatureConfig.ContentFeatures.Add(feature);
+				}
+				else
+				{
+					_log.Error($"could not install feature {feature.FeatureNameReasourceKey}. Invalid ControlSource Setting. Filenot found: {controlPath}");
+				}
+			}
+		}
+	}
 }

@@ -1,72 +1,130 @@
-﻿using System;
-using System.Configuration.Provider;
-using System.Web.Configuration;
+﻿#nullable enable
 using log4net;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Web.Configuration;
 
 namespace mojoPortal.Business.WebHelpers;
+
 public sealed class SitePreDeleteHandlerProviderManager
 {
-	private static object initializationLock = new object();
-	private static readonly ILog log = LogManager.GetLogger(typeof(SitePreDeleteHandlerProviderManager));
+	private static readonly object _lock = new();
+	private static readonly ILog _log = LogManager.GetLogger(typeof(SitePreDeleteHandlerProviderManager));
+	private static readonly List<SitePreDeleteHandlerProvider> _registeredProviders = [];
+	private static SitePreDeleteProviderCollection? _providerCollection;
 
-	static SitePreDeleteHandlerProviderManager()
+
+	public static void RegisterProvider(SitePreDeleteHandlerProvider provider)
 	{
-		Initialize();
+		if (provider is null)
+		{
+			return;
+		}
+
+		lock (_lock)
+		{
+			if (
+				!_registeredProviders.Exists(p => string.Equals(p.Name, provider.Name, StringComparison.OrdinalIgnoreCase) ||
+					p.GetType().FullName == provider.GetType().FullName))
+			{
+				_registeredProviders.Add(provider);
+			}
+
+			if (
+				_providerCollection is not null &&
+				_providerCollection[provider.Name] is null &&
+				!ContainsType(_providerCollection, provider.GetType()))
+			{
+				_providerCollection.Add(provider);
+			}
+		}
+	}
+
+	private static bool ContainsType(SitePreDeleteProviderCollection collection, Type type)
+	{
+		foreach (SitePreDeleteHandlerProvider existing in collection)
+		{
+			if (existing.GetType().FullName == type.FullName)
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private static void Initialize()
 	{
-		providerCollection = new SitePreDeleteProviderCollection();
-
-		try
+		lock (_lock)
 		{
-			SitePreDeleteHandlerProviderConfig config = SitePreDeleteHandlerProviderConfig.GetConfig();
-
-			if (config != null)
+			if (_providerCollection is not null)
 			{
+				return;
+			}
 
-				if (
-					(config.Providers == null)
-					|| (config.Providers.Count < 1)
-					)
+			var collection = new SitePreDeleteProviderCollection();
+
+			foreach (var provider in _registeredProviders)
+			{
+				if (collection[provider.Name] is null && !ContainsType(collection, provider.GetType()))
 				{
-					throw new ProviderException("No SitePreDeleteProviderCollection found.");
+					collection.Add(provider);
 				}
-
-				ProvidersHelper.InstantiateProviders(config.Providers, providerCollection, typeof(SitePreDeleteHandlerProvider));
 			}
-			else
+
+			try
 			{
-				// config was null, not a good thing
-				log.Error("SitePreDeleteProviderCollection could not be loaded so empty provider collection was returned");
+				SitePreDeleteHandlerProviderConfig config = SitePreDeleteHandlerProviderConfig.GetConfig();
 
+				if (config?.Providers is not null)
+				{
+					foreach (ProviderSettings providerSettings in config.Providers)
+					{
+						if (collection[providerSettings.Name] is not null)
+						{
+							continue;
+						}
+
+						try
+						{
+							var p = ProvidersHelper.InstantiateProvider(providerSettings, typeof(SitePreDeleteHandlerProvider));
+
+							if (
+								p is SitePreDeleteHandlerProvider provider &&
+								collection[provider.Name] is null &&
+								!ContainsType(collection, provider.GetType()))
+							{
+								collection.Add(provider);
+							}
+						}
+						catch (Exception ex)
+						{
+							_log.Warn($"Skipping legacy SitePreDeleteHandlerProvider '{providerSettings.Name}': {ex.Message}");
+						}
+					}
+				}
 			}
-		}
-		catch (NullReferenceException ex)
-		{
-			log.Error(ex);
-		}
-		catch (TypeInitializationException ex)
-		{
-			log.Error(ex);
-		}
-		catch (ProviderException ex)
-		{
-			log.Error(ex);
-		}
+			catch (Exception ex)
+			{
+				_log.Error(ex);
+			}
 
-		providerCollection.SetReadOnly();
+			_providerCollection = collection;
+		}
 	}
 
-	private static SitePreDeleteProviderCollection providerCollection;
 
 	public static SitePreDeleteProviderCollection Providers
 	{
 		get
 		{
-			if (providerCollection == null) Initialize();
-			return providerCollection;
+			if (_providerCollection is null)
+			{
+				Initialize();
+			}
 
+			return _providerCollection!;
 		}
 	}
 

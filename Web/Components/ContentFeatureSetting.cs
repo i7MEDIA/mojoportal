@@ -1,33 +1,36 @@
 using System;
-using System.Text;
 using System.Xml;
 
 namespace mojoPortal.Web;
 
 public class ContentFeatureSetting
 {
-	private ContentFeatureSetting()
-	{ }
-
-	public string GroupNameKey { get; private set; } = string.Empty;
-	public string ResourceFile { get; private set; } = string.Empty;
-	public string ResourceKey { get; private set; } = string.Empty;
-	public string DefaultValue { get; private set; } = string.Empty;
-	public string ControlType { get; private set; } = "TextBox";
-	public string ControlSrc { get; private set; } = string.Empty;
-	public string HelpKey { get; private set; } = string.Empty;
-	public int SortOrder { get; private set; } = 100;
-	public string RegexValidationExpression { get; private set; } = string.Empty;
-	public string Attributes { get; private set; } = string.Empty;
-	public string Options { get; private set; } = string.Empty;
-	public string Roles { get; private set; } = string.Empty;
+	public string GroupNameKey { get; set; } = string.Empty;
+	public string ResourceFile { get; set; } = string.Empty;
+	public string ResourceKey { get; set; } = string.Empty;
+	public string DefaultValue { get; set; } = string.Empty;
+	public string ControlType { get; set; } = "TextBox";
+	public string ControlSrc { get; set; } = string.Empty;
+	public string HelpKey { get; set; } = string.Empty;
+	public int SortOrder { get; set; } = 100;
+	public string RegexValidationExpression { get; set; } = string.Empty;
+	public string Attributes { get; set; } = string.Empty;
+	public string Options { get; set; } = string.Empty;
+	public string Roles { get; set; } = string.Empty;
 	public bool ShowToUnauthorized { get; set; } = false;
+
+
+	public ContentFeatureSetting()
+	{ }
 
 
 	public static void LoadFeatureSetting(ContentFeature feature, XmlNode featureSettingNode)
 	{
-		if (feature == null || featureSettingNode == null) return;
-	
+		if (feature == null || featureSettingNode == null)
+		{
+			return;
+		}
+
 		if (featureSettingNode.Name == "featureSetting")
 		{
 			var featureSetting = new ContentFeatureSetting();
@@ -90,7 +93,7 @@ public class ContentFeatureSetting
 
 			foreach (XmlNode subNode in featureSettingNode)
 			{
-				StringBuilder sb = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
+				var sb = XmlHelper.GetKeyValuePairsAsStringBuilder(subNode.ChildNodes);
 
 				switch (subNode.Name)
 				{
@@ -100,12 +103,6 @@ public class ContentFeatureSetting
 					case "Attributes":
 						featureSetting.Attributes = sb.ToString();
 						break;
-						//case "PreTokenString":
-						//	field.PreTokenString = subNode.InnerText.Trim();
-						//	break;
-						//case "PostTokenString":
-						//	field.PostTokenString = subNode.InnerText.Trim();
-						//	break;
 				}
 			}
 

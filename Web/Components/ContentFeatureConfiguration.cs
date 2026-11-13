@@ -1,130 +1,65 @@
-// Author:					
-// Created:				    2007-08-05
-// Last Modified:			2009-06-21
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
+#nullable enable
+using log4net;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
-using System.Web.Caching;
 using System.Xml;
-using log4net;
 
-namespace mojoPortal.Web
+namespace mojoPortal.Web;
+
+public class ContentFeatureConfiguration
 {
-    /// <summary>
-    ///
-    /// </summary>
-    public class ContentFeatureConfiguration
-    {
-        private static readonly ILog log
-            = LogManager.GetLogger(typeof(ContentFeatureConfiguration));
+	private static readonly ILog log = LogManager.GetLogger(typeof(ContentFeatureConfiguration));
+
+	public List<ContentFeature> ContentFeatures { get; } = [];
 
 
-        private Collection<ContentFeature> contentFeatures
-            = new Collection<ContentFeature>();
+	public ContentFeature? GetFeature(Guid featureGuid)
+	{
+		foreach (ContentFeature feature in ContentFeatures)
+		{
+			if (feature.FeatureGuid == featureGuid)
+			{
+				return feature;
+			}
+		}
 
-        public Collection<ContentFeature> ContentFeatures
-        {
-            get
-            {
-                return contentFeatures;
-            }
-        }
-
-        
-        public ContentFeature GetFeature(Guid featureGuid)
-        {
-            foreach (ContentFeature feature in this.contentFeatures)
-            {
-                if (feature.FeatureGuid == featureGuid)
-                {
-                    return feature;
-                }
-
-            }
-
-            return null;
-        }
+		return null;
+	}
 
 
-        public static ContentFeatureConfiguration GetConfig(string applicationFolderName)
-        {
-            ContentFeatureConfiguration contentFeatureConfig = null;
-            //if (
-            //    (HttpRuntime.Cache["contentFeatureConfig-" + applicationFolderName] != null)
-            //    && (HttpRuntime.Cache["contentFeatureConfig-" + applicationFolderName] is ContentFeatureConfiguration)
-            //)
-            //{
-            //    return (ContentFeatureConfiguration)HttpRuntime.Cache["contentFeatureConfig-" + applicationFolderName];
-            //}
-            //else
-            //{
-                contentFeatureConfig = new ContentFeatureConfiguration();
+	public static ContentFeatureConfiguration GetConfig(string applicationFolderName)
+	{
+		var contentFeatureConfig = new ContentFeatureConfiguration();
+		var configFolderName = $"~/Setup/applications/{applicationFolderName}/FeatureDefinitions/";
+		var pathToConfigFolder = HttpContext.Current.Server.MapPath(configFolderName);
 
-                String configFolderName = "~/Setup/applications/" 
-                    + applicationFolderName + "/FeatureDefinitions/";
+		if (!Directory.Exists(pathToConfigFolder))
+		{
+			return contentFeatureConfig;
+		}
 
-                string pathToConfigFolder
-                    = HttpContext.Current.Server.MapPath(configFolderName);
+		var directoryInfo = new DirectoryInfo(pathToConfigFolder);
+		var featureFiles = directoryInfo.GetFiles("*.config");
 
-                if (!Directory.Exists(pathToConfigFolder)) return contentFeatureConfig;
+		foreach (var fileInfo in featureFiles)
+		{
+			var featureConfigFile = XmlHelper.GetXmlDocument(fileInfo.FullName);
 
+			LoadFeature(
+				contentFeatureConfig,
+				featureConfigFile.DocumentElement);
+		}
 
-                DirectoryInfo directoryInfo
-                    = new DirectoryInfo(pathToConfigFolder);
-
-                FileInfo[] featureFiles = directoryInfo.GetFiles("*.config");
-
-                foreach (FileInfo fileInfo in featureFiles)
-                {
-                    var featureConfigFile = Core.Helpers.XmlHelper.GetXmlDocument(fileInfo.FullName);
-
-                    LoadFeature(
-                        contentFeatureConfig, 
-                        featureConfigFile.DocumentElement);
-
-                }
-
-                // cache can be cleared by touching Web.config
-                //CacheDependency cacheDependency
-                //    = new CacheDependency(HttpContext.Current.Server.MapPath("~/Web.config"));
-
-               
-                //HttpRuntime.Cache.Insert(
-                //    "contentFeatureConfig-" + applicationFolderName,
-                //    contentFeatureConfig,
-                //    cacheDependency,
-                //    DateTime.Now.AddYears(1),
-                //    TimeSpan.Zero,
-                //    CacheItemPriority.Default,
-                //    null);
-
-                //return (ContentFeatureConfiguration)HttpRuntime.Cache["contentFeatureConfig-" + applicationFolderName];
-
-                return contentFeatureConfig;
-
-            //}
-
-        }
-
-        private static void LoadFeature(
-            ContentFeatureConfiguration contentFeatureConfig,
-            XmlNode node
-            )
-        {
-            ContentFeature.LoadFeature(contentFeatureConfig, node);
+		return contentFeatureConfig;
+	}
 
 
-        }
-
-    }
+	private static void LoadFeature(
+		ContentFeatureConfiguration contentFeatureConfig,
+		XmlNode node)
+	{
+		ContentFeature.LoadFeature(contentFeatureConfig, node);
+	}
 }

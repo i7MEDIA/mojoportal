@@ -1,0 +1,22 @@
+﻿using System.Runtime.CompilerServices;
+
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBBlog))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBContactFormMessage))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBEvents))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBForums))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBGallery))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBLinks))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBRssFeed))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBSharedFiles))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.MediaPlayer.Data.DBMediaFile))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.MediaPlayer.Data.DBMediaPlayer))]
+[assembly: TypeForwardedTo(typeof(global::mojoPortal.MediaPlayer.Data.DBMediaTrack))]
+[assembly: TypeForwardedTo(typeof(global::PollFeature.Data.DBPoll))]
+[assembly: TypeForwardedTo(typeof(global::PollFeature.Data.DBPollOption))]
+[assembly: TypeForwardedTo(typeof(global::SurveyFeature.Data.DBQuestion))]
+[assembly: TypeForwardedTo(typeof(global::SurveyFeature.Data.DBQuestionAnswer))]
+[assembly: TypeForwardedTo(typeof(global::SurveyFeature.Data.DBQuestionOption))]
+[assembly: TypeForwardedTo(typeof(global::SurveyFeature.Data.DBSurvey))]
+[assembly: TypeForwardedTo(typeof(global::SurveyFeature.Data.DBSurveyPage))]
+[assembly: TypeForwardedTo(typeof(global::SurveyFeature.Data.DBSurveyResponse))]
+

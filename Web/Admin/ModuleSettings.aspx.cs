@@ -595,7 +595,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				{
 					if (s.ControlSrc.EndsWith(".ascx"))
 					{
-						control = Page.LoadControl(s.ControlSrc);
+						control = Page.LoadControl(Plugins.PluginFileResolver.ResolveVirtualPath(s.ControlSrc));
 
 						if (control is ISettingControl)
 						{
@@ -610,7 +610,8 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 						}
 						else if (control is ICustomField)
 						{
-							ICustomField sc = control as ICustomField;
+							var sc = control as ICustomField;
+
 							if (!IsPostBack)
 							{
 								sc.SetValue(s.SettingValue);
@@ -628,13 +629,37 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 					{
 						try
 						{
-							control = Activator.CreateInstance(Type.GetType(s.ControlSrc)) as Control;
+							var controlType = Type.GetType(s.ControlSrc);
 
-							if (control != null)
+							if (controlType is null && !string.IsNullOrWhiteSpace(s.ControlSrc))
+							{
+								var typeNameOnly = s.ControlSrc.Split(',')[0].Trim();
+
+								foreach (var plugin in Plugins.PluginLoader.LoadedPlugins)
+								{
+									if (plugin.Assembly is not null)
+									{
+										controlType = plugin.Assembly.GetType(typeNameOnly, false);
+
+										if (controlType is not null)
+										{
+											break;
+										}
+									}
+								}
+							}
+
+							if (controlType is not null)
+							{
+								control = Activator.CreateInstance(controlType) as Control;
+							}
+
+							if (control is not null)
 							{
 								if (control is ISettingControl)
 								{
 									var sc = control as ISettingControl;
+
 									control.ID = controlID;
 									panel.Controls.Add(control);
 
@@ -659,6 +684,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 				{
 					log.Error($"could not add setting control for {s.SettingControlType}, missing controlsrc for {s.SettingName}");
 				}
+
 				break;
 		}
 
@@ -674,17 +700,7 @@ public partial class ModuleSettingsPage : NonCmsBasePage
 
 	private string GetResourceString(string resourceFile, string resourceKey)
 	{
-		string resourceString = resourceKey;
-		try
-		{
-			resourceString = GetGlobalResourceObject(resourceFile, resourceKey).ToString();
-			resourceString ??= resourceKey;
-		}
-		catch (NullReferenceException ex)
-		{
-			log.Error($"ModuleSettings.aspx.cs handled error getting resource for {resourceKey} from {resourceFile}", ex);
-		}
-		return resourceString;
+		return ResourceHelper.GetResourceString(resourceFile, resourceKey);
 	}
 
 	private void PopulatePageList()

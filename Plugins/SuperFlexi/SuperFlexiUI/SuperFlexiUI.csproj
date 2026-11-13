@@ -319,6 +319,7 @@
     <Compile Include="Components\FieldUtils.cs" />
     <Compile Include="Components\MarkupDefinition.cs" />
     <Compile Include="Components\SitePreDeleteHandler.cs" />
+    <Compile Include="Components\SuperFlexiPlugin.cs" />
     <Compile Include="Components\XmlUtils.cs" />
     <Compile Include="Models\ModuleModel.cs" />
     <Compile Include="Models\PageModel.cs" />
@@ -483,19 +484,20 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\SuperFlexi*.dll" "$(SolutionDir)Web\bin\"
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\SuperFlexi*.dll" "$(SolutionDir)Web\Plugins\SuperFlexi\bin\"
 xcopy /s /y "$(ProjectDir)bin\Microsoft.Code*.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y "$(ProjectDir)bin\System.Collections.Immutable.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y "$(ProjectDir)bin\System.Reflection.Metadata.dll" "$(SolutionDir)Web\bin\"
 xcopy /s /y "$(ProjectDir)bin\Westwind*.dll" "$(SolutionDir)Web\bin\"
-xcopy /s /y "$(ProjectDir)SuperFlexi\*.as?x" "$(SolutionDir)Web\SuperFlexi\"
-xcopy /s /y "$(ProjectDir)SuperFlexi\css\*" "$(SolutionDir)Web\SuperFlexi\css\"
-xcopy /s /y "$(ProjectDir)SuperFlexi\js\*" "$(SolutionDir)Web\SuperFlexi\js\"
-xcopy /s /y "$(ProjectDir)SuperFlexi\html\*" "$(SolutionDir)Web\SuperFlexi\html\"
-xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
-xcopy /s /y "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup\"
-xcopy /s /y "$(ProjectDir)Data\HelpFiles\*.config" "$(SolutionDir)Web\Data\HelpFiles\"
-xcopy /s /y "$(ProjectDir)Views\*" "$(SolutionDir)Web\Views\"</PostBuildEvent>
+xcopy /s /y "$(ProjectDir)SuperFlexi\*.as?x" "$(SolutionDir)Web\Plugins\SuperFlexi\SuperFlexi\"
+xcopy /s /y "$(ProjectDir)SuperFlexi\css\*" "$(SolutionDir)Web\Plugins\SuperFlexi\SuperFlexi\css\"
+xcopy /s /y "$(ProjectDir)SuperFlexi\js\*" "$(SolutionDir)Web\Plugins\SuperFlexi\SuperFlexi\js\"
+xcopy /s /y "$(ProjectDir)SuperFlexi\html\*" "$(SolutionDir)Web\Plugins\SuperFlexi\SuperFlexi\html\"
+xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\Plugins\SuperFlexi\App_GlobalResources\"
+xcopy /s /y "$(ProjectDir)Setup\applications\SuperFlexi\SchemaInstallScripts\*" "$(SolutionDir)Web\Plugins\SuperFlexi\Setup\SchemaInstallScripts\"
+xcopy /s /y "$(ProjectDir)Setup\applications\SuperFlexi\SchemaUpgradeScripts\*" "$(SolutionDir)Web\Plugins\SuperFlexi\Setup\SchemaUpgradeScripts\"
+xcopy /s /y "$(ProjectDir)Data\HelpFiles\*.config" "$(SolutionDir)Web\Plugins\SuperFlexi\Data\HelpFiles\"
+xcopy /s /y "$(ProjectDir)Views\*" "$(SolutionDir)Web\Plugins\SuperFlexi\Views\"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.4.1.0\build\net472\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -128,7 +128,7 @@ public class layout : MasterPage
 				centerWithLeftAndRightSideCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "centerwithleftandrightsidecss").Class;
 				emptyCenterCss = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "emptycentercss").Class;
 				hideEmptyCenterIfOnlySidesHaveContent = panelOptions.SingleOrDefault(x => x.Name.ToLower() == "hideemptycenterifonlysideshavecontent").Bool;
-			} 
+			}
 			else
 			{
 				Control l = FindControl("LayoutDisplaySettings1");
@@ -148,7 +148,7 @@ public class layout : MasterPage
 					emptyCenterCss = layoutSettings.EmptyCenterCss;
 					hideEmptyCenterIfOnlySidesHaveContent = layoutSettings.HideEmptyCenterIfOnlySidesHaveContent;
 				}
-			}			
+			}
 		}
 
 		SetupLayout();
@@ -292,14 +292,6 @@ public class layout : MasterPage
 		{
 			foreach (Module module in currentPage.Modules)
 			{
-				//if ((module.ControlSource == "Modules/LoginModule.ascx") && (Request.IsAuthenticated)) { continue; }
-				if (module.ControlSource == "Modules/LoginModule.ascx")
-				{
-					LoginModuleDisplaySettings loginSettings = new LoginModuleDisplaySettings();
-					Controls.Add(loginSettings);
-					if (Request.IsAuthenticated && loginSettings.HideWhenAuthenticated) { continue; }
-				}
-
 				if (ModuleIsVisible(module))
 				{
 					if (module.PaneName.IsCaseInsensitiveMatch("leftpane"))
@@ -330,14 +322,20 @@ public class layout : MasterPage
 			}
 
 			// this is to make room for ModuleWrapper or custom usercontrols if they exsits anywhere in left or right
-			foreach (Control c in divRight.Controls)
+			foreach (var control in divRight.Controls)
 			{
-				if (c is mojoUserControl) { rightModuleCount++; }
+				if (control is mojoUserControl)
+				{
+					rightModuleCount++;
+				}
 			}
 
-			foreach (Control c in divLeft.Controls)
+			foreach (var control in divLeft.Controls)
 			{
-				if (c is mojoUserControl) { leftModuleCount++; }
+				if (control is mojoUserControl)
+				{
+					leftModuleCount++;
+				}
 			}
 		}
 	}
@@ -393,15 +391,10 @@ public class layout : MasterPage
 
 	private bool ModuleIsVisible(Module module)
 	{
-		if (module.HideFromAuthenticated && Request.IsAuthenticated) { return false; }
-		if (module.HideFromUnauthenticated && !Request.IsAuthenticated) { return false; }
-		if (isMobileDevice && module.PublishMode == webOnly) { return false; }
-		if (!isMobileDevice && module.PublishMode == mobileOnly)
+		if (
+			module.HideFromAuthenticated && Request.IsAuthenticated ||
+			module.HideFromUnauthenticated && !Request.IsAuthenticated)
 		{
-			if (WebConfigSettings.RolesThatAlwaysViewMobileContent.Length > 0)
-			{
-				if (WebUser.IsInRoles(WebConfigSettings.RolesThatAlwaysViewMobileContent)) { return true; }
-			}
 			return false;
 		}
 

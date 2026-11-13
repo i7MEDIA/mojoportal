@@ -8,6 +8,7 @@ using mojoPortal.Business;
 using mojoPortal.Business.WebHelpers;
 using mojoPortal.Web.Caching;
 using mojoPortal.Web.Framework;
+using mojoPortal.Web.Plugins;
 using Resources;
 
 namespace mojoPortal.Web.UI.Pages;
@@ -213,28 +214,30 @@ public partial class SetupHome : Page
 
 		#endregion
 
-		#region setup other applications
+		#region setup plugins & other applications
 
-		// install other apps
+		// 1. Run code-first plugin migrations (schema install, version-aware upgrade scripts, and GetFeatures())
+		IPluginMigrationService pluginMigrationService = new PluginMigrationService();
+		pluginMigrationService.RunMigrations((s, m) => WritePageContent(s, m), canAlterSchema);
 
+		// 2. Backwards compatibility: install any unmigrated custom applications in ~/Setup/applications/
+		var migratedApps = PluginMigrationService.GetMigratedApplicationNames();
 		var pathToApplicationsFolder = HttpContext.Current.Server.MapPath("~/Setup/applications/");
 
-		if (!Directory.Exists(pathToApplicationsFolder))
+		if (Directory.Exists(pathToApplicationsFolder))
 		{
-			WritePageContent(SetupStatus.Error, $"{pathToApplicationsFolder} {SetupResource.ScriptFolderNotFoundAddendum}", false);
-			return (SetupStatus.Error, "Setup/applications folder not found");
-		}
+			DirectoryInfo appRootFolder = new(pathToApplicationsFolder);
+			DirectoryInfo[] appFolders = appRootFolder.GetDirectories();
 
-		DirectoryInfo appRootFolder = new(pathToApplicationsFolder);
-		DirectoryInfo[] appFolders = appRootFolder.GetDirectories();
-
-		foreach (DirectoryInfo appFolder in appFolders)
-		{
-			if (!string.Equals(appFolder.Name, "mojoportal-core", StringComparison.InvariantCultureIgnoreCase))
+			foreach (DirectoryInfo appFolder in appFolders)
 			{
-				CreateInitialSchema(appFolder.Name);
-				UpgradeSchema(appFolder.Name);
-				SetupFeatures(appFolder.Name);
+				if (!string.Equals(appFolder.Name, "mojoportal-core", StringComparison.InvariantCultureIgnoreCase) &&
+					!migratedApps.Contains(appFolder.Name))
+				{
+					CreateInitialSchema(appFolder.Name);
+					UpgradeSchema(appFolder.Name);
+					SetupFeatures(appFolder.Name);
+				}
 			}
 		}
 

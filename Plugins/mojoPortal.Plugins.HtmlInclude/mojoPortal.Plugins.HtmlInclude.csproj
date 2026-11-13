@@ -75,6 +75,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
+    <Compile Include="HtmlIncludePlugin.cs" />
     <Compile Include="HtmlInclude\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -172,13 +173,10 @@
     <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>-->
   <PropertyGroup>
-    <PostBuildEvent>xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Plugins.HtmlInclude.dll" "$(SolutionDir)Web\bin\"
-xcopy /s /y /d "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\App_GlobalResources\"
-
-xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.aspx" "$(SolutionDir)Web\HtmlInclude\"
-xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.ascx" "$(SolutionDir)Web\HtmlInclude\"
-
-xcopy /s /y /d "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Setup"
+    <PostBuildEvent>xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Plugins.HtmlInclude.dll" "$(SolutionDir)Web\Plugins\HtmlInclude\bin\"
+xcopy /s /y /d "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\Plugins\HtmlInclude\App_GlobalResources\"
+xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.aspx" "$(SolutionDir)Web\Plugins\HtmlInclude\HtmlInclude\"
+xcopy /s /y /d "$(ProjectDir)HtmlInclude\*.ascx" "$(SolutionDir)Web\Plugins\HtmlInclude\HtmlInclude\"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using log4net;
+using mojoPortal.Web.Plugins;
+using Newtonsoft.Json.Serialization;
+using System;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http;
-using log4net;
-using Newtonsoft.Json.Serialization;
 
 namespace mojoPortal.Web.Routing;
 
@@ -15,6 +16,24 @@ public class WebApiConfig
 	{
 		// enable attribute routing
 		config.MapHttpAttributeRoutes();
+
+		// Register Web API routes from enabled plugins in Order sequence
+		foreach (var descriptor in PluginLoader.EnabledPlugins)
+		{
+			if (descriptor.Instance == null)
+			{
+				continue;
+			}
+
+			try
+			{
+				descriptor.Instance.RegisterWebApi(config);
+			}
+			catch (Exception ex)
+			{
+				log.Error($"Failed to register Web API routes for plugin '{descriptor.Name}'.", ex);
+			}
+		}
 
 		try
 		{
@@ -41,6 +60,7 @@ public class WebApiConfig
 		config.Formatters.Add(new JsonMediaTypeFormatter());
 
 		var settings = config.Formatters.JsonFormatter.SerializerSettings;
+
 		settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
 		if (AppConfig.Debug)
@@ -64,11 +84,5 @@ public class WebApiConfig
 			routeTemplate: "FileService/{controller}/{id}",
 			defaults: new { controller = "FileService", id = RouteParameter.Optional, action = RouteParameter.Optional }
 		);
-
-		//config.Routes.MapHttpRoute(
-		//	name: "BadWord",
-		//	routeTemplate: "BadWord/{action}/{id}",
-		//	defaults: new {controller = "BadWord", action = "CheckString", id = RouteParameter.Optional }
-		//);
 	}
 }

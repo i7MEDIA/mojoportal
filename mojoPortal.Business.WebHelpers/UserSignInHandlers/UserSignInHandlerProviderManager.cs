@@ -1,99 +1,132 @@
-﻿//  Author:                     
-//  Created:                    2008-08-28
-//	Last Modified:              2008-08-28
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Configuration.Provider;
-using System.Web.Configuration;
+﻿#nullable enable
 using log4net;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Web.Configuration;
 
-namespace mojoPortal.Business.WebHelpers.UserSignInHandlers
+namespace mojoPortal.Business.WebHelpers.UserSignInHandlers;
+
+public sealed class UserSignInHandlerProviderManager
 {
-    /// <summary>
-    ///  
-    /// </summary>
-    public sealed class UserSignInHandlerProviderManager
-    {
-        private static object initializationLock = new object();
-        private static readonly ILog log
-            = LogManager.GetLogger(typeof(UserSignInHandlerProviderManager));
-
-        static UserSignInHandlerProviderManager()
-        {
-            Initialize();
-        }
-
-        private static void Initialize()
-        {
-            providerCollection = new UserSignInHandlerProviderCollection();
-
-            try
-            {
-                UserSignInHandlerProviderConfig config
-                    = UserSignInHandlerProviderConfig.GetConfig();
-
-                if (config != null)
-                {
-
-                    if (
-                        (config.Providers == null)
-                        || (config.Providers.Count < 1)
-                        )
-                    {
-                        throw new ProviderException("No UserSignInHandlerProviderCollection found.");
-                    }
-
-                    ProvidersHelper.InstantiateProviders(
-                        config.Providers,
-                        providerCollection,
-                        typeof(UserSignInHandlerProvider));
-
-                }
-                else
-                {
-                    // config was null, not a good thing
-                    log.Error("UserSignInHandlerProviderConfig could not be loaded so empty provider collection was returned");
-
-                }
-            }
-            catch (NullReferenceException ex)
-            {
-                log.Error(ex);
-            }
-            catch (TypeInitializationException ex)
-            {
-                log.Error(ex);
-            }
-            catch (ProviderException ex)
-            {
-                log.Error(ex);
-            }
-            
-            providerCollection.SetReadOnly();
-                
-            
-        }
+	private static readonly object _lock = new();
+	private static readonly ILog _log = LogManager.GetLogger(typeof(UserSignInHandlerProviderManager));
+	private static readonly List<UserSignInHandlerProvider> _registeredProviders = [];
+	private static UserSignInHandlerProviderCollection? _providerCollection;
 
 
-        private static UserSignInHandlerProviderCollection providerCollection;
+	public static void RegisterProvider(UserSignInHandlerProvider provider)
+	{
+		if (provider is null)
+		{
+			return;
+		}
 
-        public static UserSignInHandlerProviderCollection Providers
-        {
-            get
-            {
-                if (providerCollection == null) Initialize();
-                return providerCollection;
-                
-            }
-        }
+		lock (_lock)
+		{
+			if (
+				!_registeredProviders.Exists(p => string.Equals(p.Name, provider.Name, StringComparison.OrdinalIgnoreCase) ||
+					p.GetType().FullName == provider.GetType().FullName))
+			{
+				_registeredProviders.Add(provider);
+			}
 
-    }
+			if (
+				_providerCollection is not null &&
+				_providerCollection[provider.Name] is null &&
+				!ContainsType(_providerCollection, provider.GetType()))
+			{
+				_providerCollection.Add(provider);
+			}
+		}
+	}
+
+
+	private static bool ContainsType(UserSignInHandlerProviderCollection collection, Type type)
+	{
+		foreach (UserSignInHandlerProvider existing in collection)
+		{
+			if (existing.GetType().FullName == type.FullName)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	private static void Initialize()
+	{
+		lock (_lock)
+		{
+			if (_providerCollection is not null)
+			{
+				return;
+			}
+
+			var collection = new UserSignInHandlerProviderCollection();
+
+			foreach (var provider in _registeredProviders)
+			{
+				if (collection[provider.Name] is null && !ContainsType(collection, provider.GetType()))
+				{
+					collection.Add(provider);
+				}
+			}
+
+			try
+			{
+				var config = UserSignInHandlerProviderConfig.GetConfig();
+
+				if (config?.Providers is not null)
+				{
+					foreach (ProviderSettings providerSettings in config.Providers)
+					{
+						if (collection[providerSettings.Name] is not null)
+						{
+							continue;
+						}
+
+						try
+						{
+							var p = ProvidersHelper.InstantiateProvider(providerSettings, typeof(UserSignInHandlerProvider));
+
+							if (
+								p is UserSignInHandlerProvider provider &&
+								collection[provider.Name] is null &&
+								!ContainsType(collection, provider.GetType()))
+							{
+								collection.Add(p);
+							}
+						}
+						catch (Exception ex)
+						{
+							_log.Warn($"Skipping legacy UserSignInHandlerProvider '{providerSettings.Name}': {ex.Message}");
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				_log.Error(ex);
+			}
+
+			_providerCollection = collection;
+		}
+	}
+
+
+	public static UserSignInHandlerProviderCollection Providers
+	{
+		get
+		{
+			if (_providerCollection is null)
+			{
+				Initialize();
+			}
+
+			return _providerCollection!;
+		}
+	}
 }

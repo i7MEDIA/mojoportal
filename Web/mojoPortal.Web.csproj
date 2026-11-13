@@ -683,21 +683,10 @@
     <Content Include="GoogleSearch.aspx" />
     <Content Include="Help.aspx" />
     <Content Include="HelpEdit.aspx" />
-    <Content Include="HtmlEdit.aspx">
-    </Content>
     <Content Include="Logoff.aspx" />
     <Content Include="MemberList.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Modules\ChildPageSiteMapModule.ascx" />
-    <Content Include="Modules\CustomMenu.ascx" />
-    <Content Include="Modules\CustomScript.ascx" />
-    <Content Include="Modules\HtmlModule.ascx">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
-    <Content Include="Modules\LoginModule.ascx" />
-    <Content Include="Modules\RecentContentModule.ascx" />
-    <Content Include="Modules\SiteSearchModule.ascx" />
     <Content Include="ProfileView.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -761,7 +750,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Content>
     <Content Include="Services\HtmlEditService.aspx" />
-    <Content Include="Services\RecentContentRss.aspx" />
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
@@ -1162,6 +1150,14 @@
     <Compile Include="Components\SearchIndex\LuceneSettingsProvider\RussianAnalysisProvider.cs" />
     <Compile Include="Components\SearchIndex\LuceneSettingsProvider\StandardAnalysisProvider.cs" />
     <Compile Include="Components\SearchIndex\LuceneSettingsProvider\ThaiAnalysisProvider.cs" />
+    <Compile Include="Components\Plugins\IPlugin.cs" />
+    <Compile Include="Components\Plugins\IPluginMigrationService.cs" />
+    <Compile Include="Components\Plugins\PluginBase.cs" />
+    <Compile Include="Components\Plugins\PluginConfig.cs" />
+    <Compile Include="Components\Plugins\PluginDescriptor.cs" />
+    <Compile Include="Components\Plugins\PluginFileResolver.cs" />
+    <Compile Include="Components\Plugins\PluginLoader.cs" />
+    <Compile Include="Components\Plugins\PluginMigrationService.cs" />
     <Compile Include="Components\SecurityAdvisor.cs" />
     <Compile Include="Components\SiteMapHelper.cs" />
     <Compile Include="Components\SkinConfig.cs" />
@@ -1770,10 +1766,6 @@
     <Compile Include="MemberListDisplaySettings.cs" />
     <Compile Include="Models\ExternalLoginErrorModel.cs" />
     <Compile Include="Models\SearchResultsViewModel.cs" />
-    <Compile Include="Modules\HtmlDisplaySettings.cs" />
-    <Compile Include="Modules\LoginModuleDisplaySettings.cs" />
-    <Compile Include="Modules\RecentContentDisplaySettings.cs" />
-    <Compile Include="Modules\SearchModuleDisplaySettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2408,20 +2400,6 @@
     <Compile Include="Helpers\Avatar\GravatarCommon.cs" />
     <Compile Include="Helpers\Avatar\GravatarHelper.cs" />
     <Compile Include="Helpers\Avatar\GravatarRating.cs" />
-    <Compile Include="HtmlCompare.aspx.cs">
-      <DependentUpon>HtmlCompare.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HtmlCompare.aspx.designer.cs">
-      <DependentUpon>HtmlCompare.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="HtmlEdit.aspx.cs">
-      <DependentUpon>HtmlEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="HtmlEdit.aspx.designer.cs">
-      <DependentUpon>HtmlEdit.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Logoff.aspx.cs">
       <DependentUpon>Logoff.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2444,69 +2422,6 @@
     <Compile Include="Models\FileService.cs" />
     <Compile Include="Models\MemberListModel.cs" />
     <Compile Include="Models\PagerInfo.cs" />
-    <Compile Include="Modules\ChildPageSiteMapModule.ascx.cs">
-      <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\ChildPageSiteMapModule.ascx.designer.cs">
-      <DependentUpon>ChildPageSiteMapModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CustomMenu.ascx.cs">
-      <DependentUpon>CustomMenu.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\CustomMenu.ascx.designer.cs">
-      <DependentUpon>CustomMenu.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\CustomScript.ascx.cs">
-      <DependentUpon>CustomScript.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\CustomScript.ascx.designer.cs">
-      <DependentUpon>CustomScript.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\HtmlModule.ascx.cs">
-      <DependentUpon>HtmlModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\HtmlModule.ascx.designer.cs">
-      <DependentUpon>HtmlModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\LoginModule.ascx.cs">
-      <DependentUpon>LoginModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\LoginModule.ascx.designer.cs">
-      <DependentUpon>LoginModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\NewsLetterSubscribeModule.ascx.cs">
-      <DependentUpon>NewsLetterSubscribeModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\NewsLetterSubscribeModule.ascx.designer.cs">
-      <DependentUpon>NewsLetterSubscribeModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\RecentContentModule.ascx.cs">
-      <DependentUpon>RecentContentModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\RecentContentModule.ascx.designer.cs">
-      <DependentUpon>RecentContentModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\SiteSearchModule.ascx.cs">
-      <DependentUpon>SiteSearchModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\SiteSearchModule.ascx.designer.cs">
-      <DependentUpon>SiteSearchModule.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\SiteStatisticsModule.ascx.cs">
-      <DependentUpon>SiteStatisticsModule.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\SiteStatisticsModule.ascx.designer.cs">
-      <DependentUpon>SiteStatisticsModule.ascx</DependentUpon>
-    </Compile>
     <Compile Include="PageNotFound.aspx.cs">
       <DependentUpon>PageNotFound.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2646,10 +2561,6 @@
     <Compile Include="Services\PayPalReturnHandler.ashx.cs">
       <DependentUpon>PayPalReturnHandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Services\RecentContentRss.aspx.cs">
-      <DependentUpon>RecentContentRss.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Services\RpxPluginResponseHandler.ashx.cs">
       <DependentUpon>RpxPluginResponseHandler.ashx</DependentUpon>
     </Compile>
@@ -2712,7 +2623,6 @@
     <Content Include="log4net.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Blog\_BlogPostList.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\FileManager\Index.cshtml" />
@@ -2750,7 +2660,6 @@
     <Content Include="Controls\MembershipStatisticsControl.ascx" />
     <Content Include="Controls\OnlineMemberListControl.ascx" />
     <Content Include="Controls\OnlineStatisticsControl.ascx" />
-    <Content Include="Modules\SiteStatisticsModule.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\SessionKeepAlive.aspx" />
@@ -2912,7 +2821,6 @@
   <ItemGroup>
     <Content Include="Admin\Default.aspx" />
     <Content Include="Controls\PlugNPayLogList.ascx" />
-    <Content Include="HtmlCompare.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\ContentTemplates.aspx" />
@@ -2945,7 +2853,6 @@
     <Content Include="eletter\Confirm.aspx" />
     <Content Include="eletter\SendProgress.aspx" />
     <Content Include="eletter\ThankYou.aspx" />
-    <Content Include="Modules\NewsLetterSubscribeModule.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DevAdmin\Controls\QueryTool.ascx" />

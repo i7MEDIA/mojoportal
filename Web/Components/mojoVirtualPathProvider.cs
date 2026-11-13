@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
+using System.IO;
 using System.Security.Permissions;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Hosting;
 using mojoPortal.Business.WebHelpers;
+using mojoPortal.Web.Plugins;
 
 namespace mojoPortal.Web;
 
@@ -23,7 +25,7 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 	public static void AppInitialize() => HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
 
 
-	private bool IsThemePath(string virtualPath) => virtualPath.Contains("App_Themes");
+	private bool IsThemePath(string virtualPath) => virtualPath is not null && virtualPath.Contains("App_Themes");
 
 
 	public override bool FileExists(string virtualPath)
@@ -33,10 +35,13 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 			// just pretend it exists
 			return true;
 		}
-		else
+
+		if (PluginFileResolver.TryResolvePluginPath(virtualPath, out var pluginVirtualPath))
 		{
-			return Previous.FileExists(virtualPath);
+			return Previous.FileExists(pluginVirtualPath);
 		}
+
+		return Previous.FileExists(virtualPath);
 	}
 
 
@@ -69,12 +74,12 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 
 	public override VirtualFile GetFile(string virtualPath)
 	{
-		if (virtualPath == null)
+		if (virtualPath is null)
 		{
 			return null;
 		}
 
-		string loweredPath = virtualPath.ToLower();
+		var loweredPath = virtualPath.ToLower();
 
 		if (loweredPath.EndsWith(".skin"))
 		{
@@ -86,21 +91,35 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 
 		}
 
+		if (PluginFileResolver.TryResolvePluginPath(virtualPath, out var pluginVirtualPath))
+		{
+			var physicalPath = HostingEnvironment.MapPath(pluginVirtualPath);
+
+			if (!string.IsNullOrWhiteSpace(physicalPath) && File.Exists(physicalPath))
+			{
+				return new mojoPluginVirtualFile(virtualPath, physicalPath);
+			}
+		}
+
 		return Previous.GetFile(virtualPath);
 	}
 
-	public override CacheDependency GetCacheDependency(string virtualPath, IEnumerable virtualPathDependencies, DateTime utcStart)
+	public override CacheDependency GetCacheDependency(
+		string virtualPath,
+		IEnumerable virtualPathDependencies,
+		DateTime utcStart)
 	{
 		if (IsThemePath(virtualPath))
 		{
 			var dependency = new AggregateCacheDependency();
-
 			var pathToWebConfig = CacheHelper.GetPathToWebConfigFile();
+
 			dependency.Add(new CacheDependency(pathToWebConfig));
 
 			if (WebConfigSettings.UseCacheDependencyFiles)
 			{
 				var pathToDependencyFile = CacheHelper.GetPathToThemeCacheDependencyFile();
+
 				if (!string.IsNullOrEmpty(pathToDependencyFile))
 				{
 					dependency.Add(new CacheDependency(pathToDependencyFile));
@@ -108,6 +127,7 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 			}
 
 			var pathToThemeFile = SiteUtils.GetFullPathToThemeFile();
+
 			if (!string.IsNullOrEmpty(pathToThemeFile))
 			{
 				try
@@ -123,6 +143,36 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 			return dependency;
 		}
 
+		if (PluginFileResolver.TryResolvePluginPath(virtualPath, out var pluginVirtualPath))
+		{
+			var physicalPath = HostingEnvironment.MapPath(pluginVirtualPath);
+
+			if (!string.IsNullOrWhiteSpace(physicalPath) && File.Exists(physicalPath))
+			{
+				return new CacheDependency(physicalPath, utcStart);
+			}
+		}
+
 		return Previous.GetCacheDependency(virtualPath, virtualPathDependencies, utcStart);
+	}
+
+
+	private sealed class mojoPluginVirtualFile : VirtualFile
+	{
+		private readonly string _physicalPath;
+
+		public mojoPluginVirtualFile(string virtualPath, string physicalPath) : base(virtualPath)
+		{
+			_physicalPath = physicalPath;
+		}
+
+		public override Stream Open()
+		{
+			return new FileStream(
+				_physicalPath,
+				FileMode.Open,
+				FileAccess.Read,
+				FileShare.ReadWrite);
+		}
 	}
 }

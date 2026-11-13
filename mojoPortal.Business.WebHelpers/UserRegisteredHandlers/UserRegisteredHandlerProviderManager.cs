@@ -1,99 +1,132 @@
-﻿//  Author:                     
-//  Created:                    2008-07-03
-//	Last Modified:              2008-07-03
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using System;
-using System.Configuration.Provider;
-using System.Web.Configuration;
+﻿#nullable enable
 using log4net;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Web.Configuration;
 
-namespace mojoPortal.Business.WebHelpers.UserRegisteredHandlers
+namespace mojoPortal.Business.WebHelpers.UserRegisteredHandlers;
+
+public sealed class UserRegisteredHandlerProviderManager
 {
-    /// <summary>
-    ///  
-    /// </summary>
-    public sealed class UserRegisteredHandlerProviderManager
-    {
-        private static object initializationLock = new object();
-        private static readonly ILog log
-            = LogManager.GetLogger(typeof(UserRegisteredHandlerProviderManager));
-
-        static UserRegisteredHandlerProviderManager()
-        {
-            Initialize();
-        }
-
-        private static void Initialize()
-        {
-            providerCollection = new UserRegisteredHandlerProviderCollection();
-
-            try
-            {
-                UserRegisteredHandlerProviderConfig config
-                    = UserRegisteredHandlerProviderConfig.GetConfig();
-
-                if (config != null)
-                {
-
-                    if (
-                        (config.Providers == null)
-                        || (config.Providers.Count < 1)
-                        )
-                    {
-                        throw new ProviderException("No UserRegisteredHandlerProviderCollection found.");
-                    }
-
-                    ProvidersHelper.InstantiateProviders(
-                        config.Providers,
-                        providerCollection,
-                        typeof(UserRegisteredHandlerProvider));
-
-                }
-                else
-                {
-                    // config was null, not a good thing
-                    log.Error("UserRegisteredHandlerProviderConfig could not be loaded so empty provider collection was returned");
-
-                }
-            }
-            catch (NullReferenceException ex)
-            {
-                log.Error(ex);
-            }
-            catch (TypeInitializationException ex)
-            {
-                log.Error(ex);
-            }
-            catch (ProviderException ex)
-            {
-                log.Error(ex);
-            }
-            
-            providerCollection.SetReadOnly();
-                
-            
-        }
+	private static readonly object _lock = new();
+	private static readonly ILog _log = LogManager.GetLogger(typeof(UserRegisteredHandlerProviderManager));
+	private static readonly List<UserRegisteredHandlerProvider> _registeredProviders = [];
+	private static UserRegisteredHandlerProviderCollection? _providerCollection;
 
 
-        private static UserRegisteredHandlerProviderCollection providerCollection;
+	public static void RegisterProvider(UserRegisteredHandlerProvider provider)
+	{
+		if (provider is null)
+		{
+			return;
+		}
 
-        public static UserRegisteredHandlerProviderCollection Providers
-        {
-            get
-            {
-                if (providerCollection == null) Initialize();
-                return providerCollection;
-                
-            }
-        }
+		lock (_lock)
+		{
+			if (
+				!_registeredProviders.Exists(p => string.Equals(p.Name, provider.Name, StringComparison.OrdinalIgnoreCase) ||
+					p.GetType().FullName == provider.GetType().FullName))
+			{
+				_registeredProviders.Add(provider);
+			}
 
-    }
+			if (
+				_providerCollection is not null &&
+				_providerCollection[provider.Name] is null &&
+				!ContainsType(_providerCollection, provider.GetType()))
+			{
+				_providerCollection.Add(provider);
+			}
+		}
+	}
+
+
+	private static bool ContainsType(UserRegisteredHandlerProviderCollection collection, Type type)
+	{
+		foreach (UserRegisteredHandlerProvider existing in collection)
+		{
+			if (existing.GetType().FullName == type.FullName)
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	private static void Initialize()
+	{
+		lock (_lock)
+		{
+			if (_providerCollection is null)
+			{
+				return;
+			}
+
+			var collection = new UserRegisteredHandlerProviderCollection();
+
+			foreach (var provider in _registeredProviders)
+			{
+				if (collection[provider.Name] is null && !ContainsType(collection, provider.GetType()))
+				{
+					collection.Add(provider);
+				}
+			}
+
+			try
+			{
+				var config = UserRegisteredHandlerProviderConfig.GetConfig();
+
+				if (config?.Providers is not null)
+				{
+					foreach (ProviderSettings providerSettings in config.Providers)
+					{
+						if (collection[providerSettings.Name] is not null)
+						{
+							continue;
+						}
+
+						try
+						{
+							var p = ProvidersHelper.InstantiateProvider(providerSettings, typeof(UserRegisteredHandlerProvider));
+
+							if (
+								p is UserRegisteredHandlerProvider provider &&
+								collection[provider.Name] is null &&
+								!ContainsType(collection, provider.GetType()))
+							{
+								collection.Add(p);
+							}
+						}
+						catch (Exception ex)
+						{
+							_log.Warn($"Skipping legacy UserRegisteredHandlerProvider '{providerSettings.Name}': {ex.Message}");
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				_log.Error(ex);
+			}
+
+			_providerCollection = collection;
+		}
+	}
+
+
+	public static UserRegisteredHandlerProviderCollection Providers
+	{
+		get
+		{
+			if (_providerCollection is null)
+			{
+				Initialize();
+			}
+
+			return _providerCollection!;
+		}
+	}
 }

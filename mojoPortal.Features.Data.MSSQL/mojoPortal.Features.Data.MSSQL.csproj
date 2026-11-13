@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{2FB266B5-97F0-42EB-9F42-B6A7DE749D29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mojoPortal.Features.Data</RootNamespace>
+    <RootNamespace>mojoPortal.Data</RootNamespace>
     <AssemblyName>mojoPortal.Features.Data</AssemblyName>
+    <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' Or '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -21,68 +21,83 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' Or '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Blog\DBBlog.cs" />
-    <Compile Include="ContactForm\DBContactFormMessage.cs" />
-    <Compile Include="EventCalendar\DBEvents.cs" />
-    <Compile Include="FeedManager\DBRssFeed.cs" />
-    <Compile Include="Forums\DBForums.cs" />
-    <Compile Include="ImageGallery\DBGallery.cs" />
-    <Compile Include="KDMediaPlayer\DBMediaFile.cs" />
-    <Compile Include="KDMediaPlayer\DBMediaPlayer.cs" />
-    <Compile Include="KDMediaPlayer\DBMediaTrack.cs" />
-    <Compile Include="LinkModule\DBLinks.cs" />
-    <Compile Include="Poll\DBPoll.cs" />
-    <Compile Include="Poll\DBPollOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedFiles\DBSharedFiles.cs" />
-    <Compile Include="Survey\DBQuestion.cs" />
-    <Compile Include="Survey\DBQuestionAnswer.cs" />
-    <Compile Include="Survey\DBQuestionOption.cs" />
-    <Compile Include="Survey\DBSurvey.cs" />
-    <Compile Include="Survey\DBSurveyPage.cs" />
-    <Compile Include="Survey\DBSurveyResponse.cs" />
+    <Compile Include="TypeForwarders.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mojoPortal.Core\mojoPortal.Core.csproj">
-      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
-      <Name>mojoPortal.Core</Name>
+    <ProjectReference Include="..\Plugins\Blog\mojoPortal.Plugins.Blog.Data.MSSQL\mojoPortal.Plugins.Blog.Data.MSSQL.csproj">
+      <Project>{5C8621E5-98D1-4862-BB44-E66CF0F63B7A}</Project>
+      <Name>mojoPortal.Plugins.Blog.Data.MSSQL</Name>
+      <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\mojoPortal.Data.MSSQL\mojoPortal.Data.MSSQL.csproj">
-      <Project>{6DDFE292-37AA-4A02-B2F0-BA7968A026EF}</Project>
-      <Name>mojoPortal.Data.MSSQL</Name>
+    <ProjectReference Include="..\Plugins\ContactForm\mojoPortal.Plugins.ContactForm.Data.MSSQL\mojoPortal.Plugins.ContactForm.Data.MSSQL.csproj">
+      <Project>{A0E8255E-E435-4F9E-B3FD-D1D4DD81A47B}</Project>
+      <Name>mojoPortal.Plugins.ContactForm.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\EventCalendar\mojoPortal.Plugins.EventCalendar.Data.MSSQL\mojoPortal.Plugins.EventCalendar.Data.MSSQL.csproj">
+      <Project>{C8C5D889-CACA-4DA7-B1D2-0A0147E6BBBC}</Project>
+      <Name>mojoPortal.Plugins.EventCalendar.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\FeedManager\mojoPortal.Plugins.FeedManager.Data.MSSQL\mojoPortal.Plugins.FeedManager.Data.MSSQL.csproj">
+      <Project>{FC99E9EF-4A2C-422A-8551-B3F632592452}</Project>
+      <Name>mojoPortal.Plugins.FeedManager.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Forums\mojoPortal.Plugins.Forums.Data.MSSQL\mojoPortal.Plugins.Forums.Data.MSSQL.csproj">
+      <Project>{F84A0A5C-99C0-4503-9A17-EC7A2E8D746C}</Project>
+      <Name>mojoPortal.Plugins.Forums.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\ImageGallery\mojoPortal.Plugins.ImageGallery.Data.MSSQL\mojoPortal.Plugins.ImageGallery.Data.MSSQL.csproj">
+      <Project>{A455F20E-2F69-42BD-8ADE-5DF0AB4A47D0}</Project>
+      <Name>mojoPortal.Plugins.ImageGallery.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\KDMediaPlayer\mojoPortal.Plugins.KDMediaPlayer.Data.MSSQL\mojoPortal.Plugins.KDMediaPlayer.Data.MSSQL.csproj">
+      <Project>{A1011111-1111-4111-8111-111111111101}</Project>
+      <Name>mojoPortal.Plugins.KDMediaPlayer.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\List\mojoPortal.Plugins.List.Data.MSSQL\mojoPortal.Plugins.List.Data.MSSQL.csproj">
+      <Project>{A2022222-2222-4222-8222-222222222201}</Project>
+      <Name>mojoPortal.Plugins.List.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Poll\mojoPortal.Plugins.Poll.Data.MSSQL\mojoPortal.Plugins.Poll.Data.MSSQL.csproj">
+      <Project>{A3033333-3333-4333-8333-333333333301}</Project>
+      <Name>mojoPortal.Plugins.Poll.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\SharedFiles\mojoPortal.Plugins.SharedFiles.Data.MSSQL\mojoPortal.Plugins.SharedFiles.Data.MSSQL.csproj">
+      <Project>{A4044444-4444-4444-8444-444444444401}</Project>
+      <Name>mojoPortal.Plugins.SharedFiles.Data.MSSQL</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugins\Survey\mojoPortal.Plugins.Survey.Data.MSSQL\mojoPortal.Plugins.Survey.Data.MSSQL.csproj">
+      <Project>{A5055555-5555-4555-8555-555555555501}</Project>
+      <Name>mojoPortal.Plugins.Survey.Data.MSSQL</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <!-- <Target Name="SpicNSpan" BeforeTargets="_GetAllRestoreProjectPathItems">
-    <RemoveDir Directories="$(TargetDir)" />
-    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" />
-  </Target> -->
 </Project>
+
