@@ -1,3 +1,1 @@
-﻿using System.Reflection;
-
-[assembly: AssemblyTitle("mojoPortal.Features.Data.pgsql")]
+﻿[assembly: AssemblyTitle("mojoPortal.Features.Data.pgsql")]

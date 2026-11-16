@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4044444-4444-4444-8444-444444444406}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Plugins.SharedFiles.UI</RootNamespace>
+    <AssemblyName>mojoPortal.Plugins.SharedFiles.UI</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.3.3.1\lib\net462\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.3.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="SharedFilesPlugin.cs" />
+    <Compile Include="App_GlobalResources\SharedFileResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SharedFileResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\GlobalUsings.cs" />
+    <Compile Include="SharedFiles\Download.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Download.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Download.aspx.designer.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Edit.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\SharedFilesModule.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>SharedFilesModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\SharedFilesModule.ascx.designer.cs">
+      <DependentUpon>SharedFilesModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\upload.ashx.cs">
+      <DependentUpon>upload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="SharedFiles\Components\SharedFilesConfiguration.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesContentDeleteHandler.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesContentInstaller.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesHelper.cs" />
+    <Compile Include="SharedFiles\Components\SharedFilesIndexBuilderProvider.cs" />
+    <Compile Include="SharedFiles\Components\SitePreDeleteSharedFilesHandler.cs" />
+    <Compile Include="SharedFiles\Controls\SharedFilesDisplaySettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_GlobalResources\SharedFileResources.resx">
+      <LogicalName>Resources.SharedFileResources.resources</LogicalName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Brettle.Web.NeatHtml\Brettle.Web.NeatHtml.csproj">
+      <Project>{D8A4D1E0-3827-4AF6-85B3-564D433495BF}</Project>
+      <Name>Brettle.Web.NeatHtml</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Web\mojoPortal.Web.csproj">
+      <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
+      <Name>mojoPortal.Web</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Plugins.SharedFiles.Business\mojoPortal.Plugins.SharedFiles.Business.csproj">
+      <Project>{A4044444-4444-4444-8444-444444444405}</Project>
+      <Name>mojoPortal.Plugins.SharedFiles.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\HelpFiles\en-US-SharedFiles-ShowDescription-help.config" />
+    <None Include="Data\HelpFiles\en-US-SharedFiles-ShowDownloadCountToAllUsers-help.config" />
+    <None Include="Setup\SchemaInstallScripts\mssql\1.1.0.0.config" />
+    <None Include="Setup\SchemaInstallScripts\mysql\1.1.0.0.config" />
+    <None Include="Setup\SchemaInstallScripts\pgsql\1.1.0.0.config" />
+    <None Include="Setup\SchemaInstallScripts\sqlite\1.1.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\1.0.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\1.1.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\1.0.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\1.1.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\1.0.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\1.1.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\1.0.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\1.1.0.0.config" />
+    <None Include="SharedFiles\upload.ashx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SharedFiles\Download.aspx" />
+    <Content Include="SharedFiles\Edit.aspx" />
+    <Content Include="SharedFiles\SharedFilesModule.ascx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\mojoPortal.Plugins.SharedFiles*.dll" "$(SolutionDir)Web\Plugins\SharedFiles\bin\"
+xcopy /s /y "$(ProjectDir)SharedFiles\*.as?x" "$(SolutionDir)Web\Plugins\SharedFiles\SharedFiles\"
+xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\Plugins\SharedFiles\App_GlobalResources\"
+xcopy /s /y "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Plugins\SharedFiles\Setup\"
+xcopy /s /y "$(ProjectDir)Data\*" "$(SolutionDir)Web\Plugins\SharedFiles\Data\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{77C97892-6A5A-4C04-B89F-E8BEC4C9757C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Business</RootNamespace>
+    <AssemblyName>mojoPortal.Plugins.Blog.Business</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.3.3.1\lib\net462\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Blog.cs" />
+    <Compile Include="BlogPostModel.cs" />
+    <Compile Include="PostListModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'" Include="..\mojoPortal.Plugins.Blog.Data.MSSQL\mojoPortal.Plugins.Blog.Data.MSSQL.csproj">
+      <Project>{5C8621E5-98D1-4862-BB44-E66CF0F63B7A}</Project>
+      <Name>mojoPortal.Plugins.Blog.Data.MSSQL</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - MySql' Or '$(Configuration)'=='Release - MySql'" Include="..\mojoPortal.Plugins.Blog.Data.MySql\mojoPortal.Plugins.Blog.Data.MySql.csproj">
+      <Project>{E1E2A7F6-FD4E-4CBB-A7A7-D26DD50585E1}</Project>
+      <Name>mojoPortal.Plugins.Blog.Data.MySql</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL' Or '$(Configuration)'=='Release - pgSQL'" Include="..\mojoPortal.Plugins.Blog.Data.pgSQL\mojoPortal.Plugins.Blog.Data.pgSQL.csproj">
+      <Project>{5EA69AFE-B5C8-43E7-880E-066FBC00849E}</Project>
+      <Name>mojoPortal.Plugins.Blog.Data.pgSQL</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite' Or '$(Configuration)'=='Release - SQLite'" Include="..\mojoPortal.Plugins.Blog.Data.SQLite\mojoPortal.Plugins.Blog.Data.SQLite.csproj">
+      <Project>{2B971141-A4A1-4F46-ACC2-AE92D714C093}</Project>
+      <Name>mojoPortal.Plugins.Blog.Data.SQLite</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

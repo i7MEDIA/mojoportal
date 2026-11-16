@@ -1,0 +1,541 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11129BCC-A968-43A1-A835-D3CD0204C0E5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Plugins.Forums.UI</RootNamespace>
+    <AssemblyName>mojoPortal.Plugins.Forums.UI</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Argotic.Common">
+      <HintPath>..\..\..\_libs\argotic\Argotic.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Argotic.Core">
+      <HintPath>..\..\..\_libs\argotic\Argotic.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Argotic.Extensions">
+      <HintPath>..\..\..\_libs\argotic\Argotic.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HtmlDiff">
+      <HintPath>..\..\..\_libs\HtmlDiff.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.3.3.1\lib\net462\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.3.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Components\GlobalUsings.cs" />
+    <Compile Include="ForumsPlugin.cs" />
+    <Compile Include="App_GlobalResources\ForumResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForumResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Components\FeedParameterParser.cs" />
+    <Compile Include="Forums\Components\ForumConfiguration.cs" />
+    <Compile Include="Forums\Components\ForumContentDeleteHandler.cs" />
+    <Compile Include="Forums\Components\ForumContentInstaller.cs" />
+    <Compile Include="Forums\Components\ForumNotification.cs" />
+    <Compile Include="Forums\Components\ForumParameterParser.cs" />
+    <Compile Include="Forums\Components\ForumThreadIndexBuilderProvider.cs" />
+    <Compile Include="Forums\Components\SitePreDeleteForumsHandler.cs" />
+    <Compile Include="Forums\Components\ThreadParameterParser.cs" />
+    <Compile Include="Forums\Controls\ForumDisplaySettings.cs" />
+    <Compile Include="Forums\Controls\ForumList.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForumList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumList.ascx.designer.cs">
+      <DependentUpon>ForumList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumListAlt.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForumListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumListAlt.ascx.designer.cs">
+      <DependentUpon>ForumListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumSearchBox.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForumSearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ForumSearchBox.ascx.designer.cs">
+      <DependentUpon>ForumSearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostList.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>PostList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostList.ascx.designer.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostListAlt.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>PostListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\PostListAlt.ascx.designer.cs">
+      <DependentUpon>PostListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadCrumbContainer.cs" />
+    <Compile Include="Forums\Controls\ThreadList.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ThreadList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadList.ascx.designer.cs">
+      <DependentUpon>ThreadList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadListAlt.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ThreadListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\ThreadListAlt.ascx.designer.cs">
+      <DependentUpon>ThreadListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadList.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>UserThreadList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadList.ascx.designer.cs">
+      <DependentUpon>UserThreadList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadListAlt.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>UserThreadListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Controls\UserThreadListAlt.ascx.designer.cs">
+      <DependentUpon>UserThreadListAlt.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditForum.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditForum.aspx.designer.cs">
+      <DependentUpon>EditForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditPost.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditPost.aspx.designer.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditSubscriptions.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditSubscriptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditSubscriptions.aspx.designer.cs">
+      <DependentUpon>EditSubscriptions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditThread.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\EditThread.aspx.designer.cs">
+      <DependentUpon>EditThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumMod.cs" />
+    <Compile Include="Forums\ForumModule.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForumModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumModule.ascx.designer.cs">
+      <DependentUpon>ForumModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumSiteMap.ashx.cs">
+      <DependentUpon>ForumSiteMap.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumView.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ForumView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\ForumView.aspx.designer.cs">
+      <DependentUpon>ForumView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Mod.ashx.cs">
+      <DependentUpon>Mod.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\RSS.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\RSS.aspx.designer.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\SubscriberDialog.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>SubscriberDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\SubscriberDialog.aspx.designer.cs">
+      <DependentUpon>SubscriberDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Thread.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Thread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\Thread.aspx.designer.cs">
+      <DependentUpon>Thread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeForum.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeForum.aspx.designer.cs">
+      <DependentUpon>UnsubscribeForum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeThread.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UnsubscribeThread.aspx.designer.cs">
+      <DependentUpon>UnsubscribeThread.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UserThreads.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>UserThreads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Forums\UserThreads.aspx.designer.cs">
+      <DependentUpon>UserThreads.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_GlobalResources\ForumResources.resx">
+      <LogicalName>Resources.ForumResources.resources</LogicalName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Brettle.Web.NeatHtml\Brettle.Web.NeatHtml.csproj">
+      <Project>{D8A4D1E0-3827-4AF6-85B3-564D433495BF}</Project>
+      <Name>Brettle.Web.NeatHtml</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Web\mojoPortal.Web.csproj">
+      <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
+      <Name>mojoPortal.Web</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Plugins.Forums.Business\mojoPortal.Plugins.Forums.Business.csproj">
+      <Project>{C3F555DA-B7A9-4B6A-A446-E6C38051691C}</Project>
+      <Name>mojoPortal.Plugins.Forums.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\HelpFiles\en-US-forum--post-stickysort-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-allow-trusted-directnotify-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-AllowEditingPostsLessThanMinutesOld-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-CloseThreadsOlderThanDays-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-include-in-sitemap-default-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-moderator-email-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-nnoindex-meta-default-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-OverrideNotificationFromAddress-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-OverrideNotificationFromAlias-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-require-mod-notify-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-stickysort-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-thread-AddNoIndexMeta-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-thread-chkIncludeInSiteMap-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-thread-islocked-help.config" />
+    <None Include="Data\HelpFiles\en-US-forum-thread-PageTitleOverride-help.config" />
+    <None Include="Data\HelpFiles\en-US-forums-IncludeCurrentUserInNotifications-help.config" />
+    <None Include="Data\HelpFiles\en-US-forums-SuppressNotificationOfPostEdits-help.config" />
+    <None Include="Data\MessageTemplates\en-US-ForumModeratorNotificationEmail.config" />
+    <None Include="Data\MessageTemplates\en-US-ForumNotificationEmail-ForumOnly.config" />
+    <None Include="Data\MessageTemplates\en-US-ForumNotificationEmail-ThreadOnly.config" />
+    <None Include="Data\MessageTemplates\en-US-ForumNotificationEmail.config" />
+    <None Include="Data\MessageTemplates\en-US-ForumNotificationEmailSubject.config" />
+    <None Include="Data\MessageTemplates\en-US-ForumPostReplyPrefix.config" />
+    <None Include="Forums\ForumSiteMap.ashx" />
+    <None Include="Forums\Mod.ashx" />
+    <None Include="Setup\SchemaInstallScripts\firebirdsql\0.0.0.1.config" />
+    <None Include="Setup\SchemaInstallScripts\firebirdsql\0.0.0.1\00000generators.config" />
+    <None Include="Setup\SchemaInstallScripts\firebirdsql\0.0.0.1\00002tables.config" />
+    <None Include="Setup\SchemaInstallScripts\firebirdsql\0.0.0.1\00003ttriggers.config" />
+    <None Include="Setup\SchemaInstallScripts\firebirdsql\0.0.0.1\00004procedures.config" />
+    <None Include="Setup\SchemaInstallScripts\firebirdsql\0.0.0.1\00005procedures.config" />
+    <None Include="Setup\SchemaInstallScripts\mssql\2.2.0.5.config" />
+    <None Include="Setup\SchemaInstallScripts\mysql\2.2.0.5.config" />
+    <None Include="Setup\SchemaInstallScripts\pgsql\2.2.0.5.config" />
+    <None Include="Setup\SchemaInstallScripts\sqlce\0.0.1.5.config" />
+    <None Include="Setup\SchemaInstallScripts\sqlite\2.2.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.8\00003indexes.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.2\00002tables.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.2\00004procedures.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.2\dataupdate.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.3\00002tables.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.3\dataupdate.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.5\00002tables.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.5\00004procedures.config" />
+    <None Include="Setup\SchemaUpgradeScripts\firebirdsql\2.2.0.5\dataupdate.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.2.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.2.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.2.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.2.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.2.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.2.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.2.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.2.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.2.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.2.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.2.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.2.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.2.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.2.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.2.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.2.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.2.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.2.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\2.2.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\2.2.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\2.2.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\2.2.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\2.2.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlce\2.2.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.2.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.2.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.2.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.2.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.2.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.2.0.5.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forums\Controls\ForumList.ascx" />
+    <Content Include="Forums\Controls\ForumListAlt.ascx" />
+    <Content Include="Forums\Controls\ForumSearchBox.ascx" />
+    <Content Include="Forums\Controls\PostList.ascx" />
+    <Content Include="Forums\Controls\PostListAlt.ascx" />
+    <Content Include="Forums\Controls\ThreadList.ascx" />
+    <Content Include="Forums\Controls\ThreadListAlt.ascx" />
+    <Content Include="Forums\Controls\UserThreadList.ascx" />
+    <Content Include="Forums\Controls\UserThreadListAlt.ascx" />
+    <Content Include="Forums\EditForum.aspx" />
+    <Content Include="Forums\EditPost.aspx" />
+    <Content Include="Forums\EditSubscriptions.aspx" />
+    <Content Include="Forums\EditThread.aspx" />
+    <Content Include="Forums\ForumModule.ascx" />
+    <Content Include="Forums\ForumView.aspx" />
+    <Content Include="Forums\RSS.aspx" />
+    <Content Include="Forums\SubscriberDialog.aspx" />
+    <Content Include="Forums\Thread.aspx" />
+    <Content Include="Forums\UnsubscribeForum.aspx" />
+    <Content Include="Forums\UnsubscribeThread.aspx" />
+    <Content Include="Forums\UserThreads.aspx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\mojoPortal.Plugins.Forums*.dll" "$(SolutionDir)Web\Plugins\Forums\bin\"
+xcopy /s /y "$(ProjectDir)Forums\*.as?x" "$(SolutionDir)Web\Plugins\Forums\Forums\"
+xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\Plugins\Forums\App_GlobalResources\"
+xcopy /s /y "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Plugins\Forums\Setup\"
+xcopy /s /y "$(ProjectDir)Data\*" "$(SolutionDir)Web\Plugins\Forums\Data\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

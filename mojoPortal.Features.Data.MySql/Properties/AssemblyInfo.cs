@@ -1,3 +1,1 @@
-﻿using System.Reflection;
-
-[assembly: AssemblyTitle("mojoPortal.Features.Data.MySql")]
+﻿[assembly: AssemblyTitle("mojoPortal.Features.Data.MySql")]

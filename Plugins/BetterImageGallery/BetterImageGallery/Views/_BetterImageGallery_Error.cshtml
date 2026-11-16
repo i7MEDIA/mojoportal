@@ -1,0 +1,16 @@
+﻿@using mojoPortal.Features.UI.BetterImageGallery;
+
+@model BIGErrorResult
+
+@{ 
+	var alertClass = string.Empty;
+
+	switch(Model.Type)
+	{
+		case "FolderNotFound":
+			alertClass = "alert-warning";
+			break;
+	}
+}
+
+<div class="alert @alertClass">@Model.Message</div>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE452CC9-C636-4F12-8A3C-946BB20D62C1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Business</RootNamespace>
+    <AssemblyName>mojoPortal.Plugins.EventCalendar.Business</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.3.3.1\lib\net462\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="CalendarEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug' Or '$(Configuration)'=='Release'" Include="..\mojoPortal.Plugins.EventCalendar.Data.MSSQL\mojoPortal.Plugins.EventCalendar.Data.MSSQL.csproj">
+      <Project>{C8C5D889-CACA-4DA7-B1D2-0A0147E6BBBC}</Project>
+      <Name>mojoPortal.Plugins.EventCalendar.Data.MSSQL</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - MySql' Or '$(Configuration)'=='Release - MySql'" Include="..\mojoPortal.Plugins.EventCalendar.Data.MySql\mojoPortal.Plugins.EventCalendar.Data.MySql.csproj">
+      <Project>{E6BFEEF8-2DF7-409A-B7D0-E96AEE13DFFA}</Project>
+      <Name>mojoPortal.Plugins.EventCalendar.Data.MySql</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - pgSQL' Or '$(Configuration)'=='Release - pgSQL'" Include="..\mojoPortal.Plugins.EventCalendar.Data.pgSQL\mojoPortal.Plugins.EventCalendar.Data.pgSQL.csproj">
+      <Project>{18332D1B-0166-4D86-8897-8C5D06523709}</Project>
+      <Name>mojoPortal.Plugins.EventCalendar.Data.pgSQL</Name>
+    </ProjectReference>
+    <ProjectReference Condition="'$(Configuration)'=='Debug - SQLite' Or '$(Configuration)'=='Release - SQLite'" Include="..\mojoPortal.Plugins.EventCalendar.Data.SQLite\mojoPortal.Plugins.EventCalendar.Data.SQLite.csproj">
+      <Project>{79612116-BF57-4AE4-A790-5A7B8B887CFB}</Project>
+      <Name>mojoPortal.Plugins.EventCalendar.Data.SQLite</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

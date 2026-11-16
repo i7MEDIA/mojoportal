@@ -230,7 +230,7 @@ namespace SuperFlexiBusiness
 			{
 				return false;
 			}
-			
+
 			if (Object.ReferenceEquals(x.Item, null) || Object.ReferenceEquals(y.Item, null))
 			{
 				return false;

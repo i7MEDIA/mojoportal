@@ -17,7 +17,7 @@ namespace SuperFlexiUI
 			if (attribs is null) { return returnValue; }
 
 			if (attrib is not null
-				&& attribs[attrib] is not null 
+				&& attribs[attrib] is not null
 				&& !int.TryParse(attribs[attrib].Value, NumberStyles.Any, CultureInfo.InvariantCulture, out returnValue))
 			{
 				returnValue = defaultIfNotFound;

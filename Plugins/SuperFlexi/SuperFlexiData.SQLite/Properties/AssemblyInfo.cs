@@ -1,3 +1,1 @@
-﻿using System.Reflection;
-
-[assembly: AssemblyTitle("SuperFlexiData.SQLite")]
+﻿[assembly: AssemblyTitle("SuperFlexiData.SQLite")]

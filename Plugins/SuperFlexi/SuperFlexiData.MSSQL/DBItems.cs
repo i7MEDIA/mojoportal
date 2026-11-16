@@ -7,147 +7,147 @@ namespace SuperFlexiData
 {
 
 	public static class DBItems
-    {
+	{
 
 
-        /// <summary>
-        /// Inserts a row in the i7_sflexi_items table. Returns new integer id.
-        /// </summary>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid siteGuid,
-            Guid featureGuid,
-            Guid moduleGuid,
-            int moduleID,
-            Guid definitionGuid,
-            Guid itemGuid,
-            int sortOrder,
-            DateTime createdUtc,
-            DateTime lastModUtc,
+		/// <summary>
+		/// Inserts a row in the i7_sflexi_items table. Returns new integer id.
+		/// </summary>
+		/// <returns>int</returns>
+		public static int Create(
+			Guid siteGuid,
+			Guid featureGuid,
+			Guid moduleGuid,
+			int moduleID,
+			Guid definitionGuid,
+			Guid itemGuid,
+			int sortOrder,
+			DateTime createdUtc,
+			DateTime lastModUtc,
 			string viewRoles,
 			string editRoles)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Insert", 11);
-            sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
-            sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-            sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
-            sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-            sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleID);
-            sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);            
-            sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
-            sph.DefineSqlParameter("@CreatedUtc", SqlDbType.DateTime, ParameterDirection.Input, createdUtc);
-            sph.DefineSqlParameter("@LastModUtc", SqlDbType.DateTime, ParameterDirection.Input, lastModUtc);
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Insert", 11);
+			sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
+			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleID);
+			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+			sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
+			sph.DefineSqlParameter("@CreatedUtc", SqlDbType.DateTime, ParameterDirection.Input, createdUtc);
+			sph.DefineSqlParameter("@LastModUtc", SqlDbType.DateTime, ParameterDirection.Input, lastModUtc);
 			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
 			sph.DefineSqlParameter("@EditRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, editRoles);
 			int newID = Convert.ToInt32(sph.ExecuteScalar());
-            return newID;
-        }
+			return newID;
+		}
 
 
-        /// <summary>
-        /// Updates a row in the i7_sflexi_items table. Returns true if row updated.
-        /// </summary>
-        /// <returns>bool</returns>
-        public static bool Update(
-            Guid siteGuid,
-            Guid featureGuid,
-            Guid moduleGuid,
-            int moduleID,
-            Guid definitionGuid,
-            Guid itemGuid,
-            int sortOrder,
-            DateTime createdUtc,
-            DateTime lastModUtc,
+		/// <summary>
+		/// Updates a row in the i7_sflexi_items table. Returns true if row updated.
+		/// </summary>
+		/// <returns>bool</returns>
+		public static bool Update(
+			Guid siteGuid,
+			Guid featureGuid,
+			Guid moduleGuid,
+			int moduleID,
+			Guid definitionGuid,
+			Guid itemGuid,
+			int sortOrder,
+			DateTime createdUtc,
+			DateTime lastModUtc,
 			string viewRoles,
 			string editRoles)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Update", 11);
-            sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-            sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
-            sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-            sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleID);
-            sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
-            sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
-            sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
-            sph.DefineSqlParameter("@CreatedUtc", SqlDbType.DateTime, ParameterDirection.Input, createdUtc);
-            sph.DefineSqlParameter("@LastModUtc", SqlDbType.DateTime, ParameterDirection.Input, lastModUtc);
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Update", 11);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@FeatureGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, featureGuid);
+			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleID);
+			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+			sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
+			sph.DefineSqlParameter("@SortOrder", SqlDbType.Int, ParameterDirection.Input, sortOrder);
+			sph.DefineSqlParameter("@CreatedUtc", SqlDbType.DateTime, ParameterDirection.Input, createdUtc);
+			sph.DefineSqlParameter("@LastModUtc", SqlDbType.DateTime, ParameterDirection.Input, lastModUtc);
 			sph.DefineSqlParameter("@ViewRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, viewRoles);
 			sph.DefineSqlParameter("@EditRoles", SqlDbType.NVarChar, -1, ParameterDirection.Input, editRoles);
 
 			int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
+			return (rowsAffected > 0);
 
-        }
+		}
 
-        /// <summary>
-        /// Deletes a row from the i7_sflexi_items table. Returns true if row deleted.
-        /// </summary>
-        /// <returns>bool</returns>
-        public static bool Delete(int itemID)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Delete", 1);
-            sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
+		/// <summary>
+		/// Deletes a row from the i7_sflexi_items table. Returns true if row deleted.
+		/// </summary>
+		/// <returns>bool</returns>
+		public static bool Delete(int itemID)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_Delete", 1);
+			sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
+			int rowsAffected = sph.ExecuteNonQuery();
+			return (rowsAffected > 0);
 
-        }
+		}
 
-        /// <summary>
-        /// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
-        /// </summary>
-        /// <returns>bool</returns>
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteBySite", 1);
-            sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
-        }
+		/// <summary>
+		/// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
+		/// </summary>
+		/// <returns>bool</returns>
+		public static bool DeleteBySite(Guid siteGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteBySite", 1);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			int rowsAffected = sph.ExecuteNonQuery();
+			return (rowsAffected > 0);
+		}
 
-        /// <summary>
-        /// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
-        /// </summary>
-        /// <returns>bool</returns>
-        public static bool DeleteByModule(Guid moduleGuid)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByModule", 1);
-            sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
-            int rowsAffected = sph.ExecuteNonQuery();
-            return (rowsAffected > 0);
-        }
+		/// <summary>
+		/// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
+		/// </summary>
+		/// <returns>bool</returns>
+		public static bool DeleteByModule(Guid moduleGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByModule", 1);
+			sph.DefineSqlParameter("@ModuleGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, moduleGuid);
+			int rowsAffected = sph.ExecuteNonQuery();
+			return (rowsAffected > 0);
+		}
 
-        /// <summary>
-        /// Deletes items and values used by definition guid. Returns true if rows deleted.
-        /// </summary>
-        /// <param name="definitionGuid"> guid </param>
-        /// <returns>bool</returns>
-        //public static bool DeleteByDefinition(Guid definitionGuid)
-        //{
-        //    SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByDefinition", 1);
-        //    sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
-        //    int rowsAffected = sph.ExecuteNonQuery();
-        //    return (rowsAffected > 0);
-        //}
+		/// <summary>
+		/// Deletes items and values used by definition guid. Returns true if rows deleted.
+		/// </summary>
+		/// <param name="definitionGuid"> guid </param>
+		/// <returns>bool</returns>
+		//public static bool DeleteByDefinition(Guid definitionGuid)
+		//{
+		//    SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetWriteConnectionString(), "i7_sflexi_items_DeleteByDefinition", 1);
+		//    sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, definitionGuid);
+		//    int rowsAffected = sph.ExecuteNonQuery();
+		//    return (rowsAffected > 0);
+		//}
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the i7_sflexi_items table.
-        /// </summary>
-        public static IDataReader GetOne(int itemID)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOne", 1);
-            sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
-            return sph.ExecuteReader();
-        }
+		/// <summary>
+		/// Gets an IDataReader with one row from the i7_sflexi_items table.
+		/// </summary>
+		public static IDataReader GetOne(int itemID)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOne", 1);
+			sph.DefineSqlParameter("@ItemID", SqlDbType.Int, ParameterDirection.Input, itemID);
+			return sph.ExecuteReader();
+		}
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the i7_sflexi_items table.
-        /// </summary>
-        public static IDataReader GetOne(Guid itemGuid)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOneByGuid", 1);
-            sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
-            return sph.ExecuteReader();
-        }
+		/// <summary>
+		/// Gets an IDataReader with one row from the i7_sflexi_items table.
+		/// </summary>
+		public static IDataReader GetOne(Guid itemGuid)
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectOneByGuid", 1);
+			sph.DefineSqlParameter("@ItemGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, itemGuid);
+			return sph.ExecuteReader();
+		}
 
 		/// <summary>
 		/// Gets an IDataReader with item and values
@@ -168,7 +168,7 @@ namespace SuperFlexiData
 
 			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_itemsvalues_SelectByMultipleIDs", 6);
 			sph.DefineSqlParameter("@DefinitionGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, defGuid);
-			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid); 
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			sph.DefineSqlParameter("@ItemIDs", SqlDbType.Structured, "integer_list_tbltype", ParameterDirection.Input, idTable);
 			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
 			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
@@ -181,13 +181,13 @@ namespace SuperFlexiData
 		/// Gets a count of rows in the i7_sflexi_items table.
 		/// </summary>
 		public static int GetCount()
-        {
-            return Convert.ToInt32(SqlHelper.ExecuteScalar(
-                ConnectionString.GetReadConnectionString(),
-                CommandType.StoredProcedure,
-                "i7_sflexi_items_GetCount",
-                null));
-        }
+		{
+			return Convert.ToInt32(SqlHelper.ExecuteScalar(
+				ConnectionString.GetReadConnectionString(),
+				CommandType.StoredProcedure,
+				"i7_sflexi_items_GetCount",
+				null));
+		}
 
 		public static int GetCountForModule(int moduleId)
 		{
@@ -200,16 +200,16 @@ namespace SuperFlexiData
 		/// Gets an IDataReader with all rows in the i7_sflexi_items table.
 		/// </summary>
 		public static IDataReader GetAll(Guid siteGuid)
-        {
+		{
 			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAll", 1);
 			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
 			return sph.ExecuteReader();
-        }
+		}
 
 
-        /// <summary>
-        /// Gets an IDataReader with all items for module.
-        /// </summary>
+		/// <summary>
+		/// Gets an IDataReader with all items for module.
+		/// </summary>
 		//public static IDataReader GetForModule(int moduleId, string sortDirection = "ASC")
 		//{
 		//	SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 2);
@@ -222,16 +222,16 @@ namespace SuperFlexiData
 		/// Gets an IDataReader with page of items for module.
 		/// </summary>
 		public static IDataReader GetForModule(
-			int moduleId, 
-			int pageNumber = 1, 
-			int pageSize = 20, 
+			int moduleId,
+			int pageNumber = 1,
+			int pageSize = 20,
 			string sortDirection = "ASC"
 		)
 		{
 			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectAllForModule", 4);
 			sph.DefineSqlParameter("@ModuleID", SqlDbType.Int, ParameterDirection.Input, moduleId);
 			sph.DefineSqlParameter("@PageNumber", SqlDbType.Int, ParameterDirection.Input, pageNumber);
-			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize); 
+			sph.DefineSqlParameter("@PageSize", SqlDbType.Int, ParameterDirection.Input, pageSize);
 			sph.DefineSqlParameter("@SortDirection", SqlDbType.VarChar, 4, ParameterDirection.Input, sortDirection);
 			return sph.ExecuteReader();
 		}
@@ -408,12 +408,12 @@ namespace SuperFlexiData
 		/// </summary>
 		/// <returns></returns>
 		public static IDataReader GetByCMSPage(Guid siteGuid, int pageId)
-        {
-            SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectByCMSPage", 2);
-            sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
-            sph.DefineSqlParameter("@PageID", SqlDbType.Int, ParameterDirection.Input, pageId);
-            return sph.ExecuteReader();
-        }
+		{
+			SqlParameterHelper sph = new SqlParameterHelper(ConnectionString.GetReadConnectionString(), "i7_sflexi_items_SelectByCMSPage", 2);
+			sph.DefineSqlParameter("@SiteGuid", SqlDbType.UniqueIdentifier, ParameterDirection.Input, siteGuid);
+			sph.DefineSqlParameter("@PageID", SqlDbType.Int, ParameterDirection.Input, pageId);
+			return sph.ExecuteReader();
+		}
 
 		public static int GetHighestSortOrder(int moduleId)
 		{
@@ -423,7 +423,7 @@ namespace SuperFlexiData
 			//return sph.ExecuteReader();
 			return Convert.ToInt32(sph.ExecuteScalar());
 		}
-    }
+	}
 
 }
 

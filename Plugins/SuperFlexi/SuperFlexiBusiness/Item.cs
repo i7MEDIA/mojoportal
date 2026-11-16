@@ -8,155 +8,155 @@ namespace SuperFlexiBusiness
 {
 
 	public class Item : IIndexableContent, IComparable<Item>
-    {
+	{
 
-        #region Constructors
+		#region Constructors
 
-        public Item()
-        { }
+		public Item()
+		{ }
 
-        public Item(int itemID)
-        {
-            GetItem(itemID);
-        }
+		public Item(int itemID)
+		{
+			GetItem(itemID);
+		}
 
-        public Item(Guid itemGuid)
-        {
-            GetItem(itemGuid);
-        }
+		public Item(Guid itemGuid)
+		{
+			GetItem(itemGuid);
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Properties
+		#region Private Properties
 
-        private Guid siteGuid = Guid.Empty;
-        private Guid featureGuid = Guid.Empty;
-        private Guid moduleGuid = Guid.Empty;
-        private int moduleID = -1;
-        private string moduleFriendlyName = string.Empty;
-        private int globalViewSortOrder = 0;
-        private Guid definitionGuid = Guid.Empty;
-        private Guid itemGuid = Guid.Empty;
-        private int itemID = -1;
-        private int sortOrder = -1;
-        private string viewRoles = "All Users;";
-        private string editRoles = "";
-        private DateTime createdUtc = DateTime.UtcNow;
-        private DateTime lastModUtc = DateTime.UtcNow;
-        #endregion
+		private Guid siteGuid = Guid.Empty;
+		private Guid featureGuid = Guid.Empty;
+		private Guid moduleGuid = Guid.Empty;
+		private int moduleID = -1;
+		private string moduleFriendlyName = string.Empty;
+		private int globalViewSortOrder = 0;
+		private Guid definitionGuid = Guid.Empty;
+		private Guid itemGuid = Guid.Empty;
+		private int itemID = -1;
+		private int sortOrder = -1;
+		private string viewRoles = "All Users;";
+		private string editRoles = "";
+		private DateTime createdUtc = DateTime.UtcNow;
+		private DateTime lastModUtc = DateTime.UtcNow;
+		#endregion
 
-        #region Public Properties
+		#region Public Properties
 
-        public Guid SiteGuid
-        {
-            get { return siteGuid; }
-            set { siteGuid = value; }
-        }
-        public Guid FeatureGuid
-        {
-            get { return featureGuid; }
-            set { featureGuid = value; }
-        }
-        public Guid ModuleGuid
-        {
-            get { return moduleGuid; }
-            set { moduleGuid = value; }
-        }
-        public int ModuleID
-        {
-            get { return moduleID; }
-            set { moduleID = value; }
-        }
+		public Guid SiteGuid
+		{
+			get { return siteGuid; }
+			set { siteGuid = value; }
+		}
+		public Guid FeatureGuid
+		{
+			get { return featureGuid; }
+			set { featureGuid = value; }
+		}
+		public Guid ModuleGuid
+		{
+			get { return moduleGuid; }
+			set { moduleGuid = value; }
+		}
+		public int ModuleID
+		{
+			get { return moduleID; }
+			set { moduleID = value; }
+		}
 
-        public string ModuleFriendlyName
-        {
-            get { return moduleFriendlyName; }
-            set { moduleFriendlyName = value; }
-        }
-        public int GlobalViewSortOrder
-        {
-            get { return globalViewSortOrder; }
-            set { globalViewSortOrder = value; }
-        }
-        public Guid DefinitionGuid
-        {
-            get { return definitionGuid; }
-            set { definitionGuid = value; }
-        }
-        public Guid ItemGuid
-        {
-            get { return itemGuid; }
-            set { itemGuid = value; }
-        }
-        public int ItemID
-        {
-            get { return itemID; }
-            set { itemID = value; }
-        }
-        public int SortOrder
-        {
-            get { return sortOrder; }
-            set { sortOrder = value; }
-        }
+		public string ModuleFriendlyName
+		{
+			get { return moduleFriendlyName; }
+			set { moduleFriendlyName = value; }
+		}
+		public int GlobalViewSortOrder
+		{
+			get { return globalViewSortOrder; }
+			set { globalViewSortOrder = value; }
+		}
+		public Guid DefinitionGuid
+		{
+			get { return definitionGuid; }
+			set { definitionGuid = value; }
+		}
+		public Guid ItemGuid
+		{
+			get { return itemGuid; }
+			set { itemGuid = value; }
+		}
+		public int ItemID
+		{
+			get { return itemID; }
+			set { itemID = value; }
+		}
+		public int SortOrder
+		{
+			get { return sortOrder; }
+			set { sortOrder = value; }
+		}
 
-        public string ViewRoles
-        {
-            get { return viewRoles; }
-            set { viewRoles = value; }
-        }
+		public string ViewRoles
+		{
+			get { return viewRoles; }
+			set { viewRoles = value; }
+		}
 
-        public string EditRoles
-        {
-            get { return editRoles; }
-            set { editRoles = value; }
-        }
+		public string EditRoles
+		{
+			get { return editRoles; }
+			set { editRoles = value; }
+		}
 
 		public DateTime CreatedUtc
-        {
-            get { return createdUtc; }
-            set { createdUtc = value; }
-        }
-        public DateTime LastModUtc
-        {
-            get { return lastModUtc; }
-            set { lastModUtc = value; }
-        }
+		{
+			get { return createdUtc; }
+			set { createdUtc = value; }
+		}
+		public DateTime LastModUtc
+		{
+			get { return lastModUtc; }
+			set { lastModUtc = value; }
+		}
 
-        #endregion
+		#endregion
 
-        #region Private Methods
+		#region Private Methods
 
-        /// <summary>
-        /// Gets an instance of item.
-        /// </summary>
-        /// <param name="itemID"> itemID </param>
-        private void GetItem(int itemID)
-        {
-            using (IDataReader reader = DBItems.GetOne(itemID))
-            {
-                PopulateFromReader(reader);
-            }
+		/// <summary>
+		/// Gets an instance of item.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		private void GetItem(int itemID)
+		{
+			using (IDataReader reader = DBItems.GetOne(itemID))
+			{
+				PopulateFromReader(reader);
+			}
 
-        }
+		}
 
-        /// <summary>
-        /// Gets an instance of item.
-        /// </summary>
-        /// <param name="itemGuid"> itemGuid </param>
-        private void GetItem(Guid itemGuid)
-        {
-            using (IDataReader reader = DBItems.GetOne(itemGuid))
-            {
-                PopulateFromReader(reader);
-            }
+		/// <summary>
+		/// Gets an instance of item.
+		/// </summary>
+		/// <param name="itemGuid"> itemGuid </param>
+		private void GetItem(Guid itemGuid)
+		{
+			using (IDataReader reader = DBItems.GetOne(itemGuid))
+			{
+				PopulateFromReader(reader);
+			}
 
-        }
+		}
 
 
-        private void PopulateFromReader(IDataReader reader)
-        {
-            if (reader.Read())
-            {
+		private void PopulateFromReader(IDataReader reader)
+		{
+			if (reader.Read())
+			{
 				if (Guid.TryParse(reader["ItemGuid"].ToString(), out this.itemGuid))
 				{
 					this.siteGuid = new Guid(reader["SiteGuid"].ToString());
@@ -173,149 +173,149 @@ namespace SuperFlexiBusiness
 					editRoles = reader["EditRoles"].ToString();
 				}
 
-            }
+			}
 
-        }
+		}
 
-        /// <summary>
-        /// Persists a new instance of item. Returns true on success.
-        /// </summary>
-        /// <returns></returns>
-        private bool Create()
-        {
-            int newID;
+		/// <summary>
+		/// Persists a new instance of item. Returns true on success.
+		/// </summary>
+		/// <returns></returns>
+		private bool Create()
+		{
+			int newID;
 
-            newID = DBItems.Create(
-                siteGuid,
-                featureGuid,
-                moduleGuid,
-                moduleID,
-                definitionGuid,
-                itemGuid,
-                sortOrder,
-                createdUtc,
-                lastModUtc,
+			newID = DBItems.Create(
+				siteGuid,
+				featureGuid,
+				moduleGuid,
+				moduleID,
+				definitionGuid,
+				itemGuid,
+				sortOrder,
+				createdUtc,
+				lastModUtc,
 				viewRoles,
 				editRoles);
 
-            this.itemID = newID;
+			this.itemID = newID;
 
-            bool result = (newID > 0);
+			bool result = (newID > 0);
 
-            if (result)
-            {
-                ContentChangedEventArgs e = new ContentChangedEventArgs();
-                OnContentChanged(e);
-            }
+			if (result)
+			{
+				ContentChangedEventArgs e = new ContentChangedEventArgs();
+				OnContentChanged(e);
+			}
 
-            return result;
+			return result;
 
-        }
+		}
 
 
-        /// <summary>
-        /// Updates this instance of item. Returns true on success.
-        /// </summary>
-        /// <returns>bool</returns>
-        private bool Update()
-        {
+		/// <summary>
+		/// Updates this instance of item. Returns true on success.
+		/// </summary>
+		/// <returns>bool</returns>
+		private bool Update()
+		{
 
-            bool result = DBItems.Update(
-                siteGuid,
-                featureGuid,
-                moduleGuid,
-                moduleID,
-                definitionGuid,
-                itemGuid,
-                sortOrder,
-                createdUtc,
-                lastModUtc,
+			bool result = DBItems.Update(
+				siteGuid,
+				featureGuid,
+				moduleGuid,
+				moduleID,
+				definitionGuid,
+				itemGuid,
+				sortOrder,
+				createdUtc,
+				lastModUtc,
 				viewRoles,
 				editRoles);
 
-            if (result)
-            {
-                ContentChangedEventArgs e = new ContentChangedEventArgs();
-                OnContentChanged(e);
-            }
+			if (result)
+			{
+				ContentChangedEventArgs e = new ContentChangedEventArgs();
+				OnContentChanged(e);
+			}
 
-            return result;
+			return result;
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region Public Methods
+		#region Public Methods
 
-        /// <summary>
-        /// Saves this instance of item. Returns true on success.
-        /// </summary>
-        /// <returns>bool</returns>
-        public bool Save()
-        {
-            if (this.itemID > 0)
-            {
-                return Update();
-            }
-            else
-            {
-                return Create();
-            }
-        }
+		/// <summary>
+		/// Saves this instance of item. Returns true on success.
+		/// </summary>
+		/// <returns>bool</returns>
+		public bool Save()
+		{
+			if (this.itemID > 0)
+			{
+				return Update();
+			}
+			else
+			{
+				return Create();
+			}
+		}
 
-        public bool Delete()
-        {
-            if (this.itemID > 0)
-            {
-                bool result = Delete(this.itemID);
+		public bool Delete()
+		{
+			if (this.itemID > 0)
+			{
+				bool result = Delete(this.itemID);
 
-                if (result)
-                {
-                    ContentChangedEventArgs e = new ContentChangedEventArgs();
-                    e.IsDeleted = true;
-                    OnContentChanged(e);
-                }
+				if (result)
+				{
+					ContentChangedEventArgs e = new ContentChangedEventArgs();
+					e.IsDeleted = true;
+					OnContentChanged(e);
+				}
 
-                return result;
-            }
-            else
-            {
-                return false;
-            }
-        }
+				return result;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-        #endregion
+		#endregion
 
-        #region Static Methods
+		#region Static Methods
 
-        /// <summary>
-        /// Deletes an instance of item. Returns true on success.
-        /// </summary>
-        /// <param name="itemID"> itemID </param>
-        /// <returns>bool</returns>
-        public static bool Delete(int itemID)
-        {
-            return DBItems.Delete(itemID);
-        }
+		/// <summary>
+		/// Deletes an instance of item. Returns true on success.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		/// <returns>bool</returns>
+		public static bool Delete(int itemID)
+		{
+			return DBItems.Delete(itemID);
+		}
 
 
-        /// <summary>
-        /// Deletes Items by Site. Returns true on success.
-        /// </summary>
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            return DBItems.DeleteBySite(siteGuid);
-        }
+		/// <summary>
+		/// Deletes Items by Site. Returns true on success.
+		/// </summary>
+		public static bool DeleteBySite(Guid siteGuid)
+		{
+			return DBItems.DeleteBySite(siteGuid);
+		}
 
-        /// <summary>
-        /// Deletes Items by Module. Returns true on success.
-        /// </summary>
-        /// <param name="moduleGuid"> moduleGuid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByModule(Guid moduleGuid)
-        {
-            return DBItems.DeleteByModule(moduleGuid);
-        }
+		/// <summary>
+		/// Deletes Items by Module. Returns true on success.
+		/// </summary>
+		/// <param name="moduleGuid"> moduleGuid </param>
+		/// <returns>bool</returns>
+		public static bool DeleteByModule(Guid moduleGuid)
+		{
+			return DBItems.DeleteByModule(moduleGuid);
+		}
 
 		/// <summary>
 		/// Gets a count of all items for a module
@@ -325,15 +325,15 @@ namespace SuperFlexiBusiness
 			return DBItems.GetCountForModule(moduleId);
 		}
 
-        /// <summary>
-        /// Gets an IList with all items for a module instance
-        /// </summary>
-        /// <param name="moduleId"></param>
-        /// <returns>IList</returns>
-        public static List<Item> GetForModule(int moduleId, bool descending = false)
-        {
-            return GetForModule(moduleId, totalPages: out _, totalRows: out _, pageSize: -1, descending: descending);
-        }
+		/// <summary>
+		/// Gets an IList with all items for a module instance
+		/// </summary>
+		/// <param name="moduleId"></param>
+		/// <returns>IList</returns>
+		public static List<Item> GetForModule(int moduleId, bool descending = false)
+		{
+			return GetForModule(moduleId, totalPages: out _, totalRows: out _, pageSize: -1, descending: descending);
+		}
 
 		/// <summary>
 		/// Gets an IList with all items for a module instance
@@ -343,16 +343,16 @@ namespace SuperFlexiBusiness
 		public static List<Item> GetForModule(int moduleId, out int totalPages, out int totalRows, int pageNumber = 1, int pageSize = 20, bool descending = false)
 		{
 			return LoadListFromReader(
-                DBItems.GetForModule(moduleId, pageNumber, pageSize, descending ? "DESC" : "ASC"),
-                pageSize,
-                out totalPages,
-                out totalRows);
+				DBItems.GetForModule(moduleId, pageNumber, pageSize, descending ? "DESC" : "ASC"),
+				pageSize,
+				out totalPages,
+				out totalRows);
 		}
 
-        public static List<Item> GetForDefinition(Guid defGuid, Guid siteGuid, bool descending = false)
-        {
-            return GetForDefinition(defGuid, siteGuid, out _, out _, descending: descending);
-        }
+		public static List<Item> GetForDefinition(Guid defGuid, Guid siteGuid, bool descending = false)
+		{
+			return GetForDefinition(defGuid, siteGuid, out _, out _, descending: descending);
+		}
 
 		/// <summary>
 		/// Gets an IList with all items for a single definition
@@ -361,13 +361,13 @@ namespace SuperFlexiBusiness
 		/// <param name="descending"></param>
 		/// <returns></returns>
 		public static List<Item> GetForDefinition(Guid defGuid, Guid siteGuid, out int totalPages, out int totalRows, int pageNumber = 1, int pageSize = 20, bool descending = false)
-	    {
-		    return LoadListFromReader(
-			    DBItems.GetForDefinition(defGuid, siteGuid, pageNumber, pageSize, descending ? "DESC" : "ASC"),
-                pageSize, 
-                out totalPages, 
-                out totalRows);
-	    }
+		{
+			return LoadListFromReader(
+				DBItems.GetForDefinition(defGuid, siteGuid, pageNumber, pageSize, descending ? "DESC" : "ASC"),
+				pageSize,
+				out totalPages,
+				out totalRows);
+		}
 
 		/// <summary>
 		/// Gets a DataTable with items on a specific page
@@ -376,67 +376,67 @@ namespace SuperFlexiBusiness
 		/// <param name="pageId"></param>
 		/// <returns>DataTable</returns>
 		public static DataTable GetByCMSPage(Guid siteGuid, int pageId)
-        {
-            DataTable dataTable = new DataTable();
+		{
+			DataTable dataTable = new DataTable();
 
-            dataTable.Columns.Add("ModuleID", typeof(int));
-            dataTable.Columns.Add("ItemGuid", typeof(Guid));
-            dataTable.Columns.Add("ItemID", typeof(int));
-            dataTable.Columns.Add("SortOrder", typeof(int));
-            dataTable.Columns.Add("CreatedUtc", typeof(DateTime));
-            dataTable.Columns.Add("ModuleTitle", typeof(string));
-            dataTable.Columns.Add("ModuleViewRoles", typeof(string));
-            dataTable.Columns.Add("ItemViewRoles", typeof(string));
+			dataTable.Columns.Add("ModuleID", typeof(int));
+			dataTable.Columns.Add("ItemGuid", typeof(Guid));
+			dataTable.Columns.Add("ItemID", typeof(int));
+			dataTable.Columns.Add("SortOrder", typeof(int));
+			dataTable.Columns.Add("CreatedUtc", typeof(DateTime));
+			dataTable.Columns.Add("ModuleTitle", typeof(string));
+			dataTable.Columns.Add("ModuleViewRoles", typeof(string));
+			dataTable.Columns.Add("ItemViewRoles", typeof(string));
 			dataTable.Columns.Add("PublishBeginDate", typeof(DateTime));
-            dataTable.Columns.Add("PublishEndDate", typeof(DateTime));
-            using (IDataReader reader = DBItems.GetByCMSPage(siteGuid, pageId))
-            {
-                while (reader.Read())
-                {
-                    DataRow row = dataTable.NewRow();
+			dataTable.Columns.Add("PublishEndDate", typeof(DateTime));
+			using (IDataReader reader = DBItems.GetByCMSPage(siteGuid, pageId))
+			{
+				while (reader.Read())
+				{
+					DataRow row = dataTable.NewRow();
 
-                    row["ModuleID"] = reader["moduleId"];
-                    row["ItemGuid"] = Guid.Parse(reader["itemGuid"].ToString());
-                    row["ItemID"] = reader["itemId"];
-                    row["SortOrder"] = reader["sortOrder"];
-                    row["CreatedUtc"] = Convert.ToDateTime(reader["createdUtc"]);
-                    row["ModuleTitle"] = reader["moduleTitle"];
-                    row["ModuleViewRoles"] = reader["moduleViewRoles"];
-                    row["ItemViewRoles"] = reader["itemViewRoles"];
+					row["ModuleID"] = reader["moduleId"];
+					row["ItemGuid"] = Guid.Parse(reader["itemGuid"].ToString());
+					row["ItemID"] = reader["itemId"];
+					row["SortOrder"] = reader["sortOrder"];
+					row["CreatedUtc"] = Convert.ToDateTime(reader["createdUtc"]);
+					row["ModuleTitle"] = reader["moduleTitle"];
+					row["ModuleViewRoles"] = reader["moduleViewRoles"];
+					row["ItemViewRoles"] = reader["itemViewRoles"];
 
 					if (reader["publishBeginDate"] != DBNull.Value)
-                    {
-                        row["PublishBeginDate"]
-                            = Convert.ToDateTime(reader["publishBeginDate"]);
-                    }
+					{
+						row["PublishBeginDate"]
+							= Convert.ToDateTime(reader["publishBeginDate"]);
+					}
 
-                    if (reader["publishEndDate"] != DBNull.Value)
-                    {
-                        row["PublishEndDate"]
-                            = Convert.ToDateTime(reader["publishEndDate"]);
-                    }
+					if (reader["publishEndDate"] != DBNull.Value)
+					{
+						row["PublishEndDate"]
+							= Convert.ToDateTime(reader["publishEndDate"]);
+					}
 
-                    dataTable.Rows.Add(row);
-                }
-            }
+					dataTable.Rows.Add(row);
+				}
+			}
 
-            return dataTable;
-        }
+			return dataTable;
+		}
 
-        /// <summary>
-        /// Gets highest (largest) SortOrder for items for a module instance
-        /// </summary>
-        /// <param name="moduleId"></param>
-        /// <returns>int</returns>
-        public static int GetHighestSortOrder(int moduleId)
-        {
+		/// <summary>
+		/// Gets highest (largest) SortOrder for items for a module instance
+		/// </summary>
+		/// <param name="moduleId"></param>
+		/// <returns>int</returns>
+		public static int GetHighestSortOrder(int moduleId)
+		{
 			return DBItems.GetHighestSortOrder(moduleId);
-        }
+		}
 
 
 
 		#endregion
-		
+
 		private static List<Item> LoadListFromReader(IDataReader reader, int pageSize, out int totalPages, out int totalRows)
 		{
 			List<Item> itemList = new List<Item>();
@@ -471,11 +471,11 @@ namespace SuperFlexiBusiness
 					{
 						//try
 						//{
-							if (reader["TotalRows"] != DBNull.Value)
-							{
-								//totalRows = Convert.ToInt32(reader["TotalRows"]);
-						    	int.TryParse(reader["TotalRows"].ToString(), out totalRows);
-						    }
+						if (reader["TotalRows"] != DBNull.Value)
+						{
+							//totalRows = Convert.ToInt32(reader["TotalRows"]);
+							int.TryParse(reader["TotalRows"].ToString(), out totalRows);
+						}
 						//}
 						//catch (IndexOutOfRangeException) { }
 					}
@@ -511,56 +511,56 @@ namespace SuperFlexiBusiness
 		/// Compares 2 instances of item.
 		/// </summary>
 		public static int CompareByModuleID(Item item1, Item item2)
-        {
-            return item1.ModuleID.CompareTo(item2.ModuleID);
-        }
-        /// <summary>
-        /// Compares 2 instances of item.
-        /// </summary>
-        public static int CompareByItemID(Item item1, Item item2)
-        {
-            return item1.ItemID.CompareTo(item2.ItemID);
-        }
-        /// <summary>
-        /// Compares 2 instances of item.
-        /// </summary>
-        public static int CompareBySortOrder(Item item1, Item item2)
-        {
-            return item1.SortOrder.CompareTo(item2.SortOrder);
-        }
-        /// <summary>
-        /// Compares 2 instances of item.
-        /// </summary>
-        public static int CompareByCreatedUtc(Item item1, Item item2)
-        {
-            return item1.CreatedUtc.CompareTo(item2.CreatedUtc);
-        }
-        /// <summary>
-        /// Compares 2 instances of item.
-        /// </summary>
-        public static int CompareByLastModUtc(Item item1, Item item2)
-        {
-            return item1.LastModUtc.CompareTo(item2.LastModUtc);
-        }
+		{
+			return item1.ModuleID.CompareTo(item2.ModuleID);
+		}
+		/// <summary>
+		/// Compares 2 instances of item.
+		/// </summary>
+		public static int CompareByItemID(Item item1, Item item2)
+		{
+			return item1.ItemID.CompareTo(item2.ItemID);
+		}
+		/// <summary>
+		/// Compares 2 instances of item.
+		/// </summary>
+		public static int CompareBySortOrder(Item item1, Item item2)
+		{
+			return item1.SortOrder.CompareTo(item2.SortOrder);
+		}
+		/// <summary>
+		/// Compares 2 instances of item.
+		/// </summary>
+		public static int CompareByCreatedUtc(Item item1, Item item2)
+		{
+			return item1.CreatedUtc.CompareTo(item2.CreatedUtc);
+		}
+		/// <summary>
+		/// Compares 2 instances of item.
+		/// </summary>
+		public static int CompareByLastModUtc(Item item1, Item item2)
+		{
+			return item1.LastModUtc.CompareTo(item2.LastModUtc);
+		}
 
-        public int CompareTo(Item other)
-        {
-            return this.sortOrder.CompareTo(other.sortOrder);
-        }
-        #endregion
+		public int CompareTo(Item other)
+		{
+			return this.sortOrder.CompareTo(other.sortOrder);
+		}
+		#endregion
 
-        #region IIndexableContent
+		#region IIndexableContent
 
-        public event ContentChangedEventHandler ContentChanged;
+		public event ContentChangedEventHandler ContentChanged;
 
-        protected void OnContentChanged(ContentChangedEventArgs e)
-        {
+		protected void OnContentChanged(ContentChangedEventArgs e)
+		{
 			ContentChanged?.Invoke(this, e);
 		}
-        #endregion
-        
-        
-    }
+		#endregion
+
+
+	}
 
 	public class SimpleItemComparer : IEqualityComparer<Item>
 	{
@@ -595,24 +595,24 @@ namespace SuperFlexiBusiness
 	}
 
 	public class Item_SortForGlobalView : IComparer<Item>
-    {
-        public int Compare(Item x, Item y)
-        {
-            if (x.GlobalViewSortOrder > y.GlobalViewSortOrder) return 1;
-            else if (x.GlobalViewSortOrder < y.GlobalViewSortOrder) return -1;
-            else return 0;
-        }
-    }
-    public class Item_SortDescendingOrder : IComparer<Item>
-    {
-        public int Compare(Item x, Item y)
-        {
-            if (x.SortOrder < y.SortOrder) return 1;
-            else if (x.SortOrder > y.SortOrder) return -1;
-            else return 0;
-        }
+	{
+		public int Compare(Item x, Item y)
+		{
+			if (x.GlobalViewSortOrder > y.GlobalViewSortOrder) return 1;
+			else if (x.GlobalViewSortOrder < y.GlobalViewSortOrder) return -1;
+			else return 0;
+		}
+	}
+	public class Item_SortDescendingOrder : IComparer<Item>
+	{
+		public int Compare(Item x, Item y)
+		{
+			if (x.SortOrder < y.SortOrder) return 1;
+			else if (x.SortOrder > y.SortOrder) return -1;
+			else return 0;
+		}
 
-    }
+	}
 }
 
 

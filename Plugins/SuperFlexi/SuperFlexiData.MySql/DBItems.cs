@@ -1,11 +1,4 @@
-﻿using mojoPortal.Data;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-
-namespace SuperFlexiData
+﻿namespace SuperFlexiData
 {
 	public static class DBItems
 	{
@@ -408,9 +401,9 @@ namespace SuperFlexiData
 		/// </summary>
 		/// <param name="itemID"> itemID </param>
 		public static IDataReader GetForModule(
-			int moduleID, 
-			int pageNumber = 1, 
-			int pageSize = 20, 
+			int moduleID,
+			int pageNumber = 1,
+			int pageSize = 20,
 			string sortDirection = "ASC")
 		{
 			sortDirection = santizeSortDirection(sortDirection);
@@ -494,7 +487,7 @@ namespace SuperFlexiData
 					{(!string.IsNullOrWhiteSpace(searchField) ? "AND f.`Name` = ?SearchField" : string.Empty)}
 					ORDER BY SortOrder {sortDirection}, CreatedUtc {sortDirection};";
 			}
-			
+
 			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var sqlParams = new MySqlParameter[]
@@ -518,10 +511,10 @@ namespace SuperFlexiData
 		/// Gets an IDataReader with all items for a single definition.
 		/// </summary>
 		public static IDataReader GetForDefinition(
-			Guid definitionGuid, 
-			Guid siteGuid, 
-			int pageNumber = 1, 
-			int pageSize = 20, 
+			Guid definitionGuid,
+			Guid siteGuid,
+			int pageNumber = 1,
+			int pageSize = 20,
 			string sortDirection = "ASC")
 		{
 			sortDirection = santizeSortDirection(sortDirection);

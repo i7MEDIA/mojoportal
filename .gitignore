@@ -464,36 +464,36 @@ Web/Data/sqlitedb/mojo\.db\.config
 
 # Allows for custom plugins without listing them here
 /Plugins/*/
-# Add plugins to include in the repo here
-# !/Plugins/BetterImageGallery/
-# !/Plugins/Blog/
-# !/Plugins/ChildPageSiteMap/
-# !/Plugins/Comments/
-# !/Plugins/ContactForm/
-# !/Plugins/CustomMenu/
-# !/Plugins/CustomScript/
-# !/Plugins/EventCalendar/
-# !/Plugins/FeedManager/
-# !/Plugins/Forums/
-# !/Plugins/GoogleMap/
-# !/Plugins/GoogleTranslate/
-# !/Plugins/HtmlContent/
-# !/Plugins/IFrame/
-# !/Plugins/ImageGallery/
-# !/Plugins/KDMediaPlayer/
-# !/Plugins/List/
-# !/Plugins/Login/
-# !/Plugins/mojoPortal.Plugins.HtmlInclude/
-# !/Plugins/NewsLetterSubscribe/
-# !/Plugins/Poll/
-# !/Plugins/RecentContent/
-# !/Plugins/SharedFiles/
-# !/Plugins/SiteSearch/
-# !/Plugins/SiteStatistics/
-# !/Plugins/SuperFlexi/
-# !/Plugins/Survey/
-# !/Plugins/XmlXsl/
-# !/Plugins/PluginAssemblyInfo.cs
+Add plugins to include in the repo here
+!/Plugins/BetterImageGallery/
+!/Plugins/Blog/
+!/Plugins/ChildPageSiteMap/
+!/Plugins/Comments/
+!/Plugins/ContactForm/
+!/Plugins/CustomMenu/
+!/Plugins/CustomScript/
+!/Plugins/EventCalendar/
+!/Plugins/FeedManager/
+!/Plugins/Forums/
+!/Plugins/GoogleMap/
+!/Plugins/GoogleTranslate/
+!/Plugins/HtmlContent/
+!/Plugins/IFrame/
+!/Plugins/ImageGallery/
+!/Plugins/KDMediaPlayer/
+!/Plugins/List/
+!/Plugins/Login/
+!/Plugins/mojoPortal.Plugins.HtmlInclude/
+!/Plugins/NewsLetterSubscribe/
+!/Plugins/Poll/
+!/Plugins/RecentContent/
+!/Plugins/SharedFiles/
+!/Plugins/SiteSearch/
+!/Plugins/SiteStatistics/
+!/Plugins/SuperFlexi/
+!/Plugins/Survey/
+!/Plugins/XmlXsl/
+!/Plugins/PluginAssemblyInfo.cs
 
 /Web/Plugins/
 /Web/Data/PluginCache/

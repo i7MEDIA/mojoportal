@@ -1,34 +1,26 @@
-﻿using mojoPortal.Data;
-using Mono.Data.Sqlite;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-
-namespace SuperFlexiData
+﻿namespace SuperFlexiData
 {
 
 	public static class DBItems
-    {
+	{
 
-        /// <summary>
-        /// Inserts a row in the i7_sflexi_items table. Returns new integer id.
-        /// </summary>
-        /// <returns>int</returns>
-        public static int Create(
-            Guid siteGuid,
-            Guid featureGuid,
-            Guid moduleGuid,
-            int moduleID,
-            Guid definitionGuid,
-            Guid itemGuid,
-            int sortOrder,
-            DateTime createdUtc,
-            DateTime lastModUtc,
+		/// <summary>
+		/// Inserts a row in the i7_sflexi_items table. Returns new integer id.
+		/// </summary>
+		/// <returns>int</returns>
+		public static int Create(
+			Guid siteGuid,
+			Guid featureGuid,
+			Guid moduleGuid,
+			int moduleID,
+			Guid definitionGuid,
+			Guid itemGuid,
+			int sortOrder,
+			DateTime createdUtc,
+			DateTime lastModUtc,
 			string viewRoles,
 			string editRoles)
-        {
+		{
 			var sqlCommand = @"
 				insert into i7_sflexi_items 
 					(ItemGuid
@@ -54,46 +46,46 @@ namespace SuperFlexiData
 					 ,:ViewRoles
 					 ,:EditRoles);
 				select last_insert_rowid();";
-			
-            var sqlParams = new List<SqliteParameter>
-            {
-                new SqliteParameter(":ItemGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = itemGuid.ToString() },
-                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
-                new SqliteParameter(":FeatureGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = featureGuid.ToString() },
-                new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
-                new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID },
-                new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
-                new SqliteParameter(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
-                new SqliteParameter(":CreatedUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = createdUtc },
-                new SqliteParameter(":LastModUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModUtc },
-                new SqliteParameter(":ViewRoles", DbType.String) { Direction = ParameterDirection.Input, Value = viewRoles },
-                new SqliteParameter(":EditRoles", DbType.String) { Direction = ParameterDirection.Input, Value = editRoles }
+
+			var sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":ItemGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = itemGuid.ToString() },
+				new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+				new SqliteParameter(":FeatureGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = featureGuid.ToString() },
+				new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
+				new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID },
+				new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
+				new SqliteParameter(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
+				new SqliteParameter(":CreatedUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = createdUtc },
+				new SqliteParameter(":LastModUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModUtc },
+				new SqliteParameter(":ViewRoles", DbType.String) { Direction = ParameterDirection.Input, Value = viewRoles },
+				new SqliteParameter(":EditRoles", DbType.String) { Direction = ParameterDirection.Input, Value = editRoles }
 			};
 
-            return Convert.ToInt32(SqliteHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
+			return Convert.ToInt32(SqliteHelper.ExecuteScalar(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
-                sqlParams.ToArray()).ToString());
-        }
+				sqlParams.ToArray()).ToString());
+		}
 
 
-        /// <summary>
-        /// Updates a row in the i7_sflexi_items table. Returns true if row updated.
-        /// </summary>
-        /// <returns>bool</returns>
-        public static bool Update(
-            Guid siteGuid,
-            Guid featureGuid,
-            Guid moduleGuid,
-            int moduleID,
-            Guid definitionGuid,
-            Guid itemGuid,
-            int sortOrder,
-            DateTime createdUtc,
-            DateTime lastModUtc,
+		/// <summary>
+		/// Updates a row in the i7_sflexi_items table. Returns true if row updated.
+		/// </summary>
+		/// <returns>bool</returns>
+		public static bool Update(
+			Guid siteGuid,
+			Guid featureGuid,
+			Guid moduleGuid,
+			int moduleID,
+			Guid definitionGuid,
+			Guid itemGuid,
+			int sortOrder,
+			DateTime createdUtc,
+			DateTime lastModUtc,
 			string viewRoles,
 			string editRoles)
-        {
+		{
 			var sqlCommand = @"
 				update i7_sflexi_items 
 				set SiteGuid = :SiteGuid
@@ -106,127 +98,127 @@ namespace SuperFlexiData
 				   ,LastModUTC = :LastModUTC
 				where ItemGuid = :ItemGuid;";
 
-            var sqlParams = new List<SqliteParameter>
-            {
-                new SqliteParameter(":ItemGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = itemGuid.ToString() },
-                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
-                new SqliteParameter(":FeatureGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = featureGuid.ToString() },
-                new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
-                new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID },
-                new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
-                new SqliteParameter(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
-                new SqliteParameter(":CreatedUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = createdUtc },
-                new SqliteParameter(":LastModUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModUtc },
+			var sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":ItemGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = itemGuid.ToString() },
+				new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+				new SqliteParameter(":FeatureGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = featureGuid.ToString() },
+				new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
+				new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID },
+				new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
+				new SqliteParameter(":SortOrder", DbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
+				new SqliteParameter(":CreatedUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = createdUtc },
+				new SqliteParameter(":LastModUTC", DbType.DateTime) { Direction = ParameterDirection.Input, Value = lastModUtc },
 				new SqliteParameter(":ViewRoles", DbType.String) { Direction = ParameterDirection.Input, Value = viewRoles },
 				new SqliteParameter(":EditRoles", DbType.String) { Direction = ParameterDirection.Input, Value = editRoles }
 			};
 
-            int rowsAffected = Convert.ToInt32(SqliteHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
+			int rowsAffected = Convert.ToInt32(SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
-                sqlParams.ToArray()).ToString());
+				sqlParams.ToArray()).ToString());
 
-            return (rowsAffected > 0);
-        }
+			return (rowsAffected > 0);
+		}
 
-        /// <summary>
-        /// Deletes a row from the i7_sflexi_items table. Returns true if row deleted.
-        /// </summary>
-        /// <param name="itemID"> itemID </param>
-        /// <returns>bool</returns>
-        public static bool Delete(
-            int itemID)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_items where ItemId = :ItemId;");
+		/// <summary>
+		/// Deletes a row from the i7_sflexi_items table. Returns true if row deleted.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		/// <returns>bool</returns>
+		public static bool Delete(
+			int itemID)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("delete from i7_sflexi_items where ItemId = :ItemId;");
 
-            var sqlParam = new SqliteParameter(":ItemId", DbType.Int32) { Direction = ParameterDirection.Input, Value = itemID };
+			var sqlParam = new SqliteParameter(":ItemId", DbType.Int32) { Direction = ParameterDirection.Input, Value = itemID };
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
-                sqlParam);
+				sqlParam);
 
-            return (rowsAffected > 0);
+			return (rowsAffected > 0);
 
-        }
+		}
 
-        /// <summary>
-        /// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteBySite(Guid siteGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_items where SiteGuid = :SiteGuid;");
+		/// <summary>
+		/// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
+		/// </summary>
+		/// <param name="guid"> guid </param>
+		/// <returns>bool</returns>
+		public static bool DeleteBySite(Guid siteGuid)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("delete from i7_sflexi_items where SiteGuid = :SiteGuid;");
 
-            var sqlParam = new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() };
-            
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
+			var sqlParam = new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() };
+
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
-                sqlParam);
+				sqlParam);
 
-            return (rowsAffected > 0);
-        }
+			return (rowsAffected > 0);
+		}
 
-        /// <summary>
-        /// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
-        /// </summary>
-        /// <param name="guid"> guid </param>
-        /// <returns>bool</returns>
-        public static bool DeleteByModule(Guid moduleGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("delete from i7_sflexi_items where ModuleGuid = :ModuleGuid;");
+		/// <summary>
+		/// Deletes rows from the i7_sflexi_items table. Returns true if rows deleted.
+		/// </summary>
+		/// <param name="guid"> guid </param>
+		/// <returns>bool</returns>
+		public static bool DeleteByModule(Guid moduleGuid)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("delete from i7_sflexi_items where ModuleGuid = :ModuleGuid;");
 
-            var sqlParam = new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() };
+			var sqlParam = new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() };
 
-            int rowsAffected = SqliteHelper.ExecuteNonQuery(
-                ConnectionString.GetWriteConnectionString(),
+			int rowsAffected = SqliteHelper.ExecuteNonQuery(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
-                sqlParam);
+				sqlParam);
 
-            return (rowsAffected > 0);
-        }
+			return (rowsAffected > 0);
+		}
 
-        /// <summary>
-        /// Deletes items and values used by definition guid. Returns true if rows deleted.
-        /// </summary>
-        /// <param name="definitionGuid"> guid </param>
-        /// <returns>bool</returns>
-    //    public static bool DeleteByDefinition(Guid definitionGuid)
-    //    {
-    //        StringBuilder sqlCommand = new StringBuilder();
-    //        sqlCommand.Append("delete from i7_sflexi_items where DefinitionGuid = :DefinitionGuid;");
+		/// <summary>
+		/// Deletes items and values used by definition guid. Returns true if rows deleted.
+		/// </summary>
+		/// <param name="definitionGuid"> guid </param>
+		/// <returns>bool</returns>
+		//    public static bool DeleteByDefinition(Guid definitionGuid)
+		//    {
+		//        StringBuilder sqlCommand = new StringBuilder();
+		//        sqlCommand.Append("delete from i7_sflexi_items where DefinitionGuid = :DefinitionGuid;");
 
-    //        var sqlParam = new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() };
+		//        var sqlParam = new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() };
 
-    //        int rowsAffected = SqliteHelper.ExecuteNonQuery(
-    //            ConnectionString.GetWriteConnectionString(),
-				//sqlCommand.ToString(),
-    //            sqlParam);
+		//        int rowsAffected = SqliteHelper.ExecuteNonQuery(
+		//            ConnectionString.GetWriteConnectionString(),
+		//sqlCommand.ToString(),
+		//            sqlParam);
 
-    //        return (rowsAffected > 0);
-    //    }
+		//        return (rowsAffected > 0);
+		//    }
 
-        /// <summary>
-        /// Gets an IDataReader with one row from the i7_sflexi_items table.
-        /// </summary>
-        /// <param name="itemID"> itemID </param>
-        public static IDataReader GetOne(Guid itemGuid)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append("select * from i7_sflexi_items where ItemGuid = :ItemGuid;");
+		/// <summary>
+		/// Gets an IDataReader with one row from the i7_sflexi_items table.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		public static IDataReader GetOne(Guid itemGuid)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append("select * from i7_sflexi_items where ItemGuid = :ItemGuid;");
 
-            var sqlParam = new SqliteParameter(":ItemGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = itemGuid.ToString() };
+			var sqlParam = new SqliteParameter(":ItemGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = itemGuid.ToString() };
 
-            return SqliteHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
-                sqlParam);
-        }
+				sqlParam);
+		}
 
 		/// <summary>
 		/// Gets an IDataReader with one row from the i7_sflexi_items table.
@@ -326,13 +318,13 @@ namespace SuperFlexiData
 		/// Gets a count of rows in the i7_sflexi_items table.
 		/// </summary>
 		public static int GetCount()
-        {
-            var sqlCommand = "select count(*) from i7_sflexi_items;";
+		{
+			var sqlCommand = "select count(*) from i7_sflexi_items;";
 
-            return Convert.ToInt32(SqliteHelper.ExecuteScalar(
-                 ConnectionString.GetReadConnectionString(),
+			return Convert.ToInt32(SqliteHelper.ExecuteScalar(
+				 ConnectionString.GetReadConnectionString(),
 				 sqlCommand));
-        }
+		}
 		public static int GetCountForModule(int moduleId)
 		{
 			var sqlCommand = $"select count(*) from i7_sflexi_items where ModuleId = {moduleId};";
@@ -341,35 +333,35 @@ namespace SuperFlexiData
 				 ConnectionString.GetReadConnectionString(),
 				 sqlCommand));
 		}
-		
+
 		/// <summary>
 		/// Gets an IDataReader with all rows in the i7_sflexi_items table.
 		/// </summary>
 		public static IDataReader GetAll(Guid siteGuid)
-        {
-            var sqlCommand = "select * from i7_sflexi_items where SiteGuid = :SiteGuid;";
+		{
+			var sqlCommand = "select * from i7_sflexi_items where SiteGuid = :SiteGuid;";
 			var sqlParam = new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid };
-            return SqliteHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
 				sqlParam);
-        }
+		}
 
 
-        /// <summary>
-        /// Gets an IDataReader with all items for module.
-        /// </summary>
-        /// <param name="itemID"> itemID </param>
-        public static IDataReader GetModuleItems(int moduleID)
-        {
-            var sqlCommand = "select * from i7_sflexi_items where ModuleId = :ModuleId order by SortOrder asc;";
-            var sqlParam = new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID };
+		/// <summary>
+		/// Gets an IDataReader with all items for module.
+		/// </summary>
+		/// <param name="itemID"> itemID </param>
+		public static IDataReader GetModuleItems(int moduleID)
+		{
+			var sqlCommand = "select * from i7_sflexi_items where ModuleId = :ModuleId order by SortOrder asc;";
+			var sqlParam = new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID };
 
-            return SqliteHelper.ExecuteReader(
-                ConnectionString.GetReadConnectionString(),
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetReadConnectionString(),
 				sqlCommand,
-                sqlParam);
-        }
+				sqlParam);
+		}
 
 		public static IDataReader GetPageOfModuleItems(
 			Guid moduleGuid,
@@ -529,8 +521,8 @@ namespace SuperFlexiData
 		/// </summary>
 		/// <param name="itemID"> itemID </param>
 		public static IDataReader GetAllForDefinition(Guid definitionGuid, Guid siteGuid)
-        {
-            string sqlCommand = @"select 
+		{
+			string sqlCommand = @"select 
                 SiteGuid, 
                 FeatureGuid, 
                 i.ModuleGuid, 
@@ -552,68 +544,68 @@ namespace SuperFlexiData
 				new SqliteParameter(":SiteGuid", DbType.String) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() }
 			};
 
-            return SqliteHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand,
-                sqlParam.ToArray());
-        }
+				sqlParam.ToArray());
+		}
 
-        /// <summary>
-        /// Gets a page of data from the i7_sflexi_items table.
-        /// </summary>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">Size of the page.</param>
-        /// <param name="totalPages">total pages</param>
-    //    public static IDataReader GetPage(
-    //        int pageNumber,
-    //        int pageSize,
-    //        out int totalPages)
-    //    {
-    //        int pageLowerBound = (pageSize * pageNumber) - pageSize;
-    //        totalPages = 1;
-    //        int totalRows = GetCount();
+		/// <summary>
+		/// Gets a page of data from the i7_sflexi_items table.
+		/// </summary>
+		/// <param name="pageNumber">The page number.</param>
+		/// <param name="pageSize">Size of the page.</param>
+		/// <param name="totalPages">total pages</param>
+		//    public static IDataReader GetPage(
+		//        int pageNumber,
+		//        int pageSize,
+		//        out int totalPages)
+		//    {
+		//        int pageLowerBound = (pageSize * pageNumber) - pageSize;
+		//        totalPages = 1;
+		//        int totalRows = GetCount();
 
-    //        if (pageSize > 0) totalPages = totalRows / pageSize;
+		//        if (pageSize > 0) totalPages = totalRows / pageSize;
 
-    //        if (totalRows <= pageSize)
-    //        {
-    //            totalPages = 1;
-    //        }
-    //        else
-    //        {
-    //            int remainder;
-    //            Math.DivRem(totalRows, pageSize, out remainder);
-    //            if (remainder > 0)
-    //            {
-    //                totalPages += 1;
-    //            }
-    //        }
-    //        StringBuilder sqlCommand = new StringBuilder();
+		//        if (totalRows <= pageSize)
+		//        {
+		//            totalPages = 1;
+		//        }
+		//        else
+		//        {
+		//            int remainder;
+		//            Math.DivRem(totalRows, pageSize, out remainder);
+		//            if (remainder > 0)
+		//            {
+		//                totalPages += 1;
+		//            }
+		//        }
+		//        StringBuilder sqlCommand = new StringBuilder();
 
-    //        sqlCommand.Append("select * from i7_sflexi_items limit :PageSize" + (pageNumber > 1 ? "offset :OffsetRows;" : ";"));
+		//        sqlCommand.Append("select * from i7_sflexi_items limit :PageSize" + (pageNumber > 1 ? "offset :OffsetRows;" : ";"));
 
-    //        var sqlParams = new List<SqliteParameter>
-    //        {
-    //            new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
-    //            new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
-    //        };
+		//        var sqlParams = new List<SqliteParameter>
+		//        {
+		//            new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+		//            new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageLowerBound }
+		//        };
 
-    //        return SqliteHelper.ExecuteReader(
-    //            ConnectionString.GetReadConnectionString(),
-				//sqlCommand.ToString(),
-    //            sqlParams.ToArray());
-    //    }
+		//        return SqliteHelper.ExecuteReader(
+		//            ConnectionString.GetReadConnectionString(),
+		//sqlCommand.ToString(),
+		//            sqlParams.ToArray());
+		//    }
 
-        /// <summary>
-        /// Gets
-        /// </summary>
-        /// <param name="siteGuid"></param>
-        /// <param name="pageId"></param>
-        /// <returns></returns>
-        public static IDataReader GetByCMSPage(Guid siteGuid, int pageId)
-        {
-            StringBuilder sqlCommand = new StringBuilder();
-            sqlCommand.Append(@"select 
+		/// <summary>
+		/// Gets
+		/// </summary>
+		/// <param name="siteGuid"></param>
+		/// <param name="pageId"></param>
+		/// <returns></returns>
+		public static IDataReader GetByCMSPage(Guid siteGuid, int pageId)
+		{
+			StringBuilder sqlCommand = new StringBuilder();
+			sqlCommand.Append(@"select 
                  i.ModuleId as ModuleId
                 ,i.ItemGuid as ItemGuid
                 ,i.ItemId as ItemId
@@ -630,35 +622,35 @@ namespace SuperFlexiData
                 and pm.PageId = :PageId 
                 order by SortOrder asc;");
 
-            var sqlParams = new List<SqliteParameter>
-            {
-                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
-                new SqliteParameter(":PageId", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageId }
-            };
+			var sqlParams = new List<SqliteParameter>
+			{
+				new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+				new SqliteParameter(":PageId", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageId }
+			};
 
-            return SqliteHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
 				sqlCommand.ToString(),
-                sqlParams.ToArray());
-        }
-        private static string santizeSortDirection(string sortDirection)
-        {
-            if (sortDirection != "ASC" && sortDirection != "DESC")
-            {
-                return "ASC";
-            }
-            return sortDirection;
+				sqlParams.ToArray());
+		}
+		private static string santizeSortDirection(string sortDirection)
+		{
+			if (sortDirection != "ASC" && sortDirection != "DESC")
+			{
+				return "ASC";
+			}
+			return sortDirection;
 
-        }
-        public static IDataReader GetForModule(
+		}
+		public static IDataReader GetForModule(
 			int moduleID,
 			int pageNumber = 1,
 			int pageSize = 20,
 			string sortDirection = "ASC")
 		{
-            sortDirection = santizeSortDirection(sortDirection);
+			sortDirection = santizeSortDirection(sortDirection);
 
-            var commandText = $@"
+			var commandText = $@"
                 SELECT *
 					FROM (
 						SELECT *, count(*) over() AS TotalRows
@@ -672,18 +664,18 @@ namespace SuperFlexiData
 			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var commandParameters = new SqliteParameter[]
-            {
-                new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID },
-			    new SqliteParameter(":PageSize", DbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
+			{
+				new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleID },
+				new SqliteParameter(":PageSize", DbType.Int32){ Direction = ParameterDirection.Input, Value = pageSize },
 				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
-            };
-            return SqliteHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
-                commandText,
-                commandParameters);
-        }
+			};
+			return SqliteHelper.ExecuteReader(
+				ConnectionString.GetWriteConnectionString(),
+				commandText,
+				commandParameters);
+		}
 
-        public static IDataReader GetForModuleWithValues(
+		public static IDataReader GetForModuleWithValues(
 			Guid moduleGuid,
 			int pageNumber = 1,
 			int pageSize = 20,
@@ -758,26 +750,26 @@ ORDER BY i.SortOrder {sortDirection}, CreatedUtc {sortDirection};";
 			};
 
 			return SqliteHelper.ExecuteReader(
-                ConnectionString.GetWriteConnectionString(),
-                sqlCommand,
+				ConnectionString.GetWriteConnectionString(),
+				sqlCommand,
 				sqlParams);
-        }
+		}
 
-        public static IDataReader GetForModuleWithValues_Paged(
-            Guid moduleGuid,
-            int pageNumber,
-            int pageSize,
-            string searchTerm = "",
-            string searchField = "",
-            //string sortField = "",
-            string sortDirection = "ASC")
+		public static IDataReader GetForModuleWithValues_Paged(
+			Guid moduleGuid,
+			int pageNumber,
+			int pageSize,
+			string searchTerm = "",
+			string searchField = "",
+			//string sortField = "",
+			string sortDirection = "ASC")
 		{
-            string commandText;
-            sortDirection = santizeSortDirection(sortDirection);
+			string commandText;
+			sortDirection = santizeSortDirection(sortDirection);
 
-            if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
-            {
-                commandText = $@"
+			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
+			{
+				commandText = $@"
 SELECT TOP (:PageSize) *
 FROM
     (
@@ -803,10 +795,10 @@ FROM
     a
 WHERE a.RowID > ((:PageNumber -1) * :PageSize)
 ORDER BY SortOrder {sortDirection}";
-            }
-            else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
-            {
-                commandText = $@"
+			}
+			else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
+			{
+				commandText = $@"
 SELECT ItemID, TotalRows = Count(*) OVER ()
 INTO TEMP TABLE ItemsToGet
 FROM i7_sflexi_values v
@@ -838,10 +830,10 @@ JOIN
     ) f ON f.FeldGuid = v.FieldGuid
 JOIN ItemsToGet ON ItemsToGet.ItemID = i.ItemID;
 DROP TABLE ItemsToGet;";
-            }
-            else
-            {
-                commandText = $@"
+			}
+			else
+			{
+				commandText = $@"
                     SELECT TOP (:PageSize) *
                     FROM
                     (
@@ -862,31 +854,31 @@ DROP TABLE ItemsToGet;";
                     a
                     WHERE a.RowID > ((:PageNumber -1 * :PageSize)
                     ORDER BY SorrtOrder {sortDirection}";
-            }
-            int offsetRows = (pageSize * pageNumber) - pageSize;
+			}
+			int offsetRows = (pageSize * pageNumber) - pageSize;
 
-            var commandParameters = new SqliteParameter[]
-            {
-                new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
-                new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
-                new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
-                new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
-                new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
-            };
+			var commandParameters = new SqliteParameter[]
+			{
+				new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+				new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+				new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
+				new SqliteParameter(":ModuleGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = moduleGuid.ToString() },
+			};
 
-            return SqliteHelper.ExecuteReader(
-              ConnectionString.GetWriteConnectionString(),
-              commandText,
-              commandParameters);
-        }
-        public static IDataReader GetForDefinition(
-            Guid definitionGuid,
+			return SqliteHelper.ExecuteReader(
+			  ConnectionString.GetWriteConnectionString(),
+			  commandText,
+			  commandParameters);
+		}
+		public static IDataReader GetForDefinition(
+			Guid definitionGuid,
 			Guid siteGuid,
 			int pageNumber = 1,
 			int pageSize = 20,
 			string sortDirection = "ASC")
 		{
-            sortDirection = santizeSortDirection(sortDirection);
+			sortDirection = santizeSortDirection(sortDirection);
 
 			//var commandText = $@"
 			//    IF {sortDirection} = 'DESC'
@@ -948,19 +940,19 @@ DROP TABLE ItemsToGet;";
 			int offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var sqlParams = new SqliteParameter[]
-            {
-                new SqliteParameter(":DefGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
-                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+			{
+				new SqliteParameter(":DefGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
+				new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
 				new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
 				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
 			};
-            return SqliteHelper.ExecuteReader(
-              ConnectionString.GetWriteConnectionString(),
+			return SqliteHelper.ExecuteReader(
+			  ConnectionString.GetWriteConnectionString(),
 			  sqlCommand,
-              sqlParams);
-        }
+			  sqlParams);
+		}
 
-        public static IDataReader GetForDefinitionWithValues(
+		public static IDataReader GetForDefinitionWithValues(
 			Guid defGuid,
 			Guid siteGuid,
 			int pageNumber = 1,
@@ -968,8 +960,8 @@ DROP TABLE ItemsToGet;";
 			string searchTerm = "",
 			string searchField = "",
 			string sortDirection = "ASC"
-            )
-        {
+			)
+		{
 			string sqlCommand;
 			sortDirection = santizeSortDirection(sortDirection);
 
@@ -1057,37 +1049,37 @@ DROP TABLE ItemsToGet;";
 			var offsetRows = (pageSize * pageNumber) - pageSize;
 
 			var sqlParams = new SqliteParameter[]
-            {
+			{
 				new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
 				new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
 				new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = "%" + searchTerm + "%"},
 				new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
-                new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = defGuid.ToString() },
-                new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() }
-            };
-            return SqliteHelper.ExecuteReader(
-              ConnectionString.GetWriteConnectionString(),
-              sqlCommand,
-              sqlParams);
-        }
+				new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = defGuid.ToString() },
+				new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() }
+			};
+			return SqliteHelper.ExecuteReader(
+			  ConnectionString.GetWriteConnectionString(),
+			  sqlCommand,
+			  sqlParams);
+		}
 
 
-        public static IDataReader GetForDefinitionWithValues_Paged(
-        Guid definitionGuid,
-        Guid siteGuid,
-        int pageNumber,
-        int pageSize,
-        string searchTerm = "",
-        string searchField = "",
-        string sortDirection = "ASC")
-        {
-                string commandText;
+		public static IDataReader GetForDefinitionWithValues_Paged(
+		Guid definitionGuid,
+		Guid siteGuid,
+		int pageNumber,
+		int pageSize,
+		string searchTerm = "",
+		string searchField = "",
+		string sortDirection = "ASC")
+		{
+			string commandText;
 
-                sortDirection = santizeSortDirection(sortDirection);
+			sortDirection = santizeSortDirection(sortDirection);
 
-                if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
-                {
-                    commandText = $@"
+			if (string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
+			{
+				commandText = $@"
 					    SELECT TOP (:PageSize) *
 					    FROM
                             (
@@ -1114,10 +1106,10 @@ DROP TABLE ItemsToGet;";
                             ) a
 					    WHERE a.RowID > ((:PageNumber - 1) * :PageSize)
 					    ORDER BY SortOrder {sortDirection};";
-                }
-                else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
-                {
-                    commandText = $@"
+			}
+			else if (!string.IsNullOrWhiteSpace(searchField) && !string.IsNullOrWhiteSpace(searchTerm))
+			{
+				commandText = $@"
 					    SELECT TOP (:PageSize) *
 					    FROM
                             (
@@ -1151,10 +1143,10 @@ DROP TABLE ItemsToGet;";
 					    WHERE a.rowid > ( ( :PageNumber - 1 ) * :PageSize )
 					    ORDER BY SortOrder {sortDirection}
 				    {(pageNumber > 1 ? "OFFSET :OffsetRows" : string.Empty)};";
-                }
-                else
-                {
-                    commandText = $@"
+			}
+			else
+			{
+				commandText = $@"
 					    SELECT TOP (@PageSize) *
 					    FROM
                             (
@@ -1174,42 +1166,42 @@ DROP TABLE ItemsToGet;";
 					    WHERE a.RowID > ((:PageNumber - 1) * :PageSize)
 					    ORDER BY SortOrder {sortDirection}
 					    {(pageNumber > 1 ? "OFFSET :OffsetRows" : string.Empty)};";
-                }
+			}
 
-                var offsetRows = (pageSize * pageNumber) - pageSize;
+			var offsetRows = (pageSize * pageNumber) - pageSize;
 
-                var commandParameters = new SqliteParameter[]
-                {
-                    new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
-                    new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
-                    new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
-                    new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
-                    new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
-                    new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
-                };
+			var commandParameters = new SqliteParameter[]
+			{
+					new SqliteParameter(":PageSize", DbType.Int32) { Direction = ParameterDirection.Input, Value = pageSize },
+					new SqliteParameter(":OffsetRows", DbType.Int32) { Direction = ParameterDirection.Input, Value = offsetRows },
+					new SqliteParameter(":SearchTerm", DbType.String, 255) { Direction = ParameterDirection.Input, Value = searchTerm },
+					new SqliteParameter(":SearchField", DbType.String, 50) { Direction = ParameterDirection.Input, Value = searchField },
+					new SqliteParameter(":SiteGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = siteGuid.ToString() },
+					new SqliteParameter(":DefinitionGuid", DbType.String, 36) { Direction = ParameterDirection.Input, Value = definitionGuid.ToString() },
+			};
 
-                return SqliteHelper.ExecuteReader(
-                  ConnectionString.GetWriteConnectionString(),
-                  commandText,
-                  commandParameters);
-        }
+			return SqliteHelper.ExecuteReader(
+			  ConnectionString.GetWriteConnectionString(),
+			  commandText,
+			  commandParameters);
+		}
 
 
-        public static int GetHighestSortOrder(int moduleId)
-        {
-            string commandText = $"SELECT MAX(SortOrder) FROM i7_sflexi_items WHERE moduleId = :moduleid;";
+		public static int GetHighestSortOrder(int moduleId)
+		{
+			string commandText = $"SELECT MAX(SortOrder) FROM i7_sflexi_items WHERE moduleId = :moduleid;";
 
-            var commandParameters = new SqliteParameter[]
-            {
-                new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId },
-            };
+			var commandParameters = new SqliteParameter[]
+			{
+				new SqliteParameter(":ModuleId", DbType.Int32) { Direction = ParameterDirection.Input, Value = moduleId },
+			};
 
-            return Convert.ToInt32(SqliteHelper.ExecuteScalar(
-                ConnectionString.GetWriteConnectionString(),
-                commandText,
-                commandParameters));
-        }
-    }
+			return Convert.ToInt32(SqliteHelper.ExecuteScalar(
+				ConnectionString.GetWriteConnectionString(),
+				commandText,
+				commandParameters));
+		}
+	}
 }
 
 

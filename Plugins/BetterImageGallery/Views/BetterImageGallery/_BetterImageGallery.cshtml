@@ -1,0 +1,303 @@
+﻿@using mojoPortal.Web;
+@using mojoPortal.Business.WebHelpers;
+@using mojoPortal.Features.UI.BetterImageGallery;
+
+@model BIGModel
+
+@{
+	var siteRoot = SiteUtils.GetNavigationSiteRoot() + "/";
+	var siteSettings = CacheHelper.GetCurrentSiteSettings();
+	var siteFolderName = String.IsNullOrWhiteSpace(siteSettings.SiteFolderName) ? "" : siteSettings.SiteFolderName + "/";
+
+	var id = "big-" + Model.ModuleID;
+	var folderID = id + "-folders";
+	var thumbID = id + "-thumbnails";
+	var folderTemplateID = id + "-folderTemplate";
+	var imageTemplateID = id + "-imageTemplate";
+	var navigationID = id + "-navigation";
+	var currentFolderNameID = id + "-currentFolderName";
+	var parentFolderNameID = id + "-parentFolderName";
+	var backBtnID = id + "-backBtn";
+	var galleryID = id + "-blueimpGallery";
+}
+
+<div id="@navigationID" class="big__navigation" style="display:none;">
+	<span id="@currentFolderNameID" class="big__folder-name h3"></span>
+	<a id="@backBtnID" class="big__back-btn">
+		<i class="fa fa-angle-double-left" aria-hidden="true"></i>
+		Back to <span id="@parentFolderNameID"></span>
+	</a>
+</div>
+
+<div class="row">
+	@if (Model.Folders.Count > 0)
+	{
+		<span class="big__folders" id="@folderID">
+			@foreach (var folder in Model.Folders)
+			{
+				<div class="big__folder col-xs-6 col-sm-3 col-md-2">
+					<a href="@folder.Path" data-parent-name="@folder.ParentName" data-parent-path="@folder.ParentPath">
+						<i class="fa fa-folder" aria-hidden="true"></i>
+						@folder.Name
+					</a>
+				</div>
+			}
+		</span>
+	}
+
+	@*@if (Model.Thumbnails.Count > 0)
+		{*@
+	<span class="big__thumbnails" id="@thumbID">
+		@foreach (var image in Model.Thumbnails)
+		{
+			<div class="big__thumbnail col-xs-6 col-sm-3 col-md-2"><a class="thumbnail" href="@image.Full" title="@image.Name"><img src="@image.Thumb" alt="@image.Name" /></a></div>
+		}
+	</span>
+	@*  }*@
+</div>
+
+
+<link rel="stylesheet" href="@(siteRoot + siteFolderName)BetterImageGallery/blueimp-gallery/css/blueimp-gallery.min.css">
+<style>
+	.big__navigation {
+		margin-bottom: 10px;
+		margin-top: 20px;
+	}
+
+	.big__folder-name {
+		margin: 0;
+	}
+
+		.big__folder-name br {
+			display: none;
+		}
+
+	.big__items {
+		margin-bottom: 30px;
+	}
+
+	.big__folder {
+		position: relative;
+		text-align: center;
+	}
+
+		.big__folder:after {
+			content: "";
+			display: block;
+			padding-top: 100%;
+			width: 100%;
+		}
+
+		.big__folder a {
+			-webkit-box-align: center;
+			   -ms-flex-align: center;
+			      align-items: center;
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			color: #222;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-orient: vertical;
+			-webkit-box-direction: normal;
+			    -ms-flex-flow: column;
+			        flex-flow: column;
+			height: 100%;
+			-webkit-box-pack: center;
+			   -ms-flex-pack: center;
+			 justify-content: center;
+			left: 15px;
+			line-height: 100%;
+			padding: 15px;
+			position: absolute;
+			right: 15px;
+		}
+
+			.big__folder a:hover,
+			.big__folder a:active,
+			.big__folder a:focus {
+				background-color: #e5f3ff;
+				text-decoration: none;
+			}
+
+		.big__folder .fa {
+			color: #f8d775;
+			display: block;
+			font-size: 80px;
+			line-height: 1;
+		}
+</style>
+<div id="@galleryID" class="blueimp-gallery blueimp-gallery-controls">
+	<div class="slides"></div>
+	<h3 class="title"></h3>
+	<a class="prev">‹</a>
+	<a class="next">›</a>
+	<a class="close">×</a>
+	<a class="play-pause"></a>
+	<ol class="indicator"></ol>
+</div>
+<script src="@(siteRoot + siteFolderName)BetterImageGallery/blueimp-gallery/js/blueimp-gallery.min.js"></script>
+<script type="text/x-template" id="@folderTemplateID">
+	<div class="big__folder col-xs-6 col-sm-3 col-md-2">
+		<a href="{{path}}" data-parent-name="{{parentName}}" data-parent-path="{{parentPath}}">
+			<i class="fa fa-folder"></i>
+			{{name}}
+		</a>
+	</div>
+</script>
+<script type="text/x-template" id="@imageTemplateID">
+	<div class="big__thumbnail col-xs-6 col-sm-3 col-md-2">
+		<a class="thumbnail" href="{{full}}" title="{{name}}">
+			<img src="{{thumb}}" alt="{{name}}" />
+		</a>
+	</div>
+</script>
+
+<script>
+	(function () {
+		'use strict';
+		// Element.closest() Polyfill
+		Element.prototype.matches||(Element.prototype.matches=Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector),Element.prototype.closest||(Element.prototype.closest=function(a){var b=this;if(!document.documentElement.contains(b))return null;do{if(b.matches(a))return b;b=b.parentElement||b.parentNode}while(null!==b&&1===b.nodeType);return null});
+
+		var navData = [{
+			name: null,
+			parentName: null,
+			parentPath: null
+		}];
+
+		function getFolderData(path, callback) {
+			var request = new XMLHttpRequest();
+
+			request.onreadystatechange = function () {
+				if (this.readyState === 4 && this.status === 200) {
+					return callback(request.responseText);
+				}
+
+				if (this.readyState === 4 && this.status !== 200) {
+					window.confirm('Something went wrong. \nStatus Code: ' + this.status);
+					return callback(null);
+				}
+			};
+			request.open('GET', '@(siteRoot + siteFolderName)api/BetterImageGallery?moduleId=@Model.ModuleID&path=' + path);
+			request.send();
+		}
+
+		function removeChildElements(element) {
+			while (element.firstChild) {
+				element.removeChild(element.firstChild);
+			}
+		}
+
+		function populateItems(responseText) {
+			if (responseText === null) return;
+
+			var items = JSON.parse(responseText);
+			var folders = document.querySelector('#@folderID');
+			var thumbs = document.querySelector('#@thumbID');
+
+			removeChildElements(folders);
+			removeChildElements(thumbs);
+
+			if (items.folders.length > 0) {
+				items.folders.forEach(function(folder) {
+					var renderedFolder = document.querySelector('#@folderTemplateID')
+						.innerHTML
+						.replace(/{{path}}/g, folder.path)
+						.replace(/{{name}}/g, folder.name)
+						.replace(/{{parentName}}/g, folder.parentName)
+						.replace(/{{parentPath}}/g, folder.parentPath);
+
+					folders.insertAdjacentHTML('beforeend', renderedFolder);
+				});
+			}
+
+			if (items.thumbnails.length > 0) {
+				items.thumbnails.forEach(function(thumbnail) {
+					var renderedThumb = document.querySelector('#@imageTemplateID')
+						.innerHTML
+						.replace(/{{name}}/g, thumbnail.name)
+						.replace(/{{full}}/g, thumbnail.full)
+						.replace(/{{thumb}}/g, thumbnail.thumb);
+
+					thumbs.insertAdjacentHTML('beforeend', renderedThumb);
+				});
+			}
+		}
+
+		function setupNavigation() {
+			var nav = document.querySelector('#@navigationID');
+			var currentNav = navData[navData.length - 1];
+
+			if (currentNav.name !== null && currentNav.parentName !== null && currentNav.parentPath !== null) {
+				nav.removeAttribute('style');
+
+				var title = document.querySelector('#@currentFolderNameID');
+				title.innerText = currentNav.name;
+
+				var btnText = document.querySelector('#@parentFolderNameID');
+				btnText.innerText = currentNav.parentName !== '@Model.GalleryFolder' ? currentNav.parentName : 'Root';
+
+				var link = document.querySelector('#@backBtnID');
+				link.setAttribute('href', currentNav.parentPath);
+			} else {
+				nav.style.display = 'none';
+			}
+		}
+
+		function folderClicks(e) {
+			e = e || window.event;
+			e.preventDefault();
+
+			var link = e.target.closest('a');
+
+			if (link) {
+				navData.push({
+					name: link.innerText,
+					parentName: link.getAttribute('data-parent-name'),
+					parentPath: link.getAttribute('data-parent-path')
+				});
+				setupNavigation();
+				getFolderData(link.getAttribute('href'), populateItems);
+			}
+		}
+
+		function imageClicks(e) {
+			e = e || window.event;
+
+			var link = e.target.closest('a');
+
+			if (link) {
+				var links = this.getElementsByTagName('a');
+				var options = {
+					container: '#@galleryID',
+					index: link,
+					event: e
+				};
+
+				blueimp.Gallery(links, options);
+			}
+		}
+
+		function backButtonClicks(e) {
+			e.preventDefault();
+
+			var link = e.target.closest('a');
+
+			getFolderData(link.getAttribute('href'), populateItems);
+			navData.pop();
+			setupNavigation();
+		}
+
+		function bindClicks() {
+			var images = document.getElementById('@thumbID');
+			if (images) images.addEventListener('click', imageClicks);
+
+			var folders = document.getElementById('@folderID');
+			if (folders !== null) folders.addEventListener('click', folderClicks);
+
+			document.querySelector('#@backBtnID').addEventListener('click', backButtonClicks);
+		}
+
+		document.addEventListener('DOMContentLoaded', bindClicks);
+	})();
+</script>

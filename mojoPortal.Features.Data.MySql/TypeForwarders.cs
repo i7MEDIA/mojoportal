@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBBlog))]
+﻿[assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBBlog))]
 [assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBContactFormMessage))]
 [assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBEvents))]
 [assembly: TypeForwardedTo(typeof(global::mojoPortal.Data.DBForums))]

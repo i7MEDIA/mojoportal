@@ -1,3 +1,1 @@
-﻿using System.Reflection;
-
-[assembly: AssemblyTitle("SuperFlexiData.pgSQL")]
+﻿[assembly: AssemblyTitle("SuperFlexiData.pgSQL")]

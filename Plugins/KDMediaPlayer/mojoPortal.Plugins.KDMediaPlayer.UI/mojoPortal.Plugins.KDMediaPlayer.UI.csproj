@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A1011111-1111-4111-8111-111111111106}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Plugins.KDMediaPlayer.UI</RootNamespace>
+    <AssemblyName>mojoPortal.Plugins.KDMediaPlayer.UI</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.3.3.1\lib\net462\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.3.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="KDMediaPlayerPlugin.cs" />
+    <Compile Include="App_GlobalResources\MediaPlayerResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MediaPlayerResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\GlobalUsings.cs" />
+    <Compile Include="KDMediaPlayer\AudioPlayer.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>AudioPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\AudioPlayer.ascx.designer.cs">
+      <DependentUpon>AudioPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\Edit.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\EditTrack.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditTrack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\EditTrack.aspx.designer.cs">
+      <DependentUpon>EditTrack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\VideoPlayer.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>VideoPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\VideoPlayer.ascx.designer.cs">
+      <DependentUpon>VideoPlayer.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="KDMediaPlayer\Components\AudioPlayerConfiguration.cs" />
+    <Compile Include="KDMediaPlayer\Components\MediaContentInstaller.cs" />
+    <Compile Include="KDMediaPlayer\Components\MediaPlayerContentDeleteHandler.cs" />
+    <Compile Include="KDMediaPlayer\Components\SitePreDeleteMediaPlayerHandler.cs" />
+    <Compile Include="KDMediaPlayer\Components\VideoPlayerConfiguration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_GlobalResources\MediaPlayerResources.resx">
+      <LogicalName>Resources.MediaPlayerResources.resources</LogicalName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Brettle.Web.NeatHtml\Brettle.Web.NeatHtml.csproj">
+      <Project>{D8A4D1E0-3827-4AF6-85B3-564D433495BF}</Project>
+      <Name>Brettle.Web.NeatHtml</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Web\mojoPortal.Web.csproj">
+      <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
+      <Name>mojoPortal.Web</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Plugins.KDMediaPlayer.Business\mojoPortal.Plugins.KDMediaPlayer.Business.csproj">
+      <Project>{A1011111-1111-4111-8111-111111111105}</Project>
+      <Name>mojoPortal.Plugins.KDMediaPlayer.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\HelpFiles\en-US-media-player-custom-module-css-class-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerAllowFullScreen-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerArtist-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerAutoStartSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerContinuousPlaySetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerDisableShuffleSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerFileLocation-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerSelectedFiles-help.config" />
+    <None Include="Data\HelpFiles\en-US-MediaPlayerTrackName-help.config" />
+    <None Include="Setup\SchemaInstallScripts\mssql\1.0.0.1.config" />
+    <None Include="Setup\SchemaInstallScripts\mysql\1.0.0.1.config" />
+    <None Include="Setup\SchemaInstallScripts\pgsql\1.0.0.1.config" />
+    <None Include="Setup\SchemaInstallScripts\sqlite\1.0.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\1.0.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\1.0.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\1.0.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\1.0.0.1.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KDMediaPlayer\AudioPlayer.ascx" />
+    <Content Include="KDMediaPlayer\Edit.aspx" />
+    <Content Include="KDMediaPlayer\EditTrack.aspx" />
+    <Content Include="KDMediaPlayer\VideoPlayer.ascx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\mojoPortal.Plugins.KDMediaPlayer*.dll" "$(SolutionDir)Web\Plugins\KDMediaPlayer\bin\"
+xcopy /s /y "$(ProjectDir)KDMediaPlayer\*.as?x" "$(SolutionDir)Web\Plugins\KDMediaPlayer\KDMediaPlayer\"
+xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\Plugins\KDMediaPlayer\App_GlobalResources\"
+xcopy /s /y "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Plugins\KDMediaPlayer\Setup\"
+xcopy /s /y "$(ProjectDir)Data\*" "$(SolutionDir)Web\Plugins\KDMediaPlayer\Data\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

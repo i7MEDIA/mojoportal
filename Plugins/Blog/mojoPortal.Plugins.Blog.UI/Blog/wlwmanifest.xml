@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
+  <options>
+    <clientType>Metaweblog</clientType>
+    <supportsEmbeds>Yes</supportsEmbeds>
+    <supportsScripts>Yes</supportsScripts>
+    <supportsNewCategories>Yes</supportsNewCategories>
+	  <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+	  <supportsCommentPolicy>Yes</supportsCommentPolicy>
+	  <supportsExcerpt>Yes</supportsExcerpt>
+    <supportsGetTags>Yes</supportsGetTags>
+    <fileUploadNameFormat>{FileName}</fileUploadNameFormat>
+    <!-- these are the ones we would like to change to Yes and be able to create pages with a single html module in the center pane -->
+    <supportsPages>Yes</supportsPages>
+    <supportsPageParent>Yes</supportsPageParent>
+    <supportsPageOrder>Yes</supportsPageOrder>
+    
+
+    <supportsAuthor>No</supportsAuthor>
+    <requiresHtmlTitles>No</requiresHtmlTitles>
+    <supportsKeywords>No</supportsKeywords>
+    <supportsSlug>No</supportsSlug>
+    <supportsEmptyTitles>No</supportsEmptyTitles>
+</options>
+  <weblog>
+    <ServiceName>mojoPortal Blog</ServiceName>
+	<!--
+    <imageUrl>pics/wrenchicon16.png</imageUrl>
+    <watermarkImageUrl>pics/wrench84watermark.png</watermarkImageUrl>
+    <homepageLinkText>View your blog</homepageLinkText>
+    <adminLinkText>Manage your blog</adminLinkText>  
+    <adminUrl><![CDATA[{blog-homepage-url}Account/login.aspx]]></adminUrl>
+	-->
+  </weblog>
+  
+  <!--
+  <buttons>
+    <button>
+      <id>2</id>
+      <text>Tags</text>
+      <imageUrl>pics/benTag24.png</imageUrl>
+      <contentUrl><![CDATA[ 
+         {blog-homepage-url}api/tagminiview.aspx
+      ]]></contentUrl>
+      <contentDisplaySize>250,250</contentDisplaySize>
+    </button>     
+  </buttons>
+  -->
+</manifest>

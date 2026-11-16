@@ -6,6 +6,7 @@ using System.Data;
 using System.Globalization;
 
 namespace SuperFlexiBusiness;
+
 public class Field : Hashtable, IComparable<Field>
 {
 
@@ -25,7 +26,7 @@ public class Field : Hashtable, IComparable<Field>
 	public Guid SiteGuid { get; set; } = Guid.Empty;
 	public Guid FeatureGuid { get; set; } = Guid.Empty;
 	public Guid DefinitionGuid { get; set; } = Guid.Empty;
-	public Guid FieldGuid{ get; set; } = Guid.Empty;
+	public Guid FieldGuid { get; set; } = Guid.Empty;
 	public string DefinitionName { get; set; } = string.Empty;
 	public string Name { get; set; } = string.Empty;
 	public string Label { get; set; } = string.Empty;
@@ -175,7 +176,7 @@ public class Field : Hashtable, IComparable<Field>
 							DefaultValue = "-1";
 						}
 
-							break;
+						break;
 					case "bool":
 					case "boolean":
 						if (bool.TryParse(DefaultValue, out bool boolVal))
@@ -197,7 +198,7 @@ public class Field : Hashtable, IComparable<Field>
 						break;
 				}
 			}
-			
+
 			SortOrder = Convert.ToInt32(reader["SortOrder"]);
 			HelpKey = reader["HelpKey"].ToString();
 			Required = Convert.ToBoolean(reader["Required"]);
@@ -236,7 +237,7 @@ public class Field : Hashtable, IComparable<Field>
 				//mysql doesn't allow default values for TEXT columns so we do this because the field should never be empty
 				ViewRoles = "AllUsers;";
 			}
-			
+
 			string format = reader["DateFormat"].ToString().Trim();
 
 			if (format.Length > 0)

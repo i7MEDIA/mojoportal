@@ -1,10 +1,4 @@
-﻿using mojoPortal.Data;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.Data;
-
-namespace SuperFlexiData
+﻿namespace SuperFlexiData
 {
 	public static class DBFields
 	{
@@ -165,7 +159,7 @@ namespace SuperFlexiData
 				new MySqlParameter("?DefaultValue", MySqlDbType.LongText) { Direction = ParameterDirection.Input, Value = defaultValue },
 				new MySqlParameter("?ControlType", MySqlDbType.VarChar, 16) { Direction = ParameterDirection.Input, Value = controlType },
 				new MySqlParameter("?ControlSrc", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = controlSrc },
-				new MySqlParameter("?DataType", MySqlDbType.VarChar, 100) { Direction = ParameterDirection.Input, Value = dataType },				
+				new MySqlParameter("?DataType", MySqlDbType.VarChar, 100) { Direction = ParameterDirection.Input, Value = dataType },
 				new MySqlParameter("?IsList", MySqlDbType.Bit) { Direction = ParameterDirection.Input, Value = isList },
 				new MySqlParameter("?SortOrder", MySqlDbType.Int32) { Direction = ParameterDirection.Input, Value = sortOrder },
 				new MySqlParameter("?HelpKey", MySqlDbType.VarChar, 255) { Direction = ParameterDirection.Input, Value = helpKey },

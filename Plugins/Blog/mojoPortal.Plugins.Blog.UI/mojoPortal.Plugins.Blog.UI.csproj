@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8F1C4900-4AC8-4677-9BF1-7F84166B3A97}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mojoPortal.Plugins.Blog.UI</RootNamespace>
+    <AssemblyName>mojoPortal.Plugins.Blog.UI</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' Or '$(Configuration)' == 'Debug - MySql' Or '$(Configuration)' == 'Debug - pgSQL' Or '$(Configuration)' == 'Debug - SQLite' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Release - MySql' Or '$(Configuration)' == 'Release - pgSQL' Or '$(Configuration)' == 'Release - SQLite' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Argotic.Common">
+      <HintPath>..\..\..\_libs\argotic\Argotic.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Argotic.Core">
+      <HintPath>..\..\..\_libs\argotic\Argotic.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Argotic.Extensions">
+      <HintPath>..\..\..\_libs\argotic\Argotic.Extensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HtmlDiff">
+      <HintPath>..\..\..\_libs\HtmlDiff.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="log4net, Version=3.3.1.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\log4net.3.3.1\lib\net462\log4net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Client.6.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.5.3.0\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.5.3.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.3.0\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Components\GlobalUsings.cs" />
+    <Compile Include="BlogPlugin.cs" />
+    <Compile Include="App_GlobalResources\BlogResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlogResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\MetaweblogResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetaweblogResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogCompare.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>BlogCompare.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogCompare.aspx.designer.cs">
+      <DependentUpon>BlogCompare.aspx</DependentUpon>
+    </Compile>
+    <Content Include="Blog\BlogModule.ascx" />
+    <Compile Include="Blog\BlogModule.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>BlogModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogModule.ascx.designer.cs">
+      <DependentUpon>BlogModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\BlogSiteMap.ashx.cs" />
+    <Compile Include="Blog\BlogUrlSuggestService.ashx.cs">
+      <DependentUpon>BlogUrlSuggestService.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ClosedPosts.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ClosedPosts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ClosedPosts.aspx.designer.cs">
+      <DependentUpon>ClosedPosts.aspx</DependentUpon>
+    </Compile>
+    <Content Include="Blog\CommentDialog.aspx" />
+    <Compile Include="Blog\CommentDialog.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>CommentDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\CommentDialog.aspx.designer.cs">
+      <DependentUpon>CommentDialog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Components\BlogConfiguration.cs" />
+    <Compile Include="Blog\Components\BlogContentDeleteHandler.cs" />
+    <Compile Include="Blog\Components\BlogContentInstaller.cs" />
+    <Compile Include="Blog\Components\BlogIndexBuilderProvider.cs" />
+    <Compile Include="Blog\Components\BlogNotification.cs" />
+    <Compile Include="Blog\Components\BlogPostListAdvancedConfiguration.cs" />
+    <Compile Include="Blog\Components\SitePreDeleteBlogHandler.cs" />
+    <Compile Include="Blog\Controls\ArchiveListControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ArchiveListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveListControl.ascx.designer.cs">
+      <DependentUpon>ArchiveListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveViewControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ArchiveViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\ArchiveViewControl.ascx.designer.cs">
+      <DependentUpon>ArchiveViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogDisplaySettings.cs" />
+    <Compile Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>BlogInstanceCategoriesSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx.designer.cs">
+      <DependentUpon>BlogInstanceCategoriesSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogInstanceSetting.ascx.designer.cs">
+      <DependentUpon>BlogInstanceSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogNav.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>BlogNav.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogNav.ascx.designer.cs">
+      <DependentUpon>BlogNav.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogPanels.cs" />
+    <Compile Include="Blog\Controls\BlogPostListDisplaySettings.cs" />
+    <Compile Include="Blog\Controls\BlogViewControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>BlogViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\BlogViewControl.ascx.designer.cs">
+      <DependentUpon>BlogViewControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\CategoryListControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>CategoryListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\CategoryListControl.ascx.designer.cs">
+      <DependentUpon>CategoryListControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\CommentDaysSetting.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>CommentDaysSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\CommentDaysSetting.ascx.designer.cs">
+      <DependentUpon>CommentDaysSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\FeedLinksControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>FeedLinksControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\FeedLinksControl.ascx.designer.cs">
+      <DependentUpon>FeedLinksControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostList.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>PostList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostList.ascx.designer.cs">
+      <DependentUpon>PostList.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListLayoutSelector.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>PostListLayoutSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListLayoutSelector.ascx.designer.cs">
+      <DependentUpon>PostListLayoutSelector.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PostListRazor.cs" />
+    <Compile Include="Blog\Controls\PublicationAccessSetting.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>PublicationAccessSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\PublicationAccessSetting.ascx.designer.cs">
+      <DependentUpon>PublicationAccessSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPosts.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>RelatedPosts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPosts.ascx.designer.cs">
+      <DependentUpon>RelatedPosts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPostsToShowSetting.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>RelatedPostsToShowSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\RelatedPostsToShowSetting.ascx.designer.cs">
+      <DependentUpon>RelatedPostsToShowSetting.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\SearchBox.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>SearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\SearchBox.ascx.designer.cs">
+      <DependentUpon>SearchBox.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\StatsControl.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>StatsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Controls\StatsControl.ascx.designer.cs">
+      <DependentUpon>StatsControl.ascx</DependentUpon>
+    </Compile>
+    <Content Include="Blog\Controls\ArchiveListControl.ascx" />
+    <Content Include="Blog\Controls\ArchiveViewControl.ascx" />
+    <Content Include="Blog\Controls\BlogInstanceCategoriesSetting.ascx" />
+    <Content Include="Blog\Controls\BlogInstanceSetting.ascx" />
+    <Content Include="Blog\Controls\BlogNav.ascx" />
+    <Content Include="Blog\Controls\BlogViewControl.ascx" />
+    <Content Include="Blog\Controls\CategoryListControl.ascx" />
+    <Content Include="Blog\Controls\CommentDaysSetting.ascx" />
+    <Content Include="Blog\Controls\FeedLinksControl.ascx" />
+    <Content Include="Blog\Controls\PostList.ascx" />
+    <Content Include="Blog\Controls\PostListLayoutSelector.ascx" />
+    <Content Include="Blog\Controls\PublicationAccessSetting.ascx" />
+    <Content Include="Blog\Controls\RelatedPosts.ascx" />
+    <Content Include="Blog\Controls\RelatedPostsToShowSetting.ascx" />
+    <Content Include="Blog\Controls\SearchBox.ascx" />
+    <Content Include="Blog\Controls\StatsControl.ascx" />
+    <Content Include="Blog\Drafts.aspx" />
+    <Compile Include="Blog\Drafts.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Drafts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Drafts.aspx.designer.cs">
+      <DependentUpon>Drafts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditCategory.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditCategory.aspx.designer.cs">
+      <DependentUpon>EditCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditPost.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\EditPost.aspx.designer.cs">
+      <DependentUpon>EditPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Manage.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\metaweblogapi.ashx.cs" />
+    <Compile Include="Blog\news-map.ashx.cs">
+      <DependentUpon>news-map.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\PostListModule.ascx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>PostListModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\PostListModule.ascx.designer.cs">
+      <DependentUpon>PostListModule.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\RSS.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\RSS.aspx.designer.cs">
+      <DependentUpon>RSS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\upload.ashx.cs">
+      <DependentUpon>upload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewArchive.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ViewArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewArchive.aspx.designer.cs">
+      <DependentUpon>ViewArchive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewCategory.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ViewCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewCategory.aspx.designer.cs">
+      <DependentUpon>ViewCategory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewList.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ViewList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewList.aspx.designer.cs">
+      <DependentUpon>ViewList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewPost.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ViewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Blog\ViewPost.aspx.designer.cs">
+      <DependentUpon>ViewPost.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="App_GlobalResources\BlogResources.resx">
+      <LogicalName>Resources.BlogResources.resources</LogicalName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_GlobalResources\MetaweblogResources.resx">
+      <LogicalName>Resources.MetaweblogResources.resources</LogicalName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Brettle.Web.NeatHtml\Brettle.Web.NeatHtml.csproj">
+      <Project>{D8A4D1E0-3827-4AF6-85B3-564D433495BF}</Project>
+      <Name>Brettle.Web.NeatHtml</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
+      <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
+      <Name>mojoPortal.Business.WebHelpers</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Business\mojoPortal.Business.csproj">
+      <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
+      <Name>mojoPortal.Business</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
+      <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
+      <Name>mojoPortal.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
+      <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
+      <Name>mojoPortal.Web.Controls</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
+      <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
+      <Name>mojoPortal.Web.Editor</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
+      <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
+      <Name>mojoPortal.Web.Framework</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Web\mojoPortal.Web.csproj">
+      <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
+      <Name>mojoPortal.Web</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\mojoPortal.Plugins.Blog.Business\mojoPortal.Plugins.Blog.Business.csproj">
+      <Project>{77C97892-6A5A-4C04-B89F-E8BEC4C9757C}</Project>
+      <Name>mojoPortal.Plugins.Blog.Business</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Blog\BlogSiteMap.ashx" />
+    <None Include="Blog\BlogUrlSuggestService.ashx" />
+    <None Include="Blog\metaweblogapi.ashx" />
+    <None Include="Blog\news-map.ashx" />
+    <None Include="Blog\upload.ashx" />
+    <None Include="Blog\Views\Web.config" />
+    <None Include="Blog\Views\_BlogPostList.cshtml" />
+    <None Include="Data\HelpFiles\en-US-Blog-AddFeedDiscoveryLink-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-AllowCommentTitle-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-CommentSystemSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-DefaultGenres-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-DefaultIncludeImageInExcerptChecked-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-DefaultIncludeInNewsChecked-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-DefaultPublicationLanguage-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-DefaultPublicationName-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-DisqusSiteShortName-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-HideDetailsFromUnauthencticated-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-IncludeImageInExcerpt-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-IncludeInGoogleNews-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-IntenseDebateAccountId-help.config" />
+    <None Include="Data\HelpFiles\en-US-blog-MaxMetaweblogRecentItems-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-PublicationAccess-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-PublicationGenres-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-PublicationKeyWords-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-PublicationLanguage-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-PublicationStockTickers-help.config" />
+    <None Include="Data\HelpFiles\en-US-blog-RelatedItemsToShow-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-RequireApprovalForComments-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-ShowAuthorAvatar-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-ShowGoogleNewsTabInEditPage-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-ShowNextPreviousLinks-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-SortCommentsDescending-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-usebingmaps-help.config" />
+    <None Include="Data\HelpFiles\en-US-Blog-UseFacebookLikeButton-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAddThisButtonImageUrlSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAddThisCustomBrandSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAddThisDotComUsernameSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAddThisRssButtonImageUrlSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAllowComments-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAllowWebSiteUrlForComments-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAuthorEmailSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogAuthorSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogContentNotifyOnComment-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogCopyrightSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogDateTimeFormat-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogDescriptionSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogDisableFeedSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogEditorHeightSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogEnableContentRatingSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogEnableRatingCommentsSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogEntriesToShowSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogExcerptSuffixSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogFeedburnerFeedUrl-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapEnableDirectionsSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapEnableLocalSearchSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapEnableMapTypeSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapEnableZoomSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapHeightSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapIncludeWithExcerptSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapShowInfoWindowSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogGoogleMapWidthSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogHideAddThisButtonSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogMoreLinkText-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogNavigationOnRightSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogOdiogoFeedIDSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogOdiogoPodcastUrlSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogRequireAuthenticationForComments-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogRSSAddCommentsLink-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogRSSAddSignature-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogRSSCacheTimeSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowAddFeedLinksSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowArchiveSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowCalendarSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowCategoriesSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowFeedLinksSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowPageLeftContentSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowPageRightContentSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowPagerInListSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowPostAuthorSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogShowStatisticsSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogUseCommentSpamBlocker-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogUseExcerptInFeedSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogUseExcerptSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogUsePostTitleAsPageHeading-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogUseTagCloudForCategoriesSetting-help.config" />
+    <None Include="Data\HelpFiles\en-US-BlogVersionPageSizeSetting-help.config" />
+    <None Include="Data\MessageTemplates\en-US-BlogCommentNotificationEmail.config" />
+    <None Include="Setup\SchemaInstallScripts\mssql\2.6.2.3.config" />
+    <None Include="Setup\SchemaInstallScripts\mysql\2.6.2.3.config" />
+    <None Include="Setup\SchemaInstallScripts\pgsql\2.6.2.3.config" />
+    <None Include="Setup\SchemaInstallScripts\sqlite\2.6.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\0.0.2.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mssql\2.6.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\0.0.2.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\mysql\2.6.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\0.0.2.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\pgsql\2.6.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\0.0.2.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.0.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.3.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.4.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.5.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.6.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.7.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.8.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.1.9.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.2.0.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.2.1.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.2.2.config" />
+    <None Include="Setup\SchemaUpgradeScripts\sqlite\2.6.2.3.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Blog\BlogCompare.aspx" />
+    <Content Include="Blog\ClosedPosts.aspx" />
+    <Content Include="Blog\EditCategory.aspx" />
+    <Content Include="Blog\EditPost.aspx" />
+    <Content Include="Blog\Manage.aspx" />
+    <Content Include="Blog\PostListModule.ascx" />
+    <Content Include="Blog\RSS.aspx" />
+    <Content Include="Blog\ViewArchive.aspx" />
+    <Content Include="Blog\ViewCategory.aspx" />
+    <Content Include="Blog\ViewList.aspx" />
+    <Content Include="Blog\ViewPost.aspx" />
+    <Content Include="Blog\wlwmanifest.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\mojoPortal.Plugins.Blog*.dll" "$(SolutionDir)Web\Plugins\Blog\bin\"
+xcopy /s /y "$(ProjectDir)Blog\*.as?x" "$(SolutionDir)Web\Plugins\Blog\Blog\"
+xcopy /s /y "$(ProjectDir)App_GlobalResources\*.resx" "$(SolutionDir)Web\Plugins\Blog\App_GlobalResources\"
+xcopy /s /y "$(ProjectDir)Setup\*" "$(SolutionDir)Web\Plugins\Blog\Setup\"
+xcopy /s /y "$(ProjectDir)Blog\wlwmanifest.xml" "$(SolutionDir)Web\Plugins\Blog\Blog\"
+xcopy /s /y "$(ProjectDir)Blog\wlwmanifest.xml" "$(SolutionDir)Web\Plugins\Blog\"
+xcopy /s /y "$(ProjectDir)Blog\metaweblogapi.ashx" "$(SolutionDir)Web\Plugins\Blog\"
+xcopy /s /y "$(ProjectDir)Blog\Views\*" "$(SolutionDir)Web\Plugins\Blog\Views\Blog\"
+xcopy /s /y "$(ProjectDir)Blog\Views\*" "$(SolutionDir)Web\Plugins\Blog\Blog\Views\"
+xcopy /s /y "$(ProjectDir)Data\*" "$(SolutionDir)Web\Plugins\Blog\Data\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
