@@ -1,8 +1,8 @@
-<%@ Page Language="c#" CodeBehind="Thread.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.ForumUI.ForumThreadView" %>
+﻿<%@ Page Language="c#" CodeBehind="Thread.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.ForumUI.ForumThreadView" %>
 
 <%@ Register TagPrefix="forum" TagName="PostList" Src="~/Forums/Controls/PostList.ascx" %>
 <%@ Register TagPrefix="forum" TagName="PostListAlt" Src="~/Forums/Controls/PostListAlt.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Plugins.Forums.UI" TagPrefix="forum" %>
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">

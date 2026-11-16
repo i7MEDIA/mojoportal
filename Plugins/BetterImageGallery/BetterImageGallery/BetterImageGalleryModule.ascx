@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="BetterImageGalleryModule.ascx.cs" Inherits="mojoPortal.Features.UI.BetterImageGallery.BetterImageGalleryModule" %>
-<%@ Register Namespace="mojoPortal.Features.UI.BetterImageGallery" Assembly="mojoPortal.Features.UI" TagPrefix="feat" %>
+<%@ Register Namespace="mojoPortal.Features.UI.BetterImageGallery" Assembly="mojoPortal.Plugins.BetterImageGallery" TagPrefix="feat" %>
 
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper big-module">

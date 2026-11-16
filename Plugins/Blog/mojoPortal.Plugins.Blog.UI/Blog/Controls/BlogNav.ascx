@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="blog" TagName="FeedLinks" Src="~/Blog/Controls/FeedLinksControl.ascx" %>
 <%@ Register TagPrefix="blog" TagName="StatsControl" Src="~/Blog/Controls/StatsControl.ascx" %>
 <%@ Register TagPrefix="blog" TagName="RelatedPostsList" Src="~/Blog/Controls/RelatedPosts.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
+<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Plugins.Blog.UI" TagPrefix="blog" %>
 <%@ Register TagPrefix="blog" TagName="SearchBox" Src="~/Blog/Controls/SearchBox.ascx" %>
 
 <blog:BlogDisplaySettings ID="displaySettings" runat="server" />

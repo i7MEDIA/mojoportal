@@ -1,8 +1,8 @@
-<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="ForumModule.ascx.cs" Inherits="mojoPortal.Web.ForumUI.ForumModule" %>
+﻿<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="ForumModule.ascx.cs" Inherits="mojoPortal.Web.ForumUI.ForumModule" %>
 <%@ Register TagPrefix="forum" TagName="SearchBox" Src="~/Forums/Controls/ForumSearchBox.ascx" %>
 <%@ Register TagPrefix="forum" TagName="ForumList" Src="~/Forums/Controls/ForumList.ascx" %>
 <%@ Register TagPrefix="forum" TagName="ForumListAlt" Src="~/Forums/Controls/ForumListAlt.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Plugins.Forums.UI" TagPrefix="forum" %>
 
 <forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">

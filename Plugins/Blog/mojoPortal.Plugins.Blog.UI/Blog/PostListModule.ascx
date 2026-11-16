@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="PostListModule.ascx.cs" Inherits="mojoPortal.Web.BlogUI.PostListModule" %>
-<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
+﻿<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="PostListModule.ascx.cs" Inherits="mojoPortal.Web.BlogUI.PostListModule" %>
+<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Plugins.Blog.UI" TagPrefix="blog" %>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper blog-postlist">
 		<portal:ModuleTitleControl ID="Title1" runat="server" />

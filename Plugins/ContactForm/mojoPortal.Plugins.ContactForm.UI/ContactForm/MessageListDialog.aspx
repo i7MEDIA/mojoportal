@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/DialogMaster.Master" CodeBehind="MessageListDialog.aspx.cs" Inherits="mojoPortal.Web.ContactUI.MessageListDialog" %>
 
-<%@ Register Namespace="mojoPortal.Web.ContactUI" Assembly="mojoPortal.Features.UI" TagPrefix="contact" %>
+<%@ Register Namespace="mojoPortal.Web.ContactUI" Assembly="mojoPortal.Plugins.ContactForm.UI" TagPrefix="contact" %>
 
 <asp:Content ContentPlaceHolderID="phHead" ID="HeadContent" runat="server"></asp:Content>
 <asp:Content ContentPlaceHolderID="phMain" ID="MainContent" runat="server">

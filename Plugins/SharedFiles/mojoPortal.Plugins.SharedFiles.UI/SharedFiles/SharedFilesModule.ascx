@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="true" CodeBehind="SharedFilesModule.ascx.cs" Inherits="mojoPortal.Web.SharedFilesUI.SharedFilesModule" %>
-<%@ Register Namespace="mojoPortal.Web.SharedFilesUI" Assembly="mojoPortal.Features.UI" TagPrefix="sf" %>
+﻿<%@ Control Language="c#" AutoEventWireup="true" CodeBehind="SharedFilesModule.ascx.cs" Inherits="mojoPortal.Web.SharedFilesUI.SharedFilesModule" %>
+<%@ Register Namespace="mojoPortal.Web.SharedFilesUI" Assembly="mojoPortal.Plugins.SharedFiles.UI" TagPrefix="sf" %>
 
 <sf:SharedFilesDisplaySettings ID="displaySettings" runat="server" />
 

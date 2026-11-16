@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CategoryListControl.ascx.cs" Inherits="mojoPortal.Web.BlogUI.BlogCategories" %>
-<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
+<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Plugins.Blog.UI" TagPrefix="blog" %>
 
 <blog:BlogDisplaySettings ID="displaySettings" runat="server" />
 

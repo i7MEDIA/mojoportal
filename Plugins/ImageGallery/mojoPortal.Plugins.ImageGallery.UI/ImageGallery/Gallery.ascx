@@ -1,5 +1,5 @@
-<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="Gallery.ascx.cs" Inherits="mojoPortal.Web.GalleryUI.GalleryControl" %>
-<%@ Register Namespace="mojoPortal.Web.GalleryUI" Assembly="mojoPortal.Features.UI" TagPrefix="gallery" %>
+﻿<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="Gallery.ascx.cs" Inherits="mojoPortal.Web.GalleryUI.GalleryControl" %>
+<%@ Register Namespace="mojoPortal.Web.GalleryUI" Assembly="mojoPortal.Plugins.ImageGallery.UI" TagPrefix="gallery" %>
 <gallery:GalleryDisplaySettings ID="displaySettings" runat="server" />
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper gallerymodule">

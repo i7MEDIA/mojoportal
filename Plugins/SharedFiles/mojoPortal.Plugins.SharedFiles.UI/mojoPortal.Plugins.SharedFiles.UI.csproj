@@ -5,12 +5,20 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{A4044444-4444-4444-8444-444444444406}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>mojoPortal.Plugins.SharedFiles.UI</RootNamespace>
     <AssemblyName>mojoPortal.Plugins.SharedFiles.UI</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44371</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
   </PropertyGroup>
@@ -74,6 +82,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="..\..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
@@ -127,42 +138,34 @@
     <ProjectReference Include="..\..\..\Brettle.Web.NeatHtml\Brettle.Web.NeatHtml.csproj">
       <Project>{D8A4D1E0-3827-4AF6-85B3-564D433495BF}</Project>
       <Name>Brettle.Web.NeatHtml</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
       <Project>{4EAD30EC-4F97-4F38-8530-1B7EDDB8FC8E}</Project>
       <Name>mojoPortal.Business.WebHelpers</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\mojoPortal.Business\mojoPortal.Business.csproj">
       <Project>{8582D51E-126B-4D64-B080-07AD8245B38F}</Project>
       <Name>mojoPortal.Business</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\mojoPortal.Core\mojoPortal.Core.csproj">
       <Project>{FEA72210-0415-4133-BDF9-8877683BA832}</Project>
       <Name>mojoPortal.Core</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\mojoPortal.Web.Controls\mojoPortal.Web.Controls.csproj">
       <Project>{A2DCD1E2-A5C3-4E37-A5F2-093659BC1C38}</Project>
       <Name>mojoPortal.Web.Controls</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\mojoPortal.Web.Editor\mojoPortal.Web.Editor.csproj">
       <Project>{4F6DDA2C-C9B8-45B2-AADA-3FF922317661}</Project>
       <Name>mojoPortal.Web.Editor</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\mojoPortal.Web.Framework\mojoPortal.Web.Framework.csproj">
       <Project>{E0D12031-BFDD-4069-9024-8B00A2AA6DBC}</Project>
       <Name>mojoPortal.Web.Framework</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Web\mojoPortal.Web.csproj">
       <Project>{8E511D65-4779-4689-82D4-811D3FE6866E}</Project>
       <Name>mojoPortal.Web</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\mojoPortal.Plugins.SharedFiles.Business\mojoPortal.Plugins.SharedFiles.Business.csproj">
       <Project>{A4044444-4444-4444-8444-444444444405}</Project>
@@ -227,7 +230,41 @@
     <Content Include="SharedFiles\Edit.aspx" />
     <Content Include="SharedFiles\SharedFilesModule.ascx" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="App_MasterPages\layout.Master" />
+    <Compile Include="App_MasterPages\layout.Master.cs">
+      <DependentUpon>layout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_MasterPages\layout.Master.designer.cs">
+      <DependentUpon>layout.Master</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50762/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>xcopy /s /y "$(ProjectDir)bin\mojoPortal.Plugins.SharedFiles*.dll" "$(SolutionDir)Web\Plugins\SharedFiles\bin\"
 xcopy /s /y "$(ProjectDir)SharedFiles\*.as?x" "$(SolutionDir)Web\Plugins\SharedFiles\SharedFiles\"

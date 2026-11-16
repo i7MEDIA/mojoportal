@@ -1,6 +1,6 @@
-<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="BlogModule.ascx.cs" Inherits="mojoPortal.Web.BlogUI.BlogModule" %>
+﻿<%@ Control Language="c#" AutoEventWireup="false" CodeBehind="BlogModule.ascx.cs" Inherits="mojoPortal.Web.BlogUI.BlogModule" %>
 <%@ Register TagPrefix="blog" TagName="PostList" Src="~/Blog/Controls/PostList.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
+<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Plugins.Blog.UI" TagPrefix="blog" %>
 <%@ Register TagPrefix="blog" TagName="SearchBox" Src="~/Blog/Controls/SearchBox.ascx" %>
 <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
 	<portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" CssClass="panelwrapper blogmodule">

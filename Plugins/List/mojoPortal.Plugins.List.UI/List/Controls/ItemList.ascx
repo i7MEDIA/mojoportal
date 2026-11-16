@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ItemList.ascx.cs" Inherits="mojoPortal.Web.LinksUI.ItemList" %>
-<%@ Register Namespace="mojoPortal.Web.LinksUI" Assembly="mojoPortal.Features.UI" TagPrefix="list" %>
+<%@ Register Namespace="mojoPortal.Web.LinksUI" Assembly="mojoPortal.Plugins.List.UI" TagPrefix="list" %>
 <list:ListDisplaySettings ID="displaySettings" runat="server" />
 <div class="listintro"><asp:Literal id="litIntro" runat="server" /></div>
 <asp:UpdatePanel ID="updPnl" UpdateMode="Conditional" runat="server">

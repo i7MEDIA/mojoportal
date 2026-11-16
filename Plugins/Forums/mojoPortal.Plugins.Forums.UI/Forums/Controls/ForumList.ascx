@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ForumList.ascx.cs" Inherits="mojoPortal.Web.ForumUI.ForumList" %>
-<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Plugins.Forums.UI" TagPrefix="forum" %>
 
 <forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 <asp:Panel ID="pnlForumList" runat="server">

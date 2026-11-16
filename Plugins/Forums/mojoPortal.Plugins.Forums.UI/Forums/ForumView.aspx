@@ -1,9 +1,9 @@
-<%@ Page Language="c#" CodeBehind="ForumView.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.ForumUI.ForumView" %>
+﻿<%@ Page Language="c#" CodeBehind="ForumView.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.ForumUI.ForumView" %>
 
 <%@ Register TagPrefix="forum" TagName="SearchBox" Src="~/Forums/Controls/ForumSearchBox.ascx" %>
 <%@ Register TagPrefix="forum" TagName="ThreadList" Src="~/Forums/Controls/ThreadList.ascx" %>
 <%@ Register TagPrefix="forum" TagName="ThreadListAlt" Src="~/Forums/Controls/ThreadListAlt.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Plugins.Forums.UI" TagPrefix="forum" %>
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">
 	<div class="breadcrumbs forumthreadcrumbs">

@@ -70,6 +70,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Modules\SiteStatisticsModule.ascx" />
   </ItemGroup>
   <ItemGroup>

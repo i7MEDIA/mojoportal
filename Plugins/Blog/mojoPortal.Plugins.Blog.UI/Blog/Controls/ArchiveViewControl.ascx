@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ArchiveViewControl.ascx.cs"Inherits="mojoPortal.Web.BlogUI.ArchiveViewControl" %>
 
 <%@ Register TagPrefix="blog" TagName="NavControl" Src="~/Blog/Controls/BlogNav.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
+<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Plugins.Blog.UI" TagPrefix="blog" %>
 <portal:InnerWrapperPanel ID="pnlInnerWrap" runat="server" cssclass="panelwrapper blogmodule blogcategories blogarchive ">
     <portal:HeadingControl ID="heading" runat="server" />
     <portal:OuterBodyPanel ID="pnlOuterBody" runat="server">

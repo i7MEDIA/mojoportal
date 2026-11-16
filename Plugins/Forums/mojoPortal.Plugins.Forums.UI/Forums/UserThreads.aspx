@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" MasterPageFile="~/App_MasterPages/layout.Master" CodeBehind="UserThreads.aspx.cs" Inherits="mojoPortal.Web.ForumUI.ForumUserThreadsPage" %>
 <%@ Register TagPrefix="forum" TagName="UserThreadList" Src="~/Forums/Controls/UserThreadList.ascx" %>
 <%@ Register TagPrefix="forum" TagName="UserThreadListAlt" Src="~/Forums/Controls/UserThreadListAlt.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Plugins.Forums.UI" TagPrefix="forum" %>
 
 <asp:Content ContentPlaceHolderID="leftContent" ID="MPLeftPane" runat="server" />
 <asp:Content ContentPlaceHolderID="mainContent" ID="MPContent" runat="server">

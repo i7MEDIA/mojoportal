@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" CodeBehind="ThreadListAlt.ascx.cs" Inherits="mojoPortal.Web.ForumUI.ThreadListAlt" %>
-<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Features.UI" TagPrefix="forum" %>
+<%@ Register Namespace="mojoPortal.Web.ForumUI" Assembly="mojoPortal.Plugins.Forums.UI" TagPrefix="forum" %>
 <forum:ForumDisplaySettings ID="displaySettings" runat="server" />
 <asp:HyperLink ID="lnkLogin" runat="server" CssClass="flogin" />
 <div class="modulepager" id="divPagerTop" runat="server">

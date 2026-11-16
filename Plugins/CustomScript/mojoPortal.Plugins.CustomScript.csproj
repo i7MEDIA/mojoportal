@@ -62,6 +62,9 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Modules\CustomScript.ascx" />
   </ItemGroup>
   <ItemGroup>

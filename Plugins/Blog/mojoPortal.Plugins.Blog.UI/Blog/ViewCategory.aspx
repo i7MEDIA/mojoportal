@@ -1,7 +1,7 @@
-<%@ Page Language="c#" CodeBehind="ViewCategory.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.BlogUI.BlogCategoryView" %>
+﻿<%@ Page Language="c#" CodeBehind="ViewCategory.aspx.cs" MasterPageFile="~/App_MasterPages/layout.Master" AutoEventWireup="false" Inherits="mojoPortal.Web.BlogUI.BlogCategoryView" %>
 <%@ Register TagPrefix="blog" TagName="NavControl" Src="~/Blog/Controls/BlogNav.ascx" %>
 <%@ Register TagPrefix="blog" TagName="PostList" Src="~/Blog/Controls/PostList.ascx" %>
-<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Features.UI" TagPrefix="blog" %>
+<%@ Register Namespace="mojoPortal.Web.BlogUI" Assembly="mojoPortal.Plugins.Blog.UI" TagPrefix="blog" %>
 <asp:content contentplaceholderid="leftContent" id="MPLeftPane" runat="server" />
 <asp:content contentplaceholderid="mainContent" id="MPContent" runat="server">
     <portal:OuterWrapperPanel ID="pnlOuterWrap" runat="server">
