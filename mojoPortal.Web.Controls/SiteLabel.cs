@@ -1,3 +1,4 @@
+#nullable enable
 using mojoPortal.Web.Framework;
 using System;
 using System.Web;
@@ -39,7 +40,7 @@ public class SiteLabel : WebControl, INamingContainer
 	{
 		if (HttpContext.Current is null)
 		{
-			writer.Write("[" + ID + "]");
+			writer.Write($"[{ID}]");
 
 			return;
 		}
@@ -55,7 +56,7 @@ public class SiteLabel : WebControl, INamingContainer
 
 	private void RenderLabel(HtmlTextWriter writer)
 	{
-		string text;
+		string? text;
 
 		if (ConfigKey == "EmptyLabel" || ConfigKey == "spacer")
 		{

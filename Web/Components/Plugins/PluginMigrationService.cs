@@ -80,6 +80,7 @@ public class PluginMigrationService : IPluginMigrationService
 		"xmlxsl"
 	];
 
+
 	/// <summary>
 	/// Returns the set of application names (both current Name and LegacyApplicationName) handled by plugins
 	/// so legacy ~/Setup/applications/ folders are not executed a second time if left behind on upgrade or when plugins are disabled/unloaded.
@@ -325,7 +326,7 @@ public class PluginMigrationService : IPluginMigrationService
 	private void ConfigurePluginFeatures(
 		IPlugin plugin,
 		string dbPlatform,
-		Action<SetupStatus, string> writeOutput)
+		Action<SetupStatus, string>? writeOutput)
 	{
 		var features = plugin.GetFeatures();
 

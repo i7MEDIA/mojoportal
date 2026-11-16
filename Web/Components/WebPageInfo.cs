@@ -1,7 +1,7 @@
 #nullable enable
 using log4net;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.IO;
 using System.Security;
 using System.Web;
@@ -44,16 +44,16 @@ public class WebPageInfo
 	}
 
 
-	public static Collection<WebPageInfo>? GetPhysicalPages()
+	public static IReadOnlyList<WebPageInfo>? GetPhysicalPages()
 	{
 		return GetPhysicalPages("*.aspx");
 	}
 
-	public static Collection<WebPageInfo>? GetPhysicalPages(string fileExtensionPattern)
+	public static IReadOnlyList<WebPageInfo>? GetPhysicalPages(string fileExtensionPattern)
 	{
 		string cachekey = "physicalwebpages" + fileExtensionPattern;
 
-		Collection<WebPageInfo>? physicalPages;
+		List<WebPageInfo>? physicalPages;
 
 		if (HttpContext.Current is not null && HttpRuntime.Cache[cachekey] is null)
 		{
@@ -81,15 +81,15 @@ public class WebPageInfo
 
 		}
 
-		physicalPages = HttpRuntime.Cache[cachekey] as Collection<WebPageInfo>;
+		physicalPages = HttpRuntime.Cache[cachekey] as List<WebPageInfo>;
 
-		return physicalPages;
+		return physicalPages?.AsReadOnly();
 	}
 
 
-	private static Collection<WebPageInfo> LoadPhysicalPages(string fileExtensionPattern)
+	private static List<WebPageInfo> LoadPhysicalPages(string fileExtensionPattern)
 	{
-		Collection<WebPageInfo> physicalPages = [];
+		List<WebPageInfo> physicalPages = [];
 
 		if (HttpContext.Current is not null)
 		{
@@ -110,7 +110,7 @@ public class WebPageInfo
 
 	private static void PopulatePagesCollection(
 		HttpContext httpContext,
-		Collection<WebPageInfo> webPages,
+		List<WebPageInfo> webPages,
 		string fileExtensionPattern)
 	{
 		if (httpContext is null)
@@ -214,7 +214,7 @@ public class WebPageInfo
 
 
 	private static void AddPhysicalPages(
-		Collection<WebPageInfo> physicalPages,
+		List<WebPageInfo> physicalPages,
 		DirectoryInfo directoryInfo,
 		string fileExtensionPattern)
 	{

@@ -1,3 +1,4 @@
+#nullable enable
 using log4net;
 using System;
 using System.Collections.Concurrent;
@@ -49,7 +50,7 @@ public static class ResourceHelper
 	}
 
 
-	public static string GetPluginResourceString(string resourceFile, string resourceKey, CultureInfo culture = null)
+	public static string? GetPluginResourceString(string resourceFile, string resourceKey, CultureInfo? culture = null)
 	{
 		if (string.IsNullOrWhiteSpace(resourceFile) || string.IsNullOrWhiteSpace(resourceKey))
 		{
@@ -73,9 +74,20 @@ public static class ResourceHelper
 		}
 
 		// Fallback to reading .resx files from ~/Plugins/<PluginName>/App_GlobalResources/ in memory (read-only safe)
-		string[] candidateNames = culture is not null && !string.IsNullOrEmpty(culture.Name)
-			? [$"{resourceFile}.{culture.Name}.resx", $"{resourceFile}.{culture.TwoLetterISOLanguageName}.resx", $"{resourceFile}.resx"]
-			: [$"{resourceFile}.resx"];
+		string[] candidateNames;
+
+		if (culture is not null && !string.IsNullOrEmpty(culture.Name))
+		{
+			candidateNames = [
+				$"{resourceFile}.{culture.Name}.resx",
+				$"{resourceFile}.{culture.TwoLetterISOLanguageName}.resx",
+				$"{resourceFile}.resx"
+			];
+		}
+		else
+		{
+			candidateNames = [$"{resourceFile}.resx"];
+		}
 
 		List<string> dirs;
 
@@ -132,7 +144,7 @@ public static class ResourceHelper
 
 					if (!string.IsNullOrEmpty(nameAttr) && valElem is not null)
 					{
-						result[nameAttr] = valElem;
+						result[nameAttr!] = valElem;
 					}
 				}
 			}
@@ -157,14 +169,17 @@ public static class ResourceHelper
 		try
 		{
 			// reading config sections not allowed in Medium trust so catch SecurityException
-			GlobalizationSection globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
+			var globalizationSection = ConfigurationManager.GetSection("system.web/globalization") as GlobalizationSection;
+
 			if (globalizationSection is not null)
 			{
 				if (globalizationSection.Culture.Contains(":"))
 				{
 					// this is tryinbg to get UiCulture and expects this format
 					// <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
-					string cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.LastIndexOf(":") + 1, globalizationSection.Culture.Length - (globalizationSection.Culture.LastIndexOf(":") + 1));
+					var cultureString = globalizationSection.Culture.Substring(
+						globalizationSection.Culture.LastIndexOf(":") + 1,
+						globalizationSection.Culture.Length - (globalizationSection.Culture.LastIndexOf(":") + 1));
 
 					return new CultureInfo(cultureString);
 				}
@@ -196,7 +211,7 @@ public static class ResourceHelper
 		try
 		{
 			// reading config sections not allowed in Medium trust so catch SecurityException
-			var globalizationSection = (GlobalizationSection)ConfigurationManager.GetSection("system.web/globalization");
+			var globalizationSection = ConfigurationManager.GetSection("system.web/globalization") as GlobalizationSection;
 
 			if (globalizationSection is not null)
 			{
@@ -204,7 +219,9 @@ public static class ResourceHelper
 				{
 					// this is trying to get culture not uiculture and expects this format 
 					// <globalization culture="auto:en-US" uiCulture="auto:en-US" requestEncoding="utf-8" responseEncoding="utf-8" fileEncoding="iso-8859-15" />
-					var cultureString = globalizationSection.Culture.Substring(globalizationSection.Culture.IndexOf(":") + 1, (globalizationSection.Culture.Length - (globalizationSection.Culture.IndexOf(":") + 1)));
+					var cultureString = globalizationSection.Culture.Substring(
+						globalizationSection.Culture.IndexOf(":") + 1,
+						(globalizationSection.Culture.Length - (globalizationSection.Culture.IndexOf(":") + 1)));
 
 					return new CultureInfo(cultureString);
 				}
@@ -234,11 +251,18 @@ public static class ResourceHelper
 	/// <returns></returns>
 	public static CultureInfo GetCurrencyCulture(string currencyISOCode)
 	{
-		if (string.IsNullOrEmpty(currencyISOCode)) { return GetDefaultCulture(); }
+		if (string.IsNullOrEmpty(currencyISOCode))
+		{
+			return GetDefaultCulture();
+		}
 
 		//this helper caches the lookup list
-		CultureInfo currencyCulture = CurrencyHelper.CultureInfoFromCurrencyISO(currencyISOCode);
-		if (currencyCulture is not null) { return currencyCulture; }
+		var currencyCulture = CurrencyHelper.CultureInfoFromCurrencyISO(currencyISOCode);
+
+		if (currencyCulture is not null)
+		{
+			return currencyCulture;
+		}
 
 		// this is based on web.config globalization section, en-US
 		return GetDefaultCulture();
@@ -262,27 +286,33 @@ public static class ResourceHelper
 		{
 			var file = new FileInfo(helpFile);
 			var sr = file.OpenText();
+
 			message = sr.ReadToEnd();
+
 			sr.Close();
+
 			return message;
 		}
 
 		// Fallback to plugin Data/HelpFiles folders
 		List<string> dirs;
+
 		lock (_lock)
 		{
-			dirs = new List<string>(_pluginDirectories);
+			dirs = [.. _pluginDirectories];
 		}
 
 		foreach (var pluginDir in dirs)
 		{
 			var pluginHelpFolder = Path.Combine(pluginDir, "Data", "HelpFiles") + Path.DirectorySeparatorChar;
+
 			if (!Directory.Exists(pluginHelpFolder))
 			{
 				continue;
 			}
 
 			var pluginHelpFile = GetFullResourceFilePath(CultureInfo.CurrentUICulture, pluginHelpFolder, helpKey + fileExtension);
+
 			if (File.Exists(pluginHelpFile))
 			{
 				return File.ReadAllText(pluginHelpFile);
@@ -291,6 +321,7 @@ public static class ResourceHelper
 
 		return message;
 	}
+
 
 	public static void SetHelpFileText(string helpKey, string helpText)
 	{
@@ -311,9 +342,11 @@ public static class ResourceHelper
 		}
 
 		var streamWriter = File.CreateText(helpFile);
+
 		streamWriter.Write(helpText);
 		streamWriter.Close();
 	}
+
 
 	public static string GetHelpFolder()
 	{
@@ -324,6 +357,7 @@ public static class ResourceHelper
 
 		return HttpContext.Current.Server.MapPath(WebUtils.GetApplicationRoot() + "/Data/HelpFiles") + Path.DirectorySeparatorChar;
 	}
+
 
 	public static string GetFullResourceFilePath(CultureInfo cultureInfo, string folder, string filename)
 	{
@@ -345,6 +379,7 @@ public static class ResourceHelper
 
 		return path;
 	}
+
 
 	public static string GetResourceFilePath(CultureInfo cultureInfo, string folder, string filename)
 	{
@@ -448,9 +483,8 @@ public static class ResourceHelper
 	#endregion
 
 
-	public static string GetResourceString(
-		string resourceFile,
-		string resourceKey) => GetResourceString(resourceFile, resourceKey, false);
+	public static string GetResourceString(string resourceFile, string resourceKey) =>
+		GetResourceString(resourceFile, resourceKey, false);
 
 
 	public static string GetResourceString(
@@ -466,7 +500,7 @@ public static class ResourceHelper
 	public static string GetResourceString(
 		string resourceFile,
 		string resourceKey,
-		CultureInfo culture,
+		CultureInfo? culture,
 		bool useConfigOverrides)
 	{
 		if (HttpContext.Current is null)
@@ -497,7 +531,10 @@ public static class ResourceHelper
 				resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey);
 			}
 
-			if (resource is not null) return resource.ToString();
+			if (resource is not null)
+			{
+				return resource.ToString();
+			}
 		}
 		catch { }
 

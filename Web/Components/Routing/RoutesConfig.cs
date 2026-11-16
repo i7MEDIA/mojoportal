@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿#nullable enable
+using log4net;
 using mojoPortal.Web.Plugins;
 using System;
 using System.Collections.Generic;

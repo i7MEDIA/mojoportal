@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections;
 using System.IO;
@@ -72,7 +73,7 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 	}
 
 
-	public override VirtualFile GetFile(string virtualPath)
+	public override VirtualFile? GetFile(string virtualPath)
 	{
 		if (virtualPath is null)
 		{

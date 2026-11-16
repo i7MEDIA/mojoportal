@@ -1,3 +1,4 @@
+#nullable enable
 using mojoPortal.Web.Framework;
 using System.Web;
 
@@ -7,7 +8,7 @@ public static class ResourceFile
 {
 	public static string GetResourceString(string resourceFile, string resourceKey)
 	{
-		if (HttpContext.Current == null)
+		if (HttpContext.Current is null)
 		{
 			return ResourceHelper.GetPluginResourceString(resourceFile, resourceKey) ?? resourceKey;
 		}
@@ -21,7 +22,7 @@ public static class ResourceFile
 		{
 			var resource = HttpContext.GetGlobalResourceObject(resourceFile, resourceKey);
 
-			if (resource != null)
+			if (resource is not null)
 			{
 				return resource.ToString();
 			}
@@ -31,7 +32,7 @@ public static class ResourceFile
 
 		var pluginResource = ResourceHelper.GetPluginResourceString(resourceFile, resourceKey);
 
-		if (pluginResource != null)
+		if (pluginResource is not null)
 		{
 			return pluginResource;
 		}

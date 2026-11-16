@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿#nullable enable
+using log4net;
 using mojoPortal.Web.Plugins;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -10,7 +11,7 @@ namespace mojoPortal.Web.Routing;
 
 public class WebApiConfig
 {
-	private static readonly ILog log = LogManager.GetLogger(typeof(WebApiConfig));
+	private static readonly ILog _log = LogManager.GetLogger(typeof(WebApiConfig));
 
 	public static void Register(HttpConfiguration config)
 	{
@@ -31,7 +32,7 @@ public class WebApiConfig
 			}
 			catch (Exception ex)
 			{
-				log.Error($"Failed to register Web API routes for plugin '{descriptor.Name}'.", ex);
+				_log.Error($"Failed to register Web API routes for plugin '{descriptor.Name}'.", ex);
 			}
 		}
 
@@ -47,13 +48,13 @@ public class WebApiConfig
 				}
 				catch (Exception ex)
 				{
-					log.Error(ex);
+					_log.Error(ex);
 				}
 			}
 		}
 		catch (Exception ex)
 		{
-			log.Error(ex);
+			_log.Error(ex);
 		}
 
 		config.Formatters.Clear();
