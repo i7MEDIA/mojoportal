@@ -223,8 +223,8 @@ public class FileServiceController : ApiController
 	private dynamic ListAllFilesFolders(string requestPath)
 	{
 		var filePath = FilePath(requestPath);
-		var files = _fileSystem.GetFileList(filePath).Select(x => x.ToDto()).ToList();
-		var folders = _fileSystem.GetFolderList(filePath).Select(x => x.ToDto()).ToList();
+		var files = (_fileSystem.GetFileList(filePath) ?? []).Select(x => x.ToDto()).ToList();
+		var folders = (_fileSystem.GetFolderList(filePath) ?? []).Select(x => x.ToDto()).ToList();
 		var allowedFiles = new List<FileServiceDto>();
 
 		if (

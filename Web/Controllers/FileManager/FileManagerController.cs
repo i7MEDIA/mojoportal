@@ -76,6 +76,31 @@ public class FileManagerController : Controller
 		var userFolder = VirtualPathUtility.RemoveTrailingSlash(fileSystem.FileBaseUrl + fileSystem.Permission.UserFolder.Replace("~", string.Empty));
 		var rootName = virtualPath.Split('/');
 
+		if (!string.IsNullOrWhiteSpace(queryParams.startFolder) && fileSystem.UserHasUploadPermission)
+		{
+			var cleanStartFolder = queryParams.startFolder.Replace("\\", "/").Trim().Trim('/');
+
+			while (cleanStartFolder.Contains(".."))
+			{
+				cleanStartFolder = cleanStartFolder.Replace("..", string.Empty);
+			}
+
+			if (!string.IsNullOrWhiteSpace(cleanStartFolder))
+			{
+				var startFolderVirtualPath = VirtualPathUtility.AppendTrailingSlash(fileSystem.VirtualRoot) + cleanStartFolder;
+				var allowedRootDiskPath = System.IO.Path.GetFullPath(Server.MapPath(fileSystem.VirtualRoot))
+					.TrimEnd(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar) + System.IO.Path.DirectorySeparatorChar;
+				var targetDiskPath = System.IO.Path.GetFullPath(Server.MapPath(startFolderVirtualPath))
+					.TrimEnd(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar) + System.IO.Path.DirectorySeparatorChar;
+
+				if (targetDiskPath.StartsWith(allowedRootDiskPath, System.StringComparison.OrdinalIgnoreCase) &&
+					!fileSystem.FolderExists(startFolderVirtualPath))
+				{
+					fileSystem.CreateFolder(startFolderVirtualPath);
+				}
+			}
+		}
+
 		var manageFiles = fileSystem.UserHasUploadPermission.ToString().ToLowerInvariant();
 		var deleteFiles = (WebUser.IsInRoles(siteSettings.RolesThatCanDeleteFilesInEditor) || WebUser.IsContentAdmin || userFolder == virtualPath).ToString().ToLowerInvariant();
 

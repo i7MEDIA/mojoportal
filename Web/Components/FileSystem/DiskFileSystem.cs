@@ -208,6 +208,11 @@ public class DiskFileSystem : IFileSystem
 
 		var fullPath = MapPath(virtualPath);
 
+		if (!Directory.Exists(Path.GetDirectoryName(fullPath)))
+		{
+			return OpResult.FolderNotFound;
+		}
+
 		if (File.Exists(fullPath))
 		{
 			if (overWrite)
@@ -447,7 +452,7 @@ public class DiskFileSystem : IFileSystem
 		return OpResult.Succeed;
 	}
 
-	public IEnumerable<WebFile>? GetFileList(string virtualPath)
+	public IEnumerable<WebFile> GetFileList(string virtualPath)
 	{
 		if (virtualPath is null)
 		{
@@ -458,7 +463,7 @@ public class DiskFileSystem : IFileSystem
 
 		if (!Directory.Exists(fullPath))
 		{
-			return null;
+			return [];
 		}
 
 		var filePaths = Directory.GetFiles(fullPath);
@@ -552,13 +557,13 @@ public class DiskFileSystem : IFileSystem
 		return OpResult.Succeed;
 	}
 
-	public IEnumerable<WebFolder>? GetAllFolders()
+	public IEnumerable<WebFolder> GetAllFolders()
 	{
 		var fullPath = MapPath(_permission.VirtualRoot);
 
 		if (!Directory.Exists(fullPath))
 		{
-			return null;
+			return [];
 		}
 
 		var directoryInfo = new DirectoryInfo(fullPath);
@@ -576,13 +581,13 @@ public class DiskFileSystem : IFileSystem
 			});
 	}
 
-	public IEnumerable<WebFolder>? GetFolderList(string virtualPath)
+	public IEnumerable<WebFolder> GetFolderList(string virtualPath)
 	{
 		var fullPath = MapPath(virtualPath);
 
 		if (!Directory.Exists(fullPath))
 		{
-			return null;
+			return [];
 		}
 
 		var directoryInfo = new DirectoryInfo(fullPath);
