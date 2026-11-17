@@ -106,11 +106,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\CommentResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>CommentResources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="App_GlobalResources\CommentResources.resx">
+      <LogicalName>Resources.CommentResources.resources</LogicalName>
       <SubType>Designer</SubType>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">

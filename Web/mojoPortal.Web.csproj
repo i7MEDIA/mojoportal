@@ -1152,6 +1152,7 @@
     <Compile Include="Components\SearchIndex\LuceneSettingsProvider\ThaiAnalysisProvider.cs" />
     <Compile Include="Components\Plugins\IPlugin.cs" />
     <Compile Include="Components\Plugins\IPluginMigrationService.cs" />
+    <Compile Include="Components\Plugins\mojoResourceProviderFactory.cs" />
     <Compile Include="Components\Plugins\PluginBase.cs" />
     <Compile Include="Components\Plugins\PluginConfig.cs" />
     <Compile Include="Components\Plugins\PluginDescriptor.cs" />

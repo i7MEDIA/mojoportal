@@ -9,6 +9,7 @@ namespace mojoPortal.Web.Plugins;
 public static class PluginFileResolver
 {
 	private static readonly ConcurrentDictionary<string, string> _resolvedPathCache = new(StringComparer.OrdinalIgnoreCase);
+	private static readonly ConcurrentDictionary<string, string> _resolvedDirCache = new(StringComparer.OrdinalIgnoreCase);
 
 
 	/// <summary>
@@ -98,7 +99,107 @@ public static class PluginFileResolver
 	}
 
 
-	public static void ClearCache() => _resolvedPathCache.Clear();
+	public static void ClearCache()
+	{
+		_resolvedPathCache.Clear();
+		_resolvedDirCache.Clear();
+	}
+
+
+	/// <summary>
+	/// Resolves a root-relative or app-relative virtual directory path (e.g., "~/Blog/Controls")
+	/// to its physical location inside an enabled plugin ("~/Plugins/&lt;FolderName&gt;/&lt;SubPath&gt;") if present.
+	/// </summary>
+	public static string ResolveVirtualDirectory(string virtualDir)
+	{
+		if (string.IsNullOrWhiteSpace(virtualDir))
+		{
+			return virtualDir;
+		}
+
+		var normalized = NormalizeAppRelativePath(virtualDir);
+
+		if (string.IsNullOrWhiteSpace(normalized))
+		{
+			return virtualDir;
+		}
+
+		if (normalized.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase) ||
+			normalized.StartsWith("~/Data/", StringComparison.OrdinalIgnoreCase) ||
+			normalized.StartsWith("~/App_Themes/", StringComparison.OrdinalIgnoreCase) ||
+			normalized.StartsWith("~/Setup/", StringComparison.OrdinalIgnoreCase))
+		{
+			return normalized;
+		}
+
+		return _resolvedDirCache.GetOrAdd(normalized, ResolveDirUncached);
+	}
+
+
+	/// <summary>
+	/// Attempts to resolve a virtual directory path to a plugin virtual directory ("~/Plugins/&lt;FolderName&gt;/&lt;SubPath&gt;").
+	/// </summary>
+	public static bool TryResolvePluginDirectory(string virtualDir, out string? pluginVirtualDir)
+	{
+		pluginVirtualDir = null;
+
+		if (string.IsNullOrWhiteSpace(virtualDir))
+		{
+			return false;
+		}
+
+		var normalized = NormalizeAppRelativePath(virtualDir);
+
+		if (string.IsNullOrWhiteSpace(normalized) ||
+			normalized.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase) ||
+			normalized.StartsWith("~/Data/", StringComparison.OrdinalIgnoreCase) ||
+			normalized.StartsWith("~/App_Themes/", StringComparison.OrdinalIgnoreCase))
+		{
+			return false;
+		}
+
+		var resolved = ResolveVirtualDirectory(normalized);
+
+		if (!string.Equals(resolved, normalized, StringComparison.OrdinalIgnoreCase) &&
+			resolved.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase))
+		{
+			pluginVirtualDir = resolved;
+
+			return true;
+		}
+
+		return false;
+	}
+
+
+	private static string ResolveDirUncached(string normalizedAppRelativeDir)
+	{
+		var relativeSubPath = normalizedAppRelativeDir.Substring(2).Trim('/').Replace('/', Path.DirectorySeparatorChar);
+
+		if (string.IsNullOrWhiteSpace(relativeSubPath))
+		{
+			return normalizedAppRelativeDir;
+		}
+
+		foreach (var plugin in PluginLoader.EnabledPlugins)
+		{
+			if (string.IsNullOrWhiteSpace(plugin.PhysicalPath))
+			{
+				continue;
+			}
+
+			var candidatePhysicalDir = Path.Combine(plugin.PhysicalPath, relativeSubPath);
+
+			if (Directory.Exists(candidatePhysicalDir))
+			{
+				var subUrl = normalizedAppRelativeDir.Substring(2).Trim('/');
+
+				return $"~/Plugins/{plugin.FolderName}/{subUrl}";
+			}
+		}
+
+		return normalizedAppRelativeDir;
+	}
 
 
 	private static string ResolveUncached(string normalizedAppRelativePath)

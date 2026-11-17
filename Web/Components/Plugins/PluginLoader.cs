@@ -318,9 +318,19 @@ public static class PluginLoader
 
 	private static void RegisterAssemblyResourceManagers(Assembly assembly)
 	{
+		var embeddedNames = new HashSet<string>(assembly.GetManifestResourceNames(), StringComparer.OrdinalIgnoreCase);
+
 		foreach (var type in GetLoadableTypes(assembly))
 		{
 			if (!type.IsClass)
+			{
+				continue;
+			}
+
+			// Skip linked core global resource proxy classes (e.g. Resource, AccessKeys) that are not embedded in this plugin assembly
+			if (string.Equals(type.Namespace, "Resources", StringComparison.Ordinal) &&
+				!embeddedNames.Contains($"Resources.{type.Name}.resources") &&
+				!embeddedNames.Contains($"{type.Name}.resources"))
 			{
 				continue;
 			}

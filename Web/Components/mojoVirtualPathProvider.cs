@@ -52,10 +52,13 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 		{
 			return !virtualDir.Contains("Resources");
 		}
-		else
+
+		if (PluginFileResolver.TryResolvePluginDirectory(virtualDir, out var pluginVirtualDir))
 		{
-			return Previous.DirectoryExists(virtualDir);
+			return Previous.DirectoryExists(pluginVirtualDir);
 		}
+
+		return Previous.DirectoryExists(virtualDir);
 	}
 
 
@@ -144,17 +147,24 @@ public class mojoVirtualPathProvider : VirtualPathProvider
 			return dependency;
 		}
 
-		if (PluginFileResolver.TryResolvePluginPath(virtualPath, out var pluginVirtualPath))
-		{
-			var physicalPath = HostingEnvironment.MapPath(pluginVirtualPath);
+		var resolvedVirtualPath = PluginFileResolver.ResolveVirtualPath(virtualPath);
 
-			if (!string.IsNullOrWhiteSpace(physicalPath) && File.Exists(physicalPath))
+		if (virtualPathDependencies is not null)
+		{
+			var resolvedDependencies = new System.Collections.Generic.List<string>();
+
+			foreach (var dep in virtualPathDependencies)
 			{
-				return new CacheDependency(physicalPath, utcStart);
+				if (dep is string depPath && !string.IsNullOrWhiteSpace(depPath))
+				{
+					resolvedDependencies.Add(PluginFileResolver.ResolveVirtualPath(depPath));
+				}
 			}
+
+			return Previous.GetCacheDependency(resolvedVirtualPath, resolvedDependencies, utcStart);
 		}
 
-		return Previous.GetCacheDependency(virtualPath, virtualPathDependencies, utcStart);
+		return Previous.GetCacheDependency(resolvedVirtualPath, virtualPathDependencies, utcStart);
 	}
 
 

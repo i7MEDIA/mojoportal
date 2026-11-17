@@ -102,11 +102,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\HtmlIncludeResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>HtmlIncludeResources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="App_GlobalResources\HtmlIncludeResources.resx">
+      <LogicalName>Resources.HtmlIncludeResources.resources</LogicalName>
       <SubType>Designer</SubType>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces">

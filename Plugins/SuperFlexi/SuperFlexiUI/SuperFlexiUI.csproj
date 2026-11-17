@@ -411,11 +411,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\SuperFlexiResources.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>SuperFlexiResources.designer.cs</LastGenOutput>
+    <EmbeddedResource Include="App_GlobalResources\SuperFlexiResources.resx">
+      <LogicalName>Resources.SuperFlexiResources.resources</LogicalName>
       <SubType>Designer</SubType>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\mojoPortal.Business.WebHelpers\mojoPortal.Business.WebHelpers.csproj">
