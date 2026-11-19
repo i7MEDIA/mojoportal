@@ -142,65 +142,58 @@ public class PluginMigrationService : IPluginMigrationService
 		// 1. Initial Schema Install (if not yet installed)
 		if (currentVersion <= _zeroVersion && hasInstallScripts)
 		{
-			var installDirInfo = new DirectoryInfo(installFolder);
-			var scriptFiles = installDirInfo.GetFiles("*.config");
+			var scriptFiles = DatabaseHelper.GetVersionedScriptFiles(installFolder);
 
-			Array.Sort(scriptFiles, UIHelper.CompareFileNames);
-
-			var scriptFile = scriptFiles[scriptFiles.Length - 1];
-			var scriptVersion = DatabaseHelper.ParseVersionFromFileName(scriptFile.Name);
-
-			if (scriptVersion is not null && scriptVersion > currentVersion && (targetVersion is null || scriptVersion <= targetVersion))
+			if (scriptFiles.Count > 0)
 			{
-				var message = string.Format(SetupResource.InstallingFeature, plugin.Name, scriptFile.Name.Replace(".config", string.Empty));
+				var (scriptFile, scriptVersion) = scriptFiles[scriptFiles.Count - 1];
 
-				writeOutput?.Invoke(SetupStatus.Info, message);
-
-				var errorMessage = DatabaseHelper.RunScript(effectiveAppId, scriptFile, overrideConnectionString);
-
-				if (!string.IsNullOrWhiteSpace(errorMessage))
+				if (scriptVersion > currentVersion && (targetVersion is null || scriptVersion <= targetVersion))
 				{
-					writeOutput?.Invoke(SetupStatus.Error, errorMessage);
+					var message = string.Format(SetupResource.InstallingFeature, plugin.Name, scriptFile.Name.Replace(".config", string.Empty));
 
-					return;
+					writeOutput?.Invoke(SetupStatus.Info, message);
+
+					var errorMessage = DatabaseHelper.RunScript(effectiveAppId, scriptFile, overrideConnectionString);
+
+					if (!string.IsNullOrWhiteSpace(errorMessage))
+					{
+						writeOutput?.Invoke(SetupStatus.Error, errorMessage);
+
+						return;
+					}
+
+					DatabaseHelper.UpdateSchemaVersion(
+						effectiveAppId,
+						plugin.Name,
+						scriptVersion.Major,
+						scriptVersion.Minor,
+						scriptVersion.Build,
+						scriptVersion.Revision);
+
+					DatabaseHelper.AddSchemaScriptHistory(
+						effectiveAppId,
+						scriptFile.Name,
+						DateTime.UtcNow,
+						false,
+						string.Empty,
+						string.Empty);
+
+					currentVersion = scriptVersion;
 				}
-
-				DatabaseHelper.UpdateSchemaVersion(
-					effectiveAppId,
-					plugin.Name,
-					scriptVersion.Major,
-					scriptVersion.Minor,
-					scriptVersion.Build,
-					scriptVersion.Revision);
-
-				DatabaseHelper.AddSchemaScriptHistory(
-					effectiveAppId,
-					scriptFile.Name,
-					DateTime.UtcNow,
-					false,
-					string.Empty,
-					string.Empty);
-
-				currentVersion = scriptVersion;
 			}
 		}
 
 		// 2. Schema Upgrade Scripts (when currentVersion < plugin.Version)
 		if (hasUpgradeScripts && (targetVersion is null || currentVersion < targetVersion))
 		{
-			var upgradeDirInfo = new DirectoryInfo(upgradeFolder);
-			var scriptFiles = upgradeDirInfo.GetFiles("*.config");
-
-			Array.Sort(scriptFiles, UIHelper.CompareFileNames);
+			var scriptFiles = DatabaseHelper.GetVersionedScriptFiles(upgradeFolder);
 
 			var upgradeHeaderWritten = false;
 
-			foreach (var scriptFile in scriptFiles)
+			foreach (var (scriptFile, scriptVersion) in scriptFiles)
 			{
-				var scriptVersion = DatabaseHelper.ParseVersionFromFileName(scriptFile.Name);
-
-				if (scriptVersion is not null &&
-					scriptVersion > currentVersion &&
+				if (scriptVersion > currentVersion &&
 					(targetVersion is null || scriptVersion <= targetVersion))
 				{
 					if (!upgradeHeaderWritten)

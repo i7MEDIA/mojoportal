@@ -1,6 +1,8 @@
 using log4net;
 using mojoPortal.Data;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.IO;
@@ -295,6 +297,37 @@ public static class DatabaseHelper
 		}
 
 		return version;
+	}
+
+	public static List<(FileInfo File, Version Version)> GetVersionedScriptFiles(string folderPath)
+	{
+		var result = new List<(FileInfo File, Version Version)>();
+
+		if (string.IsNullOrWhiteSpace(folderPath) || !Directory.Exists(folderPath))
+		{
+			return result;
+		}
+
+		var dirInfo = new DirectoryInfo(folderPath);
+		var files = dirInfo.GetFiles("*.config");
+
+		foreach (var file in files)
+		{
+			var version = ParseVersionFromFileName(file.Name);
+
+			if (version is not null)
+			{
+				result.Add((file, version));
+			}
+		}
+
+		result.Sort((a, b) =>
+		{
+			var cmp = a.Version.CompareTo(b.Version);
+			return cmp != 0 ? cmp : StringComparer.OrdinalIgnoreCase.Compare(a.File.Name, b.File.Name);
+		});
+
+		return result;
 	}
 
 	public static Guid GetApplicationId(string applicationName)

@@ -75,7 +75,7 @@ public class UrlRewriter : IHttpModule
 				_log.Error(ex);
 			}
 		}
-		else if (PluginFileResolver.TryResolvePluginPath(app.Request.AppRelativeCurrentExecutionFilePath, out var pluginPath))
+		else if (TryResolvePluginPageOrDefault(app.Request.AppRelativeCurrentExecutionFilePath, out var pluginPath))
 		{
 			app.Context.RewritePath(
 				pluginPath,
@@ -83,6 +83,27 @@ public class UrlRewriter : IHttpModule
 				app.Request.QueryString.ToString(),
 				setClientFilePath: false);
 		}
+	}
+
+
+	private static bool TryResolvePluginPageOrDefault(string virtualPath, out string pluginVirtualPath)
+	{
+		if (PluginFileResolver.TryResolvePluginPath(virtualPath, out pluginVirtualPath))
+		{
+			return true;
+		}
+
+		if (!string.IsNullOrWhiteSpace(virtualPath))
+		{
+			var trimmed = virtualPath.TrimEnd('/');
+
+			if (!string.IsNullOrWhiteSpace(trimmed) && !trimmed.Contains("."))
+			{
+				return PluginFileResolver.TryResolvePluginPath(trimmed + "/Default.aspx", out pluginVirtualPath);
+			}
+		}
+
+		return false;
 	}
 
 
@@ -275,7 +296,7 @@ public class UrlRewriter : IHttpModule
 
 				var pathToUse = requestPath.Remove(0, virtualFolderName.Length + 1);
 
-				if (PluginFileResolver.TryResolvePluginPath(pathToUse, out var resolvedFolderPluginPath))
+				if (TryResolvePluginPageOrDefault(pathToUse, out var resolvedFolderPluginPath))
 				{
 					pathToUse = resolvedFolderPluginPath;
 				}
@@ -316,7 +337,7 @@ public class UrlRewriter : IHttpModule
 			}
 			else
 			{
-				if (PluginFileResolver.TryResolvePluginPath(targetUrl, out var pluginTargetPath))
+				if (TryResolvePluginPageOrDefault(targetUrl, out var pluginTargetPath))
 				{
 					DoRewrite(app, app.Request.QueryString.ToString(), pluginTargetPath, setClientFilePath: false);
 
@@ -354,7 +375,7 @@ public class UrlRewriter : IHttpModule
 
 		if (realPageName is not null && !string.IsNullOrEmpty(realPageName))
 		{
-			if (PluginFileResolver.TryResolvePluginPath(realPageName, out var resolvedRealPage))
+			if (TryResolvePluginPageOrDefault(realPageName, out var resolvedRealPage))
 			{
 				realPageName = resolvedRealPage;
 				setClientFilePath = false;

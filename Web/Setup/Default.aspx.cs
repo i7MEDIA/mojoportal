@@ -321,13 +321,9 @@ public partial class SetupHome : Page
 			return false;
 		}
 
-		var directoryInfo = new DirectoryInfo(pathToScriptFolder);
+		var scriptFiles = DatabaseHelper.GetVersionedScriptFiles(pathToScriptFolder);
 
-		var scriptFiles = directoryInfo.GetFiles("*.config");
-
-		Array.Sort(scriptFiles, UIHelper.CompareFileNames);
-
-		if (scriptFiles.Length == 0)
+		if (scriptFiles.Count == 0)
 		{
 			WritePageContent(SetupStatus.Error, $"{SetupResource.NoScriptsFilesFoundMessage} {pathToScriptFolder}");
 
@@ -338,11 +334,10 @@ public partial class SetupHome : Page
 		// We only want to run the highest version script from the /SchemaInstallationScripts/dbplatform folder
 		// normally there is only 1 script in this folder, but if someone upgrades and then starts with a clean db
 		// there can be more than one script because of the previous installs so we nned to make sure we only run the highest version found
-		// since we sorted it the highest version is the last item in the array
-		FileInfo scriptFile = scriptFiles[(scriptFiles.Length - 1)];
+		// since we sorted it the highest version is the last item in the list
+		var (scriptFile, scriptVersion) = scriptFiles[scriptFiles.Count - 1];
 
 		var currentSchemaVersion = DatabaseHelper.GetSchemaVersion(applicationId);
-		var scriptVersion = DatabaseHelper.ParseVersionFromFileName(scriptFile.Name);
 
 		if (
 			scriptVersion is not null
@@ -474,12 +469,9 @@ public partial class SetupHome : Page
 			return false;
 		}
 
-		var directoryInfo = new DirectoryInfo(pathToScriptFolder);
+		var scriptFiles = DatabaseHelper.GetVersionedScriptFiles(pathToScriptFolder);
 
-		var scriptFiles = directoryInfo.GetFiles("*.config");
-		Array.Sort(scriptFiles, UIHelper.CompareFileNames);
-
-		if (scriptFiles.Length == 0)
+		if (scriptFiles.Count == 0)
 		{
 			//WritePageContent(
 			//SetupResource.NoScriptsFilesFoundMessage 
@@ -494,10 +486,8 @@ public partial class SetupHome : Page
 		bool upgradeHeaderWritten = false;
 
 
-		foreach (FileInfo scriptFile in scriptFiles)
+		foreach (var (scriptFile, scriptVersion) in scriptFiles)
 		{
-			var scriptVersion = DatabaseHelper.ParseVersionFromFileName(scriptFile.Name);
-
 			if (scriptVersion != null
 				&& scriptVersion > currentSchemaVersion
 				&& (versionToStopAt is null || scriptVersion <= versionToStopAt)
