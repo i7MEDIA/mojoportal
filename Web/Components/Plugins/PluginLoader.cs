@@ -52,6 +52,13 @@ public static class PluginLoader
 			try
 			{
 				DiscoverAndLoadPlugins();
+
+				if (WebConfigSettings.EnableVirtualPathProviders)
+				{
+					mojoVirtualPathProvider.AppInitialize();
+				}
+
+				EnsureAppGlobalResourcesCacheUpToDate();
 			}
 			catch (Exception ex)
 			{
@@ -178,7 +185,16 @@ public static class PluginLoader
 					// Check if it is a [TypeForwardedTo] compatibility shim or an actual duplicate plugin DLL.
 					if (binDllNames.TryGetValue(simpleName, out var existingBinDll))
 					{
-						_log.Warn($"Plugin '{folderName}' contains '{simpleName}.dll' which also exists in ~/bin/. Using the assembly from ~/bin/ to avoid duplicate type errors on read-only ~/bin/.");
+						_log.Warn($"Plugin '{folderName}' contains '{simpleName}.dll' which also exists in ~/bin/. Synchronizing and using the assembly from ~/bin/ to avoid duplicate type errors.");
+
+						CopyFileIfChanged(dllPath, existingBinDll);
+
+						var srcPdbPath = Path.ChangeExtension(dllPath, ".pdb");
+
+						if (File.Exists(srcPdbPath))
+						{
+							CopyFileIfChanged(srcPdbPath, Path.ChangeExtension(existingBinDll, ".pdb"));
+						}
 
 						try
 						{
@@ -348,6 +364,48 @@ public static class PluginLoader
 				}
 				catch { }
 			}
+		}
+	}
+
+
+	private static void EnsureAppGlobalResourcesCacheUpToDate()
+	{
+		try
+		{
+			var codegenDir = HttpRuntime.CodegenDir;
+
+			if (string.IsNullOrWhiteSpace(codegenDir) || !Directory.Exists(codegenDir))
+			{
+				return;
+			}
+
+			var resourceNames = ResourceHelper.GetRegisteredPluginResourceNames()
+				.OrderBy(n => n, StringComparer.OrdinalIgnoreCase);
+
+			var signature = string.Join("\n", resourceNames);
+			var markerPath = Path.Combine(codegenDir, "mojo_plugin_resources.txt");
+
+			var existingSignature = File.Exists(markerPath)
+				? File.ReadAllText(markerPath)
+				: null;
+
+			if (!string.Equals(existingSignature, signature, StringComparison.Ordinal))
+			{
+				foreach (var compiledFile in Directory.GetFiles(codegenDir, "App_GlobalResources*.compiled", SearchOption.TopDirectoryOnly))
+				{
+					try
+					{
+						File.Delete(compiledFile);
+					}
+					catch { }
+				}
+
+				File.WriteAllText(markerPath, signature);
+			}
+		}
+		catch (Exception ex)
+		{
+			_log.Warn("Could not verify or invalidate cached App_GlobalResources compilation marker.", ex);
 		}
 	}
 

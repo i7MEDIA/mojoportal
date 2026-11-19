@@ -95,7 +95,8 @@ public sealed class ContentDeleteHandlerProviderManager
 							if (
 								p is ContentDeleteHandlerProvider provider &&
 								provider is not null &&
-								collection[provider.Name] is null)
+								collection[provider.Name] is null &&
+								!ContainsType(collection, provider.GetType()))
 							{
 								collection.Add(provider);
 							}

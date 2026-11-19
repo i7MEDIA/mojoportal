@@ -104,7 +104,7 @@ public class Global : HttpApplication
 		if (WebConfigSettings.EnableVirtualPathProviders)
 		{
 			log.Info(Resource.ApplicationStartEventMessage);
-			HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
+			mojoVirtualPathProvider.AppInitialize();
 			RegisteredVirtualThemes = true;
 		}
 
@@ -580,7 +580,7 @@ public class Global : HttpApplication
 		// had to move this into its own method
 		// in less than full trust it blows up even with a try catch if present in 
 		// Application_Start, moving into a separate method works with a try catch
-		HostingEnvironment.RegisterVirtualPathProvider(new mojoVirtualPathProvider());
+		mojoVirtualPathProvider.AppInitialize();
 		RegisteredVirtualThemes = true;
 	}
 

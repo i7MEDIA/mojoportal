@@ -17,6 +17,7 @@ public static class ResourceHelper
 {
 	private static readonly ILog _log = LogManager.GetLogger(typeof(ResourceHelper));
 	private static readonly ConcurrentDictionary<string, ResourceManager> _pluginResourceManagers = new(StringComparer.OrdinalIgnoreCase);
+	private static readonly ConcurrentDictionary<string, bool> _pluginResourceNames = new(StringComparer.OrdinalIgnoreCase);
 	private static readonly ConcurrentDictionary<string, Dictionary<string, string>> _pluginResxCache = new(StringComparer.OrdinalIgnoreCase);
 	private static readonly List<string> _pluginDirectories = [];
 	private static readonly object _lock = new();
@@ -30,6 +31,24 @@ public static class ResourceHelper
 		}
 
 		_pluginResourceManagers[resourceFile] = resourceManager;
+		_pluginResourceNames[resourceFile] = true;
+	}
+
+
+	public static bool IsPluginResource(string resourceClassName)
+	{
+		if (string.IsNullOrWhiteSpace(resourceClassName))
+		{
+			return false;
+		}
+
+		return _pluginResourceNames.ContainsKey(resourceClassName);
+	}
+
+
+	public static IReadOnlyCollection<string> GetRegisteredPluginResourceNames()
+	{
+		return [.. _pluginResourceNames.Keys];
 	}
 
 
@@ -47,6 +66,29 @@ public static class ResourceHelper
 				_pluginDirectories.Add(pluginPhysicalPath);
 			}
 		}
+
+		var resxDir = Path.Combine(pluginPhysicalPath, "App_GlobalResources");
+
+		if (Directory.Exists(resxDir))
+		{
+			foreach (var resxFile in Directory.GetFiles(resxDir, "*.resx", SearchOption.TopDirectoryOnly))
+			{
+				var fileName = Path.GetFileNameWithoutExtension(resxFile);
+
+				if (string.IsNullOrWhiteSpace(fileName))
+				{
+					continue;
+				}
+
+				int dotIndex = fileName.IndexOf('.');
+				var baseClassName = dotIndex > 0 ? fileName.Substring(0, dotIndex) : fileName;
+
+				if (!string.IsNullOrWhiteSpace(baseClassName))
+				{
+					_pluginResourceNames[baseClassName] = true;
+				}
+			}
+		}
 	}
 
 
@@ -59,21 +101,7 @@ public static class ResourceHelper
 
 		culture ??= CultureInfo.CurrentUICulture;
 
-		if (_pluginResourceManagers.TryGetValue(resourceFile, out var rm))
-		{
-			try
-			{
-				var val = rm.GetString(resourceKey, culture);
-
-				if (val is not null)
-				{
-					return val;
-				}
-			}
-			catch { }
-		}
-
-		// Fallback to reading .resx files from ~/Plugins/<PluginName>/App_GlobalResources/ in memory (read-only safe)
+		// 1. Check on-disk .resx files in ~/Plugins/<PluginName>/App_GlobalResources/ first so localized satellite .resx files and on-disk overrides work
 		string[] candidateNames;
 
 		if (culture is not null && !string.IsNullOrEmpty(culture.Name))
@@ -121,6 +149,21 @@ public static class ResourceHelper
 					return value;
 				}
 			}
+		}
+
+		// 2. Fallback to embedded ResourceManager in the plugin assembly
+		if (_pluginResourceManagers.TryGetValue(resourceFile, out var rm))
+		{
+			try
+			{
+				var val = rm.GetString(resourceKey, culture);
+
+				if (val is not null)
+				{
+					return val;
+				}
+			}
+			catch { }
 		}
 
 		return null;

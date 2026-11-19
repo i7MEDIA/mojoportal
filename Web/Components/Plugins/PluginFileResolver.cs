@@ -32,11 +32,7 @@ public static class PluginFileResolver
 			return virtualPath;
 		}
 
-		// Already inside ~/Plugins/ or ~/Data/ or ~/App_Themes/ or ~/Setup/
-		if (normalized.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/Data/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/App_Themes/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/Setup/", StringComparison.OrdinalIgnoreCase))
+		if (IsExcludedSpecialPath(normalized))
 		{
 			return normalized;
 		}
@@ -60,10 +56,7 @@ public static class PluginFileResolver
 
 		var normalized = NormalizeAppRelativePath(virtualPath);
 
-		if (string.IsNullOrWhiteSpace(normalized) ||
-			normalized.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/Data/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/App_Themes/", StringComparison.OrdinalIgnoreCase))
+		if (string.IsNullOrWhiteSpace(normalized) || IsExcludedSpecialPath(normalized))
 		{
 			return false;
 		}
@@ -124,10 +117,7 @@ public static class PluginFileResolver
 			return virtualDir;
 		}
 
-		if (normalized.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/Data/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/App_Themes/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/Setup/", StringComparison.OrdinalIgnoreCase))
+		if (IsExcludedSpecialPath(normalized))
 		{
 			return normalized;
 		}
@@ -150,10 +140,7 @@ public static class PluginFileResolver
 
 		var normalized = NormalizeAppRelativePath(virtualDir);
 
-		if (string.IsNullOrWhiteSpace(normalized) ||
-			normalized.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/Data/", StringComparison.OrdinalIgnoreCase) ||
-			normalized.StartsWith("~/App_Themes/", StringComparison.OrdinalIgnoreCase))
+		if (string.IsNullOrWhiteSpace(normalized) || IsExcludedSpecialPath(normalized))
 		{
 			return false;
 		}
@@ -266,6 +253,33 @@ public static class PluginFileResolver
 		}
 
 		return "~/" + clean;
+	}
+
+
+	private static bool IsExcludedSpecialPath(string normalized)
+	{
+		var trimmed = normalized.TrimEnd('/');
+
+		return trimmed.Equals("~/Plugins", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/Plugins/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/Data", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/Data/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/App_Themes", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/App_Themes/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/Setup", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/Setup/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/App_GlobalResources", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/App_GlobalResources/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/App_LocalResources", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/App_LocalResources/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/App_Code", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/App_Code/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/App_Data", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/App_Data/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/App_Browsers", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/App_Browsers/", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.Equals("~/bin", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("~/bin/", StringComparison.OrdinalIgnoreCase);
 	}
 
 
