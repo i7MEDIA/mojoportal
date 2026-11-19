@@ -1,16 +1,4 @@
-﻿// Author:					
-// Created:				    2007-02-16
-// Last Modified:			2009-02-01
-// 
-// The use and distribution terms for this software are covered by the 
-// Common Public License 1.0 (http://opensource.org/licenses/cpl.php)  
-// which can be found in the file CPL.TXT at the root of this distribution.
-// By using this software in any fashion, you are agreeing to be bound by 
-// the terms of this license.
-//
-// You must not remove this notice, or any other, from this software.
-
-using mojoPortal.Data;
+﻿using mojoPortal.Data;
 using System.Collections.Generic;
 using System.Data;
 
@@ -56,6 +44,7 @@ public class GeoCountry
 	private void GetGeoCountry(Guid guid)
 	{
 		using IDataReader reader = DBGeoCountry.GetOne(guid);
+
 		GetGeoCountry(reader);
 	}
 
@@ -63,6 +52,7 @@ public class GeoCountry
 	private void GetGeoCountry(string countryISOCode2)
 	{
 		using IDataReader reader = DBGeoCountry.GetByISOCode2(countryISOCode2);
+
 		GetGeoCountry(reader);
 	}
 
@@ -83,7 +73,7 @@ public class GeoCountry
 	{
 		Guid = Guid.NewGuid();
 
-		int rowsAffected = DBGeoCountry.Create(
+		var rowsAffected = DBGeoCountry.Create(
 			Guid,
 			Name,
 			IsoCode2,
@@ -149,7 +139,7 @@ public class GeoCountry
 
 		while (reader.Read())
 		{
-			DataRow row = dataTable.NewRow();
+			var row = dataTable.NewRow();
 
 			row["Guid"] = reader["Guid"];
 			row["Name"] = reader["Name"].ToString();
@@ -203,7 +193,6 @@ public class GeoCountry
 	public static int CompareByIsoCode3(GeoCountry country1, GeoCountry country2)
 	{
 		return country1.IsoCode3.CompareTo(country2.IsoCode3);
-
 	}
 
 	#endregion
