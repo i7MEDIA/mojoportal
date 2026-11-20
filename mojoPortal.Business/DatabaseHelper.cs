@@ -100,6 +100,13 @@ public static class DatabaseHelper
 		);
 	}
 
+	public static Version GetSchemaVersion(string applicationName)
+	{
+		Guid appGuid = GetApplicationId(applicationName);
+
+		return GetSchemaVersion(appGuid);
+	}
+
 	public static Version GetSchemaVersion(Guid applicationId)
 	{
 		var major = 0;
