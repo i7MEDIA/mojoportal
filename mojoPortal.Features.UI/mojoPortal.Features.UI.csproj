@@ -182,6 +182,9 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /s /y /d "$(ProjectDir)bin\mojoPortal.Features.UI.dll" "$(SolutionDir)Web\bin\"
@@ -190,4 +193,3 @@ xcopy /s /y /d "$(SolutionDir)mojoPortal.Features.Business\bin\mojoPortal.Featur
 xcopy /s /y /d "$(ProjectDir)bin\Argotic*.dll" "$(SolutionDir)Web\bin\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
-

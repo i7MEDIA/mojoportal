@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,9 +83,6 @@
     </PackageReference>
     <PackageReference Include="System.Buffers">
       <Version>4.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.Collections.Immutable">
-      <Version>10.0.2</Version>
     </PackageReference>
     <PackageReference Include="System.IO.Pipelines">
       <Version>10.0.2</Version>
