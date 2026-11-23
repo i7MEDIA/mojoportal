@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="HtmlSanitizer">
-      <Version>9.0.892</Version>
+      <Version>11.0.26</Version>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>3.3.1</Version>
